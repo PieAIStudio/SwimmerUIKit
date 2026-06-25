@@ -1,0 +1,6 @@
+node_modules/
+dist/
+coverage/
+.devspace-visual/
+.DS_Store
+*.log
