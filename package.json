@@ -1,6 +1,6 @@
 {
   "name": "@pieaistudio/swimmer-ui-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Self-contained clay game UI kit extracted from TuringPact for PieAI game surfaces.",
   "type": "module",
   "license": "UNLICENSED",
@@ -32,7 +32,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5174",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
-    "build": "tsc -p tsconfig.build.json && vite build",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "preview": "vite preview --host 127.0.0.1 --port 4174",
     "test": "vitest run"
   },
