@@ -3,11 +3,12 @@
   "buildCommand": "npm run build:deploy",
   "outputDirectory": "site-dist",
   "framework": null,
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "has": [{ "type": "host", "value": "swimmer-ui-storybook.pieaistudio.com" }],
-      "destination": "/storybook/$1"
+      "destination": "/storybook/",
+      "permanent": false
     }
   ]
 }
