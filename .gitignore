@@ -6,3 +6,6 @@ coverage/
 .devspace-visual/
 .DS_Store
 *.log
+.vercel
+
+*storybook.log

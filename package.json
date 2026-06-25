@@ -35,7 +35,10 @@
     "build": "vite build && tsc -p tsconfig.build.json",
     "build:site": "vite build --config vite.config.site.ts",
     "preview:site": "vite preview --config vite.config.site.ts --host 127.0.0.1 --port 4175",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build:deploy": "npm run build:site && npm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook"
   },
   "peerDependencies": {
     "@tailwindcss/vite": ">=4.0.0",
@@ -53,6 +56,16 @@
     "vite": "^7.2.6",
     "vitest": "^4.0.15",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "storybook": "^10.4.6",
+    "@storybook/react-vite": "^10.4.6",
+    "@chromatic-com/storybook": "^5.2.1",
+    "@storybook/addon-vitest": "^10.4.6",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-mcp": "^0.6.0",
+    "playwright": "^1.61.1",
+    "@vitest/browser-playwright": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15"
   }
 }
