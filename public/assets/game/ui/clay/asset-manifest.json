@@ -1,0 +1,2823 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-24T14:25:51.015Z",
+  "sourceRoot": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit",
+  "targetRoot": "public/assets/game/ui/clay/phase03-clay-kit",
+  "rawPsdSourceRoot": "/Volumes/5cats-Shared4TB/AIGames_DownloadAssets/黏土/SpritesPSD",
+  "rawPsdCommitted": false,
+  "summary": {
+    "fileCount": 350,
+    "totalBytes": 3412575,
+    "byUsage": {
+      "buttons": 10,
+      "catalog": 4,
+      "components": 46,
+      "icons": 274,
+      "inputs": 8,
+      "panels": 2,
+      "screens": 6
+    }
+  },
+  "files": [
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-blue-large-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-blue-large-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-blue-large-v1.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 4334
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-blue-large-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-blue-large-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-blue-large-v2.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 3034
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-brown-large-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-brown-large-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-brown-large-v1.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 4444
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-brown-large-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-brown-large-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-brown-large-v2.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 2735
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-green-large-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-green-large-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-green-large-v1.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 4382
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-green-large-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-green-large-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-green-large-v2.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 2731
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-purple-large-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-purple-large-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-purple-large-v1.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 4371
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-purple-large-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-purple-large-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-purple-large-v2.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 2933
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-red-large-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-red-large-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-red-large-v1.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 4091
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/buttons/button-red-large-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/buttons/button-red-large-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/buttons/button-red-large-v2.png",
+      "usage": "buttons",
+      "status": "copied-web-safe",
+      "bytes": 2859
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/catalog/common-icons-contact-sheet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/catalog/common-icons-contact-sheet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/catalog/common-icons-contact-sheet-v1.png",
+      "usage": "catalog",
+      "status": "copied-web-safe",
+      "bytes": 271445
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/catalog/component-candidates-contact-sheet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/catalog/component-candidates-contact-sheet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/catalog/component-candidates-contact-sheet-v1.png",
+      "usage": "catalog",
+      "status": "copied-web-safe",
+      "bytes": 262932
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/catalog/function-icons-contact-sheet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/catalog/function-icons-contact-sheet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/catalog/function-icons-contact-sheet-v1.png",
+      "usage": "catalog",
+      "status": "copied-web-safe",
+      "bytes": 362251
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/catalog/phase03-clay-ui-catalog.json",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/catalog/phase03-clay-ui-catalog.json",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/catalog/phase03-clay-ui-catalog.json",
+      "usage": "catalog",
+      "status": "copied-web-safe",
+      "bytes": 189493
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/alert-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/alert-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/alert-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 1597
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/bar-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/bar-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/bar-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 1041
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/best-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/best-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/best-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2684
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/check-off-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/check-off-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/check-off-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 864
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/check-on-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/check-on-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/check-on-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2136
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/count-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/count-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/count-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 1960
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/direction-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/direction-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/direction-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 16900
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/gauge-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/gauge-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/gauge-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 34728
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/hot-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/hot-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/hot-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2357
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/label-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/label-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/label-2-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 3919
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/label-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/label-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/label-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 3422
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/loading-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/loading-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/loading-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 7511
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/mission-badge-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/mission-badge-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/mission-badge-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 55976
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/new-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/new-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/new-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 1497
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/page-arrow-next-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/page-arrow-next-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/page-arrow-next-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2909
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/page-arrow-prev-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/page-arrow-prev-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/page-arrow-prev-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2912
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/pagenavigation-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/pagenavigation-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/pagenavigation-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2200
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/radiobtn-off-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/radiobtn-off-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/radiobtn-off-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 1165
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/radiobtn-on-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/radiobtn-on-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/radiobtn-on-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 3002
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/ribbon-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/ribbon-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/ribbon-2-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 8965
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/ribbon-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/ribbon-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/ribbon-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 8887
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/slidebar-dim-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/slidebar-dim-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/slidebar-dim-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 2415
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/stage-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/stage-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/stage-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 26237
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/switch-off-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/switch-off-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/switch-off-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 5104
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/switch-on-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/switch-on-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/switch-on-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 5146
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/tab-n-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/tab-n-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/tab-n-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 8207
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/tab-s-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/tab-s-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/tab-s-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 12300
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/top-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/top-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/top-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 41174
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/common/user-info-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/common/user-info-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/common/user-info-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 27990
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/language/button-close-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/language/button-close-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/language/button-close-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 6312
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/language/check-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/language/check-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/language/check-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 3313
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/language/language-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/language/language-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/language/language-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 38596
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/popup/popup-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/popup/popup-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/popup/popup-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 29618
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/btn-blue-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-blue-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-blue-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 4222
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/btn-brown-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-brown-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-brown-2-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 6022
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/btn-brown-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-brown-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-brown-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 4396
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/btn-facebook-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-facebook-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-facebook-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 5514
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/btn-green-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-green-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/btn-green-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 4780
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/button-close-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/button-close-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/button-close-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 6310
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/common-popup-title-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/common-popup-title-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/common-popup-title-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 11413
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/language-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/language-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/language-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 8899
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/radio-btn-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/radio-btn-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/radio-btn-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 7668
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/slidebar-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/slidebar-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/slidebar-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 4794
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/switch-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/switch-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/switch-2-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 8174
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/settings/switch-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/settings/switch-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/settings/switch-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 7158
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/components/stage-lock/stage-lock-badge-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/components/stage-lock/stage-lock-badge-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/components/stage-lock/stage-lock-badge-v1.png",
+      "usage": "components",
+      "status": "copied-web-safe",
+      "bytes": 10644
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/checkbox-checked-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/checkbox-checked-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/checkbox-checked-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1976
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/anvil-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/anvil-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/anvil-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 6257
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/arrow-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/arrow-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/arrow-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 11269
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/bomb-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/bomb-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/bomb-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 10352
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/candle-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/candle-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/candle-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8312
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/chicken-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/chicken-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/chicken-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7510
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/crown-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/crown-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/crown-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 9084
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/energy-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/energy-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/energy-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 6264
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/envelope-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/envelope-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/envelope-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8066
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/gem-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/gem-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/gem-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 4813
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/gift-blue-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/gift-blue-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/gift-blue-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5151
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/gift-red-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/gift-red-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/gift-red-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5244
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/gold-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/gold-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/gold-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5619
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/hammer-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/hammer-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/hammer-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 10161
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/horner-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/horner-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/horner-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 9925
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/horseshoes-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/horseshoes-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/horseshoes-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8670
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/key-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/key-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/key-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7626
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/laurel-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/laurel-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/laurel-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8169
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/letter-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/letter-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/letter-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 4995
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/lock-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/lock-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/lock-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7212
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/lucky-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/lucky-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/lucky-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7147
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/medal-bronze-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-bronze-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-bronze-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7830
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/medal-gold-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-gold-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-gold-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7573
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/medal-silver-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-silver-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/medal-silver-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8026
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/mission-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/mission-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/mission-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5563
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/pickax-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/pickax-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/pickax-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7215
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/poition-red-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/poition-red-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/poition-red-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 11711
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/poiton-purple-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/poiton-purple-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/poiton-purple-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 7788
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/purplegem-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/purplegem-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/purplegem-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5667
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/sandglass-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/sandglass-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/sandglass-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 10017
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/scroll-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/scroll-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/scroll-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5780
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/setting-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/setting-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/setting-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8405
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/shield-a-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-a-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-a-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 11951
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/shield-b-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-b-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-b-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5833
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/shield-c-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-c-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-c-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 11093
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/shield-d-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-d-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/shield-d-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 9959
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/shop-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/shop-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/shop-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 3901
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/skull-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/skull-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/skull-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 6868
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/soulgem-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/soulgem-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/soulgem-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5236
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/sword-a-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/sword-a-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/sword-a-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 9376
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/sword-b-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/sword-b-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/sword-b-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 8227
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/talaria-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/talaria-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/talaria-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 10181
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/target-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/target-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/target-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 14702
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/timer-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/timer-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/timer-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 9413
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/treasure-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/treasure-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/treasure-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 5043
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/common/trophy-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/common/trophy-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/common/trophy-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 6093
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/account-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/account-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/account-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2325
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/add-friend-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/add-friend-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/add-friend-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1568
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/add-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/add-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/add-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1706
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/align-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/align-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/align-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1366
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/alram-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/alram-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/alram-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2020
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/appstore-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/appstore-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/appstore-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1632
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/arrow-down-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-down-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-down-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1694
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/arrow-next-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-next-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-next-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1549
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/arrow-prev-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-prev-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-prev-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1633
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/arrow-up-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-up-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-up-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1627
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/arrow-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/arrow-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2157
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/asterisk-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/asterisk-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/asterisk-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1798
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/attachment-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/attachment-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/attachment-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2284
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/ax-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/ax-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/ax-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1808
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/back-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/back-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/back-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1543
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bad-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bad-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bad-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1753
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/badge-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/badge-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/badge-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1739
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bank-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bank-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bank-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1515
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/basket-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/basket-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/basket-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1314
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/battle-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/battle-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/battle-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2054
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bin-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bin-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bin-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1007
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/binoculars-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/binoculars-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/binoculars-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2309
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bitcoin-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bitcoin-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bitcoin-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1254
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/block-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/block-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/block-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1578
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bluetooth-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bluetooth-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bluetooth-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1682
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bomb-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bomb-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bomb-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1935
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/book-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/book-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/book-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1200
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bookmark-add-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bookmark-add-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bookmark-add-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1437
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bookmark-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bookmark-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bookmark-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1162
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bottom-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bottom-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bottom-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1600
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/brain-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/brain-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/brain-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2088
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bug-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bug-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bug-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2098
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/bulb-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/bulb-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/bulb-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1495
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/calendar-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/calendar-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/calendar-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 866
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/call-reject-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/call-reject-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/call-reject-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2009
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/call-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/call-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/call-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1703
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/camera-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/camera-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/camera-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1287
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/cancel-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/cancel-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/cancel-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1629
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/card-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/card-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/card-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 842
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/cart-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/cart-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/cart-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1562
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/category-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/category-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/category-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1312
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/chat-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/chat-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/chat-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1179
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/check-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/check-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/check-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1602
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/cloud-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/cloud-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/cloud-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1500
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/cny-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/cny-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/cny-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1582
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/coffee-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/coffee-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/coffee-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1098
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/compass-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/compass-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/compass-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1769
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/confirm-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/confirm-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/confirm-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1945
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/contact-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/contact-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/contact-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1874
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-next-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-next-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-next-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1189
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-pause-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-pause-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-pause-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 795
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-play-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-play-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-play-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1200
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-prev-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-prev-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-prev-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1170
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-stop-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-stop-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-stop-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 761
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/control-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/control-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/control-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 967
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/copy-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/copy-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/copy-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 820
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/coupon-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/coupon-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/coupon-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1291
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/crop-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/crop-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/crop-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 942
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/crown-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/crown-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/crown-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1706
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/defense-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/defense-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/defense-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1363
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/delete-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/delete-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/delete-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1945
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/dislike-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/dislike-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/dislike-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1323
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/document-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/document-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/document-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 883
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/dollar-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/dollar-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/dollar-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1717
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/down-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/down-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/down-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1537
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/download-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/download-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/download-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1208
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/dynamite-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/dynamite-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/dynamite-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2158
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/earth-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/earth-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/earth-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1610
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/eat-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/eat-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/eat-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1296
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/emoji-good-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/emoji-good-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/emoji-good-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2090
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/emoji-soso-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/emoji-soso-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/emoji-soso-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1998
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/energy-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/energy-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/energy-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1596
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/exit-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/exit-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/exit-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2033
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/expand-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/expand-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/expand-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1696
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/export-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/export-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/export-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1530
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/facebook-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/facebook-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/facebook-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1026
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/feather-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/feather-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/feather-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1859
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/filter-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/filter-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/filter-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1218
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/fingerprint-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/fingerprint-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/fingerprint-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2198
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/fire-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/fire-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/fire-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1741
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/firm-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/firm-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/firm-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2189
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/fix-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/fix-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/fix-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1660
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/flag-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/flag-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/flag-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 924
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/flask-01-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-01-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-01-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1376
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/flask-02-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-02-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-02-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1352
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/flask-03-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-03-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/flask-03-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1186
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/folder-open-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/folder-open-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/folder-open-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1339
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/folder-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/folder-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/folder-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 883
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/game-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/game-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/game-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2065
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gem-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gem-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gem-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1736
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gender-fale-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gender-fale-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gender-fale-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1540
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gender-female-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gender-female-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gender-female-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1786
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gift-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gift-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gift-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1266
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/globe-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/globe-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/globe-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1555
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gmail-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gmail-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gmail-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1732
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/gold-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/gold-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/gold-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1951
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/googleplay-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/googleplay-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/googleplay-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2105
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/graduation-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/graduation-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/graduation-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1894
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/graph-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/graph-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/graph-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 850
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/hammer-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/hammer-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/hammer-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1504
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/hand-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/hand-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/hand-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1321
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/hashtag-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/hashtag-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/hashtag-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 967
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/headset-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/headset-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/headset-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1682
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/heart-empty-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/heart-empty-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/heart-empty-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1658
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/heart-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/heart-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/heart-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1658
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/helmet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/helmet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/helmet-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2027
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/hide-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/hide-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/hide-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2075
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/home-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/home-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/home-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1100
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/key-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/key-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/key-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1799
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/knowledge-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/knowledge-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/knowledge-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 965
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/left-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/left-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/left-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1505
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/like-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/like-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/like-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1326
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/link-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/link-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/link-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1849
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/list-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/list-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/list-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 819
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/location-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/location-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/location-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1721
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/lock-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/lock-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/lock-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1388
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/magnetic-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/magnetic-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/magnetic-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1316
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mail-read-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mail-read-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mail-read-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1304
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mail-unread-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mail-unread-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mail-unread-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1352
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/map-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/map-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/map-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1295
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-caution-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-caution-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-caution-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1190
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-caution-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-caution-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-caution-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1768
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-info-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-info-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-info-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1203
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-info-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-info-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-info-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1795
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-question-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-question-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-question-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1569
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mark-question-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-question-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mark-question-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1976
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/medal-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/medal-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/medal-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1849
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/media-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/media-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/media-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1425
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/megaphone-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/megaphone-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/megaphone-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1607
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/menu-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/menu-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/menu-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 889
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/message-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/message-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/message-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1043
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/minus-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/minus-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/minus-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 765
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/mobile-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/mobile-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/mobile-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 841
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/money-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/money-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/money-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1637
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/more-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/more-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/more-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1788
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/music-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/music-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/music-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1359
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/music-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/music-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/music-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1313
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/newpaper-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/newpaper-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/newpaper-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1012
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/next-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/next-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/next-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1512
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/notification-off-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/notification-off-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/notification-off-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1989
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/notification-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/notification-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/notification-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1292
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/paper-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/paper-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/paper-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 988
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pc-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pc-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pc-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 929
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pen-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pen-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pen-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1977
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pencil-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pencil-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pencil-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1386
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/percent-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/percent-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/percent-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1902
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/photo-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/photo-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/photo-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1087
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pick-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pick-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pick-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1528
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/piechart-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/piechart-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/piechart-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1535
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pinterest-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pinterest-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pinterest-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2430
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/pinwheel-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/pinwheel-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/pinwheel-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1378
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/planet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/planet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/planet-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1705
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/player-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/player-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/player-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1069
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/plus-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/plus-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/plus-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1017
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/preferense-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/preferense-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/preferense-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1506
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/prev-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/prev-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/prev-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1511
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/printer-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/printer-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/printer-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1100
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/quit-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/quit-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/quit-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1498
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/random-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/random-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/random-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1707
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/ranking-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/ranking-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/ranking-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1116
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/record-off-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/record-off-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/record-off-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2012
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/record-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/record-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/record-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1716
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/refresh-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/refresh-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/refresh-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1681
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/reload-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/reload-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/reload-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2323
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/remove-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/remove-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/remove-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1513
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/reset-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/reset-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/reset-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1875
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/right-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/right-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/right-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1580
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/ring-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/ring-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/ring-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1925
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/safe-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/safe-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/safe-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1685
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/sandglass-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/sandglass-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/sandglass-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1377
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/scan-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/scan-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/scan-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 953
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/screwdriver-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/screwdriver-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/screwdriver-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1646
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/search-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/search-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/search-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1609
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/send-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/send-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/send-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1966
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/send-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/send-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/send-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1803
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/service-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/service-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/service-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1876
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/setting-1-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/setting-1-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/setting-1-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2387
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/setting-2-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/setting-2-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/setting-2-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2373
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/share-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/share-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/share-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1843
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/shop-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/shop-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/shop-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1035
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/shopping-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/shopping-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/shopping-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1560
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/show-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/show-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/show-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2024
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/sign-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/sign-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/sign-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1136
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/siren-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/siren-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/siren-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1439
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/skull-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/skull-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/skull-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1793
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/skype-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/skype-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/skype-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1460
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/sort-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/sort-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/sort-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 846
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/sparkle-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/sparkle-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/sparkle-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1839
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/speedmeter-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/speedmeter-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/speedmeter-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2044
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/star-circle-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/star-circle-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/star-circle-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1474
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/star-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/star-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/star-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1809
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/stopwatch-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/stopwatch-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/stopwatch-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1659
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/support-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/support-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/support-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1703
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/sword-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/sword-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/sword-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1581
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/tag-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/tag-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/tag-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1373
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/target-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/target-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/target-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1464
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/tent-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/tent-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/tent-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1745
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/text-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/text-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/text-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1010
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/thumbnails-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/thumbnails-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/thumbnails-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1317
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/thunder-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/thunder-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/thunder-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1181
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/time-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/time-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/time-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1617
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/toolbox-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/toolbox-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/toolbox-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 980
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/top-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/top-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/top-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1487
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/treasure-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/treasure-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/treasure-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1360
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/trophy-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/trophy-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/trophy-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1420
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/twitter-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/twitter-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/twitter-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1703
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/ufo-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/ufo-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/ufo-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1679
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/unlock-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/unlock-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/unlock-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1408
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/up-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/up-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/up-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1548
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/upload-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/upload-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/upload-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1199
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/user-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/user-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/user-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1415
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/video-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/video-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/video-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1260
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/volume-mute-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/volume-mute-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/volume-mute-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1952
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/volume-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/volume-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/volume-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1799
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/wallet-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/wallet-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/wallet-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1084
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/warning-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/warning-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/warning-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1705
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/water-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/water-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/water-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1703
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/wifi-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/wifi-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/wifi-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1822
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/youtube-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/youtube-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/youtube-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1214
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/zoom-in-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/zoom-in-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/zoom-in-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1707
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/function/zoom-out-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/function/zoom-out-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/function/zoom-out-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1659
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-add-friend-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-add-friend-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-add-friend-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1568
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-card-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-card-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-card-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 744
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-check-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-check-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-check-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1597
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-game-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-game-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-game-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 2024
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-refresh-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-refresh-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-refresh-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1624
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-target-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-target-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-target-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1876
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/icons/icon-user-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/icons/icon-user-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/icons/icon-user-v1.png",
+      "usage": "icons",
+      "status": "copied-web-safe",
+      "bytes": 1167
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-entered-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-entered-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-entered-v1.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 3489
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-entered-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-entered-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-entered-v2.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 1282
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-error-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-error-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-error-v1.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 4217
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-error-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-error-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-error-v2.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 1935
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-required-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-required-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-required-v1.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 3749
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-required-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-required-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-required-v2.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 1298
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-typing-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-typing-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-typing-v1.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 4574
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/inputs/input-typing-v2.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/inputs/input-typing-v2.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/inputs/input-typing-v2.png",
+      "usage": "inputs",
+      "status": "copied-web-safe",
+      "bytes": 1915
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/panels/popup-frame-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/panels/popup-frame-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/panels/popup-frame-v1.png",
+      "usage": "panels",
+      "status": "copied-web-safe",
+      "bytes": 14808
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/panels/settings-frame-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/panels/settings-frame-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/panels/settings-frame-v1.png",
+      "usage": "panels",
+      "status": "copied-web-safe",
+      "bytes": 17611
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/00_title-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/00_title-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/00_title-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 225119
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/01_login-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/01_login-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/01_login-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 150752
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/03_stage-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/03_stage-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/03_stage-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 150723
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/04_stageready-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/04_stageready-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/04_stageready-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 168881
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/05_complete-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/05_complete-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/05_complete-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 197602
+    },
+    {
+      "source": "/Users/yuanfei/PieAI/Non-Heroes/apps/web/public/assets/game/ui/phase03-clay-kit/screens/06_lose-v1.png",
+      "target": "public/assets/game/ui/clay/phase03-clay-kit/screens/06_lose-v1.png",
+      "runtimePath": "/assets/game/ui/clay/phase03-clay-kit/screens/06_lose-v1.png",
+      "usage": "screens",
+      "status": "copied-web-safe",
+      "bytes": 172552
+    }
+  ]
+}

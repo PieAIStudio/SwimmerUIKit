@@ -7,7 +7,7 @@ addons.setConfig({
   theme: create({
     base: 'light',
     brandTitle: '← Swimmer UI Kit · 组件总览',
-    brandUrl: '/',
+    brandUrl: 'https://swimmer-ui-kit.pieaistudio.com/',
     brandTarget: '_self',
   }),
 });

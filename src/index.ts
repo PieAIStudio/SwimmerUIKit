@@ -82,7 +82,10 @@ export {
   CLAY_ASSET_BASE_PATH,
   getClayIconPath,
   getClaySourceAssetPath,
+  setClayAssetMode,
+  getClayAssetMode,
   type ClayAssetGroup,
+  type ClayAssetMode,
   type ClayIconName,
 } from './clay/assets';
 export {

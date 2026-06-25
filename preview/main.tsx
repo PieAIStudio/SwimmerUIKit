@@ -2,7 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { GameUiPreview } from '../src/GameUiPreview';
+import { setClayAssetMode } from '../src/clay/assets';
 import '../src/styles.css';
+
+// The showcase serves the real clay game-icon PNGs from public/assets, so
+// render every component with the source assets instead of the inline SVG
+// placeholders. (Consumers of the package keep the inline default.)
+setClayAssetMode('source');
 
 // Top switcher bar: the same site hosts the visual showcase at "/" and the
 // interactive Storybook at "/storybook/". This bar lets you jump between them.
@@ -44,7 +50,7 @@ function ShowcaseNav() {
         组件总览
       </a>
       <a
-        href="/storybook/"
+        href="https://swimmer-ui-storybook.pieaistudio.com/"
         style={{
           padding: '6px 14px',
           borderRadius: 999,

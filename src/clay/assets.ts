@@ -117,8 +117,27 @@ function inlineClayIcon(icon: ClayIconName): string {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
+export type ClayAssetMode = 'inline' | 'source';
+
+let clayAssetMode: ClayAssetMode = 'inline';
+
+/**
+ * Switch how clay icons resolve globally.
+ * - 'inline' (default): zero-dependency SVG placeholders, no assets required.
+ * - 'source': the real clay game-icon PNG paths under CLAY_ASSET_BASE_PATH.
+ *   The host app must serve those assets (e.g. copy them into its public/).
+ */
+export function setClayAssetMode(mode: ClayAssetMode): void {
+  clayAssetMode = mode;
+}
+
+export function getClayAssetMode(): ClayAssetMode {
+  return clayAssetMode;
+}
+
 export function getClayIconPath(icon: ClayIconName, options: { inline?: boolean } = {}): string {
-  if (options.inline ?? true) return inlineClayIcon(icon);
+  const inline = options.inline ?? (clayAssetMode === 'inline');
+  if (inline) return inlineClayIcon(icon);
   return CLAY_ASSETS.icons[icon];
 }
 

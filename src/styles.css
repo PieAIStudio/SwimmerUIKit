@@ -34,6 +34,7 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-token-row { grid-template-columns: minmax(92px, .42fr) minmax(0, .58fr); align-items: center; border-radius: 10px; background: rgba(108,79,56,.06); padding: 7px 8px; }
 .game-ui-token-row span, .game-ui-small-copy, .game-ui-stage-tile small, .game-ui-hud-chip small, .game-ui-hud-chip em, .game-ui-language-popover small, .game-ui-type-kicker { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-style: normal; font-weight: 820; letter-spacing: .08em; text-transform: uppercase; }
 .game-ui-token-row code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-token-row > span:first-child { min-width: 0; overflow-wrap: anywhere; letter-spacing: .04em; line-height: 1.15; }
 .game-ui-type-scale { gap: 9px; padding: clamp(18px, 3vw, 30px); }
 .game-ui-type-scale h1, .game-ui-type-scale h2, .game-ui-type-scale p, .game-ui-type-scale small { margin: 0; }
 .game-ui-type-scale h1 { color: #4a2f1f; font-family: var(--game-ui-font-display); font-size: var(--game-ui-font-xxl); font-weight: var(--game-ui-weight-title); line-height: var(--game-ui-line-tight); }

@@ -2,5 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build:deploy",
   "outputDirectory": "site-dist",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "swimmer-ui-storybook.pieaistudio.com" }],
+      "destination": "/storybook/$1"
+    }
+  ]
 }

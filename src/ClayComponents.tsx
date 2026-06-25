@@ -32,7 +32,7 @@ export function GameAssetIcon({ className, icon, label, size = 'md', useSourceAs
   const accessibilityProps = label ? { 'aria-label': label } : { 'aria-hidden': true };
   return (
     <span className={classes} data-icon-size={size} {...accessibilityProps}>
-      <img alt="" src={getClayIconPath(icon, { inline: !useSourceAsset })} />
+      <img alt="" src={getClayIconPath(icon, useSourceAsset ? { inline: false } : {})} />
     </span>
   );
 }
