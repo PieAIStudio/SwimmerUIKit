@@ -33,7 +33,8 @@
     "dev": "vite --host 127.0.0.1 --port 5174",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "build": "vite build && tsc -p tsconfig.build.json",
-    "preview": "vite preview --host 127.0.0.1 --port 4174",
+    "build:site": "vite build --config vite.config.site.ts",
+    "preview:site": "vite preview --config vite.config.site.ts --host 127.0.0.1 --port 4175",
     "test": "vitest run"
   },
   "peerDependencies": {
