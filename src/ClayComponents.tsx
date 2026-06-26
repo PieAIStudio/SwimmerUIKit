@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
 
-import { CLAY_ASSETS, getClayIconPath, type ClayIconName } from './clay/assets';
+import { CLAY_ASSETS, getClayIconPath, type ClayIconName, type ClayIconStyle } from './clay/assets';
 
 export type GameBadgeTone = 'neutral' | 'success' | 'warning' | 'danger' | 'ai';
 
@@ -24,15 +24,22 @@ export interface GameAssetIconProps {
   icon: ClayIconName;
   label?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /**
+   * Visual family. 'game' (default) is the colorful sculpted clay object;
+   * 'line' is the flat white glyph alternate. Falls back automatically when an
+   * icon only ships one family.
+   */
+  style?: ClayIconStyle;
   useSourceAsset?: boolean;
 }
 
-export function GameAssetIcon({ className, icon, label, size = 'md', useSourceAsset = false }: GameAssetIconProps): ReactNode {
+export function GameAssetIcon({ className, icon, label, size = 'md', style, useSourceAsset = false }: GameAssetIconProps): ReactNode {
   const classes = ['game-ui-asset-icon', className].filter(Boolean).join(' ');
   const accessibilityProps = label ? { 'aria-label': label } : { 'aria-hidden': true };
+  const src = getClayIconPath(icon, { ...(style ? { style } : {}), ...(useSourceAsset ? { inline: false } : {}) });
   return (
-    <span className={classes} data-icon-size={size} {...accessibilityProps}>
-      <img alt="" src={getClayIconPath(icon, useSourceAsset ? { inline: false } : {})} />
+    <span className={classes} data-icon-size={size} data-icon-style={style ?? 'game'} {...accessibilityProps}>
+      <img alt="" src={src} />
     </span>
   );
 }
@@ -200,25 +207,51 @@ export function GameOrientationGate({ body, cta, preview = false, title }: GameO
 
 export interface GameLanguageMenuProps {
   className?: string;
-  currentLabel: string;
+  /** Optional override for the trigger label. Defaults to the selected option's label. */
+  currentLabel?: string;
   label: string;
   options: readonly { id: string; label: string; meta: string }[];
+  /** Controlled selected option id. Omit to let the component own selection. */
+  value?: string;
+  /** Initial selection when uncontrolled. Defaults to the first option. */
+  defaultValue?: string;
+  /** Fires with the chosen option id whenever the user picks a language. */
+  onSelect?: (id: string) => void;
 }
 
-export function GameLanguageMenu({ className, currentLabel, label, options }: GameLanguageMenuProps): ReactNode {
+export function GameLanguageMenu({ className, currentLabel, label, options, value, defaultValue, onSelect }: GameLanguageMenuProps): ReactNode {
   const [open, setOpen] = useState(false);
+  const [internalValue, setInternalValue] = useState(defaultValue ?? options[0]?.id ?? '');
   const menuId = useId();
   const classes = ['game-ui-language-menu', className].filter(Boolean).join(' ');
+
+  const selectedId = value ?? internalValue;
+  const selectedOption = options.find((option) => option.id === selectedId);
+  const triggerLabel = currentLabel ?? selectedOption?.label ?? options[0]?.label ?? '';
+
+  const handleSelect = (id: string): void => {
+    if (value === undefined) setInternalValue(id);
+    onSelect?.(id);
+    setOpen(false);
+  };
+
   return (
     <div className={classes}>
-      <button aria-controls={menuId} aria-expanded={open} className="game-ui-language-trigger" onClick={() => setOpen((value) => !value)} type="button">
+      <button aria-controls={menuId} aria-expanded={open} className="game-ui-language-trigger" onClick={() => setOpen((current) => !current)} type="button">
         <GameAssetIcon icon="globe" size="sm" />
-        <span>{currentLabel}</span>
+        <span>{triggerLabel}</span>
       </button>
       {open ? (
         <div aria-label={label} className="game-ui-language-popover" id={menuId} role="menu">
           {options.map((option) => (
-            <button key={option.id} role="menuitemradio" type="button">
+            <button
+              aria-checked={option.id === selectedId}
+              data-selected={option.id === selectedId}
+              key={option.id}
+              onClick={() => handleSelect(option.id)}
+              role="menuitemradio"
+              type="button"
+            >
               <span>
                 <strong>{option.label}</strong>
                 <small>{option.meta}</small>

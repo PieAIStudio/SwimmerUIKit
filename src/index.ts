@@ -80,13 +80,18 @@ export {
 export {
   CLAY_ASSETS,
   CLAY_ASSET_BASE_PATH,
+  CLAY_ICON_NAMES,
+  CLAY_ICON_VARIANTS,
   getClayIconPath,
+  getClayIconStyles,
   getClaySourceAssetPath,
   setClayAssetMode,
   getClayAssetMode,
   type ClayAssetGroup,
   type ClayAssetMode,
   type ClayIconName,
+  type ClayIconResolveOptions,
+  type ClayIconStyle,
 } from './clay/assets';
 export {
   playGameInteractionSound,

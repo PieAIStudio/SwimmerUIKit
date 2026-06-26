@@ -119,6 +119,12 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-loading-state[data-loading-tone='error'] { border-color: rgba(216,90,69,.42); background: rgba(216,90,69,.12); }
 .game-ui-loading-state img { width: 30px; height: 30px; object-fit: contain; }
 .game-ui-asset-path-grid code { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-icon-gallery { display: grid; gap: 18px; }
+.game-ui-icon-family { display: grid; gap: 10px; }
+.game-ui-icon-family-head { display: grid; gap: 6px; }
+.game-ui-icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(94px, 1fr)); gap: 10px; }
+.game-ui-icon-cell { display: grid; justify-items: center; gap: 7px; margin: 0; padding: 12px 6px; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-panel); background: var(--game-ui-panel); box-shadow: var(--game-ui-shadow-panel); }
+.game-ui-icon-cell figcaption { min-width: 0; max-width: 100%; overflow-wrap: anywhere; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: 760; letter-spacing: .03em; text-align: center; }
 .game-ui-proof-frames { grid-template-columns: 1fr; }
 .game-ui-proof-frame { overflow: hidden; padding: 12px; }
 .game-ui-proof-frame > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
