@@ -98,6 +98,8 @@ export {
 export {
   CLAY_ASSETS,
   CLAY_ASSET_BASE_PATH,
+  CLAY_GAME_SPRITES,
+  CLAY_GAME_SPRITE_NAMES,
   CLAY_ICON_NAMES,
   CLAY_ICON_VARIANTS,
   getClayIconPath,
@@ -107,6 +109,7 @@ export {
   getClayAssetMode,
   type ClayAssetGroup,
   type ClayAssetMode,
+  type ClayGameSpriteName,
   type ClayIconName,
   type ClayIconResolveOptions,
   type ClayIconStyle,

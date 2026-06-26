@@ -34,14 +34,23 @@ export const CLAY_ICON_VARIANTS = {
   chat: { line: A('icons/function/chat-v1.png') },
   check: { line: A('icons/function/check-v1.png') },
   close: { game: A('components/language/button-close-v1.png'), line: A('icons/function/cancel-v1.png') },
+  coin: { game: A('icons/common/gold-v1.png'), line: A('icons/function/gold-v1.png') },
   compass: { line: A('icons/function/compass-v1.png') },
   copy: { line: A('icons/function/copy-v1.png') },
   crown: { game: A('icons/common/crown-v1.png'), line: A('icons/function/crown-v1.png') },
   energy: { game: A('icons/common/energy-v1.png'), line: A('icons/function/energy-v1.png') },
+  gem: { game: A('icons/common/gem-v1.png'), line: A('icons/function/gem-v1.png') },
+  gift: { game: A('icons/common/gift-red-v1.png'), line: A('icons/function/gift-v1.png') },
   globe: { line: A('icons/function/globe-v1.png') },
   history: { line: A('icons/function/list-v1.png') },
   home: { line: A('icons/function/home-v1.png') },
+  hourglass: { game: A('icons/common/sandglass-v1.png'), line: A('icons/function/sandglass-v1.png') },
+  laurel: { game: A('icons/common/laurel-v1.png') },
   lock: { game: A('icons/common/lock-v1.png'), line: A('icons/function/lock-v1.png') },
+  lucky: { game: A('icons/common/lucky-v1.png') },
+  mail: { game: A('icons/common/envelope-v1.png'), line: A('icons/function/mail-unread-v1.png') },
+  medal: { game: A('icons/common/medal-gold-v1.png'), line: A('icons/function/medal-v1.png') },
+  mission: { game: A('icons/common/mission-v1.png') },
   mobile: { line: A('icons/function/mobile-v1.png') },
   // Portal/Tavern entry: the game family has no compass, so the on-brand
   // default is the sculpted key ("enter a code / unlock a table"). The flat
@@ -50,6 +59,7 @@ export const CLAY_ICON_VARIANTS = {
   scroll: { game: A('icons/common/scroll-v1.png'), line: A('icons/function/list-v1.png') },
   settings: { game: A('icons/common/setting-v1.png'), line: A('icons/function/setting-1-v1.png') },
   shirt: { line: A('icons/function/user-v1.png') },
+  shop: { game: A('icons/common/shop-v1.png'), line: A('icons/function/shop-v1.png') },
   smile: { line: A('icons/function/emoji-good-v1.png') },
   timer: { game: A('icons/common/timer-v1.png'), line: A('icons/function/stopwatch-v1.png') },
   trophy: { game: A('icons/common/trophy-v1.png'), line: A('icons/function/trophy-v1.png') },
@@ -76,6 +86,48 @@ export function getClayIconStyles(icon: ClayIconName): ClayIconStyle[] {
   if (variants.line) styles.push('line');
   return styles;
 }
+
+/**
+ * Decorative game-content sprites — sculpted clay objects from the same source
+ * pack that read as *game content* (loot, weapons, shields, potions, currency
+ * variants) rather than UI affordances. They are deliberately kept OUT of
+ * CLAY_ICON_VARIANTS so the semantic icon API stays a clean, product-agnostic UI
+ * vocabulary. Reach for these in reward popups, inventories, win screens, or
+ * decorative flourishes — never for buttons or toolbars. Game family only; these
+ * have no flat line equivalents.
+ */
+export const CLAY_GAME_SPRITES = {
+  anvil: A('icons/common/anvil-v1.png'),
+  arrow: A('icons/common/arrow-v1.png'),
+  bomb: A('icons/common/bomb-v1.png'),
+  candle: A('icons/common/candle-v1.png'),
+  chicken: A('icons/common/chicken-v1.png'),
+  giftBlue: A('icons/common/gift-blue-v1.png'),
+  hammer: A('icons/common/hammer-v1.png'),
+  horn: A('icons/common/horner-v1.png'),
+  horseshoe: A('icons/common/horseshoes-v1.png'),
+  letter: A('icons/common/letter-v1.png'),
+  medalBronze: A('icons/common/medal-bronze-v1.png'),
+  medalSilver: A('icons/common/medal-silver-v1.png'),
+  pickaxe: A('icons/common/pickax-v1.png'),
+  potionPurple: A('icons/common/poiton-purple-v1.png'),
+  potionRed: A('icons/common/poition-red-v1.png'),
+  purpleGem: A('icons/common/purplegem-v1.png'),
+  shieldA: A('icons/common/shield-a-v1.png'),
+  shieldB: A('icons/common/shield-b-v1.png'),
+  shieldC: A('icons/common/shield-c-v1.png'),
+  shieldD: A('icons/common/shield-d-v1.png'),
+  skull: A('icons/common/skull-v1.png'),
+  soulGem: A('icons/common/soulgem-v1.png'),
+  swordA: A('icons/common/sword-a-v1.png'),
+  swordB: A('icons/common/sword-b-v1.png'),
+  talaria: A('icons/common/talaria-v1.png'),
+  treasure: A('icons/common/treasure-v1.png'),
+} satisfies Record<string, string>;
+
+export type ClayGameSpriteName = keyof typeof CLAY_GAME_SPRITES;
+
+export const CLAY_GAME_SPRITE_NAMES = Object.keys(CLAY_GAME_SPRITES) as ClayGameSpriteName[];
 
 export const CLAY_ASSETS = {
   buttons: {
@@ -119,19 +171,29 @@ const INLINE_ICON_LABELS: Record<ClayIconName, string> = {
   chat: '··',
   check: '✓',
   close: '×',
+  coin: '◉',
   compass: '⌖',
   copy: '⧉',
   crown: '♛',
   energy: 'ϟ',
+  gem: '◆',
+  gift: '❦',
   globe: '◎',
   history: '≡',
   home: '⌂',
+  hourglass: '⧗',
+  laurel: '❧',
   lock: '⌘',
+  lucky: '✲',
+  mail: '✉',
+  medal: '✦',
+  mission: '❖',
   mobile: '▯',
   portal: '◇',
   scroll: '☰',
   settings: '⚙',
   shirt: '◔',
+  shop: '⊞',
   smile: '☺',
   timer: '◷',
   trophy: '★',
@@ -145,19 +207,29 @@ const INLINE_ICON_ACCENTS: Record<ClayIconName, string> = {
   chat: '#5ca6d8',
   check: '#4f9d6b',
   close: '#d85a45',
+  coin: '#f2b35c',
   compass: '#1d9a8b',
   copy: '#6c4f38',
   crown: '#f2b35c',
   energy: '#e8743b',
+  gem: '#5ca6d8',
+  gift: '#d85a45',
   globe: '#1d9a8b',
   history: '#7b6652',
   home: '#6c4f38',
+  hourglass: '#e8743b',
+  laurel: '#4f9d6b',
   lock: '#3b2d23',
+  lucky: '#4f9d6b',
+  mail: '#5ca6d8',
+  medal: '#f2b35c',
+  mission: '#9b6dd6',
   mobile: '#5ca6d8',
   portal: '#1d9a8b',
   scroll: '#9b6dd6',
   settings: '#7b6652',
   shirt: '#5ca6d8',
+  shop: '#7b6652',
   smile: '#f2b35c',
   timer: '#e8743b',
   trophy: '#f2b35c',

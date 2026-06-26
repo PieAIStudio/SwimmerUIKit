@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
-import { CLAY_ICON_NAMES, GameAssetIcon, GameBadge, getClayIconStyles, type ClayIconName, type ClayIconStyle } from '../index';
+import {
+  CLAY_GAME_SPRITES,
+  CLAY_GAME_SPRITE_NAMES,
+  CLAY_ICON_NAMES,
+  GameAssetIcon,
+  GameBadge,
+  getClayIconStyles,
+  type ClayIconName,
+  type ClayIconStyle,
+} from '../index';
 
 const GAME_ICONS = CLAY_ICON_NAMES.filter((name) => getClayIconStyles(name).includes('game'));
 const LINE_ICONS = CLAY_ICON_NAMES.filter((name) => getClayIconStyles(name).includes('line'));
@@ -47,6 +56,32 @@ export const GamePrimary: Story = {
 export const LineAlternate: Story = {
   name: '线性 · 备选',
   render: () => <FamilyGrid names={LINE_ICONS} style="line" />,
+};
+
+export const GameSprites: Story = {
+  name: '游戏素材 · 装饰',
+  render: () => (
+    <div style={{ display: 'grid', gap: 14 }}>
+      <p style={{ margin: 0, fontSize: 12, color: '#7b6652', maxWidth: 640 }}>
+        同一套黏土包里的<strong>战利品、武器、货币与奖励</strong>。用于奖励弹窗、背包、胜利结算等场景,
+        <strong>不用于按钮或工具栏</strong>。刻意不放进 UI 图标集(<code>CLAY_ICON_VARIANTS</code>),
+        改由 <code>CLAY_GAME_SPRITES</code> 单独导出,以免污染界面词汇。
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(94px, 1fr))', gap: 10 }}>
+        {CLAY_GAME_SPRITE_NAMES.map((name) => (
+          <figure
+            key={name}
+            style={{ display: 'grid', justifyItems: 'center', gap: 7, margin: 0, padding: '12px 6px', borderRadius: 16, background: 'rgba(255,248,236,.62)', boxShadow: '0 6px 18px rgba(76,52,28,.12)' }}
+          >
+            <span className="game-ui-asset-icon" data-icon-size="lg" data-icon-style="game" aria-hidden>
+              <img alt="" src={CLAY_GAME_SPRITES[name]} />
+            </span>
+            <figcaption style={{ fontSize: 11, fontWeight: 720, color: '#7b6652', textAlign: 'center', overflowWrap: 'anywhere' }}>{name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  ),
 };
 
 export const SideBySide: Story = {

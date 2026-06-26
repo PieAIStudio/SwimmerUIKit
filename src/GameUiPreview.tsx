@@ -9,7 +9,15 @@ import { GameDialog } from './GameDialog';
 import { GameHistoryPanel } from './GameHistoryPanel';
 import { GameHudActions } from './GameHudActions';
 import { GameIconButton, GamePanel, GameRadialMenu, GameSegmentedControl, GameSlider, GameTabs, GameToast, GameToggle, GameTooltip } from './GameSurfaces';
-import { CLAY_ASSETS, CLAY_ICON_NAMES, getClayIconStyles, type ClayIconName, type ClayIconStyle } from './clay/assets';
+import {
+  CLAY_ASSETS,
+  CLAY_GAME_SPRITES,
+  CLAY_GAME_SPRITE_NAMES,
+  CLAY_ICON_NAMES,
+  getClayIconStyles,
+  type ClayIconName,
+  type ClayIconStyle,
+} from './clay/assets';
 import { CLAY_ASSET_SIZE_TOKENS, CLAY_COLOR_TOKENS, CLAY_ELEVATION_TOKENS, CLAY_LAYER_TOKENS, CLAY_MOTION_TOKENS, CLAY_RADIUS_TOKENS, CLAY_SEMANTIC_TOKENS, CLAY_SPACE_TOKENS, CLAY_TARGET_TOKENS, CLAY_TYPE_TOKENS } from './clay/tokens';
 import type { GameUiHistoryEntry } from './GameHistoryPanel';
 import { GAME_UI_PREVIEW_MESSAGES } from './previewStates';
@@ -47,6 +55,8 @@ interface IconGalleryCopy {
   gameHint: string;
   lineLabel: string;
   lineHint: string;
+  spriteLabel: string;
+  spriteHint: string;
 }
 interface FormsCopy {
   formsTitle: string;
@@ -118,6 +128,8 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       gameHint: 'Sculpted, colorful clay objects — the default, on-brand look for anything a player sees.',
       lineLabel: 'Line · alternate',
       lineHint: 'Flat white glyphs for dense toolbars or when a sculpted object would feel too heavy.',
+      spriteLabel: 'Game sprites · decorative',
+      spriteHint: 'Loot, weapons, currency and rewards from the same clay pack. For popups, inventories and win screens — not buttons or toolbars. Kept out of the UI icon set on purpose.',
     },
     tiles: {
       daily: { badge: 'solo', kicker: 'Daily', title: 'Daily Turing Challenge', summary: 'Read one case, pick the AI, share the result.' },
@@ -165,6 +177,8 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       gameHint: '立体、彩色的黏土实物。玩家能看到的地方默认都用这一族,最贴合品牌。',
       lineLabel: '线性 · 备选',
       lineHint: '扁平白色线条图标,适合密集工具栏,或立体图标显得太重的场合。',
+      spriteLabel: '游戏素材 · 装饰',
+      spriteHint: '同一套黏土包里的战利品、武器、货币与奖励。用于奖励弹窗、背包、胜利结算等场景,不用于按钮或工具栏。刻意不放进 UI 图标集,以免污染界面词汇。',
     },
     tiles: {
       daily: { badge: '单人', kicker: '每日', title: '每日图灵挑战', summary: '读一个案例,指认 AI,分享结果。' },
@@ -470,6 +484,21 @@ function IconFamilyGrid({ names, style }: { names: readonly ClayIconName[]; styl
   );
 }
 
+function SpriteGrid(): ReactNode {
+  return (
+    <div className="game-ui-icon-grid">
+      {CLAY_GAME_SPRITE_NAMES.map((name) => (
+        <figure className="game-ui-icon-cell" key={`sprite-${name}`}>
+          <span className="game-ui-asset-icon" data-icon-size="lg" data-icon-style="game" aria-hidden>
+            <img alt="" src={CLAY_GAME_SPRITES[name]} />
+          </span>
+          <figcaption>{name}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 function IconGallery(): ReactNode {
   const { gallery } = useCopy();
   return (
@@ -487,6 +516,13 @@ function IconGallery(): ReactNode {
           <p className="game-ui-small-copy">{gallery.lineHint}</p>
         </header>
         <IconFamilyGrid names={LINE_ICON_NAMES} style="line" />
+      </section>
+      <section className="game-ui-icon-family">
+        <header className="game-ui-icon-family-head">
+          <GameBadge tone="warning">{gallery.spriteLabel}</GameBadge>
+          <p className="game-ui-small-copy">{gallery.spriteHint}</p>
+        </header>
+        <SpriteGrid />
       </section>
     </div>
   );
