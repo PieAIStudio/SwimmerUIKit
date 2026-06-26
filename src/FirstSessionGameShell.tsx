@@ -10,6 +10,10 @@ export interface FirstSessionHudLabels {
   emote: string;
   goalLabel: string;
   goalValue: string;
+  /** Streak prefix, e.g. "Daily" → "Daily 3". Defaults to "Daily". */
+  streak?: string;
+  /** Resource meta shown for guests (unauthenticated). Defaults to "guest". */
+  guest?: string;
   history: string;
   hud: string;
   input: string;
@@ -54,7 +58,7 @@ function SlotIcon({ fallback, slot }: { fallback: ClayIconName; slot?: ReactNode
 
 export function FirstSessionHud({ authenticated, batteryCount, className, dailyStreak, iconSlots, labels, onHistory, onSettings, onWardrobe, playerName }: FirstSessionHudProps): ReactNode {
   const classes = ['swimmer-first-session-shell', className].filter(Boolean).join(' ');
-  const resourceMeta = authenticated ? `${batteryCount} 🔋` : 'guest';
+  const resourceMeta = authenticated ? `${batteryCount} 🔋` : (labels.guest ?? 'guest');
 
   return (
     <section aria-label={labels.shell} className={classes}>
@@ -63,7 +67,7 @@ export function FirstSessionHud({ authenticated, batteryCount, className, dailyS
         items={[
           { icon: 'crown', id: 'role', label: labels.roleLabel, meta: playerName, value: labels.roleValue },
           { icon: 'portal', id: 'room', label: labels.roomLabel, meta: resourceMeta, value: labels.roomValue },
-          { icon: 'trophy', id: 'goal', label: labels.goalLabel, meta: `Daily ${dailyStreak}`, value: labels.goalValue },
+          { icon: 'trophy', id: 'goal', label: labels.goalLabel, meta: `${labels.streak ?? 'Daily'} ${dailyStreak}`, value: labels.goalValue },
           { icon: 'timer', id: 'timer', label: labels.timerLabel, value: labels.timerValue },
         ]}
         label={labels.hud}

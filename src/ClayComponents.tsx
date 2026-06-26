@@ -149,11 +149,15 @@ function isPortraitPhoneLike(): boolean {
 export interface GameOrientationGateProps {
   body: string;
   cta: string;
+  /** Warning badge text. Defaults to "Landscape only". */
+  badgeLabel?: string;
+  /** Hint shown when the browser blocks the automatic landscape lock. */
+  manualHint?: string;
   preview?: boolean;
   title: string;
 }
 
-export function GameOrientationGate({ body, cta, preview = false, title }: GameOrientationGateProps): ReactNode {
+export function GameOrientationGate({ body, cta, badgeLabel = 'Landscape only', manualHint = 'Rotate manually if this browser blocks automatic landscape lock.', preview = false, title }: GameOrientationGateProps): ReactNode {
   const [visible, setVisible] = useState(preview || isPortraitPhoneLike);
   const [message, setMessage] = useState('');
 
@@ -185,7 +189,7 @@ export function GameOrientationGate({ body, cta, preview = false, title }: GameO
       await orientation.lock?.('landscape-primary');
       setVisible(isPortraitPhoneLike());
     } catch {
-      setMessage('Rotate manually if this browser blocks automatic landscape lock.');
+      setMessage(manualHint);
     }
   };
 
@@ -193,7 +197,7 @@ export function GameOrientationGate({ body, cta, preview = false, title }: GameO
     <aside aria-label={title} className="game-ui-orientation-gate">
       <div className="game-ui-orientation-card">
         <GameAssetIcon icon="mobile" size="xl" />
-        <GameBadge tone="warning">Landscape only</GameBadge>
+        <GameBadge tone="warning">{badgeLabel}</GameBadge>
         <h2>{title}</h2>
         <p>{body}</p>
         <button onClick={() => void attemptLandscape()} type="button">
