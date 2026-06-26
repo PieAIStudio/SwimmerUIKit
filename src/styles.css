@@ -141,12 +141,12 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-field-required { color: var(--game-ui-danger); }
 .game-ui-field-hint { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); }
 .game-ui-field-error { color: var(--game-ui-danger); font-size: var(--game-ui-font-sm); font-weight: var(--game-ui-weight-strong); }
-.game-ui-checkbox { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; color: var(--game-ui-text); font-weight: var(--game-ui-weight-body); }
+.game-ui-checkbox { display: inline-flex; min-height: 40px; align-items: center; gap: 10px; cursor: pointer; color: var(--game-ui-text); font-weight: var(--game-ui-weight-body); }
 .game-ui-checkbox-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .game-ui-checkbox-box { position: relative; display: grid; place-items: center; width: 26px; height: 26px; flex: none; border: 1px solid var(--game-ui-border-strong); border-radius: 9px; background: var(--game-ui-surface-raised); box-shadow: var(--game-ui-shadow-inset); transition: background var(--game-ui-motion-fast), border-color var(--game-ui-motion-fast); }
-.game-ui-checkbox-box::after { content: ''; width: 12px; height: 7px; margin-top: -3px; border-left: 3px solid var(--game-ui-accent-contrast); border-bottom: 3px solid var(--game-ui-accent-contrast); transform: rotate(-45deg) scale(0); transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop); }
+.game-ui-checkbox-box::after { content: ''; width: 12px; height: 7px; margin-top: -3px; border-left: 3px solid var(--game-ui-accent-contrast); border-bottom: 3px solid var(--game-ui-accent-contrast); transform: rotate(-45deg) scale(.3); opacity: 0; transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), opacity var(--game-ui-motion-fast); }
 .game-ui-checkbox-input:checked + .game-ui-checkbox-box { background: var(--game-ui-accent); border-color: var(--game-ui-accent); }
-.game-ui-checkbox-input:checked + .game-ui-checkbox-box::after { transform: rotate(-45deg) scale(1); }
+.game-ui-checkbox-input:checked + .game-ui-checkbox-box::after { transform: rotate(-45deg) scale(1); opacity: 1; }
 .game-ui-checkbox-input:focus-visible + .game-ui-checkbox-box { box-shadow: var(--game-ui-shadow-inset), 0 0 0 3px var(--game-ui-focus-ring); }
 .game-ui-checkbox-input:disabled ~ * { opacity: .55; cursor: not-allowed; }
 
@@ -185,6 +185,13 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-proof-frame.is-mobile-landscape .game-ui-stage-world { min-height: 390px; }
 .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-chip { min-height: 44px; padding: 4px 8px 4px 5px; }
 .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-chip:nth-child(3), .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-tools { display: none; }
+
+/* Polish · P10 text wrapping: balanced headings, orphan-free body */
+.game-ui-stage-tile strong, .game-ui-dialog h2, .game-ui-panel h3, .game-ui-prompt h3, .game-ui-empty-state-title, .swimmer-first-session-onboarding-card h2, .game-ui-clay-preview h1, .game-ui-clay-preview h2, .game-ui-clay-preview h3 { text-wrap: balance; }
+.game-ui-stage-tile-copy > span, .game-ui-small-copy, .game-ui-field-hint, .game-ui-empty-state-body, .game-ui-prompt p, .game-ui-dialog p, .game-ui-preview-hero p { text-wrap: pretty; }
+/* Polish · P2 optical alignment: trim 2px on whichever side carries an icon */
+.game-ui-button:has(> .game-ui-asset-icon:last-child), .game-ui-button:has(> svg:last-child) { padding-right: 14px; }
+.game-ui-button:has(> .game-ui-asset-icon:first-child), .game-ui-button:has(> svg:first-child) { padding-left: 14px; }
 
 .game-ui-first-session-world { position: relative; min-height: 360px; overflow: hidden; border-radius: var(--game-ui-radius-modal); background: linear-gradient(145deg, #27180e 0%, #7f5735 48%, #d7b174 100%); box-shadow: var(--game-ui-shadow-modal); }
 .game-ui-first-session-world::before { position: absolute; inset: 18% 22% 30%; border: 4px solid rgba(255,248,236,.22); border-radius: 50%; background: radial-gradient(ellipse at 50% 38%, #9a6c42, #563621 72%); content: ''; }
