@@ -7,6 +7,8 @@ export type GameButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | '
 export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   sound?: GameInteractionSoundOptions | false;
+  /** Disable the scale-on-press feedback where the motion would distract. */
+  static?: boolean;
   variant?: GameButtonVariant;
 }
 
@@ -15,11 +17,12 @@ export function GameButton({
   className,
   onClick,
   sound = false,
+  static: isStatic = false,
   type = 'button',
   variant = 'secondary',
   ...props
 }: GameButtonProps): ReactNode {
-  const classes = ['game-ui-button', `game-ui-button--${variant}`, className]
+  const classes = ['game-ui-button', `game-ui-button--${variant}`, isStatic && 'game-ui-button--static', className]
     .filter(Boolean)
     .join(' ');
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
