@@ -125,6 +125,55 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(94px, 1fr)); gap: 10px; }
 .game-ui-icon-cell { display: grid; justify-items: center; gap: 7px; margin: 0; padding: 12px 6px; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-panel); background: var(--game-ui-panel); box-shadow: var(--game-ui-shadow-panel); }
 .game-ui-icon-cell figcaption { min-width: 0; max-width: 100%; overflow-wrap: anywhere; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: 760; letter-spacing: .03em; text-align: center; }
+
+/* Form primitives: GameInput / GameTextArea / GameField / GameCheckbox */
+.game-ui-input { width: 100%; min-height: 48px; border: 1px solid var(--game-ui-border-strong); border-radius: var(--game-ui-radius-card); background: var(--game-ui-surface-raised); box-shadow: var(--game-ui-shadow-inset); color: var(--game-ui-text); font: inherit; font-weight: var(--game-ui-weight-body); padding: 12px 16px; transition: border-color var(--game-ui-motion-fast) var(--game-ui-ease-soft), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
+.game-ui-input::placeholder { color: var(--game-ui-disabled); }
+.game-ui-input:focus-visible { outline: none; border-color: var(--game-ui-secondary); box-shadow: var(--game-ui-shadow-inset), 0 0 0 3px var(--game-ui-focus-ring); }
+.game-ui-input:disabled { opacity: .6; cursor: not-allowed; }
+.game-ui-input[data-invalid='true'], .game-ui-field[data-invalid='true'] .game-ui-input { border-color: var(--game-ui-danger); box-shadow: var(--game-ui-shadow-inset), 0 0 0 3px rgba(216,90,69,.26); }
+.game-ui-textarea { min-height: 92px; line-height: var(--game-ui-line-body); resize: vertical; }
+.game-ui-field { display: grid; gap: 6px; }
+.game-ui-field-label { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: var(--game-ui-weight-strong); letter-spacing: .06em; text-transform: uppercase; }
+.game-ui-field-required { color: var(--game-ui-danger); }
+.game-ui-field-hint { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); }
+.game-ui-field-error { color: var(--game-ui-danger); font-size: var(--game-ui-font-sm); font-weight: var(--game-ui-weight-strong); }
+.game-ui-checkbox { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; color: var(--game-ui-text); font-weight: var(--game-ui-weight-body); }
+.game-ui-checkbox-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.game-ui-checkbox-box { position: relative; display: grid; place-items: center; width: 26px; height: 26px; flex: none; border: 1px solid var(--game-ui-border-strong); border-radius: 9px; background: var(--game-ui-surface-raised); box-shadow: var(--game-ui-shadow-inset); transition: background var(--game-ui-motion-fast), border-color var(--game-ui-motion-fast); }
+.game-ui-checkbox-box::after { content: ''; width: 12px; height: 7px; margin-top: -3px; border-left: 3px solid var(--game-ui-accent-contrast); border-bottom: 3px solid var(--game-ui-accent-contrast); transform: rotate(-45deg) scale(0); transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop); }
+.game-ui-checkbox-input:checked + .game-ui-checkbox-box { background: var(--game-ui-accent); border-color: var(--game-ui-accent); }
+.game-ui-checkbox-input:checked + .game-ui-checkbox-box::after { transform: rotate(-45deg) scale(1); }
+.game-ui-checkbox-input:focus-visible + .game-ui-checkbox-box { box-shadow: var(--game-ui-shadow-inset), 0 0 0 3px var(--game-ui-focus-ring); }
+.game-ui-checkbox-input:disabled ~ * { opacity: .55; cursor: not-allowed; }
+
+/* Display: GameAvatar / GameProgress / GameEmptyState */
+.game-ui-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.game-ui-avatar { position: relative; display: inline-grid; place-items: center; flex: none; border-radius: 50%; border: 2px solid var(--game-ui-panel-strong); background: linear-gradient(150deg, var(--game-ui-warning), var(--game-ui-accent)); color: var(--game-ui-accent-contrast); font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); box-shadow: var(--game-ui-shadow-button); }
+.game-ui-avatar img, .game-ui-avatar-initials { grid-area: 1 / 1; }
+.game-ui-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.game-ui-avatar[data-avatar-size='sm'] { width: 32px; height: 32px; font-size: .72rem; }
+.game-ui-avatar[data-avatar-size='md'] { width: 44px; height: 44px; font-size: .95rem; }
+.game-ui-avatar[data-avatar-size='lg'] { width: 60px; height: 60px; font-size: 1.25rem; }
+.game-ui-avatar[data-avatar-size='xl'] { width: 84px; height: 84px; font-size: 1.7rem; }
+.game-ui-avatar-status { position: absolute; right: -1px; bottom: -1px; width: 30%; height: 30%; min-width: 9px; min-height: 9px; border-radius: 50%; border: 2px solid var(--game-ui-panel-strong); }
+.game-ui-avatar[data-avatar-status='online'] .game-ui-avatar-status { background: var(--game-ui-success); }
+.game-ui-avatar[data-avatar-status='busy'] .game-ui-avatar-status { background: var(--game-ui-danger); }
+.game-ui-avatar[data-avatar-status='away'] .game-ui-avatar-status { background: var(--game-ui-warning); }
+.game-ui-progress { display: flex; align-items: center; gap: 10px; }
+.game-ui-progress-track { position: relative; flex: 1; height: 14px; border-radius: var(--game-ui-radius-control); background: var(--game-ui-surface); box-shadow: var(--game-ui-shadow-inset); overflow: hidden; }
+.game-ui-progress-fill { height: 100%; border-radius: inherit; background: var(--game-ui-accent); transition: width var(--game-ui-motion-base) var(--game-ui-ease-soft); }
+.game-ui-progress[data-progress-tone='success'] .game-ui-progress-fill { background: var(--game-ui-success); }
+.game-ui-progress[data-progress-tone='danger'] .game-ui-progress-fill { background: var(--game-ui-danger); }
+.game-ui-progress[data-progress-tone='warning'] .game-ui-progress-fill { background: var(--game-ui-warning); }
+.game-ui-progress-value { min-width: 3ch; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); font-weight: var(--game-ui-weight-strong); text-align: right; }
+.game-ui-empty-state { display: grid; justify-items: center; gap: 8px; padding: 28px 20px; border: 1px dashed var(--game-ui-border-strong); border-radius: var(--game-ui-radius-panel); background: var(--game-ui-surface); text-align: center; }
+.game-ui-empty-state-title { color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-size: var(--game-ui-font-lg); font-weight: var(--game-ui-weight-strong); }
+.game-ui-empty-state-body { max-width: 42ch; margin: 0; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); line-height: var(--game-ui-line-body); }
+.game-ui-empty-state-action { margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  .game-ui-input, .game-ui-checkbox-box, .game-ui-checkbox-box::after, .game-ui-progress-fill { transition: none; }
+}
 .game-ui-proof-frames { grid-template-columns: 1fr; }
 .game-ui-proof-frame { overflow: hidden; padding: 12px; }
 .game-ui-proof-frame > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }

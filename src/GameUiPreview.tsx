@@ -2,7 +2,9 @@ import { useEffect, useState, type ReactNode } from 'react';
 
 import { GameAssetIcon, GameBadge, GameCardFan, GameHud, GameLanguageMenu, GameLoadingState, GameOrientationGate, GameStageTile } from './ClayComponents';
 import { FirstSessionHud, FirstSessionOnboarding } from './FirstSessionGameShell';
+import { GameAvatar, GameEmptyState, GameProgress } from './GameDisplay';
 import { GameButton } from './GameButton';
+import { GameCheckbox, GameField, GameInput, GameTextArea } from './GameForms';
 import { GameDialog } from './GameDialog';
 import { GameHistoryPanel } from './GameHistoryPanel';
 import { GameHudActions } from './GameHudActions';
@@ -257,6 +259,60 @@ function ResponsiveProofFrames(): ReactNode {
   );
 }
 
+interface FormsCopy {
+  formsTitle: string;
+  roomCodeLabel: string;
+  roomCodeHint: string;
+  roomCodePlaceholder: string;
+  nameLabel: string;
+  namePlaceholder: string;
+  readLabel: string;
+  readPlaceholder: string;
+  readError: string;
+  rememberLabel: string;
+  displayTitle: string;
+  revealLabel: string;
+  batteryLabel: string;
+  emptyTitle: string;
+  emptyBody: string;
+  emptyCta: string;
+}
+
+function FormsAndDisplay({ copy }: { copy: FormsCopy }): ReactNode {
+  return (
+    <div className="game-ui-preview-two-up">
+      <GamePanel title={copy.formsTitle} tone="strong">
+        <GameField hint={copy.roomCodeHint} label={copy.roomCodeLabel}>
+          <GameInput placeholder={copy.roomCodePlaceholder} />
+        </GameField>
+        <GameField label={copy.nameLabel} required>
+          <GameInput placeholder={copy.namePlaceholder} />
+        </GameField>
+        <GameField error={copy.readError} label={copy.readLabel}>
+          <GameTextArea invalid placeholder={copy.readPlaceholder} />
+        </GameField>
+        <GameCheckbox defaultChecked label={copy.rememberLabel} />
+      </GamePanel>
+      <GamePanel title={copy.displayTitle} tone="strong">
+        <div className="game-ui-component-row">
+          <GameAvatar name="Mika Ono" status="online" />
+          <GameAvatar name="River" size="lg" status="busy" />
+          <GameAvatar name="Noa" status="away" />
+          <GameAvatar name="Guest 74" size="sm" />
+        </div>
+        <GameProgress label={copy.revealLabel} showValue value={64} />
+        <GameProgress label={copy.batteryLabel} max={20} showValue tone="success" value={14} />
+        <GameEmptyState
+          action={<GameButton variant="primary">{copy.emptyCta}</GameButton>}
+          description={copy.emptyBody}
+          icon="scroll"
+          title={copy.emptyTitle}
+        />
+      </GamePanel>
+    </div>
+  );
+}
+
 interface IconGalleryCopy {
   gameLabel: string;
   gameHint: string;
@@ -313,8 +369,10 @@ interface PreviewCopy {
   iconsTitle: string;
   iconsIntro: string;
   componentsTitle: string;
+  formsSectionTitle: string;
   gallery: IconGalleryCopy;
   tiles: StageTilesCopy;
+  forms: FormsCopy;
 }
 
 const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
@@ -327,6 +385,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
     iconsTitle: 'Icon families',
     iconsIntro: 'Every icon ships in two families. Cards default to the sculpted game family; the flat line family is the utility alternate.',
     componentsTitle: 'Component surface',
+    formsSectionTitle: 'Forms, inputs and status',
     gallery: {
       gameLabel: 'Game · primary',
       gameHint: 'Sculpted, colorful clay objects — the default, on-brand look for anything a player sees.',
@@ -334,6 +393,24 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       lineHint: 'Flat white glyphs for dense toolbars or when a sculpted object would feel too heavy.',
     },
     tiles: DEFAULT_STAGE_TILES,
+    forms: {
+      formsTitle: 'Join a table',
+      roomCodeLabel: 'Room code',
+      roomCodeHint: 'Ask the host for the 6-character code.',
+      roomCodePlaceholder: '74X8VB',
+      nameLabel: 'Display name',
+      namePlaceholder: 'How should the table see you?',
+      readLabel: 'Your read',
+      readPlaceholder: 'Type why this one feels human…',
+      readError: 'A read needs at least a few words.',
+      rememberLabel: 'Remember me on this device',
+      displayTitle: 'Players and status',
+      revealLabel: 'Reveal countdown',
+      batteryLabel: 'Batteries',
+      emptyTitle: 'No open tables yet',
+      emptyBody: 'Be the first to host. Guests join free through your invite.',
+      emptyCta: 'Open my own table',
+    },
   },
   'zh-CN': {
     triggerLabel: '中',
@@ -344,6 +421,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
     iconsTitle: '图标双族',
     iconsIntro: '每个图标都有两族。卡片默认用立体游戏风,扁平线性风是工具型备选。',
     componentsTitle: '组件总览',
+    formsSectionTitle: '表单、输入与状态',
     gallery: {
       gameLabel: '游戏风 · 主用',
       gameHint: '立体、彩色的黏土实物。玩家能看到的地方默认都用这一族,最贴合品牌。',
@@ -354,6 +432,24 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       daily: { badge: '单人', kicker: '每日', title: '每日图灵挑战', summary: '读一个案例,指认 AI,分享结果。' },
       portal: { badge: '免费加入', kicker: '传送门', title: '酒馆传送门', summary: '输入房号、恢复牌桌,或自己开一桌。' },
       host: { kicker: '房主门槛', title: '开我自己的牌桌', summary: '只有房主看到账号与电量校验,客人永远看不到。' },
+    },
+    forms: {
+      formsTitle: '加入牌桌',
+      roomCodeLabel: '房间号',
+      roomCodeHint: '向房主要 6 位房间号。',
+      roomCodePlaceholder: '74X8VB',
+      nameLabel: '显示昵称',
+      namePlaceholder: '牌桌上别人怎么称呼你?',
+      readLabel: '你的判断',
+      readPlaceholder: '说说为什么觉得这个是真人…',
+      readError: '判断至少要写几个字。',
+      rememberLabel: '在此设备上记住我',
+      displayTitle: '玩家与状态',
+      revealLabel: '揭晓倒计时',
+      batteryLabel: '电量',
+      emptyTitle: '还没有开放的牌桌',
+      emptyBody: '来当第一个房主吧。客人通过你的邀请免费加入。',
+      emptyCta: '开我自己的牌桌',
     },
   },
 };
@@ -415,6 +511,11 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
         <ModalAndStates />
         <CardAndAssetSamples />
         <GameHistoryPanel entries={GAME_UI_PREVIEW_MESSAGES} label="Round history" />
+      </section>
+
+      <section aria-labelledby="game-ui-preview-forms-title" className="game-ui-preview-section">
+        <h2 id="game-ui-preview-forms-title">{copy.formsSectionTitle}</h2>
+        <FormsAndDisplay copy={copy.forms} />
       </section>
 
       <section aria-labelledby="game-ui-preview-first-session-title" className="game-ui-preview-section">

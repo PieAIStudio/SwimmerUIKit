@@ -37,6 +37,24 @@ export {
   type FirstSessionOnboardingProps,
   type FirstSessionOnboardingStep,
 } from './FirstSessionGameShell';
+export {
+  GameCheckbox,
+  GameField,
+  GameInput,
+  GameTextArea,
+  type GameCheckboxProps,
+  type GameFieldProps,
+  type GameInputProps,
+  type GameTextAreaProps,
+} from './GameForms';
+export {
+  GameAvatar,
+  GameEmptyState,
+  GameProgress,
+  type GameAvatarProps,
+  type GameEmptyStateProps,
+  type GameProgressProps,
+} from './GameDisplay';
 export { GameUiPreview, type GameUiPreviewProps } from './GameUiPreview';
 export { GAME_UI_PREVIEW_MESSAGES } from './previewStates';
 export {
