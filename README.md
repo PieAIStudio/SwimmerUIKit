@@ -2,7 +2,7 @@
 
 Self-contained clay game UI kit extracted from TuringPact into a standalone React 19 + TypeScript strict + Tailwind v4 package.
 
-This package is currently validated for local build and local preview evidence only. It is not published from this repository in this extraction pass.
+The approved distribution strategy is the package registry path declared by this repository: `@pieaistudio/swimmer-ui-kit` published to GitHub Packages through `.github/workflows/publish.yml` and `publishConfig.registry`. Consuming apps should depend on the registry package version and should not keep committed `.tgz` package artifacts long term.
 
 ## Install shape
 
@@ -56,6 +56,16 @@ The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root
 - `FirstSessionHud`
 - `FirstSessionOnboarding`
 - `GameUiPreview`
+- `GameShell`
+- `GameSceneHudLayout`
+- `GameFactList`
+- `GameStatList`
+- `GameMovementPad`
+- `GameAssetLibrary`
+- `GameAssetCard`
+- `GamePlacementToolbar`
+- `GameObjectToolbar`
+- `GameActionGrid`
 
 ### Tokens and assets
 
@@ -91,6 +101,28 @@ The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root
 </GameButton>
 ```
 
+## Official package distribution
+
+SwimmerUIKit is scoped as `@pieaistudio/swimmer-ui-kit` and is configured for GitHub Packages. The release workflow builds and publishes the package on `v*` tags or manual dispatch.
+
+Consuming apps should use a registry dependency:
+
+```json
+{
+  "dependencies": {
+    "@pieaistudio/swimmer-ui-kit": "0.6.0"
+  }
+}
+```
+
+For GitHub Packages, add only the scope registry to the consuming app or CI environment:
+
+```ini
+@pieaistudio:registry=https://npm.pkg.github.com
+```
+
+Authentication should come from the host environment, such as `NODE_AUTH_TOKEN` or the platform's package-read secret. Do not commit tokens. Do not keep `vendor/packages/*.tgz` or `file:vendor/packages/...tgz` as the normal integration path; a tarball may be used only as a short emergency bridge before a registry package is available.
+
 ## CSS variable tokens
 
 Tokens are available in TypeScript and as CSS variables. The CSS variables are the cross-stack contract and can be consumed outside React:
@@ -112,6 +144,58 @@ import { CLAY_UI_TOKENS, GAME_UI_TARGETS } from '@pieaistudio/swimmer-ui-kit';
 console.log(CLAY_UI_TOKENS.semantic.surface); // var(--game-ui-surface)
 console.log(GAME_UI_TARGETS.mobileLandscapeProofWidthPx); // 844
 ```
+
+## OwnMySpace game surface pack example
+
+The game surface pack gives host apps official UI primitives for visible game DOM while keeping runtime scene/canvas code inside the host app:
+
+```tsx
+import {
+  GameAssetLibrary,
+  GameFactList,
+  GameMovementPad,
+  GamePlacementToolbar,
+  GameShell,
+} from '@pieaistudio/swimmer-ui-kit';
+import '@pieaistudio/swimmer-ui-kit/styles.css';
+
+export function IslandSurface() {
+  return (
+    <GameShell
+      title="Island editor"
+      hud={<GameFactList label="Island facts" facts={[{ id: 'objects', label: 'Objects', value: '3/12' }]} />}
+      movementPad={<GameMovementPad label="Move avatar" />}
+      assetLibrary={(
+        <GameAssetLibrary
+          label="Placeable assets"
+          title="Assets"
+          selectedAssetId="manual-chair"
+          groups={[
+            { id: 'starter', label: 'Starter', source: 'starter', assets: [{ assetId: 'starter-table', source: 'starter', title: 'Starter table' }] },
+            { id: 'generated', label: 'Generated', source: 'generated', assets: [{ assetId: 'gen-lamp', source: 'generated', title: 'Generated lamp', status: 'ready' }] },
+            { id: 'imported', label: 'Imported', source: 'imported', assets: [{ assetId: 'manual-chair', source: 'imported', title: 'Manual chair', status: 'selected' }] },
+          ]}
+        />
+      )}
+      bottomBar={(
+        <GamePlacementToolbar
+          title="Placement"
+          selectedTitle="Manual chair"
+          placedObjects={3}
+          maxObjects={12}
+          statusValue="Ready"
+          actions={[{ id: 'place', label: 'Place', icon: 'check', tone: 'primary' }]}
+          objectActions={[{ id: 'rotate', label: 'Rotate', icon: 'compass', shortcut: 'R' }]}
+        />
+      )}
+    >
+      <canvas aria-label="3D island scene" />
+    </GameShell>
+  );
+}
+```
+
+The package intentionally accepts data and callbacks through props. It does not import OwnMySpace runtime stores, R3F scene code, asset manifests, providers, or persistence APIs.
 
 ## Local preview
 
@@ -145,7 +229,7 @@ This extraction pass does not modify TuringPact. A future TuringPact integration
 5. Pass localized copy into `FirstSessionHud`, `FirstSessionOnboarding`, and any preview/demo surfaces through props instead of relying on the package to call TuringPact i18n.
 6. Decide whether TuringPact continues serving `/assets/game/ui/clay/...` source assets or relies on the package inline icon fallback. If source assets are required, keep or copy `public/assets/game/ui` according to the host app asset strategy.
 7. Remove TuringPact `src/features/game-ui` only after all imports are replaced and local regression passes.
-8. Remove or stop importing TuringPact `src/styles/game-ui-clay.css` only after `@pieai/swimmer-ui-kit/styles.css` covers the adopted surfaces.
+8. Remove or stop importing TuringPact `src/styles/game-ui-clay.css` only after `@pieaistudio/swimmer-ui-kit/styles.css` covers the adopted surfaces.
 9. Keep `src/styles/theme.css` host app theme decisions separate from the kit unless the host app intentionally delegates those tokens to the kit.
 10. Re-run TuringPact H1 core flow, first-session, desktop, and mobile-landscape visual evidence after the integration.
 
