@@ -1,6 +1,6 @@
 {
   "name": "@pieaistudio/swimmer-ui-kit",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Self-contained clay game UI kit extracted from TuringPact for PieAI game surfaces.",
   "type": "module",
   "license": "UNLICENSED",
