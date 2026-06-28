@@ -355,7 +355,7 @@ export function GameAssetCard({
       {...props}
     >
       <span className="game-ui-asset-card-preview">
-        {thumbnailSrc ? <img alt={thumbnailAlt} src={thumbnailSrc} /> : <GameAssetIcon icon={icon} size="xl" />}
+        {thumbnailSrc ? <img alt={thumbnailAlt} src={thumbnailSrc} /> : <GameAssetIcon className="game-ui-asset-card-icon" icon={icon} size="xl" />}
       </span>
       <span className="game-ui-asset-card-copy">
         <span className="game-ui-asset-card-badges">

@@ -103,6 +103,7 @@ describe('OwnMySpace game surface pack', () => {
     expect(html).toContain('Generated');
     expect(html).toContain('placed');
     expect(html).toContain('Generated crate');
+    expect(html).toContain('game-ui-asset-card-icon');
     expect(html).toContain('Size');
   });
 
