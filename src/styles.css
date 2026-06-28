@@ -256,6 +256,10 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 }
 
 /* OwnMySpace game surface pack */
+.game-ui-asset-compression-repro { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); align-items: start; gap: 14px; overflow-x: auto; }
+.game-ui-asset-compression-repro-surface { display: grid; width: var(--repro-width); min-width: var(--repro-width); gap: 8px; overflow: hidden; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.42); padding: 10px; }
+.game-ui-asset-compression-repro-surface .game-ui-asset-library { width: 100%; }
+.game-ui-asset-compression-repro-surface[data-repro-surface='rail'] .game-ui-asset-library { max-height: 330px; overflow: auto; }
 .game-ui-shell { position: relative; display: grid; min-height: min(760px, 100dvh); overflow: hidden; border-radius: var(--game-ui-radius-modal); background: radial-gradient(circle at 18% 16%, rgba(126,224,182,.24), transparent 24rem), linear-gradient(150deg, #314b38, #261b14 78%); color: var(--game-ui-text); isolation: isolate; box-shadow: var(--game-ui-shadow-modal); }
 .game-ui-shell-scene { position: relative; min-width: 0; min-height: 420px; overflow: hidden; }
 .game-ui-shell-scene > * { min-width: 0; }
@@ -299,15 +303,16 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-movement-button[data-direction='reset'] { grid-area: reset; }
 .game-ui-movement-pad p { max-width: 18ch; margin: 0; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: 760; line-height: 1.25; }
 
-.game-ui-asset-library > section { display: grid; gap: 12px; }
+.game-ui-asset-library { container: game-asset-library / inline-size; min-width: 0; }
+.game-ui-asset-library > section { display: grid; min-width: 0; gap: 12px; }
 .game-ui-asset-library-subtitle { margin: 0; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); line-height: var(--game-ui-line-body); }
 .game-ui-asset-library-counts, .game-ui-asset-card-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.game-ui-asset-library-groups { display: grid; gap: 14px; }
-.game-ui-asset-library-group { display: grid; gap: 8px; }
-.game-ui-asset-library-group > header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.game-ui-asset-library-group > header strong { color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); }
-.game-ui-asset-library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 9px; }
-.game-ui-asset-library [data-density='dense'] .game-ui-asset-library-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
+.game-ui-asset-library-groups { display: grid; min-width: 0; gap: 14px; }
+.game-ui-asset-library-group { display: grid; min-width: 0; gap: 8px; }
+.game-ui-asset-library-group > header { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 8px; }
+.game-ui-asset-library-group > header strong { min-width: 0; overflow: hidden; color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-asset-library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--game-ui-asset-card-min-width, 168px), 100%), 1fr)); gap: 9px; }
+.game-ui-asset-library [data-density='dense'] .game-ui-asset-library-grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--game-ui-asset-card-dense-min-width, 132px), 100%), 1fr)); }
 .game-ui-asset-card { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; border: 1px solid rgba(92,60,39,.16); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.9); color: var(--game-ui-text); padding: 10px; text-align: left; box-shadow: var(--game-ui-shadow-button); cursor: pointer; transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
 .game-ui-asset-card:hover { transform: translateY(-1px); }
 .game-ui-asset-card:active { scale: .98; }
@@ -326,6 +331,22 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-asset-card-facts b { color: var(--game-ui-text); font-size: .76rem; }
 .game-ui-asset-card[data-asset-source='generated'] { border-color: rgba(29,154,139,.28); }
 .game-ui-asset-card[data-asset-source='imported'] { border-color: rgba(232,116,59,.3); }
+.game-ui-asset-card[data-asset-card-layout='rail'], .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-card { width: min(var(--game-ui-asset-rail-card-size, 52px), 100%); min-width: 0; min-height: min(var(--game-ui-asset-rail-card-size, 52px), 100%); grid-template-columns: 1fr; place-items: center; gap: 0; padding: 5px; border-radius: 20px; text-align: center; }
+.game-ui-asset-card[data-asset-card-layout='rail'] .game-ui-asset-card-preview, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-card-preview { width: min(var(--game-ui-asset-rail-preview-size, 42px), 100%); height: min(var(--game-ui-asset-rail-preview-size, 42px), 100%); overflow: visible; border-radius: 15px; }
+.game-ui-asset-card[data-asset-card-layout='rail'] .game-ui-asset-card-icon, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-card-icon { width: min(78%, var(--game-ui-asset-icon-lg)); height: min(78%, var(--game-ui-asset-icon-lg)); }
+.game-ui-asset-card[data-asset-card-layout='rail'] .game-ui-asset-card-copy, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-card-copy { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
+.game-ui-asset-library[data-card-layout='rail'] { padding: 6px; }
+.game-ui-asset-library[data-card-layout='rail'] > h3, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-subtitle, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-counts, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-group > header { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
+.game-ui-asset-library[data-card-layout='rail'] > section, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-groups, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-group, .game-ui-asset-library[data-card-layout='rail'] .game-ui-asset-library-grid { display: grid; grid-template-columns: 1fr; justify-items: center; gap: 8px; }
+@container game-asset-library (max-width: 180px) {
+  .game-ui-asset-library[data-card-layout='auto'] { padding: 6px; }
+  .game-ui-asset-library[data-card-layout='auto'] > h3, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-subtitle, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-counts, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-group > header { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
+  .game-ui-asset-library[data-card-layout='auto'] > section, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-groups, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-group, .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-library-grid { display: grid; grid-template-columns: 1fr; justify-items: center; gap: 8px; }
+  .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-card { width: min(var(--game-ui-asset-rail-card-size, 52px), 100%); min-width: 0; min-height: min(var(--game-ui-asset-rail-card-size, 52px), 100%); grid-template-columns: 1fr; place-items: center; gap: 0; padding: 5px; border-radius: 20px; text-align: center; }
+  .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-card-preview { width: min(var(--game-ui-asset-rail-preview-size, 42px), 100%); height: min(var(--game-ui-asset-rail-preview-size, 42px), 100%); overflow: visible; border-radius: 15px; }
+  .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-card-icon { width: min(78%, var(--game-ui-asset-icon-lg)); height: min(78%, var(--game-ui-asset-icon-lg)); }
+  .game-ui-asset-library[data-card-layout='auto'] .game-ui-asset-card-copy { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
+}
 
 .game-ui-placement-toolbar > div { display: grid; gap: 10px; }
 .game-ui-placement-toolbar .game-ui-progress { min-width: min(100%, 260px); }

@@ -61,6 +61,7 @@ export {
   type GameActionGridProps,
   type GameActionStyle,
   type GameAssetBadge,
+  type GameAssetCardLayout,
   type GameAssetCardProps,
   type GameAssetFact,
   type GameAssetGroup,

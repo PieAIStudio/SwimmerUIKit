@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 
 import { GameAssetIcon, GameBadge, GameCardFan, GameHud, GameLanguageMenu, GameLoadingState, GameOrientationGate, GameStageTile } from './ClayComponents';
 import { FirstSessionHud, FirstSessionOnboarding } from './FirstSessionGameShell';
@@ -430,6 +430,42 @@ function OwnMySpaceSurfaceSamples(): ReactNode {
   );
 }
 
+const ASSET_REPRO_GROUPS = [
+  {
+    id: 'starter',
+    label: 'Starter pieces',
+    source: 'starter' as const,
+    assets: [
+      { assetId: 'asset-repro-platform', source: 'starter' as const, title: 'Starter platform', status: 'ready' as const, icon: 'portal' as const, 'data-testid': 'asset-repro-platform' },
+      { assetId: 'asset-repro-chair', source: 'starter' as const, title: 'Starter chair', status: 'selected' as const, icon: 'shop' as const, 'data-testid': 'asset-repro-chair' },
+      { assetId: 'asset-repro-table', source: 'starter' as const, title: 'Starter table', status: 'ready' as const, icon: 'card' as const, 'data-testid': 'asset-repro-table' },
+    ],
+  },
+];
+
+function AssetCompressionRepro(): ReactNode {
+  return (
+    <div className="game-ui-asset-compression-repro" aria-label="Asset card compression repro">
+      {[
+        { id: 'comfortable', label: 'Comfortable library', width: '320px' },
+        { id: 'narrow', label: 'Narrow library', width: '156px' },
+        { id: 'rail', label: 'Rail library', width: '64px' },
+      ].map((surface) => (
+        <article className="game-ui-asset-compression-repro-surface" data-repro-surface={surface.id} key={surface.id} style={{ '--repro-width': surface.width } as CSSProperties}>
+          <GameBadge>{surface.label}</GameBadge>
+          <GameAssetLibrary
+            density="dense"
+            groups={ASSET_REPRO_GROUPS}
+            label={`${surface.label} assets`}
+            selectedAssetId="asset-repro-chair"
+            title="Build"
+          />
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function FirstSessionSamples(): ReactNode {
   const { firstSession: fs } = useCopy();
   const labels = {
@@ -643,6 +679,12 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
         <section aria-labelledby="game-ui-preview-ownmyspace-title" className="game-ui-preview-section">
           <h2 id="game-ui-preview-ownmyspace-title">OwnMySpace game surface pack</h2>
           <OwnMySpaceSurfaceSamples />
+        </section>
+
+        <section aria-labelledby="game-ui-preview-asset-compression-title" className="game-ui-preview-section">
+          <h2 id="game-ui-preview-asset-compression-title">Asset card compression proof</h2>
+          <p className="game-ui-small-copy">Official asset cards must stay visually complete when a game shell uses dense, narrow, or rail-style inventory slots.</p>
+          <AssetCompressionRepro />
         </section>
 
         <section aria-labelledby="game-ui-preview-first-session-title" className="game-ui-preview-section">

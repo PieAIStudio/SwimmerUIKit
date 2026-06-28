@@ -110,6 +110,25 @@ export const DenseMobile: Story = {
   },
 };
 
+export const CompressedAssetRail: StoryObj<typeof GameAssetLibrary> = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 16 }}>
+      <GameAssetLibrary
+        cardLayout="rail"
+        density="dense"
+        label="Rail assets"
+        selectedAssetId="manual-chair"
+        title="Build"
+        groups={[
+          { id: 'starter', label: 'Starter', source: 'starter', assets: starterAssets },
+          { id: 'generated', label: 'Generated', source: 'generated', assets: generatedAssets },
+          { id: 'imported', label: 'Imported', source: 'imported', assets: importedAssets },
+        ]}
+      />
+    </div>
+  ),
+};
+
 export const ActionPattern: StoryObj<typeof GameActionGrid> = {
   render: () => (
     <GameActionGrid

@@ -9,6 +9,7 @@ import type { ClayIconName } from './clay/assets';
 
 export type GameSurfaceDensity = 'comfortable' | 'dense';
 export type GameSurfaceLayout = 'auto' | 'desktop' | 'mobile';
+export type GameAssetCardLayout = 'auto' | 'list' | 'rail';
 
 export interface GameShellProps {
   /** Main game runtime surface, usually the host app canvas or 3D scene. */
@@ -279,6 +280,7 @@ export interface GameAssetBadge {
 export interface GameAssetCardProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'onSelect'> {
   assetId: string;
   badges?: readonly GameAssetBadge[];
+  cardLayout?: Exclude<GameAssetCardLayout, 'auto'>;
   description?: string;
   facts?: readonly GameAssetFact[];
   icon?: ClayIconName;
@@ -317,6 +319,7 @@ const ASSET_STATUS_TONES: Readonly<Record<GameAssetStatus, GameBadgeTone>> = {
 export function GameAssetCard({
   assetId,
   badges = [],
+  cardLayout = 'list',
   className,
   description,
   disabled,
@@ -347,6 +350,7 @@ export function GameAssetCard({
     <button
       aria-pressed={selected}
       className={classes}
+      data-asset-card-layout={cardLayout}
       data-asset-source={source}
       data-asset-status={status}
       disabled={disabled}
@@ -388,6 +392,7 @@ export interface GameAssetGroup {
 }
 
 export interface GameAssetLibraryProps {
+  cardLayout?: GameAssetCardLayout;
   className?: string;
   density?: GameSurfaceDensity;
   emptyAction?: ReactNode;
@@ -402,6 +407,7 @@ export interface GameAssetLibraryProps {
 }
 
 export function GameAssetLibrary({
+  cardLayout = 'auto',
   className,
   density = 'comfortable',
   emptyAction,
@@ -424,7 +430,7 @@ export function GameAssetLibrary({
   }, { generated: 0, imported: 0, starter: 0 });
 
   return (
-    <GamePanel className={classes} title={title} tone="strong">
+    <GamePanel className={classes} data-card-layout={cardLayout} title={title} tone="strong">
       <section aria-label={label} data-density={density}>
         {subtitle ? <p className="game-ui-asset-library-subtitle">{subtitle}</p> : null}
         <div aria-label="Asset source counts" className="game-ui-asset-library-counts">
@@ -445,14 +451,19 @@ export function GameAssetLibrary({
                   {group.source ? <GameBadge tone={ASSET_SOURCE_TONES[group.source]}>{ASSET_SOURCE_LABELS[group.source]}</GameBadge> : null}
                 </header>
                 <div className="game-ui-asset-library-grid">
-                  {group.assets.map((asset) => (
-                    <GameAssetCard
-                      key={asset.assetId}
-                      {...asset}
-                      {...(onSelectAsset ? { onSelect: onSelectAsset } : {})}
-                      selected={asset.assetId === selectedAssetId}
-                    />
-                  ))}
+                  {group.assets.map((asset) => {
+                    const resolvedCardLayout = cardLayout === 'auto' ? asset.cardLayout : cardLayout;
+
+                    return (
+                      <GameAssetCard
+                        key={asset.assetId}
+                        {...asset}
+                        {...(resolvedCardLayout ? { cardLayout: resolvedCardLayout } : {})}
+                        {...(onSelectAsset ? { onSelect: onSelectAsset } : {})}
+                        selected={asset.assetId === selectedAssetId}
+                      />
+                    );
+                  })}
                 </div>
               </section>
             ))}
