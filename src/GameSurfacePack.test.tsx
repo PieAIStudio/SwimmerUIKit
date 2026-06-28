@@ -87,6 +87,31 @@ describe('OwnMySpace game surface pack', () => {
     expect(html).toContain('aria-pressed="true"');
   });
 
+  it('renders official rail layout hooks for compressed asset libraries', () => {
+    const html = compact(renderToStaticMarkup(
+      <GameAssetLibrary
+        cardLayout="rail"
+        density="dense"
+        label="Rail assets"
+        title="Build"
+        selectedAssetId="generated-crate"
+        groups={[
+          {
+            id: 'generated',
+            label: 'Generated assets',
+            source: 'generated',
+            assets: [{ assetId: 'generated-crate', source: 'generated', title: 'Generated crate', status: 'selected', icon: 'gem' }],
+          },
+        ]}
+      />,
+    ));
+
+    expect(html).toContain('data-card-layout="rail"');
+    expect(html).toContain('data-asset-card-layout="rail"');
+    expect(html).toContain('Generated crate');
+    expect(html).toContain('aria-pressed="true"');
+  });
+
   it('renders asset cards as selectable buttons with source and status badges', () => {
     const html = compact(renderToStaticMarkup(
       <GameAssetCard
