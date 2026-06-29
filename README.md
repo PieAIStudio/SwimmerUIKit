@@ -74,6 +74,13 @@ The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root
 - `GameUndoRedoActions`
 - `GameBuildLibrary`
 - `GameCompactGameDrawer`
+- `GameContractorPanel`
+- `GameConstructionJobCard`
+- `GameConstructionProgress`
+- `GameConstructionApprovalBar`
+- `GameRobotCrewStatus`
+- `GameBeforeAfterToggle`
+- `GameCompactJobDrawer`
 
 ### Tokens and assets
 
@@ -234,6 +241,49 @@ import { GameTerrainBuildToolbox } from '@pieaistudio/swimmer-ui-kit';
 
 Use `variant="mobile"` or `variant="small-mobile"` to render the official compact drawer/tool strip. Mobile terrain tools default to compact visible captions through `toolCompactLabelMode="auto"`; consumers that need strict icon-only controls may pass `toolCompactLabelMode="hidden"` while keeping full accessible labels. Material swatches support `pattern` and `secondaryColor` for terrain paint readability, and build items may provide `previewSrc` thumbnails while staying data-only. The consuming game still owns where that drawer is placed relative to canvas, movement controls, and other HUD slots.
 
+## AI contractor / construction robot example
+
+`GameContractorPanel` gives games an official contractor queue for AI construction drafts, previews, robot work, validation, review, and approval. It is data-only: the consuming game owns commands, scene changes, generated assets, persistence, and provider transport.
+
+```tsx
+import { GameContractorPanel, type GameConstructionJob } from '@pieaistudio/swimmer-ui-kit';
+
+const jobs: readonly GameConstructionJob[] = [
+  {
+    id: 'house-pad-review',
+    title: 'House pad review',
+    description: 'Owner approval required before accepting terrain and block placement.',
+    status: 'readyForReview',
+    location: 'Main island',
+    progressValue: 92,
+    providerMode: 'local-only',
+    validationWarnings: [{ id: 'clearance', label: 'Validation clear', tone: 'success' }],
+    before: { label: 'Before', caption: 'Uneven terrain pad.' },
+    after: { label: 'After', caption: 'Flattened foundation pad with safe clearance.' },
+  },
+  {
+    id: 'garden-fence-blocked',
+    title: 'Garden fence blocked',
+    status: 'blocked',
+    progressValue: 44,
+    providerMode: 'paid-disabled',
+    validationWarnings: [{ id: 'collision', label: 'Collision risk', description: 'Fence crosses a saved object.', tone: 'warning' }],
+  },
+];
+
+<GameContractorPanel
+  jobs={jobs}
+  label="AI contractor jobs"
+  onAction={(actionId, jobId) => contractorStore.dispatch({ actionId, jobId })}
+  onSelectJob={(jobId) => contractorStore.selectJob(jobId)}
+  selectedJobId="house-pad-review"
+  subtitle="Local-only construction queue with owner approval."
+  title="AI contractor"
+/>
+```
+
+Use `GameCompactJobDrawer` or `variant="mobile"` / `variant="small-mobile"` for compact HUD surfaces. Job status covers `draft`, `preview`, `queued`, `working`, `blocked`, `readyForReview`, `accepted`, and `cancelled`; default actions cover approve, cancel, revise, and revert. Provider badges such as `local-only`, `mock`, and `paid-disabled` make budget/provider boundaries visible without creating provider transport inside the UI kit.
+
 ## Local preview
 
 Run the preview page:
@@ -253,6 +303,7 @@ The preview renders:
 - history panel
 - first-session HUD/onboarding shell
 - OwnMySpace surface pack and terrain/build tooling previews
+- AI contractor / construction robot previews with job states, crew, approval, and compact drawer
 - orientation gate
 - responsive proof targets for desktop and mobile landscape
 

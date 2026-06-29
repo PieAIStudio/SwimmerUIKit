@@ -445,6 +445,93 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
   .game-ui-asset-card-copy > span:not(.game-ui-asset-card-badges):not(.game-ui-asset-card-facts), .game-ui-asset-card-facts { display: none; }
 }
 
+/* PLAN-0012 contractor / AI construction UI pack */
+.game-ui-contractor-panel { min-width: 0; container: game-contractor-panel / inline-size; }
+.game-ui-contractor-panel > section, .game-ui-contractor-panel[data-variant='mobile'], .game-ui-contractor-panel[data-variant='small-mobile'] { display: grid; min-width: 0; gap: 12px; }
+.game-ui-contractor-panel-subtitle { margin: 0; color: var(--game-ui-text-muted); font-size: var(--game-ui-font-sm); line-height: var(--game-ui-line-body); }
+.game-ui-contractor-panel-grid { display: grid; grid-template-columns: minmax(300px, .92fr) minmax(320px, 1.08fr); align-items: start; gap: 12px; }
+.game-ui-contractor-job-list, .game-ui-contractor-detail, .game-ui-compact-job-drawer-list { display: grid; min-width: 0; gap: 10px; }
+.game-ui-contractor-job-list { max-height: min(68dvh, 620px); overflow: auto; overscroll-behavior: contain; padding-right: 2px; }
+.game-ui-contractor-detail { border: 1px solid rgba(92,60,39,.12); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.46); padding: 12px; }
+.game-ui-contractor-panel[data-variant='mobile'], .game-ui-contractor-panel[data-variant='small-mobile'] { width: min(100%, 420px); }
+
+.game-ui-construction-job-card { display: grid; min-width: 0; gap: 10px; border: 1px solid rgba(92,60,39,.16); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.88); padding: 12px; box-shadow: var(--game-ui-shadow-panel); }
+.game-ui-construction-job-card[data-selected='true'] { border-color: var(--game-ui-secondary); box-shadow: var(--game-ui-shadow-panel), 0 0 0 3px rgba(29,154,139,.2); }
+.game-ui-construction-job-card[data-status='blocked'] { border-color: rgba(216,90,69,.34); }
+.game-ui-construction-job-card[data-status='readyForReview'] { border-color: rgba(79,157,107,.36); }
+.game-ui-construction-job-card[data-density='dense'] { gap: 8px; padding: 10px; }
+.game-ui-construction-job-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; }
+.game-ui-construction-job-select { display: inline-grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 9px; border: 0; background: transparent; color: inherit; padding: 0; font: inherit; text-align: left; cursor: pointer; }
+.game-ui-construction-job-select:disabled { cursor: default; }
+.game-ui-construction-job-select:focus-visible { outline: 3px solid var(--game-ui-focus-ring); outline-offset: 3px; border-radius: 14px; }
+.game-ui-construction-job-select span, .game-ui-robot-crew-copy { display: grid; min-width: 0; gap: 2px; }
+.game-ui-construction-job-select strong, .game-ui-robot-crew-copy strong { min-width: 0; overflow: hidden; color: var(--game-ui-text); text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-construction-job-select small, .game-ui-robot-crew-copy small, .game-ui-robot-crew-copy em, .game-ui-construction-steps small, .game-ui-construction-warning small, .game-ui-before-after-preview figcaption { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-style: normal; line-height: 1.25; }
+.game-ui-construction-job-badges, .game-ui-construction-approval-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.game-ui-construction-job-facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.game-ui-construction-job-facts > span { display: inline-grid; min-width: 82px; gap: 1px; border-radius: 10px; background: rgba(58,37,24,.08); padding: 6px 8px; }
+.game-ui-construction-job-facts small { color: var(--game-ui-text-muted); font-size: .66rem; font-weight: 860; letter-spacing: .06em; text-transform: uppercase; }
+.game-ui-construction-job-facts b { min-width: 0; overflow: hidden; color: var(--game-ui-text); font-size: var(--game-ui-font-xs); text-overflow: ellipsis; white-space: nowrap; }
+
+.game-ui-construction-progress { display: grid; min-width: 0; gap: 8px; }
+.game-ui-construction-progress-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.game-ui-construction-progress-header > span { display: inline-flex; min-width: 0; align-items: center; gap: 7px; }
+.game-ui-construction-progress-header strong { min-width: 0; overflow: hidden; color: var(--game-ui-text); font-size: var(--game-ui-font-sm); text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-construction-steps { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.game-ui-construction-steps li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; border-radius: 12px; background: rgba(58,37,24,.06); padding: 7px 8px; }
+.game-ui-construction-step-dot { width: 11px; height: 11px; border-radius: 999px; background: var(--game-ui-disabled); box-shadow: 0 0 0 3px rgba(58,37,24,.08); }
+.game-ui-construction-steps li[data-step-status='active'] .game-ui-construction-step-dot { background: var(--game-ui-secondary); }
+.game-ui-construction-steps li[data-step-status='complete'] .game-ui-construction-step-dot { background: var(--game-ui-success); }
+.game-ui-construction-steps li[data-step-status='blocked'] .game-ui-construction-step-dot { background: var(--game-ui-danger); }
+.game-ui-construction-steps strong { display: block; min-width: 0; overflow: hidden; color: var(--game-ui-text); font-size: var(--game-ui-font-xs); text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-construction-warnings { display: grid; gap: 6px; }
+.game-ui-construction-warning { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 7px; border: 1px solid rgba(232,116,59,.28); border-radius: 12px; background: rgba(242,179,92,.16); padding: 8px; }
+.game-ui-construction-warning > span { display: grid; min-width: 0; gap: 2px; }
+.game-ui-construction-warning[data-warning-tone='danger'] { border-color: rgba(216,90,69,.34); background: rgba(216,90,69,.13); }
+.game-ui-construction-warning[data-warning-tone='success'] { border-color: rgba(79,157,107,.34); background: rgba(126,224,182,.18); }
+.game-ui-construction-warning strong { color: var(--game-ui-text); font-size: var(--game-ui-font-xs); }
+
+.game-ui-construction-approval-bar { display: grid; min-width: 0; gap: 8px; border-top: 1px solid rgba(92,60,39,.1); padding-top: 8px; }
+.game-ui-construction-approval-bar .game-ui-action-grid { gap: 7px; }
+.game-ui-construction-approval-bar[data-variant='small-mobile'] .game-ui-button { min-height: 40px; padding: 0 10px; font-size: var(--game-ui-font-xs); }
+
+.game-ui-robot-crew-status { display: grid; min-width: 0; gap: 8px; }
+.game-ui-robot-crew-status > header strong { color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); }
+.game-ui-robot-crew-list { display: grid; gap: 7px; }
+.game-ui-robot-crew-member { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; border-radius: 14px; background: rgba(58,37,24,.07); padding: 8px; }
+.game-ui-robot-crew-member[data-crew-status='working'] { background: rgba(29,154,139,.11); }
+.game-ui-robot-crew-member[data-crew-status='blocked'] { background: rgba(216,90,69,.1); }
+
+.game-ui-before-after-toggle { display: grid; min-width: 0; gap: 8px; }
+.game-ui-before-after-toggle .game-ui-segmented { width: fit-content; max-width: 100%; }
+.game-ui-before-after-preview { display: grid; min-width: 0; gap: 7px; margin: 0; }
+.game-ui-before-after-content, .game-ui-before-after-placeholder { display: grid; min-height: 160px; place-items: center; overflow: hidden; border: 1px solid rgba(92,60,39,.12); border-radius: var(--game-ui-radius-panel); background: radial-gradient(circle at 50% 50%, rgba(126,224,182,.18), transparent 8rem), rgba(58,37,24,.08); }
+.game-ui-before-after-placeholder { color: var(--game-ui-text-muted); }
+.game-ui-construction-preview-card { display: grid; width: 100%; height: 100%; place-items: center; gap: 6px; padding: 18px; text-align: center; }
+.game-ui-construction-preview-card strong { color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-size: var(--game-ui-font-lg); }
+.game-ui-construction-preview-card small { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: 820; text-transform: uppercase; }
+.game-ui-construction-preview-card[data-preview='after'] { background: radial-gradient(circle at 50% 58%, rgba(79,157,107,.3), transparent 7rem); }
+.game-ui-construction-preview-card[data-preview='before'] { background: radial-gradient(circle at 50% 58%, rgba(232,116,59,.22), transparent 7rem); }
+
+.game-ui-compact-job-drawer .game-ui-compact-game-drawer { width: 100%; }
+.game-ui-compact-job-drawer, .game-ui-compact-job-drawer .game-ui-compact-game-drawer, .game-ui-compact-job-drawer-list, .game-ui-compact-job-drawer-list > * { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.game-ui-compact-job-drawer-list { max-height: min(58dvh, 440px); overflow: auto; padding: 2px; }
+.game-ui-contractor-panel[data-variant='small-mobile'] .game-ui-construction-job-header, .game-ui-contractor-panel[data-variant='mobile'] .game-ui-construction-job-header { grid-template-columns: minmax(0, 1fr); }
+.game-ui-contractor-panel[data-variant='small-mobile'] .game-ui-construction-job-badges, .game-ui-contractor-panel[data-variant='mobile'] .game-ui-construction-job-badges { justify-content: flex-start; }
+.game-ui-contractor-panel[data-variant='small-mobile'] .game-ui-construction-steps { display: none; }
+.game-ui-contractor-panel[data-variant='small-mobile'] .game-ui-before-after-content, .game-ui-contractor-panel[data-variant='small-mobile'] .game-ui-before-after-placeholder { min-height: 118px; }
+
+@container game-contractor-panel (max-width: 760px) {
+  .game-ui-contractor-panel-grid { grid-template-columns: minmax(0, 1fr); }
+  .game-ui-contractor-job-list { max-height: none; overflow: visible; padding-right: 0; }
+  .game-ui-contractor-detail { padding: 10px; }
+}
+
+@media (max-width: 900px) {
+  .game-ui-contractor-panel-grid { grid-template-columns: minmax(0, 1fr); }
+  .game-ui-construction-job-facts > span { min-width: min(108px, 100%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .game-ui-clay-preview *, .game-ui-clay-preview *::before, .game-ui-clay-preview *::after { scroll-behavior: auto !important; transition-duration: 1ms !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
   .game-ui-button:hover, .game-ui-icon-button:hover, .game-ui-language-trigger:hover, .game-ui-language-popover button:hover, .game-ui-stage-tile:hover, .game-ui-orientation-card button:hover, .game-ui-asset-card:hover { transform: none; }
