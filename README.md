@@ -66,6 +66,14 @@ The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root
 - `GamePlacementToolbar`
 - `GameObjectToolbar`
 - `GameActionGrid`
+- `GameTerrainBuildToolbox`
+- `GameTerrainModeControl`
+- `GameTerrainToolStrip`
+- `GameBrushControls`
+- `GameMaterialSwatches`
+- `GameUndoRedoActions`
+- `GameBuildLibrary`
+- `GameCompactGameDrawer`
 
 ### Tokens and assets
 
@@ -78,7 +86,7 @@ The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root
 - `CLAY_MOTION_TOKENS`
 - `CLAY_LAYER_TOKENS`
 - `CLAY_TARGET_TOKENS`
-- `CLAY_ASSET_SIZE_TOKENS`
+- `CLAY_ASSET_SIZE_TOKENS` including terrain/build sizing entries for swatches, tool hit targets, brush numeric width, and build rail cards
 - `CLAY_UI_TOKENS`
 - `GAME_UI_TOKENS`
 - `GAME_UI_TARGETS`
@@ -197,6 +205,34 @@ export function IslandSurface() {
 
 The package intentionally accepts data and callbacks through props. It does not import OwnMySpace runtime stores, R3F scene code, asset manifests, providers, or persistence APIs.
 
+## Terrain/build tooling example
+
+`GameTerrainBuildToolbox` gives games official terrain and construction controls without owning terrain truth, schema, commands, or persistence. Host apps pass mode/tool/material/build state and receive callbacks:
+
+```tsx
+import { GameTerrainBuildToolbox } from '@pieaistudio/swimmer-ui-kit';
+
+<GameTerrainBuildToolbox
+  activeBuildCategoryId="foundation"
+  activeMaterialId="grass"
+  activeModeId="terrain"
+  activeToolId="raise"
+  brush={{ radius: 2.75, strength: 0.45 }}
+  buildCategories={[{ id: 'foundation', label: 'Foundation', items: [{ id: 'floor-2x2', label: '2x2 floor' }] }]}
+  label="Terrain and build tools"
+  materials={[{ id: 'grass', label: 'Grass', color: '#4f9d6b' }]}
+  modes={[{ id: 'terrain', label: 'Terrain' }, { id: 'build', label: 'Build' }]}
+  onBrushRadiusChange={(radius) => terrainEditor.setRadius(radius)}
+  onModeChange={(mode) => terrainEditor.setMode(mode)}
+  onToolChange={(tool) => terrainEditor.setTool(tool)}
+  title="Island tools"
+  tools={[{ id: 'raise', label: 'Raise' }, { id: 'flatten', label: 'Flatten' }]}
+  undoRedo={{ canUndo: true, canRedo: false }}
+/>
+```
+
+Use `variant="mobile"` or `variant="small-mobile"` to render the official compact drawer/tool strip. The consuming game still owns where that drawer is placed relative to canvas, movement controls, and other HUD slots.
+
 ## Local preview
 
 Run the preview page:
@@ -215,6 +251,7 @@ The preview renders:
 - card fan and asset path references
 - history panel
 - first-session HUD/onboarding shell
+- OwnMySpace surface pack and terrain/build tooling previews
 - orientation gate
 - responsive proof targets for desktop and mobile landscape
 

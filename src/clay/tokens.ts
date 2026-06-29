@@ -127,6 +127,10 @@ export const CLAY_ASSET_SIZE_TOKENS = {
   buttonSkinMinWidth: 'var(--game-ui-asset-button-min-width)',
   cardFanWidth: 'var(--game-ui-asset-card-fan-width)',
   stageTileMinHeight: 'var(--game-ui-stage-tile-min-height)',
+  terrainSwatchSize: 'var(--game-ui-terrain-swatch-size)',
+  terrainToolHitSize: 'var(--game-ui-terrain-tool-hit-size)',
+  buildRailCardSize: 'var(--game-ui-build-rail-card-size)',
+  brushNumberWidth: 'var(--game-ui-brush-number-width)',
 } as const;
 
 export const CLAY_UI_TOKENS = {

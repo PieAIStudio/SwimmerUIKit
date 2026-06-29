@@ -93,4 +93,8 @@
   --game-ui-asset-button-min-width: 148px;
   --game-ui-asset-card-fan-width: 132px;
   --game-ui-stage-tile-min-height: 122px;
+  --game-ui-terrain-swatch-size: 34px;
+  --game-ui-terrain-tool-hit-size: 44px;
+  --game-ui-build-rail-card-size: 52px;
+  --game-ui-brush-number-width: 76px;
 }

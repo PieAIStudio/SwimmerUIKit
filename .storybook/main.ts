@@ -9,9 +9,11 @@ const config: StorybookConfig = {
   staticDirs: ['../public'],
   // The clay tokens live in src/styles.css behind Tailwind v4's @theme bridge,
   // so Storybook's Vite builder needs the same @tailwindcss/vite plugin the
-  // library and showcase builds use. Without it the CSS variables never emit.
+  // library and showcase builds use. staticDirs is the single owner of public
+  // assets; disabling Vite's second public copy avoids intermittent EEXIST
+  // failures when Storybook builds the icon catalog.
   async viteFinal(viteConfig) {
-    return mergeConfig(viteConfig, { plugins: [tailwindcss()] });
+    return mergeConfig(viteConfig, { plugins: [tailwindcss()], publicDir: false });
   },
 };
 

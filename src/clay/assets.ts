@@ -63,6 +63,8 @@ export const CLAY_ICON_VARIANTS = {
   smile: { line: A('icons/function/emoji-good-v1.png') },
   timer: { game: A('icons/common/timer-v1.png'), line: A('icons/function/stopwatch-v1.png') },
   trophy: { game: A('icons/common/trophy-v1.png'), line: A('icons/function/trophy-v1.png') },
+  undo: { line: A('icons/function/back-v1.png') },
+  redo: { line: A('icons/function/refresh-v1.png') },
   vote: { game: A('icons/common/target-v1.png'), line: A('icons/function/target-v1.png') },
 } satisfies Record<string, ClayIconVariants>;
 
@@ -180,6 +182,8 @@ const INLINE_ICON_LABELS: Record<ClayIconName, string> = {
   gift: '❦',
   globe: '◎',
   history: '≡',
+  redo: '↻',
+  undo: '↶',
   home: '⌂',
   hourglass: '⧗',
   laurel: '❧',
@@ -216,6 +220,8 @@ const INLINE_ICON_ACCENTS: Record<ClayIconName, string> = {
   gift: '#d85a45',
   globe: '#1d9a8b',
   history: '#7b6652',
+  redo: '#6c4f38',
+  undo: '#6c4f38',
   home: '#6c4f38',
   hourglass: '#e8743b',
   laurel: '#4f9d6b',
