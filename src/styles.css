@@ -287,7 +287,12 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-action-grid { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .game-ui-action-grid-button { min-width: 0; }
 .game-ui-action-grid kbd, .game-ui-movement-button kbd { border-radius: 8px; background: rgba(58,37,24,.12); color: inherit; padding: 2px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .72em; font-weight: 900; }
-.game-ui-action-grid .game-ui-icon-button { width: 48px; padding: 0; }
+.game-ui-action-grid .game-ui-icon-button { width: 48px; min-width: 0; padding: 0; }
+.game-ui-action-grid[data-icon-label-mode='caption'] .game-ui-icon-button { flex-direction: column; gap: 2px; width: var(--game-ui-terrain-tool-hit-size, 54px); min-height: calc(var(--game-ui-terrain-tool-hit-size, 54px) + 14px); padding: 5px 4px 4px; line-height: 1; }
+.game-ui-action-grid[data-icon-label-mode='caption'] .game-ui-icon-button .game-ui-asset-icon { border-radius: 999px; background: rgba(58,37,24,.08); box-shadow: inset 0 0 0 1px rgba(58,37,24,.08); padding: 2px; }
+.game-ui-action-grid[data-icon-label-mode='caption'] .game-ui-icon-button[aria-pressed='true'] .game-ui-asset-icon { background: rgba(255,248,236,.32); box-shadow: inset 0 0 0 1px rgba(58,37,24,.12); }
+.game-ui-action-grid-caption { display: block; max-width: 100%; overflow: hidden; color: var(--game-ui-text-muted); font-size: .62rem; font-weight: 920; letter-spacing: .015em; line-height: 1; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.game-ui-action-grid .game-ui-icon-button[aria-pressed='true'] .game-ui-action-grid-caption { color: var(--game-ui-text); }
 
 .game-ui-movement-pad { display: grid; width: fit-content; gap: 7px; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-modal); background: rgba(255,248,236,.82); padding: 10px; box-shadow: var(--game-ui-shadow-panel); backdrop-filter: blur(14px); }
 .game-ui-movement-pad:focus-visible { outline: 3px solid var(--game-ui-focus-ring); outline-offset: 3px; }
@@ -367,6 +372,7 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-terrain-mode-options, .game-ui-build-categories { display: flex; flex-wrap: wrap; gap: 8px; }
 .game-ui-terrain-mode-option, .game-ui-build-category, .game-ui-material-swatch, .game-ui-build-item { min-width: 0; border: 1px solid rgba(92,60,39,.16); border-radius: var(--game-ui-radius-control); background: rgba(255,248,236,.82); color: var(--game-ui-text); font: inherit; font-weight: var(--game-ui-weight-strong); cursor: pointer; box-shadow: var(--game-ui-shadow-button); }
 .game-ui-terrain-mode-option { display: inline-grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 7px; min-height: 44px; padding: 6px 10px; }
+.game-ui-terrain-mode-option > span, .game-ui-build-category > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .game-ui-terrain-mode-option small, .game-ui-build-category small, .game-ui-material-swatch-copy small, .game-ui-build-item-copy small { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); font-weight: 760; line-height: 1.2; }
 .game-ui-terrain-mode-option[aria-pressed='true'], .game-ui-build-category[aria-selected='true'], .game-ui-material-swatch[aria-selected='true'], .game-ui-build-item[aria-pressed='true'] { border-color: var(--game-ui-secondary); background: rgba(29,154,139,.18); box-shadow: var(--game-ui-shadow-button), 0 0 0 3px rgba(29,154,139,.2); }
 .game-ui-terrain-mode-option:disabled, .game-ui-build-category:disabled, .game-ui-material-swatch:disabled, .game-ui-build-item:disabled { cursor: not-allowed; opacity: .58; transform: none; }
@@ -379,18 +385,23 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-material-swatch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
 .game-ui-material-swatch { display: grid; grid-template-columns: var(--game-ui-terrain-swatch-size) minmax(0, 1fr); align-items: center; gap: 8px; min-height: 48px; padding: 7px; text-align: left; }
 .game-ui-material-swatch-chip { width: var(--game-ui-terrain-swatch-size); height: var(--game-ui-terrain-swatch-size); border: 2px solid rgba(255,248,236,.9); border-radius: 13px; background: var(--swatch-color); box-shadow: var(--game-ui-shadow-inset), 0 2px 8px rgba(58,37,24,.16); }
+.game-ui-material-swatch-chip[data-swatch-pattern='speckled'] { background: radial-gradient(circle at 24% 28%, var(--swatch-secondary-color) 0 3px, transparent 3.5px), radial-gradient(circle at 70% 64%, rgba(255,248,236,.72) 0 2px, transparent 2.5px), var(--swatch-color); background-size: 18px 18px, 16px 16px, auto; }
+.game-ui-material-swatch-chip[data-swatch-pattern='hatched'] { background: repeating-linear-gradient(135deg, var(--swatch-secondary-color) 0 3px, transparent 3px 8px), var(--swatch-color); }
+.game-ui-material-swatch-chip[data-swatch-pattern='grid'] { background: linear-gradient(90deg, rgba(255,248,236,.5) 1px, transparent 1px), linear-gradient(0deg, rgba(255,248,236,.42) 1px, transparent 1px), var(--swatch-color); background-size: 10px 10px; }
 .game-ui-material-swatch-copy, .game-ui-build-item-copy { display: grid; min-width: 0; gap: 2px; }
 .game-ui-material-swatch-copy strong, .game-ui-build-item-copy strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .game-ui-build-library > section { display: grid; gap: 10px; }
 .game-ui-build-category { display: inline-grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 7px; min-height: 42px; padding: 6px 9px; text-align: left; }
 .game-ui-build-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(168px, 100%), 1fr)); gap: 9px; }
 .game-ui-build-item { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 9px; width: 100%; min-height: 70px; padding: 9px; text-align: left; }
-.game-ui-build-item-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 14px; background: rgba(58,37,24,.08); box-shadow: var(--game-ui-shadow-inset); }
+.game-ui-build-item-icon { display: grid; width: 42px; height: 42px; place-items: center; overflow: hidden; border-radius: 14px; background: rgba(58,37,24,.08); box-shadow: var(--game-ui-shadow-inset); }
+.game-ui-build-item-preview { width: 100%; height: 100%; object-fit: contain; }
 .game-ui-build-item-badges { display: flex; flex-wrap: wrap; gap: 5px; }
 .game-ui-build-item-copy > span:not(.game-ui-build-item-badges) { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); line-height: 1.25; }
-.game-ui-compact-game-drawer { display: grid; gap: 8px; width: min(100%, 360px); }
-.game-ui-compact-game-drawer-trigger { justify-self: start; }
-.game-ui-compact-game-drawer-panel { display: none; max-height: min(70dvh, 520px); overflow: auto; }
+.game-ui-compact-game-drawer { display: grid; gap: 8px; width: min(100%, 360px); min-width: 0; }
+.game-ui-compact-game-drawer[data-variant='small-mobile'] { width: min(100%, 320px); }
+.game-ui-compact-game-drawer-trigger { justify-self: start; max-width: 100%; }
+.game-ui-compact-game-drawer-panel { display: none; max-height: min(72dvh, 520px); min-width: 0; overflow: auto; overscroll-behavior: contain; }
 .game-ui-compact-game-drawer[data-open='true'] .game-ui-compact-game-drawer-panel { display: grid; }
 .game-ui-compact-game-drawer .game-ui-panel { max-width: 100%; }
 .game-ui-terrain-build-toolbox[data-variant='dense'] .game-ui-terrain-build-main-grid, .game-ui-terrain-build-toolbox-body[data-variant='dense'] .game-ui-terrain-build-main-grid { grid-template-columns: minmax(0, 1fr) auto; }
@@ -398,6 +409,7 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-terrain-mode-control[data-variant='mobile'] .game-ui-terrain-mode-options, .game-ui-terrain-mode-control[data-variant='small-mobile'] .game-ui-terrain-mode-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid, .game-ui-terrain-tool-strip[data-variant='small-mobile'] .game-ui-action-grid, .game-ui-undo-redo-actions .game-ui-action-grid { gap: 6px; }
 .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid .game-ui-icon-button, .game-ui-terrain-tool-strip[data-variant='small-mobile'] .game-ui-action-grid .game-ui-icon-button, .game-ui-undo-redo-actions .game-ui-action-grid .game-ui-icon-button { width: var(--game-ui-terrain-tool-hit-size); min-height: var(--game-ui-terrain-tool-hit-size); }
+.game-ui-terrain-tool-strip[data-icon-label-mode='caption'] .game-ui-action-grid .game-ui-icon-button { min-height: calc(var(--game-ui-terrain-tool-hit-size) + 14px); }
 .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid kbd, .game-ui-terrain-tool-strip[data-variant='small-mobile'] .game-ui-action-grid kbd, .game-ui-undo-redo-actions .game-ui-action-grid kbd { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; white-space: nowrap; }
 .game-ui-material-swatches[data-variant='small-mobile'] .game-ui-material-swatch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .game-ui-material-swatches[data-variant='small-mobile'] .game-ui-material-swatch { grid-template-columns: 30px minmax(0, 1fr); min-height: 44px; }

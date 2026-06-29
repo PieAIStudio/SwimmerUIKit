@@ -220,18 +220,19 @@ import { GameTerrainBuildToolbox } from '@pieaistudio/swimmer-ui-kit';
   brush={{ radius: 2.75, strength: 0.45 }}
   buildCategories={[{ id: 'foundation', label: 'Foundation', items: [{ id: 'floor-2x2', label: '2x2 floor' }] }]}
   label="Terrain and build tools"
-  materials={[{ id: 'grass', label: 'Grass', color: '#4f9d6b' }]}
-  modes={[{ id: 'terrain', label: 'Terrain' }, { id: 'build', label: 'Build' }]}
+  materials={[{ id: 'grass', label: 'Grass', compactLabel: 'Grass', color: '#4f9d6b', pattern: 'speckled', secondaryColor: '#8fd8a2' }]}
+  modes={[{ id: 'terrain', label: 'Terrain', compactLabel: 'Land' }, { id: 'build', label: 'Build' }]}
   onBrushRadiusChange={(radius) => terrainEditor.setRadius(radius)}
   onModeChange={(mode) => terrainEditor.setMode(mode)}
   onToolChange={(tool) => terrainEditor.setTool(tool)}
   title="Island tools"
-  tools={[{ id: 'raise', label: 'Raise' }, { id: 'flatten', label: 'Flatten' }]}
+  toolCompactLabelMode="auto"
+  tools={[{ id: 'raise', label: 'Raise terrain', compactLabel: 'Raise' }, { id: 'flatten', label: 'Flatten terrain', compactLabel: 'Flat' }]}
   undoRedo={{ canUndo: true, canRedo: false }}
 />
 ```
 
-Use `variant="mobile"` or `variant="small-mobile"` to render the official compact drawer/tool strip. The consuming game still owns where that drawer is placed relative to canvas, movement controls, and other HUD slots.
+Use `variant="mobile"` or `variant="small-mobile"` to render the official compact drawer/tool strip. Mobile terrain tools default to compact visible captions through `toolCompactLabelMode="auto"`; consumers that need strict icon-only controls may pass `toolCompactLabelMode="hidden"` while keeping full accessible labels. Material swatches support `pattern` and `secondaryColor` for terrain paint readability, and build items may provide `previewSrc` thumbnails while staying data-only. The consuming game still owns where that drawer is placed relative to canvas, movement controls, and other HUD slots.
 
 ## Local preview
 
