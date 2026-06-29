@@ -3,7 +3,7 @@ import type { ChangeEvent, CSSProperties, ReactNode } from 'react';
 import { GameAssetIcon, GameBadge, type GameBadgeTone } from './ClayComponents';
 import { GameEmptyState, GameProgress } from './GameDisplay';
 import { GameButton, type GameButtonVariant } from './GameButton';
-import { GameActionGrid, type GameSurfaceDensity, type GameUiAction } from './GameSurfacePack';
+import { GameActionGrid, type GameActionIconLabelMode, type GameSurfaceDensity, type GameUiAction } from './GameSurfacePack';
 import { GameField } from './GameForms';
 import { GamePanel } from './GameSurfaces';
 import type { ClayIconName } from './clay/assets';
@@ -11,11 +11,16 @@ import type { ClayIconName } from './clay/assets';
 export type GameTerrainBuildVariant = 'desktop' | 'dense' | 'mobile' | 'small-mobile';
 export type GameTerrainBuildModeId = 'terrain' | 'build' | 'place' | 'inspect';
 export type GameTerrainToolId = 'raise' | 'lower' | 'flatten' | 'smooth' | 'paint';
+export type GameTerrainToolCompactLabelMode = 'auto' | GameActionIconLabelMode;
+export type GameTerrainMaterialPattern = 'solid' | 'speckled' | 'hatched' | 'grid';
 export type GameTerrainStatusTone = Extract<GameBadgeTone, 'neutral' | 'success' | 'warning' | 'danger' | 'ai'>;
 export type GameBuildItemStatus = 'ready' | 'selected' | 'locked' | 'missing' | 'progress' | 'error';
 export type GameBuildCategoryId = 'foundation' | 'wall' | 'opening' | 'roof' | 'prop' | 'house' | string;
 
 export interface GameTerrainBuildModeOption {
+  /** Accessible label override when compact labels are used visually. */
+  ariaLabel?: string;
+  compactLabel?: string;
   disabled?: boolean;
   icon?: ClayIconName;
   id: GameTerrainBuildModeId | string;
@@ -24,6 +29,9 @@ export interface GameTerrainBuildModeOption {
 }
 
 export interface GameTerrainToolOption {
+  /** Accessible label override when icon/caption controls use short copy. */
+  ariaLabel?: string;
+  compactLabel?: string;
   disabled?: boolean;
   icon?: ClayIconName;
   id: GameTerrainToolId | string;
@@ -34,10 +42,13 @@ export interface GameTerrainToolOption {
 
 export interface GameTerrainMaterialSwatch {
   color: string;
+  compactLabel?: string;
   disabled?: boolean;
   id: string;
   label: string;
   meta?: string;
+  pattern?: GameTerrainMaterialPattern;
+  secondaryColor?: string;
 }
 
 export interface GameBrushControlLabels {
@@ -61,16 +72,20 @@ export interface GameBrushControlState {
 
 export interface GameBuildItem {
   badges?: readonly { label: string; tone?: GameBadgeTone }[];
+  compactLabel?: string;
   description?: string;
   disabled?: boolean;
   icon?: ClayIconName;
   id: string;
   label: string;
   meta?: string;
+  previewAlt?: string;
+  previewSrc?: string;
   status?: GameBuildItemStatus;
 }
 
 export interface GameBuildCategory {
+  compactLabel?: string;
   disabled?: boolean;
   icon?: ClayIconName;
   id: GameBuildCategoryId;
@@ -109,6 +124,7 @@ export interface GameTerrainModeControlProps {
 export interface GameTerrainToolStripProps {
   activeToolId: string;
   className?: string;
+  compactLabelMode?: GameTerrainToolCompactLabelMode;
   density?: GameSurfaceDensity;
   disabled?: boolean;
   label: string;
@@ -168,12 +184,15 @@ export interface GameBuildLibraryProps {
 export interface GameCompactGameDrawerProps {
   children: ReactNode;
   className?: string;
+  closeIcon?: ClayIconName;
   closeLabel?: string;
   disabled?: boolean;
   label: string;
   onOpenChange?: ((open: boolean) => void) | undefined;
   open: boolean;
+  panelId?: string;
   title: string;
+  triggerIcon?: ClayIconName;
   triggerLabel?: string;
   variant?: GameTerrainBuildVariant;
   'data-testid'?: string | undefined;
@@ -207,6 +226,7 @@ export interface GameTerrainBuildToolboxProps {
   selectedBuildItemId?: string | undefined;
   status?: GameTerrainStatusState | undefined;
   title: string;
+  toolCompactLabelMode?: GameTerrainToolCompactLabelMode;
   tools: readonly GameTerrainToolOption[];
   undoRedo?: GameUndoRedoState | undefined;
   variant?: GameTerrainBuildVariant;
@@ -243,6 +263,8 @@ function toAction(option: GameTerrainToolOption, activeToolId: string, onToolCha
     selected: option.id === activeToolId,
     tone: option.id === activeToolId ? 'primary' : 'secondary',
   };
+  if (option.ariaLabel) action.ariaLabel = option.ariaLabel;
+  if (option.compactLabel) action.compactLabel = option.compactLabel;
   if (option.meta) action.meta = option.meta;
   if (option.shortcut) action.shortcut = option.shortcut;
   if (onToolChange) action.onAction = onToolChange;
@@ -256,6 +278,11 @@ function normalizeNumber(value: number, min: number, max: number): number {
 
 function dataVariant(variant: GameTerrainBuildVariant): GameTerrainBuildVariant {
   return variant;
+}
+
+function resolveCompactLabelMode(mode: GameTerrainToolCompactLabelMode, variant: GameTerrainBuildVariant): GameActionIconLabelMode {
+  if (mode !== 'auto') return mode;
+  return variant === 'mobile' || variant === 'small-mobile' ? 'caption' : 'hidden';
 }
 
 export function GameTerrainModeControl({
@@ -277,9 +304,11 @@ export function GameTerrainModeControl({
         {modes.map((mode) => {
           const selected = mode.id === activeModeId;
           const buttonDisabled = disabled || mode.disabled;
+          const displayLabel = variant === 'small-mobile' ? mode.compactLabel ?? mode.label : mode.label;
           return (
             <button
               aria-describedby={mode.meta ? `${mode.id}-mode-meta` : undefined}
+              aria-label={mode.ariaLabel ?? mode.label}
               aria-pressed={selected}
               className="game-ui-terrain-mode-option"
               data-mode-id={mode.id}
@@ -290,7 +319,7 @@ export function GameTerrainModeControl({
               type="button"
             >
               <GameAssetIcon icon={mode.icon ?? TOOL_ICONS[mode.id] ?? 'portal'} size={variant === 'small-mobile' ? 'sm' : 'md'} style="line" />
-              <span>{mode.label}</span>
+              <span>{displayLabel}</span>
               {mode.meta ? <small id={`${mode.id}-mode-meta`}>{mode.meta}</small> : null}
             </button>
           );
@@ -303,6 +332,7 @@ export function GameTerrainModeControl({
 export function GameTerrainToolStrip({
   activeToolId,
   className,
+  compactLabelMode = 'auto',
   density = 'comfortable',
   disabled = false,
   label,
@@ -312,11 +342,13 @@ export function GameTerrainToolStrip({
   'data-testid': testId,
 }: GameTerrainToolStripProps): ReactNode {
   const classes = ['game-ui-terrain-tool-strip', className].filter(Boolean).join(' ');
+  const iconLabelMode = resolveCompactLabelMode(compactLabelMode, variant);
   return (
-    <section aria-label={label} className={classes} data-active-tool={activeToolId} data-ui-hook="terrain-tool-strip" data-variant={variant} data-testid={testId}>
+    <section aria-label={label} className={classes} data-active-tool={activeToolId} data-icon-label-mode={iconLabelMode} data-ui-hook="terrain-tool-strip" data-variant={variant} data-testid={testId}>
       <GameActionGrid
         actions={tools.map((tool) => toAction(tool, activeToolId, onToolChange, disabled))}
         density={density}
+        iconLabelMode={iconLabelMode}
         label={label}
         style={variant === 'desktop' ? 'button' : 'icon'}
       />
@@ -430,6 +462,11 @@ export function GameMaterialSwatches({
         {materials.map((material) => {
           const selected = material.id === activeMaterialId;
           const buttonDisabled = disabled || material.disabled;
+          const displayLabel = variant === 'small-mobile' ? material.compactLabel ?? material.label : material.label;
+          const swatchStyle = {
+            '--swatch-color': material.color,
+            '--swatch-secondary-color': material.secondaryColor ?? material.color,
+          } as CSSProperties;
           return (
             <button
               aria-describedby={material.meta ? `${material.id}-material-meta` : undefined}
@@ -443,9 +480,9 @@ export function GameMaterialSwatches({
               role="option"
               type="button"
             >
-              <span aria-hidden="true" className="game-ui-material-swatch-chip" style={{ '--swatch-color': material.color } as CSSProperties} />
+              <span aria-hidden="true" className="game-ui-material-swatch-chip" data-swatch-pattern={material.pattern ?? 'solid'} style={swatchStyle} />
               <span className="game-ui-material-swatch-copy">
-                <strong>{material.label}</strong>
+                <strong>{displayLabel}</strong>
                 {material.meta ? <small id={`${material.id}-material-meta`}>{material.meta}</small> : null}
               </span>
             </button>
@@ -508,9 +545,11 @@ export function GameBuildLibrary({
         <div aria-label="Build categories" className="game-ui-build-categories" role="tablist">
           {categories.map((category) => {
             const selected = category.id === resolvedActiveCategory?.id;
+            const categoryLabel = variant === 'small-mobile' ? category.compactLabel ?? category.label : category.label;
             return (
               <button
                 aria-controls={`${category.id}-build-panel`}
+                aria-label={category.label}
                 aria-selected={selected}
                 className="game-ui-build-category"
                 data-build-category-id={category.id}
@@ -521,7 +560,7 @@ export function GameBuildLibrary({
                 type="button"
               >
                 <GameAssetIcon icon={category.icon ?? TOOL_ICONS[category.id] ?? 'home'} size="sm" style="line" />
-                <span>{category.label}</span>
+                <span>{categoryLabel}</span>
                 {category.meta ? <small>{category.meta}</small> : null}
               </button>
             );
@@ -534,25 +573,30 @@ export function GameBuildLibrary({
             {items.map((item) => {
               const selected = item.id === selectedItemId || item.status === 'selected';
               const status = selected ? 'selected' : item.status ?? 'ready';
+              const itemDisabled = Boolean(item.disabled || status === 'locked' || status === 'missing');
+              const itemLabel = isRail ? item.compactLabel ?? item.label : item.label;
               return (
                 <button
+                  aria-label={`${item.label}, ${status}`}
                   aria-pressed={selected}
                   className="game-ui-build-item"
                   data-build-category-id={resolvedActiveCategory.id}
                   data-build-item-id={item.id}
                   data-build-item-status={status}
-                  disabled={item.disabled || status === 'locked' || status === 'missing'}
+                  disabled={itemDisabled}
                   key={item.id}
-                  onClick={onSelectItem && !item.disabled ? () => onSelectItem(item.id, resolvedActiveCategory.id) : undefined}
+                  onClick={onSelectItem && !itemDisabled ? () => onSelectItem(item.id, resolvedActiveCategory.id) : undefined}
                   type="button"
                 >
-                  <span className="game-ui-build-item-icon"><GameAssetIcon icon={item.icon ?? resolvedActiveCategory.icon ?? 'home'} size={isRail ? 'sm' : 'md'} /></span>
+                  <span className="game-ui-build-item-icon">
+                    {item.previewSrc ? <img alt={item.previewAlt ?? ''} className="game-ui-build-item-preview" src={item.previewSrc} /> : <GameAssetIcon icon={item.icon ?? resolvedActiveCategory.icon ?? 'home'} size={isRail ? 'sm' : 'md'} />}
+                  </span>
                   <span className="game-ui-build-item-copy">
                     <span className="game-ui-build-item-badges">
                       <GameBadge tone={BUILD_STATUS_TONES[status]}>{status}</GameBadge>
                       {item.badges?.map((badge) => <GameBadge key={badge.label} tone={badge.tone ?? 'neutral'}>{badge.label}</GameBadge>)}
                     </span>
-                    <strong>{item.label}</strong>
+                    <strong>{itemLabel}</strong>
                     {item.description ? <span>{item.description}</span> : null}
                     {item.meta ? <small>{item.meta}</small> : null}
                   </span>
@@ -569,18 +613,21 @@ export function GameBuildLibrary({
 export function GameCompactGameDrawer({
   children,
   className,
+  closeIcon = 'close',
   closeLabel = 'Close tools',
   disabled = false,
   label,
   onOpenChange,
   open,
+  panelId: providedPanelId,
   title,
+  triggerIcon = 'settings',
   triggerLabel = 'Tools',
   variant = 'mobile',
   'data-testid': testId,
 }: GameCompactGameDrawerProps): ReactNode {
   const classes = ['game-ui-compact-game-drawer', className].filter(Boolean).join(' ');
-  const panelId = `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'tools'}-drawer-panel`;
+  const panelId = providedPanelId ?? `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'tools'}-drawer-panel`;
   return (
     <aside aria-label={label} className={classes} data-open={open ? 'true' : 'false'} data-ui-hook="compact-game-drawer" data-variant={variant} data-testid={testId}>
       <GameButton
@@ -592,10 +639,10 @@ export function GameCompactGameDrawer({
         type="button"
         variant="secondary"
       >
-        <GameAssetIcon icon={open ? 'close' : 'settings'} size="sm" style="line" />
+        <GameAssetIcon icon={open ? closeIcon : triggerIcon} size="sm" style="line" />
         {open ? closeLabel : triggerLabel}
       </GameButton>
-      <div aria-hidden={!open} className="game-ui-compact-game-drawer-panel" id={panelId}>
+      <div aria-hidden={!open} className="game-ui-compact-game-drawer-panel" data-drawer-panel="true" id={panelId}>
         <GamePanel title={title} tone="strong">{children}</GamePanel>
       </div>
     </aside>
@@ -647,6 +694,7 @@ function TerrainBuildToolboxBody({
   onUndo,
   selectedBuildItemId,
   status,
+  toolCompactLabelMode = 'auto',
   tools,
   undoRedo,
   variant = 'desktop',
@@ -656,7 +704,7 @@ function TerrainBuildToolboxBody({
       <StatusBlock status={status} />
       <GameTerrainModeControl activeModeId={activeModeId} disabled={disabled} label="Tool mode" modes={modes} onModeChange={onModeChange} variant={variant} />
       <div className="game-ui-terrain-build-main-grid">
-        <GameTerrainToolStrip activeToolId={activeToolId} density={density} disabled={disabled} label="Terrain tools" onToolChange={onToolChange} tools={tools} variant={variant} />
+        <GameTerrainToolStrip activeToolId={activeToolId} compactLabelMode={toolCompactLabelMode} density={density} disabled={disabled} label="Terrain tools" onToolChange={onToolChange} tools={tools} variant={variant} />
         <GameUndoRedoActions canRedo={undoRedo?.canRedo} canUndo={undoRedo?.canUndo} disabled={disabled} label="Terrain history" onRedo={onRedo} onUndo={onUndo} redoLabel={undoRedo?.redoLabel} undoLabel={undoRedo?.undoLabel} variant={variant} />
         <GameBrushControls onRadiusChange={onBrushRadiusChange} onStrengthChange={onBrushStrengthChange} state={{ ...brush, disabled: Boolean(disabled || brush.disabled) }} variant={variant} />
         {materials.length > 0 ? <GameMaterialSwatches activeMaterialId={activeMaterialId} disabled={disabled} label="Terrain materials" materials={materials} onMaterialChange={onMaterialChange} variant={variant} /> : null}
