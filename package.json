@@ -1,8 +1,12 @@
 {
   "name": "@pieaistudio/swimmer-ui-kit",
   "version": "0.7.0",
+  "packageManager": "pnpm@11.9.0",
   "description": "Self-contained clay game UI kit extracted from TuringPact for PieAI game surfaces.",
   "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
@@ -38,7 +42,7 @@
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build:deploy": "npm run build:site && npm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook"
+    "build:deploy": "pnpm run build:site && pnpm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook"
   },
   "peerDependencies": {
     "@tailwindcss/vite": ">=4.0.0",

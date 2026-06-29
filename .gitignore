@@ -7,5 +7,9 @@ coverage/
 .DS_Store
 *.log
 .vercel
+.worktrees/
 
 *storybook.log
+.agents/skills/make-interfaces-feel-better
+.agents/skills/loop-library
+package-lock.json
