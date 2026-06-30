@@ -347,6 +347,7 @@ export function GameAssetCard({
   type = 'button',
   ...props
 }: GameAssetCardProps): ReactNode {
+  const { 'aria-label': ariaLabel, ...buttonProps } = props;
   const classes = ['game-ui-asset-card', className].filter(Boolean).join(' ');
   const resolvedSourceLabel = sourceLabel ?? ASSET_SOURCE_LABELS[source];
   const resolvedStatusLabel = statusLabel ?? status;
@@ -357,6 +358,7 @@ export function GameAssetCard({
 
   return (
     <button
+      aria-label={ariaLabel ?? title}
       aria-pressed={selected}
       className={classes}
       data-asset-card-layout={cardLayout}
@@ -365,7 +367,7 @@ export function GameAssetCard({
       disabled={disabled}
       onClick={handleClick}
       type={type}
-      {...props}
+      {...buttonProps}
     >
       <span className="game-ui-asset-card-preview">
         {thumbnailSrc ? <img alt={thumbnailAlt} src={thumbnailSrc} /> : <GameAssetIcon className="game-ui-asset-card-icon" icon={icon} size="xl" />}

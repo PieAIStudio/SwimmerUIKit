@@ -125,11 +125,36 @@ describe('OwnMySpace game surface pack', () => {
     ));
 
     expect(html).toContain('<button');
+    expect(html).toContain('aria-label="Generated crate"');
+    expect(html).toContain('data-asset-card-layout="list"');
     expect(html).toContain('Generated');
     expect(html).toContain('placed');
     expect(html).toContain('Generated crate');
     expect(html).toContain('game-ui-asset-card-icon');
     expect(html).toContain('Size');
+  });
+
+  it('supports official rail asset cards without host apps hiding internal copy', () => {
+    const html = compact(renderToStaticMarkup(
+      <GameAssetLibrary
+        cardLayout="rail"
+        label="Rail assets"
+        title="Rail"
+        groups={[
+          {
+            id: 'starter',
+            label: 'Starter assets',
+            source: 'starter',
+            assets: [{ assetId: 'starter-chair', source: 'starter', title: 'Starter chair', icon: 'shop', status: 'selected' }],
+          },
+        ]}
+      />,
+    ));
+
+    expect(html).toContain('data-card-layout="rail"');
+    expect(html).toContain('data-asset-card-layout="rail"');
+    expect(html).toContain('aria-label="Starter chair"');
+    expect(html).toContain('game-ui-asset-card-copy');
   });
 
   it('renders placement and action toolbars with labels suitable for a11y and icon-only controls', () => {
