@@ -1,2 +1,5 @@
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@pieai/doc-gov@0.3.7'
+  - '@pieai/pro-gov@0.3.7'

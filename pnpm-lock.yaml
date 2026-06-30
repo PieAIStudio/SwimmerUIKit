@@ -15,6 +15,12 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^5.2.1
         version: 5.2.1(storybook@10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(react@19.2.7))
+      '@pieai/doc-gov':
+        specifier: 0.3.7
+        version: 0.3.7
+      '@pieai/pro-gov':
+        specifier: 0.3.7
+        version: 0.3.7
       '@storybook/addon-a11y':
         specifier: ^10.4.6
         version: 10.4.6(storybook@10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(react@19.2.7))
@@ -645,6 +651,16 @@ packages:
     resolution: {integrity: sha512-H7BCt/VnS9hnmMp42eGhZ99izSCRvlnWwy/N71K1/J8QoExwY4262Z8QiEkMDtduRJrztayDxETTckmUuAVL9Q==}
     cpu: [x64]
     os: [win32]
+
+  '@pieai/doc-gov@0.3.7':
+    resolution: {integrity: sha512-+JBjoHJUHS0FDhDMVYP+21Y9AOr0/sHVYLbPoQcZqgYtI1XEg9DohRFTGxBR2WzoFKIIyZazi1UesKTcw9Jqgw==}
+    engines: {node: '>=24 <25'}
+    hasBin: true
+
+  '@pieai/pro-gov@0.3.7':
+    resolution: {integrity: sha512-/YSZwUB20MDWNpnurxX8JTnC2wqMbihBQ14Ocfl6rysgxv/uIcqYIY/iprpCcuI+2BAeaJMHZs4Tmzcb+vsAlg==}
+    engines: {node: '>=24 <25'}
+    hasBin: true
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -2451,6 +2467,12 @@ snapshots:
 
   '@oxc-resolver/binding-win32-x64-msvc@11.21.3':
     optional: true
+
+  '@pieai/doc-gov@0.3.7': {}
+
+  '@pieai/pro-gov@0.3.7':
+    dependencies:
+      '@pieai/doc-gov': 0.3.7
 
   '@polka/url@1.0.0-next.29': {}
 
