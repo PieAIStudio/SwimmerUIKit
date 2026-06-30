@@ -62,6 +62,7 @@ export {
   type GameActionStyle,
   type GameAssetBadge,
   type GameAssetCardProps,
+  type GameAssetCardVariant,
   type GameAssetFact,
   type GameAssetGroup,
   type GameAssetLibraryProps,

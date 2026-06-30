@@ -9,6 +9,7 @@ import type { ClayIconName } from './clay/assets';
 
 export type GameSurfaceDensity = 'comfortable' | 'dense';
 export type GameSurfaceLayout = 'auto' | 'desktop' | 'mobile';
+export type GameAssetCardVariant = 'list' | 'rail';
 
 export interface GameShellProps {
   /** Main game runtime surface, usually the host app canvas or 3D scene. */
@@ -285,6 +286,13 @@ export interface GameAssetCardProps extends Omit<ButtonHTMLAttributes<HTMLButton
   onSelect?: (assetId: string) => void;
   selected?: boolean;
   source: GameAssetSource;
+  /**
+   * Official compact rendering mode for constrained rails and mobile strips.
+   * `list` keeps copy visible; `rail` keeps a stable icon slot and uses the
+   * button aria-label for the asset title so host apps do not need to hide
+   * internal copy with ad-hoc CSS.
+   */
+  variant?: GameAssetCardVariant;
   sourceLabel?: string;
   status?: GameAssetStatus;
   statusLabel?: string;
@@ -333,8 +341,10 @@ export function GameAssetCard({
   thumbnailSrc,
   title,
   type = 'button',
+  variant = 'list',
   ...props
 }: GameAssetCardProps): ReactNode {
+  const { 'aria-label': ariaLabel, ...buttonProps } = props;
   const classes = ['game-ui-asset-card', className].filter(Boolean).join(' ');
   const resolvedSourceLabel = sourceLabel ?? ASSET_SOURCE_LABELS[source];
   const resolvedStatusLabel = statusLabel ?? status;
@@ -345,14 +355,16 @@ export function GameAssetCard({
 
   return (
     <button
+      aria-label={ariaLabel ?? title}
       aria-pressed={selected}
       className={classes}
+      data-asset-card-variant={variant}
       data-asset-source={source}
       data-asset-status={status}
       disabled={disabled}
       onClick={handleClick}
       type={type}
-      {...props}
+      {...buttonProps}
     >
       <span className="game-ui-asset-card-preview">
         {thumbnailSrc ? <img alt={thumbnailAlt} src={thumbnailSrc} /> : <GameAssetIcon className="game-ui-asset-card-icon" icon={icon} size="xl" />}
@@ -399,6 +411,8 @@ export interface GameAssetLibraryProps {
   selectedAssetId?: string;
   subtitle?: string;
   title: string;
+  /** Official compact layout for constrained side rails and mobile asset strips. */
+  variant?: GameAssetCardVariant;
 }
 
 export function GameAssetLibrary({
@@ -413,6 +427,7 @@ export function GameAssetLibrary({
   selectedAssetId,
   subtitle,
   title,
+  variant = 'list',
 }: GameAssetLibraryProps): ReactNode {
   const classes = ['game-ui-asset-library', className].filter(Boolean).join(' ');
   const totalAssets = groups.reduce((sum, group) => sum + group.assets.length, 0);
@@ -425,7 +440,7 @@ export function GameAssetLibrary({
 
   return (
     <GamePanel className={classes} title={title} tone="strong">
-      <section aria-label={label} data-density={density}>
+      <section aria-label={label} data-asset-library-variant={variant} data-density={density}>
         {subtitle ? <p className="game-ui-asset-library-subtitle">{subtitle}</p> : null}
         <div aria-label="Asset source counts" className="game-ui-asset-library-counts">
           {Object.entries(sourceCounts).map(([source, count]) => (
@@ -451,6 +466,7 @@ export function GameAssetLibrary({
                       {...asset}
                       {...(onSelectAsset ? { onSelect: onSelectAsset } : {})}
                       selected={asset.assetId === selectedAssetId}
+                      variant={variant}
                     />
                   ))}
                 </div>

@@ -308,15 +308,26 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-asset-library-group > header strong { color: var(--game-ui-text); font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); }
 .game-ui-asset-library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 9px; }
 .game-ui-asset-library [data-density='dense'] .game-ui-asset-library-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
-.game-ui-asset-card { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; border: 1px solid rgba(92,60,39,.16); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.9); color: var(--game-ui-text); padding: 10px; text-align: left; box-shadow: var(--game-ui-shadow-button); cursor: pointer; transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
+.game-ui-asset-library [data-asset-library-variant='rail'] { display: grid; gap: 8px; }
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-subtitle,
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-counts,
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-group > header { display: none; }
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-groups { display: grid; gap: 8px; }
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-group,
+.game-ui-asset-library [data-asset-library-variant='rail'] .game-ui-asset-library-grid { display: contents; }
+.game-ui-asset-card { box-sizing: border-box; display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; border: 1px solid rgba(92,60,39,.16); border-radius: var(--game-ui-radius-panel); background: rgba(255,248,236,.9); color: var(--game-ui-text); padding: 10px; text-align: left; box-shadow: var(--game-ui-shadow-button); cursor: pointer; transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
 .game-ui-asset-card:hover { transform: translateY(-1px); }
 .game-ui-asset-card:active { scale: .98; }
 .game-ui-asset-card:focus-visible { outline: 3px solid var(--game-ui-focus-ring); outline-offset: 2px; }
 .game-ui-asset-card:disabled { cursor: not-allowed; opacity: .62; transform: none; }
 .game-ui-asset-card[aria-pressed='true'] { border-color: var(--game-ui-secondary); box-shadow: var(--game-ui-shadow-button), 0 0 0 3px rgba(29,154,139,.22); }
-.game-ui-asset-card-preview { display: grid; width: 64px; height: 64px; flex: none; place-items: center; overflow: hidden; border-radius: 18px; background: rgba(58,37,24,.07); box-shadow: var(--game-ui-shadow-inset); }
+.game-ui-asset-card-preview { box-sizing: border-box; display: grid; width: 64px; height: 64px; flex: none; place-items: center; overflow: hidden; border-radius: 18px; background: rgba(58,37,24,.07); box-shadow: var(--game-ui-shadow-inset); }
+.game-ui-asset-card-preview:has(.game-ui-asset-icon) { overflow: hidden; padding: 6px; }
 .game-ui-asset-card-preview img { width: 100%; height: 100%; object-fit: contain; }
-.game-ui-asset-card-icon { width: min(100%, var(--game-ui-asset-icon-xl)); height: min(100%, var(--game-ui-asset-icon-xl)); }
+.game-ui-asset-card-preview .game-ui-asset-card-icon { width: 100%; height: 100%; }
+.game-ui-asset-card[data-asset-card-variant='rail'] { grid-template-columns: 1fr; place-items: center; width: 100%; min-height: 58px; padding: 6px; text-align: center; }
+.game-ui-asset-card[data-asset-card-variant='rail'] .game-ui-asset-card-preview { width: 52px; height: 52px; border-radius: 15px; padding: 10px; }
+.game-ui-asset-card[data-asset-card-variant='rail'] .game-ui-asset-card-copy { display: none; }
 .game-ui-asset-card-copy { display: grid; min-width: 0; gap: 5px; }
 .game-ui-asset-card-copy > strong { overflow: hidden; color: var(--game-ui-text); font-size: var(--game-ui-font-sm); text-overflow: ellipsis; white-space: nowrap; }
 .game-ui-asset-card-copy > span:not(.game-ui-asset-card-badges):not(.game-ui-asset-card-facts) { color: var(--game-ui-text-muted); font-size: var(--game-ui-font-xs); line-height: 1.3; }
