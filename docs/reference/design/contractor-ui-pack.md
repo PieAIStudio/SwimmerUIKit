@@ -1,3 +1,18 @@
+---
+id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
+title: "PLAN-0012 contractor UI pack design"
+type: reference
+status: active
+canonical: false
+owner: project
+created: 2026-07-02
+last_reviewed: 2026-07-02
+domain: project-docs
+tags:
+  - project-docs
+pinned: false
+related: []
+---
 # PLAN-0012 contractor UI pack design
 
 ## Scope

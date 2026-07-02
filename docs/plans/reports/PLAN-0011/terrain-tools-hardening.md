@@ -1,3 +1,18 @@
+---
+id: PLAN-DOCS-PLANS-REPORTS-PLAN-0011-TERRAIN-TOOLS-HARDENING
+title: "PLAN-0011 Block G — Terrain/build tools hardening"
+type: plan
+status: completed
+canonical: false
+owner: project
+created: 2026-07-02
+last_reviewed: 2026-07-02
+domain: project-docs
+tags:
+  - project-docs
+pinned: false
+related: []
+---
 # PLAN-0011 Block G — Terrain/build tools hardening
 
 ## Scope
@@ -69,7 +84,7 @@ Main hardening gaps:
 ### Documentation and Storybook
 
 - Updated `README.md` terrain/build usage with compact labels, material patterns, and `toolCompactLabelMode`.
-- Updated `docs/design/terrain-build-tooling.md` with hardening additions and responsive matrix.
+- Updated `docs/reference/design/terrain-build-tooling.md` with hardening additions and responsive matrix.
 - Reworked `GameTerrainBuildTools.stories.tsx` with:
   - `Desktop`
   - `Dense`
@@ -126,7 +141,7 @@ Playwright DOM proof output:
 ## Files changed
 
 - `README.md`
-- `docs/design/terrain-build-tooling.md`
+- `docs/reference/design/terrain-build-tooling.md`
 - `src/GameHudActions.tsx`
 - `src/GameSurfacePack.tsx`
 - `src/GameTerrainBuildTools.tsx`

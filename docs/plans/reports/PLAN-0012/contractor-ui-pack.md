@@ -1,3 +1,18 @@
+---
+id: PLAN-DOCS-PLANS-REPORTS-PLAN-0012-CONTRACTOR-UI-PACK
+title: "PLAN-0012 Contractor UI Pack Report"
+type: plan
+status: completed
+canonical: false
+owner: project
+created: 2026-07-02
+last_reviewed: 2026-07-02
+domain: project-docs
+tags:
+  - project-docs
+pinned: false
+related: []
+---
 # PLAN-0012 Contractor UI Pack Report
 
 ## Summary
@@ -48,7 +63,7 @@ New status/type coverage:
 - `src/styles.css`: contractor panel/card/progress/approval/crew/before-after/drawer styles.
 - `src/GameUiPreview.tsx`: preview page section for contractor UI.
 - `README.md`: export list and usage example.
-- `docs/design/contractor-ui-pack.md`: design doc and integration contract.
+- `docs/reference/design/contractor-ui-pack.md`: design doc and integration contract.
 - `docs/plans/reports/PLAN-0012/screenshots/*.png`: responsive screenshot artifacts.
 
 ## Runtime boundary

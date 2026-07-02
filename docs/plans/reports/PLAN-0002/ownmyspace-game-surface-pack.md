@@ -1,3 +1,18 @@
+---
+id: PLAN-DOCS-PLANS-REPORTS-PLAN-0002-OWNMYSPACE-GAME-SURFACE-PACK
+title: "PLAN-0002 OwnMySpace Game Surface Pack Report"
+type: plan
+status: completed
+canonical: false
+owner: project
+created: 2026-07-02
+last_reviewed: 2026-07-02
+domain: project-docs
+tags:
+  - project-docs
+pinned: false
+related: []
+---
 # PLAN-0002 OwnMySpace Game Surface Pack Report
 
 ## Scope Ledger

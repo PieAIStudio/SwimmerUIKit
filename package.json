@@ -42,7 +42,10 @@
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build:deploy": "pnpm run build:site && pnpm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook"
+    "build:deploy": "pnpm run build:site && pnpm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook",
+    "doc-gov": "doc-gov",
+    "pro-gov": "pro-gov",
+    "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor"
   },
   "peerDependencies": {
     "@tailwindcss/vite": ">=4.0.0",
@@ -66,6 +69,7 @@
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/browser-playwright": "^4.0.15",
     "@vitest/coverage-v8": "^4.0.15",
+    "lefthook": "^2.1.9",
     "playwright": "^1.61.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",

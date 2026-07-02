@@ -1,5 +1,6 @@
 allowBuilds:
   esbuild: true
+  lefthook: true
 minimumReleaseAgeExclude:
   - "@pieai/doc-gov"
   - "@pieai/pro-gov"

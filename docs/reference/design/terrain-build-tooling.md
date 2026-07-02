@@ -1,3 +1,18 @@
+---
+id: REF-DOCS-DESIGN-TERRAIN-BUILD-TOOLING
+title: "Terrain/build tooling design notes"
+type: reference
+status: active
+canonical: false
+owner: project
+created: 2026-07-02
+last_reviewed: 2026-07-02
+domain: project-docs
+tags:
+  - project-docs
+pinned: false
+related: []
+---
 # Terrain/build tooling design notes
 
 ## Scope
