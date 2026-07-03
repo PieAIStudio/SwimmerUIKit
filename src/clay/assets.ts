@@ -1,3 +1,5 @@
+import { CLAY_COLOR_TOKENS } from './tokens';
+
 export const CLAY_ASSET_BASE_PATH = '/assets/game/ui/clay/phase03-clay-kit' as const;
 
 const A = (relativePath: string): string => `${CLAY_ASSET_BASE_PATH}/${relativePath}`;
@@ -204,48 +206,54 @@ const INLINE_ICON_LABELS: Record<ClayIconName, string> = {
   vote: '⌾',
 };
 
+/*
+ * Inline SVG icons are data URIs, so they cannot read CSS variables at
+ * runtime. They therefore reference the TypeScript color constants, which
+ * tokens.test.ts keeps in sync with theme.css.
+ */
 const INLINE_ICON_ACCENTS: Record<ClayIconName, string> = {
-  ai: '#9b6dd6',
-  alert: '#d85a45',
-  card: '#f2b35c',
-  chat: '#5ca6d8',
-  check: '#4f9d6b',
-  close: '#d85a45',
-  coin: '#f2b35c',
-  compass: '#1d9a8b',
-  copy: '#6c4f38',
-  crown: '#f2b35c',
-  energy: '#e8743b',
-  gem: '#5ca6d8',
-  gift: '#d85a45',
-  globe: '#1d9a8b',
-  history: '#7b6652',
-  redo: '#6c4f38',
-  undo: '#6c4f38',
-  home: '#6c4f38',
-  hourglass: '#e8743b',
-  laurel: '#4f9d6b',
-  lock: '#3b2d23',
-  lucky: '#4f9d6b',
-  mail: '#5ca6d8',
-  medal: '#f2b35c',
-  mission: '#9b6dd6',
-  mobile: '#5ca6d8',
-  portal: '#1d9a8b',
-  scroll: '#9b6dd6',
-  settings: '#7b6652',
-  shirt: '#5ca6d8',
-  shop: '#7b6652',
-  smile: '#f2b35c',
-  timer: '#e8743b',
-  trophy: '#f2b35c',
-  vote: '#d85a45',
+  ai: CLAY_COLOR_TOKENS.berry,
+  alert: CLAY_COLOR_TOKENS.red,
+  card: CLAY_COLOR_TOKENS.honey,
+  chat: CLAY_COLOR_TOKENS.sky,
+  check: CLAY_COLOR_TOKENS.green,
+  close: CLAY_COLOR_TOKENS.red,
+  coin: CLAY_COLOR_TOKENS.honey,
+  compass: CLAY_COLOR_TOKENS.teal,
+  copy: CLAY_COLOR_TOKENS.wood,
+  crown: CLAY_COLOR_TOKENS.honey,
+  energy: CLAY_COLOR_TOKENS.orange,
+  gem: CLAY_COLOR_TOKENS.sky,
+  gift: CLAY_COLOR_TOKENS.red,
+  globe: CLAY_COLOR_TOKENS.teal,
+  history: CLAY_COLOR_TOKENS.inkMuted,
+  redo: CLAY_COLOR_TOKENS.wood,
+  undo: CLAY_COLOR_TOKENS.wood,
+  home: CLAY_COLOR_TOKENS.wood,
+  hourglass: CLAY_COLOR_TOKENS.orange,
+  laurel: CLAY_COLOR_TOKENS.green,
+  lock: CLAY_COLOR_TOKENS.ink,
+  lucky: CLAY_COLOR_TOKENS.green,
+  mail: CLAY_COLOR_TOKENS.sky,
+  medal: CLAY_COLOR_TOKENS.honey,
+  mission: CLAY_COLOR_TOKENS.berry,
+  mobile: CLAY_COLOR_TOKENS.sky,
+  portal: CLAY_COLOR_TOKENS.teal,
+  scroll: CLAY_COLOR_TOKENS.berry,
+  settings: CLAY_COLOR_TOKENS.inkMuted,
+  shirt: CLAY_COLOR_TOKENS.sky,
+  shop: CLAY_COLOR_TOKENS.inkMuted,
+  smile: CLAY_COLOR_TOKENS.honey,
+  timer: CLAY_COLOR_TOKENS.orange,
+  trophy: CLAY_COLOR_TOKENS.honey,
+  vote: CLAY_COLOR_TOKENS.red,
 };
 
 function inlineClayIcon(icon: ClayIconName): string {
   const label = INLINE_ICON_LABELS[icon];
   const accent = INLINE_ICON_ACCENTS[icon];
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#4c341c" flood-opacity=".22"/></filter></defs><rect x="10" y="8" width="76" height="76" rx="25" fill="#fff8ec" filter="url(#s)"/><circle cx="48" cy="46" r="28" fill="${accent}" opacity=".88"/><path d="M23 28c10-12 36-16 52 0" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".38"/><text x="48" y="58" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" font-weight="900" fill="#fff8ec">${label}</text></svg>`;
+  const paper = CLAY_COLOR_TOKENS.parchment;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#4c341c" flood-opacity=".22"/></filter></defs><rect x="10" y="8" width="76" height="76" rx="25" fill="${paper}" filter="url(#s)"/><circle cx="48" cy="46" r="28" fill="${accent}" opacity=".88"/><path d="M23 28c10-12 36-16 52 0" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".38"/><text x="48" y="58" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" font-weight="900" fill="${paper}">${label}</text></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 

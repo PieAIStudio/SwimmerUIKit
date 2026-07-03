@@ -18,7 +18,20 @@
   --radius-lg: var(--game-ui-radius-panel);
 }
 
+/*
+ * theme.css is the ONLY place raw color values may live.
+ * Component rules in styles.css must reference tokens (or color-mix on
+ * tokens) so downstream themes cascade everywhere. Enforced by tokens.test.ts.
+ *
+ * Layers:
+ *   1. Semantic tokens  — what a surface MEANS (panel, text, accent…).
+ *   2. Derivation bases — inks/papers that alpha washes are mixed from.
+ *   3. Scenery/preview  — demo-stage backdrops (dark worlds, preview canvas).
+ * Downstream themes normally override layer 1 (+ layer 2 for full fidelity).
+ */
 :root {
+  color-scheme: light;
+
   --game-ui-font-display: 'Baloo 2', 'Geist Variable', 'Noto Sans SC', system-ui, sans-serif;
   --game-ui-font-body: 'Geist Variable', 'Noto Sans SC', 'Noto Sans', system-ui, sans-serif;
   --game-ui-font-xs: 0.72rem;
@@ -32,24 +45,50 @@
   --game-ui-weight-body: 620;
   --game-ui-weight-strong: 800;
   --game-ui-weight-title: 930;
+
+  /* Semantic colors */
   --game-ui-bg: #f3e8d8;
   --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
   --game-ui-surface: rgba(255, 248, 236, 0.78);
   --game-ui-surface-raised: rgba(255, 250, 240, 0.94);
   --game-ui-panel: rgba(255, 248, 236, 0.9);
   --game-ui-panel-strong: #fff8ec;
+  --game-ui-panel-deep: #efd1a3;
   --game-ui-text: #3b2d23;
   --game-ui-text-muted: #7b6652;
   --game-ui-accent: #e8743b;
+  --game-ui-accent-bright: #f28d50;
+  --game-ui-accent-pale: #ffd4a2;
   --game-ui-accent-contrast: #fff8ec;
   --game-ui-secondary: #1d9a8b;
+  --game-ui-secondary-pale: #baf5df;
   --game-ui-success: #4f9d6b;
+  --game-ui-success-bright: #7ee0b6;
+  --game-ui-on-success: #16382d;
   --game-ui-danger: #d85a45;
+  --game-ui-danger-bright: #ef8a72;
   --game-ui-warning: #f2b35c;
+  --game-ui-berry: #9b6dd6;
+  --game-ui-berry-pale: #d9c6ff;
   --game-ui-focus-ring: rgba(29, 154, 139, 0.72);
   --game-ui-border-subtle: rgba(108, 79, 56, 0.22);
   --game-ui-border-strong: rgba(108, 79, 56, 0.42);
   --game-ui-disabled: rgba(123, 102, 82, 0.48);
+
+  /* Derivation bases: alpha washes and hairlines are color-mixed from these */
+  --game-ui-ink-deep: #3a2518;
+  --game-ui-border-ink: #5c3c27;
+  --game-ui-wood: #6c4f38;
+  --game-ui-ink-title: #4a2f1f;
+  --game-ui-ink-heading: #5a3924;
+  --game-ui-text-on-dark: #fff8ec;
+
+  /* Dark glass & scrims (HUD chips floating over the 3D scene) */
+  --game-ui-glass-night: rgba(31, 24, 18, 0.68);
+  --game-ui-glass-night-soft: rgba(31, 24, 18, 0.64);
+  --game-ui-scrim-strong: rgba(30, 20, 14, 0.58);
+
+  /* Spacing / safe areas */
   --game-ui-space-2: 2px;
   --game-ui-space-4: 4px;
   --game-ui-space-6: 6px;
@@ -64,28 +103,41 @@
   --game-ui-safe-right: max(14px, env(safe-area-inset-right));
   --game-ui-safe-bottom: max(14px, env(safe-area-inset-bottom));
   --game-ui-safe-left: max(14px, env(safe-area-inset-left));
+
+  /* Radii */
   --game-ui-radius-bead: 999px;
   --game-ui-radius-control: 999px;
   --game-ui-radius-card: 18px;
   --game-ui-radius-panel: 26px;
   --game-ui-radius-modal: 34px;
+
+  /* Elevation */
   --game-ui-shadow-button: 0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);
   --game-ui-shadow-panel: 0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --game-ui-shadow-modal: 0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --game-ui-shadow-inset: inset 0 2px 8px rgba(76, 52, 28, 0.12);
+  --game-ui-shadow-scenery: 0 28px 70px rgba(0, 0, 0, 0.34), inset 0 8px 20px rgba(255, 255, 255, 0.1);
+  --game-ui-shadow-seat: 0 8px 18px rgba(0, 0, 0, 0.32);
+  --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.22);
   --game-ui-stroke: 1px solid var(--game-ui-border-subtle);
+
+  /* Motion */
   --game-ui-motion-fast: 120ms;
   --game-ui-motion-base: 220ms;
   --game-ui-motion-slow: 360ms;
   --game-ui-ease-pop: cubic-bezier(0.2, 1.35, 0.26, 1);
   --game-ui-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --game-ui-reduced-motion-policy: disable non-essential transform/opacity animation;
+
+  /* Layers */
   --game-ui-z-playfield: 0;
   --game-ui-z-hud: 20;
   --game-ui-z-sidebar: 40;
   --game-ui-z-overlay: 60;
   --game-ui-z-modal: 80;
   --game-ui-z-toast: 100;
+
+  /* Asset sizing */
   --game-ui-asset-icon-sm: 22px;
   --game-ui-asset-icon-md: 34px;
   --game-ui-asset-icon-lg: 48px;
@@ -97,4 +149,82 @@
   --game-ui-terrain-tool-hit-size: 44px;
   --game-ui-build-rail-card-size: 52px;
   --game-ui-brush-number-width: 76px;
+
+  /* Scenery: demo-stage worlds shown behind HUD examples */
+  --game-ui-scenery-canopy: #40543c;
+  --game-ui-scenery-moss: #2d3a2d;
+  --game-ui-scenery-soil: #261b14;
+  --game-ui-scenery-pine: #314b38;
+  --game-ui-scenery-clearing: rgba(95, 59, 32, 0.86);
+  --game-ui-scenery-wood-hi: #9a6c42;
+  --game-ui-scenery-wood-lo: #563621;
+  --game-ui-scenery-dusk-1: #27180e;
+  --game-ui-scenery-dusk-2: #7f5735;
+  --game-ui-scenery-dusk-3: #d7b174;
+  --game-ui-scenery-grid-strong: rgba(255, 255, 255, 0.07);
+  --game-ui-scenery-grid-soft: rgba(255, 255, 255, 0.05);
+
+  /* Preview page canvas (kit demo site only) */
+  --game-ui-preview-glow-warm: rgba(255, 246, 202, 0.9);
+  --game-ui-preview-glow-mint: rgba(126, 224, 182, 0.24);
+  --game-ui-preview-canvas-1: #f6e8d2;
+  --game-ui-preview-canvas-2: #e4cda8;
+  --game-ui-preview-canvas-3: #b98d5d;
+}
+
+/*
+ * Official dark baseline. Opt in per subtree:
+ *   <html data-game-ui-theme="night"> or any container element.
+ * Downstream products define their own themes the same way: override the
+ * semantic tokens (plus derivation bases for full fidelity).
+ */
+[data-game-ui-theme='night'] {
+  color-scheme: dark;
+
+  --game-ui-bg: #221812;
+  --game-ui-playfield-scrim: rgba(10, 6, 4, 0.5);
+  --game-ui-surface: rgba(52, 38, 28, 0.72);
+  --game-ui-surface-raised: rgba(64, 47, 34, 0.94);
+  --game-ui-panel: rgba(46, 33, 24, 0.92);
+  --game-ui-panel-strong: #3a2a1e;
+  --game-ui-panel-deep: #2c1f16;
+  --game-ui-text: #f6e7d3;
+  --game-ui-text-muted: #c9ac8d;
+  --game-ui-accent: #ef8148;
+  --game-ui-accent-bright: #ffa06b;
+  --game-ui-accent-pale: #8a4f28;
+  --game-ui-secondary: #2fb3a2;
+  --game-ui-secondary-pale: #1d5c53;
+  --game-ui-success: #63b381;
+  --game-ui-success-bright: #3d7c58;
+  --game-ui-on-success: #eafff3;
+  --game-ui-danger: #e26a55;
+  --game-ui-danger-bright: #8a3a2c;
+  --game-ui-warning: #f2b35c;
+  --game-ui-berry: #b58ae0;
+  --game-ui-berry-pale: #55407a;
+  --game-ui-focus-ring: rgba(47, 179, 162, 0.75);
+  --game-ui-border-subtle: rgba(246, 231, 211, 0.16);
+  --game-ui-border-strong: rgba(246, 231, 211, 0.32);
+  --game-ui-disabled: rgba(201, 172, 141, 0.45);
+
+  --game-ui-ink-deep: #f6e7d3;
+  --game-ui-border-ink: #e8d3b8;
+  --game-ui-wood: #d8b892;
+  --game-ui-ink-title: #f6e2c8;
+  --game-ui-ink-heading: #ecd6b8;
+  --game-ui-text-on-dark: #fff8ec;
+
+  --game-ui-scrim-strong: rgba(0, 0, 0, 0.62);
+
+  --game-ui-shadow-button: 0 13px 26px rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.08);
+  --game-ui-shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --game-ui-shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --game-ui-shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+
+  --game-ui-preview-glow-warm: rgba(120, 88, 42, 0.35);
+  --game-ui-preview-glow-mint: rgba(47, 179, 162, 0.14);
+  --game-ui-preview-canvas-1: #2a1d13;
+  --game-ui-preview-canvas-2: #201510;
+  --game-ui-preview-canvas-3: #150d08;
 }

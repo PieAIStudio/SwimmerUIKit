@@ -9,6 +9,7 @@ export const CLAY_COLOR_TOKENS = {
   honey: '#f2b35c',
   orange: '#e8743b',
   teal: '#1d9a8b',
+  green: '#4f9d6b',
   mint: '#7ee0b6',
   berry: '#9b6dd6',
   red: '#d85a45',
