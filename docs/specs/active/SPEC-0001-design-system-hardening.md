@@ -2,7 +2,7 @@
 id: SPEC-0001
 title: Design System Hardening and Panel System
 type: spec
-status: active
+status: stable
 canonical: true
 owner: h
 created: 2026-07-03

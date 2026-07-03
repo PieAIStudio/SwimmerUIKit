@@ -52,7 +52,9 @@ Use `AGENTS.md` for startup reading. It should point agents to:
   `docs/reference/design-system-guide.md`
 - Consumer usage and upgrade SOP:
   `docs/reference/usage-and-upgrade-playbook.md`
-- Active spec: `docs/specs/active/SPEC-0001-design-system-hardening.md`
+- Active spec: `docs/specs/active/SPEC-0002-v1-release-readiness.md`
+  (SPEC-0001 is stable/shipped)
+- Release history: `CHANGELOG.md` (root, ungoverned)
 - Current state index: `docs/reference/execution/current-work.md`
 
 Markdown outside `docs/**` is not governed by default. Product prompts, assets,

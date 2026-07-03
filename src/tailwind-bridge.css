@@ -1,0 +1,36 @@
+/*
+ * OPTIONAL Tailwind v4 bridge — NOT part of styles.css.
+ *
+ * Only import this file if the consuming app uses Tailwind v4 and wants
+ * Tailwind theme names (bg-primary, text-foreground, rounded-md…) to
+ * resolve to SwimmerUIKit tokens:
+ *
+ *   import '@pieaistudio/swimmer-ui-kit/styles.css';
+ *   import '@pieaistudio/swimmer-ui-kit/tailwind.css'; // Tailwind users only
+ *
+ * It must go through the consumer's Tailwind build (@tailwindcss/vite or
+ * the tailwindcss PostCSS plugin). Non-Tailwind consumers must NOT import
+ * it — plain CSS pipelines treat @theme as an unknown at-rule.
+ *
+ * styles.css stays 100% standard CSS on purpose (guard-tested), so the kit
+ * itself never requires Tailwind anywhere.
+ */
+@theme inline {
+  --font-sans: var(--game-ui-font-body);
+  --color-background: var(--game-ui-bg);
+  --color-foreground: var(--game-ui-text);
+  --color-card: var(--game-ui-panel);
+  --color-card-foreground: var(--game-ui-text);
+  --color-muted: var(--game-ui-surface);
+  --color-muted-foreground: var(--game-ui-text-muted);
+  --color-primary: var(--game-ui-accent);
+  --color-primary-foreground: var(--game-ui-accent-contrast);
+  --color-secondary: var(--game-ui-secondary);
+  --color-secondary-foreground: var(--game-ui-accent-contrast);
+  --color-border: var(--game-ui-border-subtle);
+  --color-input: var(--game-ui-surface-raised);
+  --color-ring: var(--game-ui-focus-ring);
+  --radius-sm: var(--game-ui-radius-control);
+  --radius-md: var(--game-ui-radius-card);
+  --radius-lg: var(--game-ui-radius-panel);
+}

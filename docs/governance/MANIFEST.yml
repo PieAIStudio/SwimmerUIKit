@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-03T07:13:44.631Z
+generated_at: 2026-07-03T13:54:38.782Z
 generator_version: doc-gov@0.3.17
-docs_count: 13
+docs_count: 14
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
     path: docs/governance/agents-routing/engineering-runtime-v0.9.md
@@ -90,6 +90,13 @@ docs:
     pinned: true
   - id: SPEC-0001
     path: docs/specs/active/SPEC-0001-design-system-hardening.md
+    type: spec
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-03
+    pinned: false
+  - id: SPEC-0002
+    path: docs/specs/active/SPEC-0002-v1-release-readiness.md
     type: spec
     status: active
     canonical: true

@@ -16,6 +16,7 @@ pinned: true
 related:
   - REF-DESIGN-SYSTEM-GUIDE
   - SPEC-0001
+  - SPEC-0002
 ---
 
 # REF-USAGE-AND-UPGRADE-PLAYBOOK: Usage and Upgrade Playbook
@@ -40,9 +41,14 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 安装（GitHub Packages 私有源）并钉精确版本：
-   `"@pieaistudio/swimmer-ui-kit": "0.9.0"`（不用 `^`，升级必须是
-   显式动作 + 本仓库回归验证）。
+   `"@pieaistudio/swimmer-ui-kit": "1.0.0"`（不用 `^`，升级必须是
+   显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
+   peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
+   处理器。
 2. 入口处引一次样式：`import '@pieaistudio/swimmer-ui-kit/styles.css'`。
+   （可选：Tailwind v4 宿主想让 `bg-primary` 等映射到 kit token，再加
+   `import '@pieaistudio/swimmer-ui-kit/tailwind.css'`；非 Tailwind
+   项目**不要**引它。）
 3. 按需 import 组件。本地定制只写 token 覆写（见 design-system-guide），
    **禁止**把 kit 的 `.game-ui-*` 基础规则复制回产品仓。
 
@@ -64,26 +70,38 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 
 ## 本仓发版清单（维护者/AI 用）
 
-1. `pnpm typecheck && pnpm test && pnpm build && pnpm build-storybook` 全绿。
-2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/night 完整）。
-3. API 变化分类：纯增量 → minor；破坏性 → major 并写迁移说明。
-4. bump `package.json` version；`pnpm docs:check`；commit + push。
-5. 发布到 GitHub Packages（需要 `NODE_AUTH_TOKEN`）：`pnpm publish`。
-   无 token 时由创始人本机执行。
-6. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
+1. `pnpm typecheck && pnpm test && pnpm build && pnpm build-storybook` 全绿
+   （build 内含 lightningcss CSS 构建，任何 warning 即失败）。
+2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/night 完整/
+   禁 Tailwind at-rule/ESM-only 打包合同/套壳硬化存续）。
+3. 打包体检：`npx publint` 零发现；`npx @arethetypeswrong/cli --pack .`
+   node10/node16-ESM/bundler 全绿（node16-CJS 的 ⚠️ 是 ESM-only 固有
+   属性，属预期）。
+4. API 变化分类：纯增量 → minor；破坏性 → major 并写迁移说明。
+   更新 `CHANGELOG.md`。
+5. bump `package.json` version；`pnpm docs:check`；commit + push。
+6. 发布 = 推 tag：`git tag v<version> && git push origin v<version>`，
+   `.github/workflows/publish.yml` 自动构建并发布到 GitHub Packages
+   （CI 用内置 GITHUB_TOKEN，本机不需要任何 token）。
+7. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
 
-## 兼容性承诺
+## 兼容性承诺（1.0 合同）
 
-- `0.x` 阶段：导出的组件与 props 只增不删；删除/改名走 deprecation
-  一个 minor 周期。
+- `1.x` 内：导出的组件与 props 只增不删；删除/改名先 deprecation
+  一个 minor 周期，实际移除必须走 major。
 - CSS 类名 `.game-ui-*` 视为公共 API 的一部分（TuringPact 等在覆写），
   改名等同破坏性变更。
 - token 变量名 `--game-ui-*` 同上。
+- `dist/styles.css` 保持 100% 标准 CSS（消费方零构建工具假设）；
+  `./tailwind.css` 永远是可选文件。
+- 打包形态 ESM-only；恢复 CJS 属破坏性变更（不会发生，除非 major）。
 
 ## Related Commands / Files
 
 - 设计与主题规则：`docs/reference/design-system-guide.md`
-- 规格：`docs/specs/active/SPEC-0001-design-system-hardening.md`
-- 消费现状：Show（钉 0.8.0，仅样式底座）、TuringPact（9 文件 + token
-  覆写）、OwnMySpace（11 文件，最重度组件消费方）、Non-Heroes（未接入，
-  接入时机由其商业里程碑决定）
+- 规格：`docs/specs/active/SPEC-0001-design-system-hardening.md`、
+  `docs/specs/active/SPEC-0002-v1-release-readiness.md`
+- 消费现状（2026-07-03）：深度消费 = TuringPact（组件 + token 覆写）、
+  Show（样式底座 + GameButton/GamePanel/GameTabs 等）、OwnMySpace
+  （最重度，11 文件）；已安装待接入 = SupaLuv、Non-Heroes、YaZu
+  （均已钉 0.9.0 并配好 .npmrc，源码尚未 import）

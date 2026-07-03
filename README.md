@@ -1,330 +1,115 @@
 # @pieaistudio/swimmer-ui-kit
 
-Self-contained clay game UI kit extracted from TuringPact into a standalone React 19 + TypeScript strict + Tailwind v4 package.
+Self-contained clay game UI kit for PieAI web, game, and wrapped
+(mobile/desktop WebView) surfaces. React 19 + TypeScript strict.
+**Zero runtime dependencies, 100% standard CSS** — consumers need no
+Tailwind, no PostCSS, no CSS processor of any kind.
 
-The approved distribution strategy is the package registry path declared by this repository: `@pieaistudio/swimmer-ui-kit` published to GitHub Packages through `.github/workflows/publish.yml` and `publishConfig.registry`. Consuming apps should depend on the registry package version and should not keep committed `.tgz` package artifacts long term.
+- Design system truth (tokens, theming, motion, a11y):
+  `docs/reference/design-system-guide.md`
+- Consumer onboarding / upgrade SOP / release checklist:
+  `docs/reference/usage-and-upgrade-playbook.md`
+- Live catalog: `pnpm dev` (preview page) and `pnpm storybook`
 
-## Install shape
-
-The package expects React and Tailwind to be provided by the host app:
-
-```json
-{
-  "peerDependencies": {
-    "@tailwindcss/vite": ">=4.0.0",
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0",
-    "tailwindcss": ">=4.0.0"
-  }
-}
-```
-
-Import the package CSS once in the host app shell:
-
-```ts
-import '@pieaistudio/swimmer-ui-kit/styles.css';
-```
-
-The same CSS file includes the Tailwind v4 `@theme inline` bridge and the `:root` CSS variables.
-
-## Exports
-
-### Components
-
-- `GameButton`
-- `GameDialog`
-- `GameHistoryPanel`
-- `GameHudActions`
-- `GameIconButton`
-- `GamePanel`
-- `GamePrompt`
-- `GameRadialMenu`
-- `GameSegmentedControl`
-- `GameSlider`
-- `GameTabs`
-- `GameToast`
-- `GameToggle`
-- `GameTooltip`
-- `GameAssetIcon`
-- `GameBadge`
-- `GameCardFan`
-- `GameHud`
-- `GameLanguageMenu`
-- `GameLoadingState`
-- `GameOrientationGate`
-- `GameStageTile`
-- `FirstSessionHud`
-- `FirstSessionOnboarding`
-- `GameUiPreview`
-- `GameShell`
-- `GameSceneHudLayout`
-- `GameFactList`
-- `GameStatList`
-- `GameMovementPad`
-- `GameAssetLibrary`
-- `GameAssetCard`
-- `GamePlacementToolbar`
-- `GameObjectToolbar`
-- `GameActionGrid`
-- `GameTerrainBuildToolbox`
-- `GameTerrainModeControl`
-- `GameTerrainToolStrip`
-- `GameBrushControls`
-- `GameMaterialSwatches`
-- `GameUndoRedoActions`
-- `GameBuildLibrary`
-- `GameCompactGameDrawer`
-- `GameContractorPanel`
-- `GameConstructionJobCard`
-- `GameConstructionProgress`
-- `GameConstructionApprovalBar`
-- `GameRobotCrewStatus`
-- `GameBeforeAfterToggle`
-- `GameCompactJobDrawer`
-
-### Tokens and assets
-
-- `CLAY_COLOR_TOKENS`
-- `CLAY_SEMANTIC_TOKENS`
-- `CLAY_TYPE_TOKENS`
-- `CLAY_SPACE_TOKENS`
-- `CLAY_RADIUS_TOKENS`
-- `CLAY_ELEVATION_TOKENS`
-- `CLAY_MOTION_TOKENS`
-- `CLAY_LAYER_TOKENS`
-- `CLAY_TARGET_TOKENS`
-- `CLAY_ASSET_SIZE_TOKENS` including terrain/build sizing entries for swatches, tool hit targets, brush numeric width, and build rail cards
-- `CLAY_UI_TOKENS`
-- `GAME_UI_TOKENS`
-- `GAME_UI_TARGETS`
-- `CLAY_ASSETS`
-- `CLAY_ASSET_BASE_PATH`
-- `getClayIconPath`
-- `getClaySourceAssetPath`
-- `getClayCatalogPaths`
-
-### Audio helper
-
-- `playGameInteractionSound`
-- `playGameInteractionSoundForContext`
-
-`GameButton` no longer reads any TuringPact store. Use the `sound` prop to opt into button SFX:
-
-```tsx
-<GameButton sound={{ enabled: true, masterVolume: 0.8, sfxVolume: 0.6 }}>
-  Open my own table
-</GameButton>
-```
-
-## Official package distribution
-
-SwimmerUIKit is scoped as `@pieaistudio/swimmer-ui-kit` and is configured for GitHub Packages. The release workflow builds and publishes the package on `v*` tags or manual dispatch.
-
-Consuming apps should use a registry dependency:
+## Install
 
 ```json
 {
   "dependencies": {
-    "@pieaistudio/swimmer-ui-kit": "0.6.0"
+    "@pieaistudio/swimmer-ui-kit": "1.0.0"
   }
 }
 ```
 
-For GitHub Packages, add only the scope registry to the consuming app or CI environment:
+Peer dependencies: `react >=19` and `react-dom >=19` — nothing else.
+Pin the exact version (no `^`) — upgrades are explicit, reviewed actions.
+The package is ESM-only and published to GitHub Packages; add the scope
+registry to the consuming app or CI environment:
 
 ```ini
 @pieaistudio:registry=https://npm.pkg.github.com
 ```
 
-Authentication should come from the host environment, such as `NODE_AUTH_TOKEN` or the platform's package-read secret. Do not commit tokens. Do not keep `vendor/packages/*.tgz` or `file:vendor/packages/...tgz` as the normal integration path; a tarball may be used only as a short emergency bridge before a registry package is available.
+Authentication comes from the host environment (`NODE_AUTH_TOKEN` or the
+platform's package-read secret). Do not commit tokens. Do not keep `.tgz`
+artifacts as the normal integration path.
 
-## CSS variable tokens
-
-Tokens are available in TypeScript and as CSS variables. The CSS variables are the cross-stack contract and can be consumed outside React:
-
-```css
-.my-game-panel {
-  background: var(--game-ui-panel);
-  color: var(--game-ui-text);
-  border-radius: var(--game-ui-radius-panel);
-  box-shadow: var(--game-ui-shadow-panel);
-}
-```
-
-The TypeScript token exports intentionally point to CSS variables for semantic, typography, spacing, radius, elevation, motion, layer, and asset-size values:
+Import the stylesheet once in the app shell:
 
 ```ts
-import { CLAY_UI_TOKENS, GAME_UI_TARGETS } from '@pieaistudio/swimmer-ui-kit';
-
-console.log(CLAY_UI_TOKENS.semantic.surface); // var(--game-ui-surface)
-console.log(GAME_UI_TARGETS.mobileLandscapeProofWidthPx); // 844
-```
-
-## OwnMySpace game surface pack example
-
-The game surface pack gives host apps official UI primitives for visible game DOM while keeping runtime scene/canvas code inside the host app:
-
-```tsx
-import {
-  GameAssetLibrary,
-  GameFactList,
-  GameMovementPad,
-  GamePlacementToolbar,
-  GameShell,
-} from '@pieaistudio/swimmer-ui-kit';
 import '@pieaistudio/swimmer-ui-kit/styles.css';
-
-export function IslandSurface() {
-  return (
-    <GameShell
-      title="Island editor"
-      hud={<GameFactList label="Island facts" facts={[{ id: 'objects', label: 'Objects', value: '3/12' }]} />}
-      movementPad={<GameMovementPad label="Move avatar" />}
-      assetLibrary={(
-        <GameAssetLibrary
-          label="Placeable assets"
-          title="Assets"
-          selectedAssetId="manual-chair"
-          groups={[
-            { id: 'starter', label: 'Starter', source: 'starter', assets: [{ assetId: 'starter-table', source: 'starter', title: 'Starter table' }] },
-            { id: 'generated', label: 'Generated', source: 'generated', assets: [{ assetId: 'gen-lamp', source: 'generated', title: 'Generated lamp', status: 'ready' }] },
-            { id: 'imported', label: 'Imported', source: 'imported', assets: [{ assetId: 'manual-chair', source: 'imported', title: 'Manual chair', status: 'selected' }] },
-          ]}
-        />
-      )}
-      bottomBar={(
-        <GamePlacementToolbar
-          title="Placement"
-          selectedTitle="Manual chair"
-          placedObjects={3}
-          maxObjects={12}
-          statusValue="Ready"
-          actions={[{ id: 'place', label: 'Place', icon: 'check', tone: 'primary' }]}
-          objectActions={[{ id: 'rotate', label: 'Rotate', icon: 'compass', shortcut: 'R' }]}
-        />
-      )}
-    >
-      <canvas aria-label="3D island scene" />
-    </GameShell>
-  );
-}
 ```
 
-The package intentionally accepts data and callbacks through props. It does not import OwnMySpace runtime stores, R3F scene code, asset manifests, providers, or persistence APIs.
+**Optional** — only if the host app uses Tailwind v4 and wants Tailwind
+theme names (`bg-primary`, `text-foreground`, `rounded-md`…) to resolve to
+kit tokens, additionally import the bridge (requires the host's Tailwind
+build; never import it without Tailwind):
 
-## Terrain/build tooling example
-
-`GameTerrainBuildToolbox` gives games official terrain and construction controls without owning terrain truth, schema, commands, or persistence. Host apps pass mode/tool/material/build state and receive callbacks:
-
-```tsx
-import { GameTerrainBuildToolbox } from '@pieaistudio/swimmer-ui-kit';
-
-<GameTerrainBuildToolbox
-  activeBuildCategoryId="foundation"
-  activeMaterialId="grass"
-  activeModeId="terrain"
-  activeToolId="raise"
-  brush={{ radius: 2.75, strength: 0.45 }}
-  buildCategories={[{ id: 'foundation', label: 'Foundation', items: [{ id: 'floor-2x2', label: '2x2 floor' }] }]}
-  label="Terrain and build tools"
-  materials={[{ id: 'grass', label: 'Grass', compactLabel: 'Grass', color: '#4f9d6b', pattern: 'speckled', secondaryColor: '#8fd8a2' }]}
-  modes={[{ id: 'terrain', label: 'Terrain', compactLabel: 'Land' }, { id: 'build', label: 'Build' }]}
-  onBrushRadiusChange={(radius) => terrainEditor.setRadius(radius)}
-  onModeChange={(mode) => terrainEditor.setMode(mode)}
-  onToolChange={(tool) => terrainEditor.setTool(tool)}
-  title="Island tools"
-  toolCompactLabelMode="auto"
-  tools={[{ id: 'raise', label: 'Raise terrain', compactLabel: 'Raise' }, { id: 'flatten', label: 'Flatten terrain', compactLabel: 'Flat' }]}
-  undoRedo={{ canUndo: true, canRedo: false }}
-/>
+```ts
+import '@pieaistudio/swimmer-ui-kit/tailwind.css';
 ```
 
-Use `variant="mobile"` or `variant="small-mobile"` to render the official compact drawer/tool strip. Mobile terrain tools default to compact visible captions through `toolCompactLabelMode="auto"`; consumers that need strict icon-only controls may pass `toolCompactLabelMode="hidden"` while keeping full accessible labels. Material swatches support `pattern` and `secondaryColor` for terrain paint readability, and build items may provide `previewSrc` thumbnails while staying data-only. The consuming game still owns where that drawer is placed relative to canvas, movement controls, and other HUD slots.
+## What's inside
 
-## AI contractor / construction robot example
+- **~60 components** across: core controls (`GameButton`, `GameTabs`,
+  `GameSlider`, `GameToggle`, `GameForms` inputs…), panels and windows
+  (`GamePanel`, `GameCollapsiblePanel`, `GameWindowPanel`, `GameModal` on
+  native `<dialog>`), HUD/shell surfaces (`GameShell`, `GameHud`,
+  `GameSceneHudLayout`, `GameMovementPad`…), the OwnMySpace surface pack,
+  terrain/build tooling (`GameTerrainBuildToolbox`…), and the AI
+  contractor queue (`GameContractorPanel`…). `src/index.ts` is the
+  authoritative export list; Storybook is the visual catalog.
+- **Design tokens** as CSS variables (`--game-ui-*`) with TypeScript
+  mirrors (`CLAY_*_TOKENS`, `GAME_UI_TOKENS`). The CSS variables are the
+  cross-stack contract and work outside React:
 
-`GameContractorPanel` gives games an official contractor queue for AI construction drafts, previews, robot work, validation, review, and approval. It is data-only: the consuming game owns commands, scene changes, generated assets, persistence, and provider transport.
+  ```css
+  .my-game-panel {
+    background: var(--game-ui-panel);
+    color: var(--game-ui-text);
+    border-radius: var(--game-ui-radius-panel);
+  }
+  ```
 
-```tsx
-import { GameContractorPanel, type GameConstructionJob } from '@pieaistudio/swimmer-ui-kit';
+- **Official themes**: light (default) and `night`
+  (`<html data-game-ui-theme="night">`). Downstream theming = overriding
+  semantic tokens; see the design system guide.
+- **Clay assets**: inline SVG mode by default (no asset hosting needed);
+  `setClayAssetMode('source')` switches to the sculpted PNG set, which
+  ships in `dist/assets/` for hosts to copy under
+  `/assets/game/ui/clay/…`.
+- **Audio helper**: `playGameInteractionSound` (SSR-safe, opt-in via the
+  `sound` prop on `GameButton`).
 
-const jobs: readonly GameConstructionJob[] = [
-  {
-    id: 'house-pad-review',
-    title: 'House pad review',
-    description: 'Owner approval required before accepting terrain and block placement.',
-    status: 'readyForReview',
-    location: 'Main island',
-    progressValue: 92,
-    providerMode: 'local-only',
-    validationWarnings: [{ id: 'clearance', label: 'Validation clear', tone: 'success' }],
-    before: { label: 'Before', caption: 'Uneven terrain pad.' },
-    after: { label: 'After', caption: 'Flattened foundation pad with safe clearance.' },
-  },
-  {
-    id: 'garden-fence-blocked',
-    title: 'Garden fence blocked',
-    status: 'blocked',
-    progressValue: 44,
-    providerMode: 'paid-disabled',
-    validationWarnings: [{ id: 'collision', label: 'Collision risk', description: 'Fence crosses a saved object.', tone: 'warning' }],
-  },
-];
+## Wrapped-app (Capacitor/Tauri) readiness
 
-<GameContractorPanel
-  jobs={jobs}
-  label="AI contractor jobs"
-  onAction={(actionId, jobId) => contractorStore.dispatch({ actionId, jobId })}
-  onSelectJob={(jobId) => contractorStore.selectJob(jobId)}
-  selectedJobId="house-pad-review"
-  subtitle="Local-only construction queue with owner approval."
-  title="AI contractor"
-/>
-```
+The kit treats WebView shells as first-class: interactive controls ship
+`touch-action: manipulation` and transparent tap highlights, hover-only
+affordances sit behind `@media (hover: hover)`, and every safe-area read
+flows through the `--game-ui-safe-*` tokens so hosts (e.g. Capacitor
+Android edge-to-edge, where raw `env(safe-area-inset-*)` can read 0) can
+override the source values in one place.
 
-Use `GameCompactJobDrawer` or `variant="mobile"` / `variant="small-mobile"` for compact HUD surfaces. Job status covers `draft`, `preview`, `queued`, `working`, `blocked`, `readyForReview`, `accepted`, and `cancelled`; default actions cover approve, cancel, revise, and revert. Provider badges such as `local-only`, `mock`, and `paid-disabled` make budget/provider boundaries visible without creating provider transport inside the UI kit.
+## Compatibility contract (1.0)
 
-## Local preview
+- Exported components and props, `.game-ui-*` class names, and
+  `--game-ui-*` token names are public API: additive-only within a major.
+- `dist/styles.css` stays 100% standard CSS (guard-tested; the CSS build
+  fails on any lightningcss warning).
+- Packaging is machine-checked: `publint` and `arethetypeswrong` run clean
+  (ESM-only by design — CJS consumers on Node ≥22 can `require(esm)` or
+  dynamic-import).
 
-Run the preview page:
+See `CHANGELOG.md` for release history and migration notes.
+
+## Development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev              # preview page (token ledger + all surfaces)
+pnpm storybook        # component catalog
+pnpm typecheck && pnpm test && pnpm build && pnpm docs:check
 ```
 
-The preview renders:
-
-- token color swatches and token ledgers
-- typography scale
-- buttons, badges, tabs, segmented control, slider, toggle, radial menu, tooltip
-- HUD, stage tiles, table proof frame, prompt/dialog, toast/loading/error
-- card fan and asset path references
-- history panel
-- first-session HUD/onboarding shell
-- OwnMySpace surface pack and terrain/build tooling previews
-- AI contractor / construction robot previews with job states, crew, approval, and compact drawer
-- orientation gate
-- responsive proof targets for desktop and mobile landscape
-
-## Integration into TuringPact TODO
-
-This extraction pass does not modify TuringPact. A future TuringPact integration should do the following in TuringPact only after package adoption is reviewed:
-
-1. Add `@pieaistudio/swimmer-ui-kit` as a workspace/package dependency.
-2. Import `@pieaistudio/swimmer-ui-kit/styles.css` once in the TuringPact app shell or style entry.
-3. Replace imports from `src/features/game-ui` with imports from `@pieaistudio/swimmer-ui-kit`.
-4. Replace `GameButton` settings-store coupling with `sound` props derived from TuringPact settings state.
-5. Pass localized copy into `FirstSessionHud`, `FirstSessionOnboarding`, and any preview/demo surfaces through props instead of relying on the package to call TuringPact i18n.
-6. Decide whether TuringPact continues serving `/assets/game/ui/clay/...` source assets or relies on the package inline icon fallback. If source assets are required, keep or copy `public/assets/game/ui` according to the host app asset strategy.
-7. Remove TuringPact `src/features/game-ui` only after all imports are replaced and local regression passes.
-8. Remove or stop importing TuringPact `src/styles/game-ui-clay.css` only after `@pieaistudio/swimmer-ui-kit/styles.css` covers the adopted surfaces.
-9. Keep `src/styles/theme.css` host app theme decisions separate from the kit unless the host app intentionally delegates those tokens to the kit.
-10. Re-run TuringPact H1 core flow, first-session, desktop, and mobile-landscape visual evidence after the integration.
-
-## Local validation from this extraction pass
-
-- `npm run typecheck`: passed
-- `npm run build`: passed and emitted `dist/index.js`, `dist/index.cjs`, `dist/index.d.ts`, and `dist/styles.css`
-- `npm test`: passed with 2 token tests
-- Preview evidence was captured under `.devspace-visual/`
+Releases: bump `package.json` version, commit, push a `v*` tag —
+`.github/workflows/publish.yml` builds and publishes to GitHub Packages.

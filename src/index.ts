@@ -1,5 +1,7 @@
-import './styles.css';
-
+// Styles are shipped separately on purpose: consumers import
+// '@pieaistudio/swimmer-ui-kit/styles.css' once at their entry. Importing
+// CSS here would leak `import './styles.css'` into dist/index.d.ts and
+// break type resolution (arethetypeswrong: internal resolution error).
 export { GameButton, type GameButtonProps, type GameButtonVariant } from './GameButton';
 export { GameDialog, type GameDialogProps } from './GameDialog';
 export { GameHistoryPanel, type GameHistoryPanelProps, type GameUiHistoryEntry, type GameUiHistoryKind } from './GameHistoryPanel';

@@ -122,7 +122,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
     langMenuLabel: 'Preview language',
     heroTitle: 'Clay game UI kit',
     heroBody:
-      'Self-contained React 19 + TypeScript + Tailwind v4 token surface extracted from TuringPact. Tokens are CSS variables and the components do not depend on TuringPact stores or i18n.',
+      'Self-contained React 19 + TypeScript game UI kit — zero runtime dependencies, 100% standard CSS. Tokens are CSS variables and the components do not depend on any host store or i18n.',
     sections: { tokens: 'Tokens', icons: 'Icon families', typography: 'Typography scale', components: 'Component surface', forms: 'Forms, inputs and status', firstSession: 'First-session shell', orientation: 'Orientation gate preview', responsive: 'Responsive proof targets' },
     tokenGroups: { colors: 'colors', semantic: 'semantic', typography: 'typography', spacing: 'spacing', radius: 'radius', elevation: 'elevation', motion: 'motion', layers: 'layers', targets: 'targets', assetSizing: 'asset sizing' },
     iconsIntro: 'Every icon ships in two families. Cards default to the sculpted game family; the flat line family is the utility alternate.',
@@ -171,7 +171,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
     triggerLabel: '中',
     langMenuLabel: '预览语言',
     heroTitle: '黏土游戏 UI 套件',
-    heroBody: '从图灵密约抽取的自包含 React 19 + TypeScript + Tailwind v4 设计令牌层。令牌即 CSS 变量,组件不依赖图灵密约的状态库或 i18n。',
+    heroBody: '自包含的 React 19 + TypeScript 游戏 UI 组件库——零运行时依赖、100% 标准 CSS。令牌即 CSS 变量,组件不依赖任何宿主状态库或 i18n。',
     sections: { tokens: '设计令牌', icons: '图标双族', typography: '字号层级', components: '组件总览', forms: '表单、输入与状态', firstSession: '首次会话外壳', orientation: '横屏门预览', responsive: '响应式验证目标' },
     tokenGroups: { colors: '颜色', semantic: '语义', typography: '字体', spacing: '间距', radius: '圆角', elevation: '阴影', motion: '动效', layers: '层级', targets: '触控目标', assetSizing: '资源尺寸' },
     iconsIntro: '每个图标都有两族。卡片默认用立体游戏风,扁平线性风是工具型备选。',

@@ -135,3 +135,61 @@ describe('token single source of truth', () => {
     expect(missing).toEqual([]);
   });
 });
+
+const bridgeCss = readFileSync(join(SRC, 'tailwind-bridge.css'), 'utf8');
+const indexTs = readFileSync(join(SRC, 'index.ts'), 'utf8');
+const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
+  main?: string;
+  module?: string;
+  exports: Record<string, string | Record<string, string>>;
+  peerDependencies: Record<string, string>;
+};
+
+describe('1.0 packaging contract (SPEC-0002)', () => {
+  it('styles.css and theme.css are 100% standard CSS (no Tailwind at-rules)', () => {
+    for (const css of [stylesCss, themeCss]) {
+      const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
+      const tailwindAtRules = withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
+      expect(tailwindAtRules).toEqual([]);
+    }
+  });
+
+  it('tailwind-bridge.css is the only @theme home and maps only kit tokens', () => {
+    const withoutComments = bridgeCss.replace(/\/\*[\s\S]*?\*\//g, '');
+    expect(withoutComments.match(/@theme\b/g)).toHaveLength(1);
+    const mapped = [...withoutComments.matchAll(/:\s*var\((--[\w-]+)\)/g)]
+      .map((match) => match[1])
+      .filter((name): name is string => Boolean(name));
+    expect(mapped.length).toBeGreaterThan(0);
+    for (const name of mapped) expect(name).toMatch(/^--game-ui-/);
+  });
+
+  it('entry module never imports CSS (keeps dist/index.d.ts resolvable)', () => {
+    const codeOnly = indexTs.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+    expect(codeOnly).not.toMatch(/import\s+'[^']*\.css'/);
+  });
+
+  it('package stays ESM-only with react-only peers (publint/attw contract)', () => {
+    expect(pkg.main).toBeUndefined();
+    expect(pkg.module).toBeUndefined();
+    const rootExport = pkg.exports['.'];
+    expect(typeof rootExport).toBe('object');
+    if (typeof rootExport === 'object') {
+      expect(rootExport['require']).toBeUndefined();
+      expect(rootExport['default']).toBe('./dist/index.js');
+    }
+    expect(pkg.exports['./tailwind.css']).toBe('./dist/tailwind.css');
+    expect(pkg.exports['./package.json']).toBe('./package.json');
+    expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom']);
+  });
+
+  it('wrapped-app hardening stays in place (touch + safe-area discipline)', () => {
+    expect(stylesCss).toContain('touch-action: manipulation');
+    expect(stylesCss).toContain('-webkit-tap-highlight-color: transparent');
+    // All safe-area reads flow through --game-ui-safe-* tokens in theme.css so
+    // hosts (e.g. Capacitor Android edge-to-edge) can override the source.
+    const rulesOnly = stylesCss.replace(/\/\*[\s\S]*?\*\//g, '');
+    expect(rulesOnly.includes('env(safe-area-inset')).toBe(false);
+    expect(themeCss.includes('env(safe-area-inset-top')).toBe(true);
+  });
+});

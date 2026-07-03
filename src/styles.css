@@ -55,7 +55,9 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-component-row, .game-ui-asset-path-grid, .game-ui-hud-cluster, .game-ui-hud-tools, .game-ui-input-strip, .game-ui-tabs, .game-ui-segmented, .game-ui-radial-menu, .game-ui-hud-actions, .swimmer-first-session-onboarding-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .game-ui-button, .game-ui-icon-button, .game-ui-tab, .game-ui-segmented-option, .game-ui-toggle, .game-ui-language-trigger, .game-ui-language-popover button, .game-ui-stage-tile, .game-ui-orientation-card button { min-height: 44px; border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent); border-radius: var(--game-ui-radius-control); font: inherit; font-family: var(--game-ui-font-body); font-weight: 860; cursor: pointer; box-shadow: var(--game-ui-shadow-button); transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), scale var(--game-ui-motion-fast) var(--game-ui-ease-pop), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
 .game-ui-button, .game-ui-icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: fit-content; padding: 0 16px; }
-.game-ui-button:hover, .game-ui-icon-button:hover, .game-ui-language-trigger:hover, .game-ui-language-popover button:hover, .game-ui-stage-tile:hover, .game-ui-orientation-card button:hover { transform: translateY(-1px); }
+@media (hover: hover) {
+  .game-ui-button:hover, .game-ui-icon-button:hover, .game-ui-language-trigger:hover, .game-ui-language-popover button:hover, .game-ui-stage-tile:hover, .game-ui-orientation-card button:hover { transform: translateY(-1px); }
+}
 .game-ui-button:active, .game-ui-icon-button:active, .game-ui-tab:active, .game-ui-segmented-option:active, .game-ui-toggle:active, .game-ui-language-trigger:active, .game-ui-language-popover button:active, .game-ui-stage-tile:active, .game-ui-orientation-card button:active { scale: .96; }
 .game-ui-button--primary, .game-ui-orientation-card button { background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent)); color: var(--game-ui-accent-contrast); }
 .game-ui-button--secondary, .game-ui-icon-button, .game-ui-tab, .game-ui-segmented-option, .game-ui-toggle, .game-ui-language-trigger, .game-ui-language-popover button { background: var(--game-ui-surface-raised); color: var(--game-ui-text); }
@@ -225,7 +227,7 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .swimmer-first-session-shell { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
 .swimmer-first-session-hud { position: absolute; top: var(--game-ui-safe-top); right: var(--game-ui-safe-right); left: var(--game-ui-safe-left); align-items: flex-start; }
 .swimmer-first-session-hud .game-ui-hud-cluster, .swimmer-first-session-hud .game-ui-hud-tools, .swimmer-first-session-hud-actions { pointer-events: auto; }
-.swimmer-first-session-controls { position: absolute; right: max(18px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); left: max(18px, env(safe-area-inset-left)); display: grid; grid-template-columns: auto minmax(120px, 1fr) minmax(180px, .72fr) auto; align-items: center; gap: 12px; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-modal); background: color-mix(in srgb, var(--game-ui-panel-strong) 86%, transparent); padding: 10px 12px; pointer-events: none; box-shadow: var(--game-ui-shadow-panel); backdrop-filter: blur(16px); }
+.swimmer-first-session-controls { position: absolute; right: max(18px, var(--game-ui-safe-right)); bottom: max(16px, var(--game-ui-safe-bottom)); left: max(18px, var(--game-ui-safe-left)); display: grid; grid-template-columns: auto minmax(120px, 1fr) minmax(180px, .72fr) auto; align-items: center; gap: 12px; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-modal); background: color-mix(in srgb, var(--game-ui-panel-strong) 86%, transparent); padding: 10px 12px; pointer-events: none; box-shadow: var(--game-ui-shadow-panel); backdrop-filter: blur(16px); }
 .swimmer-first-session-joystick { display: grid; width: 58px; height: 58px; border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent); place-items: center; box-shadow: var(--game-ui-shadow-inset); }
 .swimmer-first-session-joystick span { width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent)); box-shadow: var(--game-ui-shadow-button); }
 .swimmer-first-session-control-copy strong { color: var(--game-ui-text); font-size: var(--game-ui-font-sm); }
@@ -329,7 +331,9 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-asset-library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--game-ui-asset-card-min-width, 168px), 100%), 1fr)); gap: 9px; }
 .game-ui-asset-library [data-density='dense'] .game-ui-asset-library-grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--game-ui-asset-card-dense-min-width, 132px), 100%), 1fr)); }
 .game-ui-asset-card { box-sizing: border-box; display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; width: 100%; border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 16%, transparent); border-radius: var(--game-ui-radius-panel); background: color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent); color: var(--game-ui-text); padding: 10px; text-align: left; box-shadow: var(--game-ui-shadow-button); cursor: pointer; transition: transform var(--game-ui-motion-fast) var(--game-ui-ease-pop), box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft); }
-.game-ui-asset-card:hover { transform: translateY(-1px); }
+@media (hover: hover) {
+  .game-ui-asset-card:hover { transform: translateY(-1px); }
+}
 .game-ui-asset-card:active { scale: .98; }
 .game-ui-asset-card:focus-visible { outline: 3px solid var(--game-ui-focus-ring); outline-offset: 2px; }
 .game-ui-asset-card:disabled { cursor: not-allowed; opacity: .62; transform: none; }
@@ -552,13 +556,24 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-window-body, .game-ui-contractor-job-list, .game-ui-compact-job-drawer-list, .game-ui-compact-game-drawer-panel, .game-ui-shell-library, .game-ui-shell-side-panel, .game-ui-modal-frame { scrollbar-width: thin; scrollbar-color: var(--game-ui-border-strong) transparent; }
 .game-ui-panel ::selection, .game-ui-modal-frame ::selection, .game-ui-window ::selection, .game-ui-collapsible ::selection, .game-ui-dialog ::selection { background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent); }
 
+/* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+.game-ui-button, .game-ui-icon-button, .game-ui-tab, .game-ui-segmented-option, .game-ui-toggle, .game-ui-language-trigger, .game-ui-language-popover button, .game-ui-stage-tile, .game-ui-orientation-card button, .game-ui-collapsible-toggle, .game-ui-window-button, .game-ui-movement-button, .game-ui-asset-card, .game-ui-terrain-mode-option, .game-ui-build-category, .game-ui-material-swatch, .game-ui-build-item, .game-ui-brush-range, .game-ui-construction-job-select, .game-ui-checkbox, .game-ui-card-fan-card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.game-ui-movement-pad, .game-ui-placement-toolbar, .game-ui-terrain-tool-strip, .game-ui-hud, .game-ui-hud-actions, .swimmer-first-session-controls { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+
 /* Panel system: GameCollapsiblePanel / GameWindowPanel / GameModal */
 .game-ui-collapsible { display: grid; min-width: 0; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-panel); background: var(--game-ui-panel); box-shadow: var(--game-ui-shadow-panel); }
 .game-ui-collapsible[data-panel-tone='strong'] { background: var(--game-ui-panel-strong); }
 .game-ui-collapsible-header { display: flex; align-items: center; gap: 8px; padding: 5px 8px 5px 5px; }
 .game-ui-collapsible-heading { display: flex; flex: 1; min-width: 0; margin: 0; }
 .game-ui-collapsible-toggle { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; min-height: 44px; border: 0; border-radius: var(--game-ui-radius-card); background: transparent; color: var(--game-ui-text); padding: 4px 10px; font: inherit; font-family: var(--game-ui-font-display); font-weight: var(--game-ui-weight-title); text-align: left; cursor: pointer; }
-.game-ui-collapsible-toggle:hover { background: color-mix(in srgb, var(--game-ui-ink-deep) 6%, transparent); }
+@media (hover: hover) {
+  .game-ui-collapsible-toggle:hover { background: color-mix(in srgb, var(--game-ui-ink-deep) 6%, transparent); }
+}
 .game-ui-collapsible-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .game-ui-collapsible-chevron { width: 9px; height: 9px; flex: none; margin-top: -4px; border-right: 3px solid var(--game-ui-accent); border-bottom: 3px solid var(--game-ui-accent); border-radius: 1px; transform: rotate(45deg); transition: transform var(--game-ui-motion-base) var(--game-ui-ease-pop), margin-top var(--game-ui-motion-base) var(--game-ui-ease-pop); }
 .game-ui-collapsible[data-open='false'] .game-ui-collapsible-chevron { margin-top: 2px; transform: rotate(-45deg); }
