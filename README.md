@@ -5,6 +5,10 @@ Self-contained clay game UI kit for PieAI web, game, and wrapped
 **Zero runtime dependencies, 100% standard CSS** — consumers need no
 Tailwind, no PostCSS, no CSS processor of any kind.
 
+Source is publicly readable. Use is governed by the
+[PieAI Limited Use License](./LICENSE), not an open-source license. The visual
+assets may not be extracted, modified, or redistributed as a standalone pack.
+
 - Design system truth (tokens, theming, motion, a11y):
   `docs/reference/design-system-guide.md`
 - Consumer onboarding / upgrade SOP / release checklist:
@@ -23,16 +27,9 @@ Tailwind, no PostCSS, no CSS processor of any kind.
 
 Peer dependencies: `react >=19` and `react-dom >=19` — nothing else.
 Pin the exact version (no `^`) — upgrades are explicit, reviewed actions.
-The package is ESM-only and published to GitHub Packages; add the scope
-registry to the consuming app or CI environment:
-
-```ini
-@pieaistudio:registry=https://npm.pkg.github.com
-```
-
-Authentication comes from the host environment (`NODE_AUTH_TOKEN` or the
-platform's package-read secret). Do not commit tokens. Do not keep `.tgz`
-artifacts as the normal integration path.
+The package is ESM-only and published publicly on npmjs. It uses the default
+npm registry, so consumers need no scope-specific `.npmrc` and no package-read
+token.
 
 Import the stylesheet once in the app shell:
 
@@ -111,5 +108,7 @@ pnpm storybook        # component catalog
 pnpm typecheck && pnpm test && pnpm build && pnpm docs:check
 ```
 
-Releases: bump `package.json` version, commit, push a `v*` tag —
-`.github/workflows/publish.yml` builds and publishes to GitHub Packages.
+Releases use GitHub Actions Trusted Publishing: bump `package.json`, commit and
+push `main`, then run `gh workflow run npm-publish.yml --ref main`. The manual
+workflow is the release safety switch; it publishes to npmjs with short-lived
+OIDC credentials and provenance, without a local login or stored npm token.

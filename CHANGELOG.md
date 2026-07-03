@@ -9,6 +9,10 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 props, `.game-ui-*` class names, and `--game-ui-*` token names are now
 public API — additive-only within the 1.x major. Spec: SPEC-0002.
 
+Distribution is public through npmjs and the source repository is publicly
+readable under the PieAI Limited Use License. This is source-available, not an
+open-source license; bundled visual assets remain restricted.
+
 ### Breaking (packaging only — zero code changes needed in any known consumer)
 
 - **ESM-only.** `dist/index.cjs` and the `require` export condition are

@@ -40,11 +40,11 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 
 ## 消费方接入（三步）
 
-1. 安装（GitHub Packages 私有源）并钉精确版本：
+1. 从 npmjs 安装并钉精确版本：
    `"@pieaistudio/swimmer-ui-kit": "1.0.0"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
-   处理器。
+   处理器，也不需要 scope-specific `.npmrc` 或 package-read token。
 2. 入口处引一次样式：`import '@pieaistudio/swimmer-ui-kit/styles.css'`。
    （可选：Tailwind v4 宿主想让 `bg-primary` 等映射到 kit token，再加
    `import '@pieaistudio/swimmer-ui-kit/tailwind.css'`；非 Tailwind
@@ -79,11 +79,14 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
    属性，属预期）。
 4. API 变化分类：纯增量 → minor；破坏性 → major 并写迁移说明。
    更新 `CHANGELOG.md`。
-5. bump `package.json` version；`pnpm docs:check`；commit + push。
-6. 发布 = 推 tag：`git tag v<version> && git push origin v<version>`，
-   `.github/workflows/publish.yml` 自动构建并发布到 GitHub Packages
-   （CI 用内置 GITHUB_TOKEN，本机不需要任何 token）。
-7. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
+5. bump `package.json` version；`pnpm docs:check`；commit + push 到 `main`。
+6. 发布 = `gh workflow run npm-publish.yml --ref main`。该手动安全开关
+   通过 GitHub Actions OIDC Trusted Publishing 发布到 npmjs；不运行本机
+   `npm publish`，不保存长期 npm write token，也不需要每次登录。
+7. 工作流完成后用
+   `npm view @pieaistudio/swimmer-ui-kit@<version> version --registry https://registry.npmjs.org/`
+   核验；registry 返回前不得宣布发布成功。
+8. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
 
 ## 兼容性承诺（1.0 合同）
 

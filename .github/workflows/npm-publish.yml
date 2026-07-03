@@ -1,0 +1,88 @@
+name: npm-publish
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Guard main branch
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "npm publishing is only allowed from main, got: $GITHUB_REF_NAME" >&2
+            exit 1
+          fi
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.9.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports Trusted Publishing
+        run: |
+          npm install -g npm@latest
+          npm --version
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm build-storybook
+      - run: pnpm docs:check
+      - run: npx publint
+      - run: npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only
+
+      - name: Resolve package version
+        id: package
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check existing npm version
+        id: registry
+        run: |
+          PACKAGE="@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }}"
+          if npm view "$PACKAGE" version --registry https://registry.npmjs.org/ >/tmp/swimmer-ui-kit-version 2>/dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Found existing $PACKAGE"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "$PACKAGE is not published yet"
+          fi
+
+      - name: Pack package
+        run: pnpm pack --out "$RUNNER_TEMP/swimmer-ui-kit.tgz"
+
+      - name: Publish package
+        if: steps.registry.outputs.exists != 'true'
+        run: npm publish "$RUNNER_TEMP/swimmer-ui-kit.tgz" --provenance --access public --registry https://registry.npmjs.org/
+
+      - name: Verify package
+        run: |
+          for attempt in {1..24}; do
+            PUBLISHED=$(npm view "@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }}" version --registry https://registry.npmjs.org/ 2>/dev/null || true)
+            if [ "$PUBLISHED" = "${{ steps.package.outputs.version }}" ]; then
+              echo "@pieaistudio/swimmer-ui-kit@$PUBLISHED is visible on npm."
+              exit 0
+            fi
+            echo "Waiting for @pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/24)."
+            sleep 5
+          done
+
+          echo "@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm in time." >&2
+          exit 1

@@ -139,10 +139,15 @@ describe('token single source of truth', () => {
 const bridgeCss = readFileSync(join(SRC, 'tailwind-bridge.css'), 'utf8');
 const indexTs = readFileSync(join(SRC, 'index.ts'), 'utf8');
 const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
+  license?: string;
   main?: string;
   module?: string;
   exports: Record<string, string | Record<string, string>>;
   peerDependencies: Record<string, string>;
+  publishConfig?: {
+    access?: string;
+    registry?: string;
+  };
 };
 
 describe('1.0 packaging contract (SPEC-0002)', () => {
@@ -181,6 +186,14 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(pkg.exports['./tailwind.css']).toBe('./dist/tailwind.css');
     expect(pkg.exports['./package.json']).toBe('./package.json');
     expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom']);
+  });
+
+  it('publishes publicly to npmjs under the repository license', () => {
+    expect(pkg.license).toBe('SEE LICENSE IN LICENSE');
+    expect(pkg.publishConfig).toEqual({
+      access: 'public',
+      registry: 'https://registry.npmjs.org',
+    });
   });
 
   it('wrapped-app hardening stays in place (touch + safe-area discipline)', () => {

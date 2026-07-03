@@ -1,0 +1,41 @@
+PieAI Limited Use License 1.0
+
+Copyright (c) 2026 PieAI. All rights reserved.
+
+Subject to the restrictions below, PieAI grants you a limited,
+non-exclusive, non-transferable, revocable license to:
+
+1. download and install this package;
+2. read the source code for evaluation and integration purposes;
+3. use the unmodified package as a dependency in your applications; and
+4. perform ordinary build-time transformations, including bundling,
+   transpilation, tree-shaking, and minification, solely to include the
+   package in an application.
+
+You may not:
+
+1. modify or create derivative works from the source code or visual assets;
+2. redistribute, sublicense, publish, sell, or provide this package or its
+   visual assets as a standalone library, asset pack, template, or competing
+   product;
+3. extract or redistribute the visual assets separately from an application
+   that uses this package;
+4. remove or alter copyright, license, attribution, or proprietary notices;
+   or
+5. use PieAI names, logos, or trademarks to imply endorsement.
+
+Distribution of bundled or minified application output is permitted only when
+this package is an inseparable dependency of that application and is not
+offered as a reusable library or asset collection.
+
+This license does not grant ownership of any source code, visual asset,
+trademark, or other intellectual property. Third-party materials, if any,
+remain subject to their respective rights and terms.
+
+THE SOFTWARE AND ASSETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+PIEAI WILL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING
+FROM THE SOFTWARE, ASSETS, OR THEIR USE.
+
+Any use outside these terms requires prior written permission from PieAI.

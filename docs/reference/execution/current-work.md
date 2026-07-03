@@ -40,6 +40,9 @@ This file is the current project work index. It is not the agents-routing algori
 - Runtime-dependency policy: **zero runtime deps** — browser-native
   dialog/popover/color-mix/cascade-layers cover current needs; Base UI 1.0
   recorded as the future escape hatch for complex headless widgets.
+- Distribution direction: public npmjs package plus a publicly readable GitHub
+  repository under the PieAI Limited Use License. Releases use the manual
+  `npm-publish.yml` Trusted Publishing workflow; no long-lived npm write token.
 
 ## Reading Order
 

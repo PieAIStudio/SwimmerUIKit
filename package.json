@@ -2,22 +2,36 @@
   "name": "@pieaistudio/swimmer-ui-kit",
   "version": "1.0.0",
   "packageManager": "pnpm@11.9.0",
-  "description": "Self-contained clay game UI kit extracted from TuringPact for PieAI game surfaces.",
+  "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
+  "keywords": [
+    "react",
+    "game-ui",
+    "design-system",
+    "typescript",
+    "webview"
+  ],
+  "homepage": "https://github.com/PieAIStudio/SwimmerUIKit#readme",
+  "bugs": {
+    "url": "https://github.com/PieAIStudio/SwimmerUIKit/issues"
+  },
+  "author": "PieAI <PIEAI@hotmail.com>",
   "type": "module",
   "engines": {
     "node": ">=24 <25"
   },
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PieAIStudio/SwimmerUIKit.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "files": [
     "dist",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "types": "./dist/index.d.ts",
   "exports": {
