@@ -158,6 +158,17 @@ export {
   type GameEmptyStateProps,
   type GameProgressProps,
 } from './GameDisplay';
+export {
+  GameCollapsiblePanel,
+  GameModal,
+  GameWindowPanel,
+  type GameCollapsiblePanelLabels,
+  type GameCollapsiblePanelProps,
+  type GameModalProps,
+  type GameWindowPanelLabels,
+  type GameWindowPanelProps,
+  type GameWindowState,
+} from './GamePanelSystem';
 export { GameUiPreview, type GameUiPreviewProps } from './GameUiPreview';
 export { GAME_UI_PREVIEW_MESSAGES } from './previewStates';
 export {
