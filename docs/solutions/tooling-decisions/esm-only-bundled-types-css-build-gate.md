@@ -110,8 +110,8 @@ Two choices here are worth calling out. First, `lightningcss` the **library**, n
 /*
  * OPTIONAL Tailwind v4 bridge — NOT part of styles.css.
  * Only import if the consumer uses Tailwind v4:
- *   import '@pieaistudio/swimmer-ui-kit/styles.css';
- *   import '@pieaistudio/swimmer-ui-kit/tailwind.css'; // Tailwind users only
+ *   import '@pieai/swimmer-ui-kit/styles.css';
+ *   import '@pieai/swimmer-ui-kit/tailwind.css'; // Tailwind users only
  * Non-Tailwind consumers must NOT import it — plain CSS pipelines treat
  * @theme as an unknown at-rule.
  */

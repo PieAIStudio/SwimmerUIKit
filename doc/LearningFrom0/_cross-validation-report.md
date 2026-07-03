@@ -83,7 +83,7 @@
 
 4. **02篇 `getClayIconPath` 说明**："默认返回内嵌 SVG"是正确的主路径描述，对初学者适用
 
-5. **03篇 `peerDependencies` 表格**：教程列出了4个 peer（react、react-dom、tailwindcss、@tailwindcss/vite），与 `package.json` 的 `peerDependencies` 完全一致 ✅
+5. **03篇 `peerDependencies` 表格**：教程与当前包合同均只要求 react、react-dom；Tailwind v4 桥为可选导出 ✅
 
 6. **04篇 `npm run dev` 端口 5174**：与 `package.json` `scripts.dev` 中 `--port 5174` 一致 ✅
 
@@ -91,11 +91,11 @@
 
 ## 验证通过的声明（抽样）
 
-- ✅ 包名 `@pieaistudio/swimmer-ui-kit` → `package.json` `name` 字段完全一致
-- ✅ 当前版本 `0.1.1` → `package.json` `version: "0.1.1"`
-- ✅ 发布在 GitHub 私有 registry → `package.json` `publishConfig.registry: "https://npm.pkg.github.com"`
-- ✅ `import '@pieaistudio/swimmer-ui-kit/styles.css'` 路径有效 → `package.json` `exports["./styles.css"]: "./dist/styles.css"`
-- ✅ `peerDependencies` react/react-dom >=19.0.0、tailwindcss/vite >=4.0.0 → `package.json` 完全一致
+- ✅ 包名 `@pieai/swimmer-ui-kit` → `package.json` `name` 字段完全一致
+- ✅ 当前版本 `1.0.0` → `package.json` `version: "1.0.0"`
+- ✅ 发布在 npmjs 公共 registry → `package.json` `publishConfig.registry: "https://registry.npmjs.org"`
+- ✅ `import '@pieai/swimmer-ui-kit/styles.css'` 路径有效 → `package.json` `exports["./styles.css"]: "./dist/styles.css"`
+- ✅ `peerDependencies` 只有 react/react-dom >=19；Tailwind 桥是可选 CSS 导出
 - ✅ `CLAY_COLOR_TOKENS.orange = '#e8743b'` → `src/clay/tokens.ts:10`
 - ✅ `CLAY_SEMANTIC_TOKENS.surface = 'var(--game-ui-surface)'` → `src/clay/tokens.ts:24`
 - ✅ `CLAY_SEMANTIC_TOKENS.accent = 'var(--game-ui-accent)'` → `src/clay/tokens.ts:30`

@@ -1,4 +1,4 @@
-# @pieaistudio/swimmer-ui-kit
+# @pieai/swimmer-ui-kit
 
 Self-contained clay game UI kit for PieAI web, game, and wrapped
 (mobile/desktop WebView) surfaces. React 19 + TypeScript strict.
@@ -20,7 +20,7 @@ assets may not be extracted, modified, or redistributed as a standalone pack.
 ```json
 {
   "dependencies": {
-    "@pieaistudio/swimmer-ui-kit": "1.0.0"
+    "@pieai/swimmer-ui-kit": "1.0.0"
   }
 }
 ```
@@ -34,7 +34,7 @@ token.
 Import the stylesheet once in the app shell:
 
 ```ts
-import '@pieaistudio/swimmer-ui-kit/styles.css';
+import '@pieai/swimmer-ui-kit/styles.css';
 ```
 
 **Optional** — only if the host app uses Tailwind v4 and wants Tailwind
@@ -43,7 +43,7 @@ kit tokens, additionally import the bridge (requires the host's Tailwind
 build; never import it without Tailwind):
 
 ```ts
-import '@pieaistudio/swimmer-ui-kit/tailwind.css';
+import '@pieai/swimmer-ui-kit/tailwind.css';
 ```
 
 ## What's inside

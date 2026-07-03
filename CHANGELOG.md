@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `@pieaistudio/swimmer-ui-kit`.
+All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## 1.0.0 — 2026-07-03
@@ -13,7 +13,16 @@ Distribution is public through npmjs and the source repository is publicly
 readable under the PieAI Limited Use License. This is source-available, not an
 open-source license; bundled visual assets remain restricted.
 
-### Breaking (packaging only — zero code changes needed in any known consumer)
+The npmjs package uses PieAI's existing user scope: `@pieai/swimmer-ui-kit`.
+Earlier GitHub Packages releases used `@pieaistudio/swimmer-ui-kit`; consumers
+moving to npmjs must update the dependency name and import specifiers once.
+
+### Breaking (package identity and packaging)
+
+- **npm scope changed once.** Public npmjs distribution is
+  `@pieai/swimmer-ui-kit`; the earlier `@pieaistudio/swimmer-ui-kit` identity
+  remains only in GitHub Packages history. Consumers must update dependency
+  keys and import specifiers from `@pieaistudio` to `@pieai`.
 
 - **ESM-only.** `dist/index.cjs` and the `require` export condition are
   removed. Every known consumer is a Vite ESM app; CJS consumers on

@@ -66,13 +66,13 @@ Shared official action pattern. Actions are data objects with label, optional ic
 
 ## Official distribution strategy
 
-The official consumption path is the registry package `@pieaistudio/swimmer-ui-kit`, published to GitHub Packages by `.github/workflows/publish.yml` using the existing `publishConfig.registry`. Consuming apps should use a semver dependency and configure package-read authentication in CI or developer environments.
+The official consumption path is the public npmjs package `@pieai/swimmer-ui-kit`, published by `.github/workflows/npm-publish.yml` through npm Trusted Publishing. Consuming apps should pin an exact version; no package-read token or scope-specific registry configuration is required.
 
 Do not use committed tarballs as the long-term bridge. A host app may temporarily use a `.tgz` bridge only before a registry version is available, and should remove `vendor/packages/*.tgz` once the matching package version is published.
 
 ## Host app responsibilities
 
-- Import `@pieaistudio/swimmer-ui-kit/styles.css` once.
+- Import `@pieai/swimmer-ui-kit/styles.css` once.
 - Pass localized copy and callbacks through props.
 - Keep scene/canvas runtime, R3F/Three.js, asset loading, persistence, and provider state in the host app.
 - Keep generated/imported/starter asset data normalized before passing it into the UI kit.

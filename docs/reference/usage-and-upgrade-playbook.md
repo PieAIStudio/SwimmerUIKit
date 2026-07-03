@@ -41,13 +41,13 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 从 npmjs 安装并钉精确版本：
-   `"@pieaistudio/swimmer-ui-kit": "1.0.0"`（不用 `^`，升级必须是
+   `"@pieai/swimmer-ui-kit": "1.0.0"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
    处理器，也不需要 scope-specific `.npmrc` 或 package-read token。
-2. 入口处引一次样式：`import '@pieaistudio/swimmer-ui-kit/styles.css'`。
+2. 入口处引一次样式：`import '@pieai/swimmer-ui-kit/styles.css'`。
    （可选：Tailwind v4 宿主想让 `bg-primary` 等映射到 kit token，再加
-   `import '@pieaistudio/swimmer-ui-kit/tailwind.css'`；非 Tailwind
+   `import '@pieai/swimmer-ui-kit/tailwind.css'`；非 Tailwind
    项目**不要**引它。）
 3. 按需 import 组件。本地定制只写 token 覆写（见 design-system-guide），
    **禁止**把 kit 的 `.game-ui-*` 基础规则复制回产品仓。
@@ -84,7 +84,7 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
    通过 GitHub Actions OIDC Trusted Publishing 发布到 npmjs；不运行本机
    `npm publish`，不保存长期 npm write token，也不需要每次登录。
 7. 工作流完成后用
-   `npm view @pieaistudio/swimmer-ui-kit@<version> version --registry https://registry.npmjs.org/`
+   `npm view @pieai/swimmer-ui-kit@<version> version --registry https://registry.npmjs.org/`
    核验；registry 返回前不得宣布发布成功。
 8. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
 

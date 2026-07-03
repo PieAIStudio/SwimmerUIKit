@@ -56,7 +56,7 @@ jobs:
       - name: Check existing npm version
         id: registry
         run: |
-          PACKAGE="@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }}"
+          PACKAGE="@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }}"
           if npm view "$PACKAGE" version --registry https://registry.npmjs.org/ >/tmp/swimmer-ui-kit-version 2>/dev/null; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
             echo "Found existing $PACKAGE"
@@ -75,14 +75,14 @@ jobs:
       - name: Verify package
         run: |
           for attempt in {1..24}; do
-            PUBLISHED=$(npm view "@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }}" version --registry https://registry.npmjs.org/ 2>/dev/null || true)
+            PUBLISHED=$(npm view "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }}" version --registry https://registry.npmjs.org/ 2>/dev/null || true)
             if [ "$PUBLISHED" = "${{ steps.package.outputs.version }}" ]; then
-              echo "@pieaistudio/swimmer-ui-kit@$PUBLISHED is visible on npm."
+              echo "@pieai/swimmer-ui-kit@$PUBLISHED is visible on npm."
               exit 0
             fi
-            echo "Waiting for @pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/24)."
+            echo "Waiting for @pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/24)."
             sleep 5
           done
 
-          echo "@pieaistudio/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm in time." >&2
+          echo "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm in time." >&2
           exit 1

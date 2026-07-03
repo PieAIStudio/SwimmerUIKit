@@ -139,6 +139,7 @@ describe('token single source of truth', () => {
 const bridgeCss = readFileSync(join(SRC, 'tailwind-bridge.css'), 'utf8');
 const indexTs = readFileSync(join(SRC, 'index.ts'), 'utf8');
 const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
+  name?: string;
   license?: string;
   main?: string;
   module?: string;
@@ -189,6 +190,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
   });
 
   it('publishes publicly to npmjs under the repository license', () => {
+    expect(pkg.name).toBe('@pieai/swimmer-ui-kit');
     expect(pkg.license).toBe('SEE LICENSE IN LICENSE');
     expect(pkg.publishConfig).toEqual({
       access: 'public',

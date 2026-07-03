@@ -65,7 +65,7 @@ related:
   Tailwind 插件。守卫测试：主 CSS 禁 `@theme|@tailwind|@plugin|@apply`。
 - **D3 入口不再副作用引 CSS**：删 `index.ts` 的 `import './styles.css'`
   （dist 行为不变，d.ts 变干净）；样式仍由消费方显式
-  `import '@pieaistudio/swimmer-ui-kit/styles.css'`（现状即如此）。
+  `import '@pieai/swimmer-ui-kit/styles.css'`（现状即如此）。
 - **D4 套壳硬化**：交互控件加 `touch-action: manipulation` +
   `-webkit-tap-highlight-color: transparent`；游戏控制面（movement
   pad / 工具条）加 `user-select: none`；hover 位移效果包

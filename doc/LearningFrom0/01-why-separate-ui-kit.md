@@ -83,13 +83,13 @@ SwimmerUIKit 里有两大类东西：
 
 SwimmerUIKit 是一个 **npm 包**（你可以理解为"一个可以安装的工具箱"）。
 
-- **包名：** `@pieaistudio/swimmer-ui-kit`
-- **当前版本：** `0.1.1`
-- **发布在：** GitHub 私有 registry（只有 PieAI 团队能安装）
+- **包名：** `@pieai/swimmer-ui-kit`
+- **当前版本：** `1.0.0`
+- **发布在：** npmjs 公共 registry（读取和安装不需要 token）
 
 小邱说："npm 包？我不太懂这个。"
 
-AI 解释："就像手机 App Store。你想用一个工具，去 App Store 搜索安装就行了。npm 是给代码项目用的'App Store'，`@pieaistudio/swimmer-ui-kit` 就是包名，相当于 App 的名字。"
+AI 解释："就像手机 App Store。你想用一个工具，去 App Store 搜索安装就行了。npm 是给代码项目用的'App Store'，`@pieai/swimmer-ui-kit` 就是包名，相当于 App 的名字。"
 
 ---
 

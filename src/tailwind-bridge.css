@@ -5,8 +5,8 @@
  * Tailwind theme names (bg-primary, text-foreground, rounded-md…) to
  * resolve to SwimmerUIKit tokens:
  *
- *   import '@pieaistudio/swimmer-ui-kit/styles.css';
- *   import '@pieaistudio/swimmer-ui-kit/tailwind.css'; // Tailwind users only
+ *   import '@pieai/swimmer-ui-kit/styles.css';
+ *   import '@pieai/swimmer-ui-kit/tailwind.css'; // Tailwind users only
  *
  * It must go through the consumer's Tailwind build (@tailwindcss/vite or
  * the tailwindcss PostCSS plugin). Non-Tailwind consumers must NOT import

@@ -40,6 +40,6 @@
 
 SwimmerUIKit is a standalone React and TypeScript game UI package for Pie game surfaces.
 
-- It owns reusable UI components, visual tokens, CSS variables, asset helpers, Storybook surfaces, and package distribution for `@pieaistudio/swimmer-ui-kit`.
+- It owns reusable UI components, visual tokens, CSS variables, asset helpers, Storybook surfaces, and package distribution for `@pieai/swimmer-ui-kit`.
 - It does not own host app runtime scene code, R3F state, persistence APIs, product-specific asset manifests, or consuming app stores.
 - Verification commands: `pnpm typecheck`, `pnpm test`, `pnpm build`, and UI/package-specific checks when release work touches Storybook or publishing.
