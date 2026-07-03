@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-03T07:04:26.158Z
+generated_at: 2026-07-03T07:09:54.501Z
 generator_version: doc-gov@0.3.17
-docs_count: 11
+docs_count: 13
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
     path: docs/governance/agents-routing/engineering-runtime-v0.9.md
@@ -46,6 +46,13 @@ docs:
     canonical: true
     last_reviewed: 2026-05-08
     pinned: true
+  - id: REF-DESIGN-SYSTEM-GUIDE
+    path: docs/reference/design-system-guide.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-07-03
+    pinned: true
   - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
     path: docs/reference/design/contractor-ui-pack.md
     type: reference
@@ -72,7 +79,14 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-02
+    last_reviewed: 2026-07-03
+    pinned: true
+  - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
+    path: docs/reference/usage-and-upgrade-playbook.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-07-03
     pinned: true
   - id: SPEC-0001
     path: docs/specs/active/SPEC-0001-design-system-hardening.md

@@ -46,6 +46,15 @@ Use `AGENTS.md` for startup reading. It should point agents to:
 | `docs/archive/` | Retired history |
 | `docs/governance/` | Governance core rules, SSOT, agents routing, doc types, templates, and manifest |
 
+## Key Current Documents
+
+- Design system truth (tokens, theming, motion, a11y):
+  `docs/reference/design-system-guide.md`
+- Consumer usage and upgrade SOP:
+  `docs/reference/usage-and-upgrade-playbook.md`
+- Active spec: `docs/specs/active/SPEC-0001-design-system-hardening.md`
+- Current state index: `docs/reference/execution/current-work.md`
+
 Markdown outside `docs/**` is not governed by default. Product prompts, assets,
 project-package canon, generated media notes, and source-package files stay in
 their product/workbench structure unless this project explicitly opts them into
