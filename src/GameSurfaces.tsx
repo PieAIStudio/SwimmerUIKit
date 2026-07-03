@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 
 import { GameButton } from './GameButton';
 
@@ -59,8 +59,38 @@ export interface GameTabsProps {
 }
 
 export function GameTabs({ activeId, onSelect, tabs }: GameTabsProps): ReactNode {
+  // Roving tabindex per the ARIA tabs pattern: the active tab is the only
+  // tab stop; arrow keys move selection and focus.
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!onSelect || tabs.length === 0) return;
+    const currentIndex = Math.max(0, tabs.findIndex((tab) => tab.id === activeId));
+    let nextIndex: number;
+    switch (event.key) {
+      case 'ArrowLeft':
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        break;
+      case 'ArrowRight':
+        nextIndex = (currentIndex + 1) % tabs.length;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = tabs.length - 1;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    const next = tabs[nextIndex];
+    if (!next) return;
+    if (next.id !== activeId) onSelect(next.id);
+    const buttons = event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    buttons[nextIndex]?.focus();
+  };
+
   return (
-    <div className="game-ui-tabs" role="tablist">
+    <div className="game-ui-tabs" onKeyDown={handleKeyDown} role="tablist">
       {tabs.map((tab) => (
         <button
           aria-selected={tab.id === activeId}
@@ -68,6 +98,7 @@ export function GameTabs({ activeId, onSelect, tabs }: GameTabsProps): ReactNode
           key={tab.id}
           onClick={onSelect ? () => onSelect(tab.id) : undefined}
           role="tab"
+          tabIndex={tab.id === activeId ? 0 : -1}
           type="button"
         >
           {tab.label}

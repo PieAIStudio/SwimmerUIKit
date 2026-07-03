@@ -88,8 +88,9 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
 .game-ui-toggle { display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 10px 0 14px; }
 .game-ui-toggle-track { width: 42px; height: 24px; border: 2px solid var(--game-ui-panel-strong); border-radius: var(--game-ui-radius-bead); background: var(--game-ui-secondary); box-shadow: inset -8px 0 0 color-mix(in srgb, var(--game-ui-panel-strong) 62%, transparent); }
 .game-ui-tooltip { position: relative; display: inline-flex; }
-.game-ui-tooltip [role='tooltip'] { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); min-width: 150px; border-radius: 12px; background: var(--game-ui-text); color: var(--game-ui-accent-contrast); padding: 7px 9px; font-size: var(--game-ui-font-xs); opacity: 0; pointer-events: none; }
-.game-ui-tooltip:hover [role='tooltip'] { opacity: 1; }
+.game-ui-tooltip [role='tooltip'] { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(3px); min-width: 150px; border-radius: 12px; background: var(--game-ui-text); color: var(--game-ui-accent-contrast); padding: 7px 9px; font-size: var(--game-ui-font-xs); opacity: 0; pointer-events: none; transition: opacity var(--game-ui-motion-fast) var(--game-ui-ease-soft), transform var(--game-ui-motion-fast) var(--game-ui-ease-pop); }
+.game-ui-tooltip [role='tooltip']::after { position: absolute; top: 100%; left: 50%; width: 8px; height: 8px; margin-top: -5px; background: var(--game-ui-text); border-radius: 2px; content: ''; transform: translateX(-50%) rotate(45deg); }
+.game-ui-tooltip:hover [role='tooltip'], .game-ui-tooltip:focus-within [role='tooltip'] { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 .game-ui-stage-demo, .game-ui-preview-two-up, .game-ui-proof-frames { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 14px; }
 .game-ui-first-session-preview { display: grid; grid-template-columns: 1fr; gap: 14px; }
@@ -545,6 +546,11 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
   .game-ui-clay-preview *, .game-ui-clay-preview *::before, .game-ui-clay-preview *::after { scroll-behavior: auto !important; transition-duration: 1ms !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
   .game-ui-button:hover, .game-ui-icon-button:hover, .game-ui-language-trigger:hover, .game-ui-language-popover button:hover, .game-ui-stage-tile:hover, .game-ui-orientation-card button:hover, .game-ui-asset-card:hover { transform: none; }
 }
+
+/* Accessibility & finish: unified focus ring, clay scrollbars, selection */
+.game-ui-button:focus-visible, .game-ui-icon-button:focus-visible, .game-ui-tab:focus-visible, .game-ui-segmented-option:focus-visible, .game-ui-toggle:focus-visible, .game-ui-language-trigger:focus-visible, .game-ui-language-popover button:focus-visible, .game-ui-stage-tile:focus-visible, .game-ui-orientation-card button:focus-visible, .game-ui-collapsible-toggle:focus-visible, .game-ui-construction-job-select:focus-visible { outline: 3px solid var(--game-ui-focus-ring); outline-offset: 2px; }
+.game-ui-window-body, .game-ui-contractor-job-list, .game-ui-compact-job-drawer-list, .game-ui-compact-game-drawer-panel, .game-ui-shell-library, .game-ui-shell-side-panel, .game-ui-modal-frame { scrollbar-width: thin; scrollbar-color: var(--game-ui-border-strong) transparent; }
+.game-ui-panel ::selection, .game-ui-modal-frame ::selection, .game-ui-window ::selection, .game-ui-collapsible ::selection, .game-ui-dialog ::selection { background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent); }
 
 /* Panel system: GameCollapsiblePanel / GameWindowPanel / GameModal */
 .game-ui-collapsible { display: grid; min-width: 0; border: var(--game-ui-stroke); border-radius: var(--game-ui-radius-panel); background: var(--game-ui-panel); box-shadow: var(--game-ui-shadow-panel); }
