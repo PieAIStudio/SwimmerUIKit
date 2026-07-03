@@ -25,6 +25,7 @@
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
 - `docs/solutions/` stores Compound Engineering learnings, organized by category with YAML frontmatter (`module`, `tags`, `problem_type`); relevant when implementing, debugging, or making release workflow decisions in documented areas.
+- `CONCEPTS.md` (repo root, ungoverned) holds shared domain vocabulary (clay, token layers, guard tests, central kitchen model); relevant when orienting to the design system or discussing its concepts.
 
 ## Routing
 

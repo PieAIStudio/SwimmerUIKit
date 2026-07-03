@@ -15,6 +15,11 @@ tags: [compound-gate, fallback-capture, learning-recall]
 
 # SwimmerUIKit 0.9 consumer CSS warning
 
+> **Resolved in 1.0.0 (2026-07-03).** The raw Tailwind `@theme` block was
+> moved out of the shipped CSS into the optional `./tailwind.css` export,
+> and the CSS build now fails on any lightningcss warning. Full learning:
+> `docs/solutions/tooling-decisions/esm-only-bundled-types-css-build-gate.md`.
+
 ## Context
 
 This record was captured with the PGS fallback capture path because the full
