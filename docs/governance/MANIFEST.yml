@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-02T05:06:28.929Z
-generator_version: doc-gov@0.3.9
+generated_at: 2026-07-03T03:14:51.469Z
+generator_version: doc-gov@0.3.16
 docs_count: 10
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
