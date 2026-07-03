@@ -24,6 +24,7 @@
 - Governed Markdown lives under `docs/**` by default.
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
+- `docs/solutions/` stores Compound Engineering learnings, organized by category with YAML frontmatter (`module`, `tags`, `problem_type`); relevant when implementing, debugging, or making release workflow decisions in documented areas.
 
 ## Routing
 
