@@ -3,6 +3,18 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.0.1 — 2026-07-11
+
+### Added
+
+- `GameCallout`, a token-driven notice surface for wallet pitches, onboarding
+  hints, warnings, success messages, and other compact product notices.
+
+### Changed
+
+- `GameButton` keeps a 44px minimum hit target on coarse pointers while allowing
+  denser 40px controls for precise pointers.
+
 ## 1.0.0 — 2026-07-03
 
 1.0 is a stability contract, not a feature drop: exported components and

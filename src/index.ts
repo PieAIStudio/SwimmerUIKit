@@ -3,6 +3,7 @@
 // CSS here would leak `import './styles.css'` into dist/index.d.ts and
 // break type resolution (arethetypeswrong: internal resolution error).
 export { GameButton, type GameButtonProps, type GameButtonVariant } from './GameButton';
+export { GameCallout, type GameCalloutProps, type GameCalloutTone } from './GameCallout';
 export { GameDialog, type GameDialogProps } from './GameDialog';
 export { GameHistoryPanel, type GameHistoryPanelProps, type GameUiHistoryEntry, type GameUiHistoryKind } from './GameHistoryPanel';
 export { GameHudActions, type GameHudActionsProps } from './GameHudActions';

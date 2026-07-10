@@ -615,4 +615,56 @@ html[data-game-ui-preview='clay'], html[data-game-ui-preview='clay'] body, html[
   .game-ui-window[data-window-state='maximized'], .game-ui-modal[open] .game-ui-modal-frame { animation: none; }
 }
 
+/* —— GameCallout (product notices, wallet pitch, soft warnings) —— */
+.game-ui-callout {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: var(--game-ui-stroke);
+  border-radius: var(--game-ui-radius-panel);
+  background: color-mix(in srgb, var(--game-ui-panel-strong) 88%, transparent);
+  color: var(--game-ui-text);
+  box-shadow: var(--game-ui-shadow-panel);
+}
+.game-ui-callout-title {
+  margin: 0;
+  color: var(--game-ui-ink-heading);
+  font-family: var(--game-ui-font-display);
+  font-size: var(--game-ui-font-md);
+  font-weight: var(--game-ui-weight-title);
+}
+.game-ui-callout-body {
+  margin: 0;
+  color: var(--game-ui-text-muted);
+  font-size: var(--game-ui-font-sm, 0.85rem);
+  line-height: var(--game-ui-line-body);
+}
+.game-ui-callout--info {
+  border-color: color-mix(in srgb, var(--game-ui-accent) 45%, transparent);
+}
+.game-ui-callout--warning {
+  border-color: color-mix(in srgb, var(--game-ui-warning) 55%, transparent);
+  background: color-mix(in srgb, var(--game-ui-warning) 12%, var(--game-ui-panel-strong));
+}
+.game-ui-callout--danger {
+  border-color: color-mix(in srgb, var(--game-ui-danger) 55%, transparent);
+}
+.game-ui-callout--success {
+  border-color: color-mix(in srgb, var(--game-ui-success) 55%, transparent);
+}
+.game-ui-callout--neutral {
+  opacity: 0.96;
+}
+
+/* Touch-friendlier primary controls (44px floor) without breaking dense HUD. */
+.game-ui-button {
+  min-height: max(2.4rem, 40px);
+}
+@media (pointer: coarse) {
+  .game-ui-button {
+    min-height: max(2.75rem, 44px);
+  }
+}
+
 }
