@@ -24,15 +24,14 @@
 - Governed Markdown lives under `docs/**` by default.
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
-- `docs/solutions/` stores Compound Engineering learnings, organized by category with YAML frontmatter (`module`, `tags`, `problem_type`); relevant when implementing, debugging, or making release workflow decisions in documented areas.
+- `docs/solutions/` stores compact reusable learning records; relevant when implementing, debugging, or making release workflow decisions in documented areas.
 - `CONCEPTS.md` (repo root, ungoverned) holds shared domain vocabulary (clay, token layers, guard tests, central kitchen model); relevant when orienting to the design system or discussing its concepts.
 
 ## Routing
 
-- Superpowers is the default engineering workflow.
-- Compound Engineering is used by default only as the post-work Compound Gate through `ce-compound`; full CE workflows require an explicit user request.
-- PGS Stop hooks are wired for Codex, Claude Code, and Antigravity. Before final reporting after completed engineering work, report `Compound Gate: ran ce-compound -> <path>` or `Compound Gate: skipped -> <reason>`.
-- External workflow systems run inside this router. They must not replace it.
+- Codex and this router own normal execution. Optional skills run only when a narrow task-specific trigger matches.
+- Matt skills may remain available unchanged; there is no bootstrap skill or mandatory workflow owner.
+- Recall relevant learnings before non-trivial work. After verified work, use `capture-learning` only when a non-obvious reusable lesson exists.
 
 <!-- PGS-ROUTER:END -->
 
