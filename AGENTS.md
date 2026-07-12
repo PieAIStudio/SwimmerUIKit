@@ -11,11 +11,16 @@
 1. All Markdown files under `docs/policy/**/*.md`, including files in
    subdirectories and symlinked shared-rule files.
 2. `docs/governance/boundary.md`
-3. `docs/governance/ssot-v0.9.md`
-4. `docs/governance/doc-agent-rules.md`
-5. `docs/governance/doc-types.md`
-6. `docs/governance/agents-routing/engineering-runtime-v0.9.md`
-7. `docs/reference/execution/current-work.md`
+3. `docs/governance/agents-routing/engineering-runtime-v0.9.md`
+4. `docs/reference/execution/current-work.md`
+5. Before non-trivial implementation, debugging, release, architecture, or
+   migration work, run `pro-gov learn recall --query "<task summary>"` and read
+   any relevant prior-learning hits before changing files.
+
+When the task creates, edits, moves, deletes, or governs documentation, also
+read `docs/governance/ssot-v0.9.md`,
+`docs/governance/doc-agent-rules.md`, and `docs/governance/doc-types.md` before
+changing governed files.
 
 ## Governance
 
