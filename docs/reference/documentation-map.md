@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-07-02
+last_reviewed: 2026-07-12
 domain: meta
 tags:
   - navigation
@@ -24,10 +24,10 @@ Use `AGENTS.md` for startup reading. It should point agents to:
 
 - `docs/policy/*.md`
 - `docs/governance/boundary.md`
-- `docs/governance/ssot-v0.9.md`
+- `docs/governance/ssot-v1.0.md`
 - `docs/governance/doc-agent-rules.md`
 - `docs/governance/doc-types.md`
-- `docs/governance/agents-routing/<selected-profile>-v0.9.md`
+- `docs/governance/agents-routing/<selected-profile>-v1.0.md`
 - `docs/reference/execution/current-work.md`
 
 ## Areas
@@ -35,12 +35,12 @@ Use `AGENTS.md` for startup reading. It should point agents to:
 | Area | Purpose |
 | --- | --- |
 | `docs/policy/` | Project policy and AI development rules |
-| `docs/decisions/` | Durable decisions |
+| `docs/adr/` | The single durable decision surface; Matt-compatible and outside the Doc Gov lifecycle |
 | `docs/specs/active/` | Active requirements |
 | `docs/specs/completed/` | Completed specs |
 | `docs/plans/active/` | Active implementation plans |
 | `docs/plans/completed/` | Completed execution records |
-| `docs/solutions/` | Compound Engineering learning records, governed by CE schema |
+| `docs/reference/learnings/` | Governed, reusable PGS learning records recalled only when relevant |
 | `docs/canon/` | Durable project truth |
 | `docs/reference/` | Guides and references |
 | `docs/archive/` | Retired history |
@@ -62,6 +62,6 @@ project-package canon, generated media notes, and source-package files stay in
 their product/workbench structure unless this project explicitly opts them into
 doc-gov.
 
-Compound Engineering may create `docs/solutions/**`, `docs/brainstorms/**`,
-`docs/pulse-reports/**`, and CE-native root artifacts under `docs/plans/*`.
-Those are external workflow artifacts, not Doc Gov canonical documents.
+Optional task-specific tools may keep temporary artifacts outside Doc Gov.
+Reusable project learning belongs only in governed
+`docs/reference/learnings/**` records.

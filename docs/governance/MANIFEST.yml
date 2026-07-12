@@ -1,11 +1,11 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-11T17:52:40.357Z
-generator_version: doc-gov@0.4.4
-docs_count: 14
+generated_at: 2026-07-12T12:48:31.173Z
+generator_version: doc-gov@0.5.1
+docs_count: 18
 docs:
-  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V0-9
-    path: docs/governance/agents-routing/engineering-runtime-v0.9.md
+  - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
+    path: docs/governance/agents-routing/engineering-runtime-v1.0.md
     type: policy
     status: stable
     canonical: true
@@ -32,8 +32,8 @@ docs:
     canonical: true
     last_reviewed: 2026-05-08
     pinned: true
-  - id: GOV-SSOT-V0-9
-    path: docs/governance/ssot-v0.9.md
+  - id: GOV-SSOT-V1-0
+    path: docs/governance/ssot-v1.0.md
     type: policy
     status: stable
     canonical: true
@@ -72,7 +72,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-02
+    last_reviewed: 2026-07-12
     pinned: false
   - id: REF-CURRENT-WORK
     path: docs/reference/execution/current-work.md
@@ -81,6 +81,34 @@ docs:
     canonical: true
     last_reviewed: 2026-07-03
     pinned: true
+  - id: REF-LEARNING-TOKEN-DERIVATION-COLOR-MIX-GUARD-TESTS
+    path: docs/reference/learnings/design-patterns/token-derivation-color-mix-guard-tests.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-ESM-ONLY-BUNDLED-TYPES-CSS-BUILD-GATE
+    path: docs/reference/learnings/tooling-decisions/esm-only-bundled-types-css-build-gate.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
+    path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-NPMJS-SCOPE-MIGRATION-LOCKFILE-PROVENANCE
+    path: docs/reference/learnings/workflow-issues/npmjs-scope-migration-lockfile-provenance.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-12
+    pinned: false
   - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
     path: docs/reference/usage-and-upgrade-playbook.md
     type: reference

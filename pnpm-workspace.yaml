@@ -4,3 +4,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - "@pieai/doc-gov"
   - "@pieai/pro-gov"
+overrides:
+  "@valibot/to-json-schema": "1.5.0"

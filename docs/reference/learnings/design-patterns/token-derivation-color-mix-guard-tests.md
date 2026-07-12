@@ -1,9 +1,13 @@
 ---
-title: "Full tokenization via color-mix derivation, enforced by guard tests"
-module: swimmer-ui-kit
-date: 2026-07-03
-problem_type: design_pattern
-component: tooling
+id: REF-LEARNING-TOKEN-DERIVATION-COLOR-MIX-GUARD-TESTS
+title: Full tokenization via color-mix derivation, enforced by guard tests
+type: reference
+status: stable
+canonical: true
+owner: ai-assisted
+created: 2026-07-03
+last_reviewed: 2026-07-12
+domain: learning
 tags:
   - design-tokens
   - color-mix
@@ -11,6 +15,13 @@ tags:
   - cascade-layers
   - native-dialog
   - zero-dependency
+pinned: false
+related: []
+date: 2026-07-03
+category: design-patterns
+module: swimmer-ui-kit
+problem_type: design_pattern
+component: tooling
 applies_when:
   - "A shared CSS library must support downstream theme overrides via CSS variables"
   - "Component CSS has accumulated raw hex/rgba literals that bypass tokens"

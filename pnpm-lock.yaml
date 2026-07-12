@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@valibot/to-json-schema': 1.5.0
+
 importers:
 
   .:
@@ -15,11 +18,11 @@ importers:
         specifier: ^7.58.9
         version: 7.58.9(@types/node@24.13.2)
       '@pieai/doc-gov':
-        specifier: 0.4.8
-        version: 0.4.8
+        specifier: 0.5.1
+        version: 0.5.1
       '@pieai/pro-gov':
-        specifier: 0.4.8
-        version: 0.4.8
+        specifier: 0.5.1
+        version: 0.5.1
       '@storybook/addon-a11y':
         specifier: ^10.4.6
         version: 10.4.6(storybook@10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(react@19.2.7))
@@ -670,13 +673,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.4.8':
-    resolution: {integrity: sha512-vlXPsTqjknXl47ooRPN2W+OpUx+lK2WM1t9E4V+ouT3Sb882KOeID2uIH/xZhHH739I1C5aNjI1vAxqtYw3tOQ==}
+  '@pieai/doc-gov@0.5.1':
+    resolution: {integrity: sha512-UHsKgZ+4Np+ySeStc8rzoiogSEvDayj43tbYyncLlXFydYfiZKhMXw1tGHQqGKUIaoHld56q3oJ/KAvxOyklnQ==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.4.8':
-    resolution: {integrity: sha512-+KB0Bz2o0RylNrc0Av4ZnQoYFsb+uT602B3msOQeIStOedg8VhZVpbZ+n6WW5PUI7oZnhOaFdz35kQhA5SBPKA==}
+  '@pieai/pro-gov@0.5.1':
+    resolution: {integrity: sha512-8z5VRg+5C3lLlYJ6tKrTNHc99wV8C0Xqy3YjSxLK3WfoIwfKG8SLaf6iJ/jsF9tfMVQnMaRgq58ZK5mR6op5sA==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -1080,10 +1083,10 @@ packages:
   '@types/yargs@16.0.11':
     resolution: {integrity: sha512-sbtvk8wDN+JvEdabmZExoW/HNr1cB7D/j4LT08rMiuikfA7m/JNJg7ATQcgzs34zHnoScDkY0ZRSl29Fkmk36g==}
 
-  '@valibot/to-json-schema@1.7.1':
-    resolution: {integrity: sha512-3qkmU6KXWh8GIThEAW3kuRHPQBMjWkKy+Ppz3WkUucx53DTpOa6siMn4xDGSOhlVyMrDaJTCTMLYPZVAIk1P0A==}
+  '@valibot/to-json-schema@1.5.0':
+    resolution: {integrity: sha512-GE7DmSr1C2UCWPiV0upRH6mv0cCPsqYGs819fb6srCS1tWhyXrkGGe+zxUiwzn/L1BOfADH4sNjY/YHCuP8phQ==}
     peerDependencies:
-      valibot: ^1.4.0
+      valibot: ^1.2.0
 
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
@@ -2666,11 +2669,11 @@ snapshots:
   '@oxc-resolver/binding-win32-x64-msvc@11.21.3':
     optional: true
 
-  '@pieai/doc-gov@0.4.8': {}
+  '@pieai/doc-gov@0.5.1': {}
 
-  '@pieai/pro-gov@0.4.8':
+  '@pieai/pro-gov@0.5.1':
     dependencies:
-      '@pieai/doc-gov': 0.4.8
+      '@pieai/doc-gov': 0.5.1
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -2965,7 +2968,7 @@ snapshots:
   '@tmcp/adapter-valibot@0.1.6(tmcp@1.19.4(typescript@5.9.3))(valibot@1.2.0(typescript@5.9.3))':
     dependencies:
       '@standard-schema/spec': 1.1.0
-      '@valibot/to-json-schema': 1.7.1(valibot@1.2.0(typescript@5.9.3))
+      '@valibot/to-json-schema': 1.5.0(valibot@1.2.0(typescript@5.9.3))
       tmcp: 1.19.4(typescript@5.9.3)
       valibot: 1.2.0(typescript@5.9.3)
 
@@ -3052,7 +3055,7 @@ snapshots:
     dependencies:
       '@types/yargs-parser': 21.0.3
 
-  '@valibot/to-json-schema@1.7.1(valibot@1.2.0(typescript@5.9.3))':
+  '@valibot/to-json-schema@1.5.0(valibot@1.2.0(typescript@5.9.3))':
     dependencies:
       valibot: 1.2.0(typescript@5.9.3)
 

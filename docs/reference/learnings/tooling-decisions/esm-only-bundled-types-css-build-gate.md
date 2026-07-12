@@ -1,10 +1,13 @@
 ---
-title: "ESM-only bundled-types distribution with a CSS build gate (1.0 packaging contract)"
-module: swimmer-ui-kit
-date: 2026-07-03
-problem_type: tooling_decision
-component: tooling
-severity: high
+id: REF-LEARNING-ESM-ONLY-BUNDLED-TYPES-CSS-BUILD-GATE
+title: ESM-only bundled-types distribution with a CSS build gate (1.0 packaging contract)
+type: reference
+status: stable
+canonical: true
+owner: ai-assisted
+created: 2026-07-03
+last_reviewed: 2026-07-12
+domain: learning
 tags:
   - esm
   - vite-plugin-dts
@@ -17,6 +20,15 @@ tags:
   - capacitor
   - tauri
   - stability-contract
+pinned: false
+related:
+  - SPEC-0002
+date: 2026-07-03
+category: tooling-decisions
+module: swimmer-ui-kit
+problem_type: tooling_decision
+component: tooling
+severity: high
 applies_when:
   - "Publishing a React/TS component package and needing it to pass arethetypeswrong and publint cleanly"
   - "Using vite-plugin-dts v5+ and expecting rollupTypes to bundle .d.ts files (renamed to bundleTypes; the old key is silently ignored)"
@@ -203,8 +215,6 @@ A UI kit consumed by six apps that each pin an exact version has an unusually st
 
 ## Related
 
-- `docs/solutions/workflow-issues/swimmeruikit-0-9-consumer-css-warning.md` —
-  the 0.9 fallback capture of the @theme warning this work resolves.
-- `docs/solutions/design-patterns/token-derivation-color-mix-guard-tests.md` —
+- `docs/reference/learnings/design-patterns/token-derivation-color-mix-guard-tests.md` —
   the 0.9.0 tokenization/guard-test discipline this packaging contract extends.
 - `docs/specs/active/SPEC-0002-v1-release-readiness.md` — the governing spec.

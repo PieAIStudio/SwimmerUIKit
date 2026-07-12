@@ -2,7 +2,7 @@
 
 ## PGS Router Block
 
-<!-- PGS-ROUTER:BEGIN v0.9 -->
+<!-- PGS-ROUTER:BEGIN v1.0 -->
 
 ## Startup Reading
 
@@ -11,14 +11,14 @@
 1. All Markdown files under `docs/policy/**/*.md`, including files in
    subdirectories and symlinked shared-rule files.
 2. `docs/governance/boundary.md`
-3. `docs/governance/agents-routing/engineering-runtime-v0.9.md`
+3. `docs/governance/agents-routing/engineering-runtime-v1.0.md`
 4. `docs/reference/execution/current-work.md`
 5. Before non-trivial implementation, debugging, release, architecture, or
    migration work, run `pro-gov learn recall --query "<task summary>"` and read
    any relevant prior-learning hits before changing files.
 
 When the task creates, edits, moves, deletes, or governs documentation, also
-read `docs/governance/ssot-v0.9.md`,
+read `docs/governance/ssot-v1.0.md`,
 `docs/governance/doc-agent-rules.md`, and `docs/governance/doc-types.md` before
 changing governed files.
 
@@ -29,7 +29,6 @@ changing governed files.
 - Governed Markdown lives under `docs/**` by default.
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
-- `docs/solutions/` stores compact reusable learning records; relevant when implementing, debugging, or making release workflow decisions in documented areas.
 - `CONCEPTS.md` (repo root, ungoverned) holds shared domain vocabulary (clay, token layers, guard tests, central kitchen model); relevant when orienting to the design system or discussing its concepts.
 
 ## Routing
