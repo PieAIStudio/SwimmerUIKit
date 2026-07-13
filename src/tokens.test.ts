@@ -1,14 +1,15 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-import { CLAY_COLOR_TOKENS, CLAY_TARGET_TOKENS, CLAY_UI_TOKENS, GAME_UI_TOKENS } from './tokens';
+import { CLAY_COLOR_TOKENS, CLAY_TARGET_TOKENS, CLAY_UI_TOKENS, GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from './tokens';
 
 const SRC = dirname(fileURLToPath(import.meta.url));
 const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
 const themeCss = readFileSync(join(SRC, 'theme.css'), 'utf8');
+const previewCss = readFileSync(join(SRC, 'preview.css'), 'utf8');
 
 /** Extract `--name: value;` declarations from a CSS block body. */
 function parseVars(block: string): Map<string, string> {
@@ -82,34 +83,9 @@ describe('token single source of truth', () => {
   });
 
   it('night theme overrides every semantic color it needs (no missing token drift)', () => {
-    const semanticColorVars = [
-      '--game-ui-bg',
-      '--game-ui-surface',
-      '--game-ui-surface-raised',
-      '--game-ui-panel',
-      '--game-ui-panel-strong',
-      '--game-ui-panel-deep',
-      '--game-ui-text',
-      '--game-ui-text-muted',
-      '--game-ui-accent',
-      '--game-ui-accent-bright',
-      '--game-ui-secondary',
-      '--game-ui-success',
-      '--game-ui-success-bright',
-      '--game-ui-danger',
-      '--game-ui-danger-bright',
-      '--game-ui-warning',
-      '--game-ui-focus-ring',
-      '--game-ui-border-subtle',
-      '--game-ui-border-strong',
-      '--game-ui-disabled',
-      '--game-ui-ink-deep',
-      '--game-ui-border-ink',
-      '--game-ui-wood',
-      '--game-ui-ink-title',
-      '--game-ui-ink-heading',
-    ];
-    for (const cssVar of semanticColorVars) {
+    // GAME_UI_THEME_CONTRACT is the single source of truth for this list —
+    // it's also exported so downstream full themes can self-check the same way.
+    for (const cssVar of GAME_UI_THEME_CONTRACT) {
       expect(nightVars.has(cssVar), `night theme missing ${cssVar}`).toBe(true);
     }
   });
@@ -136,7 +112,85 @@ describe('token single source of truth', () => {
   });
 });
 
+/**
+ * WCAG 2.x relative luminance + contrast ratio, hex/rgb(a) only (every pair
+ * checked below resolves to a literal color in theme.css, not a color-mix).
+ */
+function relativeLuminance([r, g, b]: [number, number, number]): number {
+  const toLinear = (c: number): number => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+}
+
+function parseColor(value: string): [number, number, number] {
+  const hex = value.match(/^#([0-9a-f]{6})$/i);
+  if (hex?.[1]) {
+    const h = hex[1];
+    return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+  }
+  const rgb = value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
+  if (rgb?.[1] && rgb[2] && rgb[3]) return [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])];
+  throw new Error(`contrast guard: unsupported color value "${value}"`);
+}
+
+function contrastRatio(fg: string, bg: string): number {
+  const l1 = relativeLuminance(parseColor(fg));
+  const l2 = relativeLuminance(parseColor(bg));
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
+  // Every pair below is normal-or-bold small UI text (not WCAG "large
+  // text"), so the AA floor is 4.5:1 for all of them.
+  const MIN_AA = 4.5;
+
+  const pairs: Array<[string, string, string]> = [
+    ['body text on page background', '--game-ui-text', '--game-ui-bg'],
+    ['muted text on page background', '--game-ui-text-muted', '--game-ui-bg'],
+    ['muted text on strong panel', '--game-ui-text-muted', '--game-ui-panel-strong'],
+    // accent-contrast is the dark-ink foreground shared by primary/danger/
+    // success buttons, the active tab/segmented pill, avatar initials, and
+    // the checkbox checkmark — checking it against each saturated brand
+    // background covers all of those call sites at once.
+    ['primary button text on accent', '--game-ui-accent-contrast', '--game-ui-accent'],
+    ['danger button text on danger', '--game-ui-accent-contrast', '--game-ui-danger'],
+    ['success button text on success', '--game-ui-accent-contrast', '--game-ui-success'],
+    ['active tab/segmented text on secondary', '--game-ui-accent-contrast', '--game-ui-secondary'],
+    // 1.1 preview-split verification pass also caught these: raw brand
+    // colors used directly as text (not as a button/badge background).
+    ['field error/required text on panel', '--game-ui-danger-ink', '--game-ui-panel-strong'],
+    ['first-session step number on panel', '--game-ui-accent-ink', '--game-ui-panel-strong'],
+    // scenery-soil (not redeclared per-theme — HUD glass always overlays the
+    // same dark 3D scene regardless of UI theme) stands in for the glass's
+    // real backdrop, since color-mix() over an arbitrary scene can't be
+    // reduced to one flat pair.
+    ['hud-chip/fact-copy small text on dark glass', '--game-ui-text-on-dark', '--game-ui-scenery-soil'],
+    ['selected build/terrain control meta text on panel', '--game-ui-ink-heading', '--game-ui-panel-strong'],
+  ];
+
+  it.each(pairs)('light: %s meets 4.5:1', (_label, fgVar, bgVar) => {
+    const fg = rootVars.get(fgVar);
+    const bg = rootVars.get(bgVar);
+    expect(fg, `${fgVar} missing from :root`).toBeDefined();
+    expect(bg, `${bgVar} missing from :root`).toBeDefined();
+    expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
+  });
+
+  it.each(pairs)('night: %s meets 4.5:1', (_label, fgVar, bgVar) => {
+    // Night only redeclares the tokens it needs to change; fall back to the
+    // root value for anything it inherits unchanged (e.g. accent-contrast).
+    const fg = nightVars.get(fgVar) ?? rootVars.get(fgVar);
+    const bg = nightVars.get(bgVar) ?? rootVars.get(bgVar);
+    expect(fg, `${fgVar} missing from :root and night`).toBeDefined();
+    expect(bg, `${bgVar} missing from :root and night`).toBeDefined();
+    expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
+  });
+});
+
 const bridgeCss = readFileSync(join(SRC, 'tailwind-bridge.css'), 'utf8');
+const fontsCss = readFileSync(join(SRC, 'fonts.css'), 'utf8');
 const indexTs = readFileSync(join(SRC, 'index.ts'), 'utf8');
 const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
   name?: string;
@@ -145,6 +199,7 @@ const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as
   module?: string;
   exports: Record<string, string | Record<string, string>>;
   peerDependencies: Record<string, string>;
+  bin?: Record<string, string>;
   publishConfig?: {
     access?: string;
     registry?: string;
@@ -152,8 +207,8 @@ const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as
 };
 
 describe('1.0 packaging contract (SPEC-0002)', () => {
-  it('styles.css and theme.css are 100% standard CSS (no Tailwind at-rules)', () => {
-    for (const css of [stylesCss, themeCss]) {
+  it('styles.css, theme.css, and preview.css are 100% standard CSS (no Tailwind at-rules)', () => {
+    for (const css of [stylesCss, themeCss, previewCss]) {
       const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
       const tailwindAtRules = withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
       expect(tailwindAtRules).toEqual([]);
@@ -185,8 +240,70 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       expect(rootExport['default']).toBe('./dist/index.js');
     }
     expect(pkg.exports['./tailwind.css']).toBe('./dist/tailwind.css');
+    expect(pkg.exports['./preview.css']).toBe('./dist/preview.css');
+    expect(pkg.exports['./fonts.css']).toBe('./dist/fonts.css');
     expect(pkg.exports['./package.json']).toBe('./package.json');
     expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom']);
+  });
+
+  it('ships swimmer-ui-check as a bin so downstream products can lint their own token usage', () => {
+    expect(pkg.bin?.['swimmer-ui-check']).toBe('./bin/swimmer-ui-check.mjs');
+    expect(existsSync(join(SRC, '..', 'bin', 'swimmer-ui-check.mjs'))).toBe(true);
+  });
+
+  it('fonts.css is 100% standard CSS, only defines the theme.css font-family names, and ships its OFL licenses', () => {
+    const withoutComments = fontsCss.replace(/\/\*[\s\S]*?\*\//g, '');
+    const tailwindAtRules = withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
+    expect(tailwindAtRules).toEqual([]);
+
+    const families = [...withoutComments.matchAll(/font-family:\s*'([^']+)'/g)].map((m) => m[1]);
+    expect(families.sort()).toEqual(['Baloo 2', 'Geist Variable']);
+    expect(themeCss).toContain("'Baloo 2'");
+    expect(themeCss).toContain("'Geist Variable'");
+
+    expect(existsSync(join(SRC, 'fonts', 'baloo-2-latin-variable.woff2'))).toBe(true);
+    expect(existsSync(join(SRC, 'fonts', 'geist-sans-latin-variable.woff2'))).toBe(true);
+    expect(existsSync(join(SRC, 'fonts', 'OFL-Baloo2.txt'))).toBe(true);
+    expect(existsSync(join(SRC, 'fonts', 'OFL-Geist.txt'))).toBe(true);
+  });
+
+  it('demo-only GameUiPreview classes stay out of styles.css and live only in preview.css', () => {
+    // Regression guard for the 1.1 preview/component CSS split: these class
+    // names are used exclusively by GameUiPreview.tsx (verified by grepping
+    // every other src/*.tsx at split time). If one leaks back into
+    // styles.css, every consumer starts paying for demo-only CSS again.
+    const previewOnlyClasses = [
+      'game-ui-clay-preview',
+      'game-ui-preview-hero',
+      'game-ui-preview-section',
+      'game-ui-swatch',
+      'game-ui-swatch-grid',
+      'game-ui-token-card',
+      'game-ui-token-ledger',
+      'game-ui-token-row',
+      'game-ui-token-grid',
+      'game-ui-type-scale',
+      'game-ui-type-kicker',
+      'game-ui-icon-gallery',
+      'game-ui-icon-family',
+      'game-ui-icon-grid',
+      'game-ui-icon-cell',
+      'game-ui-stage-demo',
+      'game-ui-stage-world',
+      'game-ui-stage-sidecar',
+      'game-ui-proof-frame',
+      'game-ui-proof-frames',
+      'game-ui-first-session-preview',
+      'game-ui-first-session-world',
+      'game-ui-first-session-modal-slot',
+      'game-ui-surface-pack-demo-scene',
+      'game-ui-construction-preview-card',
+      'game-ui-asset-compression-repro',
+    ];
+    for (const cls of previewOnlyClasses) {
+      expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(new RegExp(`\\.${cls}\\b`));
+      expect(previewCss, `.${cls} must be defined in preview.css`).toMatch(new RegExp(`\\.${cls}\\b`));
+    }
   });
 
   it('publishes publicly to npmjs under the repository license', () => {

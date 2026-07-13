@@ -215,6 +215,13 @@ export const JobCardBlocked: StoryObj = {
 };
 
 export const ResponsiveMatrix: StoryObj = {
+  parameters: {
+    // This gallery intentionally renders the same job data 4x side by side
+    // to compare breakpoints — a real page only ever mounts one panel, so
+    // the resulting duplicate nested landmark labels are a demo-only
+    // artifact, not a real violation for someone using the component once.
+    a11y: { config: { rules: [{ id: 'landmark-unique', enabled: false }] } },
+  },
   render: () => {
     const frames = [
       { id: 'desktop', label: 'Desktop 1440', width: 1180, variant: 'desktop' as const, selected: 'review-house-pad' },

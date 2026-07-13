@@ -252,6 +252,13 @@ export interface GameModalProps {
   /** Called for every close intent: Esc, backdrop click, and close button. */
   onClose: () => void;
   open: boolean;
+  /**
+   * `'bottom'` anchors the frame to the viewport's bottom edge (rounded top
+   * corners only, safe-area-aware padding, slide-up entrance) for mobile
+   * action sheets — same native <dialog> underneath, so focus trap/Esc/
+   * backdrop/top-layer come free either way. Defaults to `'center'`.
+   */
+  position?: 'center' | 'bottom';
   size?: 'sm' | 'md' | 'lg';
   title: string;
 }
@@ -264,6 +271,7 @@ export function GameModal({
   footer,
   onClose,
   open,
+  position = 'center',
   size = 'md',
   title,
 }: GameModalProps): ReactNode {
@@ -285,6 +293,7 @@ export function GameModal({
     <dialog
       aria-labelledby={titleId}
       className={joinClasses('game-ui-modal', className)}
+      data-position={position}
       data-size={size}
       onCancel={(event) => {
         // Keep React state authoritative: swallow the native close and report.

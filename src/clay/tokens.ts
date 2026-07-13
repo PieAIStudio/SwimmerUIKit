@@ -1,6 +1,6 @@
 export const CLAY_COLOR_TOKENS = {
   ink: '#3b2d23',
-  inkMuted: '#7b6652',
+  inkMuted: '#786250',
   parchment: '#fff8ec',
   parchmentDeep: '#f4e2c6',
   cream: '#f3e8d8',

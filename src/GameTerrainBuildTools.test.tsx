@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
+import { getClayAssetMode, setClayAssetMode } from './clay/assets';
 import {
   GameBrushControls,
   GameBuildLibrary,
@@ -43,15 +44,24 @@ const categories: readonly GameBuildCategory[] = [
 
 describe('terrain/build tooling pack', () => {
   it('renders mode, tool, brush, material, and history hooks', () => {
-    const html = compact(renderToStaticMarkup(
-      <>
-        <GameTerrainModeControl activeModeId="terrain" label="Mode" modes={modes} />
-        <GameTerrainToolStrip activeToolId="flatten" label="Terrain tools" tools={tools} variant="mobile" />
-        <GameBrushControls state={{ radius: 3.5, strength: 0.45 }} />
-        <GameMaterialSwatches activeMaterialId="path" label="Materials" materials={materials} />
-        <GameUndoRedoActions canUndo label="Terrain history" />
-      </>,
-    ));
+    // undo/redo icons only resolve to real asset filenames in 'source' mode
+    // (the default 'inline' mode renders self-contained SVG data URIs instead).
+    const previousMode = getClayAssetMode();
+    setClayAssetMode('source');
+    let html: string;
+    try {
+      html = compact(renderToStaticMarkup(
+        <>
+          <GameTerrainModeControl activeModeId="terrain" label="Mode" modes={modes} />
+          <GameTerrainToolStrip activeToolId="flatten" label="Terrain tools" tools={tools} variant="mobile" />
+          <GameBrushControls state={{ radius: 3.5, strength: 0.45 }} />
+          <GameMaterialSwatches activeMaterialId="path" label="Materials" materials={materials} />
+          <GameUndoRedoActions canUndo label="Terrain history" />
+        </>,
+      ));
+    } finally {
+      setClayAssetMode(previousMode);
+    }
 
     expect(html).toContain('data-ui-hook="terrain-mode-control"');
     expect(html).toContain('data-mode-id="terrain"');

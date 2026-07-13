@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-12T12:48:31.173Z
-generator_version: doc-gov@0.5.1
-docs_count: 18
+generated_at: 2026-07-13T08:06:13.158Z
+generator_version: doc-gov@0.5.4
+docs_count: 19
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-0
     path: docs/governance/agents-routing/engineering-runtime-v1.0.md
@@ -51,7 +51,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-03
+    last_reviewed: 2026-07-13
     pinned: true
   - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
     path: docs/reference/design/contractor-ui-pack.md
@@ -95,6 +95,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-12
     pinned: false
+  - id: REF-LEARNING-TOOLING-DECISIONS-VITEST-INCLUDE-GLOB-SILENTLY-EXCLUDED-ALL-TEST-TSX-FILES
+    path: docs/reference/learnings/tooling-decisions/vitest-include-glob-silently-excluded-all-test-tsx-files.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-07-13
+    pinned: false
   - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
     path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md
     type: reference
@@ -114,7 +121,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-03
+    last_reviewed: 2026-07-13
     pinned: true
   - id: SPEC-0001
     path: docs/specs/active/SPEC-0001-design-system-hardening.md

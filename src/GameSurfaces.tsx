@@ -1,4 +1,14 @@
-import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, KeyboardEvent, ReactNode } from 'react';
+import {
+  cloneElement,
+  isValidElement,
+  useId,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 
 import { GameButton } from './GameButton';
 
@@ -34,15 +44,24 @@ export function GameIconButton({ children, className, label, type = 'button', ..
 }
 
 export interface GameTooltipProps {
+  /** A single focusable trigger element (e.g. GameIconButton). */
   children: ReactNode;
   label: string;
 }
 
 export function GameTooltip({ children, label }: GameTooltipProps): ReactNode {
+  const tooltipId = useId();
+  // Only a single real element can receive aria-describedby; anything else
+  // (text, fragments, arrays) renders unchanged rather than throwing.
+  const trigger = isValidElement<{ 'aria-describedby'?: string }>(children)
+    ? cloneElement(children, {
+        'aria-describedby': [children.props['aria-describedby'], tooltipId].filter(Boolean).join(' '),
+      })
+    : children;
   return (
     <span className="game-ui-tooltip">
-      {children}
-      <span role="tooltip">{label}</span>
+      {trigger}
+      <span id={tooltipId} role="tooltip">{label}</span>
     </span>
   );
 }
@@ -50,15 +69,26 @@ export function GameTooltip({ children, label }: GameTooltipProps): ReactNode {
 export interface GameTabItem {
   id: string;
   label: string;
+  /** id of the tabpanel this tab controls; wires aria-controls when set. */
+  panelId?: string;
 }
 
 export interface GameTabsProps {
   activeId: string;
+  /**
+   * Base id for this tabs instance (defaults to a generated one). Each tab
+   * button's DOM id is `${id}-${tab.id}` — pass an explicit id so your own
+   * `role="tabpanel"` elements can reference it via aria-labelledby (and set
+   * GameTabItem.panelId so the tab points back via aria-controls).
+   */
+  id?: string;
   onSelect?: (id: string) => void;
   tabs: readonly GameTabItem[];
 }
 
-export function GameTabs({ activeId, onSelect, tabs }: GameTabsProps): ReactNode {
+export function GameTabs({ activeId, id, onSelect, tabs }: GameTabsProps): ReactNode {
+  const generatedId = useId();
+  const baseId = id ?? generatedId;
   // Roving tabindex per the ARIA tabs pattern: the active tab is the only
   // tab stop; arrow keys move selection and focus.
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -93,8 +123,10 @@ export function GameTabs({ activeId, onSelect, tabs }: GameTabsProps): ReactNode
     <div className="game-ui-tabs" onKeyDown={handleKeyDown} role="tablist">
       {tabs.map((tab) => (
         <button
+          aria-controls={tab.panelId}
           aria-selected={tab.id === activeId}
           className="game-ui-tab"
+          id={`${baseId}-${tab.id}`}
           key={tab.id}
           onClick={onSelect ? () => onSelect(tab.id) : undefined}
           role="tab"
@@ -182,13 +214,30 @@ export interface GameRadialMenuItem {
 export interface GameRadialMenuProps {
   items: readonly GameRadialMenuItem[];
   label: string;
+  onSelect?: (id: string) => void;
 }
 
-export function GameRadialMenu({ items, label }: GameRadialMenuProps): ReactNode {
+// A plain focusable button group arranged in a circle (clock positions via
+// rotate/translate/counter-rotate). role="group" rather than the ARIA menu
+// pattern: we don't implement roving tabindex, arrow-key traversal, or
+// Escape-to-close, so claiming role="menu" would promise keyboard behavior
+// that isn't there.
+export function GameRadialMenu({ items, label, onSelect }: GameRadialMenuProps): ReactNode {
   return (
-    <div aria-label={label} className="game-ui-radial-menu" role="menu">
-      {items.map((item) => (
-        <button className="game-ui-radial-item" key={item.id} role="menuitem" type="button">
+    <div
+      aria-label={label}
+      className="game-ui-radial-menu"
+      role="group"
+      style={{ '--radial-count': items.length } as CSSProperties}
+    >
+      {items.map((item, index) => (
+        <button
+          className="game-ui-radial-item"
+          key={item.id}
+          onClick={onSelect ? () => onSelect(item.id) : undefined}
+          style={{ '--radial-index': index } as CSSProperties}
+          type="button"
+        >
           {item.label}
         </button>
       ))}

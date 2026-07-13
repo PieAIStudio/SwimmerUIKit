@@ -209,6 +209,7 @@ export {
   CLAY_TYPE_TOKENS,
   CLAY_UI_TOKENS,
   GAME_UI_TARGETS,
+  GAME_UI_THEME_CONTRACT,
   GAME_UI_TOKENS,
   type ClayTokenCategory,
 } from './tokens';

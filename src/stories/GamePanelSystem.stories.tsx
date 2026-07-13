@@ -116,6 +116,38 @@ export const Modal: Story = {
   render: () => <ModalDemo />,
 };
 
+function ModalBottomSheetDemo(): React.ReactNode {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <GameButton onClick={() => setOpen(true)} variant="primary">
+        Open action sheet
+      </GameButton>
+      <GameModal
+        footer={
+          <GameButton onClick={() => setOpen(false)} variant="primary">
+            Done
+          </GameButton>
+        }
+        onClose={() => setOpen(false)}
+        open={open}
+        position="bottom"
+        title="Choose an emote"
+      >
+        <p style={{ margin: 0 }}>
+          Same native &lt;dialog&gt; as the centered modal — Esc, backdrop click,
+          and focus trap all still come free. Only placement/shape/entrance change.
+        </p>
+      </GameModal>
+    </div>
+  );
+}
+
+export const ModalBottomSheet: Story = {
+  args: { title: 'Modal (bottom sheet)', children: null },
+  render: () => <ModalBottomSheetDemo />,
+};
+
 export const NightTheme: Story = {
   args: { title: 'Night', children: null },
   render: () => (

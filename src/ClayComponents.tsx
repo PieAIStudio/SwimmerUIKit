@@ -104,11 +104,11 @@ export function GameCardFan({ cards, className, label }: GameCardFanProps): Reac
           '--game-ui-card-offset': index - midpoint,
         } as CSSProperties;
         return (
-          <article className="game-ui-card-fan-card" key={card.id} role="listitem" style={style}>
+          <li className="game-ui-card-fan-card" key={card.id} style={style}>
             {card.icon ? <GameAssetIcon icon={card.icon} size="lg" /> : null}
             <small>{card.kicker}</small>
             <strong>{card.title}</strong>
-          </article>
+          </li>
         );
       })}
     </div>

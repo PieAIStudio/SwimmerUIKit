@@ -35,18 +35,25 @@
   --game-ui-panel-strong: #fff8ec;
   --game-ui-panel-deep: #efd1a3;
   --game-ui-text: #3b2d23;
-  --game-ui-text-muted: #7b6652;
+  --game-ui-text-muted: #786250;
   --game-ui-accent: #e8743b;
   --game-ui-accent-bright: #f28d50;
   --game-ui-accent-pale: #ffd4a2;
-  --game-ui-accent-contrast: #fff8ec;
+  /* Dark ink (not white) so text/checkmarks/initials on saturated brand
+   * surfaces (primary/danger/success buttons, active tab, avatar) clear
+   * WCAG 4.5:1 — verified in both themes by the contrast guard below. */
+  --game-ui-accent-contrast: #241609;
   --game-ui-secondary: #1d9a8b;
   --game-ui-secondary-pale: #baf5df;
   --game-ui-success: #4f9d6b;
   --game-ui-success-bright: #7ee0b6;
-  --game-ui-on-success: #16382d;
   --game-ui-danger: #d85a45;
   --game-ui-danger-bright: #ef8a72;
+  /* Text-safe variants: --game-ui-danger/--game-ui-accent are tuned for use
+   * as backgrounds (buttons, badges); using them directly as text on a
+   * light panel misses WCAG 4.5:1. Guarded by the contrast test below. */
+  --game-ui-danger-ink: #b3402f;
+  --game-ui-accent-ink: #a34e17;
   --game-ui-warning: #f2b35c;
   --game-ui-berry: #9b6dd6;
   --game-ui-berry-pale: #d9c6ff;
@@ -129,6 +136,8 @@
   --game-ui-terrain-tool-hit-size: 44px;
   --game-ui-build-rail-card-size: 52px;
   --game-ui-brush-number-width: 76px;
+  --game-ui-radial-diameter: 176px;
+  --game-ui-radial-radius: 72px;
 
   /* Scenery: demo-stage worlds shown behind HUD examples */
   --game-ui-scenery-canopy: #40543c;
@@ -177,9 +186,10 @@
   --game-ui-secondary-pale: #1d5c53;
   --game-ui-success: #63b381;
   --game-ui-success-bright: #3d7c58;
-  --game-ui-on-success: #eafff3;
   --game-ui-danger: #e26a55;
   --game-ui-danger-bright: #8a3a2c;
+  --game-ui-danger-ink: #ff9a80;
+  --game-ui-accent-ink: #ffb072;
   --game-ui-warning: #f2b35c;
   --game-ui-berry: #b58ae0;
   --game-ui-berry-pale: #55407a;

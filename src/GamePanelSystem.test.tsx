@@ -133,4 +133,20 @@ describe('GameModal', () => {
     expect(html).not.toContain('expensive content');
     expect(html).toContain('Hidden');
   });
+
+  it('defaults to a centered position and accepts a bottom-sheet variant', () => {
+    const centered = compact(renderToStaticMarkup(
+      <GameModal onClose={() => {}} open title="Centered">
+        <p>content</p>
+      </GameModal>,
+    ));
+    expect(centered).toContain('data-position="center"');
+
+    const sheet = compact(renderToStaticMarkup(
+      <GameModal onClose={() => {}} open position="bottom" title="Sheet">
+        <p>content</p>
+      </GameModal>,
+    ));
+    expect(sheet).toContain('data-position="bottom"');
+  });
 });

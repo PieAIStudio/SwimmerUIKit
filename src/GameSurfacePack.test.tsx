@@ -46,7 +46,7 @@ describe('OwnMySpace game surface pack', () => {
     expect(html).toContain('aria-label="Move left"');
     expect(html).toContain('W / ↑');
     expect(html).toContain('S / ↓');
-    expect(html).toContain('tabIndex="0"');
+    expect(html).toContain('tabindex="0"');
   });
 
   it('clearly distinguishes starter, generated, and imported assets in asset cards and library counts', () => {

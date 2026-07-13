@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "packageManager": "pnpm@11.9.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
@@ -30,16 +30,22 @@
   },
   "files": [
     "dist",
+    "bin",
     "CHANGELOG.md",
     "LICENSE"
   ],
   "types": "./dist/index.d.ts",
+  "bin": {
+    "swimmer-ui-check": "./bin/swimmer-ui-check.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./preview.css": "./dist/preview.css",
+    "./fonts.css": "./dist/fonts.css",
     "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
   },

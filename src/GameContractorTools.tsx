@@ -577,7 +577,7 @@ export function GameCompactJobDrawer({
       data-testid={testId}
     >
       {children ?? (
-        <div className="game-ui-compact-job-drawer-list">
+        <div className="game-ui-compact-job-drawer-list" tabIndex={0}>
           {jobs.map((job) => (
             <GameConstructionJobCard
               density="dense"
@@ -634,9 +634,13 @@ export function GameContractorPanel({
           triggerLabel="Contractor"
           variant={variant}
         />
-        {selectedJob ? (
+        {/* Hidden while the drawer is open: its list already renders this
+         * same job (highlighted), so keeping both mounted would duplicate
+         * the job's landmarks (axe: landmark-unique) and the on-screen info. */}
+        {selectedJob && !drawerOpen ? (
           <GameConstructionJobCard density="dense" job={selectedJob} onAction={onAction} onSelect={onSelectJob} selected showBeforeAfter={hasPreviewPair(selectedJob)} variant={variant} />
-        ) : <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} />}
+        ) : null}
+        {!selectedJob ? <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} /> : null}
       </section>
     );
   }
@@ -648,7 +652,7 @@ export function GameContractorPanel({
         {jobs.length === 0 ? <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} /> : null}
         {jobs.length > 0 ? (
           <div className="game-ui-contractor-panel-grid">
-            <div className="game-ui-contractor-job-list" aria-label="Construction job queue">
+            <div aria-label="Construction job queue" className="game-ui-contractor-job-list" tabIndex={0}>
               {jobs.map((job) => (
                 <GameConstructionJobCard
                   density={density}
