@@ -35,7 +35,10 @@ export const CLAY_ICON_VARIANTS = {
   card: { line: A('icons/function/card-v1.png') },
   chat: { line: A('icons/function/chat-v1.png') },
   check: { line: A('icons/function/check-v1.png') },
-  close: { game: A('components/language/button-close-v1.png'), line: A('icons/function/cancel-v1.png') },
+  close: {
+    game: A('components/language/button-close-v1.png'),
+    line: A('icons/function/cancel-v1.png'),
+  },
   coin: { game: A('icons/common/gold-v1.png'), line: A('icons/function/gold-v1.png') },
   compass: { line: A('icons/function/compass-v1.png') },
   copy: { line: A('icons/function/copy-v1.png') },
@@ -46,7 +49,10 @@ export const CLAY_ICON_VARIANTS = {
   globe: { line: A('icons/function/globe-v1.png') },
   history: { line: A('icons/function/list-v1.png') },
   home: { line: A('icons/function/home-v1.png') },
-  hourglass: { game: A('icons/common/sandglass-v1.png'), line: A('icons/function/sandglass-v1.png') },
+  hourglass: {
+    game: A('icons/common/sandglass-v1.png'),
+    line: A('icons/function/sandglass-v1.png'),
+  },
   laurel: { game: A('icons/common/laurel-v1.png') },
   lock: { game: A('icons/common/lock-v1.png'), line: A('icons/function/lock-v1.png') },
   lucky: { game: A('icons/common/lucky-v1.png') },
@@ -156,7 +162,10 @@ export const CLAY_ASSETS = {
   },
   // The default (game-preferred) path for every semantic icon, derived from the
   // variant table above so there is a single source of truth.
-  icons: Object.fromEntries(CLAY_ICON_NAMES.map((name) => [name, resolveVariant(name)])) as Record<ClayIconName, string>,
+  icons: Object.fromEntries(CLAY_ICON_NAMES.map((name) => [name, resolveVariant(name)])) as Record<
+    ClayIconName,
+    string
+  >,
   catalog: {
     manifest: '/assets/game/ui/clay/asset-manifest.json',
     sourceCatalog: A('catalog/phase03-clay-ui-catalog.json'),
@@ -283,7 +292,7 @@ export interface ClayIconResolveOptions {
 }
 
 export function getClayIconPath(icon: ClayIconName, options: ClayIconResolveOptions = {}): string {
-  const inline = options.inline ?? (clayAssetMode === 'inline');
+  const inline = options.inline ?? clayAssetMode === 'inline';
   if (inline) return inlineClayIcon(icon);
   return resolveVariant(icon, options.style);
 }

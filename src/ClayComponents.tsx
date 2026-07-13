@@ -1,4 +1,11 @@
-import { useEffect, useId, useState, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useState,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 
 import { CLAY_ASSETS, getClayIconPath, type ClayIconName, type ClayIconStyle } from './clay/assets';
 
@@ -33,12 +40,27 @@ export interface GameAssetIconProps {
   useSourceAsset?: boolean;
 }
 
-export function GameAssetIcon({ className, icon, label, size = 'md', style, useSourceAsset = false }: GameAssetIconProps): ReactNode {
+export function GameAssetIcon({
+  className,
+  icon,
+  label,
+  size = 'md',
+  style,
+  useSourceAsset = false,
+}: GameAssetIconProps): ReactNode {
   const classes = ['game-ui-asset-icon', className].filter(Boolean).join(' ');
   const accessibilityProps = label ? { 'aria-label': label } : { 'aria-hidden': true };
-  const src = getClayIconPath(icon, { ...(style ? { style } : {}), ...(useSourceAsset ? { inline: false } : {}) });
+  const src = getClayIconPath(icon, {
+    ...(style ? { style } : {}),
+    ...(useSourceAsset ? { inline: false } : {}),
+  });
   return (
-    <span className={classes} data-icon-size={size} data-icon-style={style ?? 'game'} {...accessibilityProps}>
+    <span
+      className={classes}
+      data-icon-size={size}
+      data-icon-style={style ?? 'game'}
+      {...accessibilityProps}
+    >
       <img alt="" src={src} />
     </span>
   );
@@ -125,10 +147,27 @@ export interface GameStageTileProps extends ButtonHTMLAttributes<HTMLButtonEleme
   tone?: 'daily' | 'portal' | 'host' | 'danger';
 }
 
-export function GameStageTile({ badge, className, icon, kicker, selected = false, summary, title, tone = 'daily', type = 'button', ...props }: GameStageTileProps): ReactNode {
+export function GameStageTile({
+  badge,
+  className,
+  icon,
+  kicker,
+  selected = false,
+  summary,
+  title,
+  tone = 'daily',
+  type = 'button',
+  ...props
+}: GameStageTileProps): ReactNode {
   const classes = ['game-ui-stage-tile', className].filter(Boolean).join(' ');
   return (
-    <button aria-pressed={selected} className={classes} data-stage-tone={tone} type={type} {...props}>
+    <button
+      aria-pressed={selected}
+      className={classes}
+      data-stage-tone={tone}
+      type={type}
+      {...props}
+    >
       {icon ? <GameAssetIcon icon={icon} size="xl" /> : null}
       <span className="game-ui-stage-tile-copy">
         <small>{kicker}</small>
@@ -142,7 +181,8 @@ export function GameStageTile({ badge, className, icon, kicker, selected = false
 
 function isPortraitPhoneLike(): boolean {
   if (typeof window === 'undefined') return false;
-  const phoneLike = window.matchMedia?.('(pointer: coarse), (max-width: 899px)').matches ?? window.innerWidth < 900;
+  const phoneLike =
+    window.matchMedia?.('(pointer: coarse), (max-width: 899px)').matches ?? window.innerWidth < 900;
   return phoneLike && window.innerHeight > window.innerWidth;
 }
 
@@ -157,7 +197,14 @@ export interface GameOrientationGateProps {
   title: string;
 }
 
-export function GameOrientationGate({ body, cta, badgeLabel = 'Landscape only', manualHint = 'Rotate manually if this browser blocks automatic landscape lock.', preview = false, title }: GameOrientationGateProps): ReactNode {
+export function GameOrientationGate({
+  body,
+  cta,
+  badgeLabel = 'Landscape only',
+  manualHint = 'Rotate manually if this browser blocks automatic landscape lock.',
+  preview = false,
+  title,
+}: GameOrientationGateProps): ReactNode {
   const [visible, setVisible] = useState(preview || isPortraitPhoneLike);
   const [message, setMessage] = useState('');
 
@@ -185,7 +232,9 @@ export function GameOrientationGate({ body, cta, badgeLabel = 'Landscape only', 
     try {
       const root = document.documentElement;
       if (!document.fullscreenElement && root.requestFullscreen) await root.requestFullscreen();
-      const orientation = screen.orientation as ScreenOrientation & { lock?: (orientation: 'landscape-primary') => Promise<void> };
+      const orientation = screen.orientation as ScreenOrientation & {
+        lock?: (orientation: 'landscape-primary') => Promise<void>;
+      };
       await orientation.lock?.('landscape-primary');
       setVisible(isPortraitPhoneLike());
     } catch {
@@ -223,7 +272,15 @@ export interface GameLanguageMenuProps {
   onSelect?: (id: string) => void;
 }
 
-export function GameLanguageMenu({ className, currentLabel, label, options, value, defaultValue, onSelect }: GameLanguageMenuProps): ReactNode {
+export function GameLanguageMenu({
+  className,
+  currentLabel,
+  label,
+  options,
+  value,
+  defaultValue,
+  onSelect,
+}: GameLanguageMenuProps): ReactNode {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue ?? options[0]?.id ?? '');
   const menuId = useId();
@@ -241,7 +298,13 @@ export function GameLanguageMenu({ className, currentLabel, label, options, valu
 
   return (
     <div className={classes}>
-      <button aria-controls={menuId} aria-expanded={open} className="game-ui-language-trigger" onClick={() => setOpen((current) => !current)} type="button">
+      <button
+        aria-controls={menuId}
+        aria-expanded={open}
+        className="game-ui-language-trigger"
+        onClick={() => setOpen((current) => !current)}
+        type="button"
+      >
         <GameAssetIcon icon="globe" size="sm" />
         <span>{triggerLabel}</span>
       </button>
@@ -275,7 +338,11 @@ export interface GameLoadingStateProps {
 
 export function GameLoadingState({ label, tone = 'loading' }: GameLoadingStateProps): ReactNode {
   return (
-    <div className="game-ui-loading-state" data-loading-tone={tone} role={tone === 'error' ? 'alert' : 'status'}>
+    <div
+      className="game-ui-loading-state"
+      data-loading-tone={tone}
+      role={tone === 'error' ? 'alert' : 'status'}
+    >
       <img alt="" src={tone === 'error' ? getClayIconPath('alert') : getClayIconPath('timer')} />
       <span>{label}</span>
     </div>

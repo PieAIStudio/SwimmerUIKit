@@ -56,7 +56,18 @@ function SlotIcon({ fallback, slot }: { fallback: ClayIconName; slot?: ReactNode
   return slot ?? <GameAssetIcon icon={fallback} size="sm" />;
 }
 
-export function FirstSessionHud({ authenticated, batteryCount, className, dailyStreak, iconSlots, labels, onHistory, onSettings, onWardrobe, playerName }: FirstSessionHudProps): ReactNode {
+export function FirstSessionHud({
+  authenticated,
+  batteryCount,
+  className,
+  dailyStreak,
+  iconSlots,
+  labels,
+  onHistory,
+  onSettings,
+  onWardrobe,
+  playerName,
+}: FirstSessionHudProps): ReactNode {
   const classes = ['swimmer-first-session-shell', className].filter(Boolean).join(' ');
   const resourceMeta = authenticated ? `${batteryCount} 🔋` : (labels.guest ?? 'guest');
 
@@ -65,13 +76,31 @@ export function FirstSessionHud({ authenticated, batteryCount, className, dailyS
       <GameHud
         className="swimmer-first-session-hud"
         items={[
-          { icon: 'crown', id: 'role', label: labels.roleLabel, meta: playerName, value: labels.roleValue },
-          { icon: 'portal', id: 'room', label: labels.roomLabel, meta: resourceMeta, value: labels.roomValue },
-          { icon: 'trophy', id: 'goal', label: labels.goalLabel, meta: `${labels.streak ?? 'Daily'} ${dailyStreak}`, value: labels.goalValue },
+          {
+            icon: 'crown',
+            id: 'role',
+            label: labels.roleLabel,
+            meta: playerName,
+            value: labels.roleValue,
+          },
+          {
+            icon: 'portal',
+            id: 'room',
+            label: labels.roomLabel,
+            meta: resourceMeta,
+            value: labels.roomValue,
+          },
+          {
+            icon: 'trophy',
+            id: 'goal',
+            label: labels.goalLabel,
+            meta: `${labels.streak ?? 'Daily'} ${dailyStreak}`,
+            value: labels.goalValue,
+          },
           { icon: 'timer', id: 'timer', label: labels.timerLabel, value: labels.timerValue },
         ]}
         label={labels.hud}
-        actions={(
+        actions={
           <GameHudActions className="swimmer-first-session-hud-actions" label={labels.tools}>
             <GameButton aria-label={labels.wardrobe} onClick={onWardrobe} variant="secondary">
               <SlotIcon fallback="shirt" slot={iconSlots?.wardrobe} />
@@ -86,7 +115,7 @@ export function FirstSessionHud({ authenticated, batteryCount, className, dailyS
               {labels.history}
             </GameButton>
           </GameHudActions>
-        )}
+        }
       />
 
       <div aria-label={labels.controls} className="swimmer-first-session-controls">
@@ -130,11 +159,20 @@ export interface FirstSessionOnboardingProps {
   open: boolean;
 }
 
-export function FirstSessionOnboarding({ labels, onDismiss, open }: FirstSessionOnboardingProps): ReactNode {
+export function FirstSessionOnboarding({
+  labels,
+  onDismiss,
+  open,
+}: FirstSessionOnboardingProps): ReactNode {
   if (!open) return null;
 
   return (
-    <aside aria-labelledby="swimmer-first-session-onboarding-title" aria-modal="true" className="swimmer-first-session-onboarding" role="dialog">
+    <aside
+      aria-labelledby="swimmer-first-session-onboarding-title"
+      aria-modal="true"
+      className="swimmer-first-session-onboarding"
+      role="dialog"
+    >
       <div className="swimmer-first-session-onboarding-scrim" />
       <div className="swimmer-first-session-onboarding-card">
         <GameAssetIcon icon="trophy" size="xl" />
@@ -151,8 +189,12 @@ export function FirstSessionOnboarding({ labels, onDismiss, open }: FirstSession
           ))}
         </ol>
         <div className="swimmer-first-session-onboarding-actions">
-          <GameButton onClick={onDismiss} variant="primary">{labels.start}</GameButton>
-          <GameButton onClick={onDismiss} variant="ghost">{labels.skip}</GameButton>
+          <GameButton onClick={onDismiss} variant="primary">
+            {labels.start}
+          </GameButton>
+          <GameButton onClick={onDismiss} variant="ghost">
+            {labels.skip}
+          </GameButton>
         </div>
       </div>
     </aside>

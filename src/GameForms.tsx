@@ -1,4 +1,9 @@
-import { forwardRef, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+} from 'react';
 
 /**
  * Clay form primitives. These are intentionally thin wrappers over the native
@@ -17,20 +22,35 @@ export const GameInput = forwardRef<HTMLInputElement, GameInputProps>(function G
   ref,
 ): ReactNode {
   const classes = ['game-ui-input', className].filter(Boolean).join(' ');
-  return <input className={classes} data-invalid={invalid ? 'true' : undefined} ref={ref} type={type} {...props} />;
+  return (
+    <input
+      className={classes}
+      data-invalid={invalid ? 'true' : undefined}
+      ref={ref}
+      type={type}
+      {...props}
+    />
+  );
 });
 
 export interface GameTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   invalid?: boolean;
 }
 
-export const GameTextArea = forwardRef<HTMLTextAreaElement, GameTextAreaProps>(function GameTextArea(
-  { className, invalid, rows = 3, ...props },
-  ref,
-): ReactNode {
-  const classes = ['game-ui-input', 'game-ui-textarea', className].filter(Boolean).join(' ');
-  return <textarea className={classes} data-invalid={invalid ? 'true' : undefined} ref={ref} rows={rows} {...props} />;
-});
+export const GameTextArea = forwardRef<HTMLTextAreaElement, GameTextAreaProps>(
+  function GameTextArea({ className, invalid, rows = 3, ...props }, ref): ReactNode {
+    const classes = ['game-ui-input', 'game-ui-textarea', className].filter(Boolean).join(' ');
+    return (
+      <textarea
+        className={classes}
+        data-invalid={invalid ? 'true' : undefined}
+        ref={ref}
+        rows={rows}
+        {...props}
+      />
+    );
+  },
+);
 
 export interface GameFieldProps {
   /** The input/textarea this field labels. Rendered inside the <label>. */
@@ -44,13 +64,25 @@ export interface GameFieldProps {
   className?: string;
 }
 
-export function GameField({ children, className, error, hint, label, required }: GameFieldProps): ReactNode {
+export function GameField({
+  children,
+  className,
+  error,
+  hint,
+  label,
+  required,
+}: GameFieldProps): ReactNode {
   const classes = ['game-ui-field', className].filter(Boolean).join(' ');
   return (
     <label className={classes} data-invalid={error ? 'true' : undefined}>
       <span className="game-ui-field-label">
         {label}
-        {required ? <span aria-hidden="true" className="game-ui-field-required"> *</span> : null}
+        {required ? (
+          <span aria-hidden="true" className="game-ui-field-required">
+            {' '}
+            *
+          </span>
+        ) : null}
       </span>
       {children}
       {hint && !error ? <span className="game-ui-field-hint">{hint}</span> : null}
@@ -63,8 +95,10 @@ export function GameField({ children, className, error, hint, label, required }:
   );
 }
 
-export interface GameCheckboxProps
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'checked' | 'defaultChecked' | 'disabled' | 'name' | 'onChange' | 'required' | 'value'> {
+export interface GameCheckboxProps extends Pick<
+  InputHTMLAttributes<HTMLInputElement>,
+  'checked' | 'defaultChecked' | 'disabled' | 'name' | 'onChange' | 'required' | 'value'
+> {
   label: string;
   className?: string;
 }

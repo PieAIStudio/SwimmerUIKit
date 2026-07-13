@@ -53,7 +53,15 @@ export const Collapsible: Story = {
 function WindowDemo(): React.ReactNode {
   const [visible, setVisible] = useState(true);
   return (
-    <div style={{ position: 'relative', minHeight: 420, display: 'grid', gap: 12, alignContent: 'start' }}>
+    <div
+      style={{
+        position: 'relative',
+        minHeight: 420,
+        display: 'grid',
+        gap: 12,
+        alignContent: 'start',
+      }}
+    >
       {visible ? (
         <GameWindowPanel
           footer={<GameButton variant="primary">Craft</GameButton>}
@@ -61,8 +69,8 @@ function WindowDemo(): React.ReactNode {
           title="Crafting bench"
         >
           <p style={{ margin: 0 }}>
-            Try the titlebar buttons: minimize collapses this window into a chip,
-            maximize fills the nearest positioned ancestor, close removes it.
+            Try the titlebar buttons: minimize collapses this window into a chip, maximize fills the
+            nearest positioned ancestor, close removes it.
           </p>
         </GameWindowPanel>
       ) : (
@@ -103,8 +111,8 @@ function ModalDemo(): React.ReactNode {
         title="Leave the room?"
       >
         <p style={{ margin: 0 }}>
-          Native dialog: Esc closes, backdrop click closes, focus is trapped and
-          returned automatically by the browser.
+          Native dialog: Esc closes, backdrop click closes, focus is trapped and returned
+          automatically by the browser.
         </p>
       </GameModal>
     </div>
@@ -135,8 +143,8 @@ function ModalBottomSheetDemo(): React.ReactNode {
         title="Choose an emote"
       >
         <p style={{ margin: 0 }}>
-          Same native &lt;dialog&gt; as the centered modal — Esc, backdrop click,
-          and focus trap all still come free. Only placement/shape/entrance change.
+          Same native &lt;dialog&gt; as the centered modal — Esc, backdrop click, and focus trap all
+          still come free. Only placement/shape/entrance change.
         </p>
       </GameModal>
     </div>
@@ -151,7 +159,17 @@ export const ModalBottomSheet: Story = {
 export const NightTheme: Story = {
   args: { title: 'Night', children: null },
   render: () => (
-    <div data-game-ui-theme="night" style={{ display: 'grid', gap: 12, maxWidth: 420, padding: 16, borderRadius: 26, background: 'var(--game-ui-bg)' }}>
+    <div
+      data-game-ui-theme="night"
+      style={{
+        display: 'grid',
+        gap: 12,
+        maxWidth: 420,
+        padding: 16,
+        borderRadius: 26,
+        background: 'var(--game-ui-bg)',
+      }}
+    >
       <GameCollapsiblePanel title="Inventory (night)">
         <p style={{ margin: 0, color: 'var(--game-ui-text)' }}>
           The same components under the official night theme — only tokens changed.

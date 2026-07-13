@@ -8,7 +8,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: '模态对话框(如开桌前的 Host Gate)。带 `role="dialog"` / `aria-modal` 语义,标题用 `title`,内容作为 children。',
+        component:
+          '模态对话框(如开桌前的 Host Gate)。带 `role="dialog"` / `aria-modal` 语义,标题用 `title`,内容作为 children。',
       },
     },
   },

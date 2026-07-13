@@ -19,7 +19,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Official terrain/build controls for game surfaces. Host apps own state, runtime commands, persistence, and layout glue.',
+        component:
+          'Official terrain/build controls for game surfaces. Host apps own state, runtime commands, persistence, and layout glue.',
       },
     },
   },
@@ -52,12 +53,54 @@ const longTools: readonly GameTerrainToolOption[] = [
 ];
 
 const materials: readonly GameTerrainMaterialSwatch[] = [
-  { id: 'grass', label: 'Grass', compactLabel: 'Grass', color: '#4f9d6b', pattern: 'speckled', secondaryColor: '#8fd8a2' },
-  { id: 'soil', label: 'Soil', compactLabel: 'Soil', color: '#8a5a32', pattern: 'speckled', secondaryColor: '#c08a58' },
-  { id: 'path', label: 'Path', compactLabel: 'Path', color: '#b98d5d', pattern: 'hatched', secondaryColor: '#7d573b' },
-  { id: 'sand', label: 'Sand', compactLabel: 'Sand', color: '#dcc27a', pattern: 'speckled', secondaryColor: '#f8e3a5' },
-  { id: 'stone', label: 'Stone', compactLabel: 'Stone', color: '#848077', pattern: 'grid', secondaryColor: '#b9b2a4' },
-  { id: 'water-edge', label: 'Water edge', compactLabel: 'Water', color: '#4b96a8', pattern: 'grid', secondaryColor: '#9bd4df' },
+  {
+    id: 'grass',
+    label: 'Grass',
+    compactLabel: 'Grass',
+    color: '#4f9d6b',
+    pattern: 'speckled',
+    secondaryColor: '#8fd8a2',
+  },
+  {
+    id: 'soil',
+    label: 'Soil',
+    compactLabel: 'Soil',
+    color: '#8a5a32',
+    pattern: 'speckled',
+    secondaryColor: '#c08a58',
+  },
+  {
+    id: 'path',
+    label: 'Path',
+    compactLabel: 'Path',
+    color: '#b98d5d',
+    pattern: 'hatched',
+    secondaryColor: '#7d573b',
+  },
+  {
+    id: 'sand',
+    label: 'Sand',
+    compactLabel: 'Sand',
+    color: '#dcc27a',
+    pattern: 'speckled',
+    secondaryColor: '#f8e3a5',
+  },
+  {
+    id: 'stone',
+    label: 'Stone',
+    compactLabel: 'Stone',
+    color: '#848077',
+    pattern: 'grid',
+    secondaryColor: '#b9b2a4',
+  },
+  {
+    id: 'water-edge',
+    label: 'Water edge',
+    compactLabel: 'Water',
+    color: '#4b96a8',
+    pattern: 'grid',
+    secondaryColor: '#9bd4df',
+  },
 ];
 
 const categories: readonly GameBuildCategory[] = [
@@ -68,8 +111,20 @@ const categories: readonly GameBuildCategory[] = [
     icon: 'home',
     meta: 'snap grid',
     items: [
-      { id: 'floor-2x2', label: '2x2 floor', compactLabel: '2x2', status: 'selected', badges: [{ label: 'snap' }] },
-      { id: 'floor-4x4', label: '4x4 foundation slab', compactLabel: '4x4', status: 'ready', badges: [{ label: 'wide' }] },
+      {
+        id: 'floor-2x2',
+        label: '2x2 floor',
+        compactLabel: '2x2',
+        status: 'selected',
+        badges: [{ label: 'snap' }],
+      },
+      {
+        id: 'floor-4x4',
+        label: '4x4 foundation slab',
+        compactLabel: '4x4',
+        status: 'ready',
+        badges: [{ label: 'wide' }],
+      },
     ],
   },
   {
@@ -79,8 +134,19 @@ const categories: readonly GameBuildCategory[] = [
     icon: 'card',
     items: [
       { id: 'wall-solid', label: 'Solid wall', compactLabel: 'Solid', status: 'ready' },
-      { id: 'wall-window', label: 'Wall with window opening', compactLabel: 'Window', status: 'ready' },
-      { id: 'wall-door', label: 'Door opening wall', compactLabel: 'Door', status: 'locked', meta: 'unlock after foundation' },
+      {
+        id: 'wall-window',
+        label: 'Wall with window opening',
+        compactLabel: 'Window',
+        status: 'ready',
+      },
+      {
+        id: 'wall-door',
+        label: 'Door opening wall',
+        compactLabel: 'Door',
+        status: 'locked',
+        meta: 'unlock after foundation',
+      },
     ],
   },
   {
@@ -89,7 +155,13 @@ const categories: readonly GameBuildCategory[] = [
     compactLabel: 'Roof',
     icon: 'crown',
     items: [
-      { id: 'roof-gable', label: 'Gable roof', compactLabel: 'Gable', status: 'progress', meta: 'optimizing' },
+      {
+        id: 'roof-gable',
+        label: 'Gable roof',
+        compactLabel: 'Gable',
+        status: 'progress',
+        meta: 'optimizing',
+      },
       { id: 'roof-flat', label: 'Flat roof cap', compactLabel: 'Flat', status: 'ready' },
     ],
   },
@@ -100,7 +172,12 @@ const categories: readonly GameBuildCategory[] = [
     icon: 'gem',
     items: [
       { id: 'deck-stairs', label: 'Deck stairs', compactLabel: 'Stairs', status: 'ready' },
-      { id: 'garden-fence-long-name', label: 'Very long garden fence segment', compactLabel: 'Fence', status: 'ready' },
+      {
+        id: 'garden-fence-long-name',
+        label: 'Very long garden fence segment',
+        compactLabel: 'Fence',
+        status: 'ready',
+      },
     ],
   },
 ];
@@ -116,7 +193,14 @@ const baseArgs = {
   materials,
   modes,
   selectedBuildItemId: 'floor-2x2',
-  status: { label: 'Ready', tone: 'success' as const, description: 'Brush edits are local and reversible.', progressLabel: 'Optimization', progressMax: 100, progressValue: 68 },
+  status: {
+    label: 'Ready',
+    tone: 'success' as const,
+    description: 'Brush edits are local and reversible.',
+    progressLabel: 'Optimization',
+    progressMax: 100,
+    progressValue: 68,
+  },
   title: 'Island tools',
   tools,
   undoRedo: { canRedo: false, canUndo: true },
@@ -124,8 +208,12 @@ const baseArgs = {
 
 export const Desktop: Story = { args: { ...baseArgs, variant: 'desktop' } };
 export const Dense: Story = { args: { ...baseArgs, density: 'dense', variant: 'dense' } };
-export const MobileDrawer: Story = { args: { ...baseArgs, drawerOpen: true, title: 'Tools', variant: 'mobile' } };
-export const SmallMobileDrawer: Story = { args: { ...baseArgs, drawerOpen: true, title: 'Tools', variant: 'small-mobile' } };
+export const MobileDrawer: Story = {
+  args: { ...baseArgs, drawerOpen: true, title: 'Tools', variant: 'mobile' },
+};
+export const SmallMobileDrawer: Story = {
+  args: { ...baseArgs, drawerOpen: true, title: 'Tools', variant: 'small-mobile' },
+};
 
 export const IconOnlyMobileA11y: Story = {
   args: {
@@ -138,7 +226,8 @@ export const IconOnlyMobileA11y: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'For teams that choose icon-only mobile controls, every icon button still keeps the full accessible label from the action label.',
+        story:
+          'For teams that choose icon-only mobile controls, every icon button still keeps the full accessible label from the action label.',
       },
     },
   },
@@ -155,17 +244,51 @@ export const ResponsiveMatrix: StoryObj = {
   },
   render: () => {
     const frames = [
-      { id: 'desktop', label: 'Desktop 1440', width: 1180, variant: 'desktop' as const, drawerOpen: false },
-      { id: 'tablet', label: 'Tablet 768', width: 768, variant: 'dense' as const, drawerOpen: false },
-      { id: 'mobile', label: 'Mobile landscape 844', width: 844, variant: 'mobile' as const, drawerOpen: true },
-      { id: 'small-mobile', label: 'Small mobile 360', width: 360, variant: 'small-mobile' as const, drawerOpen: true },
+      {
+        id: 'desktop',
+        label: 'Desktop 1440',
+        width: 1180,
+        variant: 'desktop' as const,
+        drawerOpen: false,
+      },
+      {
+        id: 'tablet',
+        label: 'Tablet 768',
+        width: 768,
+        variant: 'dense' as const,
+        drawerOpen: false,
+      },
+      {
+        id: 'mobile',
+        label: 'Mobile landscape 844',
+        width: 844,
+        variant: 'mobile' as const,
+        drawerOpen: true,
+      },
+      {
+        id: 'small-mobile',
+        label: 'Small mobile 360',
+        width: 360,
+        variant: 'small-mobile' as const,
+        drawerOpen: true,
+      },
     ];
     return (
       <div style={{ display: 'grid', gap: 16 }}>
         {frames.map((frame) => (
-          <section key={frame.id} style={{ display: 'grid', gap: 8, maxWidth: '100%', overflowX: 'auto' }}>
+          <section
+            key={frame.id}
+            style={{ display: 'grid', gap: 8, maxWidth: '100%', overflowX: 'auto' }}
+          >
             <strong>{frame.label}</strong>
-            <div style={{ border: '1px dashed rgba(92,60,39,.32)', borderRadius: 18, padding: 10, width: frame.width }}>
+            <div
+              style={{
+                border: '1px dashed rgba(92,60,39,.32)',
+                borderRadius: 18,
+                padding: 10,
+                width: frame.width,
+              }}
+            >
               <GameTerrainBuildToolbox
                 {...baseArgs}
                 brush={{ radius: 7.75, strength: 0.95 }}
@@ -197,8 +320,21 @@ export const BuildLibraryOverflow: StoryObj = {
 
 export const DrawerClosed: StoryObj = {
   render: () => (
-    <GameCompactGameDrawer label="Compact build drawer" open={false} panelId="story-terrain-tools" title="Build" variant="small-mobile">
-      <GameBuildLibrary activeCategoryId="wall" categories={categories} label="Build library" selectedItemId="wall-solid" title="Build pieces" variant="small-mobile" />
+    <GameCompactGameDrawer
+      label="Compact build drawer"
+      open={false}
+      panelId="story-terrain-tools"
+      title="Build"
+      variant="small-mobile"
+    >
+      <GameBuildLibrary
+        activeCategoryId="wall"
+        categories={categories}
+        label="Build library"
+        selectedItemId="wall-solid"
+        title="Build pieces"
+        variant="small-mobile"
+      />
     </GameCompactGameDrawer>
   ),
 };
@@ -207,7 +343,14 @@ export const InteractiveDrawer: StoryObj = {
   render: function InteractiveDrawerStory() {
     const [open, setOpen] = useState(true);
     return (
-      <GameCompactGameDrawer label="Interactive terrain drawer" onOpenChange={setOpen} open={open} panelId="interactive-terrain-tools" title="Tools" variant="small-mobile">
+      <GameCompactGameDrawer
+        label="Interactive terrain drawer"
+        onOpenChange={setOpen}
+        open={open}
+        panelId="interactive-terrain-tools"
+        title="Tools"
+        variant="small-mobile"
+      >
         <GameTerrainBuildToolbox {...baseArgs} title="Nested tools" variant="desktop" />
       </GameCompactGameDrawer>
     );

@@ -19,7 +19,14 @@ import { extname, join, relative } from 'node:path';
 
 const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g;
 const TOKEN_BLOCK_SELECTOR = /:root\b|\[data-[\w-]*theme[\w-]*\s*=/i;
-const IGNORE_DIRS = new Set(['node_modules', 'dist', '.git', 'storybook-static', 'site-dist', 'build']);
+const IGNORE_DIRS = new Set([
+  'node_modules',
+  'dist',
+  '.git',
+  'storybook-static',
+  'site-dist',
+  'build',
+]);
 
 function walk(dir, exts, out) {
   for (const entry of readdirSync(dir)) {
@@ -90,7 +97,9 @@ const args = process.argv.slice(2);
 const target = args.find((a) => !a.startsWith('--')) ?? 'src';
 const extArg = args.find((a) => a.startsWith('--ext='));
 const exts = new Set(
-  (extArg ? extArg.slice('--ext='.length).split(',') : ['css']).map((e) => (e.startsWith('.') ? e : `.${e}`)),
+  (extArg ? extArg.slice('--ext='.length).split(',') : ['css']).map((e) =>
+    e.startsWith('.') ? e : `.${e}`,
+  ),
 );
 
 const files = [];
@@ -105,7 +114,9 @@ let violationCount = 0;
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
   for (const violation of findViolations(text)) {
-    console.log(`${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--game-ui-*) instead`);
+    console.log(
+      `${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--game-ui-*) instead`,
+    );
     violationCount += 1;
   }
 }
@@ -118,4 +129,6 @@ if (violationCount > 0) {
   );
   process.exit(1);
 }
-console.log(`swimmer-ui-check: 0 raw color literals in component rules across ${files.length} file(s) under "${target}". Clean.`);
+console.log(
+  `swimmer-ui-check: 0 raw color literals in component rules across ${files.length} file(s) under "${target}". Clean.`,
+);

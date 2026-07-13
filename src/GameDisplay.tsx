@@ -22,7 +22,13 @@ export interface GameAvatarProps {
   className?: string;
 }
 
-export function GameAvatar({ className, name, size = 'md', src, status = 'none' }: GameAvatarProps): ReactNode {
+export function GameAvatar({
+  className,
+  name,
+  size = 'md',
+  src,
+  status = 'none',
+}: GameAvatarProps): ReactNode {
   const classes = ['game-ui-avatar', className].filter(Boolean).join(' ');
   return (
     <span className={classes} data-avatar-size={size} data-avatar-status={status}>
@@ -53,7 +59,14 @@ export interface GameProgressProps {
   className?: string;
 }
 
-export function GameProgress({ className, label, max = 100, showValue = false, tone = 'accent', value }: GameProgressProps): ReactNode {
+export function GameProgress({
+  className,
+  label,
+  max = 100,
+  showValue = false,
+  tone = 'accent',
+  value,
+}: GameProgressProps): ReactNode {
   const safeMax = max <= 0 ? 100 : max;
   const pct = Math.max(0, Math.min(100, (value / safeMax) * 100));
   const classes = ['game-ui-progress', className].filter(Boolean).join(' ');
@@ -84,7 +97,13 @@ export interface GameEmptyStateProps {
   className?: string;
 }
 
-export function GameEmptyState({ action, className, description, icon, title }: GameEmptyStateProps): ReactNode {
+export function GameEmptyState({
+  action,
+  className,
+  description,
+  icon,
+  title,
+}: GameEmptyStateProps): ReactNode {
   const classes = ['game-ui-empty-state', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>

@@ -20,7 +20,9 @@ export function GameCallout({
   className,
   ...props
 }: GameCalloutProps): ReactNode {
-  const classes = ['game-ui-callout', `game-ui-callout--${tone}`, className].filter(Boolean).join(' ');
+  const classes = ['game-ui-callout', `game-ui-callout--${tone}`, className]
+    .filter(Boolean)
+    .join(' ');
   return (
     <div className={classes} role="note" data-tone={tone} {...props}>
       {heading ? <div className="game-ui-callout-title">{heading}</div> : null}

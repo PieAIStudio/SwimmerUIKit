@@ -80,19 +80,29 @@ export interface GameFactListProps {
   variant?: 'facts' | 'stats';
 }
 
-export function GameFactList({ className, density = 'comfortable', facts, label, variant = 'facts' }: GameFactListProps): ReactNode {
+export function GameFactList({
+  className,
+  density = 'comfortable',
+  facts,
+  label,
+  variant = 'facts',
+}: GameFactListProps): ReactNode {
   const classes = ['game-ui-fact-list', className].filter(Boolean).join(' ');
   return (
     <section aria-label={label} className={classes} data-density={density} data-variant={variant}>
       {facts.map((fact) => (
         <article className="game-ui-fact" key={fact.id}>
-          {fact.icon ? <GameAssetIcon icon={fact.icon} size={density === 'dense' ? 'sm' : 'md'} /> : null}
+          {fact.icon ? (
+            <GameAssetIcon icon={fact.icon} size={density === 'dense' ? 'sm' : 'md'} />
+          ) : null}
           <span className="game-ui-fact-copy">
             <small>{fact.label}</small>
             <strong>{fact.value}</strong>
             {fact.meta ? <em>{fact.meta}</em> : null}
           </span>
-          {fact.tone ? <GameBadge tone={fact.tone}>{variant === 'stats' ? fact.label : fact.value}</GameBadge> : null}
+          {fact.tone ? (
+            <GameBadge tone={fact.tone}>{variant === 'stats' ? fact.label : fact.value}</GameBadge>
+          ) : null}
         </article>
       ))}
     </section>
@@ -132,19 +142,40 @@ export interface GameActionGridProps {
   style?: GameActionStyle;
 }
 
-export function GameActionGrid({ actions, className, density = 'comfortable', iconLabelMode = 'hidden', label, style = 'button' }: GameActionGridProps): ReactNode {
+export function GameActionGrid({
+  actions,
+  className,
+  density = 'comfortable',
+  iconLabelMode = 'hidden',
+  label,
+  style = 'button',
+}: GameActionGridProps): ReactNode {
   const classes = ['game-ui-action-grid', className].filter(Boolean).join(' ');
   return (
-    <GameHudActions className={classes} data-icon-label-mode={style === 'icon' ? iconLabelMode : undefined} label={label}>
+    <GameHudActions
+      className={classes}
+      data-icon-label-mode={style === 'icon' ? iconLabelMode : undefined}
+      label={label}
+    >
       <span className="game-ui-sr-only">{label}</span>
       {actions.map((action) => {
         const caption = action.compactLabel ?? action.label;
         const content = (
           <>
-            {action.icon ? <GameAssetIcon icon={action.icon} size={density === 'dense' ? 'sm' : 'md'} {...(style === 'icon' ? { style: 'line' as const } : {})} /> : null}
+            {action.icon ? (
+              <GameAssetIcon
+                icon={action.icon}
+                size={density === 'dense' ? 'sm' : 'md'}
+                {...(style === 'icon' ? { style: 'line' as const } : {})}
+              />
+            ) : null}
             {style === 'button' ? <span>{action.label}</span> : null}
-            {style === 'icon' && iconLabelMode === 'caption' ? <span className="game-ui-action-grid-caption">{caption}</span> : null}
-            {action.badge ? <GameBadge tone={action.selected ? 'success' : 'neutral'}>{action.badge}</GameBadge> : null}
+            {style === 'icon' && iconLabelMode === 'caption' ? (
+              <span className="game-ui-action-grid-caption">{caption}</span>
+            ) : null}
+            {action.badge ? (
+              <GameBadge tone={action.selected ? 'success' : 'neutral'}>{action.badge}</GameBadge>
+            ) : null}
             {action.shortcut ? <kbd>{action.shortcut}</kbd> : null}
           </>
         );
@@ -182,7 +213,14 @@ export function GameActionGrid({ actions, className, density = 'comfortable', ic
   );
 }
 
-export type GameMovementDirection = 'forward' | 'backward' | 'left' | 'right' | 'up' | 'down' | 'reset';
+export type GameMovementDirection =
+  | 'forward'
+  | 'backward'
+  | 'left'
+  | 'right'
+  | 'up'
+  | 'down'
+  | 'reset';
 
 export interface GameMovementAction {
   direction: GameMovementDirection;
@@ -251,7 +289,14 @@ export function GameMovementPad({
   };
 
   return (
-    <section aria-label={label} className={classes} data-density={density} data-layout={layout} onKeyDown={handleKeyDown} tabIndex={0}>
+    <section
+      aria-label={label}
+      className={classes}
+      data-density={density}
+      data-layout={layout}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <div className="game-ui-movement-pad-grid">
         {actions.map((action) => (
           <GameIconButton
@@ -262,7 +307,15 @@ export function GameMovementPad({
             label={action.label}
             onClick={() => triggerMove(action.direction)}
           >
-            {action.icon ? <GameAssetIcon icon={action.icon} size={density === 'dense' ? 'sm' : 'md'} style="line" /> : <span aria-hidden="true">{action.symbol ?? action.label}</span>}
+            {action.icon ? (
+              <GameAssetIcon
+                icon={action.icon}
+                size={density === 'dense' ? 'sm' : 'md'}
+                style="line"
+              />
+            ) : (
+              <span aria-hidden="true">{action.symbol ?? action.label}</span>
+            )}
             {action.shortcut ? <kbd>{action.shortcut}</kbd> : null}
           </GameIconButton>
         ))}
@@ -286,7 +339,10 @@ export interface GameAssetBadge {
   tone?: GameBadgeTone;
 }
 
-export interface GameAssetCardProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'onSelect'> {
+export interface GameAssetCardProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'onSelect'
+> {
   assetId: string;
   badges?: readonly GameAssetBadge[];
   cardLayout?: Exclude<GameAssetCardLayout, 'auto'>;
@@ -370,13 +426,21 @@ export function GameAssetCard({
       {...buttonProps}
     >
       <span className="game-ui-asset-card-preview">
-        {thumbnailSrc ? <img alt={thumbnailAlt} src={thumbnailSrc} /> : <GameAssetIcon className="game-ui-asset-card-icon" icon={icon} size="xl" />}
+        {thumbnailSrc ? (
+          <img alt={thumbnailAlt} src={thumbnailSrc} />
+        ) : (
+          <GameAssetIcon className="game-ui-asset-card-icon" icon={icon} size="xl" />
+        )}
       </span>
       <span className="game-ui-asset-card-copy">
         <span className="game-ui-asset-card-badges">
           <GameBadge tone={ASSET_SOURCE_TONES[source]}>{resolvedSourceLabel}</GameBadge>
           <GameBadge tone={ASSET_STATUS_TONES[status]}>{resolvedStatusLabel}</GameBadge>
-          {badges.map((badge) => <GameBadge key={badge.label} tone={badge.tone ?? 'neutral'}>{badge.label}</GameBadge>)}
+          {badges.map((badge) => (
+            <GameBadge key={badge.label} tone={badge.tone ?? 'neutral'}>
+              {badge.label}
+            </GameBadge>
+          ))}
         </span>
         <strong>{title}</strong>
         {description ? <span>{description}</span> : null}
@@ -433,12 +497,15 @@ export function GameAssetLibrary({
 }: GameAssetLibraryProps): ReactNode {
   const classes = ['game-ui-asset-library', className].filter(Boolean).join(' ');
   const totalAssets = groups.reduce((sum, group) => sum + group.assets.length, 0);
-  const sourceCounts = groups.reduce<Record<GameAssetSource, number>>((counts, group) => {
-    group.assets.forEach((asset) => {
-      counts[asset.source] += 1;
-    });
-    return counts;
-  }, { generated: 0, imported: 0, starter: 0 });
+  const sourceCounts = groups.reduce<Record<GameAssetSource, number>>(
+    (counts, group) => {
+      group.assets.forEach((asset) => {
+        counts[asset.source] += 1;
+      });
+      return counts;
+    },
+    { generated: 0, imported: 0, starter: 0 },
+  );
 
   return (
     <GamePanel className={classes} data-card-layout={cardLayout} title={title} tone="strong">
@@ -452,18 +519,33 @@ export function GameAssetLibrary({
           ))}
         </div>
         {totalAssets === 0 ? (
-          <GameEmptyState action={emptyAction} description={emptyDescription} icon="gem" title={emptyTitle} />
+          <GameEmptyState
+            action={emptyAction}
+            description={emptyDescription}
+            icon="gem"
+            title={emptyTitle}
+          />
         ) : (
           <div className="game-ui-asset-library-groups">
             {groups.map((group) => (
-              <section aria-label={group.label} className="game-ui-asset-library-group" data-asset-source={group.source} key={group.id}>
+              <section
+                aria-label={group.label}
+                className="game-ui-asset-library-group"
+                data-asset-source={group.source}
+                key={group.id}
+              >
                 <header>
                   <strong>{group.label}</strong>
-                  {group.source ? <GameBadge tone={ASSET_SOURCE_TONES[group.source]}>{ASSET_SOURCE_LABELS[group.source]}</GameBadge> : null}
+                  {group.source ? (
+                    <GameBadge tone={ASSET_SOURCE_TONES[group.source]}>
+                      {ASSET_SOURCE_LABELS[group.source]}
+                    </GameBadge>
+                  ) : null}
                 </header>
                 <div className="game-ui-asset-library-grid">
                   {group.assets.map((asset) => {
-                    const resolvedCardLayout = cardLayout === 'auto' ? asset.cardLayout : cardLayout;
+                    const resolvedCardLayout =
+                      cardLayout === 'auto' ? asset.cardLayout : cardLayout;
 
                     return (
                       <GameAssetCard
@@ -529,10 +611,25 @@ export function GamePlacementToolbar({
       <div data-density={density}>
         <GameFactList density={density} facts={factItems} label={`${title} facts`} />
         {hasCapacity ? (
-          <GameProgress label={capacityLabel} max={maxObjects} showValue tone={progressValue >= maxObjects ? 'warning' : 'success'} value={progressValue} />
+          <GameProgress
+            label={capacityLabel}
+            max={maxObjects}
+            showValue
+            tone={progressValue >= maxObjects ? 'warning' : 'success'}
+            value={progressValue}
+          />
         ) : null}
-        {actions.length > 0 ? <GameActionGrid actions={actions} density={density} label={`${title} actions`} /> : null}
-        {objectActions.length > 0 ? <GameActionGrid actions={objectActions} density={density} label={`${title} object actions`} style="icon" /> : null}
+        {actions.length > 0 ? (
+          <GameActionGrid actions={actions} density={density} label={`${title} actions`} />
+        ) : null}
+        {objectActions.length > 0 ? (
+          <GameActionGrid
+            actions={objectActions}
+            density={density}
+            label={`${title} object actions`}
+            style="icon"
+          />
+        ) : null}
       </div>
     </GamePanel>
   );

@@ -104,7 +104,8 @@ export function playGameInteractionSoundForContext(
 ): boolean {
   if (options.enabled === false) return false;
 
-  const gainPeak = 0.06 * clampUnitInterval(options.masterVolume) * clampUnitInterval(options.sfxVolume);
+  const gainPeak =
+    0.06 * clampUnitInterval(options.masterVolume) * clampUnitInterval(options.sfxVolume);
   if (gainPeak <= 0) return false;
 
   if (audioContext.state === 'suspended') void audioContext.resume();

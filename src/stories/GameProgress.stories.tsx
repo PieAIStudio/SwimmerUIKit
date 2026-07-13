@@ -8,7 +8,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: '线性进度 / 计量条,带 ARIA `progressbar` 语义(valuenow/min/max)。`tone` 切换强调、成功、警告、危险配色。',
+        component:
+          '线性进度 / 计量条,带 ARIA `progressbar` 语义(valuenow/min/max)。`tone` 切换强调、成功、警告、危险配色。',
       },
     },
   },

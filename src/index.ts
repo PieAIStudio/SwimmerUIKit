@@ -5,7 +5,12 @@
 export { GameButton, type GameButtonProps, type GameButtonVariant } from './GameButton';
 export { GameCallout, type GameCalloutProps, type GameCalloutTone } from './GameCallout';
 export { GameDialog, type GameDialogProps } from './GameDialog';
-export { GameHistoryPanel, type GameHistoryPanelProps, type GameUiHistoryEntry, type GameUiHistoryKind } from './GameHistoryPanel';
+export {
+  GameHistoryPanel,
+  type GameHistoryPanelProps,
+  type GameUiHistoryEntry,
+  type GameUiHistoryKind,
+} from './GameHistoryPanel';
 export { GameHudActions, type GameHudActionsProps } from './GameHudActions';
 export {
   GameIconButton,

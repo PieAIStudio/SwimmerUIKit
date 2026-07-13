@@ -22,7 +22,12 @@ export function GameButton({
   variant = 'secondary',
   ...props
 }: GameButtonProps): ReactNode {
-  const classes = ['game-ui-button', `game-ui-button--${variant}`, isStatic && 'game-ui-button--static', className]
+  const classes = [
+    'game-ui-button',
+    `game-ui-button--${variant}`,
+    isStatic && 'game-ui-button--static',
+    className,
+  ]
     .filter(Boolean)
     .join(' ');
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {

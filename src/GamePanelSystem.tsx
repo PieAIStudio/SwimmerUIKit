@@ -193,7 +193,11 @@ export function GameWindowPanel({
       role="group"
     >
       <header className="game-ui-window-titlebar">
-        {icon ? <span aria-hidden="true" className="game-ui-window-icon">{icon}</span> : null}
+        {icon ? (
+          <span aria-hidden="true" className="game-ui-window-icon">
+            {icon}
+          </span>
+        ) : null}
         <h3 className="game-ui-window-title">{title}</h3>
         <span className="game-ui-window-actions">
           {allowMinimize ? (
@@ -305,7 +309,9 @@ export function GameModal({
     >
       <div className="game-ui-modal-frame">
         <header className="game-ui-modal-header">
-          <h2 className="game-ui-modal-title" id={titleId}>{title}</h2>
+          <h2 className="game-ui-modal-title" id={titleId}>
+            {title}
+          </h2>
           <button
             aria-label={closeLabel}
             className="game-ui-icon-button game-ui-window-button"

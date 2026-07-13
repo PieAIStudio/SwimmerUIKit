@@ -99,11 +99,15 @@
   --game-ui-radius-modal: 34px;
 
   /* Elevation */
-  --game-ui-shadow-button: 0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);
-  --game-ui-shadow-panel: 0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-modal: 0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --game-ui-shadow-button:
+    0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);
+  --game-ui-shadow-panel:
+    0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --game-ui-shadow-modal:
+    0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --game-ui-shadow-inset: inset 0 2px 8px rgba(76, 52, 28, 0.12);
-  --game-ui-shadow-scenery: 0 28px 70px rgba(0, 0, 0, 0.34), inset 0 8px 20px rgba(255, 255, 255, 0.1);
+  --game-ui-shadow-scenery:
+    0 28px 70px rgba(0, 0, 0, 0.34), inset 0 8px 20px rgba(255, 255, 255, 0.1);
   --game-ui-shadow-seat: 0 8px 18px rgba(0, 0, 0, 0.32);
   --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.22);
   --game-ui-stroke: 1px solid var(--game-ui-border-subtle);

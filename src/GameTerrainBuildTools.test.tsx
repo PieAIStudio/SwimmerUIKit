@@ -33,13 +33,47 @@ const tools: readonly GameTerrainToolOption[] = [
 ];
 
 const materials: readonly GameTerrainMaterialSwatch[] = [
-  { id: 'grass', label: 'Grass', compactLabel: 'Grass', color: '#4f9d6b', pattern: 'speckled', secondaryColor: '#8fd8a2' },
-  { id: 'path', label: 'Path', compactLabel: 'Path', color: '#b98d5d', pattern: 'hatched', secondaryColor: '#795034' },
+  {
+    id: 'grass',
+    label: 'Grass',
+    compactLabel: 'Grass',
+    color: '#4f9d6b',
+    pattern: 'speckled',
+    secondaryColor: '#8fd8a2',
+  },
+  {
+    id: 'path',
+    label: 'Path',
+    compactLabel: 'Path',
+    color: '#b98d5d',
+    pattern: 'hatched',
+    secondaryColor: '#795034',
+  },
 ];
 
 const categories: readonly GameBuildCategory[] = [
-  { id: 'foundation', label: 'Foundation', compactLabel: 'Base', icon: 'home', items: [{ id: 'floor-2x2', label: '2x2 floor', compactLabel: '2x2', previewSrc: '/assets/floor.png', status: 'selected' }] },
-  { id: 'wall', label: 'Wall', compactLabel: 'Wall', icon: 'card', items: [{ id: 'wall-solid', label: 'Solid wall', compactLabel: 'Wall', status: 'ready' }] },
+  {
+    id: 'foundation',
+    label: 'Foundation',
+    compactLabel: 'Base',
+    icon: 'home',
+    items: [
+      {
+        id: 'floor-2x2',
+        label: '2x2 floor',
+        compactLabel: '2x2',
+        previewSrc: '/assets/floor.png',
+        status: 'selected',
+      },
+    ],
+  },
+  {
+    id: 'wall',
+    label: 'Wall',
+    compactLabel: 'Wall',
+    icon: 'card',
+    items: [{ id: 'wall-solid', label: 'Solid wall', compactLabel: 'Wall', status: 'ready' }],
+  },
 ];
 
 describe('terrain/build tooling pack', () => {
@@ -50,15 +84,22 @@ describe('terrain/build tooling pack', () => {
     setClayAssetMode('source');
     let html: string;
     try {
-      html = compact(renderToStaticMarkup(
-        <>
-          <GameTerrainModeControl activeModeId="terrain" label="Mode" modes={modes} />
-          <GameTerrainToolStrip activeToolId="flatten" label="Terrain tools" tools={tools} variant="mobile" />
-          <GameBrushControls state={{ radius: 3.5, strength: 0.45 }} />
-          <GameMaterialSwatches activeMaterialId="path" label="Materials" materials={materials} />
-          <GameUndoRedoActions canUndo label="Terrain history" />
-        </>,
-      ));
+      html = compact(
+        renderToStaticMarkup(
+          <>
+            <GameTerrainModeControl activeModeId="terrain" label="Mode" modes={modes} />
+            <GameTerrainToolStrip
+              activeToolId="flatten"
+              label="Terrain tools"
+              tools={tools}
+              variant="mobile"
+            />
+            <GameBrushControls state={{ radius: 3.5, strength: 0.45 }} />
+            <GameMaterialSwatches activeMaterialId="path" label="Materials" materials={materials} />
+            <GameUndoRedoActions canUndo label="Terrain history" />
+          </>,
+        ),
+      );
     } finally {
       setClayAssetMode(previousMode);
     }
@@ -78,12 +119,22 @@ describe('terrain/build tooling pack', () => {
   });
 
   it('renders build library and compact drawer with stable hooks', () => {
-    const html = compact(renderToStaticMarkup(
-      <>
-        <GameBuildLibrary activeCategoryId="foundation" categories={categories} label="Build library" selectedItemId="floor-2x2" title="Build pieces" />
-        <GameCompactGameDrawer label="Tools drawer" open panelId="terrain-drawer" title="Tools"><span>Visible tools</span></GameCompactGameDrawer>
-      </>,
-    ));
+    const html = compact(
+      renderToStaticMarkup(
+        <>
+          <GameBuildLibrary
+            activeCategoryId="foundation"
+            categories={categories}
+            label="Build library"
+            selectedItemId="floor-2x2"
+            title="Build pieces"
+          />
+          <GameCompactGameDrawer label="Tools drawer" open panelId="terrain-drawer" title="Tools">
+            <span>Visible tools</span>
+          </GameCompactGameDrawer>
+        </>,
+      ),
+    );
 
     expect(html).toContain('data-ui-hook="build-library"');
     expect(html).toContain('data-build-category-id="foundation"');
@@ -96,12 +147,25 @@ describe('terrain/build tooling pack', () => {
   });
 
   it('renders closed and reopened compact drawer states without changing the panel id', () => {
-    const closed = compact(renderToStaticMarkup(
-      <GameCompactGameDrawer label="Tools drawer" open={false} panelId="stable-tools" title="Tools"><span>Hidden tools</span></GameCompactGameDrawer>,
-    ));
-    const reopened = compact(renderToStaticMarkup(
-      <GameCompactGameDrawer label="Tools drawer" open panelId="stable-tools" title="Tools"><span>Visible tools</span></GameCompactGameDrawer>,
-    ));
+    const closed = compact(
+      renderToStaticMarkup(
+        <GameCompactGameDrawer
+          label="Tools drawer"
+          open={false}
+          panelId="stable-tools"
+          title="Tools"
+        >
+          <span>Hidden tools</span>
+        </GameCompactGameDrawer>,
+      ),
+    );
+    const reopened = compact(
+      renderToStaticMarkup(
+        <GameCompactGameDrawer label="Tools drawer" open panelId="stable-tools" title="Tools">
+          <span>Visible tools</span>
+        </GameCompactGameDrawer>,
+      ),
+    );
 
     expect(closed).toContain('data-open="false"');
     expect(closed).toContain('aria-expanded="false"');
@@ -112,26 +176,34 @@ describe('terrain/build tooling pack', () => {
   });
 
   it('renders composite small-mobile toolbox with status, progress, and build pieces', () => {
-    const html = compact(renderToStaticMarkup(
-      <GameTerrainBuildToolbox
-        activeBuildCategoryId="foundation"
-        activeMaterialId="grass"
-        activeModeId="terrain"
-        activeToolId="raise"
-        brush={{ radius: 2, strength: 0.5 }}
-        buildCategories={categories}
-        drawerOpen
-        label="Terrain and build tools"
-        materials={materials}
-        modes={modes}
-        selectedBuildItemId="floor-2x2"
-        status={{ label: 'Ready', tone: 'success', progressLabel: 'Optimization', progressMax: 100, progressValue: 72 }}
-        title="Tools"
-        tools={tools}
-        undoRedo={{ canRedo: false, canUndo: true }}
-        variant="small-mobile"
-      />,
-    ));
+    const html = compact(
+      renderToStaticMarkup(
+        <GameTerrainBuildToolbox
+          activeBuildCategoryId="foundation"
+          activeMaterialId="grass"
+          activeModeId="terrain"
+          activeToolId="raise"
+          brush={{ radius: 2, strength: 0.5 }}
+          buildCategories={categories}
+          drawerOpen
+          label="Terrain and build tools"
+          materials={materials}
+          modes={modes}
+          selectedBuildItemId="floor-2x2"
+          status={{
+            label: 'Ready',
+            tone: 'success',
+            progressLabel: 'Optimization',
+            progressMax: 100,
+            progressValue: 72,
+          }}
+          title="Tools"
+          tools={tools}
+          undoRedo={{ canRedo: false, canUndo: true }}
+          variant="small-mobile"
+        />,
+      ),
+    );
 
     expect(html).toContain('data-ui-hook="compact-game-drawer"');
     expect(html).toContain('data-variant="small-mobile"');

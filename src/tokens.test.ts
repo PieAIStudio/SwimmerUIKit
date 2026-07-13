@@ -4,7 +4,13 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
-import { CLAY_COLOR_TOKENS, CLAY_TARGET_TOKENS, CLAY_UI_TOKENS, GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from './tokens';
+import {
+  CLAY_COLOR_TOKENS,
+  CLAY_TARGET_TOKENS,
+  CLAY_UI_TOKENS,
+  GAME_UI_THEME_CONTRACT,
+  GAME_UI_TOKENS,
+} from './tokens';
 
 const SRC = dirname(fileURLToPath(import.meta.url));
 const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
@@ -57,7 +63,8 @@ describe('clay token exports', () => {
 describe('token single source of truth', () => {
   it('styles.css contains no raw color literals (theme.css is the only raw-color home)', () => {
     const withoutComments = stylesCss.replace(/\/\*[\s\S]*?\*\//g, '');
-    const literals = withoutComments.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g) ?? [];
+    const literals =
+      withoutComments.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g) ?? [];
     expect(literals).toEqual([]);
   });
 
@@ -166,8 +173,16 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     // same dark 3D scene regardless of UI theme) stands in for the glass's
     // real backdrop, since color-mix() over an arbitrary scene can't be
     // reduced to one flat pair.
-    ['hud-chip/fact-copy small text on dark glass', '--game-ui-text-on-dark', '--game-ui-scenery-soil'],
-    ['selected build/terrain control meta text on panel', '--game-ui-ink-heading', '--game-ui-panel-strong'],
+    [
+      'hud-chip/fact-copy small text on dark glass',
+      '--game-ui-text-on-dark',
+      '--game-ui-scenery-soil',
+    ],
+    [
+      'selected build/terrain control meta text on panel',
+      '--game-ui-ink-heading',
+      '--game-ui-panel-strong',
+    ],
   ];
 
   it.each(pairs)('light: %s meets 4.5:1', (_label, fgVar, bgVar) => {
@@ -210,7 +225,8 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
   it('styles.css, theme.css, and preview.css are 100% standard CSS (no Tailwind at-rules)', () => {
     for (const css of [stylesCss, themeCss, previewCss]) {
       const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
-      const tailwindAtRules = withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
+      const tailwindAtRules =
+        withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
       expect(tailwindAtRules).toEqual([]);
     }
   });
@@ -253,7 +269,8 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
 
   it('fonts.css is 100% standard CSS, only defines the theme.css font-family names, and ships its OFL licenses', () => {
     const withoutComments = fontsCss.replace(/\/\*[\s\S]*?\*\//g, '');
-    const tailwindAtRules = withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
+    const tailwindAtRules =
+      withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
     expect(tailwindAtRules).toEqual([]);
 
     const families = [...withoutComments.matchAll(/font-family:\s*'([^']+)'/g)].map((m) => m[1]);
@@ -301,8 +318,12 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       'game-ui-asset-compression-repro',
     ];
     for (const cls of previewOnlyClasses) {
-      expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(new RegExp(`\\.${cls}\\b`));
-      expect(previewCss, `.${cls} must be defined in preview.css`).toMatch(new RegExp(`\\.${cls}\\b`));
+      expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(
+        new RegExp(`\\.${cls}\\b`),
+      );
+      expect(previewCss, `.${cls} must be defined in preview.css`).toMatch(
+        new RegExp(`\\.${cls}\\b`),
+      );
     }
   });
 

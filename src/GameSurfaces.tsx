@@ -19,7 +19,13 @@ export interface GamePanelProps extends HTMLAttributes<HTMLElement> {
   tone?: 'default' | 'strong';
 }
 
-export function GamePanel({ children, className, title, tone = 'default', ...props }: GamePanelProps): ReactNode {
+export function GamePanel({
+  children,
+  className,
+  title,
+  tone = 'default',
+  ...props
+}: GamePanelProps): ReactNode {
   const classes = ['game-ui-panel', className].filter(Boolean).join(' ');
   return (
     <section {...props} className={classes} data-panel-tone={tone}>
@@ -34,7 +40,13 @@ export interface GameIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElem
   label: string;
 }
 
-export function GameIconButton({ children, className, label, type = 'button', ...props }: GameIconButtonProps): ReactNode {
+export function GameIconButton({
+  children,
+  className,
+  label,
+  type = 'button',
+  ...props
+}: GameIconButtonProps): ReactNode {
   const classes = ['game-ui-icon-button', className].filter(Boolean).join(' ');
   return (
     <button aria-label={label} className={classes} type={type} {...props}>
@@ -55,13 +67,17 @@ export function GameTooltip({ children, label }: GameTooltipProps): ReactNode {
   // (text, fragments, arrays) renders unchanged rather than throwing.
   const trigger = isValidElement<{ 'aria-describedby'?: string }>(children)
     ? cloneElement(children, {
-        'aria-describedby': [children.props['aria-describedby'], tooltipId].filter(Boolean).join(' '),
+        'aria-describedby': [children.props['aria-describedby'], tooltipId]
+          .filter(Boolean)
+          .join(' '),
       })
     : children;
   return (
     <span className="game-ui-tooltip">
       {trigger}
-      <span id={tooltipId} role="tooltip">{label}</span>
+      <span id={tooltipId} role="tooltip">
+        {label}
+      </span>
     </span>
   );
 }
@@ -93,7 +109,10 @@ export function GameTabs({ activeId, id, onSelect, tabs }: GameTabsProps): React
   // tab stop; arrow keys move selection and focus.
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!onSelect || tabs.length === 0) return;
-    const currentIndex = Math.max(0, tabs.findIndex((tab) => tab.id === activeId));
+    const currentIndex = Math.max(
+      0,
+      tabs.findIndex((tab) => tab.id === activeId),
+    );
     let nextIndex: number;
     switch (event.key) {
       case 'ArrowLeft':
@@ -152,7 +171,12 @@ export interface GameSegmentedControlProps {
   options: readonly GameSegmentedOption[];
 }
 
-export function GameSegmentedControl({ activeId, label, onSelect, options }: GameSegmentedControlProps): ReactNode {
+export function GameSegmentedControl({
+  activeId,
+  label,
+  onSelect,
+  options,
+}: GameSegmentedControlProps): ReactNode {
   return (
     <div aria-label={label} className="game-ui-segmented" role="group">
       {options.map((option) => (
@@ -170,7 +194,10 @@ export function GameSegmentedControl({ activeId, label, onSelect, options }: Gam
   );
 }
 
-export interface GameSliderProps extends Pick<InputHTMLAttributes<HTMLInputElement>, 'max' | 'min' | 'value'> {
+export interface GameSliderProps extends Pick<
+  InputHTMLAttributes<HTMLInputElement>,
+  'max' | 'min' | 'value'
+> {
   label: string;
   onChange?: (value: number) => void;
 }
@@ -192,14 +219,24 @@ export function GameSlider({ label, max, min, onChange, value }: GameSliderProps
   );
 }
 
-export interface GameToggleProps extends Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled' | 'onClick'> {
+export interface GameToggleProps extends Pick<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'disabled' | 'onClick'
+> {
   checked: boolean;
   label: string;
 }
 
 export function GameToggle({ checked, disabled, label, onClick }: GameToggleProps): ReactNode {
   return (
-    <button aria-checked={checked} className="game-ui-toggle" disabled={disabled} onClick={onClick} role="switch" type="button">
+    <button
+      aria-checked={checked}
+      className="game-ui-toggle"
+      disabled={disabled}
+      onClick={onClick}
+      role="switch"
+      type="button"
+    >
       <span>{label}</span>
       <span aria-hidden="true" className="game-ui-toggle-track" />
     </button>
@@ -252,7 +289,11 @@ export interface GameToastProps {
 
 export function GameToast({ children, tone = 'info' }: GameToastProps): ReactNode {
   return (
-    <div className="game-ui-toast" data-toast-tone={tone} role={tone === 'danger' ? 'alert' : 'status'}>
+    <div
+      className="game-ui-toast"
+      data-toast-tone={tone}
+      role={tone === 'danger' ? 'alert' : 'status'}
+    >
       {children}
     </div>
   );

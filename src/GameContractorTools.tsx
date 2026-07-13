@@ -1,21 +1,38 @@
 import type { ReactNode } from 'react';
 
 import { GameAssetIcon, GameBadge, type GameBadgeTone } from './ClayComponents';
-import { GameButton, type GameButtonVariant } from './GameButton';
+import { type GameButtonVariant } from './GameButton';
 import { GameEmptyState, GameProgress } from './GameDisplay';
 import { GameActionGrid, type GameSurfaceDensity, type GameUiAction } from './GameSurfacePack';
 import { GameCompactGameDrawer } from './GameTerrainBuildTools';
 import { GamePanel, GameSegmentedControl } from './GameSurfaces';
 import type { ClayIconName } from './clay/assets';
 
-export type GameConstructionJobStatus = 'draft' | 'preview' | 'queued' | 'working' | 'blocked' | 'readyForReview' | 'accepted' | 'cancelled';
+export type GameConstructionJobStatus =
+  | 'draft'
+  | 'preview'
+  | 'queued'
+  | 'working'
+  | 'blocked'
+  | 'readyForReview'
+  | 'accepted'
+  | 'cancelled';
 export type GameConstructionProgressStepStatus = 'pending' | 'active' | 'complete' | 'blocked';
 export type GameRobotCrewMemberStatus = 'idle' | 'queued' | 'working' | 'blocked' | 'done';
 export type GameBeforeAfterView = 'before' | 'after';
 export type GameConstructionVariant = 'desktop' | 'tablet' | 'mobile' | 'small-mobile';
 export type GameConstructionProviderMode = 'local-only' | 'mock' | 'paid-disabled';
-export type GameConstructionValidationTone = Extract<GameBadgeTone, 'neutral' | 'success' | 'warning' | 'danger' | 'ai'>;
-export type GameConstructionActionId = 'approve' | 'cancel' | 'preview' | 'revise' | 'revert' | string;
+export type GameConstructionValidationTone = Extract<
+  GameBadgeTone,
+  'neutral' | 'success' | 'warning' | 'danger' | 'ai'
+>;
+export type GameConstructionActionId =
+  | 'approve'
+  | 'cancel'
+  | 'preview'
+  | 'revise'
+  | 'revert'
+  | string;
 
 export interface GameConstructionAction {
   ariaLabel?: string | undefined;
@@ -241,7 +258,9 @@ const PROVIDER_TONES: Readonly<Record<GameConstructionProviderMode, GameBadgeTon
   'paid-disabled': 'warning',
 };
 
-const DEFAULT_ACTIONS: Readonly<Record<GameConstructionJobStatus, readonly GameConstructionAction[]>> = {
+const DEFAULT_ACTIONS: Readonly<
+  Record<GameConstructionJobStatus, readonly GameConstructionAction[]>
+> = {
   accepted: [{ id: 'revert', label: 'Revert', icon: 'undo', tone: 'ghost' }],
   blocked: [
     { id: 'revise', label: 'Revise', icon: 'scroll', tone: 'primary' },
@@ -271,12 +290,16 @@ const DEFAULT_ACTIONS: Readonly<Record<GameConstructionJobStatus, readonly GameC
 function statusLabel(status: GameConstructionJobStatus, explicitLabel?: string): string {
   if (explicitLabel) return explicitLabel;
   switch (status) {
-    case 'readyForReview': return 'Ready for review';
-    default: return status.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
+    case 'readyForReview':
+      return 'Ready for review';
+    default:
+      return status.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
   }
 }
 
-function progressTone(status: GameConstructionJobStatus): 'accent' | 'success' | 'danger' | 'warning' {
+function progressTone(
+  status: GameConstructionJobStatus,
+): 'accent' | 'success' | 'danger' | 'warning' {
   if (status === 'blocked' || status === 'cancelled') return 'danger';
   if (status === 'accepted' || status === 'readyForReview') return 'success';
   if (status === 'queued' || status === 'draft' || status === 'preview') return 'warning';
@@ -285,18 +308,30 @@ function progressTone(status: GameConstructionJobStatus): 'accent' | 'success' |
 
 function defaultProgress(status: GameConstructionJobStatus): number {
   switch (status) {
-    case 'accepted': return 100;
-    case 'blocked': return 42;
-    case 'cancelled': return 0;
-    case 'draft': return 8;
-    case 'preview': return 22;
-    case 'queued': return 34;
-    case 'readyForReview': return 92;
-    case 'working': return 64;
+    case 'accepted':
+      return 100;
+    case 'blocked':
+      return 42;
+    case 'cancelled':
+      return 0;
+    case 'draft':
+      return 8;
+    case 'preview':
+      return 22;
+    case 'queued':
+      return 34;
+    case 'readyForReview':
+      return 92;
+    case 'working':
+      return 64;
   }
 }
 
-function actionToUiAction(action: GameConstructionAction, onAction?: (actionId: string) => void, disabled?: boolean): GameUiAction {
+function actionToUiAction(
+  action: GameConstructionAction,
+  onAction?: (actionId: string) => void,
+  disabled?: boolean,
+): GameUiAction {
   const uiAction: GameUiAction = {
     disabled: Boolean(disabled || action.disabled),
     id: action.id,
@@ -314,7 +349,10 @@ function warningRole(tone?: GameConstructionValidationTone): 'alert' | 'status' 
   return tone === 'danger' || tone === 'warning' ? 'alert' : 'status';
 }
 
-function hasPreviewPair(job: GameConstructionJob): job is GameConstructionJob & { before: GameConstructionPreviewPane; after: GameConstructionPreviewPane } {
+function hasPreviewPair(job: GameConstructionJob): job is GameConstructionJob & {
+  before: GameConstructionPreviewPane;
+  after: GameConstructionPreviewPane;
+} {
   return Boolean(job.before && job.after);
 }
 
@@ -337,15 +375,30 @@ export function GameConstructionProgress({
   const resolvedStatusLabel = statusLabel(status, explicitStatusLabel);
 
   return (
-    <section aria-label={label} className={classes} data-status={status} data-ui-hook="construction-progress" data-variant={variant} data-testid={testId}>
+    <section
+      aria-label={label}
+      className={classes}
+      data-status={status}
+      data-ui-hook="construction-progress"
+      data-variant={variant}
+      data-testid={testId}
+    >
       <header className="game-ui-construction-progress-header">
         <span>
           <GameAssetIcon icon={STATUS_ICONS[status]} size="sm" />
           <strong>{progressLabel}</strong>
         </span>
-        {showStatusBadge ? <GameBadge tone={STATUS_TONES[status]}>{resolvedStatusLabel}</GameBadge> : null}
+        {showStatusBadge ? (
+          <GameBadge tone={STATUS_TONES[status]}>{resolvedStatusLabel}</GameBadge>
+        ) : null}
       </header>
-      <GameProgress label={progressLabel} max={max} showValue tone={progressTone(status)} value={resolvedValue} />
+      <GameProgress
+        label={progressLabel}
+        max={max}
+        showValue
+        tone={progressTone(status)}
+        value={resolvedValue}
+      />
       {steps.length > 0 ? (
         <ol className="game-ui-construction-steps" aria-label={`${progressLabel} steps`}>
           {steps.map((step) => (
@@ -361,10 +414,21 @@ export function GameConstructionProgress({
         </ol>
       ) : null}
       {validationWarnings.length > 0 ? (
-        <div className="game-ui-construction-warnings" data-ui-hook="construction-validation-warnings">
+        <div
+          className="game-ui-construction-warnings"
+          data-ui-hook="construction-validation-warnings"
+        >
           {validationWarnings.map((warning) => (
-            <div className="game-ui-construction-warning" data-warning-tone={warning.tone ?? 'warning'} key={warning.id} role={warningRole(warning.tone)}>
-              <GameAssetIcon icon={warning.tone === 'danger' || warning.tone === 'warning' ? 'alert' : 'check'} size="sm" />
+            <div
+              className="game-ui-construction-warning"
+              data-warning-tone={warning.tone ?? 'warning'}
+              key={warning.id}
+              role={warningRole(warning.tone)}
+            >
+              <GameAssetIcon
+                icon={warning.tone === 'danger' || warning.tone === 'warning' ? 'alert' : 'check'}
+                size="sm"
+              />
               <span>
                 <strong>{warning.label}</strong>
                 {warning.description ? <small>{warning.description}</small> : null}
@@ -396,12 +460,35 @@ export function GameConstructionApprovalBar({
   const uiActions = resolvedActions.map((action) => actionToUiAction(action, onAction, disabled));
 
   return (
-    <section aria-label={label} className={classes} data-status={status} data-ui-hook="construction-approval-bar" data-variant={variant} data-testid={testId}>
+    <section
+      aria-label={label}
+      className={classes}
+      data-status={status}
+      data-ui-hook="construction-approval-bar"
+      data-variant={variant}
+      data-testid={testId}
+    >
       <div className="game-ui-construction-approval-meta">
-        {providerMode ? <GameBadge tone={PROVIDER_TONES[providerMode]}>{PROVIDER_LABELS[providerMode]}</GameBadge> : <GameBadge tone="success">{localOnlyLabel}</GameBadge>}
-        {warningCount > 0 ? <GameBadge tone="warning">{warningCount} validation warning{warningCount === 1 ? '' : 's'}</GameBadge> : <GameBadge tone="success">Validation clear</GameBadge>}
+        {providerMode ? (
+          <GameBadge tone={PROVIDER_TONES[providerMode]}>{PROVIDER_LABELS[providerMode]}</GameBadge>
+        ) : (
+          <GameBadge tone="success">{localOnlyLabel}</GameBadge>
+        )}
+        {warningCount > 0 ? (
+          <GameBadge tone="warning">
+            {warningCount} validation warning{warningCount === 1 ? '' : 's'}
+          </GameBadge>
+        ) : (
+          <GameBadge tone="success">Validation clear</GameBadge>
+        )}
       </div>
-      {uiActions.length > 0 ? <GameActionGrid actions={uiActions} density={variant === 'small-mobile' ? 'dense' : 'comfortable'} label={`${label} actions`} /> : null}
+      {uiActions.length > 0 ? (
+        <GameActionGrid
+          actions={uiActions}
+          density={variant === 'small-mobile' ? 'dense' : 'comfortable'}
+          label={`${label} actions`}
+        />
+      ) : null}
     </section>
   );
 }
@@ -419,15 +506,32 @@ export function GameRobotCrewStatus({
   const classes = ['game-ui-robot-crew-status', className].filter(Boolean).join(' ');
 
   return (
-    <section aria-label={label} className={classes} data-ui-hook="robot-crew-status" data-variant={variant} data-testid={testId}>
-      {title ? <header><strong>{title}</strong></header> : null}
+    <section
+      aria-label={label}
+      className={classes}
+      data-ui-hook="robot-crew-status"
+      data-variant={variant}
+      data-testid={testId}
+    >
+      {title ? (
+        <header>
+          <strong>{title}</strong>
+        </header>
+      ) : null}
       {crew.length === 0 ? (
         <GameEmptyState description={emptyDescription} icon="ai" title={emptyTitle} />
       ) : (
         <div className="game-ui-robot-crew-list">
           {crew.map((member) => (
-            <article className="game-ui-robot-crew-member" data-crew-status={member.status} key={member.id}>
-              <GameAssetIcon icon={member.icon ?? 'ai'} size={variant === 'small-mobile' ? 'sm' : 'md'} />
+            <article
+              className="game-ui-robot-crew-member"
+              data-crew-status={member.status}
+              key={member.id}
+            >
+              <GameAssetIcon
+                icon={member.icon ?? 'ai'}
+                size={variant === 'small-mobile' ? 'sm' : 'md'}
+              />
               <span className="game-ui-robot-crew-copy">
                 <strong>{member.name}</strong>
                 <small>{member.role}</small>
@@ -456,15 +560,33 @@ export function GameBeforeAfterToggle({
   const activePane = activeView === 'before' ? before : after;
 
   return (
-    <section aria-label={label} className={classes} data-active-view={activeView} data-ui-hook="before-after-toggle" data-variant={variant} data-testid={testId}>
+    <section
+      aria-label={label}
+      className={classes}
+      data-active-view={activeView}
+      data-ui-hook="before-after-toggle"
+      data-variant={variant}
+      data-testid={testId}
+    >
       <GameSegmentedControl
         activeId={activeView}
         label={`${label} view`}
-        {...(onViewChange ? { onSelect: (view: string) => onViewChange(view as GameBeforeAfterView) } : {})}
-        options={[{ id: 'before', label: before.label }, { id: 'after', label: after.label }]}
+        {...(onViewChange
+          ? { onSelect: (view: string) => onViewChange(view as GameBeforeAfterView) }
+          : {})}
+        options={[
+          { id: 'before', label: before.label },
+          { id: 'after', label: after.label },
+        ]}
       />
       <figure className="game-ui-before-after-preview">
-        {activePane.content ? <div className="game-ui-before-after-content">{activePane.content}</div> : <div aria-hidden="true" className="game-ui-before-after-placeholder"><GameAssetIcon icon={activeView === 'before' ? 'home' : 'check'} size="xl" /></div>}
+        {activePane.content ? (
+          <div className="game-ui-before-after-content">{activePane.content}</div>
+        ) : (
+          <div aria-hidden="true" className="game-ui-before-after-placeholder">
+            <GameAssetIcon icon={activeView === 'before' ? 'home' : 'check'} size="xl" />
+          </div>
+        )}
         {activePane.caption ? <figcaption>{activePane.caption}</figcaption> : null}
       </figure>
     </section>
@@ -491,9 +613,24 @@ export function GameConstructionJobCard({
   const cardAction = (actionId: string): void => onAction?.(actionId, job.id);
 
   return (
-    <article className={classes} data-density={density} data-job-id={job.id} data-selected={selected ? 'true' : 'false'} data-status={job.status} data-ui-hook="construction-job-card" data-variant={variant} data-testid={testId}>
+    <article
+      className={classes}
+      data-density={density}
+      data-job-id={job.id}
+      data-selected={selected ? 'true' : 'false'}
+      data-status={job.status}
+      data-ui-hook="construction-job-card"
+      data-variant={variant}
+      data-testid={testId}
+    >
       <header className="game-ui-construction-job-header">
-        <button aria-pressed={selected} className="game-ui-construction-job-select" disabled={!onSelect} onClick={handleSelect} type="button">
+        <button
+          aria-pressed={selected}
+          className="game-ui-construction-job-select"
+          disabled={!onSelect}
+          onClick={handleSelect}
+          type="button"
+        >
           <GameAssetIcon icon={STATUS_ICONS[job.status]} size={compact ? 'sm' : 'md'} />
           <span>
             <strong>{job.title}</strong>
@@ -502,14 +639,37 @@ export function GameConstructionJobCard({
         </button>
         <span className="game-ui-construction-job-badges">
           <GameBadge tone={STATUS_TONES[job.status]}>{resolvedStatusLabel}</GameBadge>
-          {job.providerMode ? <GameBadge tone={PROVIDER_TONES[job.providerMode]}>{PROVIDER_LABELS[job.providerMode]}</GameBadge> : null}
-          {job.badges?.map((badge) => <GameBadge key={badge.label} tone={badge.tone ?? 'neutral'}>{badge.label}</GameBadge>)}
+          {job.providerMode ? (
+            <GameBadge tone={PROVIDER_TONES[job.providerMode]}>
+              {PROVIDER_LABELS[job.providerMode]}
+            </GameBadge>
+          ) : null}
+          {job.badges?.map((badge) => (
+            <GameBadge key={badge.label} tone={badge.tone ?? 'neutral'}>
+              {badge.label}
+            </GameBadge>
+          ))}
         </span>
       </header>
       <div className="game-ui-construction-job-facts" aria-label={`${job.title} facts`}>
-        {job.location ? <span><small>Location</small><b>{job.location}</b></span> : null}
-        {job.estimate ? <span><small>ETA</small><b>{job.estimate}</b></span> : null}
-        {jobFacts.map((fact) => <span key={fact.id}><small>{fact.label}</small><b>{fact.value}</b></span>)}
+        {job.location ? (
+          <span>
+            <small>Location</small>
+            <b>{job.location}</b>
+          </span>
+        ) : null}
+        {job.estimate ? (
+          <span>
+            <small>ETA</small>
+            <b>{job.estimate}</b>
+          </span>
+        ) : null}
+        {jobFacts.map((fact) => (
+          <span key={fact.id}>
+            <small>{fact.label}</small>
+            <b>{fact.value}</b>
+          </span>
+        ))}
       </div>
       <GameConstructionProgress
         label={`${job.title} progress`}
@@ -523,9 +683,17 @@ export function GameConstructionJobCard({
         variant={variant}
       />
       {showBeforeAfter && hasPreviewPair(job) ? (
-        <GameBeforeAfterToggle activeView="after" after={job.after} before={job.before} label={`${job.title} preview`} variant={variant} />
+        <GameBeforeAfterToggle
+          activeView="after"
+          after={job.after}
+          before={job.before}
+          label={`${job.title} preview`}
+          variant={variant}
+        />
       ) : null}
-      {job.crew && job.crew.length > 0 ? <GameRobotCrewStatus crew={job.crew} label={`${job.title} robot crew`} variant={variant} /> : null}
+      {job.crew && job.crew.length > 0 ? (
+        <GameRobotCrewStatus crew={job.crew} label={`${job.title} robot crew`} variant={variant} />
+      ) : null}
       {showApprovalBar ? (
         <GameConstructionApprovalBar
           actions={job.actions}
@@ -621,7 +789,13 @@ export function GameContractorPanel({
 
   if (mobile) {
     return (
-      <section aria-label={label} className={classes} data-ui-hook="contractor-panel" data-variant={variant} data-testid={testId}>
+      <section
+        aria-label={label}
+        className={classes}
+        data-ui-hook="contractor-panel"
+        data-variant={variant}
+        data-testid={testId}
+      >
         <GameCompactJobDrawer
           jobs={jobs}
           label={`${label} drawer`}
@@ -638,21 +812,44 @@ export function GameContractorPanel({
          * same job (highlighted), so keeping both mounted would duplicate
          * the job's landmarks (axe: landmark-unique) and the on-screen info. */}
         {selectedJob && !drawerOpen ? (
-          <GameConstructionJobCard density="dense" job={selectedJob} onAction={onAction} onSelect={onSelectJob} selected showBeforeAfter={hasPreviewPair(selectedJob)} variant={variant} />
+          <GameConstructionJobCard
+            density="dense"
+            job={selectedJob}
+            onAction={onAction}
+            onSelect={onSelectJob}
+            selected
+            showBeforeAfter={hasPreviewPair(selectedJob)}
+            variant={variant}
+          />
         ) : null}
-        {!selectedJob ? <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} /> : null}
+        {!selectedJob ? (
+          <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} />
+        ) : null}
       </section>
     );
   }
 
   return (
-    <GamePanel className={classes} data-ui-hook="contractor-panel" data-variant={variant} data-testid={testId} title={title} tone="strong">
+    <GamePanel
+      className={classes}
+      data-ui-hook="contractor-panel"
+      data-variant={variant}
+      data-testid={testId}
+      title={title}
+      tone="strong"
+    >
       <section aria-label={label} data-density={density}>
         {subtitle ? <p className="game-ui-contractor-panel-subtitle">{subtitle}</p> : null}
-        {jobs.length === 0 ? <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} /> : null}
+        {jobs.length === 0 ? (
+          <GameEmptyState description={emptyDescription} icon="energy" title={emptyTitle} />
+        ) : null}
         {jobs.length > 0 ? (
           <div className="game-ui-contractor-panel-grid">
-            <div aria-label="Construction job queue" className="game-ui-contractor-job-list" tabIndex={0}>
+            <div
+              aria-label="Construction job queue"
+              className="game-ui-contractor-job-list"
+              tabIndex={0}
+            >
               {jobs.map((job) => (
                 <GameConstructionJobCard
                   density={density}
@@ -667,7 +864,10 @@ export function GameContractorPanel({
               ))}
             </div>
             {selectedJob ? (
-              <aside className="game-ui-contractor-detail" aria-label={`${selectedJob.title} detail`}>
+              <aside
+                className="game-ui-contractor-detail"
+                aria-label={`${selectedJob.title} detail`}
+              >
                 <GameConstructionProgress
                   label={`${selectedJob.title} progress detail`}
                   progressLabel={selectedJob.progressLabel}
@@ -689,7 +889,12 @@ export function GameContractorPanel({
                     variant={variant}
                   />
                 ) : null}
-                <GameRobotCrewStatus crew={selectedJob.crew ?? []} label={`${selectedJob.title} robot crew`} title="Robot crew" variant={variant} />
+                <GameRobotCrewStatus
+                  crew={selectedJob.crew ?? []}
+                  label={`${selectedJob.title} robot crew`}
+                  title="Robot crew"
+                  variant={variant}
+                />
                 <GameConstructionApprovalBar
                   actions={selectedJob.actions}
                   label={`${selectedJob.title} approval`}

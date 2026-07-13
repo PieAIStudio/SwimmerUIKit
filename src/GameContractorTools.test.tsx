@@ -24,7 +24,14 @@ const jobs: readonly GameConstructionJob[] = [
     estimate: '2 min',
     providerMode: 'local-only',
     progressValue: 8,
-    validationWarnings: [{ id: 'local', label: 'Local-only draft', description: 'No provider request has been sent.', tone: 'success' }],
+    validationWarnings: [
+      {
+        id: 'local',
+        label: 'Local-only draft',
+        description: 'No provider request has been sent.',
+        tone: 'success',
+      },
+    ],
   },
   {
     id: 'job-preview',
@@ -47,7 +54,15 @@ const jobs: readonly GameConstructionJob[] = [
     title: 'Robot crew builds deck',
     status: 'working',
     progressValue: 64,
-    crew: [{ id: 'bot-01', name: 'Bolt', role: 'Foundation robot', status: 'working', task: 'Snapping beams' }],
+    crew: [
+      {
+        id: 'bot-01',
+        name: 'Bolt',
+        role: 'Foundation robot',
+        status: 'working',
+        task: 'Snapping beams',
+      },
+    ],
     steps: [
       { id: 'draft', label: 'Draft', status: 'complete' },
       { id: 'validate', label: 'Validate', status: 'complete' },
@@ -59,7 +74,14 @@ const jobs: readonly GameConstructionJob[] = [
     title: 'Fence around garden',
     status: 'blocked',
     progressValue: 44,
-    validationWarnings: [{ id: 'collision', label: 'Collision risk', description: 'Fence crosses a saved object.', tone: 'warning' }],
+    validationWarnings: [
+      {
+        id: 'collision',
+        label: 'Collision risk',
+        description: 'Fence crosses a saved object.',
+        tone: 'warning',
+      },
+    ],
   },
   {
     id: 'job-review',
@@ -77,17 +99,19 @@ const workingJob = jobs.find((job) => job.id === 'job-working') as GameConstruct
 
 describe('contractor construction UI pack', () => {
   it('covers construction progress, validation warnings, and all required job statuses', () => {
-    const html = compact(renderToStaticMarkup(
-      <GameContractorPanel
-        drawerOpen
-        jobs={jobs}
-        label="AI contractor jobs"
-        selectedJobId="job-review"
-        subtitle="Official construction queue"
-        title="Contractor"
-        variant="desktop"
-      />,
-    ));
+    const html = compact(
+      renderToStaticMarkup(
+        <GameContractorPanel
+          drawerOpen
+          jobs={jobs}
+          label="AI contractor jobs"
+          selectedJobId="job-review"
+          subtitle="Official construction queue"
+          title="Contractor"
+          variant="desktop"
+        />,
+      ),
+    );
 
     expect(html).toContain('data-ui-hook="contractor-panel"');
     expect(html).toContain('data-status="draft"');
@@ -104,9 +128,21 @@ describe('contractor construction UI pack', () => {
   });
 
   it('renders approval actions for approve, cancel, revise, and revert', () => {
-    const review = compact(renderToStaticMarkup(<GameConstructionApprovalBar label="Review approval" status="readyForReview" />));
-    const blocked = compact(renderToStaticMarkup(<GameConstructionApprovalBar label="Blocked approval" status="blocked" />));
-    const preview = compact(renderToStaticMarkup(<GameConstructionApprovalBar label="Preview approval" status="preview" />));
+    const review = compact(
+      renderToStaticMarkup(
+        <GameConstructionApprovalBar label="Review approval" status="readyForReview" />,
+      ),
+    );
+    const blocked = compact(
+      renderToStaticMarkup(
+        <GameConstructionApprovalBar label="Blocked approval" status="blocked" />,
+      ),
+    );
+    const preview = compact(
+      renderToStaticMarkup(
+        <GameConstructionApprovalBar label="Preview approval" status="preview" />,
+      ),
+    );
 
     expect(review).toContain('Approve');
     expect(review).toContain('Revise');
@@ -116,16 +152,18 @@ describe('contractor construction UI pack', () => {
   });
 
   it('renders compact mobile drawer and small-screen captions through dense cards', () => {
-    const html = compact(renderToStaticMarkup(
-      <GameContractorPanel
-        drawerOpen
-        jobs={jobs}
-        label="Mobile contractor jobs"
-        selectedJobId="job-blocked"
-        title="Contractor"
-        variant="small-mobile"
-      />,
-    ));
+    const html = compact(
+      renderToStaticMarkup(
+        <GameContractorPanel
+          drawerOpen
+          jobs={jobs}
+          label="Mobile contractor jobs"
+          selectedJobId="job-blocked"
+          title="Contractor"
+          variant="small-mobile"
+        />,
+      ),
+    );
 
     expect(html).toContain('data-ui-hook="compact-game-drawer"');
     expect(html).toContain('data-variant="small-mobile"');
@@ -134,14 +172,31 @@ describe('contractor construction UI pack', () => {
   });
 
   it('renders standalone job card, progress, crew, and before/after components', () => {
-    const html = compact(renderToStaticMarkup(
-      <>
-        <GameConstructionJobCard job={workingJob} showApprovalBar showBeforeAfter variant="tablet" />
-        <GameConstructionProgress label="Progress" status="working" steps={workingJob.steps} value={64} />
-        <GameRobotCrewStatus crew={workingJob.crew ?? []} label="Crew" />
-        <GameBeforeAfterToggle activeView="after" after={{ label: 'After', caption: 'Finished pad' }} before={{ label: 'Before', caption: 'Rough pad' }} label="Compare" />
-      </>,
-    ));
+    const html = compact(
+      renderToStaticMarkup(
+        <>
+          <GameConstructionJobCard
+            job={workingJob}
+            showApprovalBar
+            showBeforeAfter
+            variant="tablet"
+          />
+          <GameConstructionProgress
+            label="Progress"
+            status="working"
+            steps={workingJob.steps}
+            value={64}
+          />
+          <GameRobotCrewStatus crew={workingJob.crew ?? []} label="Crew" />
+          <GameBeforeAfterToggle
+            activeView="after"
+            after={{ label: 'After', caption: 'Finished pad' }}
+            before={{ label: 'Before', caption: 'Rough pad' }}
+            label="Compare"
+          />
+        </>,
+      ),
+    );
 
     expect(html).toContain('data-ui-hook="construction-job-card"');
     expect(html).toContain('data-ui-hook="construction-progress"');
@@ -152,12 +207,28 @@ describe('contractor construction UI pack', () => {
   });
 
   it('renders compact drawer directly with a stable panel id', () => {
-    const closed = compact(renderToStaticMarkup(
-      <GameCompactJobDrawer jobs={jobs} label="Jobs" open={false} panelId="contractor-drawer" title="Contractor" />,
-    ));
-    const open = compact(renderToStaticMarkup(
-      <GameCompactJobDrawer jobs={jobs} label="Jobs" open panelId="contractor-drawer" title="Contractor" />,
-    ));
+    const closed = compact(
+      renderToStaticMarkup(
+        <GameCompactJobDrawer
+          jobs={jobs}
+          label="Jobs"
+          open={false}
+          panelId="contractor-drawer"
+          title="Contractor"
+        />,
+      ),
+    );
+    const open = compact(
+      renderToStaticMarkup(
+        <GameCompactJobDrawer
+          jobs={jobs}
+          label="Jobs"
+          open
+          panelId="contractor-drawer"
+          title="Contractor"
+        />,
+      ),
+    );
 
     expect(closed).toContain('aria-expanded="false"');
     expect(closed).toContain('aria-controls="contractor-drawer"');

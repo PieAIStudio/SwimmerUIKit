@@ -1,12 +1,11 @@
 {
   "name": "@pieai/swimmer-ui-kit",
   "version": "1.1.0",
-  "packageManager": "pnpm@11.9.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
-    "react",
-    "game-ui",
     "design-system",
+    "game-ui",
+    "react",
     "typescript",
     "webview"
   ],
@@ -14,19 +13,14 @@
   "bugs": {
     "url": "https://github.com/PieAIStudio/SwimmerUIKit/issues"
   },
-  "author": "PieAI <PIEAI@hotmail.com>",
-  "type": "module",
-  "engines": {
-    "node": ">=24 <25"
-  },
   "license": "SEE LICENSE IN LICENSE",
+  "author": "PieAI <PIEAI@hotmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PieAIStudio/SwimmerUIKit.git"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+  "bin": {
+    "swimmer-ui-check": "./bin/swimmer-ui-check.mjs"
   },
   "files": [
     "dist",
@@ -34,10 +28,11 @@
     "CHANGELOG.md",
     "LICENSE"
   ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
   "types": "./dist/index.d.ts",
-  "bin": {
-    "swimmer-ui-check": "./bin/swimmer-ui-check.mjs"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -49,12 +44,17 @@
     "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
   },
-  "sideEffects": [
-    "*.css"
-  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5174",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "oxlint src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts -c ./.oxlintrc.json",
+    "format": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
+    "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
     "build": "vite build && node scripts/build-css.mjs && cp src/tailwind-bridge.css dist/tailwind.css && find dist -name '.DS_Store' -delete",
     "build:site": "vite build --config vite.config.site.ts",
     "preview:site": "vite preview --config vite.config.site.ts --host 127.0.0.1 --port 4175",
@@ -65,10 +65,6 @@
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor"
-  },
-  "peerDependencies": {
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
@@ -88,6 +84,8 @@
     "@vitest/coverage-v8": "^4.0.15",
     "lefthook": "^2.1.9",
     "lightningcss": "^1.32.0",
+    "oxfmt": "0.58.0",
+    "oxlint": "1.73.0",
     "playwright": "^1.61.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
@@ -96,5 +94,13 @@
     "vite": "^7.2.6",
     "vite-plugin-dts": "^5.0.3",
     "vitest": "^4.0.15"
-  }
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "pnpm@11.9.0"
 }

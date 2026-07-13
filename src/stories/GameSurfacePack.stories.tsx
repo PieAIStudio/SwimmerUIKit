@@ -27,16 +27,44 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const starterAssets = [
-  { assetId: 'starter-table', source: 'starter' as const, title: 'Starter table', description: 'Built-in placement asset', status: 'ready' as const, icon: 'home' as const },
-  { assetId: 'starter-tree', source: 'starter' as const, title: 'Starter tree', description: 'Ready to place', status: 'ready' as const, icon: 'lucky' as const },
+  {
+    assetId: 'starter-table',
+    source: 'starter' as const,
+    title: 'Starter table',
+    description: 'Built-in placement asset',
+    status: 'ready' as const,
+    icon: 'home' as const,
+  },
+  {
+    assetId: 'starter-tree',
+    source: 'starter' as const,
+    title: 'Starter tree',
+    description: 'Ready to place',
+    status: 'ready' as const,
+    icon: 'lucky' as const,
+  },
 ];
 
 const generatedAssets = [
-  { assetId: 'generated-lamp', source: 'generated' as const, title: 'Generated lamp', description: 'Local dry-run provider output', status: 'ready' as const, icon: 'gem' as const },
+  {
+    assetId: 'generated-lamp',
+    source: 'generated' as const,
+    title: 'Generated lamp',
+    description: 'Local dry-run provider output',
+    status: 'ready' as const,
+    icon: 'gem' as const,
+  },
 ];
 
 const importedAssets = [
-  { assetId: 'manual-chair', source: 'imported' as const, title: 'Manual crystal chair', description: 'Manual fixture import', status: 'selected' as const, icon: 'shop' as const },
+  {
+    assetId: 'manual-chair',
+    source: 'imported' as const,
+    title: 'Manual crystal chair',
+    description: 'Manual fixture import',
+    status: 'selected' as const,
+    icon: 'shop' as const,
+  },
 ];
 
 export const GameSurface: Story = {
@@ -84,7 +112,11 @@ export const GameSurface: Story = {
         ]}
       />
     ),
-    children: <div className="game-ui-surface-pack-demo-scene"><span>3D scene slot</span></div>,
+    children: (
+      <div className="game-ui-surface-pack-demo-scene">
+        <span>3D scene slot</span>
+      </div>
+    ),
   },
 };
 
@@ -103,7 +135,9 @@ export const DenseMobile: Story = {
         placedObjects={3}
         maxObjects={12}
         statusValue="Ready"
-        actions={[{ id: 'place', label: 'Place object', icon: 'check', tone: 'primary', shortcut: 'Enter' }]}
+        actions={[
+          { id: 'place', label: 'Place object', icon: 'check', tone: 'primary', shortcut: 'Enter' },
+        ]}
         objectActions={[{ id: 'rotate', label: 'Rotate object', icon: 'compass', shortcut: 'R' }]}
       />
     ),

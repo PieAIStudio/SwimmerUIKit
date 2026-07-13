@@ -8,7 +8,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: '玩家头像:有图就显图,无图自动回退到姓名首字母;可选在线状态点(online / busy / away)。',
+        component:
+          '玩家头像:有图就显图,无图自动回退到姓名首字母;可选在线状态点(online / busy / away)。',
       },
     },
   },
