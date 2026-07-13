@@ -24,10 +24,10 @@ Use `AGENTS.md` for startup reading. It should point agents to:
 
 - `docs/policy/*.md`
 - `docs/governance/boundary.md`
-- `docs/governance/ssot-v1.0.md`
+- `docs/governance/ssot-v1.1.md`
 - `docs/governance/doc-agent-rules.md`
 - `docs/governance/doc-types.md`
-- `docs/governance/agents-routing/<selected-profile>-v1.0.md`
+- `docs/governance/agents-routing/<selected-profile>-v1.1.md`
 - `docs/reference/execution/current-work.md`
 
 ## Areas
