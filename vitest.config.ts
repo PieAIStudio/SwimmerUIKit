@@ -8,6 +8,11 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  // pretty-format (pulled by Storybook's browser test harness) still references
+  // Node's `global`; map it explicitly for the browser bundle.
+  define: {
+    global: 'globalThis',
+  },
   test: {
     projects: [
       {
