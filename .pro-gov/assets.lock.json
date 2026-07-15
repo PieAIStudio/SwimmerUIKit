@@ -20,6 +20,12 @@
       "targetPath": ".agents/skills/frontend-design"
     },
     {
+      "id": "npx-skills/make-interfaces-feel-better",
+      "sourcePath": "skills/npx-skills/.agents/skills/make-interfaces-feel-better",
+      "contentHash": "sha256:cff0a83dfa7eeb78efdae98149bbc1b56aad52e02cc0be06f2a06f0607460ea3",
+      "targetPath": ".agents/skills/make-interfaces-feel-better"
+    },
+    {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "contentHash": "sha256:85c9f4be22f7af5d0c9be911087b6ec341dc1e24fe8d5b98cb44eb89f1271649",
