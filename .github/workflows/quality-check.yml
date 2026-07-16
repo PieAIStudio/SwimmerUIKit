@@ -2,18 +2,51 @@ name: quality-check
 
 on:
   pull_request:
+    paths:
+      - ".github/workflows/quality-check.yml"
+      - ".storybook/**"
+      - "bin/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "preview/**"
+      - "public/**"
+      - "scripts/**"
+      - "src/**"
+      - "tsconfig*.json"
+      - "vite.config.*"
+      - "vitest.config.*"
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/quality-check.yml"
+      - ".storybook/**"
+      - "bin/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "preview/**"
+      - "public/**"
+      - "scripts/**"
+      - "src/**"
+      - "tsconfig*.json"
+      - "vite.config.*"
+      - "vitest.config.*"
 
 permissions:
   contents: read
 
+concurrency:
+  group: swimmer-ui-kit-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v6
         with:
@@ -25,13 +58,6 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec lefthook install
-      - run: pnpm typecheck
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test
-      - run: pnpm build
-      - run: pnpm build-storybook
-      - run: pnpm docs:check
-      - run: npx publint
-      - run: npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only
+      - run: pnpm verify
       - run: git diff --check
