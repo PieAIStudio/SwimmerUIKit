@@ -7,7 +7,9 @@
     "frontend-app"
   ],
   "assetIds": [
+    "npx-skills/agent-browser",
     "npx-skills/frontend-design",
+    "npx-skills/impeccable",
     "npx-skills/make-interfaces-feel-better",
     "npx-skills/ui-ux-pro-max",
     "pie-commands/generate-handoff",
