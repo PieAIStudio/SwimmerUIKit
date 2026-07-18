@@ -410,6 +410,30 @@
     display: none;
   }
 
+  /* Overlay glass HUD compare (WO-U04a) — demo-only layout */
+  .game-ui-overlay-glass-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .game-ui-overlay-glass-column {
+    display: grid;
+    gap: 8px;
+  }
+  .game-ui-overlay-glass-column > header {
+    display: grid;
+    gap: 2px;
+  }
+  .game-ui-overlay-glass-proof {
+    display: grid;
+    gap: 12px;
+    align-content: space-between;
+    min-height: 360px;
+  }
+  .game-ui-overlay-glass-proof .game-ui-panel {
+    margin-top: auto;
+  }
+
   /* Polish · P5/P6 entrance: mirrors styles.css's game-ui-rise keyframes */
   .game-ui-preview-hero > * {
     animation: game-ui-rise var(--game-ui-motion-slow) var(--game-ui-ease-soft) both;

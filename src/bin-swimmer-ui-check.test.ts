@@ -68,4 +68,16 @@ describe('bin/swimmer-ui-check.mjs', () => {
 
     expect(status).toBe(0);
   });
+
+  it('also treats an attribute-selector tone block (e.g. overlay glass) as allowed', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-ui-check-'));
+    writeFileSync(
+      join(dir, 'theme.css'),
+      `[data-game-ui-tone='glass'] {\n  --game-ui-surface: rgba(12, 14, 20, 0.72);\n}\n`,
+    );
+
+    const { status } = run(dir);
+
+    expect(status).toBe(0);
+  });
 });

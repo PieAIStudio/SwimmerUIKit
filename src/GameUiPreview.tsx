@@ -65,6 +65,7 @@ import {
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
   CLAY_MOTION_TOKENS,
+  CLAY_OVERLAY_GLASS_TOKENS,
   CLAY_RADIUS_TOKENS,
   CLAY_SEMANTIC_TOKENS,
   CLAY_SPACE_TOKENS,
@@ -73,6 +74,7 @@ import {
 } from './clay/tokens';
 import type { GameUiHistoryEntry } from './GameHistoryPanel';
 import { GAME_UI_PREVIEW_MESSAGES } from './previewStates';
+import { GAME_UI_OVERLAY } from './tokens';
 
 const ZH_HISTORY_MESSAGES: readonly GameUiHistoryEntry[] = [
   {
@@ -159,6 +161,7 @@ interface PreviewCopy {
     typography: string;
     components: string;
     forms: string;
+    overlayGlass: string;
     firstSession: string;
     orientation: string;
     responsive: string;
@@ -285,6 +288,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       typography: 'Typography scale',
       components: 'Component surface',
       forms: 'Forms, inputs and status',
+      overlayGlass: 'Overlay glass HUD',
       firstSession: 'First-session shell',
       orientation: 'Orientation gate preview',
       responsive: 'Responsive proof targets',
@@ -297,6 +301,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       radius: 'radius',
       elevation: 'elevation',
       motion: 'motion',
+      overlayGlass: 'overlay glass',
       layers: 'layers',
       targets: 'targets',
       assetSizing: 'asset sizing',
@@ -482,6 +487,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       typography: '字号层级',
       components: '组件总览',
       forms: '表单、输入与状态',
+      overlayGlass: '叠加玻璃 HUD',
       firstSession: '首次会话外壳',
       orientation: '横屏门预览',
       responsive: '响应式验证目标',
@@ -494,6 +500,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       radius: '圆角',
       elevation: '阴影',
       motion: '动效',
+      overlayGlass: '叠加玻璃',
       layers: '层级',
       targets: '触控目标',
       assetSizing: '资源尺寸',
@@ -674,6 +681,7 @@ const tokenGroups = [
   { id: 'radius', tokens: CLAY_RADIUS_TOKENS },
   { id: 'elevation', tokens: CLAY_ELEVATION_TOKENS },
   { id: 'motion', tokens: CLAY_MOTION_TOKENS },
+  { id: 'overlayGlass', tokens: CLAY_OVERLAY_GLASS_TOKENS },
   { id: 'layers', tokens: CLAY_LAYER_TOKENS },
   { id: 'targets', tokens: CLAY_TARGET_TOKENS },
   { id: 'assetSizing', tokens: CLAY_ASSET_SIZE_TOKENS },
@@ -857,6 +865,91 @@ function HudAndStage(): ReactNode {
           tone="host"
         />
       </div>
+    </div>
+  );
+}
+
+/** Same HUD cluster in default clay vs official overlay glass, on a busy stage. */
+function OverlayGlassCompare(): ReactNode {
+  const { hud, buttons: b } = useCopy();
+  const cluster = (scope: 'clay' | 'glass'): ReactNode => {
+    const glass = scope === 'glass';
+    return (
+      <div
+        aria-label={glass ? 'Overlay glass HUD' : 'Default clay HUD'}
+        className={[
+          'game-ui-stage-world',
+          'game-ui-overlay-glass-proof',
+          glass ? GAME_UI_OVERLAY.scopeClass : undefined,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        {...(glass
+          ? {
+              [GAME_UI_OVERLAY.toneAttr]: GAME_UI_OVERLAY.toneGlass,
+              [GAME_UI_OVERLAY.densityAttr]: GAME_UI_OVERLAY.densityCompact,
+            }
+          : {})}
+      >
+        <GameHud
+          label={hud.label}
+          items={[
+            {
+              id: 'role',
+              icon: 'lock',
+              label: hud.youAre,
+              value: hud.roleValue,
+              meta: hud.rolePrivate,
+            },
+            { id: 'room', icon: 'copy', label: hud.room, value: '74X8VB' },
+            { id: 'timer', icon: 'timer', label: hud.reveal, value: '02:46' },
+          ]}
+          actions={
+            <GameHudActions label={hud.tools}>
+              <GameIconButton label={hud.history}>
+                <GameAssetIcon icon="scroll" size="sm" />
+              </GameIconButton>
+              <GameIconButton label={hud.settings}>
+                <GameAssetIcon icon="settings" size="sm" />
+              </GameIconButton>
+            </GameHudActions>
+          }
+        />
+        <GamePanel title={b.panelTitle}>
+          <div className="game-ui-hud-cluster">
+            <GameBadge tone="ai">{b.aiBadge}</GameBadge>
+            <GameBadge tone="success">{b.readyBadge}</GameBadge>
+            <GameProgress label={hud.reveal} value={68} />
+          </div>
+          <div className="game-ui-input-strip">
+            <GameButton variant="secondary">{hud.emote}</GameButton>
+            <GameButton variant="primary">{hud.sendRead}</GameButton>
+            <GameButton variant="ghost">{b.leaveTable}</GameButton>
+          </div>
+        </GamePanel>
+      </div>
+    );
+  };
+
+  return (
+    <div className="game-ui-overlay-glass-compare">
+      <article className="game-ui-overlay-glass-column">
+        <header>
+          <strong>Default clay</strong>
+          <span className="game-ui-small-copy">parchment surfaces · 44px floor</span>
+        </header>
+        {cluster('clay')}
+      </article>
+      <article className="game-ui-overlay-glass-column">
+        <header>
+          <strong>Overlay glass + compact</strong>
+          <span className="game-ui-small-copy">
+            {GAME_UI_OVERLAY.toneAttr}=&quot;{GAME_UI_OVERLAY.toneGlass}&quot; ·{' '}
+            {GAME_UI_OVERLAY.densityAttr}=&quot;{GAME_UI_OVERLAY.densityCompact}&quot;
+          </span>
+        </header>
+        {cluster('glass')}
+      </article>
     </div>
   );
 }
@@ -1553,6 +1646,19 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
         <section aria-labelledby="game-ui-preview-forms-title" className="game-ui-preview-section">
           <h2 id="game-ui-preview-forms-title">{copy.sections.forms}</h2>
           <FormsAndDisplay />
+        </section>
+
+        <section
+          aria-labelledby="game-ui-preview-overlay-glass-title"
+          className="game-ui-preview-section"
+        >
+          <h2 id="game-ui-preview-overlay-glass-title">{copy.sections.overlayGlass}</h2>
+          <p className="game-ui-small-copy">
+            Official HUD-on-scene tone: dark translucent glass, thin light border, no clay cast
+            shadow, compact density. Use on any container that wraps scene-overlay chrome (3D
+            tavern, cinematic stage). Nest inside light or night theme.
+          </p>
+          <OverlayGlassCompare />
         </section>
 
         <section

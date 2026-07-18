@@ -316,6 +316,9 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       'game-ui-surface-pack-demo-scene',
       'game-ui-construction-preview-card',
       'game-ui-asset-compression-repro',
+      'game-ui-overlay-glass-compare',
+      'game-ui-overlay-glass-column',
+      'game-ui-overlay-glass-proof',
     ];
     for (const cls of previewOnlyClasses) {
       expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(
