@@ -75,6 +75,27 @@
   --game-ui-glass-night-soft: rgba(31, 24, 18, 0.64);
   --game-ui-scrim-strong: rgba(30, 20, 14, 0.58);
 
+  /*
+   * Overlay-glass primitives — official HUD-on-scene look (SupaLuv / TuringPact).
+   * Consumed by the glass tone scope block below (data-game-ui-tone glass +
+   * game-ui-overlay-scope class alias) to re-scope semantic surface tokens.
+   * Raw colors live only here.
+   */
+  --game-ui-overlay-glass-bg: rgba(12, 14, 20, 0.72);
+  --game-ui-overlay-glass-bg-hover: rgba(28, 24, 20, 0.88);
+  --game-ui-overlay-glass-bg-strong: rgba(16, 14, 12, 0.88);
+  --game-ui-overlay-glass-bg-panel: rgba(8, 10, 16, 0.84);
+  --game-ui-overlay-glass-border: rgba(255, 255, 255, 0.18);
+  --game-ui-overlay-glass-border-hover: rgba(241, 201, 168, 0.45);
+  --game-ui-overlay-glass-text: #fff6ee;
+  --game-ui-overlay-glass-text-muted: rgba(255, 245, 236, 0.72);
+  --game-ui-overlay-glass-blur: 12px;
+  --game-ui-overlay-glass-shadow-lift: 0 0.5em 2em rgba(0, 0, 0, 0.28);
+  --game-ui-overlay-glass-focus-ring: rgba(241, 201, 168, 0.78);
+  --game-ui-overlay-glass-primary-fill:
+    linear-gradient(135deg, rgba(240, 164, 106, 0.28), rgba(255, 255, 255, 0.04)),
+    rgba(16, 14, 12, 0.88);
+
   /* Spacing / safe areas */
   --game-ui-space-2: 2px;
   --game-ui-space-4: 4px;
@@ -221,4 +242,55 @@
   --game-ui-preview-canvas-1: #2a1d13;
   --game-ui-preview-canvas-2: #201510;
   --game-ui-preview-canvas-3: #150d08;
+}
+
+/*
+ * Official overlay-glass tone for HUDs that sit on top of a live scene
+ * (3D tavern, cinematic video stage, etc.). Opt in per subtree:
+ *   <div data-game-ui-tone="glass"> … </div>
+ *   <div class="game-ui-overlay-scope"> … </div>   (class alias)
+ * Pair with data-game-ui-density="compact" for dense HUD controls.
+ * Does not replace data-game-ui-theme — nest glass inside light or night.
+ */
+[data-game-ui-tone='glass'],
+.game-ui-overlay-scope {
+  color-scheme: dark;
+
+  --game-ui-bg: transparent;
+  --game-ui-playfield-scrim: rgba(8, 10, 16, 0.35);
+  --game-ui-surface: var(--game-ui-overlay-glass-bg);
+  --game-ui-surface-raised: var(--game-ui-overlay-glass-bg);
+  --game-ui-panel: var(--game-ui-overlay-glass-bg-panel);
+  --game-ui-panel-strong: var(--game-ui-overlay-glass-bg-strong);
+  --game-ui-panel-deep: rgba(8, 10, 16, 0.92);
+  --game-ui-text: var(--game-ui-overlay-glass-text);
+  --game-ui-text-muted: var(--game-ui-overlay-glass-text-muted);
+  --game-ui-text-on-dark: var(--game-ui-overlay-glass-text);
+  --game-ui-accent-pale: rgba(240, 164, 106, 0.28);
+  --game-ui-secondary-pale: rgba(47, 179, 162, 0.22);
+  --game-ui-danger-ink: #ff9a80;
+  --game-ui-accent-ink: #ffb072;
+  --game-ui-berry-pale: rgba(181, 138, 224, 0.28);
+  --game-ui-focus-ring: var(--game-ui-overlay-glass-focus-ring);
+  --game-ui-border-subtle: var(--game-ui-overlay-glass-border);
+  --game-ui-border-strong: rgba(255, 255, 255, 0.28);
+  --game-ui-disabled: rgba(255, 245, 236, 0.42);
+
+  --game-ui-ink-deep: #fff6ee;
+  --game-ui-border-ink: #ffffff;
+  --game-ui-wood: #e8c9a0;
+  --game-ui-ink-title: var(--game-ui-overlay-glass-text);
+  --game-ui-ink-heading: var(--game-ui-overlay-glass-text);
+
+  --game-ui-glass-night: var(--game-ui-overlay-glass-bg);
+  --game-ui-glass-night-soft: rgba(10, 12, 18, 0.72);
+  --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
+
+  /* Flat glass: no clay cast shadows; panels keep a soft lift for dialogue strips */
+  --game-ui-shadow-button: none;
+  --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
+  --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);
+  --game-ui-shadow-inset: none;
+  --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.28);
+  --game-ui-stroke: 1px solid var(--game-ui-overlay-glass-border);
 }

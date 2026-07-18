@@ -6,10 +6,11 @@
 // "token-only" bar the design-system-guide asks for.
 //
 // Raw colors are expected (and fine) inside token-defining blocks —
-// :root { ... } or an attribute-selector theme block like
-// [data-game-ui-theme='night'] / [data-theme='dark'] — since that is
-// exactly how the design-system-guide tells consumers to re-theme. Only
-// raw colors inside *other* selectors (component rules) are flagged.
+// :root { ... } or an attribute-selector theme/tone block like
+// [data-game-ui-theme='night'] / [data-game-ui-tone='glass'] /
+// [data-theme='dark'] — since that is how the design-system-guide tells
+// consumers to re-theme or re-scope surface tones. Only raw colors inside
+// *other* selectors (component rules) are flagged.
 //
 // Usage: swimmer-ui-check [dir] [--ext=css,tsx]
 //   dir      directory to scan, default "src"
@@ -18,7 +19,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, relative } from 'node:path';
 
 const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g;
-const TOKEN_BLOCK_SELECTOR = /:root\b|\[data-[\w-]*theme[\w-]*\s*=/i;
+const TOKEN_BLOCK_SELECTOR = /:root\b|\[data-[\w-]*(?:theme|tone)[\w-]*\s*=/i;
 const IGNORE_DIRS = new Set([
   'node_modules',
   'dist',
@@ -124,8 +125,9 @@ for (const file of files) {
 if (violationCount > 0) {
   console.error(
     `\nswimmer-ui-check: ${violationCount} raw color literal(s) in ${files.length} file(s) under "${target}". ` +
-      'Raw colors are expected inside :root / [data-*theme*=...] token blocks (that is how you re-theme the kit) ' +
-      'but not inside component rules — see the design-system-guide "主题化配方" section.',
+      'Raw colors are expected inside :root / [data-*theme*=...] / [data-*tone*=...] token blocks ' +
+      '(that is how you re-theme or re-scope the kit) but not inside component rules — see the ' +
+      'design-system-guide "主题化配方" section.',
   );
   process.exit(1);
 }

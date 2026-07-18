@@ -17,6 +17,27 @@ export const CLAY_COLOR_TOKENS = {
   shadow: 'rgba(76, 52, 28, 0.24)',
   glass: 'rgba(255, 248, 236, 0.82)',
   nightGlass: 'rgba(31, 24, 18, 0.76)',
+  /** Official HUD-on-scene glass fill (matches SupaLuv stage chrome). */
+  overlayGlass: 'rgba(12, 14, 20, 0.72)',
+  overlayGlassText: '#fff6ee',
+} as const;
+
+/**
+ * Semantic CSS vars for the official overlay-glass HUD tone
+ * (`data-game-ui-tone="glass"` / `.game-ui-overlay-scope`).
+ */
+export const CLAY_OVERLAY_GLASS_TOKENS = {
+  bg: 'var(--game-ui-overlay-glass-bg)',
+  bgHover: 'var(--game-ui-overlay-glass-bg-hover)',
+  bgStrong: 'var(--game-ui-overlay-glass-bg-strong)',
+  bgPanel: 'var(--game-ui-overlay-glass-bg-panel)',
+  border: 'var(--game-ui-overlay-glass-border)',
+  borderHover: 'var(--game-ui-overlay-glass-border-hover)',
+  text: 'var(--game-ui-overlay-glass-text)',
+  textMuted: 'var(--game-ui-overlay-glass-text-muted)',
+  blur: 'var(--game-ui-overlay-glass-blur)',
+  focusRing: 'var(--game-ui-overlay-glass-focus-ring)',
+  primaryFill: 'var(--game-ui-overlay-glass-primary-fill)',
 } as const;
 
 export const CLAY_SEMANTIC_TOKENS = {
@@ -145,6 +166,7 @@ export const CLAY_UI_TOKENS = {
   layers: CLAY_LAYER_TOKENS,
   targets: CLAY_TARGET_TOKENS,
   assetSizing: CLAY_ASSET_SIZE_TOKENS,
+  overlayGlass: CLAY_OVERLAY_GLASS_TOKENS,
 } as const;
 
 export type ClayTokenCategory = keyof typeof CLAY_UI_TOKENS;

@@ -2586,6 +2586,224 @@
     }
   }
 
+  /*
+   * Overlay glass tone — semantic tokens are re-scoped in theme.css under
+   * [data-game-ui-tone='glass'] / .game-ui-overlay-scope. Rules below only
+   * cover shapes that pure token swap cannot express (translucent primary
+   * fill, warm hover, backdrop blur, clay-icon plate on dark).
+   */
+  [data-game-ui-tone='glass'] .game-ui-button,
+  [data-game-ui-tone='glass'] .game-ui-icon-button,
+  [data-game-ui-tone='glass'] .game-ui-tab,
+  [data-game-ui-tone='glass'] .game-ui-segmented-option,
+  [data-game-ui-tone='glass'] .game-ui-toggle,
+  [data-game-ui-tone='glass'] .game-ui-language-trigger,
+  [data-game-ui-tone='glass'] .game-ui-language-popover button,
+  [data-game-ui-tone='glass'] .game-ui-radial-item,
+  .game-ui-overlay-scope .game-ui-button,
+  .game-ui-overlay-scope .game-ui-icon-button,
+  .game-ui-overlay-scope .game-ui-tab,
+  .game-ui-overlay-scope .game-ui-segmented-option,
+  .game-ui-overlay-scope .game-ui-toggle,
+  .game-ui-overlay-scope .game-ui-language-trigger,
+  .game-ui-overlay-scope .game-ui-language-popover button,
+  .game-ui-overlay-scope .game-ui-radial-item {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    color: var(--game-ui-overlay-glass-text);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  @media (hover: hover) {
+    [data-game-ui-tone='glass'] .game-ui-button:hover,
+    [data-game-ui-tone='glass'] .game-ui-icon-button:hover,
+    [data-game-ui-tone='glass'] .game-ui-language-trigger:hover,
+    [data-game-ui-tone='glass'] .game-ui-language-popover button:hover,
+    [data-game-ui-tone='glass'] .game-ui-tab:hover,
+    [data-game-ui-tone='glass'] .game-ui-segmented-option:hover,
+    [data-game-ui-tone='glass'] .game-ui-radial-item:hover,
+    .game-ui-overlay-scope .game-ui-button:hover,
+    .game-ui-overlay-scope .game-ui-icon-button:hover,
+    .game-ui-overlay-scope .game-ui-language-trigger:hover,
+    .game-ui-overlay-scope .game-ui-language-popover button:hover,
+    .game-ui-overlay-scope .game-ui-tab:hover,
+    .game-ui-overlay-scope .game-ui-segmented-option:hover,
+    .game-ui-overlay-scope .game-ui-radial-item:hover {
+      border-color: var(--game-ui-overlay-glass-border-hover);
+      background: var(--game-ui-overlay-glass-bg-hover);
+    }
+  }
+  [data-game-ui-tone='glass'] .game-ui-button--primary,
+  [data-game-ui-tone='glass'] .game-ui-orientation-card button,
+  .game-ui-overlay-scope .game-ui-button--primary,
+  .game-ui-overlay-scope .game-ui-orientation-card button {
+    border-color: var(--game-ui-overlay-glass-border-hover);
+    background: var(--game-ui-overlay-glass-primary-fill);
+    color: var(--game-ui-overlay-glass-text);
+    box-shadow: none;
+  }
+  [data-game-ui-tone='glass'] .game-ui-button--ghost,
+  .game-ui-overlay-scope .game-ui-button--ghost {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
+    color: var(--game-ui-overlay-glass-text-muted);
+    box-shadow: none;
+  }
+  [data-game-ui-tone='glass'] .game-ui-button--success,
+  .game-ui-overlay-scope .game-ui-button--success {
+    border-color: color-mix(in srgb, var(--game-ui-success) 48%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--game-ui-success) 32%, transparent),
+        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
+      ),
+      var(--game-ui-overlay-glass-bg-strong);
+    color: var(--game-ui-overlay-glass-text);
+  }
+  [data-game-ui-tone='glass'] .game-ui-button--danger,
+  .game-ui-overlay-scope .game-ui-button--danger {
+    border-color: color-mix(in srgb, var(--game-ui-danger) 48%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--game-ui-danger) 32%, transparent),
+        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
+      ),
+      var(--game-ui-overlay-glass-bg-strong);
+    color: var(--game-ui-overlay-glass-text);
+  }
+  [data-game-ui-tone='glass'] .game-ui-button:disabled,
+  .game-ui-overlay-scope .game-ui-button:disabled {
+    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 50%, transparent);
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
+    color: var(--game-ui-disabled);
+  }
+  [data-game-ui-tone='glass'] .game-ui-badge,
+  .game-ui-overlay-scope .game-ui-badge {
+    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 90%, transparent);
+    background: var(--game-ui-overlay-glass-bg);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  [data-game-ui-tone='glass'] .game-ui-panel,
+  [data-game-ui-tone='glass'] .game-ui-dialog,
+  [data-game-ui-tone='glass'] .game-ui-history,
+  [data-game-ui-tone='glass'] .game-ui-prompt,
+  [data-game-ui-tone='glass'] .game-ui-toast,
+  .game-ui-overlay-scope .game-ui-panel,
+  .game-ui-overlay-scope .game-ui-dialog,
+  .game-ui-overlay-scope .game-ui-history,
+  .game-ui-overlay-scope .game-ui-prompt,
+  .game-ui-overlay-scope .game-ui-toast {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg-panel);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur)) saturate(1.1);
+  }
+  [data-game-ui-tone='glass'] .game-ui-input,
+  .game-ui-overlay-scope .game-ui-input {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg-strong) 88%, transparent);
+    color: var(--game-ui-overlay-glass-text);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  [data-game-ui-tone='glass'] .game-ui-input:focus-visible,
+  .game-ui-overlay-scope .game-ui-input:focus-visible {
+    border-color: var(--game-ui-overlay-glass-border-hover);
+    box-shadow: 0 0 0 3px var(--game-ui-focus-ring);
+  }
+  [data-game-ui-tone='glass'] .game-ui-progress-track,
+  .game-ui-overlay-scope .game-ui-progress-track {
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 70%, transparent);
+    box-shadow: none;
+  }
+  [data-game-ui-tone='glass'] .game-ui-hud-chip,
+  [data-game-ui-tone='glass'] .game-ui-fact,
+  .game-ui-overlay-scope .game-ui-hud-chip,
+  .game-ui-overlay-scope .game-ui-fact {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  /* Clay icons keep their painted plate; a soft dark rim keeps them readable
+   * on translucent glass without inventing a second icon family. */
+  [data-game-ui-tone='glass'] .game-ui-asset-icon,
+  .game-ui-overlay-scope .game-ui-asset-icon {
+    filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--game-ui-scenery-soil) 55%, transparent));
+  }
+  [data-game-ui-tone='glass'] .game-ui-tab[aria-selected='true'],
+  [data-game-ui-tone='glass'] .game-ui-segmented-option[aria-pressed='true'],
+  .game-ui-overlay-scope .game-ui-tab[aria-selected='true'],
+  .game-ui-overlay-scope .game-ui-segmented-option[aria-pressed='true'] {
+    border-color: color-mix(in srgb, var(--game-ui-secondary) 55%, transparent);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--game-ui-secondary) 36%, transparent),
+        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
+      ),
+      var(--game-ui-overlay-glass-bg-strong);
+    color: var(--game-ui-overlay-glass-text);
+  }
+
+  /*
+   * Compact density — reduced min-height / padding for scene-overlay HUDs.
+   * Orthogonal to tone: use alone or with glass.
+   *   <div data-game-ui-density="compact"> … </div>
+   */
+  [data-game-ui-density='compact'] .game-ui-button,
+  [data-game-ui-density='compact'] .game-ui-icon-button,
+  [data-game-ui-density='compact'] .game-ui-tab,
+  [data-game-ui-density='compact'] .game-ui-segmented-option,
+  [data-game-ui-density='compact'] .game-ui-toggle,
+  [data-game-ui-density='compact'] .game-ui-language-trigger,
+  [data-game-ui-density='compact'] .game-ui-language-popover button,
+  [data-game-ui-density='compact'] .game-ui-radial-item {
+    min-height: 34px;
+    padding: 0 12px;
+  }
+  [data-game-ui-density='compact'] .game-ui-icon-button {
+    width: 34px;
+    min-width: 34px;
+    padding: 0;
+  }
+  [data-game-ui-density='compact'] .game-ui-badge {
+    min-height: 22px;
+    padding: 0 8px;
+  }
+  [data-game-ui-density='compact'] .game-ui-panel,
+  [data-game-ui-density='compact'] .game-ui-dialog,
+  [data-game-ui-density='compact'] .game-ui-history,
+  [data-game-ui-density='compact'] .game-ui-prompt {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  [data-game-ui-density='compact'] .game-ui-input {
+    min-height: 36px;
+    padding: 8px 12px;
+  }
+  [data-game-ui-density='compact'] .game-ui-textarea {
+    min-height: 72px;
+  }
+  [data-game-ui-density='compact'] .game-ui-hud-chip {
+    min-height: 40px;
+    padding: 4px 8px 4px 4px;
+    gap: 6px;
+  }
+  [data-game-ui-density='compact'] .game-ui-hud-cluster,
+  [data-game-ui-density='compact'] .game-ui-hud-tools,
+  [data-game-ui-density='compact'] .game-ui-hud-actions,
+  [data-game-ui-density='compact'] .game-ui-tabs,
+  [data-game-ui-density='compact'] .game-ui-segmented {
+    gap: 6px;
+  }
+  [data-game-ui-density='compact'] .game-ui-slider input[type='range'] {
+    min-height: 34px;
+  }
+
   /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
   .game-ui-button:focus-visible,
   .game-ui-icon-button:focus-visible,
