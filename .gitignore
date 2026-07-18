@@ -13,3 +13,6 @@ coverage/
 .agents/skills/make-interfaces-feel-better
 .agents/skills/loop-library
 package-lock.json
+
+# scratch/evidence artifacts
+tmp/
