@@ -3,6 +3,36 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.2.0 — 2026-07-18
+
+Purely additive: an official "overlay glass" HUD surface tone plus a compact
+density, for products that float kit chrome over a live scene (TuringPact 3D
+tavern, SupaLuv cinematic stage). No exported component, prop, class, or token
+was removed or renamed.
+
+### Added
+
+- Overlay glass scope: `data-game-ui-tone="glass"` (alias class
+  `.game-ui-overlay-scope`) re-scopes semantic surface/text/elevation tokens on
+  a subtree to dark translucent glass — fill `rgba(12,14,20,0.72)`, 1px light
+  border, no clay box-shadow, warm accent hover/primary, WCAG-visible warm
+  focus ring (`--game-ui-overlay-glass-focus-ring`). Nests inside light or
+  `night` page themes.
+- Compact density: `data-game-ui-density="compact"` (orthogonal to tone) —
+  34px control floor, tighter panel/chip padding for HUD clusters.
+- Primitive tokens `--game-ui-overlay-glass-*` in `theme.css`; TS mirrors
+  `CLAY_OVERLAY_GLASS_TOKENS` and `GAME_UI_OVERLAY` attr/class constants.
+- Clay `GameAssetIcon` gets a soft dark drop-shadow inside glass scope so
+  sculpted icons read on translucent dark chips.
+- Stories/preview compare: same HUD cluster in default clay vs overlay glass
+  over a busy scene background, light and night contexts.
+
+### Migration notes
+
+- Consumers opt in per subtree; nothing changes without the attribute.
+- SupaLuv can delete its `.vn-stage .game-ui-button` `!important` overrides
+  (stage.css ~217-360) after wrapping its HUD in the glass scope.
+
 ## 1.1.0 — 2026-07-13
 
 A design-system quality pass: fixes real bugs in the existing surface
