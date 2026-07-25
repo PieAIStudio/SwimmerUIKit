@@ -360,6 +360,28 @@
     left: 7%;
     background: radial-gradient(circle at 35% 28%, var(--game-ui-berry-pale), var(--game-ui-berry));
   }
+  /* Decorative speech bubble pinned to a seat on the demo table. Preview-only
+   * scenery, like .game-ui-seat above — it is NOT the <GameCallout> component
+   * and must never share that component's class name (see 1.3.0 changelog). */
+  .game-ui-seat-callout {
+    position: absolute;
+    border-radius: 16px 16px 16px 5px;
+    background: var(--game-ui-panel-strong);
+    color: var(--game-ui-text);
+    padding: 6px 9px;
+    font-size: var(--game-ui-font-xs);
+    font-weight: 820;
+    box-shadow: var(--game-ui-shadow-callout);
+    white-space: nowrap;
+  }
+  .game-ui-seat-callout.is-a {
+    top: -44px;
+    left: 20%;
+  }
+  .game-ui-seat-callout.is-b {
+    top: -28px;
+    right: 8%;
+  }
   .game-ui-input-strip {
     position: absolute;
     right: 16px;

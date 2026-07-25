@@ -3,6 +3,55 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.3.0 — 2026-07-25
+
+Gives `<GameCallout>` its class name back. Since the preview split in 0.6 the
+demo-table speech bubble had been left behind in `styles.css` under the same
+`.game-ui-callout` class the component uses, so every product's callout
+silently inherited scenery layout. Four products had each patched it locally.
+
+### Fixed
+
+- `.game-ui-callout` no longer inherits `position: absolute` and
+  `white-space: nowrap`. `styles.css` declared the class twice — first as the
+  absolutely-positioned bubble pinned to the demo table in `<GameUiPreview />`,
+  then as the real component. The second rule never re-declared `position` or
+  `white-space`, so the cascade kept the scenery values and every
+  `<GameCallout>` rendered out of flow: it overlapped whatever sat behind it
+  and swallowed those elements' clicks. The bubble now lives in `preview.css`
+  as `.game-ui-seat-callout`, next to the `.game-ui-seat` scenery it belongs
+  to, and `.game-ui-callout` is owned by `<GameCallout>` alone.
+
+### Added
+
+- Internal `cssOwnership` analyzer plus `src/cssOwnership.test.ts`, enforcing
+  one structural owner per class: a bare single-class selector may declare
+  layout properties (`position`, `display`, `float`, `white-space`, inset,
+  grid placement, `flex-direction`) in exactly one unconditional rule.
+  Cosmetic and motion rules may still be split across sections, and `@media` /
+  `@supports` overrides stay exempt, so the existing "base rule here, motion
+  rule in the motion section" pattern is untouched. `styles.css` and
+  `preview.css` are both asserted clean, which makes this class of name
+  collision a build failure rather than four downstream workarounds.
+
+### Removed
+
+- `.game-ui-callout.is-a` / `.game-ui-callout.is-b` from `styles.css`. These
+  were never public API — undocumented preview scenery that leaked out of the
+  0.6 preview split. A grep across the whole PieAI portfolio found no consumer
+  outside `GameUiPreview.tsx`, which moved to `.game-ui-seat-callout` in the
+  same commit. Products that render `<GameUiPreview />` must already be
+  loading `preview.css`, where the bubble now lives.
+
+### Migration notes
+
+- No product action is required; callouts start laying out correctly on
+  upgrade. Products may now delete their local re-anchoring patches:
+  SupaLuv `apps/web/src/styles/meta.css` (`.settings-panel .game-ui-callout`),
+  Sea `sea-viewer.css` / `sea-console.css` (`position: static !important`),
+  and Anvil `AiConnectionCenter.module.css`. Those overrides are harmless if
+  left in place — they now merely restate the kit default.
+
 ## 1.2.0 — 2026-07-18
 
 Purely additive: an official "overlay glass" HUD surface tone plus a compact

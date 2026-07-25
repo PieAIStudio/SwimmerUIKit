@@ -831,8 +831,8 @@ function HudAndStage(): ReactNode {
           <span className="game-ui-seat is-host" />
           <span className="game-ui-seat is-guest-a" />
           <span className="game-ui-seat is-guest-b" />
-          <span className="game-ui-callout is-a">{hud.calloutA}</span>
-          <span className="game-ui-callout is-b">{hud.calloutB}</span>
+          <span className="game-ui-seat-callout is-a">{hud.calloutA}</span>
+          <span className="game-ui-seat-callout is-b">{hud.calloutB}</span>
         </div>
         <div className="game-ui-input-strip">
           <GameButton variant="secondary">{hud.emote}</GameButton>
