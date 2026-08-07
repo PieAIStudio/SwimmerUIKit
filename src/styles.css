@@ -201,6 +201,10 @@
     align-items: center;
     justify-content: center;
     width: fit-content;
+    /* A badge is one short token. As a flex item, min-width:auto falls back to
+     * min-content — for CJK that is one glyph — so flex-shrink wraps mid-label
+     * (e.g. "课程已发布" → "课程已发" / "布"). nowrap keeps the whole token intact. */
+    white-space: nowrap;
     border: 1px solid var(--game-ui-border-subtle);
     border-radius: var(--game-ui-radius-bead);
     background: color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent);
@@ -828,7 +832,12 @@
     background: var(--game-ui-warning);
   }
   .game-ui-progress-value {
+    /* 3ch fits "100%"; count labels ("12 / 210 节") are longer. min-width:3ch
+     * overrides the flex min-content floor, so without nowrap + flex-shrink:0
+     * the label can squeeze and wrap mid-token next to a growing track. */
     min-width: 3ch;
+    flex-shrink: 0;
+    white-space: nowrap;
     color: var(--game-ui-text-muted);
     font-size: var(--game-ui-font-sm);
     font-weight: var(--game-ui-weight-strong);

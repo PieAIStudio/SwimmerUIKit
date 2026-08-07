@@ -9,6 +9,9 @@ Gives `<GameCallout>` its class name back. Since the preview split in 0.6 the
 demo-table speech bubble had been left behind in `styles.css` under the same
 `.game-ui-callout` class the component uses, so every product's callout
 silently inherited scenery layout. Four products had each patched it locally.
+Also stops `.game-ui-badge` from wrapping mid-token as a flex item, and lets
+`<GameProgress>` label progress in domain units (counts) instead of only as a
+rounded percentage.
 
 ### Fixed
 
@@ -21,6 +24,11 @@ silently inherited scenery layout. Four products had each patched it locally.
   and swallowed those elements' clicks. The bubble now lives in `preview.css`
   as `.game-ui-seat-callout`, next to the `.game-ui-seat` scenery it belongs
   to, and `.game-ui-callout` is owned by `<GameCallout>` alone.
+- `.game-ui-badge` no longer wraps mid-label when placed as a flex item next to
+  a growing text block. Flex items default to `min-width: auto` (min-content);
+  for CJK that is one character, so `flex-shrink` was splitting badges like
+  "课程已发布" across two lines. A badge is a single short token — the base
+  rule now sets `white-space: nowrap`.
 
 ### Added
 
@@ -33,6 +41,12 @@ silently inherited scenery layout. Four products had each patched it locally.
   rule in the motion section" pattern is untouched. `styles.css` and
   `preview.css` are both asserted clean, which makes this class of name
   collision a build failure rather than four downstream workarounds.
+- `<GameProgress valueLabel="3 / 21">` — optional domain-unit text shown next
+  to the bar in place of the percentage. Passing a non-empty `valueLabel` is
+  enough (no need for `showValue`); absent `valueLabel` keeps the existing
+  `showValue` percentage behaviour. When set, `aria-valuetext` mirrors the
+  label so assistive tech does not announce a percentage while the screen
+  shows a count.
 
 ### Removed
 

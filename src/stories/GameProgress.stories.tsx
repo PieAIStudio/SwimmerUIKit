@@ -22,3 +22,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 export const Battery: Story = { args: { label: 'Batteries', value: 14, max: 20, tone: 'success' } };
 export const Low: Story = { args: { label: 'Batteries', value: 3, max: 20, tone: 'danger' } };
+export const CountLabel: Story = {
+  args: {
+    label: 'Lessons completed',
+    value: 12,
+    max: 210,
+    valueLabel: '12 / 210 节',
+  },
+};

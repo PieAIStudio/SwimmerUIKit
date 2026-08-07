@@ -56,6 +56,11 @@ export interface GameProgressProps {
   tone?: 'accent' | 'success' | 'danger' | 'warning';
   /** Show the rounded percentage next to the bar. */
   showValue?: boolean;
+  /**
+   * Text shown next to the bar in place of the percentage, for progress that
+   * is more meaningful as a count than a ratio (e.g. "3 / 21").
+   */
+  valueLabel?: string;
   className?: string;
 }
 
@@ -66,10 +71,12 @@ export function GameProgress({
   showValue = false,
   tone = 'accent',
   value,
+  valueLabel,
 }: GameProgressProps): ReactNode {
   const safeMax = max <= 0 ? 100 : max;
   const pct = Math.max(0, Math.min(100, (value / safeMax) * 100));
   const classes = ['game-ui-progress', className].filter(Boolean).join(' ');
+  const hasValueLabel = Boolean(valueLabel);
   return (
     <div className={classes} data-progress-tone={tone}>
       <div
@@ -77,12 +84,17 @@ export function GameProgress({
         aria-valuemax={safeMax}
         aria-valuemin={0}
         aria-valuenow={value}
+        aria-valuetext={hasValueLabel ? valueLabel : undefined}
         className="game-ui-progress-track"
         role="progressbar"
       >
         <div className="game-ui-progress-fill" style={{ width: `${pct}%` }} />
       </div>
-      {showValue ? <span className="game-ui-progress-value">{Math.round(pct)}%</span> : null}
+      {hasValueLabel ? (
+        <span className="game-ui-progress-value">{valueLabel}</span>
+      ) : showValue ? (
+        <span className="game-ui-progress-value">{Math.round(pct)}%</span>
+      ) : null}
     </div>
   );
 }
