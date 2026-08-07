@@ -159,7 +159,7 @@ pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可�
 7. 工作流完成后用
    `npm view @pieai/swimmer-ui-kit@<version> version --registry https://registry.npmjs.org/`
    核验；registry 返回前不得宣布发布成功。
-8. 在 PieHQ 不需要登记版本号——消费仓 lockfile 是版本真相。
+8. 在 HQ 不需要登记版本号——消费仓 lockfile 是版本真相。
 
 ## 兼容性承诺（1.0 合同）
 
