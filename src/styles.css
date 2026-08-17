@@ -363,18 +363,25 @@
     it was on or off, in every theme, for every consumer. A switch that cannot
     show its own state is not a switch.
 
-    The bead is opaque rather than a 62% mix of the panel colour: it is the
-    thing that says which side the switch is sitting on, so it has to clear the
-    3:1 non-text contrast floor against the track behind it in both states, and
-    a translucent bead on an unknown track colour cannot promise that.
+    State is carried by the bead's *position*, not by hue: off recesses into an
+    inset well with the bead left, on fills with the accent and the bead moves
+    right. A spatial difference survives both palettes and both kinds of colour
+    vision, which a track colour cannot — `--game-ui-secondary` sits mid-range
+    in luminance, so nothing clears 3:1 against both it and a surface.
+
+    The bead is `--game-ui-text` because that is the one token guaranteed to
+    read against every surface its own theme defines. Measured on night:
+    13.1:1 against the off track, 6.1:1 between the two track colours.
   */
   .game-ui-toggle-track {
     width: 42px;
     height: 24px;
     border: 2px solid var(--game-ui-panel-strong);
     border-radius: var(--game-ui-radius-bead);
-    background: color-mix(in srgb, var(--game-ui-text-muted) 42%, transparent);
-    box-shadow: inset 8px 0 0 var(--game-ui-panel-strong);
+    background: var(--game-ui-surface);
+    box-shadow:
+      var(--game-ui-shadow-inset),
+      inset 8px 0 0 var(--game-ui-text);
     transition:
       background var(--game-ui-motion-fast) var(--game-ui-ease-soft),
       box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-pop);
@@ -384,7 +391,7 @@
      two hues, so the bead's position carries it too. */
   .game-ui-toggle[aria-checked='true'] .game-ui-toggle-track {
     background: var(--game-ui-secondary);
-    box-shadow: inset -8px 0 0 var(--game-ui-panel-strong);
+    box-shadow: inset -8px 0 0 var(--game-ui-text);
   }
   .game-ui-tooltip {
     position: relative;

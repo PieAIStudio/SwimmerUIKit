@@ -102,10 +102,13 @@ describe('GameToggle', () => {
       exactly what a future edit is most likely to drop.
     */
     const track = trackRules(stylesCss);
-    expect(track.base).toMatch(/box-shadow:\s*inset 8px /);
     expect(track.checked).toBeDefined();
-    expect(track.checked).toMatch(/box-shadow:\s*inset -8px /);
+    // The bead sits left when off and right when on. Position is the half of
+    // the state that survives both palettes and both kinds of colour vision.
+    expect(track.base).toMatch(/inset 8px 0 0 var\(--game-ui-text\)/);
+    expect(track.checked).toMatch(/inset -8px 0 0 var\(--game-ui-text\)/);
+    // Colour reinforces it: the accent belongs to the on state alone.
     expect(track.checked).toMatch(/background:\s*var\(--game-ui-secondary\)/);
-    expect(track.base).not.toMatch(/background:\s*var\(--game-ui-secondary\)/);
+    expect(track.base).not.toMatch(/var\(--game-ui-secondary\)/);
   });
 });

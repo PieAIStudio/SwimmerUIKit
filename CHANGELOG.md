@@ -3,6 +3,31 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.3.2 — 2026-08-17
+
+Follows 1.3.1 with the contrast work that release only half did. The new off
+state paired a muted track with a `--game-ui-panel-strong` bead, which is a
+light colour on the light theme and a dark one on night — so on night the bead
+measured 1.8:1 against its own track and all but disappeared in exactly the
+state it had just been added to show.
+
+### Fixed
+
+- The off track is now an inset well (`--game-ui-surface` plus
+  `--game-ui-shadow-inset`) rather than a muted fill, so off and on differ in
+  form — recessed versus filled — and not only in hue. That difference is the
+  kit's own existing vocabulary; `.game-ui-progress-track` is drawn the same
+  way.
+- The bead is `--game-ui-text`, the one token guaranteed to read against every
+  surface its own theme defines, replacing `--game-ui-panel-strong`, which
+  tracks the surface and therefore inverts between themes. Measured on night:
+  13.1:1 bead against the off track, up from 1.8:1, and 6.1:1 between the two
+  track colours.
+- The regression test now asserts the bead's inset offset flips sign between
+  the two states. Position is the half of the state that survives both palettes
+  and both kinds of colour vision, and it is also the half a future edit is
+  most likely to drop.
+
 ## 1.3.1 — 2026-08-17
 
 Gives `<GameToggle>` a visible off state. Since the component shipped, its
@@ -17,12 +42,9 @@ readers the truth and told everyone else nothing.
 
 - `.game-ui-toggle-track` now has two states. Off is a muted track with the
   bead inset on the left; on fills the track with `--game-ui-secondary` and
-  moves the bead to the right. State is carried by the bead's position as well
-  as by colour, so it survives readers who cannot separate the two hues.
-- The bead is now opaque `--game-ui-panel-strong` rather than a 62% mix of it.
-  It is the mark that says which side the switch is sitting on, so it has to
-  clear the 3:1 non-text contrast floor against the track in both states, and a
-  translucent bead over an unknown track colour cannot promise that.
+  moves the bead to the right, so the state is carried by position as well as
+  by colour.
+- The bead is opaque rather than a 62% mix of the panel colour.
 - `.game-ui-toggle-track` joins the `prefers-reduced-motion: reduce` list, so
   the state change is instant for readers who asked for that.
 
