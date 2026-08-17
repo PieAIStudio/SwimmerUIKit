@@ -356,13 +356,35 @@
     gap: 10px;
     padding: 0 10px 0 14px;
   }
+  /*
+    Off. The track carried exactly one unconditional rule — an always-on
+    `--game-ui-secondary` fill with the bead parked right — and nothing
+    anywhere keyed on `aria-checked`, so a switch rendered identically whether
+    it was on or off, in every theme, for every consumer. A switch that cannot
+    show its own state is not a switch.
+
+    The bead is opaque rather than a 62% mix of the panel colour: it is the
+    thing that says which side the switch is sitting on, so it has to clear the
+    3:1 non-text contrast floor against the track behind it in both states, and
+    a translucent bead on an unknown track colour cannot promise that.
+  */
   .game-ui-toggle-track {
     width: 42px;
     height: 24px;
     border: 2px solid var(--game-ui-panel-strong);
     border-radius: var(--game-ui-radius-bead);
+    background: color-mix(in srgb, var(--game-ui-text-muted) 42%, transparent);
+    box-shadow: inset 8px 0 0 var(--game-ui-panel-strong);
+    transition:
+      background var(--game-ui-motion-fast) var(--game-ui-ease-soft),
+      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-pop);
+  }
+  /* On: the accent fills the track and the bead moves to the far side. Colour
+     alone would leave the state unreadable to anyone who cannot separate these
+     two hues, so the bead's position carries it too. */
+  .game-ui-toggle[aria-checked='true'] .game-ui-toggle-track {
     background: var(--game-ui-secondary);
-    box-shadow: inset -8px 0 0 color-mix(in srgb, var(--game-ui-panel-strong) 62%, transparent);
+    box-shadow: inset -8px 0 0 var(--game-ui-panel-strong);
   }
   .game-ui-tooltip {
     position: relative;
@@ -874,7 +896,8 @@
     .game-ui-input,
     .game-ui-checkbox-box,
     .game-ui-checkbox-box::after,
-    .game-ui-progress-fill {
+    .game-ui-progress-fill,
+    .game-ui-toggle-track {
       transition: none;
     }
     /* Kept out of the list above: mixing -webkit-/-moz- pseudo-elements with

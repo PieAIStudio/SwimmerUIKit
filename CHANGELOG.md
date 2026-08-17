@@ -3,6 +3,36 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.3.1 — 2026-08-17
+
+Gives `<GameToggle>` a visible off state. Since the component shipped, its
+track carried a single unconditional rule — an always-on `--game-ui-secondary`
+fill with the bead parked right — and no selector anywhere keyed on
+`aria-checked`, so a switch rendered pixel-identically whether it was on or
+off, in every theme, for every consumer. The `aria-checked` attribute was
+correct the whole time, which is why nothing caught it: the switch told screen
+readers the truth and told everyone else nothing.
+
+### Fixed
+
+- `.game-ui-toggle-track` now has two states. Off is a muted track with the
+  bead inset on the left; on fills the track with `--game-ui-secondary` and
+  moves the bead to the right. State is carried by the bead's position as well
+  as by colour, so it survives readers who cannot separate the two hues.
+- The bead is now opaque `--game-ui-panel-strong` rather than a 62% mix of it.
+  It is the mark that says which side the switch is sitting on, so it has to
+  clear the 3:1 non-text contrast floor against the track in both states, and a
+  translucent bead over an unknown track colour cannot promise that.
+- `.game-ui-toggle-track` joins the `prefers-reduced-motion: reduce` list, so
+  the state change is instant for readers who asked for that.
+
+### Added
+
+- `GameToggle` coverage in `src/GameSurfaces.test.tsx`, asserting both the
+  `aria-checked` markup and the two CSS states. The visual half reads
+  `styles.css` directly, because a rendering test cannot see a state that only
+  exists in a stylesheet — which is exactly how this shipped.
+
 ## 1.3.0 — 2026-07-25
 
 Gives `<GameCallout>` its class name back. Since the preview split in 0.6 the
