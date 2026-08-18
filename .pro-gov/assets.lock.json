@@ -6,64 +6,80 @@
     "base-governance",
     "frontend-app"
   ],
+  "registryProvenance": {
+    "schema": "agent-assets-registry",
+    "version": 1,
+    "hash": "sha256:eb5568f651f5398d52dee2f56168e3eed38142541892328a1e3ec17acdb48eb6",
+    "assetCount": 10
+  },
   "assets": [
     {
       "id": "npx-skills/agent-browser",
       "sourcePath": "skills/npx-skills/.agents/skills/agent-browser",
-      "contentHash": "sha256:ecc7641aea05f85ca3b11e7759d32aaf52fe05946ab4b63739c7bf78a41237a2",
+      "delivery": "symlink",
+      "contentHash": "sha256:a674b7d81066e3cc471a7512ddb4ae724418cbfefa75cbb050b0dc430e4d57a0",
       "targetPath": ".agents/skills/agent-browser"
     },
     {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
+      "delivery": "symlink",
       "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
       "targetPath": ".agents/skills/frontend-design"
     },
     {
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
-      "contentHash": "sha256:c805d991346c3831a1c04908311d7b0c48cb00c00772e669ea3252fec47bc2e2",
+      "delivery": "symlink",
+      "contentHash": "sha256:16f7f1f484ab99c1149d2decd6c7e830849072dfa1057d6324af8bba84965a9d",
       "targetPath": ".agents/skills/impeccable"
     },
     {
       "id": "npx-skills/make-interfaces-feel-better",
       "sourcePath": "skills/npx-skills/.agents/skills/make-interfaces-feel-better",
+      "delivery": "symlink",
       "contentHash": "sha256:de4d74dd857d3dc245e6f5d5483adc8795921f071ac2f4c471ab6c87df2b6ba7",
       "targetPath": ".agents/skills/make-interfaces-feel-better"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
-      "contentHash": "sha256:48131e13c54e2c443abb2de3a6e359aee461f39fdce1c9cf578fd59873741755",
+      "delivery": "symlink",
+      "contentHash": "sha256:6503364c204a3a10e3cf80e3a53323e9ab581b6d06550c3cc893cdcf1206f048",
       "targetPath": ".agents/skills/ui-ux-pro-max"
-    },
-    {
-      "id": "pie-commands/generate-handoff",
-      "sourcePath": "commands/pie-commands/generate-handoff.md",
-      "contentHash": "sha256:438266546b6e4880a83b681684b47e2515f82a9c6f49dacf0a22809db0c8815d",
-      "targetPath": ".pro-gov/agent-assets/commands/generate-handoff.md"
     },
     {
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
-      "contentHash": "sha256:493f4308d121d6fdca667b0312809cb68dca0055825b42c187781cbed267f02f",
-      "targetPath": ".pro-gov/agent-assets/rules/ai-in-the-loop.md"
+      "delivery": "snapshot",
+      "contentHash": "sha256:344eba8c3b1f3130ed33e4b6a4511a332e2ca477e6a40ad7d4c73006197f5445",
+      "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
+    },
+    {
+      "id": "pie-rules/brand-kit-first",
+      "sourcePath": "rules/pie-rules/brand-kit-first.md",
+      "delivery": "snapshot",
+      "contentHash": "sha256:eb74748102972fc97cc62837cefb8098ad4f75731559a079c2ad4d59c71989de",
+      "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
       "id": "pie-rules/clean-image-generation-rules",
       "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
-      "contentHash": "sha256:d77fc3823e7406036550b0b13a921e4c5a579011a5023ecaacfd2fb6fa456b86",
-      "targetPath": ".pro-gov/agent-assets/rules/clean-image-generation-rules.md"
+      "delivery": "snapshot",
+      "contentHash": "sha256:cd6a79b9971af50003812b498827837ca5c2c284d5b2c95ad3bbf3778483f74a",
+      "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },
     {
-      "id": "pie-rules/rule-evolution-methodology",
-      "sourcePath": "rules/pie-rules/rule-evolution-methodology.md",
-      "contentHash": "sha256:694758a2f3ce15ffc9f38c5a0e6fe6696bfb8128b952afec6c0963cc803f5b9c",
-      "targetPath": ".pro-gov/agent-assets/rules/rule-evolution-methodology.md"
+      "id": "pie-skills/experience-capture",
+      "sourcePath": "skills/pie-skills/experience-capture",
+      "delivery": "symlink",
+      "contentHash": "sha256:7e721266aa5bb311c9e66b887046270cd29cb6125a4fa3c103471d775aa40d65",
+      "targetPath": ".agents/skills/experience-capture"
     },
     {
       "id": "pie-skills/screenwalk",
       "sourcePath": "skills/pie-skills/screenwalk",
+      "delivery": "symlink",
       "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
       "targetPath": ".agents/skills/screenwalk"
     }

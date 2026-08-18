@@ -10,10 +10,12 @@
 
 1. All Markdown files under `docs/policy/**/*.md`, including files in
    subdirectories and symlinked shared-rule files.
-2. `docs/governance/boundary.md`
-3. `docs/governance/agents-routing/engineering-runtime-v1.1.md`
-4. `docs/reference/execution/current-work.md`
-5. Before non-trivial implementation, debugging, release, architecture, or
+2. `docs/policy/shared-rules/brand-kit-first.md`. This repository is the UI
+   brand kit; missing shared 2D UI belongs here, not in a product fork.
+3. `docs/governance/boundary.md`
+4. `docs/governance/agents-routing/engineering-runtime-v1.1.md`
+5. `docs/reference/execution/current-work.md`
+6. Before non-trivial implementation, debugging, release, architecture, or
    migration work, run `pro-gov learn recall --query "<task summary>"` and read
    any relevant prior-learning hits before changing files.
 
@@ -38,6 +40,11 @@ changing governed files.
 - Recall relevant learnings before non-trivial work. After verified work, use `capture-learning` only when a non-obvious reusable lesson exists.
 
 <!-- PGS-ROUTER:END -->
+
+## Portfolio Laws
+
+- This repository is a brand kit. Read `docs/policy/shared-rules/brand-kit-first.md`.
+  Missing shared UI capability is added here, published, then consumed.
 
 ## Project Scope
 

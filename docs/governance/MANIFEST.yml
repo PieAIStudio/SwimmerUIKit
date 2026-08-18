@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-07-17T21:37:37.353Z
-generator_version: doc-gov@0.8.0
-docs_count: 19
+generated_at: 2026-08-17T13:39:14.716Z
+generator_version: doc-gov@0.9.1
+docs_count: 22
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -46,6 +46,27 @@ docs:
     canonical: true
     last_reviewed: 2026-05-08
     pinned: true
+  - id: POLICY-SHARED-AI-IN-THE-LOOP
+    path: docs/policy/shared-rules/ai-in-the-loop.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
+  - id: POLICY-SHARED-BRAND-KIT-FIRST
+    path: docs/policy/shared-rules/brand-kit-first.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: true
+  - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
+    path: docs/policy/shared-rules/clean-image-generation-rules.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
   - id: REF-DESIGN-SYSTEM-GUIDE
     path: docs/reference/design-system-guide.md
     type: reference
