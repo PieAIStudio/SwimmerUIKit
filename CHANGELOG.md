@@ -3,6 +3,33 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.6.0
+
+### Added
+
+- **`--game-ui-font-mono`.** Three consumer stylesheets were already writing
+  `var(--game-ui-font-mono, ui-monospace, …)` against a token this kit never
+  defined. Because `var()` takes a fallback, nothing failed anywhere: the CSS
+  looked token-driven while the fallback did all the work, and a brand change
+  to code type could not reach any of them. The stack includes a CJK mono
+  face, because a code block with a Chinese comment in it is the normal case
+  for these products.
+- **A reading scale** — `--game-ui-font-reading`, `--game-ui-line-reading`,
+  `--game-ui-measure-reading`. The existing scale is a HUD scale and stops at
+  `--game-ui-font-lg` (1.18rem), which is right beside a button and wrong for a
+  screen someone reads for eight minutes. The three values are not invented:
+  they are what a consumer measured against real content (Chinese prose around
+  2,300 characters per screen, with code in it) and then had to keep in its own
+  stylesheet because the kit had nowhere to put them. A product holding its own
+  reading typography is a product whose reading typography drifts from the
+  brand.
+- `CLAY_TYPE_TOKENS` mirrors all four, and a test now asserts every mirrored
+  type token is actually defined in `theme.css` — the mirror is a promise that
+  a variable of that name exists, and the mono gap is exactly that promise
+  being broken quietly.
+
+Additive only. No existing token, class or component changed.
+
 ## 1.5.0 — 2026-08-22
 
 `swimmer-ui-check` now also fails on token pairs that cannot be read.

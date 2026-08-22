@@ -64,6 +64,7 @@ export const CLAY_SEMANTIC_TOKENS = {
 export const CLAY_TYPE_TOKENS = {
   familyDisplay: 'var(--game-ui-font-display)',
   familyBody: 'var(--game-ui-font-body)',
+  familyMono: 'var(--game-ui-font-mono)',
   xs: 'var(--game-ui-font-xs)',
   sm: 'var(--game-ui-font-sm)',
   md: 'var(--game-ui-font-md)',
@@ -72,6 +73,10 @@ export const CLAY_TYPE_TOKENS = {
   xxl: 'var(--game-ui-font-xxl)',
   lineTight: 'var(--game-ui-line-tight)',
   lineBody: 'var(--game-ui-line-body)',
+  /* Long-form reading. See theme.css — the scale above is a HUD scale. */
+  reading: 'var(--game-ui-font-reading)',
+  lineReading: 'var(--game-ui-line-reading)',
+  measureReading: 'var(--game-ui-measure-reading)',
   weightBody: 'var(--game-ui-weight-body)',
   weightStrong: 'var(--game-ui-weight-strong)',
   weightTitle: 'var(--game-ui-weight-title)',

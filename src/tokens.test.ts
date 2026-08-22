@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   CLAY_COLOR_TOKENS,
+  CLAY_TYPE_TOKENS,
   CLAY_TARGET_TOKENS,
   CLAY_UI_TOKENS,
   GAME_UI_THEME_CONTRACT,
@@ -57,6 +58,31 @@ describe('clay token exports', () => {
     expect(CLAY_TARGET_TOKENS.desktopProofHeightPx).toBe(900);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofWidthPx).toBe(844);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofHeightPx).toBe(390);
+  });
+});
+
+/**
+ * The mirror is a promise: a name in `CLAY_TYPE_TOKENS` claims a variable of
+ * that name exists. Three consumers had already written
+ * `var(--game-ui-font-mono, …)` against a token this kit did not define, and
+ * because `var()` takes a fallback, nothing anywhere failed — the CSS merely
+ * looked token-driven while the fallback did all the work. A mirrored name
+ * with no definition behind it is that failure waiting to be repeated.
+ */
+describe('every mirrored type token exists in theme.css', () => {
+  it('defines the family, scale and reading tokens the mirror names', () => {
+    for (const value of Object.values(CLAY_TYPE_TOKENS)) {
+      const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
+      expect(name, `${value} should be a bare var() reference`).toBeTruthy();
+      expect(themeCss, `theme.css must define ${name}`).toContain(`${name}:`);
+    }
+  });
+
+  it('carries a reading scale, because the rest of the scale is a HUD scale', () => {
+    expect(themeCss).toContain('--game-ui-font-mono:');
+    expect(themeCss).toContain('--game-ui-font-reading:');
+    expect(themeCss).toContain('--game-ui-line-reading:');
+    expect(themeCss).toContain('--game-ui-measure-reading:');
   });
 });
 

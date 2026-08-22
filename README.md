@@ -68,6 +68,12 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
   }
   ```
 
+- **Type**: a HUD scale (`--game-ui-font-xs` … `-xxl`) plus the three things a
+  HUD scale does not cover — `--game-ui-font-mono` for code, and
+  `--game-ui-font-reading` / `--game-ui-line-reading` /
+  `--game-ui-measure-reading` for a screen someone reads for minutes rather
+  than glances at. Reach for the reading trio whenever the text is prose, not
+  a label.
 - **Official themes**: light (default) and `night`
   (`<html data-game-ui-theme="night">`). Downstream theming = overriding
   semantic tokens; see the design system guide.

@@ -20,6 +20,32 @@
   --game-ui-font-lg: 1.18rem;
   --game-ui-font-xl: clamp(1.5rem, 2.4vw, 2.35rem);
   --game-ui-font-xxl: clamp(2.3rem, 5vw, 4.5rem);
+  /*
+    Code. This kit's products are about software, and three consumers were
+    already writing `var(--game-ui-font-mono, …)` against a token that did not
+    exist — the fallback was doing all the work and the CSS only looked
+    token-driven. The CJK mono is in the stack because a code block with a
+    Chinese comment in it is the normal case here, not the exotic one.
+  */
+  --game-ui-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    'Noto Sans Mono CJK SC', 'Noto Sans Mono', monospace;
+
+  /*
+    Long-form reading, which the scale above deliberately does not cover.
+    That scale is a HUD scale: it tops out at --game-ui-font-lg (1.18rem),
+    which is right for a label beside a button and wrong for a screen someone
+    reads for eight minutes.
+
+    These three are not invented. They are the values a consumer measured
+    against real content — Chinese prose averaging ~2,300 characters per screen
+    with code blocks in it — and then had to keep in its own stylesheet because
+    the kit had nowhere to put them. A product that has to hold its own reading
+    typography is a product whose reading typography will drift from its brand.
+  */
+  --game-ui-font-reading: 1.06rem;
+  --game-ui-line-reading: 1.9;
+  --game-ui-measure-reading: 34em;
+
   --game-ui-line-tight: 1.05;
   --game-ui-line-body: 1.52;
   --game-ui-weight-body: 620;
