@@ -151,12 +151,22 @@ function contrastRatio(a, b) {
  */
 function themeTokens() {
   const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-  let css;
-  try {
-    css = readFileSync(join(packageRoot, 'dist', 'styles.css'), 'utf8');
-  } catch {
-    return null;
+  // dist/ is what a consumer installs. src/theme.css is what exists in this
+  // repository before a build — and `pnpm test` runs before `pnpm build`, so
+  // reading only dist made the check a silent no-op in its own CI while
+  // passing locally off a stale dist. Silence is the failure mode this whole
+  // check exists to remove, so it must not be the failure mode of the check.
+  const sources = [join(packageRoot, 'dist', 'styles.css'), join(packageRoot, 'src', 'theme.css')];
+  let css = null;
+  for (const candidate of sources) {
+    try {
+      css = readFileSync(candidate, 'utf8');
+      break;
+    } catch {
+      // try the next one
+    }
   }
+  if (css === null) return null;
   const themes = new Map();
   // The built stylesheet is minified and the attribute value loses its quotes,
   // so both forms have to match or every theme but the default is invisible.
@@ -236,6 +246,12 @@ try {
 }
 
 const themes = themeTokens();
+if (!themes || themes.size === 0) {
+  console.error(
+    "swimmer-ui-check: could not read this package's theme tokens, so contrast was NOT checked. " +
+      'Raw-colour linting below still ran.',
+  );
+}
 let contrastCount = 0;
 let violationCount = 0;
 for (const file of files) {
