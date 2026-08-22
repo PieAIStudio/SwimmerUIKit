@@ -71,10 +71,29 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 - **Official themes**: light (default) and `night`
   (`<html data-game-ui-theme="night">`). Downstream theming = overriding
   semantic tokens; see the design system guide.
-- **Clay assets**: inline SVG mode by default (no asset hosting needed);
-  `setClayAssetMode('source')` switches to the sculpted PNG set, which
-  ships in `dist/assets/` for hosts to copy under
-  `/assets/game/ui/clay/…`.
+- **Clay assets**: two lines of setup, and **skipping them is not a no-op**.
+  Out of the box the kit draws *placeholders* — one rounded square per icon
+  with a letter in it — not the icon set. They exist so a fresh install
+  renders something instead of a broken image, and they are not shippable.
+  The real sculpted PNGs travel inside the package and need serving:
+
+  ```bash
+  npx swimmer-ui-assets public      # copies dist/assets into your static root
+  ```
+  ```ts
+  import { setClayAssetMode } from '@pieai/swimmer-ui-kit';
+  setClayAssetMode('source');       // once, at your entry
+  ```
+
+  Serving them somewhere else — a CDN, a sub-path deploy — is
+  `setClayAssetBasePath('/my/path')`, and `swimmer-ui-assets public --base=/my/path`
+  mirrors the layout to match. If you *want* placeholders, say so with
+  `acknowledgeClayPlaceholders()` and the console notice goes quiet.
+
+  Note on sizing: the sculpted family is 96px art. Below roughly 24px it turns
+  to mud, and being PNG it cannot take a `currentColor` tint, so it is the
+  wrong family for a dense navigation rail or toolbar. Use the `line` style
+  there, or your own glyphs.
 - **Audio helper**: `playGameInteractionSound` (SSR-safe, opt-in via the
   `sound` prop on `GameButton`).
 

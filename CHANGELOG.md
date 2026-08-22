@@ -3,6 +3,47 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.4.0 — 2026-08-22
+
+The kit shipped an icon set that no consumer could see. Nothing was broken and
+nothing errored, which was the problem: with no setup the kit draws lettered
+placeholder squares, and a placeholder that looks deliberate gets shipped. A
+product could put eight identical coloured squares in its navigation and never
+file a bug, because it reads as a design choice rather than a missing step.
+
+The sculpted PNGs were never missing — 350 files travel inside the package, in
+`dist/assets`. What was missing was any route from there to a path the host
+actually serves. `CLAY_ASSET_BASE_PATH` names an absolute URL on the
+*consumer's* origin, and nothing copied, exported or explained it. The kit's own
+Storybook worked throughout, because its assets sit in `public/`.
+
+### Added
+
+- `swimmer-ui-assets [dir] [--base=…] [--force]` — a `bin` that copies the
+  sculpted set into a host's static root. Bundler-agnostic and explicit; no
+  postinstall, because a package that writes into your repo on install is worse
+  than the problem it solves.
+- `"./assets/*"` export, so bundler-based consumers can import an individual
+  file and get a content-hashed URL instead of copying the whole tree.
+- `setClayAssetBasePath()` / `getClayAssetBasePath()` for a CDN or a sub-path
+  deploy. Resolution rebases on the way out, so the variant table stays a
+  single source of truth.
+- A one-time `console.warn` the first time a placeholder is actually drawn,
+  naming the two commands that fix it, and `acknowledgeClayPlaceholders()` for
+  anyone using them on purpose.
+
+### Changed
+
+- README states plainly that the default is placeholders rather than the icon
+  set, and records that the sculpted family is 96px art which cannot take a
+  `currentColor` tint — so it is the wrong family for a dense nav rail or
+  toolbar however correctly it is served.
+
+### Compatibility
+
+Additive only. Defaults are unchanged, so every existing consumer renders
+exactly what it rendered before and gains one console line telling it why.
+
 ## 1.3.2 — 2026-08-17
 
 Follows 1.3.1 with the contrast work that release only half did. The new off

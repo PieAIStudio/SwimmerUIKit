@@ -80,12 +80,27 @@ export type ClayIconName = keyof typeof CLAY_ICON_VARIANTS;
 
 export const CLAY_ICON_NAMES = Object.keys(CLAY_ICON_VARIANTS) as ClayIconName[];
 
+// Declared here rather than beside its setter below, because CLAY_ASSETS.icons
+// calls resolveVariant() at module load and a `let` further down the file is
+// still in its temporal dead zone at that point.
+let clayAssetBasePath: string = CLAY_ASSET_BASE_PATH;
+
+// The variant table is built at module load, so every path already carries the
+// default prefix. Rebasing is a swap on the way out rather than a second table.
+function rebase(path: string): string {
+  const base = clayAssetBasePath;
+  if (!path || base === CLAY_ASSET_BASE_PATH) return path;
+  return path.startsWith(CLAY_ASSET_BASE_PATH)
+    ? `${base}${path.slice(CLAY_ASSET_BASE_PATH.length)}`
+    : path;
+}
+
 function resolveVariant(icon: ClayIconName, style?: ClayIconStyle): string {
   const variants: ClayIconVariants = CLAY_ICON_VARIANTS[icon];
-  if (style === 'line') return variants.line ?? variants.game ?? '';
-  if (style === 'game') return variants.game ?? variants.line ?? '';
+  if (style === 'line') return rebase(variants.line ?? variants.game ?? '');
+  if (style === 'game') return rebase(variants.game ?? variants.line ?? '');
   // No explicit style: prefer the on-brand game family, fall back to line.
-  return variants.game ?? variants.line ?? '';
+  return rebase(variants.game ?? variants.line ?? '');
 }
 
 /** Which visual families exist for an icon (in display order: game, then line). */
@@ -272,9 +287,12 @@ let clayAssetMode: ClayAssetMode = 'inline';
 
 /**
  * Switch how clay icons resolve globally.
- * - 'inline' (default): zero-dependency SVG placeholders, no assets required.
- * - 'source': the real clay game-icon PNG paths under CLAY_ASSET_BASE_PATH.
- *   The host app must serve those assets (e.g. copy them into its public/).
+ * - 'inline' (default): lettered placeholders. They are not the icon set —
+ *   every one is the same rounded square with a different glyph and colour.
+ *   They exist so a fresh install renders *something* rather than a broken
+ *   image, and shipping them is a bug.
+ * - 'source': the real sculpted PNGs under the base path. Get the files there
+ *   with `npx swimmer-ui-assets <publicDir>`.
  */
 export function setClayAssetMode(mode: ClayAssetMode): void {
   clayAssetMode = mode;
@@ -282,6 +300,47 @@ export function setClayAssetMode(mode: ClayAssetMode): void {
 
 export function getClayAssetMode(): ClayAssetMode {
   return clayAssetMode;
+}
+
+/**
+ * Point the sculpted set at somewhere other than the default path — a CDN, a
+ * sub-path deploy, a host whose static root is not `/`. Pass no trailing slash.
+ *
+ * The copy command mirrors the default layout, so a consumer that runs
+ * `swimmer-ui-assets public` never needs this.
+ */
+export function setClayAssetBasePath(basePath: string): void {
+  clayAssetBasePath = basePath.replace(/\/+$/, '');
+}
+
+export function getClayAssetBasePath(): string {
+  return clayAssetBasePath;
+}
+
+/**
+ * The placeholders used to be silent, and silence was the actual defect: a
+ * product could ship eight identical lettered squares in its navigation and
+ * nobody would file a bug, because a deliberate-looking fallback reads as a
+ * design choice. A broken image would have been kinder. This says it once.
+ */
+let placeholderNoticeShown = false;
+
+function noticePlaceholderOnce(): void {
+  if (placeholderNoticeShown) return;
+  placeholderNoticeShown = true;
+  if (typeof console === 'undefined') return;
+  console.warn(
+    '[SwimmerUIKit] Clay icons are rendering placeholders, not the icon set. ' +
+      'The sculpted PNGs ship inside this package but must be served by your app:\n' +
+      '  npx swimmer-ui-assets public\n' +
+      "  setClayAssetMode('source')   // once, at your entry\n" +
+      "Call setClayAssetMode('inline') explicitly to keep placeholders and silence this.",
+  );
+}
+
+/** Opt in to placeholders on purpose, and stop being told about it. */
+export function acknowledgeClayPlaceholders(): void {
+  placeholderNoticeShown = true;
 }
 
 export interface ClayIconResolveOptions {
@@ -293,7 +352,10 @@ export interface ClayIconResolveOptions {
 
 export function getClayIconPath(icon: ClayIconName, options: ClayIconResolveOptions = {}): string {
   const inline = options.inline ?? clayAssetMode === 'inline';
-  if (inline) return inlineClayIcon(icon);
+  if (inline) {
+    noticePlaceholderOnce();
+    return inlineClayIcon(icon);
+  }
   return resolveVariant(icon, options.style);
 }
 
