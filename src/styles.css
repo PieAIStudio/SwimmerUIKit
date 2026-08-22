@@ -404,8 +404,8 @@
     transform: translateX(-50%) translateY(3px);
     min-width: 150px;
     border-radius: 12px;
-    background: var(--game-ui-text);
-    color: var(--game-ui-text-on-dark);
+    background: var(--game-ui-tooltip-surface);
+    color: var(--game-ui-tooltip-ink);
     padding: 7px 9px;
     font-size: var(--game-ui-font-xs);
     opacity: 0;

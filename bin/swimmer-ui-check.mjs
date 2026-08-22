@@ -184,6 +184,61 @@ function themeTokens() {
 }
 
 /**
+ * Every `--game-ui-*` name this package defines, in any theme block.
+ *
+ * Colours only is not enough here: the gap this catches was a *font* token.
+ */
+function definedTokenNames() {
+  const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+  const sources = [join(packageRoot, 'dist', 'styles.css'), join(packageRoot, 'src', 'theme.css')];
+  for (const candidate of sources) {
+    try {
+      const css = readFileSync(candidate, 'utf8');
+      return new Set([...css.matchAll(/(--game-ui-[\w-]+)\s*:/g)].map((m) => m[1]));
+    } catch {
+      // try the next one
+    }
+  }
+  return null;
+}
+
+/**
+ * A `var(--game-ui-…)` naming a token this kit does not define.
+ *
+ * `var()` takes a fallback, so this never fails at runtime — the rule renders
+ * from the fallback and looks token-driven while being nothing of the sort. A
+ * consumer had six borders reading `var(--game-ui-border, #253048)` against a
+ * token that does not exist, so those borders were a cold blue-grey in an app
+ * whose theme is warm brown, for as long as the file had existed, and no brand
+ * change could ever have reached them. Another was writing
+ * `var(--game-ui-font-mono, …)` — that one turned out to be a real gap in this
+ * kit, which is the other reason to surface it rather than let the fallback
+ * hide it.
+ *
+ * Two things are not typos and are not flagged. A token the scanned files
+ * define themselves is a downstream theme override, which is how theming
+ * works. And a token written from code — `style={{ '--game-ui-card-offset': n }}`
+ * — is a per-element channel that cannot have a stylesheet default; those are
+ * found by scanning the sibling sources.
+ *
+ * Everything else is indistinguishable from a misspelling, and the way to say
+ * "this is a deliberate knob" is to declare it in `:root` with its default.
+ * That makes it discoverable and themeable instead of a secret only the
+ * fallback knows.
+ */
+function findUndefinedTokens(css, defined, ownTokens) {
+  if (!defined) return [];
+  const at = lineFinder(css);
+  const out = [];
+  for (const match of css.matchAll(/var\(\s*(--game-ui-[\w-]+)/g)) {
+    const name = match[1];
+    if (defined.has(name) || ownTokens.has(name)) continue;
+    out.push({ line: at(match.index ?? 0), name });
+  }
+  return out;
+}
+
+/**
  * A bare token reference and nothing else: `var(--game-ui-x)` or
  * `var(--game-ui-x, #fallback)`.
  *
@@ -246,6 +301,21 @@ try {
 }
 
 const themes = themeTokens();
+const definedTokens = definedTokenNames();
+const ownTokens = new Set();
+for (const file of files) {
+  for (const match of readFileSync(file, 'utf8').matchAll(/^\s*(--game-ui-[\w-]+)\s*:/gm)) {
+    ownTokens.add(match[1]);
+  }
+}
+// Tokens written from code are a per-element channel, not a theme value.
+const codeFiles = [];
+walk(target, new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']), codeFiles);
+for (const file of codeFiles) {
+  for (const match of readFileSync(file, 'utf8').matchAll(/['"`](--game-ui-[\w-]+)['"`]/g)) {
+    ownTokens.add(match[1]);
+  }
+}
 if (!themes || themes.size === 0) {
   console.error(
     "swimmer-ui-check: could not read this package's theme tokens, so contrast was NOT checked. " +
@@ -253,6 +323,7 @@ if (!themes || themes.size === 0) {
   );
 }
 let contrastCount = 0;
+let undefinedCount = 0;
 let violationCount = 0;
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
@@ -262,6 +333,13 @@ for (const file of files) {
         `${pair.ratio}:1 on the ${pair.theme} theme — below AA (${AA_NORMAL}:1)`,
     );
     contrastCount += 1;
+  }
+  for (const undef of findUndefinedTokens(text, definedTokens, ownTokens)) {
+    console.log(
+      `${relative(process.cwd(), file)}:${undef.line}: ${undef.name} is not a token this kit ` +
+        'defines — the var() fallback is doing all the work',
+    );
+    undefinedCount += 1;
   }
   for (const violation of findViolations(text)) {
     console.log(
@@ -279,7 +357,15 @@ if (contrastCount > 0) {
   );
 }
 
-if (violationCount > 0 || contrastCount > 0) {
+if (undefinedCount > 0) {
+  console.error(
+    `\nswimmer-ui-check: ${undefinedCount} reference(s) to a token this kit does not define. ` +
+      'These never fail at runtime, because var() falls back — which is exactly why they survive. ' +
+      'Either the name is wrong, or the token is missing from the kit and should be proposed there.',
+  );
+}
+
+if (violationCount > 0 || contrastCount > 0 || undefinedCount > 0) {
   console.error(
     `\nswimmer-ui-check: ${violationCount} raw color literal(s) in ${files.length} file(s) under "${target}". ` +
       'Raw colors are expected inside :root / [data-*theme*=...] / [data-*tone*=...] token blocks ' +

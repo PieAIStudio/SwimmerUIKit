@@ -96,6 +96,17 @@
   --game-ui-ink-heading: #5a3924;
   --game-ui-text-on-dark: #fff8ec;
 
+  /*
+    The tooltip is the one surface that inverts. On a light theme that reads as
+    a dark chip floating over the page, which is right — but --game-ui-text is
+    the *ink* token, and on the night theme it flips to cream. Using it as a
+    background there put cream text on a cream chip at 1.15:1: every tooltip in
+    the kit was invisible on night, and the light theme looked fine, which is
+    how it survived.
+  */
+  --game-ui-tooltip-surface: #3b2d23;
+  --game-ui-tooltip-ink: #fff8ec;
+
   /* Dark glass & scrims (HUD chips floating over the 3D scene) */
   --game-ui-glass-night: rgba(31, 24, 18, 0.68);
   --game-ui-glass-night-soft: rgba(31, 24, 18, 0.64);
@@ -219,6 +230,10 @@
  * semantic tokens (plus derivation bases for full fidelity).
  */
 [data-game-ui-theme='night'] {
+  /* Dark chip, cream ink — the same intent as light, not the same tokens. */
+  --game-ui-tooltip-surface: #241a12;
+  --game-ui-tooltip-ink: #f6e7d3;
+
   color-scheme: dark;
 
   --game-ui-bg: #221812;

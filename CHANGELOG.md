@@ -3,6 +3,38 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.7.0
+
+### Fixed
+
+- **Every tooltip was invisible on the night theme.** `.game-ui-tooltip
+  [role='tooltip']` painted `background: var(--game-ui-text)` with
+  `color: var(--game-ui-text-on-dark)`. On light that is a dark chip over a
+  pale page and reads correctly. On night `--game-ui-text` flips to cream, so
+  the chip became cream-on-cream at **1.15:1**. The light theme looking right
+  is exactly why this survived. There is now a dedicated
+  `--game-ui-tooltip-surface` / `--game-ui-tooltip-ink` pair, defined per
+  theme, keeping the inverted look on light and readable on night.
+
+### Added
+
+- **`swimmer-ui-check` reports references to tokens this kit does not define.**
+  `var()` takes a fallback, so `var(--game-ui-border, #253048)` renders forever
+  against a token that does not exist — the rule looks token-driven while the
+  fallback does all the work, and no brand change can reach it. A consumer had
+  six borders in that state, in a cold blue-grey, in a warm brown app. Another
+  was the reason `--game-ui-font-mono` got added in 1.6.0.
+
+  Two things are exempt and neither is a typo: tokens the scanned files define
+  themselves (downstream theming), and tokens written from code
+  (`style={{ '--game-ui-card-offset': n }}`), found by scanning sibling
+  sources. Anything else is indistinguishable from a misspelling, and the way
+  to declare a deliberate knob is to give it a default in `:root`.
+
+- **`pnpm check:styles`, and `pnpm verify` now runs it.** The kit shipped a
+  contrast checker in 1.5.0 and never pointed it at itself, which is how the
+  tooltip above survived a release that was specifically about contrast.
+
 ## 1.6.0
 
 ### Added

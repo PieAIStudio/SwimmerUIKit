@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -56,7 +56,7 @@
     "lint": "oxlint src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts -c ./.oxlintrc.json",
     "format": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
-    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm check:styles && pnpm build",
     "build": "vite build && node scripts/build-css.mjs && cp src/tailwind-bridge.css dist/tailwind.css && find dist -name '.DS_Store' -delete",
     "build:site": "vite build --config vite.config.site.ts",
     "preview:site": "vite preview --config vite.config.site.ts --host 127.0.0.1 --port 4175",
@@ -66,7 +66,8 @@
     "build:deploy": "pnpm run build:site && pnpm run build-storybook && rm -rf site-dist/storybook && cp -r storybook-static site-dist/storybook",
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
-    "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor"
+    "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
+    "check:styles": "node bin/swimmer-ui-check.mjs src"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
