@@ -81,3 +81,57 @@ describe('bin/swimmer-ui-check.mjs', () => {
     expect(status).toBe(0);
   });
 });
+
+describe('unreadable token pairs', () => {
+  let dir: string;
+
+  afterEach(() => {
+    if (dir) rmSync(dir, { recursive: true, force: true });
+  });
+
+  /**
+   * The pairing that prompted this check. `--game-ui-accent-ink` reads like
+   * "the ink for accent things" and means accent-COLOURED ink for a surface;
+   * on the accent itself it measured 1.48:1 on night, on a shipping product's
+   * primary button, with every test green.
+   */
+  it('fails the accent-ink-on-accent trap, and names the theme', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
+    writeFileSync(
+      join(dir, 'a.css'),
+      '.primary { background: var(--game-ui-accent); color: var(--game-ui-accent-ink); }',
+    );
+
+    const { status, stdout } = run(dir);
+
+    expect(status).toBe(1);
+    expect(stdout).toContain('--game-ui-accent-ink on --game-ui-accent');
+    expect(stdout).toMatch(/night/);
+  });
+
+  it('passes the pairing the kit uses itself', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
+    writeFileSync(
+      join(dir, 'a.css'),
+      '.primary { background: var(--game-ui-accent); color: var(--game-ui-accent-contrast); }',
+    );
+
+    expect(run(dir).status).toBe(0);
+  });
+
+  /**
+   * A tint of the accent behind accent-coloured text is readable. Reading the
+   * first token out of the expression would score it 1.00:1 — the first draft
+   * did, and flagged four rules that were fine.
+   */
+  it('does not judge a background that is not a bare token', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
+    writeFileSync(
+      join(dir, 'a.css'),
+      '.chip { background: color-mix(in srgb, var(--game-ui-accent) 18%, transparent);' +
+        ' color: var(--game-ui-accent); }',
+    );
+
+    expect(run(dir).status).toBe(0);
+  });
+});

@@ -71,6 +71,16 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 - **Official themes**: light (default) and `night`
   (`<html data-game-ui-theme="night">`). Downstream theming = overriding
   semantic tokens; see the design system guide.
+- **`swimmer-ui-check`**: lints your CSS for raw colour literals in component
+  rules *and* for token pairs that cannot be read. Two tokens are not
+  automatically safe together — `--game-ui-accent-ink` is accent-COLOURED ink
+  for a surface, `--game-ui-accent-contrast` is the ink meant to sit **on**
+  `--game-ui-accent`. Pairing the first with the accent measures 1.48:1.
+
+  ```bash
+  npx swimmer-ui-check src
+  ```
+
 - **Clay assets**: two lines of setup, and **skipping them is not a no-op**.
   Out of the box the kit draws *placeholders* — one rounded square per icon
   with a letter in it — not the icon set. They exist so a fresh install

@@ -3,6 +3,44 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.5.0 — 2026-08-22
+
+`swimmer-ui-check` now also fails on token pairs that cannot be read.
+
+The raw-colour rule kept consumers on tokens. It never stopped them choosing
+two tokens that do not contrast, and one pairing is genuinely inviting:
+`--game-ui-accent-ink` reads like "the ink for accent things" and means the
+opposite — accent-COLOURED ink, for a surface. Painted on `--game-ui-accent`
+it measures 1.48:1 on night and 1.91:1 on light. It reached a shipping
+product's primary button, the one control every user has to find, and every
+test that product had was green.
+
+PRODUCT.md promises contrast-safe token combinations. That promise only ever
+covered the pairs the kit uses itself; nothing checked the pairs a consumer
+built. Now something does.
+
+### Added
+
+- Contrast checking in `swimmer-ui-check`. Rules that set both a background
+  and a colour from bare tokens are resolved against this package's own
+  `dist/styles.css`, per theme, and reported below WCAG AA (4.5:1) with the
+  ratio and the theme named.
+
+### Notes on what it deliberately does not do
+
+- Only bare `var(--game-ui-x)` values are judged. `color-mix`, gradients and
+  anything composited are skipped: a tint of the accent behind accent-coloured
+  text is readable, and reading the first token out of the expression scores it
+  1.00:1. The first draft did that and flagged four rules that were fine — a
+  linter that cries wolf gets the next real finding skimmed too.
+- Tokens carrying alpha are skipped for the same reason. What they composite
+  against is not knowable from a stylesheet.
+
+### Compatibility
+
+Additive. Existing raw-colour behaviour is unchanged; a project that was clean
+stays clean unless it genuinely has an unreadable pair.
+
 ## 1.4.0 — 2026-08-22
 
 The kit shipped an icon set that no consumer could see. Nothing was broken and
