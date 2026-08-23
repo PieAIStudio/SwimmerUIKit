@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-07-13
+last_reviewed: 2026-08-24
 domain: product
 tags:
   - design
@@ -215,6 +215,20 @@ Tailwind 构建；非 Tailwind 管线引它会得到 unknown at-rule 警告—�
   重复 landmark，属于演示页面自身的产物，用该 story 的
   `parameters.a11y.config.rules` 关掉 `landmark-unique` 单条规则并写明
   理由——不要整story或整项目地关掉 a11y 测试。
+
+## 液态金属按钮用在哪
+
+`<LiquidMetalButton>` 是决策面专用 CTA，不是换皮后的 `GameButton`。
+
+**准用：** 付款、注册、徽章解锁、落地页主按钮——人只看几秒、又要掏钱或拍板的地方。
+
+**不准用：** 正文阅读、复习队列、列表、表单、3D 地图，以及任何每天反复看二十分钟的干活面。会流动的虹边在那些面上是每一次都要付的税。美观可用性效应在第一印象最强、随使用次数衰减，所以把预算花在只出现几秒的决定上。
+
+一页里同时出现两个以上液态金属按钮，就说明用错了地方。
+
+实现是一个组件、两套渲染器、同一套 token：默认 CSS（零 WebGL 上下文），在浏览器支持 webgl2、未请求减少动效、按钮进入视口、并且模块级预算（默认 2 个，宿主可用 `setLiquidMetalContextBudget` 调整）还有余额时才升级到 WebGL。拿不到额度就安静留在 CSS 版。着色器来自 ThreeUI（MIT），没有走 iframe——iframe 过不去我们的 CSS 变量、字体和焦点管理，还会把背景写死成 `#0e0f12`。
+
+效果本身的 token：`--game-ui-liquid-metal-face` / `--ink`（日夜两套都要给值，不能继承会在 night 上反相的 ink-deep）、`--game-ui-liquid-metal-accent`（默认等于 `--game-ui-accent`）、`--game-ui-liquid-metal-dispersion`、`--game-ui-liquid-metal-sweep-speed`、`--game-ui-liquid-metal-rest`、`--game-ui-liquid-metal-bloom`。
 
 ## 面板系统选型
 

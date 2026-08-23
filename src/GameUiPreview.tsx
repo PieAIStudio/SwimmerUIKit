@@ -20,6 +20,7 @@ import {
 import { FirstSessionHud, FirstSessionOnboarding } from './FirstSessionGameShell';
 import { GameAvatar, GameEmptyState, GameProgress } from './GameDisplay';
 import { GameButton } from './GameButton';
+import { LiquidMetalButton } from './LiquidMetalButton';
 import { GameCheckbox, GameField, GameInput, GameTextArea } from './GameForms';
 import { GameDialog } from './GameDialog';
 import { GameHistoryPanel } from './GameHistoryPanel';
@@ -64,6 +65,7 @@ import {
   CLAY_COLOR_TOKENS,
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
+  CLAY_LIQUID_METAL_TOKENS,
   CLAY_MOTION_TOKENS,
   CLAY_OVERLAY_GLASS_TOKENS,
   CLAY_RADIUS_TOKENS,
@@ -162,6 +164,7 @@ interface PreviewCopy {
     components: string;
     forms: string;
     overlayGlass: string;
+    liquidMetal: string;
     firstSession: string;
     orientation: string;
     responsive: string;
@@ -198,6 +201,12 @@ interface PreviewCopy {
     doubt: string;
     sliderLabel: string;
     toggleLabel: string;
+  };
+  liquidMetal: {
+    body: string;
+    cssTitle: string;
+    webglTitle: string;
+    cta: string;
   };
   hud: {
     label: string;
@@ -289,6 +298,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       components: 'Component surface',
       forms: 'Forms, inputs and status',
       overlayGlass: 'Overlay glass HUD',
+      liquidMetal: 'Liquid metal CTA',
       firstSession: 'First-session shell',
       orientation: 'Orientation gate preview',
       responsive: 'Responsive proof targets',
@@ -302,6 +312,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       elevation: 'elevation',
       motion: 'motion',
       overlayGlass: 'overlay glass',
+      liquidMetal: 'liquid metal',
       layers: 'layers',
       targets: 'targets',
       assetSizing: 'asset sizing',
@@ -391,6 +402,12 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       doubt: 'Doubt',
       sliderLabel: 'Effects volume',
       toggleLabel: 'Sound on',
+    },
+    liquidMetal: {
+      body: 'For the few screens that take money or a yes: checkout, sign-up, badge unlock, landing CTA. Not for reading, queues, or the map — a moving rim is a tax you pay every glance, and the aesthetic-usability effect is strongest in the first seconds. More than two of these on a page means the page is the wrong place.',
+      cssTitle: 'CSS renderer · zero WebGL context',
+      webglTitle: 'WebGL renderer · when the budget allows',
+      cta: 'Become a member',
     },
     hud: {
       label: 'Persistent HUD cluster',
@@ -488,6 +505,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       components: '组件总览',
       forms: '表单、输入与状态',
       overlayGlass: '叠加玻璃 HUD',
+      liquidMetal: '液态金属 CTA',
       firstSession: '首次会话外壳',
       orientation: '横屏门预览',
       responsive: '响应式验证目标',
@@ -501,6 +519,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       elevation: '阴影',
       motion: '动效',
       overlayGlass: '叠加玻璃',
+      liquidMetal: '液态金属',
       layers: '层级',
       targets: '触控目标',
       assetSizing: '资源尺寸',
@@ -586,6 +605,12 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       doubt: '怀疑',
       sliderLabel: '音效音量',
       toggleLabel: '声音开',
+    },
+    liquidMetal: {
+      body: '只用在掏钱或拍板的那几屏：付款、注册、徽章解锁、落地页主按钮。阅读、复习队列、3D 地图一个都不要加——会流动的边框在干活面上是每一次都要付的税。美观可用性效应在第一印象最强、随使用次数衰减。一页出现两个以上，就是用错了地方。',
+      cssTitle: 'CSS 渲染器 · 零 WebGL 上下文',
+      webglTitle: 'WebGL 渲染器 · 预算允许时',
+      cta: '成为会员',
     },
     hud: {
       label: '常驻 HUD 集群',
@@ -682,6 +707,7 @@ const tokenGroups = [
   { id: 'elevation', tokens: CLAY_ELEVATION_TOKENS },
   { id: 'motion', tokens: CLAY_MOTION_TOKENS },
   { id: 'overlayGlass', tokens: CLAY_OVERLAY_GLASS_TOKENS },
+  { id: 'liquidMetal', tokens: CLAY_LIQUID_METAL_TOKENS },
   { id: 'layers', tokens: CLAY_LAYER_TOKENS },
   { id: 'targets', tokens: CLAY_TARGET_TOKENS },
   { id: 'assetSizing', tokens: CLAY_ASSET_SIZE_TOKENS },
@@ -950,6 +976,24 @@ function OverlayGlassCompare(): ReactNode {
         </header>
         {cluster('glass')}
       </article>
+    </div>
+  );
+}
+
+function LiquidMetalCompare(): ReactNode {
+  const { liquidMetal } = useCopy();
+  return (
+    <div className="game-ui-liquid-metal-compare">
+      <GamePanel title={liquidMetal.cssTitle} tone="strong">
+        <div className="game-ui-liquid-metal-stage">
+          <LiquidMetalButton renderer="css">{liquidMetal.cta}</LiquidMetalButton>
+        </div>
+      </GamePanel>
+      <GamePanel title={liquidMetal.webglTitle} tone="strong">
+        <div className="game-ui-liquid-metal-stage">
+          <LiquidMetalButton renderer="webgl">{liquidMetal.cta}</LiquidMetalButton>
+        </div>
+      </GamePanel>
     </div>
   );
 }
@@ -1659,6 +1703,15 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
             tavern, cinematic stage). Nest inside light or night theme.
           </p>
           <OverlayGlassCompare />
+        </section>
+
+        <section
+          aria-labelledby="game-ui-preview-liquid-metal-title"
+          className="game-ui-preview-section"
+        >
+          <h2 id="game-ui-preview-liquid-metal-title">{copy.sections.liquidMetal}</h2>
+          <p className="game-ui-small-copy">{copy.liquidMetal.body}</p>
+          <LiquidMetalCompare />
         </section>
 
         <section

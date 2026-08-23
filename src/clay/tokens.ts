@@ -20,6 +20,24 @@ export const CLAY_COLOR_TOKENS = {
   /** Official HUD-on-scene glass fill (matches SupaLuv stage chrome). */
   overlayGlass: 'rgba(12, 14, 20, 0.72)',
   overlayGlassText: '#fff6ee',
+  /** Liquid-metal plate fill (light). Dedicated so it cannot inherit ink-deep, which inverts on night. */
+  liquidMetalFace: '#3a2518',
+  liquidMetalInk: '#fff8ec',
+} as const;
+
+/**
+ * Effect knobs for `<LiquidMetalButton>`. Face/ink are real colours (both
+ * themes must set them); accent aliases `--game-ui-accent` so a host can
+ * retint just this button without rebranding every primary.
+ */
+export const CLAY_LIQUID_METAL_TOKENS = {
+  face: 'var(--game-ui-liquid-metal-face)',
+  ink: 'var(--game-ui-liquid-metal-ink)',
+  accent: 'var(--game-ui-liquid-metal-accent)',
+  dispersion: 'var(--game-ui-liquid-metal-dispersion)',
+  sweepSpeed: 'var(--game-ui-liquid-metal-sweep-speed)',
+  rest: 'var(--game-ui-liquid-metal-rest)',
+  bloom: 'var(--game-ui-liquid-metal-bloom)',
 } as const;
 
 /**
@@ -172,6 +190,7 @@ export const CLAY_UI_TOKENS = {
   targets: CLAY_TARGET_TOKENS,
   assetSizing: CLAY_ASSET_SIZE_TOKENS,
   overlayGlass: CLAY_OVERLAY_GLASS_TOKENS,
+  liquidMetal: CLAY_LIQUID_METAL_TOKENS,
 } as const;
 
 export type ClayTokenCategory = keyof typeof CLAY_UI_TOKENS;

@@ -16,3 +16,5 @@ package-lock.json
 
 # scratch/evidence artifacts
 tmp/
+REPORT.md
+SHOTS/

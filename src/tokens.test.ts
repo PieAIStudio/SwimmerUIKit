@@ -109,6 +109,8 @@ describe('token single source of truth', () => {
       ['berry', '--game-ui-berry'],
       ['wood', '--game-ui-wood'],
       ['woodDeep', '--game-ui-ink-deep'],
+      ['liquidMetalFace', '--game-ui-liquid-metal-face'],
+      ['liquidMetalInk', '--game-ui-liquid-metal-ink'],
     ];
     for (const [tsKey, cssVar] of pairs) {
       expect(rootVars.get(cssVar), `${String(tsKey)} vs ${cssVar}`).toBe(CLAY_COLOR_TOKENS[tsKey]);
@@ -132,6 +134,7 @@ describe('token single source of truth', () => {
       '--game-ui-asset-card-dense-min-width',
       '--game-ui-asset-rail-card-size',
       '--game-ui-asset-rail-preview-size',
+      '--game-ui-liquid-metal-turn',
     ]);
     const referenced = new Set<string>();
     for (const match of stylesCss.matchAll(/var\((--game-ui-[\w-]+)[,)]/g)) {
@@ -208,6 +211,11 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
       'selected build/terrain control meta text on panel',
       '--game-ui-ink-heading',
       '--game-ui-panel-strong',
+    ],
+    [
+      'liquid-metal label on liquid-metal face',
+      '--game-ui-liquid-metal-ink',
+      '--game-ui-liquid-metal-face',
     ],
   ];
 
@@ -345,6 +353,8 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       'game-ui-overlay-glass-compare',
       'game-ui-overlay-glass-column',
       'game-ui-overlay-glass-proof',
+      'game-ui-liquid-metal-compare',
+      'game-ui-liquid-metal-stage',
     ];
     for (const cls of previewOnlyClasses) {
       expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(

@@ -3,6 +3,7 @@ export {
   CLAY_COLOR_TOKENS,
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
+  CLAY_LIQUID_METAL_TOKENS,
   CLAY_MOTION_TOKENS,
   CLAY_OVERLAY_GLASS_TOKENS,
   CLAY_RADIUS_TOKENS,
@@ -39,6 +40,7 @@ export const GAME_UI_TOKENS = {
 
 // Alias for consumers that prefer the GAME_UI_* naming family.
 export { CLAY_OVERLAY_GLASS_TOKENS as GAME_UI_OVERLAY_GLASS_TOKENS } from './clay/tokens';
+export { CLAY_LIQUID_METAL_TOKENS as GAME_UI_LIQUID_METAL_TOKENS } from './clay/tokens';
 
 /** Opt-in attribute values for the official overlay-glass HUD scope. */
 export const GAME_UI_OVERLAY = {
@@ -86,4 +88,6 @@ export const GAME_UI_THEME_CONTRACT = [
   '--game-ui-wood',
   '--game-ui-ink-title',
   '--game-ui-ink-heading',
+  '--game-ui-liquid-metal-face',
+  '--game-ui-liquid-metal-ink',
 ] as const;
