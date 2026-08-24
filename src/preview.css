@@ -456,6 +456,17 @@
     margin-top: auto;
   }
 
+  .game-ui-liquid-metal-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .game-ui-liquid-metal-stage {
+    display: grid;
+    place-items: center;
+    padding: 28px 16px 36px;
+  }
+
   /* Polish · P5/P6 entrance: mirrors styles.css's game-ui-rise keyframes */
   .game-ui-preview-hero > * {
     animation: game-ui-rise var(--game-ui-motion-slow) var(--game-ui-ease-soft) both;

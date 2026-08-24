@@ -48,7 +48,8 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 
 ## What's inside
 
-- **~60 components** across: core controls (`GameButton`, `GameTabs`,
+- **~60 components** across: core controls (`GameButton`,
+  `LiquidMetalButton`, `GameTabs`,
   `GameSlider`, `GameToggle`, `GameForms` inputs…), panels and windows
   (`GamePanel`, `GameCollapsiblePanel`, `GameWindowPanel`, `GameModal` on
   native `<dialog>`), HUD/shell surfaces (`GameShell`, `GameHud`,

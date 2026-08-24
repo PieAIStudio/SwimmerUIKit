@@ -3,6 +3,16 @@
 // CSS here would leak `import './styles.css'` into dist/index.d.ts and
 // break type resolution (arethetypeswrong: internal resolution error).
 export { GameButton, type GameButtonProps, type GameButtonVariant } from './GameButton';
+export {
+  LiquidMetalButton,
+  type LiquidMetalButtonProps,
+  type LiquidMetalRendererMode,
+} from './LiquidMetalButton';
+export {
+  DEFAULT_LIQUID_METAL_CONTEXT_BUDGET,
+  getLiquidMetalContextBudget,
+  setLiquidMetalContextBudget,
+} from './liquidMetalBudget';
 export { GameCallout, type GameCalloutProps, type GameCalloutTone } from './GameCallout';
 export { GameDialog, type GameDialogProps } from './GameDialog';
 export {
@@ -206,6 +216,7 @@ export {
   CLAY_COLOR_TOKENS,
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
+  CLAY_LIQUID_METAL_TOKENS,
   CLAY_MOTION_TOKENS,
   CLAY_OVERLAY_GLASS_TOKENS,
   CLAY_RADIUS_TOKENS,
@@ -214,6 +225,7 @@ export {
   CLAY_TARGET_TOKENS,
   CLAY_TYPE_TOKENS,
   CLAY_UI_TOKENS,
+  GAME_UI_LIQUID_METAL_TOKENS,
   GAME_UI_OVERLAY,
   GAME_UI_OVERLAY_GLASS_TOKENS,
   GAME_UI_TARGETS,

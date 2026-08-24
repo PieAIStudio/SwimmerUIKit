@@ -3,6 +3,28 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.8.0
+
+### Added
+
+- **`<LiquidMetalButton>`**, a decision-surface CTA with two renderers and
+  one set of tokens. Default is CSS (zero WebGL contexts). It upgrades to
+  the ThreeUI dispersion shader (MIT, inlined — not the iframe wrapper)
+  only when webgl2 is available, `prefers-reduced-motion` is not `reduce`,
+  the button is on screen, and a process-wide budget (default **2**,
+  `setLiquidMetalContextBudget`) still has a slot. Exhausted budget, a
+  missing webgl2, or reduced motion stays on CSS without throwing. Hidden
+  tabs pause RAF rather than destroying the context.
+
+  Use it on checkout, sign-up, unlock, landing CTA. Do not use it on
+  reading, queues, forms, or the map. More than two on a page means the
+  page is the wrong place.
+
+  Colours are `--game-ui-liquid-metal-face` / `--ink` (defined on both
+  light and night so they cannot inherit an inverting ink) plus the
+  existing accent; the effect knobs are `--game-ui-liquid-metal-dispersion`,
+  `--sweep-speed`, and `--rest`.
+
 ## 1.7.0
 
 ### Fixed

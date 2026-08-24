@@ -27,8 +27,9 @@
     token-driven. The CJK mono is in the stack because a code block with a
     Chinese comment in it is the normal case here, not the exotic one.
   */
-  --game-ui-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
-    'Noto Sans Mono CJK SC', 'Noto Sans Mono', monospace;
+  --game-ui-font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, 'Noto Sans Mono CJK SC', 'Noto Sans Mono',
+    monospace;
 
   /*
     Long-form reading, which the scale above deliberately does not cover.
@@ -221,6 +222,22 @@
   --game-ui-preview-canvas-1: #f6e8d2;
   --game-ui-preview-canvas-2: #e4cda8;
   --game-ui-preview-canvas-3: #b98d5d;
+
+  /*
+    Liquid-metal CTA. Face and ink are their own colours because they must
+    stay dark-plate / cream-ink on both themes — inheriting --game-ui-ink-deep
+    would invert on night the same way the tooltip did. Accent aliases the
+    brand accent so a host can retint just this button. The three numbers
+    are the effect itself (dispersion, sweep speed, rest rim brightness)
+    and match the ThreeUI shader defaults.
+  */
+  --game-ui-liquid-metal-face: #3a2518;
+  --game-ui-liquid-metal-ink: #fff8ec;
+  --game-ui-liquid-metal-accent: var(--game-ui-accent);
+  --game-ui-liquid-metal-dispersion: 0.3;
+  --game-ui-liquid-metal-sweep-speed: 0.07;
+  --game-ui-liquid-metal-rest: 0.55;
+  --game-ui-liquid-metal-bloom: 2.6;
 }
 
 /*
@@ -283,6 +300,11 @@
   --game-ui-preview-canvas-1: #2a1d13;
   --game-ui-preview-canvas-2: #201510;
   --game-ui-preview-canvas-3: #150d08;
+
+  --game-ui-liquid-metal-face: #1a120c;
+  --game-ui-liquid-metal-ink: #f6e7d3;
+  --game-ui-liquid-metal-rest: 0.42;
+  --game-ui-liquid-metal-bloom: 2.2;
 }
 
 /*
