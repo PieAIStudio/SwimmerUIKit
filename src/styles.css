@@ -3386,6 +3386,19 @@
     justify-content: center;
     z-index: 3;
     isolation: isolate;
+    /*
+      Fill the host rather than sitting inside it at fit-content.
+
+      The host is `inline-flex`, so in a normal inline context it is already
+      the button's width and this changes nothing. But dropped into a stretched
+      column — a pricing card, a form footer — the host takes the full width
+      while the button kept its own. The plate and the outer glow are drawn on
+      the host, and the rim, the sweep and the label are drawn on the button,
+      so the two halves of one control came apart: a full-width dark pill with
+      a short metal button parked at its left edge. Found in University's 会员
+      page, which is exactly the surface this component exists for.
+    */
+    flex: 1 1 auto;
     min-width: fit-content;
     padding: 0 20px;
     border: 1px solid transparent;

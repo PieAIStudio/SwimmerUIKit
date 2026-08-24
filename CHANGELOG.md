@@ -3,6 +3,19 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.8.1
+
+### Fixed
+
+- **`<LiquidMetalButton>` came apart in a stretched container.** The host is
+  `inline-flex` and the button inside it was `fit-content`, so in a flex or
+  grid column that stretches — a pricing card, a form footer — the host took
+  the full width while the button kept its own. The opaque plate and the outer
+  glow are painted on the host and the rim, the sweep and the label on the
+  button, so the control rendered as a wide dark pill with a short metal
+  button parked at its left edge. The button now fills the host; in an inline
+  context, where the host was already the button's width, nothing changes.
+
 ## 1.8.0
 
 ### Added
