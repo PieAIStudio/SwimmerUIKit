@@ -661,4 +661,91 @@
       transparent 7rem
     );
   }
+
+  .game-ui-liquid-gooey-card {
+    display: grid;
+    gap: 16px;
+    width: min(100%, 720px);
+    margin: 0 auto;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-modal);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 82%, transparent);
+    padding: clamp(16px, 3vw, 28px);
+    box-shadow: var(--game-ui-shadow-panel);
+  }
+  .game-ui-liquid-demo-header {
+    display: grid;
+    gap: 5px;
+  }
+  .game-ui-liquid-demo-header h2 {
+    margin: 0;
+    color: var(--game-ui-ink-heading);
+    font-family: var(--game-ui-font-display);
+    font-size: clamp(1.5rem, 4vw, 2.15rem);
+    font-weight: var(--game-ui-weight-title);
+    line-height: 0.95;
+  }
+  .game-ui-liquid-demo-header p {
+    max-width: 58ch;
+    margin: 0;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-md);
+    line-height: var(--game-ui-line-body);
+  }
+  .game-ui-liquid-demo-kicker,
+  .game-ui-liquid-demo-status {
+    color: var(--game-ui-secondary);
+    font-size: var(--game-ui-font-xs);
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .game-ui-liquid-demo-stage {
+    display: grid;
+    place-items: center;
+    min-height: 220px;
+    overflow: visible;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-panel);
+    background: color-mix(in srgb, var(--game-ui-secondary-pale) 28%, var(--game-ui-bg));
+    padding: 8px;
+  }
+  .game-ui-liquid-demo-group {
+    max-width: 100%;
+  }
+  .game-ui-liquid-demo-orb {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-bead);
+    background: transparent;
+    color: var(--game-ui-text);
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-lg);
+    font-weight: var(--game-ui-weight-title);
+    cursor: pointer;
+  }
+  .game-ui-liquid-demo-orb:hover {
+    color: var(--game-ui-ink-heading);
+  }
+  .game-ui-liquid-demo-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  @media (max-width: 480px) {
+    .game-ui-liquid-gooey-card {
+      padding: 14px;
+    }
+    .game-ui-liquid-demo-controls {
+      align-items: stretch;
+      flex-direction: column;
+    }
+    .game-ui-liquid-demo-controls .game-ui-button {
+      width: 100%;
+    }
+  }
 }
