@@ -13,6 +13,18 @@ export {
   getLiquidMetalContextBudget,
   setLiquidMetalContextBudget,
 } from './liquidMetalBudget';
+export {
+  LiquidGroup,
+  LiquidItem,
+  type LiquidGroupProps,
+  type LiquidItemProps,
+} from './LiquidGroup';
+export {
+  DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET,
+  DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET,
+  getLiquidGooeyBudget,
+  setLiquidGooeyBudget,
+} from './liquidGooeyBudget';
 export { GameCallout, type GameCalloutProps, type GameCalloutTone } from './GameCallout';
 export { GameDialog, type GameDialogProps } from './GameDialog';
 export {

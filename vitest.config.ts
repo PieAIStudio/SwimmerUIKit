@@ -20,6 +20,7 @@ export default defineConfig({
         test: {
           environment: 'node',
           include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/**/*.browser.test.{ts,tsx}'],
         },
       },
       {
@@ -36,6 +37,22 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
+          },
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          include: ['src/**/*.browser.test.{ts,tsx}'],
+          browser: {
+            enabled: true,
             provider: playwright({}),
             instances: [
               {
