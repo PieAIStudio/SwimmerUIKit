@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-25T16:30:19.707Z
+generated_at: 2026-08-27T19:08:54.080Z
 generator_version: doc-gov@0.9.5
-docs_count: 22
+docs_count: 23
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -122,6 +122,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-07-13
+    pinned: false
+  - id: REF-LEARNING-TOOLING-DECISIONS-VITEST-NODE-PROJECT-GLOBS-MUST-EXCLUDE-BROWSER-TESTS
+    path: docs/reference/learnings/tooling-decisions/vitest-node-project-globs-must-exclude-browser-tests.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-27
     pinned: false
   - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
     path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md
