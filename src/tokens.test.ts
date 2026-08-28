@@ -355,6 +355,14 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       'game-ui-overlay-glass-proof',
       'game-ui-liquid-metal-compare',
       'game-ui-liquid-metal-stage',
+      'game-ui-liquid-gooey-card',
+      'game-ui-liquid-demo-header',
+      'game-ui-liquid-demo-kicker',
+      'game-ui-liquid-demo-status',
+      'game-ui-liquid-demo-stage',
+      'game-ui-liquid-demo-group',
+      'game-ui-liquid-demo-orb',
+      'game-ui-liquid-demo-controls',
     ];
     for (const cls of previewOnlyClasses) {
       expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(

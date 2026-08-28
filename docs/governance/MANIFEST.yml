@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-28T13:42:07.541Z
-generator_version: doc-gov@0.9.6
+generated_at: 2026-08-27T19:08:54.080Z
+generator_version: doc-gov@0.9.5
 docs_count: 23
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
@@ -58,17 +58,10 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-28
+    last_reviewed: 2026-08-22
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md
-    type: policy
-    status: stable
-    canonical: true
-    last_reviewed: 2026-08-17
-    pinned: false
-  - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
-    path: docs/policy/shared-rules/pie-product-technology-stack.md
     type: policy
     status: stable
     canonical: true
@@ -129,6 +122,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-07-13
+    pinned: false
+  - id: REF-LEARNING-TOOLING-DECISIONS-VITEST-NODE-PROJECT-GLOBS-MUST-EXCLUDE-BROWSER-TESTS
+    path: docs/reference/learnings/tooling-decisions/vitest-node-project-globs-must-exclude-browser-tests.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-27
     pinned: false
   - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
     path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md

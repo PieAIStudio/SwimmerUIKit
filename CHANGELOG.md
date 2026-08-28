@@ -3,6 +3,24 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.9.0
+
+### Added
+
+- **`<LiquidGroup>`, a budgeted liquid-merge primitive.** Two or more nearby
+  children share one gooey silhouette while their own content stays crisp: an
+  SVG blur-plus-contrast filter builds the merged shape, and the content is
+  drawn unfiltered on top. It is a one-shot primitive for celebrations, merge
+  moments and transitions — not a resident background, not behind body text,
+  and not on navigation. `blur`, `contrast` and `filterPadding` are the shape
+  knobs; `motion="reduced"` snaps instead of springing.
+- **`stroke` on `<LiquidGroup>`.** The border belongs to the merged silhouette,
+  not to the pieces. Passing a CSS border shorthand draws one continuous
+  outline that deforms with the merge, including across the liquid bridge. A
+  child that draws its own `border` will show a static circle that refuses to
+  merge — that is the bug this prop exists to remove, and the story documents
+  it as a rule rather than a preference.
+
 ## 1.8.1
 
 ### Fixed

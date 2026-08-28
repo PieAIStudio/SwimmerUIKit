@@ -3499,4 +3499,43 @@
       animation: none;
     }
   }
+
+  /* LiquidGroup: filter only the decorative silhouette. The content wrapper
+   * is a separate, higher layer so real controls keep their pixels, focus,
+   * hit testing, and accessibility semantics. */
+  .game-ui-liquid-group {
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+  }
+  .game-ui-liquid-silhouette {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .game-ui-liquid-content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+  .game-ui-liquid-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    transform-origin: center;
+  }
+  .game-ui-liquid-group :focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-liquid-item {
+      transition: none;
+    }
+  }
 }
