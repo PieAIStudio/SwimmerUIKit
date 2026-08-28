@@ -298,14 +298,16 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
       const child = host.firstElementChild;
       if (!child) return;
       const style = window.getComputedStyle(child);
-      const hasBorder = style.borderStyle !== 'none' && style.borderWidth !== '0px' && style.borderWidth !== '';
-      const hasOutline = style.outlineStyle !== 'none' && style.outlineWidth !== '0px' && style.outlineWidth !== '';
+      const hasBorder =
+        style.borderStyle !== 'none' && style.borderWidth !== '0px' && style.borderWidth !== '';
+      const hasOutline =
+        style.outlineStyle !== 'none' && style.outlineWidth !== '0px' && style.outlineWidth !== '';
       const hasBoxShadow = style.boxShadow && style.boxShadow !== 'none';
       if (hasBorder || hasOutline || hasBoxShadow) {
         console.warn(
           'LiquidGroup.Item children should not have their own border, outline, or box-shadow. ' +
-          'They exist on the content layer and will not merge with the liquid silhouette. ' +
-          'Use the `stroke` and `shadow` props on <LiquidGroup> instead.'
+            'They exist on the content layer and will not merge with the liquid silhouette. ' +
+            'Use the `stroke` and `shadow` props on <LiquidGroup> instead.',
         );
       }
     }
