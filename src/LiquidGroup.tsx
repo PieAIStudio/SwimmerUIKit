@@ -25,6 +25,14 @@ import type { CornerRadii } from './liquidGooeyGeometry';
 import { parseShadow, parseStroke } from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
 
+/**
+ * A shared liquid silhouette behind crisp item content.
+ *
+ * Put the visual treatment on the group: `fill`, `stroke`, and `shadow` are
+ * rebuilt on the merged silhouette. Do NOT add border, outline, or box-shadow
+ * to children directly; those styles live on the content layer and cannot
+ * merge with the liquid shape.
+ */
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   children: ReactNode;
   /** Goo blur sigma in px. Larger values bridge larger gaps. */
@@ -44,6 +52,11 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 }
 
 export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  /**
+   * Crisp content rendered above the merged silhouette. Do NOT add border,
+   * outline, or box-shadow to children directly; put the shared treatment on
+   * the parent <LiquidGroup> instead.
+   */
   children: ReactNode;
   /** Mirrored translation applied to the content wrapper and SVG silhouette. */
   x?: number;
@@ -328,6 +341,11 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   );
 });
 
+/**
+ * Merges nearby item silhouettes into one shape while leaving their content
+ * accessible and unfiltered. Do NOT add border, outline, or box-shadow to
+ * children directly; pass the shared treatment to <LiquidGroup>.
+ */
 export const LiquidGroup = Object.assign(LiquidGroupRoot, { Item: LiquidItem });
 
 export type { CornerRadii, Transition };

@@ -717,13 +717,16 @@
   .game-ui-liquid-demo-capsule {
     display: grid;
     place-items: center;
+    appearance: none;
     border-radius: var(--game-ui-radius-bead);
+    border: 0;
     background: transparent;
     color: var(--game-ui-text);
     font-family: var(--game-ui-font-display);
     font-size: var(--game-ui-font-lg);
     font-weight: var(--game-ui-weight-title);
     cursor: pointer;
+    padding: 0;
   }
   .game-ui-liquid-demo-orb {
     width: 76px;

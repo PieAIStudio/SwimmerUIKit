@@ -21,6 +21,14 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   merge — that is the bug this prop exists to remove, and the story documents
   it as a rule rather than a preference.
 
+### Fixed
+
+- **The `LiquidGroup` stories now demonstrate the supported composition.** The
+  demo buttons reset their browser border and background so they do not paint
+  hard-edged content-layer circles over the merged silhouette. The stories now
+  show the continuous outline on `LiquidGroup`, with a dedicated
+  `stroke` + `shadow` example that makes the group-owned treatment explicit.
+
 ## 1.8.1
 
 ### Fixed

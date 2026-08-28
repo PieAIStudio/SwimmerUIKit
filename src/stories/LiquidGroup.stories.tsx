@@ -28,6 +28,8 @@ interface MorphSceneProps {
   description: string;
   initialMerged: boolean;
   motion?: 'auto' | 'reduced';
+  shadow?: string;
+  stroke?: string;
 }
 
 function MorphScene({
@@ -36,6 +38,8 @@ function MorphScene({
   description,
   initialMerged,
   motion = 'auto',
+  shadow,
+  stroke = '1px solid var(--game-ui-border-subtle)',
 }: MorphSceneProps): ReactNode {
   const [merged, setMerged] = useState(initialMerged);
   const firstX = merged ? 24 : -24;
@@ -55,7 +59,8 @@ function MorphScene({
           contrast={18}
           filterPadding={28}
           motion={motion}
-          stroke="1px var(--game-ui-border-subtle)"
+          {...(shadow ? { shadow } : {})}
+          stroke={stroke}
           style={{ width: '100%', height: '220px' }}
         >
           <LiquidGroup.Item
@@ -138,6 +143,19 @@ export const ReducedMotion: Story = {
       initialMerged
       motion="reduced"
       title="Instant, still, accessible"
+    />
+  ),
+};
+
+export const StrokeAndShadow: Story = {
+  render: () => (
+    <MorphScene
+      description="轮廓线和阴影都属于融合后的剪影；子元素只保留可点击、可读的内容。"
+      eyebrow="Surface · group-owned"
+      initialMerged
+      shadow="0 10px 22px color-mix(in srgb, var(--game-ui-accent) 30%, transparent)"
+      stroke="2px solid var(--game-ui-accent)"
+      title="One outline, one shadow"
     />
   ),
 };
