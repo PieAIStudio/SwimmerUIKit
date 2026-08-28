@@ -18,11 +18,11 @@ importers:
         specifier: ^7.58.9
         version: 7.58.9(@types/node@24.13.2)
       '@pieai/doc-gov':
-        specifier: 0.9.6
-        version: 0.9.6
+        specifier: 0.9.8
+        version: 0.9.8
       '@pieai/pro-gov':
-        specifier: 0.9.6
-        version: 0.9.6
+        specifier: 0.9.8
+        version: 0.9.8
       '@storybook/addon-a11y':
         specifier: 10.5.0
         version: 10.5.0(storybook@10.5.0(@types/react@19.2.17)(react@19.2.7))
@@ -916,13 +916,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@pieai/doc-gov@0.9.6':
-    resolution: {integrity: sha512-xS2w7q1+BvmyRDx16w0+zjOiuXDKnPK49ZzDBvalWb3un39QeX3+h27wdzjp+zNz0mzrmJqcZr8EcVgunx7/Hg==}
+  '@pieai/doc-gov@0.9.8':
+    resolution: {integrity: sha512-NkWmjx+JYt/JqSrXprmNrr5TWrVqBg7kGpujvfWxPm6RCChL9GNqIH4OJ8K3vwTgSeRDHnqq5YMbfbj/Fpfo6w==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
-  '@pieai/pro-gov@0.9.6':
-    resolution: {integrity: sha512-rN8zfJHlesRFG3YrNVA+1w9s7eUnJOTcvj1tQ4E7++Eoez71LvsnI5mHgkO0RsQjW8B9veXS4N9FJdshuKoEhA==}
+  '@pieai/pro-gov@0.9.8':
+    resolution: {integrity: sha512-ILzHlLW47CezdxjY5+PNBxAu9ENJAYuK+CXKgF5jPZ7orwlKv0cSQCKzPstbulaloK0N7TMDgAqhqqc0AbwSuw==}
     engines: {node: '>=24 <25'}
     hasBin: true
 
@@ -3187,11 +3187,11 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.73.0':
     optional: true
 
-  '@pieai/doc-gov@0.9.6': {}
+  '@pieai/doc-gov@0.9.8': {}
 
-  '@pieai/pro-gov@0.9.6':
+  '@pieai/pro-gov@0.9.8':
     dependencies:
-      '@pieai/doc-gov': 0.9.6
+      '@pieai/doc-gov': 0.9.8
 
   '@polka/url@1.0.0-next.29': {}
 
