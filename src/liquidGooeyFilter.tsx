@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import type { ShadowLayer } from './liquidGooeyShadow';
+import type { ShadowLayer, StrokeLayer } from './liquidGooeyShadow';
 
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 
@@ -107,14 +107,39 @@ function ShadowPass({ index, shadow }: { index: number; shadow: ShadowLayer }): 
   return <>{parts}</>;
 }
 
+function StrokePass({ stroke }: { stroke: StrokeLayer }): ReactElement {
+  const parts: ReactElement[] = [];
+  parts.push(
+    <feMorphology
+      key="erode"
+      in="bin"
+      operator="erode"
+      radius={stroke.width}
+      result="stroke-erode"
+    />,
+    <feComposite key="band" in="bin" in2="stroke-erode" operator="out" result="stroke-band" />,
+    <feFlood key="color" floodColor={stroke.color} result="stroke-color" />,
+    <feComposite
+      key="fill"
+      in="stroke-color"
+      in2="stroke-band"
+      operator="in"
+      result="stroke-out"
+    />,
+  );
+  return <>{parts}</>;
+}
+
 export function LiquidGooeyFilter({
   blur,
   contrast,
   shadows,
+  stroke,
 }: {
   blur: number;
   contrast: number;
   shadows: ShadowLayer[];
+  stroke: StrokeLayer | null;
 }): ReactElement {
   const intercept = Math.round((0.5 - contrast * (5 / 12)) * 100) / 100;
   return (
@@ -127,7 +152,7 @@ export function LiquidGooeyFilter({
         result="goo"
       />
       <feComposite in="SourceGraphic" in2="goo" operator="atop" result="shape" />
-      {shadows.some((shadow) => shadow.inset || shadow.spread !== 0) ? (
+      {stroke !== null || shadows.some((shadow) => shadow.inset || shadow.spread !== 0) ? (
         <feColorMatrix in="shape" type="matrix" values={BINARIZE} result="bin" />
       ) : null}
       {shadows.map((shadow, index) =>
@@ -137,7 +162,8 @@ export function LiquidGooeyFilter({
           <ShadowPass key={index} index={index} shadow={shadow} />
         ),
       )}
-      {shadows.length > 0 ? (
+      {stroke ? <StrokePass stroke={stroke} /> : null}
+      {shadows.length > 0 || stroke ? (
         <feMerge>
           {shadows
             .map((shadow, index) => (shadow.inset ? -1 : index))
@@ -147,6 +173,7 @@ export function LiquidGooeyFilter({
               <feMergeNode key={index} in={`shadow-${index}`} />
             ))}
           <feMergeNode in="shape" />
+          {stroke ? <feMergeNode in="stroke-out" /> : null}
           {shadows.map((shadow, index) =>
             shadow.inset ? <feMergeNode key={index} in={`shadow-${index}`} /> : null,
           )}

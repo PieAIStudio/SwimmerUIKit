@@ -713,12 +713,10 @@
   .game-ui-liquid-demo-group {
     max-width: 100%;
   }
-  .game-ui-liquid-demo-orb {
+  .game-ui-liquid-demo-orb,
+  .game-ui-liquid-demo-capsule {
     display: grid;
     place-items: center;
-    width: 76px;
-    height: 76px;
-    border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-bead);
     background: transparent;
     color: var(--game-ui-text);
@@ -727,7 +725,16 @@
     font-weight: var(--game-ui-weight-title);
     cursor: pointer;
   }
-  .game-ui-liquid-demo-orb:hover {
+  .game-ui-liquid-demo-orb {
+    width: 76px;
+    height: 76px;
+  }
+  .game-ui-liquid-demo-capsule {
+    width: 120px;
+    height: 76px;
+  }
+  .game-ui-liquid-demo-orb:hover,
+  .game-ui-liquid-demo-capsule:hover {
     color: var(--game-ui-ink-heading);
   }
   .game-ui-liquid-demo-controls {

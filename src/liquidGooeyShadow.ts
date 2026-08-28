@@ -9,6 +9,11 @@ export interface ShadowLayer {
   inset: boolean;
 }
 
+export interface StrokeLayer {
+  width: number;
+  color: string;
+}
+
 function splitTop(value: string, separator: ',' | ' '): string[] {
   const parts: string[] = [];
   let depth = 0;
@@ -53,4 +58,20 @@ export function parseShadow(input?: string | null): ShadowLayer[] {
     });
   }
   return output;
+}
+
+export function parseStroke(input?: string | null): StrokeLayer | null {
+  if (!input || input.trim() === '' || input.trim() === 'none') return null;
+  const tokens = splitTop(input, ' ');
+  let width = 0;
+  const colorParts: string[] = [];
+  for (const token of tokens) {
+    if (token === 'solid') continue;
+    if (width === 0 && LENGTH.test(token)) width = parseFloat(token);
+    else colorParts.push(token);
+  }
+  return {
+    width,
+    color: colorParts.join(' ') || 'var(--game-ui-stroke, transparent)',
+  };
 }

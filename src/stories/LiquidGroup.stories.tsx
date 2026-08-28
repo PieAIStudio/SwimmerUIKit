@@ -55,6 +55,7 @@ function MorphScene({
           contrast={18}
           filterPadding={28}
           motion={motion}
+          stroke="1px var(--game-ui-border-subtle)"
           style={{ width: '100%', height: '220px' }}
         >
           <LiquidGroup.Item
@@ -79,14 +80,14 @@ function MorphScene({
               position: 'absolute',
               top: '72px',
               left: 'calc(50% + 20px)',
-              width: '76px',
+              width: '120px',
               height: '76px',
             }}
             transition="bouncy"
             x={secondX}
           >
-            <button className="game-ui-liquid-demo-orb" type="button">
-              B
+            <button className="game-ui-liquid-demo-capsule" type="button">
+              Pill
             </button>
           </LiquidGroup.Item>
         </LiquidGroup>

@@ -22,7 +22,7 @@ import {
   type LiquidGooeyMotionMode,
 } from './liquidGooeyEngine';
 import type { CornerRadii } from './liquidGooeyGeometry';
-import { parseShadow } from './liquidGooeyShadow';
+import { parseShadow, parseStroke } from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
 
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -37,6 +37,8 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   filterPadding?: number;
   /** Optional token-based box-shadow syntax rebuilt on the merged silhouette. */
   shadow?: string;
+  /** Optional stroke syntax rebuilt on the merged silhouette. Note: Do NOT add border to children directly! */
+  stroke?: string;
   /** Deterministic reduced-motion override for previews; auto follows the OS. */
   motion?: 'auto' | 'reduced';
 }
@@ -118,6 +120,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     fill = 'var(--game-ui-surface, var(--game-ui-panel-strong))',
     filterPadding = 24,
     shadow,
+    stroke,
     motion = 'auto',
     className,
     style,
@@ -139,7 +142,13 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const contrastValue = Math.max(1, finite(contrast, 18));
   const filterPaddingValue = Math.max(0, finite(filterPadding, 24));
   const shadows = useMemo(() => parseShadow(shadow), [shadow]);
-  const pad = Math.ceil(blurValue * 3 + filterPaddingValue + shadowExtentOf(shadows));
+  const parsedStroke = useMemo(() => parseStroke(stroke), [stroke]);
+  const pad = Math.ceil(
+    blurValue * 3 +
+      filterPaddingValue +
+      shadowExtentOf(shadows) +
+      (parsedStroke ? parsedStroke.width : 0),
+  );
   const padRef = useRef(pad);
   padRef.current = pad;
 
@@ -223,7 +232,12 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
             x={-pad}
             y={-pad}
           >
-            <LiquidGooeyFilter blur={blurValue} contrast={contrastValue} shadows={shadows} />
+            <LiquidGooeyFilter
+              blur={blurValue}
+              contrast={contrastValue}
+              shadows={shadows}
+              stroke={parsedStroke}
+            />
           </filter>
         </defs>
         <g ref={setPortalRef} fill={fill} filter={`url(#${filterId})`} />
@@ -276,6 +290,26 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   useLayoutEffect(() => {
     engine.update(itemId, config);
   }, [config, engine, itemId]);
+
+  useLayoutEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      const host = hostRef.current;
+      if (!host) return;
+      const child = host.firstElementChild;
+      if (!child) return;
+      const style = window.getComputedStyle(child);
+      const hasBorder = style.borderStyle !== 'none' && style.borderWidth !== '0px' && style.borderWidth !== '';
+      const hasOutline = style.outlineStyle !== 'none' && style.outlineWidth !== '0px' && style.outlineWidth !== '';
+      const hasBoxShadow = style.boxShadow && style.boxShadow !== 'none';
+      if (hasBorder || hasOutline || hasBoxShadow) {
+        console.warn(
+          'LiquidGroup.Item children should not have their own border, outline, or box-shadow. ' +
+          'They exist on the content layer and will not merge with the liquid silhouette. ' +
+          'Use the `stroke` and `shadow` props on <LiquidGroup> instead.'
+        );
+      }
+    }
+  }, []);
 
   return (
     <>
