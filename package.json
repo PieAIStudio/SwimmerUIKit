@@ -28,7 +28,9 @@
     "bin",
     "CHANGELOG.md",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "donors-individual.md",
+    "donors-individual-lock.json"
   ],
   "type": "module",
   "sideEffects": [
@@ -73,8 +75,8 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@microsoft/api-extractor": "^7.58.9",
-    "@pieai/doc-gov": "0.9.8",
-    "@pieai/pro-gov": "0.9.8",
+    "@pieai/doc-gov": "0.9.9",
+    "@pieai/pro-gov": "0.9.9",
     "@storybook/addon-a11y": "10.5.0",
     "@storybook/addon-docs": "10.5.0",
     "@storybook/addon-mcp": "^0.6.0",
