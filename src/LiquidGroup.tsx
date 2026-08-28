@@ -292,7 +292,7 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   }, [config, engine, itemId]);
 
   useLayoutEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env?.DEV !== false) {
       const host = hostRef.current;
       if (!host) return;
       const child = host.firstElementChild;
