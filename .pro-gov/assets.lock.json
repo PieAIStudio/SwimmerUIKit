@@ -10,7 +10,7 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:85361823b3937529e12c780df5a7e0a674576dad0d12e4dda99a52477a131619",
+    "hash": "sha256:8bc20258448560c4b1ddfcd5e5b900aaa7662aac798a8d4d54c88b33abedb67b",
     "assetCount": 23
   },
   "assets": [
@@ -18,7 +18,7 @@
       "id": "npx-skills/agent-browser",
       "sourcePath": "skills/npx-skills/.agents/skills/agent-browser",
       "delivery": "symlink",
-      "contentHash": "sha256:a674b7d81066e3cc471a7512ddb4ae724418cbfefa75cbb050b0dc430e4d57a0",
+      "contentHash": "sha256:80161e6836b3b40f4e83730a290deb40ac14d877d38c97ad5f6d71be37ce74c3",
       "targetPath": ".agents/skills/agent-browser"
     },
     {
@@ -32,7 +32,7 @@
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
-      "contentHash": "sha256:16f7f1f484ab99c1149d2decd6c7e830849072dfa1057d6324af8bba84965a9d",
+      "contentHash": "sha256:8ae15976ef5453e1fd1307eedc80b8c9efcbd8dadabba21f221cbd6d99c2791c",
       "targetPath": ".agents/skills/impeccable"
     },
     {
@@ -52,21 +52,21 @@
     {
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
-      "delivery": "snapshot",
+      "delivery": "symlink",
       "contentHash": "sha256:344eba8c3b1f3130ed33e4b6a4511a332e2ca477e6a40ad7d4c73006197f5445",
       "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
     },
     {
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
-      "delivery": "snapshot",
-      "contentHash": "sha256:db55812e9d198c45e5fc9e934f7b783fe74c5cd53d91ab347ea2e939b435123f",
+      "delivery": "symlink",
+      "contentHash": "sha256:30bb78d836e5bc3ef478f132fd0363bad2bb88398892e46ce5c579e7701a2529",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
       "id": "pie-rules/clean-image-generation-rules",
       "sourcePath": "rules/pie-rules/clean-image-generation-rules.md",
-      "delivery": "snapshot",
+      "delivery": "symlink",
       "contentHash": "sha256:cd6a79b9971af50003812b498827837ca5c2c284d5b2c95ad3bbf3778483f74a",
       "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },

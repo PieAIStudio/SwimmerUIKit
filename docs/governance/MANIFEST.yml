@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-25T16:30:19.707Z
-generator_version: doc-gov@0.9.5
-docs_count: 22
+generated_at: 2026-08-28T13:42:07.541Z
+generator_version: doc-gov@0.9.6
+docs_count: 23
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -58,10 +58,17 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-22
+    last_reviewed: 2026-08-28
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-17
+    pinned: false
+  - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
+    path: docs/policy/shared-rules/pie-product-technology-stack.md
     type: policy
     status: stable
     canonical: true
