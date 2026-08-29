@@ -486,8 +486,20 @@ export class LiquidGooeyEngine {
     return true;
   }
 
+  /**
+   * Say, once, that this group stopped animating.
+   *
+   * Deliberately not gated on a development flag. `import.meta.env.DEV`
+   * is resolved when *this package* is built, not when the app using it is,
+   * so a dev-only guard here is baked to `false` in the published artifact
+   * and the warning never reaches anyone. That is what happened: the kit
+   * shipped a diagnostic for silent degradation that was itself silent.
+   *
+   * A group that quietly stops animating is a product defect the consumer
+   * needs to see, in whatever build they are running. Once per engine.
+   */
   private warnBudgetFallback(): void {
-    if (this.budgetWarningEmitted || import.meta.env?.DEV === false) return;
+    if (this.budgetWarningEmitted) return;
     this.budgetWarningEmitted = true;
     const budget = getLiquidGooeyBudget();
     const reason =

@@ -181,10 +181,6 @@ type DissolveTokenKey =
   | 'dissolveSink'
   | 'dissolveSeamBlur';
 
-function isDev(): boolean {
-  return import.meta.env?.DEV !== false;
-}
-
 function clamp(value: number, min = 0, max = 1): number {
   return Math.min(max, Math.max(min, value));
 }
@@ -411,7 +407,12 @@ export function registerDissolveItem(
   value: DissolveValue,
 ): DissolveRegistration {
   const image = findImage(element);
-  if (!image && isDev()) {
+  // Not gated on a build-mode flag. A library cannot detect the consuming
+  // app's build mode: `import.meta.env.DEV` resolves against *this* package's
+  // build and is always false downstream, which is how the kit's budget
+  // warnings shipped dead. These fire only when the component was wired
+  // wrong, once, so they are safe to say in any build.
+  if (!image) {
     console.warn(
       '[swimmer-ui] `dissolve` needs an <img> inside the item; text and other DOM content stay unchanged.',
     );
@@ -456,7 +457,7 @@ export function ImageMeltItem({
     const image = findImage(target);
     const imageSrc = src ?? sourceOf(image);
     if (!host || !target || !image || !imageSrc) {
-      if (isDev() && !warnedRef.current) {
+      if (!warnedRef.current) {
         warnedRef.current = true;
         console.warn(
           '[swimmer-ui] effect="melt" needs an image: pass melt={{ src }} or put an <img> inside the item.',
@@ -910,7 +911,8 @@ export class ImageMeltRuntime {
     if (this.claimed) return true;
     const area = imageMeltFilterArea(group, melt, dissolve);
     if (!tryAcquireLiquidGooeyAnimation(area)) {
-      if (!this.budgetWarningEmitted && isDev()) {
+      // Not gated on a build-mode flag: see `warnBudgetFallback` in liquidGooeyEngine.ts.
+      if (!this.budgetWarningEmitted) {
         this.budgetWarningEmitted = true;
         const budget = getLiquidGooeyBudget();
         const reason =

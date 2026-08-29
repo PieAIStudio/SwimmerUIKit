@@ -5,37 +5,36 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 1.11.2
+
+### Fixed
+
+- **The budget warnings were dead in every published build.** Both budget
+  fallbacks — the animation engine's and Melt/dissolve's — were gated on
+  `import.meta.env.DEV`. That flag resolves when *this package* is built, not
+  when the app importing it is, so it was baked to `false` in the artifact and
+  the guard minified to `if (this.budgetWarningEmitted || !0) return;` — an
+  unconditional early return. The kit degraded to static rendering silently,
+  which is precisely the behaviour those warnings were added to make visible.
+  They are no longer gated on build mode: a group that stops animating says so
+  once, in whatever build the consumer is running. `isDev()` is gone entirely,
+  along with the two authoring warnings it silenced; a library cannot detect
+  its consumer's build mode, and trying to is what caused this.
+
 ### Added
 
-- **Morph shape evolution and content cross-blur.** `LiquidGroup.Item` now
-  accepts `morph={{ shape, speed, bounce, contentBlur }}`. The adopted centre →
-  size → corner timeline makes the liquid change form like jelly, while the
-  default `contentBlur: 7` is written to the content wrapper only and clears as
-  the motion settles. The brand-kit token default deliberately enables shape;
-  pass `shape: false` for a calm opt-out.
-- **Surface-glued Bend.** `effect="bend"` follows an externally moved child,
-  bows its long edges and deforms its rounded caps without a lagging body or
-  tail. It publishes `--lg-bend-x`, `--lg-bend-y`, `--lg-bend-xn`, and
-  `--lg-bend-yn` on the item for content tilt/rotation.
-- **Knob stories and budget evidence.** Storybook now exposes conservative,
-  default, and bold points for Morph and Bend, plus contentBlur off/default/bold
-  comparisons and a combined filter-area readout.
+- **`scripts/check-warnings-survive-build.mjs`, wired into `build`.** The defect
+  above is invisible in the source and invisible to the test suite; it exists
+  only in the bundled output. So the check reads the bundled output, and fails
+  if a promised warning is missing or its guard has been folded to a constant.
+  Verified by reintroducing the bug and watching it fail.
 
-### Performance
+### Note
 
-- Morph content-blur and Bend deformation slack are part of the existing
-  480,000 CSS-pixel filter-area ceiling. The shared requestAnimationFrame clock
-  remains event-driven and sleeps completely after stillness; an over-budget
-  group snaps to static filtered rendering with a development warning.
-- **Image Melt and contact dissolve for `LiquidGroup.Item`.** The first two
-  `effect="melt"` items now render the donor-shaped measured image pair with
-  crisp-face seam masks, two-palette colour mixing, and a visible marbling
-  pass. `dissolve` is an image-only contact modifier with liquid displacement
-  and release hysteresis; DOM text stays in the crisp content layer, and the
-  modifier is ignored with a development warning under `effect="move"`.
-  Numeric knobs are token-backed, share the 480,000 px² filter-area and
-  process-wide concurrency budgets, degrade visibly with a one-time warning
-  when over budget, and sleep their requestAnimationFrame clock at rest.
+- The previous `Unreleased` section listed Morph shape, Bend, Melt and the knob
+  stories as unshipped. They shipped in 1.11.0. The entries were left behind by
+  the branch merges and have been removed rather than re-dated, since 1.11.0
+  already describes the same work.
 
 ## 1.11.1
 
