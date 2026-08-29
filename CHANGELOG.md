@@ -37,6 +37,37 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   process-wide concurrency budgets, degrade visibly with a one-time warning
   when over budget, and sleep their requestAnimationFrame clock at rest.
 
+## 1.11.0
+
+### Added
+
+- **The rest of the donor's liquid vocabulary.** `morph.shape` gives the
+  surface a timeline instead of a resize — the mass travels to the new centre,
+  size follows, corners sharpen last. `morph.contentBlur` acts on your content
+  rather than the silhouette, which is what makes text read as sitting *in* the
+  liquid instead of on it. `effect="bend"` deforms the body with velocity while
+  staying glued to its content, and publishes `--lg-bend-x/y` plus unitless
+  twins so the content can lean with it. `effect="melt"` runs two images into
+  each other with real colour averaging and a marbling pass at the seam, and
+  `dissolve` is the same physics as an image-only modifier on a morph item.
+  All of them ship on: an effect that defaults to off is one nobody sees, and
+  1.10.0 spent a release proving that with `waviness: 0`.
+
+  Every effect enabled at once measures 307,892 px² of the 480,000 the process
+  budget allows, degrades to a static snap rather than throwing when it runs
+  out, and the shared clock still stops dead at rest.
+
+  The donor's general observer is still not taken, and now the reason is
+  written down rather than grouped into a list: this kit's loop meters a
+  process-wide budget and sleeps completely when nothing moves, and the donor's
+  does neither. Effects are recipes; the loop is the kitchen.
+
+### Fixed
+
+- **Image dissolve no longer inherits the default content blur.** `contentBlur`
+  arriving on by default reached the DOM text that image-only `dissolve` exists
+  to keep crisp. Neither adoption was wrong on its own; the combination was.
+
 ## 1.10.1
 
 ### Fixed
