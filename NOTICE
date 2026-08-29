@@ -54,14 +54,60 @@ stretch, and lagging tail/mid-droplet physics for the selected segmented
 indicator and progress leading edge. This package now directly adapts the
 donor's group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed
 `feTurbulence` field and `feDisplacementMap` move the silhouette before its
-shadow passes consume it, so the shadow follows the same edge. We did not take
-the donor's melt, bend, or dissolve systems, its general observer, or its
-image-melt engine. We changed the implementation for this kit by making fill
+shadow passes consume it, so the shadow follows the same edge. The morph
+module does not contain the donor's image-melt or contact-dissolve layer; those
+scoped behaviors are attributed in the image Melt section below. We did not
+take the donor's general observer loop. We changed the implementation for this kit by making fill
 and shadow values token-driven, keeping waviness static with a shipped-off
 token default, adding a process-wide animated-group and filter-area budget
 that includes the displacement slack, and putting the shared
 requestAnimationFrame clock to sleep after stillness. The actual interactive
 content remains outside the filtered SVG layer.
+
+The MIT License text for that material:
+
+MIT License
+
+Copyright (c) 2026 Jakub
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Liquid-gooey image Melt and contact dissolve
+--------------------------------------------
+Portions of the pairwise image-melt and contact-image dissolve implementation
+in `src/liquidGooeyImageMelt.tsx` are adapted from liquid-gooey by Jakub
+Antalik (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
+Copyright (c) 2026 Jakub, licensed under the MIT License.
+
+Source URL: https://github.com/Jakubantalik/Libraries/blob/3862ffa345217443b63696a8c331a0664eea4b04/packages/liquid-gooey/src/imageMelt.tsx
+Pinned donor commit: `3862ffa345217443b63696a8c331a0664eea4b04`
+The scoped contact-dissolve math was reviewed from the same commit's
+`src/observer.ts`. The donor's general observer loop was not imported;
+the kit retains its own budgeted and idle-sleeping runtime. This is a local
+adaptation, not a runtime dependency on the donor checkout.
+
+The adapted surface keeps the donor's two-item Melt pairing, measured image
+rects, crisp-face seam masks, two-palette colour mixing and marbling pass. Its
+contact dissolve masks only `<img>` pixels; text remains in the unfiltered DOM
+content layer. SwimmerUIKit adds token-backed knobs, its 480,000 px² filter-area
+and process-wide concurrency budgets, graceful development-visible degradation,
+and a sleeping requestAnimationFrame clock.
 
 The MIT License text for that material:
 

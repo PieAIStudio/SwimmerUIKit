@@ -25,6 +25,17 @@ import {
 import type { CornerRadii } from './liquidGooeyGeometry';
 import { parseShadow, parseStroke } from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
+import {
+  createImageMeltRegistry,
+  ImageMeltItem,
+  ImageMeltLayer,
+  registerDissolveItem,
+  type DissolveOptions,
+  type DissolveRegistration,
+  type ImageMeltItemProps,
+  type ImageMeltOptions,
+  type ImageMeltRegistry,
+} from './liquidGooeyImageMelt';
 
 /**
  * A shared liquid silhouette behind crisp item content.
@@ -90,11 +101,18 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   delay?: number;
   /** Override the measured content border radius for the silhouette. */
   radius?: number | CornerRadii;
+  /** Selects the item's liquid surface. Melt follows the first two item images. */
+  effect?: 'morph' | 'move' | 'melt';
+  /** Numeric knobs for the pairwise image Melt surface, plus an optional source URL. */
+  melt?: ImageMeltOptions & { src?: string };
+  /** Contact image modifier. Text and other DOM content remain on the crisp layer. */
+  dissolve?: boolean | number | DissolveOptions;
 }
 
 interface LiquidGroupContextValue {
   portal: SVGGElement | null;
   engine: LiquidGooeyEngine;
+  imageMelt: ImageMeltRegistry;
 }
 
 const LiquidGroupContext = createContext<LiquidGroupContextValue | null>(null);
@@ -138,6 +156,27 @@ function readNumericCssToken(value: string, element: HTMLElement | null, fallbac
 function joinClasses(...classes: Array<string | undefined>): string | undefined {
   const result = classes.filter(Boolean).join(' ');
   return result || undefined;
+}
+
+function imageMeltHostProps(
+  input: LiquidItemProps,
+): Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  const props = { ...input } as Record<string, unknown>;
+  for (const key of [
+    'children',
+    'effect',
+    'melt',
+    'dissolve',
+    'x',
+    'y',
+    'scale',
+    'transition',
+    'delay',
+    'radius',
+  ]) {
+    delete props[key];
+  }
+  return props as Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 }
 
 /**
@@ -311,6 +350,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     // Its live reduced-motion value is updated below.
     [motion],
   );
+  const imageMelt = useMemo(() => createImageMeltRegistry(), []);
 
   useLayoutEffect(() => {
     const group = groupRef.current;
@@ -374,22 +414,41 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
         </defs>
         <g ref={setPortalRef} fill={fill} filter={`url(#${filterId})`} />
       </svg>
-      <LiquidGroupContext.Provider value={{ portal, engine }}>
+      <ImageMeltLayer registry={imageMelt} getGroup={() => groupRef.current} />
+      <LiquidGroupContext.Provider value={{ portal, engine, imageMelt }}>
         <div className="game-ui-liquid-content">{children}</div>
       </LiquidGroupContext.Provider>
     </div>
   );
 });
 
-export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function LiquidItem(
-  { x = 0, y = 0, scale = 1, transition, delay, radius, className, style, children, ...rest },
+const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function LiquidItemContent(
+  {
+    effect = 'morph',
+    melt: ignoredMelt,
+    dissolve,
+    x = 0,
+    y = 0,
+    scale = 1,
+    transition,
+    delay,
+    radius,
+    className,
+    style,
+    children,
+    ...rest
+  },
   forwardedRef,
 ) {
-  const { portal, engine } = useLiquidGroupContext();
+  const { portal, engine, imageMelt } = useLiquidGroupContext();
   const itemId = `liquid-item-${sanitizeId(useId())}`;
   const hostRef = useRef<HTMLDivElement | null>(null);
   const blobRef = useRef<SVGPathElement | null>(null);
   const initialConfig = useRef<LiquidGooeyItemConfig | null>(null);
+  const dissolveRegistration = useRef<DissolveRegistration | null>(null);
+  const dissolveKey = JSON.stringify(dissolve ?? null);
+  const hasDissolve = dissolve !== undefined && dissolve !== false;
+  void ignoredMelt;
   const config = useMemo<LiquidGooeyItemConfig>(() => {
     const next: LiquidGooeyItemConfig = {
       x: finite(x, 0),
@@ -422,6 +481,38 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   useLayoutEffect(() => {
     engine.update(itemId, config);
   }, [config, engine, itemId]);
+
+  useLayoutEffect(() => {
+    return () => {
+      dissolveRegistration.current?.unregister();
+      dissolveRegistration.current = null;
+    };
+  }, [imageMelt]);
+
+  useLayoutEffect(() => {
+    if (effect === 'move' || dissolve === undefined || dissolve === false) {
+      dissolveRegistration.current?.unregister();
+      dissolveRegistration.current = null;
+      return;
+    }
+    const host = hostRef.current;
+    if (!host) return;
+    if (dissolveRegistration.current) {
+      dissolveRegistration.current.update(dissolve);
+      return;
+    }
+    dissolveRegistration.current = registerDissolveItem(imageMelt, host, dissolve);
+    // The JSON key is the value dependency; registration identity is stable
+    // while the item remains in the same group.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dissolveKey, effect, imageMelt]);
+
+  useEffect(() => {
+    if (effect !== 'move' || !hasDissolve || import.meta.env?.DEV === false) return;
+    console.warn(
+      '[swimmer-ui] dissolve is ignored for effect="move" because Move intentionally lags the measured image rect.',
+    );
+  }, [effect, hasDissolve]);
 
   useLayoutEffect(() => {
     if (import.meta.env?.DEV !== false) {
@@ -459,6 +550,30 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     </>
   );
 });
+
+export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(
+  function LiquidItem(props, forwardedRef) {
+    const { imageMelt } = useLiquidGroupContext();
+    if (props.effect !== 'melt') {
+      return <LiquidItemContent {...props} ref={forwardedRef} />;
+    }
+
+    const hostProps = imageMeltHostProps(props);
+    const children = props.children;
+    const melt = { ...(props.melt ?? {}) };
+    const src = melt.src;
+    delete melt.src;
+    const meltProps: ImageMeltItemProps = {
+      ...hostProps,
+      registry: imageMelt,
+      children,
+      options: melt,
+      ...(src === undefined ? {} : { src }),
+      ...(forwardedRef === undefined ? {} : { forwardedRef }),
+    };
+    return <ImageMeltItem {...meltProps} />;
+  },
+);
 
 /**
  * Merges nearby item silhouettes into one shape while leaving their content

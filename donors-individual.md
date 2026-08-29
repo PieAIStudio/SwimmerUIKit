@@ -34,18 +34,23 @@ Patterns retained in the local implementation are the SVG
 silhouette/content split, Gaussian blur plus alpha color-matrix filtering,
 rounded-rectangle geometry, token-compatible shadow passes, spring-to-easing
 compilation, and the donor's Move center/stretch/tail physics. SwimmerUIKit
-adopted only the donor's Move physics for the selected indicator and progress
-leading edge; it deliberately did not take the donor's Melt, Bend, or dissolve
-systems, general observer, or image-melt engine. The
-local implementation now also adopts the donor's group-level `waviness` and
-`wavinessFreq` filter pass as a static, fixed-seed surface texture. These two
-capabilities were previously missing from both the retained list and the
-rejected list: that was an omission in the review record, not a decision to
-reject them. The kit keeps its own token-driven values, process-wide animation
-and filter-area budgets, an idle-sleeping shared animation clock, and its own
-interaction boundary; see `NOTICE` for the legal attribution. The static
-texture never adds an ambient clock, and its maximum displacement is included
-in the filter-area budget.
+adopted the donor's Move physics for the selected indicator and progress
+leading edge, and now adapts the donor's pairwise image-melt engine into
+`src/liquidGooeyImageMelt.tsx`. That module carries the first two
+`effect="melt"` images, the two-palette colour/marbling pass, and the
+image-only contact `dissolve` layer. The dissolve math is a scoped adaptation
+of the donor's contact-observer behavior; it is not a transplant of the
+donor's observer.
+
+The donor's general observer remains outside the imported scope because
+SwimmerUIKit already has its own process-wide animation/filter-area budgets
+and a shared requestAnimationFrame loop that sleeps when idle. Replacing that
+loop with a general observer would lose the kit's explicit budget and idle
+sleep guarantees. The local implementation keeps its own interaction
+boundary, token-driven values, graceful budget degradation, and one-time
+development warning; see `NOTICE` for legal attribution. The existing
+group-level `waviness` and `wavinessFreq` pass remains static and fixed-seed,
+with its maximum displacement included in the filter-area budget.
 
 ### Update policy
 

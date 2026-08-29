@@ -20,6 +20,14 @@ export {
   type LiquidItemProps,
 } from './LiquidGroup';
 export {
+  DISSOLVE_DEFAULTS,
+  IMAGE_MELT_DEFAULTS,
+  type DissolveOptions,
+  type DissolveValue,
+  type ImageMeltOptions,
+  resolveDissolveOptions,
+} from './liquidGooeyImageMelt';
+export {
   DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET,
   DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET,
   getLiquidGooeyBudget,
