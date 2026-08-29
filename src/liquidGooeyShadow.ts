@@ -1,4 +1,4 @@
-/** Parse the useful subset of CSS box-shadow syntax for SVG shadow passes. */
+/** Parse the useful subset of CSS box-shadow syntax for SVG and compositor shadows. */
 
 export interface ShadowLayer {
   x: number;
@@ -74,4 +74,40 @@ export function parseStroke(input?: string | null): StrokeLayer | null {
     width,
     color: colorParts.join(' ') || 'var(--game-ui-stroke, transparent)',
   };
+}
+
+/**
+ * Outer shadows without spread are CSS `drop-shadow()` on the compositor.
+ * Inset and spread stay in the SVG filter: CSS cannot express them, and they
+ * do not carry the large-radius blur that makes SVG rasterisation expensive.
+ */
+export function isCompositorOuterShadow(shadow: ShadowLayer): boolean {
+  return (
+    !shadow.inset && shadow.spread === 0 && (shadow.blur > 0 || shadow.x !== 0 || shadow.y !== 0)
+  );
+}
+
+export function compositorDropShadowFilter(shadows: ShadowLayer[]): string | undefined {
+  const parts = shadows
+    .filter(isCompositorOuterShadow)
+    .map((shadow) => `drop-shadow(${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.color})`);
+  return parts.length > 0 ? parts.join(' ') : undefined;
+}
+
+export function svgFilterShadows(shadows: ShadowLayer[]): ShadowLayer[] {
+  return shadows.filter((shadow) => !isCompositorOuterShadow(shadow));
+}
+
+/** How far SVG-resident layers (inset / spread) reach outside the silhouette. */
+export function shadowExtentOf(shadows: ShadowLayer[]): number {
+  return shadows.reduce(
+    (extent, shadow) =>
+      Math.max(
+        extent,
+        Math.max(Math.abs(shadow.x), Math.abs(shadow.y)) +
+          shadow.blur * 1.5 +
+          Math.max(0, shadow.spread),
+      ),
+    0,
+  );
 }

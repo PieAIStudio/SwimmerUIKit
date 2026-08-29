@@ -12,6 +12,12 @@
  * compiled down to `if (this.budgetWarningEmitted || !0) return;` — an
  * unconditional early return. No consumer could ever have seen them.
  *
+ * 1.11.2 unblocked the budget warnings and added this check. It was still
+ * incomplete: the item-border warning and the dissolve-on-move warning used
+ * the same DEV gate, so they were deleted from the published bundle. Product
+ * apps consume the published package; a miswired child border in University
+ * therefore never warned. The check now covers every warning the kit promises.
+ *
  * That failure is invisible in the source, invisible in the test suite, and
  * only appears in the built file. So the check has to read the built file.
  *
@@ -23,10 +29,27 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const BUNDLE = 'dist/index.js';
 
-/** Messages the kit promises to emit when it degrades. */
+/** Messages the kit promises to emit. `id` is what a failing check names. */
 const PROMISED_WARNINGS = [
-  'the liquid animation budget is insufficient',
-  'the Melt/dissolve image filter budget is insufficient',
+  {
+    id: 'animation-budget',
+    message: 'the liquid animation budget is insufficient',
+  },
+  {
+    id: 'image-filter-budget',
+    message: 'the Melt/dissolve image filter budget is insufficient',
+  },
+  {
+    id: 'item-border',
+    message: 'LiquidGroup.Item children should not have their own border',
+  },
+  {
+    id: 'dissolve-on-move',
+    // Minifiers keep this as `effect=\"move\"` inside a JS string, so the
+    // needle stops before the quotes. `dissolve is ignored for effect=` is
+    // unique to this warning.
+    message: 'dissolve is ignored for effect=',
+  },
 ];
 
 /**
@@ -44,16 +67,20 @@ if (!existsSync(BUNDLE)) {
 const bundle = readFileSync(BUNDLE, 'utf8');
 const problems = [];
 
-for (const message of PROMISED_WARNINGS) {
-  if (!bundle.includes(message)) {
-    problems.push(`missing from the bundle: "${message}"`);
+for (const warning of PROMISED_WARNINGS) {
+  if (!bundle.includes(warning.message)) {
+    problems.push(
+      `[${warning.id}] missing from the bundle: "${warning.message}"\n` +
+        '  This is the `import.meta.env.DEV` trap. Do not gate a library warning on a\n' +
+        "  build-time flag — it resolves against this package's build, not the app's.",
+    );
   }
 }
 
 const folded = bundle.match(FOLDED_GUARD);
 if (folded) {
   problems.push(
-    `the budget warning guard was folded to a constant: ${[...new Set(folded)].join(', ')}\n` +
+    `[animation-budget] the budget warning guard was folded to a constant: ${[...new Set(folded)].join(', ')}\n` +
       '  This is the `import.meta.env.DEV` trap. Do not gate a library warning on a\n' +
       "  build-time flag — it resolves against this package's build, not the app's.",
   );

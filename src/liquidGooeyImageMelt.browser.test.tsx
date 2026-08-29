@@ -195,6 +195,7 @@ describe('image Melt and contact dissolve browser surface', () => {
       <LiquidGroup style={{ height: '120px', position: 'relative', width: '240px' }}>
         <LiquidGroup.Item
           dissolve
+          // @ts-expect-error Item Move is not a public effect; runtime still warns.
           effect="move"
           style={{
             height: '80px',
@@ -209,6 +210,9 @@ describe('image Melt and contact dissolve browser surface', () => {
       </LiquidGroup>,
     );
 
+    expect(warning).toHaveBeenCalledWith(
+      expect.stringContaining('effect="move" is not an item effect'),
+    );
     expect(warning).toHaveBeenCalledWith(expect.stringContaining('dissolve is ignored'));
   });
 

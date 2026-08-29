@@ -3535,6 +3535,9 @@
     height: 100%;
     overflow: visible;
     pointer-events: none;
+    /* Promote the CSS-filtered silhouette: WebKit otherwise repaints the
+     * goo a frame or two behind the unfiltered content layer. */
+    will-change: filter, transform;
   }
   .game-ui-liquid-content {
     position: relative;

@@ -7,7 +7,7 @@
   "upstreamPackagePath": "packages/liquid-gooey",
   "commit": "3862ffa345217443b63696a8c331a0664eea4b04",
   "commitDate": "2026-08-28T13:21:03+02:00",
-  "reviewedAt": "2026-08-29",
+  "reviewedAt": "2026-08-30",
   "packageVersion": "0.2.1",
   "license": "MIT",
   "checkoutPath": "<portfolio-root>/_donors-individual/for_SwimmerUIKit/",
@@ -19,7 +19,8 @@
     "packages/liquid-gooey/src/LiquidItem.tsx#MorphTuning shape/speed/bounce mapping and observed Morph shape behavior",
     "packages/liquid-gooey/src/observer.ts#Bend velocity bow, cap deformation, and --lg-bend-x/y/xn/yn CSS variable publication",
     "packages/liquid-gooey/src/imageMelt.tsx#ImageMeltOptions,IMAGE_MELT_DEFAULTS,MeltPair,image source resolution,crisp-face masks,and marbling pass",
-    "packages/liquid-gooey/src/observer.ts#scoped contact-image dissolve proximity,warp,and release math only; no general observer loop"
+    "packages/liquid-gooey/src/observer.ts#scoped contact-image dissolve proximity,warp,and release math only; no general observer loop",
+    "packages/liquid-gooey/src/Gooey.tsx#compositor CSS drop-shadow() split for outer no-spread shadows; SVG filter pad excludes those layers; will-change on the silhouette SVG"
   ],
   "reviewedScope": [
     "packages/liquid-gooey/README.md",
@@ -28,7 +29,8 @@
     "packages/liquid-gooey/src/**"
   ],
   "rejectedScope": [
-    "general observer loop; SwimmerUIKit retains its own budgeted, idle-sleeping image-melt runtime instead of transplanting the donor observer"
+    "general observer loop; SwimmerUIKit retains its own budgeted, idle-sleeping image-melt runtime instead of transplanting the donor observer",
+    "dissolve flowSpeed ambient stirring while held still; kit gates flow by motion so a settled dissolve adds no clock. This was an adaptation, not a prior rejection — recorded here on 2026-08-30 so it is not later described as if it had been refused from the start"
   ],
   "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."
 }

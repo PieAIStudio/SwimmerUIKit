@@ -95,6 +95,8 @@ function InsetPass({ index, shadow }: { index: number; shadow: ShadowLayer }): R
   return <>{parts}</>;
 }
 
+/** Spread rings and other SVG-only outer layers. Blurred offset shadows
+ *  without spread are CSS `drop-shadow()` on the silhouette element. */
 function ShadowPass({ index, shadow }: { index: number; shadow: ShadowLayer }): ReactElement {
   const parts: ReactElement[] = [];
   let source = 'shape';
@@ -204,9 +206,10 @@ export function LiquidGooeyFilter({
         result={wavy ? 'shape-raw' : 'shape'}
       />
       {/* The liquid boundary itself undulates: the whole silhouette — edges,
-          neck, shadow source — runs through one gentle displacement field, so
-          the surface reads as fluid even at rest. Shadows consume the
-          displaced 'shape', so they hug the wavy edge exactly. */}
+          neck, SVG-resident shadow source — runs through one gentle
+          displacement field, so the surface reads as fluid even at rest.
+          Inset/spread consume the displaced 'shape'. Compositor drop-shadows
+          then hug the already-merged SVG alpha. */}
       {wavy ? (
         <>
           <feTurbulence
