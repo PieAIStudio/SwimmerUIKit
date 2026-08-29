@@ -1,15 +1,15 @@
-# 外阴影搬出 SVG 滤镜：1.12.0 实测记录
+# 外阴影搬出 SVG 滤镜：2.0.0 实测记录
 
 日期：2026-08-30  
 分支：`work/shadow-cost`  
-对照：kit 1.11.3 → 1.12.0；donor `3862ffa`；产品 University 只读，钉在已发布的 1.11.3。
+对照：kit 1.11.3 → 2.0.0；donor `3862ffa`；产品 University 只读，钉在已发布的 1.11.3。
 
 证据分层必须当真。下面每一张表都标了来源。标了「未测」的没有升格。
 
 | 标记 | 含义 |
 | --- | --- |
 | **【我实测的】** | 本轮打开了页面或跑了测试，数字来自 DOM / 构建产物 / 截图。 |
-| **【我从源码推断的】** | 对着文件读出来的，或用实测宽高乘实测 pad 推的改后产品面积。产品仓库没有改，无法在 University 里读到 1.12.0 的 live `data-liquid-filter-area`。 |
+| **【我从源码推断的】** | 对着文件读出来的，或用实测宽高乘实测 pad 推的改后产品面积。产品仓库没有改，无法在 University 里读到 2.0.0 的 live `data-liquid-filter-area`。 |
 | **【未测】** | 本轮没有做。包括帧率（按任务要求不报）。 |
 
 截图在 `artifacts/shadow-cost/`。
@@ -85,7 +85,7 @@ Primitive 少掉的 4 个正好是外阴影那条 `ShadowPass`：`feGaussianBlur
 
 ### 3.3 产品改后面积（不能 live 读，用实测尺寸 × kit 实测新 pad）
 
-University 仍依赖已发布的 1.11.3，本轮按任务没有改产品代码，所以没有 1.12.0 的产品 live 属性。
+University 仍依赖已发布的 1.11.3，本轮按任务没有改产品代码，所以没有 2.0.0 的产品 live 属性。
 
 **【我从源码推断的】** 用 §3.2 的实测宽高，乘 §3.1 同类表面的实测新 pad。
 
@@ -140,7 +140,7 @@ University 仍依赖已发布的 1.11.3，本轮按任务没有改产品代码�
 2. 实现 item 级 Move + `MoveTuning` 是新功能（审计 M5），耦合 donor 那套被拒绝的 observer。产品零调用。这一轮的主任务是阴影性能，不是第二条 Move API。
 3. **一个接受参数却不做事的 API，比没有这个 API 更糟。** 公开 union 写着 `'move'`，运行时丢掉它、静默走 Morph。照着 donor README 写的人得不到他要的东西，也没有任何提示。
 
-去掉是破坏性变更，进 1.12.0。TypeScript 现在会报错。运行时如果还传入这个字符串，会警告「用 `motion="follow"`」；`dissolve` 在这条遗留路径上仍然忽略。
+去掉是破坏性变更，进 2.0.0。TypeScript 现在会报错。运行时如果还传入这个字符串，会警告「用 `motion="follow"`」；`dissolve` 在这条遗留路径上仍然忽略。
 
 不实现 item Move 的决定写在 `donors-individual.md` 的「仍然漏掉」里，没有事后写成「当初就拒绝了」。
 
@@ -155,7 +155,7 @@ University 仍依赖已发布的 1.11.3，本轮按任务没有改产品代码�
 - **【未测】** 帧率、donor 声称的 9fps。
 - **【未测】** 课文阅读器工具条上那根更宽的进度条（没登录进课文）。
 - **【未测】** 复跑 `EDGE-QUALITY.md` 的 rim 度量。1.11.3 的虚线修的是 inset，inset 这一轮没搬。
-- **【未测】** University 跑 1.12.0 之后的 live `data-liquid-filter-area`。产品升级包是你的发布步骤。
+- **【未测】** University 跑 2.0.0 之后的 live `data-liquid-filter-area`。产品升级包是你的发布步骤。
 
 ---
 

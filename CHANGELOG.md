@@ -5,7 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 1.12.0
+## 2.0.0
+
+Major, not minor. The release removes a member from a public union type, so a
+consumer inside a `^1` range would have broken at compile time on an automatic
+update — the exact failure semver's major bump exists to prevent. That the
+removed member never worked makes the removal correct, not non-breaking.
 
 ### Breaking
 

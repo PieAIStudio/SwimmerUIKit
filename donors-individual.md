@@ -40,7 +40,7 @@ edge, and now directly adapts the donor's Morph shape evolution,
 outlet, and the donor's group-level `waviness` and `wavinessFreq` filter pass as
 a static, fixed-seed surface texture.
 
-As of 1.12.0 the kit also adopts the donor's compositor split for outer
+As of 2.0.0 the kit also adopts the donor's compositor split for outer
 drop shadows: blurred offset layers without spread are CSS `drop-shadow()` on
 the silhouette SVG (same convention as `box-shadow`, blur-radius = 2σ). Inset
 and spread stay in the SVG filter. The filter pad no longer reserves the outer
@@ -74,13 +74,13 @@ A 2026-08-30 donor audit found several capabilities that were neither in the
 implementation nor written down as refused. They are listed here as **missed**,
 not as if the project had rejected them at the time.
 
-Adopted in 1.12.0:
+Adopted in 2.0.0:
 
 - **M1 / M11.** Outer no-spread shadows as CSS `drop-shadow()`; SVG pad no
   longer includes that blur radius.
 - **M2.** `will-change: filter, transform` on the silhouette SVG.
 - **M5 (API lie, not the feature).** Item `effect="move"` was a public union
-  member that did nothing. 1.12.0 removes it rather than implementing
+  member that did nothing. 2.0.0 removes it rather than implementing
   item-level Move + `MoveTuning`. Group `motion="follow"` remains the Move
   entry. Implementing the item API is still missed.
 

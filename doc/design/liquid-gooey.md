@@ -132,7 +132,7 @@ plain blur. Only the `img` pixels receive the mask and SVG layer. Text and
 other DOM content remain crisp and accessible.
 
 Move is a group gesture: `motion="follow"`. It is not an item `effect`.
-`effect="move"` was removed from the public item union in 1.12.0 because it
+`effect="move"` was removed from the public item union in 2.0.0 because it
 accepted a value and rendered Morph. A leftover runtime string still warns.
 `dissolve` on that leftover is ignored, because Move's liquid surface
 intentionally lags the measured image rect and the two coordinate systems
