@@ -3,10 +3,15 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
-## Unreleased
+## 1.10.0
 
 ### Added
 
+- **`motion="follow"` for selection and progress.** `<LiquidGroup>` now carries
+  the donor's Move surface through the token layer and shared animation and
+  filter-area budgets. It is used only by `GameSegmentedControl`'s selected
+  indicator and `GameProgress`'s leading edge; the shared clock sleeps
+  completely at rest.
 - **Optional static waviness on `<LiquidGroup>`.** The new group-level
   `waviness` and `wavinessFreq` knobs adapt the pinned liquid-gooey noise
   displacement so merged silhouettes read as fluid instead of as two rounded
@@ -17,6 +22,19 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   bold points on the same intensity axis. The noise is fixed-seed and static,
   so it adds no idle animation clock. Its maximum displacement is reserved in
   the filter region and counted by the 480,000 px² budget.
+
+### Fixed
+
+- **`<LiquidGroup>` drew nothing under React StrictMode.** The effect cleanup
+  marked the memoized engine disposed for good, so StrictMode's second mount
+  acquired its budget, reported an active group, and then returned early from
+  `wake()`. The merged path's `d` stayed empty, which meant every app rendering
+  under StrictMode — that is, every app we ship — got no Morph and no Move at
+  all, with nothing in the console to say so. `register()` now revives a
+  disposed engine and resets the observer and listener state with it, a
+  StrictMode regression test asserts the path is not empty, and the
+  budget-exhausted path warns once in development instead of degrading in
+  silence. Storybook runs with StrictMode on.
 
 ## 1.9.0
 
@@ -35,11 +53,6 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   child that draws its own `border` will show a static circle that refuses to
   merge — that is the bug this prop exists to remove, and the story documents
   it as a rule rather than a preference.
-- **`motion="follow"` for selection and progress.** `<LiquidGroup>` now carries
-  the donor's Move surface through the token layer and shared animation and
-  filter-area budgets. It is used only by `GameSegmentedControl`'s selected
-  indicator and `GameProgress`'s leading edge; the shared clock sleeps
-  completely at rest.
 
 ### Fixed
 
