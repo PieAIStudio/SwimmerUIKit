@@ -131,18 +131,23 @@ The layer uses displacement, turbulence and two-liquid erosion rather than a
 plain blur. Only the `img` pixels receive the mask and SVG layer. Text and
 other DOM content remain crisp and accessible.
 
-With `effect="move"`, `dissolve` is intentionally ignored and warns once in
-development: Move's liquid surface intentionally lags the measured image rect,
-so the two coordinate systems would visibly disagree.
+Move is a group gesture: `motion="follow"`. It is not an item `effect`.
+`effect="move"` was removed from the public item union in 2.0.0 because it
+accepted a value and rendered Morph. A leftover runtime string still warns.
+`dissolve` on that leftover is ignored, because Move's liquid surface
+intentionally lags the measured image rect and the two coordinate systems
+would visibly disagree.
 
 ## Surface texture
 
 `waviness` and `wavinessFreq` are group-level knobs. They adapt the pinned
 donor's `feTurbulence` plus `feDisplacementMap` pass: the post-goo silhouette
 is displaced once with `seed="7"`, and the resulting `shape` is the source for
-the SVG shadow passes as well as the final rendered silhouette. This keeps the
-neck and its shadow on one edge instead of making the shadow expose a second,
-geometric contour.
+SVG-resident shadow passes (inset and spread). Blurred outer shadows without
+spread are CSS `drop-shadow()` on the silhouette element, so they hug the
+already-merged SVG alpha — including a goo neck — without enlarging the
+filter region. This keeps the neck and its shadow on one edge instead of
+making the shadow expose a second, geometric contour.
 
 The texture is static. There is no animated `baseFrequency`, no time-based
 seed, and no additional requestAnimationFrame work; the existing shared clock

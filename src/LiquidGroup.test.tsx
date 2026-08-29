@@ -83,6 +83,50 @@ describe('LiquidGroup DOM architecture', () => {
     expect(html.match(/class="game-ui-liquid-item"/g)).toHaveLength(2);
   });
 
+  it('puts outer drop shadows on the SVG element and leaves inset in the filter', () => {
+    const html = renderToStaticMarkup(
+      <LiquidGroup shadow="0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42)">
+        <LiquidGroup.Item>
+          <span>Surface</span>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+
+    expect(html).toContain('drop-shadow(0px 13px 26px rgba(76, 52, 28, 0.22))');
+    expect(html).toContain('dy="2"');
+    expect(html).toContain('stdDeviation="6"');
+    expect(html).not.toContain('stdDeviation="13"');
+  });
+
+  it('does not grow the filter region for a compositor outer shadow', () => {
+    const filterWidth = (html: string): number =>
+      Number(html.match(/<filter[^>]*width="([\d.]+)"/)?.[1] ?? 0);
+    const withOuter = renderToStaticMarkup(
+      <LiquidGroup shadow="0 13px 26px rgba(76, 52, 28, 0.22)" waviness={0}>
+        <LiquidGroup.Item>
+          <span>Outer</span>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+    const insetOnly = renderToStaticMarkup(
+      <LiquidGroup shadow="inset 0 2px 0 rgba(255, 255, 255, 0.42)" waviness={0}>
+        <LiquidGroup.Item>
+          <span>Inset</span>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+    const bare = renderToStaticMarkup(
+      <LiquidGroup waviness={0}>
+        <LiquidGroup.Item>
+          <span>Bare</span>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+
+    expect(filterWidth(withOuter)).toBe(filterWidth(bare));
+    expect(filterWidth(insetOnly)).toBeGreaterThan(filterWidth(bare));
+  });
+
   it('keeps an explicit calm override and reserves a larger filter region for waviness', () => {
     const renderGroup = (waviness?: number): string =>
       renderToStaticMarkup(

@@ -57,8 +57,11 @@ NOTICE pointer. We also adapted the donor's Move center spring, velocity-axis
 stretch, and lagging tail/mid-droplet physics for the selected segmented
 indicator and progress leading edge. This package directly adapts the donor's
 group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed `feTurbulence`
-field and `feDisplacementMap` move the silhouette before its shadow passes
-consume it, so the shadow follows the same edge.
+field and `feDisplacementMap` move the silhouette before its remaining SVG
+shadow passes consume it. Blurred outer shadows without spread follow the
+donor's compositor split: they are CSS `drop-shadow()` on the silhouette
+element, so they are not in the SVG filter region or its pad. Inset and
+spread layers remain SVG-resident.
 
 The local implementation also adapts the donor's pairwise image-melt engine in
 `src/liquidGooeyImageMelt.tsx`, including the two-item pairing, measured image

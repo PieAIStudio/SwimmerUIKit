@@ -34,7 +34,13 @@ import {
 import type { CornerRadii } from './liquidGooeyGeometry';
 import type { BendTuning } from './liquidGooeyMove';
 import type { MorphTuning } from './liquidGooeyEvolve';
-import { parseShadow, parseStroke } from './liquidGooeyShadow';
+import {
+  compositorDropShadowFilter,
+  parseShadow,
+  parseStroke,
+  shadowExtentOf,
+  svgFilterShadows,
+} from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
 import {
   createImageMeltRegistry,
@@ -119,8 +125,11 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   delay?: number;
   /** Override the measured content border radius for the silhouette. */
   radius?: number | CornerRadii;
-  /** Select the adopted item surface behavior. Bend follows child geometry. */
-  effect?: 'morph' | 'move' | 'melt' | 'bend';
+  /**
+   * Select the adopted item surface behavior. Bend follows child geometry.
+   * Move is a group gesture (`motion="follow"`), not an item effect.
+   */
+  effect?: 'morph' | 'melt' | 'bend';
   /** Morph shape, tempo, bounce, and content cross-blur tuning. */
   morph?: MorphTuning;
   /** Bend strengths for vertical bow and horizontal cap deformation. */
@@ -234,19 +243,6 @@ function useSystemReducedMotion(): boolean {
   return reduced;
 }
 
-function shadowExtentOf(shadows: ReturnType<typeof parseShadow>): number {
-  return shadows.reduce(
-    (extent, shadow) =>
-      Math.max(
-        extent,
-        Math.max(Math.abs(shadow.x), Math.abs(shadow.y)) +
-          shadow.blur * 1.5 +
-          Math.max(0, shadow.spread),
-      ),
-    0,
-  );
-}
-
 const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function LiquidGroup(
   {
     blur = 6,
@@ -321,15 +317,22 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const resolvedShadow = resolveCssVariable(shadow, groupRef.current);
   const resolvedStroke = resolveCssVariable(stroke, groupRef.current);
   const shadows = useMemo(() => parseShadow(resolvedShadow), [resolvedShadow]);
+  // Large-radius outer shadows (0 13px 26px and friends) run as CSS
+  // drop-shadow() on the SVG element. SVG feGaussianBlur of that radius
+  // re-rasterises the whole padded filter region on the CPU every frame;
+  // CSS drop-shadow is the same math (blur-radius = 2σ) on the compositor.
+  // Inset and spread stay in the SVG filter — CSS cannot express them.
+  const svgShadows = useMemo(() => svgFilterShadows(shadows), [shadows]);
+  const cssShadowFilter = useMemo(() => compositorDropShadowFilter(shadows), [shadows]);
   const parsedStroke = useMemo(() => parseStroke(resolvedStroke), [resolvedStroke]);
   const basePad = Math.ceil(
     blurValue * 3 +
       filterPaddingValue +
-      shadowExtentOf(shadows) +
+      shadowExtentOf(svgShadows) +
       (parsedStroke ? parsedStroke.width : 0) +
       // feDisplacementMap can move either channel by at most `waviness` px;
-      // reserve that slack so the wavy silhouette and its shadow stay inside
-      // the filter raster and the area budget reflects the real work.
+      // reserve that slack so the wavy silhouette stays inside the filter
+      // raster. Compositor drop-shadows paint outside this region on purpose.
       wavinessValue +
       // The post-displacement AA blur extends the painted alpha by roughly
       // three sigma; reserve it here so the softened contour is not clipped
@@ -453,6 +456,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
         className="game-ui-liquid-silhouette"
         data-liquid-gooey-silhouette=""
         focusable="false"
+        style={cssShadowFilter ? { filter: cssShadowFilter } : undefined}
         viewBox={`0 0 ${viewWidth} ${viewHeight}`}
       >
         <defs>
@@ -468,7 +472,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
             <LiquidGooeyFilter
               blur={blurValue}
               contrast={contrastValue}
-              shadows={shadows}
+              shadows={svgShadows}
               stroke={parsedStroke}
               waviness={wavinessValue}
               wavinessFreq={wavinessFreqValue}
@@ -519,7 +523,8 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   void ignoredMelt;
   const config = useMemo<LiquidGooeyItemConfig>(() => {
     // The image layer owns `melt`; the shared SVG engine only understands the
-    // Morph/Bend surface names. `move` remains the group-level follow mode.
+    // Morph/Bend surface names. Move is the group-level `motion="follow"` mode,
+    // not an item effect — a leftover `"move"` string is ignored.
     const engineEffect = effect === 'morph' || effect === 'bend' ? effect : undefined;
     const bendObserved = engineEffect === 'bend';
     const effectiveMorph =
@@ -572,7 +577,8 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   }, [imageMelt]);
 
   useLayoutEffect(() => {
-    if (effect === 'move' || dissolve === undefined || dissolve === false) {
+    const effectName: string | undefined = effect;
+    if (effectName === 'move' || dissolve === undefined || dissolve === false) {
       dissolveRegistration.current?.unregister();
       dissolveRegistration.current = null;
       return;
@@ -590,31 +596,40 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
   }, [dissolveKey, effect, imageMelt]);
 
   useEffect(() => {
-    if (effect !== 'move' || !hasDissolve || import.meta.env?.DEV === false) return;
+    // Not gated on a build-mode flag. See the item-border warning below.
+    const effectName: string | undefined = effect;
+    if (effectName === 'move') {
+      console.warn(
+        '[swimmer-ui] effect="move" is not an item effect. Use <LiquidGroup motion="follow"> for selection and progress.',
+      );
+    }
+    if (effectName !== 'move' || !hasDissolve) return;
     console.warn(
       '[swimmer-ui] dissolve is ignored for effect="move" because Move intentionally lags the measured image rect.',
     );
   }, [effect, hasDissolve]);
 
   useLayoutEffect(() => {
-    if (import.meta.env?.DEV !== false) {
-      const host = hostRef.current;
-      if (!host) return;
-      const child = host.firstElementChild;
-      if (!child) return;
-      const style = window.getComputedStyle(child);
-      const hasBorder =
-        style.borderStyle !== 'none' && style.borderWidth !== '0px' && style.borderWidth !== '';
-      const hasOutline =
-        style.outlineStyle !== 'none' && style.outlineWidth !== '0px' && style.outlineWidth !== '';
-      const hasBoxShadow = style.boxShadow && style.boxShadow !== 'none';
-      if (hasBorder || hasOutline || hasBoxShadow) {
-        console.warn(
-          'LiquidGroup.Item children should not have their own border, outline, or box-shadow. ' +
-            'They exist on the content layer and will not merge with the liquid silhouette. ' +
-            'Use the `stroke` and `shadow` props on <LiquidGroup> instead.',
-        );
-      }
+    // Not gated on a build-mode flag. A library cannot detect the consuming
+    // app's build mode: `import.meta.env.DEV` resolves against *this* package's
+    // build and is always false downstream, which is how this warning shipped
+    // dead in 1.11.3. It fires only when the component was wired wrong, once.
+    const host = hostRef.current;
+    if (!host) return;
+    const child = host.firstElementChild;
+    if (!child) return;
+    const style = window.getComputedStyle(child);
+    const hasBorder =
+      style.borderStyle !== 'none' && style.borderWidth !== '0px' && style.borderWidth !== '';
+    const hasOutline =
+      style.outlineStyle !== 'none' && style.outlineWidth !== '0px' && style.outlineWidth !== '';
+    const hasBoxShadow = style.boxShadow && style.boxShadow !== 'none';
+    if (hasBorder || hasOutline || hasBoxShadow) {
+      console.warn(
+        'LiquidGroup.Item children should not have their own border, outline, or box-shadow. ' +
+          'They exist on the content layer and will not merge with the liquid silhouette. ' +
+          'Use the `stroke` and `shadow` props on <LiquidGroup> instead.',
+      );
     }
   }, []);
 

@@ -1,4 +1,4 @@
-import { StrictMode, act, type ReactNode } from 'react';
+import { StrictMode, act, useEffect, useState, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createRoot, type Root } from 'react-dom/client';
@@ -255,6 +255,127 @@ describe('LiquidGroup browser architecture', () => {
       '[data-testid="inset-and-stroke"] feOffset[dy="2"]',
     );
     expect(strokeInsetOffset?.getAttribute('in')).toBe('shape');
+  });
+
+  it('renders outer drop shadows as CSS filter and keeps inset in SVG', async () => {
+    const container = await mount(
+      <LiquidGroup
+        data-testid="button-shadow"
+        shadow="0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42)"
+        style={{ height: '64px', position: 'relative', width: '160px' }}
+        waviness={6}
+      >
+        <LiquidGroup.Item
+          style={{ height: '40px', left: '12px', position: 'absolute', top: '12px', width: '80px' }}
+        >
+          {null}
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+    await waitFrames(2);
+
+    const group = container.querySelector('[data-testid="button-shadow"]');
+    const svg = group?.querySelector<SVGSVGElement>('[data-liquid-gooey-silhouette]');
+    const filter = svg?.querySelector('filter');
+    const outerBlur = [...(filter?.querySelectorAll('feGaussianBlur') ?? [])].find(
+      (node) => node.getAttribute('stdDeviation') === '13',
+    );
+    const insetOffset = filter?.querySelector('feOffset[dy="2"]');
+
+    expect(svg?.style.filter).toMatch(/drop-shadow\(/);
+    expect(svg?.style.filter).toContain('13px');
+    expect(svg?.style.filter).toContain('26px');
+    expect(svg?.style.filter).toContain('rgba(76, 52, 28, 0.22)');
+    expect(outerBlur).toBeUndefined();
+    expect(insetOffset?.getAttribute('in')).toBe('shape');
+    expect(Number(filter?.getAttribute('x'))).toBeGreaterThan(-80);
+  });
+
+  it('casts one compositor shadow for a merged silhouette, not one per blob', async () => {
+    const container = await mount(
+      <LiquidGroup
+        data-testid="merged-shadow"
+        shadow="0 10px 22px rgba(76, 52, 28, 0.22)"
+        style={{ height: '140px', position: 'relative', width: '280px' }}
+        waviness={0}
+      >
+        <LiquidGroup.Item
+          style={{ height: '56px', left: '24px', position: 'absolute', top: '42px', width: '72px' }}
+        >
+          {null}
+        </LiquidGroup.Item>
+        <LiquidGroup.Item
+          style={{ height: '56px', left: '88px', position: 'absolute', top: '42px', width: '96px' }}
+        >
+          {null}
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+    await waitFrames(2);
+
+    const svgs = container.querySelectorAll(
+      '[data-testid="merged-shadow"] [data-liquid-gooey-silhouette]',
+    );
+    const blobs = container.querySelectorAll(
+      '[data-testid="merged-shadow"] [data-liquid-gooey-blob]',
+    );
+    const svg = svgs[0] as SVGSVGElement | undefined;
+    expect(svgs).toHaveLength(1);
+    expect(blobs.length).toBe(2);
+    expect(svg?.style.filter).toMatch(/drop-shadow\(/);
+    expect(svg?.style.filter).toContain('10px');
+    expect(svg?.style.filter).toContain('22px');
+    expect(svg?.querySelector('feGaussianBlur[stdDeviation="11"]')).toBeNull();
+  });
+
+  it('still degrades when the filter region exceeds the area ceiling after the shadow split', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    function HugeFollow(): ReactNode {
+      const [x, setX] = useState(0);
+      useEffect(() => {
+        setX(80);
+      }, []);
+      return (
+        <LiquidGroup
+          data-testid="huge-follow"
+          motion="follow"
+          shadow="0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42)"
+          style={{ height: '14px', minWidth: '4300px', position: 'relative', width: '4300px' }}
+          waviness={6}
+        >
+          <LiquidGroup.Item style={{ height: '14px', position: 'absolute', width: '40%' }} x={x}>
+            {null}
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      );
+    }
+    const container = await mount(<HugeFollow />);
+    await waitFrames(8);
+
+    const group = container.querySelector('[data-testid="huge-follow"]');
+    const area = Number(group?.getAttribute('data-liquid-filter-area'));
+    expect(area).toBeGreaterThan(480_000);
+    expect(group?.getAttribute('data-liquid-motion')).toBe('static');
+    expect(warning).toHaveBeenCalledWith(
+      expect.stringContaining('the liquid animation budget is insufficient'),
+    );
+  });
+
+  it('warns when an item child paints its own border', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await mount(
+      <LiquidGroup style={{ height: '80px', width: '160px' }}>
+        <LiquidGroup.Item>
+          <button style={{ border: '1px solid rgb(255, 0, 0)' }} type="button">
+            Bordered
+          </button>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+    await waitFrames(2);
+    expect(warning).toHaveBeenCalledWith(
+      expect.stringContaining('LiquidGroup.Item children should not have their own border'),
+    );
   });
 
   it('clamps thin surfaces by their shorter side and preserves larger surfaces', async () => {

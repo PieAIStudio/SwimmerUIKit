@@ -5,6 +5,51 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 2.0.0
+
+Major, not minor. The release removes a member from a public union type, so a
+consumer inside a `^1` range would have broken at compile time on an automatic
+update — the exact failure semver's major bump exists to prevent. That the
+removed member never worked makes the removal correct, not non-breaking.
+
+### Breaking
+
+- **`LiquidGroup.Item` no longer accepts `effect="move"`.** The public union
+  listed `'move'` but the engine only understands Morph and Bend. Passing it
+  silently rendered Morph. Move already lives on the group as
+  `motion="follow"` (the selected indicator and progress leading edge). An API
+  that accepts a parameter and does nothing is worse than no API, so the
+  dead member is gone rather than implemented as a second Move entry. TypeScript
+  consumers who followed the donor README now get a type error. A leftover
+  string at runtime still warns, and `dissolve` on that leftover is still
+  ignored.
+
+### Fixed
+
+- **Outer drop shadows left the SVG filter.** `--game-ui-shadow-button`'s
+  `0 13px 26px` layer was a full-region `feGaussianBlur` whose radius also
+  inflated the filter pad. The donor had already moved that class of shadow to
+  CSS `drop-shadow()` on the compositor (same math: blur-radius = 2σ) because
+  WebKit CPU-rasterises large SVG blurs. Inset and spread stay in SVG; they
+  are not expressible as `drop-shadow()` and they are cheap. The pad no longer
+  reserves the outer blur. Visual comparison of the segmented indicator and
+  the merged-blob story is in `SHADOW-COST.md`.
+
+- **Two authoring warnings were still dead in the published bundle.** 1.11.2
+  unblocked the budget warnings; `LiquidGroup.Item` children-with-border and
+  dissolve-on-move were still gated on `import.meta.env.DEV`, which is false
+  in this package's build. `scripts/check-warnings-survive-build.mjs` now
+  covers those two messages and names which one is missing. Verified by
+  reintroducing the DEV gate and watching the check fail on `[item-border]`
+  and `[dissolve-on-move]`.
+
+### Changed
+
+- `donors-individual.md` now records the compositor shadow split as adopted,
+  and lists the remaining missed donor capabilities as missed — not as if they
+  had been rejected. `will-change: filter, transform` on the silhouette is
+  included with the split.
+
 ## 1.11.3
 
 ### Fixed
