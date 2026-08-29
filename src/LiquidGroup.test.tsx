@@ -81,4 +81,27 @@ describe('LiquidGroup DOM architecture', () => {
 
     expect(html.match(/class="game-ui-liquid-item"/g)).toHaveLength(2);
   });
+
+  it('keeps the calm default and reserves a larger filter region for waviness', () => {
+    const renderGroup = (waviness?: number): string =>
+      renderToStaticMarkup(
+        <LiquidGroup {...(waviness === undefined ? {} : { waviness })}>
+          <LiquidGroup.Item>
+            <span>Surface</span>
+          </LiquidGroup.Item>
+        </LiquidGroup>,
+      );
+    const calm = renderGroup(0);
+    const wavy = renderGroup(6);
+    const filterWidth = (html: string): number =>
+      Number(html.match(/<filter[^>]*width="([\d.]+)"/)?.[1] ?? 0);
+    const filterHeight = (html: string): number =>
+      Number(html.match(/<filter[^>]*height="([\d.]+)"/)?.[1] ?? 0);
+
+    expect(calm).not.toContain('feTurbulence');
+    expect(wavy).toContain('baseFrequency="0.018"');
+    expect(wavy).toContain('scale="12"');
+    expect(filterWidth(wavy)).toBeGreaterThan(filterWidth(calm));
+    expect(filterHeight(wavy)).toBeGreaterThan(filterHeight(calm));
+  });
 });

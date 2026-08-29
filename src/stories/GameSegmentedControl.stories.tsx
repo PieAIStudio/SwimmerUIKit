@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState, type ReactNode } from 'react';
+
 import { GameSegmentedControl } from '../index';
 
 const meta = {
@@ -27,4 +29,33 @@ export const Default: Story = {
       { id: 'tokens', label: 'Tokens' },
     ],
   },
+};
+
+function MoveIndicatorStory(): ReactNode {
+  const [activeId, setActiveId] = useState('live');
+  return (
+    <GameSegmentedControl
+      activeId={activeId}
+      label="Preview mode"
+      onSelect={setActiveId}
+      options={[
+        { id: 'daily', label: 'Daily' },
+        { id: 'live', label: 'Live room' },
+        { id: 'tokens', label: 'Tokens' },
+      ]}
+    />
+  );
+}
+
+export const MoveIndicator: Story = {
+  args: {
+    activeId: 'live',
+    label: 'Preview mode',
+    options: [
+      { id: 'daily', label: 'Daily' },
+      { id: 'live', label: 'Live room' },
+      { id: 'tokens', label: 'Tokens' },
+    ],
+  },
+  render: () => <MoveIndicatorStory />,
 };

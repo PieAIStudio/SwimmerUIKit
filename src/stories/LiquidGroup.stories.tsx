@@ -30,6 +30,8 @@ interface MorphSceneProps {
   motion?: 'auto' | 'reduced';
   shadow?: string;
   stroke?: string;
+  waviness?: number;
+  wavinessFreq?: number;
 }
 
 function MorphScene({
@@ -40,10 +42,16 @@ function MorphScene({
   motion = 'auto',
   shadow,
   stroke = '1px solid var(--game-ui-border-subtle)',
+  waviness,
+  wavinessFreq,
 }: MorphSceneProps): ReactNode {
   const [merged, setMerged] = useState(initialMerged);
   const firstX = merged ? 24 : -24;
   const secondX = merged ? -24 : 24;
+  const textureProps = {
+    ...(waviness === undefined ? {} : { waviness }),
+    ...(wavinessFreq === undefined ? {} : { wavinessFreq }),
+  };
 
   return (
     <article className="game-ui-liquid-gooey-card">
@@ -62,6 +70,7 @@ function MorphScene({
           {...(shadow ? { shadow } : {})}
           stroke={stroke}
           style={{ width: '100%', height: '220px' }}
+          {...textureProps}
         >
           <LiquidGroup.Item
             radius={999}
@@ -120,6 +129,8 @@ export const MergingPieces: Story = {
       eyebrow="Morph · connected"
       initialMerged
       title="Two drops, one moment"
+      waviness={0}
+      wavinessFreq={0.018}
     />
   ),
 };
@@ -156,6 +167,45 @@ export const StrokeAndShadow: Story = {
       shadow="0 10px 22px color-mix(in srgb, var(--game-ui-accent) 30%, transparent)"
       stroke="2px solid var(--game-ui-accent)"
       title="One outline, one shadow"
+    />
+  ),
+};
+
+export const WavinessConservative: Story = {
+  render: () => (
+    <MorphScene
+      description="3px 的长波只打破几何直线，适合存量组件的低风险质感升级。"
+      eyebrow="Waviness · conservative · 3px"
+      initialMerged={false}
+      title="A soft liquid edge"
+      waviness={3}
+      wavinessFreq={0.022}
+    />
+  ),
+};
+
+export const WavinessDefault: Story = {
+  render: () => (
+    <MorphScene
+      description="6px 的懒波让边缘和中间 neck 都脱离圆角矩形，但仍保持克制。"
+      eyebrow="Waviness · default · 6px"
+      initialMerged={false}
+      title="The bridge turns fluid"
+      waviness={6}
+      wavinessFreq={0.018}
+    />
+  ),
+};
+
+export const WavinessBold: Story = {
+  render: () => (
+    <MorphScene
+      description="10px 的长波把流体剪影推到前景，只适合明确的庆祝或奖励瞬间。"
+      eyebrow="Waviness · bold · 10px"
+      initialMerged={false}
+      title="A fuller liquid silhouette"
+      waviness={10}
+      wavinessFreq={0.014}
     />
   ),
 };

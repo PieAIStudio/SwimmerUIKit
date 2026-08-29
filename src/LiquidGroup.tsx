@@ -15,7 +15,8 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import { LiquidGooeyFilter } from './liquidGooeyFilter';
+import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
+import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 import {
   LiquidGooeyEngine,
   type LiquidGooeyItemConfig,
@@ -32,6 +33,19 @@ import type { Transition } from './liquidGooeySpring';
  * rebuilt on the merged silhouette. Do NOT add border, outline, or box-shadow
  * to children directly; those styles live on the content layer and cannot
  * merge with the liquid shape.
+ *
+ * Its motion vocabulary is intentionally small and semantic:
+ *
+ * | gesture | meaning |
+ * | --- | --- |
+ * | **merge** (Morph) | two things become one: reward settling, collecting, confirming |
+ * | **follow** (Move) | selection, progress, dragging |
+ * | **dissolve** | replacement, transition |
+ * | **still** | THE DEFAULT |
+ *
+ * Liquid appears only on a state change the user caused. There is no ambient,
+ * idle, or decorative liquid; keep the filter-area budget visible when more
+ * than one group is on a screen.
  */
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   children: ReactNode;
@@ -47,8 +61,16 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   shadow?: string;
   /** Optional stroke syntax rebuilt on the merged silhouette. Note: Do NOT add border to children directly! */
   stroke?: string;
-  /** Deterministic reduced-motion override for previews; auto follows the OS. */
-  motion?: 'auto' | 'reduced';
+  /** Max px the liquid boundary undulates. Defaults to the CSS token (0). */
+  waviness?: number;
+  /** Noise frequency of the undulation; lower values make longer waves. */
+  wavinessFreq?: number;
+  /**
+   * `auto` follows the existing component transition clock, `follow` adopts
+   * the Move surface for an explicit user-caused selection/progress gesture,
+   * and `reduced` snaps. Still remains the house default gesture.
+   */
+  motion?: 'auto' | 'follow' | 'reduced';
 }
 
 export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -89,6 +111,28 @@ function sanitizeId(value: string): string {
 
 function finite(value: number, fallback: number): number {
   return Number.isFinite(value) ? value : fallback;
+}
+
+function resolveCssVariable(
+  value: string | undefined,
+  element: HTMLElement | null,
+): string | undefined {
+  if (!value) return value;
+  const variable = /^var\((--[\w-]+)\)$/.exec(value.trim());
+  if (!variable || !element) return value;
+  const view = element.ownerDocument.defaultView;
+  if (!view) return value;
+  const resolved = view
+    .getComputedStyle(element)
+    .getPropertyValue(variable[1] ?? '')
+    .trim();
+  return resolved || value;
+}
+
+function readNumericCssToken(value: string, element: HTMLElement | null, fallback: number): number {
+  const resolved = resolveCssVariable(value, element);
+  const parsed = Number.parseFloat(resolved ?? '');
+  return Number.isFinite(parsed) ? parsed : fallback;
 }
 
 function joinClasses(...classes: Array<string | undefined>): string | undefined {
@@ -134,6 +178,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     filterPadding = 24,
     shadow,
     stroke,
+    waviness,
+    wavinessFreq,
     motion = 'auto',
     className,
     style,
@@ -145,6 +191,13 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const groupRef = useRef<HTMLDivElement | null>(null);
   const [portal, setPortal] = useState<SVGGElement | null>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
+  const [liquidFilterTokens, setLiquidFilterTokens] = useState<{
+    waviness: number;
+    wavinessFreq: number;
+  }>({
+    waviness: LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
+    wavinessFreq: LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
+  });
   const systemReducedMotion = useSystemReducedMotion();
   const reducedMotion = motion === 'reduced' || systemReducedMotion;
   const [motionMode, setMotionMode] = useState<LiquidGooeyMotionMode>(
@@ -154,13 +207,34 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const blurValue = Math.max(0, finite(blur, 6));
   const contrastValue = Math.max(1, finite(contrast, 18));
   const filterPaddingValue = Math.max(0, finite(filterPadding, 24));
-  const shadows = useMemo(() => parseShadow(shadow), [shadow]);
-  const parsedStroke = useMemo(() => parseStroke(stroke), [stroke]);
+  const wavinessValue = Math.max(
+    0,
+    finite(waviness ?? liquidFilterTokens.waviness, LIQUID_GOOEY_FILTER_DEFAULTS.waviness),
+  );
+  const wavinessFreqValue = Math.max(
+    0,
+    finite(
+      wavinessFreq ?? liquidFilterTokens.wavinessFreq,
+      LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
+    ),
+  );
+  // `shadow`/`stroke` may be a complete CSS token such as
+  // `var(--game-ui-shadow-button)`. Resolve it after the first measured render
+  // so the SVG filter receives the token's actual shorthand, not a zero-width
+  // placeholder. Inline token expressions remain valid as-is.
+  const resolvedShadow = resolveCssVariable(shadow, groupRef.current);
+  const resolvedStroke = resolveCssVariable(stroke, groupRef.current);
+  const shadows = useMemo(() => parseShadow(resolvedShadow), [resolvedShadow]);
+  const parsedStroke = useMemo(() => parseStroke(resolvedStroke), [resolvedStroke]);
   const pad = Math.ceil(
     blurValue * 3 +
       filterPaddingValue +
       shadowExtentOf(shadows) +
-      (parsedStroke ? parsedStroke.width : 0),
+      (parsedStroke ? parsedStroke.width : 0) +
+      // feDisplacementMap can move either channel by at most `waviness` px;
+      // reserve that slack so the wavy silhouette and its shadow stay inside
+      // the filter raster and the area budget reflects the real work.
+      wavinessValue,
   );
   const padRef = useRef(pad);
   padRef.current = pad;
@@ -176,8 +250,40 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   );
   const setPortalRef = useCallback((node: SVGGElement | null): void => setPortal(node), []);
 
-  // The engine is intentionally stable across prop changes; live values are
-  // updated through its setters so a render cannot tear an animation in half.
+  useLayoutEffect(() => {
+    const group = groupRef.current;
+    if (!group) return;
+    const next = {
+      waviness: Math.max(
+        0,
+        waviness === undefined
+          ? readNumericCssToken(
+              CLAY_LIQUID_GOOEY_TOKENS.waviness,
+              group,
+              LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
+            )
+          : finite(waviness, LIQUID_GOOEY_FILTER_DEFAULTS.waviness),
+      ),
+      wavinessFreq: Math.max(
+        0,
+        wavinessFreq === undefined
+          ? readNumericCssToken(
+              CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq,
+              group,
+              LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
+            )
+          : finite(wavinessFreq, LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq),
+      ),
+    };
+    setLiquidFilterTokens((previous) =>
+      previous.waviness === next.waviness && previous.wavinessFreq === next.wavinessFreq
+        ? previous
+        : next,
+    );
+  }, [waviness, wavinessFreq]);
+
+  // The engine is stable across ordinary prop changes; changing the effect
+  // mode replaces it so `follow` cannot leak into a neighboring render.
   const engine = useMemo(
     () =>
       new LiquidGooeyEngine({
@@ -190,9 +296,10 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
           );
         },
         onModeChange: setMotionMode,
+        follow: motion === 'follow',
       }),
-    // Its live values are updated below.
-    [],
+    // Its live reduced-motion value is updated below.
+    [motion],
   );
 
   useLayoutEffect(() => {
@@ -250,6 +357,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
               contrast={contrastValue}
               shadows={shadows}
               stroke={parsedStroke}
+              waviness={wavinessValue}
+              wavinessFreq={wavinessFreqValue}
             />
           </filter>
         </defs>

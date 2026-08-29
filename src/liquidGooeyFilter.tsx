@@ -1,8 +1,23 @@
+/**
+ * Waviness filter pass adapted from `liquid-gooey` by Jakub Antalik.
+ *
+ * Source: https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey
+ * Pinned commit: 3862ffa345217443b63696a8c331a0664eea4b04
+ * Copyright (c) 2026 Jakub Antalik. Licensed under the MIT License.
+ * See NOTICE for the attribution and license text.
+ */
+
 import type { ReactElement } from 'react';
 
 import type { ShadowLayer, StrokeLayer } from './liquidGooeyShadow';
 
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
+
+/** Fallbacks for SSR and hosts that have not loaded the CSS token layer yet. */
+export const LIQUID_GOOEY_FILTER_DEFAULTS = {
+  waviness: 0,
+  wavinessFreq: 0.018,
+} as const;
 
 function InsetPass({ index, shadow }: { index: number; shadow: ShadowLayer }): ReactElement {
   const parts: ReactElement[] = [];
@@ -135,13 +150,20 @@ export function LiquidGooeyFilter({
   contrast,
   shadows,
   stroke,
+  waviness = LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
+  wavinessFreq = LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
 }: {
   blur: number;
   contrast: number;
   shadows: ShadowLayer[];
   stroke: StrokeLayer | null;
+  /** Max px the liquid boundary undulates. 0 keeps the calm geometric edge. */
+  waviness?: number;
+  /** Noise frequency of the undulation; lower values make longer waves. */
+  wavinessFreq?: number;
 }): ReactElement {
   const intercept = Math.round((0.5 - contrast * (5 / 12)) * 100) / 100;
+  const wavy = waviness > 0;
   return (
     <>
       <feGaussianBlur in="SourceGraphic" stdDeviation={blur} result="blur" />
@@ -151,7 +173,35 @@ export function LiquidGooeyFilter({
         values={`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${contrast} ${intercept}`}
         result="goo"
       />
-      <feComposite in="SourceGraphic" in2="goo" operator="atop" result="shape" />
+      <feComposite
+        in="SourceGraphic"
+        in2="goo"
+        operator="atop"
+        result={wavy ? 'shape-raw' : 'shape'}
+      />
+      {/* The liquid boundary itself undulates: the whole silhouette — edges,
+          neck, shadow source — runs through one gentle displacement field, so
+          the surface reads as fluid even at rest. Shadows consume the
+          displaced 'shape', so they hug the wavy edge exactly. */}
+      {wavy ? (
+        <>
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency={wavinessFreq}
+            numOctaves={2}
+            seed="7"
+            result="wave-noise"
+          />
+          <feDisplacementMap
+            in="shape-raw"
+            in2="wave-noise"
+            scale={waviness * 2}
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="shape"
+          />
+        </>
+      ) : null}
       {stroke !== null || shadows.some((shadow) => shadow.inset || shadow.spread !== 0) ? (
         <feColorMatrix in="shape" type="matrix" values={BINARIZE} result="bin" />
       ) : null}

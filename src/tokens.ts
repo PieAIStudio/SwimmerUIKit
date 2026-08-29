@@ -3,6 +3,7 @@ export {
   CLAY_COLOR_TOKENS,
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
+  CLAY_LIQUID_GOOEY_TOKENS,
   CLAY_LIQUID_METAL_TOKENS,
   CLAY_MOTION_TOKENS,
   CLAY_OVERLAY_GLASS_TOKENS,
@@ -19,6 +20,7 @@ import {
   CLAY_ASSET_SIZE_TOKENS,
   CLAY_ELEVATION_TOKENS,
   CLAY_LAYER_TOKENS,
+  CLAY_LIQUID_GOOEY_TOKENS,
   CLAY_MOTION_TOKENS,
   CLAY_RADIUS_TOKENS,
   CLAY_SEMANTIC_TOKENS,
@@ -36,11 +38,13 @@ export const GAME_UI_TOKENS = {
   ...CLAY_MOTION_TOKENS,
   ...CLAY_LAYER_TOKENS,
   ...CLAY_ASSET_SIZE_TOKENS,
+  ...CLAY_LIQUID_GOOEY_TOKENS,
 } as const;
 
 // Alias for consumers that prefer the GAME_UI_* naming family.
 export { CLAY_OVERLAY_GLASS_TOKENS as GAME_UI_OVERLAY_GLASS_TOKENS } from './clay/tokens';
 export { CLAY_LIQUID_METAL_TOKENS as GAME_UI_LIQUID_METAL_TOKENS } from './clay/tokens';
+export { CLAY_LIQUID_GOOEY_TOKENS as GAME_UI_LIQUID_GOOEY_TOKENS } from './clay/tokens';
 
 /** Opt-in attribute values for the official overlay-glass HUD scope. */
 export const GAME_UI_OVERLAY = {

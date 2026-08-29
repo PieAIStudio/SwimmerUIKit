@@ -1,4 +1,4 @@
-import { act, type ReactNode } from 'react';
+import { StrictMode, act, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createRoot, type Root } from 'react-dom/client';
@@ -10,6 +10,8 @@ import {
   setLiquidGooeyBudget,
 } from './liquidGooeyBudget';
 import { LiquidGroup } from './LiquidGroup';
+import { GameProgress } from './GameDisplay';
+import { GameSegmentedControl } from './GameSurfaces';
 import './styles.css';
 
 (
@@ -28,6 +30,7 @@ afterEach(async () => {
   mountedContainer = null;
   resetLiquidGooeyBudgetForTests();
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 
 async function mount(node: ReactNode): Promise<HTMLDivElement> {
@@ -47,6 +50,137 @@ function makeRegistration(): LiquidGooeyItemRegistration {
 }
 
 describe('LiquidGroup browser architecture', () => {
+  it('paints the Morph silhouette when mounted inside React StrictMode', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const renderMorph = (merged: boolean): ReactNode => {
+      const firstX = merged ? 24 : -12;
+      const secondX = merged ? -24 : 12;
+      return (
+        <StrictMode>
+          <LiquidGroup style={{ height: '120px', width: '240px' }}>
+            <LiquidGroup.Item
+              style={{
+                height: '64px',
+                left: '24px',
+                position: 'absolute',
+                top: '28px',
+                width: '64px',
+              }}
+              transition="snappy"
+              x={firstX}
+            >
+              <button
+                style={{ border: '0', boxShadow: 'none', height: '100%', width: '100%' }}
+                type="button"
+              >
+                A
+              </button>
+            </LiquidGroup.Item>
+            <LiquidGroup.Item
+              style={{
+                height: '64px',
+                left: '132px',
+                position: 'absolute',
+                top: '28px',
+                width: '84px',
+              }}
+              transition="snappy"
+              x={secondX}
+            >
+              <button
+                style={{ border: '0', boxShadow: 'none', height: '100%', width: '100%' }}
+                type="button"
+              >
+                B
+              </button>
+            </LiquidGroup.Item>
+          </LiquidGroup>
+        </StrictMode>
+      );
+    };
+
+    const container = await mount(renderMorph(false));
+
+    await act(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    await act(async () => {
+      mountedRoot?.render(renderMorph(true));
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
+    expect(paths).toHaveLength(2);
+    expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+    expect(console.warn).not.toHaveBeenCalledWith(
+      expect.stringContaining('liquid animation budget is insufficient'),
+    );
+  });
+
+  it('renders static waviness and expands the measured filter area', async () => {
+    const container = await mount(
+      <div>
+        <LiquidGroup
+          data-testid="calm-liquid"
+          style={{ height: '120px', width: '240px' }}
+          waviness={0}
+        >
+          <LiquidGroup.Item
+            style={{
+              height: '64px',
+              left: '24px',
+              position: 'absolute',
+              top: '28px',
+              width: '64px',
+            }}
+          >
+            <button type="button">A</button>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+        <LiquidGroup
+          data-testid="wavy-liquid"
+          style={{ height: '120px', width: '240px' }}
+          waviness={6}
+          wavinessFreq={0.018}
+        >
+          <LiquidGroup.Item
+            style={{
+              height: '64px',
+              left: '24px',
+              position: 'absolute',
+              top: '28px',
+              width: '64px',
+            }}
+          >
+            <button type="button">B</button>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      </div>,
+    );
+
+    await act(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    const calmFilter = container.querySelector('[data-testid="calm-liquid"] filter');
+    const wavyFilter = container.querySelector('[data-testid="wavy-liquid"] filter');
+    const calmWidth = Number(calmFilter?.getAttribute('width') ?? 0);
+    const wavyWidth = Number(wavyFilter?.getAttribute('width') ?? 0);
+    const calmHeight = Number(calmFilter?.getAttribute('height') ?? 0);
+    const wavyHeight = Number(wavyFilter?.getAttribute('height') ?? 0);
+    const wavyNoise = container.querySelector('[data-testid="wavy-liquid"] feTurbulence');
+    const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
+
+    expect(wavyWidth).toBeGreaterThan(calmWidth);
+    expect(wavyHeight).toBeGreaterThan(calmHeight);
+    expect(wavyNoise?.getAttribute('baseFrequency')).toBe('0.018');
+    expect(wavyNoise?.getAttribute('seed')).toBe('7');
+    expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
+    expect(paths).toHaveLength(2);
+    expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+  });
+
   it('keeps focus, hit testing, and focus styles on the unfiltered child DOM', async () => {
     const container = await mount(
       <LiquidGroup style={{ width: '240px', height: '120px' }}>
@@ -59,7 +193,16 @@ describe('LiquidGroup browser architecture', () => {
             height: '64px',
           }}
         >
-          <button style={{ width: '100%', height: '100%' }} type="button">
+          <button
+            style={{
+              background: 'transparent',
+              border: '0',
+              boxShadow: 'none',
+              height: '100%',
+              width: '100%',
+            }}
+            type="button"
+          >
             Focus me
           </button>
         </LiquidGroup.Item>
@@ -119,22 +262,29 @@ describe('LiquidGooeyEngine idle clock', () => {
     });
     engine.register(registration);
 
+    let callbacks = 0;
     const runFrame = (milliseconds: number): void => {
       now += milliseconds;
       vi.advanceTimersByTime(milliseconds);
       const pending = [...frames.values()];
       frames.clear();
-      pending.forEach((callback) => callback(now));
+      pending.forEach((callback) => {
+        callbacks += 1;
+        callback(now);
+      });
     };
     for (let i = 0; i < 60 && frames.size > 0; i += 1) runFrame(16);
     expect(engine.getDebugState().awake).toBe(false);
     expect(frames.size).toBe(0);
     const handlesAtSleep = nextHandle;
+    const callbacksAtSleep = callbacks;
     runFrame(1_000);
     expect(nextHandle).toBe(handlesAtSleep);
+    expect(callbacks - callbacksAtSleep).toBe(0);
 
     engine.update('test-item', { x: 40, transition: { duration: 120 } });
     expect(engine.getDebugState()).toMatchObject({ awake: true, mode: 'animated', claimed: true });
+    expect(engine.getDebugState().filterArea).toBe(20_000);
     engine.dispose();
     group.remove();
   });
@@ -152,7 +302,12 @@ describe('LiquidGooeyEngine idle clock', () => {
           }}
           x={0}
         >
-          <button type="button">Snap me</button>
+          <button
+            style={{ background: 'transparent', border: '0', boxShadow: 'none' }}
+            type="button"
+          >
+            Snap me
+          </button>
         </LiquidGroup.Item>
       </LiquidGroup>,
     );
@@ -174,7 +329,12 @@ describe('LiquidGooeyEngine idle clock', () => {
             }}
             x={80}
           >
-            <button type="button">Snap me</button>
+            <button
+              style={{ background: 'transparent', border: '0', boxShadow: 'none' }}
+              type="button"
+            >
+              Snap me
+            </button>
           </LiquidGroup.Item>
         </LiquidGroup>,
       );
@@ -185,6 +345,7 @@ describe('LiquidGooeyEngine idle clock', () => {
   });
 
   it('falls back to filtered static rendering when the animation budget is full', () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     setLiquidGooeyBudget(0);
     const group = document.createElement('div');
     const registration = makeRegistration();
@@ -198,9 +359,146 @@ describe('LiquidGooeyEngine idle clock', () => {
     });
     engine.register(registration);
     engine.update('test-item', { x: 80, transition: { duration: 120 } });
+    engine.update('test-item', { x: 100, transition: { duration: 120 } });
     expect(engine.getDebugState()).toMatchObject({ mode: 'static', claimed: false });
-    expect(registration.host.style.transform).toContain('80px');
+    expect(registration.host.style.transform).toContain('100px');
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining('liquid animation budget is insufficient'),
+    );
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('static rendering'));
     engine.dispose();
     group.remove();
+  });
+
+  it('renders Move tail circles, claims the shared budget, then releases it after settling', () => {
+    vi.useFakeTimers();
+    let now = 0;
+    let nextHandle = 0;
+    const frames = new Map<number, FrameRequestCallback>();
+    const requestFrame = (callback: FrameRequestCallback): number => {
+      const handle = ++nextHandle;
+      frames.set(handle, callback);
+      return handle;
+    };
+    const cancelFrame = (handle: number): void => {
+      frames.delete(handle);
+    };
+    const group = document.createElement('div');
+    const registration = makeRegistration();
+    group.append(registration.host, registration.blob);
+    document.body.append(group);
+    const engine = new LiquidGooeyEngine({
+      cancelFrame,
+      follow: true,
+      getFilterArea: () => 20_000,
+      getGroup: () => group,
+      now: () => now,
+      requestFrame,
+    });
+    engine.register(registration);
+
+    const runFrame = (milliseconds: number): void => {
+      now += milliseconds;
+      vi.advanceTimersByTime(milliseconds);
+      const pending = [...frames.values()];
+      frames.clear();
+      pending.forEach((callback) => callback(now));
+    };
+    runFrame(16);
+    engine.update('test-item', { transition: { duration: 0 }, x: 180 });
+    expect(engine.getDebugState()).toMatchObject({ claimed: true, mode: 'animated' });
+
+    let largestTail = 0;
+    for (let index = 0; index < 18; index += 1) {
+      runFrame(16);
+      const radius = Number(
+        group
+          .querySelector<SVGCircleElement>('[data-liquid-gooey-move-tail="lead"]')
+          ?.getAttribute('r') ?? '0',
+      );
+      largestTail = Math.max(largestTail, radius);
+    }
+    expect(group.querySelectorAll('[data-liquid-gooey-move-tail]').length).toBe(3);
+    expect(largestTail).toBeGreaterThan(0);
+
+    for (let index = 0; index < 180 && frames.size > 0; index += 1) runFrame(16);
+    expect(engine.getDebugState()).toMatchObject({ awake: false, claimed: false, mode: 'static' });
+    engine.dispose();
+    group.remove();
+  });
+
+  it('does not animate Move when the process-wide budget rejects the group', () => {
+    setLiquidGooeyBudget(0);
+    const group = document.createElement('div');
+    const registration = makeRegistration();
+    group.append(registration.host, registration.blob);
+    document.body.append(group);
+    const engine = new LiquidGooeyEngine({
+      cancelFrame: () => undefined,
+      follow: true,
+      getFilterArea: () => 20_000,
+      getGroup: () => group,
+      requestFrame: () => 1,
+    });
+    engine.register(registration);
+    engine.update('test-item', { transition: { duration: 0 }, x: 180 });
+    expect(engine.getDebugState()).toMatchObject({ claimed: false, mode: 'static' });
+    expect(
+      group
+        .querySelector<SVGCircleElement>('[data-liquid-gooey-move-tail="lead"]')
+        ?.getAttribute('r'),
+    ).toBe('0');
+    engine.dispose();
+    group.remove();
+  });
+
+  it('does not animate Move when the filter-area ceiling rejects the group', () => {
+    setLiquidGooeyBudget({ maxFilterArea: 100 });
+    const group = document.createElement('div');
+    const registration = makeRegistration();
+    group.append(registration.host, registration.blob);
+    document.body.append(group);
+    const engine = new LiquidGooeyEngine({
+      cancelFrame: () => undefined,
+      follow: true,
+      getFilterArea: () => 20_000,
+      getGroup: () => group,
+      requestFrame: () => 1,
+    });
+    engine.register(registration);
+    engine.update('test-item', { transition: { duration: 0 }, x: 180 });
+    expect(engine.getDebugState()).toMatchObject({ claimed: false, mode: 'static' });
+    expect(
+      group
+        .querySelector<SVGCircleElement>('[data-liquid-gooey-move-tail="lead"]')
+        ?.getAttribute('r'),
+    ).toBe('0');
+    engine.dispose();
+    group.remove();
+  });
+});
+
+describe('Move target component content layers', () => {
+  it('mounts both target components without the painted-child warning', async () => {
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const container = await mount(
+      <div>
+        <GameSegmentedControl
+          activeId="one"
+          label="Mode"
+          options={[
+            { id: 'one', label: 'One' },
+            { id: 'two', label: 'Two' },
+          ]}
+        />
+        <GameProgress label="Progress" value={48} />
+      </div>,
+    );
+    expect(container.querySelectorAll('[data-liquid-gooey-blob]').length).toBeGreaterThan(0);
+    expect(warning).not.toHaveBeenCalledWith(
+      expect.stringContaining('LiquidGroup.Item children should not have their own border'),
+    );
+    warning.mockRestore();
   });
 });

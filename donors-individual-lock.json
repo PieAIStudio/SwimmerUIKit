@@ -12,7 +12,10 @@
   "license": "MIT",
   "checkoutPath": "<portfolio-root>/_donors-individual/for_SwimmerUIKit/",
   "mode": "review-only",
-  "importedScope": [],
+  "importedScope": [
+    "packages/liquid-gooey/src/observer.ts#MoveOptions,MOVE_DEFAULTS,springStep,springSteps,Move center/stretch/tail physics",
+    "packages/liquid-gooey/src/filter.tsx#GooFilterPrimitives,waviness static feTurbulence/feDisplacementMap pass with fixed seed 7"
+  ],
   "reviewedScope": [
     "packages/liquid-gooey/README.md",
     "packages/liquid-gooey/package.json",
@@ -21,7 +24,7 @@
   ],
   "rejectedScope": [
     "packages/liquid-gooey/src/imageMelt.tsx",
-    "Move, Melt, Bend, and dissolve systems as product features",
+    "Melt, Bend, and dissolve systems as product features",
     "general observer and image-melt engine"
   ],
   "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."

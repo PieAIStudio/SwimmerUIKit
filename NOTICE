@@ -49,12 +49,19 @@ packaged or loaded at runtime.
 We took the donor's morph-specific ideas and small implementation patterns:
 the SVG silhouette/content split, the Gaussian-blur plus alpha color-matrix
 filter, rounded-rectangle geometry, token-compatible shadow passes, and spring
-to easing compilation. We did not take its move, melt, bend, or dissolve
-systems, its general observer, or its image-melt engine. We changed the
-implementation for this kit by making fill and shadow values token-driven,
-adding a process-wide animated-group and filter-area budget, and putting the
-shared requestAnimationFrame clock to sleep after stillness. The actual
-interactive content remains outside the filtered SVG layer.
+to easing compilation. We also adapted its Move center spring, velocity-axis
+stretch, and lagging tail/mid-droplet physics for the selected segmented
+indicator and progress leading edge. This package now directly adapts the
+donor's group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed
+`feTurbulence` field and `feDisplacementMap` move the silhouette before its
+shadow passes consume it, so the shadow follows the same edge. We did not take
+the donor's melt, bend, or dissolve systems, its general observer, or its
+image-melt engine. We changed the implementation for this kit by making fill
+and shadow values token-driven, keeping waviness static with a shipped-off
+token default, adding a process-wide animated-group and filter-area budget
+that includes the displacement slack, and putting the shared
+requestAnimationFrame clock to sleep after stillness. The actual interactive
+content remains outside the filtered SVG layer.
 
 The MIT License text for that material:
 

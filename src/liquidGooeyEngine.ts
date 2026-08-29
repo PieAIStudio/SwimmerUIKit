@@ -11,6 +11,15 @@ import {
   releaseLiquidGooeyAnimation,
   tryAcquireLiquidGooeyAnimation,
 } from './liquidGooeyBudget';
+import {
+  advanceMove,
+  createMoveState,
+  resolveMoveOptions,
+  snapMoveState,
+  type MoveState,
+  type MoveTailFrame,
+  type MoveTarget,
+} from './liquidGooeyMove';
 import { easingFunction, resolveTransition, type Transition } from './liquidGooeySpring';
 
 export type LiquidGooeyMotionMode = 'static' | 'animated' | 'reduced';
@@ -54,6 +63,13 @@ interface Motion {
   ease: (progress: number) => number;
 }
 
+interface TailElements {
+  lead: SVGCircleElement;
+  midA: SVGCircleElement;
+  midB: SVGCircleElement;
+  lastPaint: string | null;
+}
+
 interface Entry extends LiquidGooeyItemRegistration {
   config: NormalizedConfig;
   target: Point;
@@ -63,6 +79,8 @@ interface Entry extends LiquidGooeyItemRegistration {
   lastPaint: string | null;
   ownTransform: string;
   resizeObserver: ResizeObserver | null;
+  move: MoveState | null;
+  tail: TailElements | null;
 }
 
 function finite(value: number | undefined, fallback: number): number {
@@ -113,8 +131,8 @@ function format(value: number): string {
  *
  * It writes the real DOM wrapper and its SVG path in the same tick. This is
  * intentionally smaller than a general measurement engine: this kit's first
- * version supports fixed morph occasions, not arbitrary image melt/move/bend
- * behaviors.
+ * version supports fixed morph occasions and the adopted Move follow surface,
+ * not arbitrary image melt, bend, dissolve, or image-melt behaviors.
  */
 export class LiquidGooeyEngine {
   private readonly getGroup: () => HTMLElement | null;
@@ -128,6 +146,8 @@ export class LiquidGooeyEngine {
   private readonly requestFrame: (callback: FrameRequestCallback) => number;
 
   private readonly cancelFrame: (handle: number) => void;
+
+  private readonly follow: boolean;
 
   private readonly items = new Map<string, Entry>();
 
@@ -145,11 +165,17 @@ export class LiquidGooeyEngine {
 
   private claimed = false;
 
+  private budgetWarningEmitted = false;
+
   private reducedMotion: boolean;
 
   private filterArea = 0;
 
   private mode: LiquidGooeyMotionMode = 'static';
+
+  private lastFrameTime: number | null = null;
+
+  private moveOptions: ReturnType<typeof resolveMoveOptions> | null = null;
 
   private disposed = false;
 
@@ -158,6 +184,7 @@ export class LiquidGooeyEngine {
     getFilterArea: () => number;
     reducedMotion?: boolean;
     onModeChange?: (mode: LiquidGooeyMotionMode) => void;
+    follow?: boolean;
     now?: () => number;
     requestFrame?: (callback: FrameRequestCallback) => number;
     cancelFrame?: (handle: number) => void;
@@ -166,12 +193,14 @@ export class LiquidGooeyEngine {
     this.getFilterArea = options.getFilterArea;
     this.reducedMotion = options.reducedMotion ?? false;
     this.onModeChange = options.onModeChange;
+    this.follow = options.follow ?? false;
     this.nowFn = options.now ?? (() => performance.now());
     this.requestFrame = options.requestFrame ?? ((callback) => requestAnimationFrame(callback));
     this.cancelFrame = options.cancelFrame ?? ((handle) => cancelAnimationFrame(handle));
   }
 
   register(registration: LiquidGooeyItemRegistration): () => void {
+    this.revive();
     this.unregister(registration.id);
     const config = normalizeConfig(registration.config);
     const entry: Entry = {
@@ -184,6 +213,8 @@ export class LiquidGooeyEngine {
       lastPaint: null,
       ownTransform: '',
       resizeObserver: null,
+      move: null,
+      tail: this.follow ? this.createTailElements(registration.blob) : null,
     };
     entry.host.style.transformOrigin = 'center';
     this.applyHost(entry);
@@ -224,12 +255,24 @@ export class LiquidGooeyEngine {
 
     if (this.reducedMotion) {
       this.snapEntry(entry);
+      this.resetMoveEntry(entry);
       this.setMode('reduced');
     } else {
       const transition = resolveTransition(config.transition);
-      if (transition.duration <= 0 || !this.ensureClaim()) {
+      const contentShouldAnimate = transition.duration > 0;
+      const shouldAnimate = contentShouldAnimate || this.follow;
+      if (!shouldAnimate || !this.ensureClaim()) {
         this.snapEntry(entry);
+        if (this.follow) this.resetMoveEntry(entry);
         this.setMode('static');
+      } else if (!contentShouldAnimate) {
+        // A follow surface may still animate when the content has no explicit
+        // transition: the host jumps, while the filtered silhouette catches up.
+        entry.current = { ...target };
+        entry.motion = null;
+        entry.host.style.willChange = '';
+        this.applyHost(entry);
+        this.setMode('animated');
       } else {
         entry.motion = {
           from: { ...entry.current },
@@ -255,6 +298,7 @@ export class LiquidGooeyEngine {
       for (const entry of this.items.values()) {
         this.advanceEntry(entry, now);
         this.snapEntry(entry);
+        this.resetMoveEntry(entry);
       }
       this.releaseClaim();
       this.setMode('reduced');
@@ -271,7 +315,10 @@ export class LiquidGooeyEngine {
     if (Math.abs(area - this.filterArea) < 0.5) return;
     this.filterArea = area;
     if (this.claimed && area > getLiquidGooeyBudget().maxFilterArea) {
-      for (const entry of this.items.values()) this.snapEntry(entry);
+      for (const entry of this.items.values()) {
+        this.snapEntry(entry);
+        if (this.follow) this.resetMoveEntry(entry);
+      }
       this.releaseClaim();
       this.setMode(this.reducedMotion ? 'reduced' : 'static');
     }
@@ -296,10 +343,12 @@ export class LiquidGooeyEngine {
     for (const entry of this.items.values()) {
       entry.resizeObserver?.disconnect();
       entry.host.style.willChange = '';
+      this.removeTailElements(entry);
     }
     this.items.clear();
     this.releaseClaim();
     this.awake = false;
+    this.lastFrameTime = null;
   }
 
   /** Test/debug evidence without exposing the internals of an item. */
@@ -308,12 +357,14 @@ export class LiquidGooeyEngine {
     mode: LiquidGooeyMotionMode;
     itemCount: number;
     claimed: boolean;
+    filterArea: number;
   } {
     return {
       awake: this.awake,
       mode: this.mode,
       itemCount: this.items.size,
       claimed: this.claimed,
+      filterArea: this.filterArea,
     };
   }
 
@@ -335,9 +386,36 @@ export class LiquidGooeyEngine {
     if (this.claimed) return true;
     const areaFromHost = this.getFilterArea();
     if (Number.isFinite(areaFromHost)) this.filterArea = Math.max(0, areaFromHost);
-    if (!tryAcquireLiquidGooeyAnimation(this.filterArea)) return false;
+    if (!tryAcquireLiquidGooeyAnimation(this.filterArea)) {
+      this.warnBudgetFallback();
+      return false;
+    }
     this.claimed = true;
+    this.moveOptions = resolveMoveOptions(this.getGroup());
     return true;
+  }
+
+  private warnBudgetFallback(): void {
+    if (this.budgetWarningEmitted || import.meta.env?.DEV === false) return;
+    this.budgetWarningEmitted = true;
+    const budget = getLiquidGooeyBudget();
+    const reason =
+      budget.activeGroups >= budget.maxAnimatedGroups
+        ? 'the active-group limit is reached'
+        : 'the filter-area limit is exceeded';
+    console.warn(
+      `LiquidGroup: the liquid animation budget is insufficient (${reason}); ` +
+        'degrading to static rendering for this group.',
+    );
+  }
+
+  private revive(): void {
+    if (!this.disposed) return;
+    this.disposed = false;
+    this.mutationObserver = null;
+    this.removeListeners.length = 0;
+    this.lastFrameTime = null;
+    this.budgetWarningEmitted = false;
   }
 
   private releaseClaim(): void {
@@ -351,6 +429,12 @@ export class LiquidGooeyEngine {
     entry.motion = null;
     entry.host.style.willChange = '';
     this.applyHost(entry);
+  }
+
+  private resetMoveEntry(entry: Entry): void {
+    entry.move = null;
+    entry.lastPaint = null;
+    this.hideTail(entry);
   }
 
   private advanceEntry(entry: Entry, now: number): boolean {
@@ -383,6 +467,69 @@ export class LiquidGooeyEngine {
     entry.host.style.transform = transform;
   }
 
+  private createTailElements(blob: SVGPathElement): TailElements | null {
+    const parent = blob.parentElement;
+    if (!parent) return null;
+    const document = blob.ownerDocument;
+    const makeCircle = (name: string): SVGCircleElement => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('data-liquid-gooey-move-tail', name);
+      circle.setAttribute('r', '0');
+      return circle;
+    };
+    const lead = makeCircle('lead');
+    const midA = makeCircle('mid-a');
+    const midB = makeCircle('mid-b');
+    parent.insertBefore(lead, blob);
+    parent.insertBefore(midA, blob);
+    parent.insertBefore(midB, blob);
+    return { lead, midA, midB, lastPaint: null };
+  }
+
+  private removeTailElements(entry: Entry): void {
+    entry.tail?.lead.remove();
+    entry.tail?.midA.remove();
+    entry.tail?.midB.remove();
+    entry.tail = null;
+  }
+
+  private hideTail(entry: Entry): void {
+    const tail = entry.tail;
+    if (!tail || tail.lastPaint === 'hidden') return;
+    tail.lead.setAttribute('r', '0');
+    tail.midA.setAttribute('r', '0');
+    tail.midB.setAttribute('r', '0');
+    tail.lastPaint = 'hidden';
+  }
+
+  private paintTail(entry: Entry, frame: MoveTailFrame): boolean {
+    const tail = entry.tail;
+    if (!tail || tail.lastPaint === frame.fingerprint) return false;
+    if (!frame.visible) {
+      this.hideTail(entry);
+      return true;
+    }
+    tail.lead.setAttribute('cx', String(frame.cx));
+    tail.lead.setAttribute('cy', String(frame.cy));
+    tail.lead.setAttribute('r', String(frame.radius));
+    tail.midA.setAttribute('cx', String(frame.midACx));
+    tail.midA.setAttribute('cy', String(frame.midACy));
+    tail.midA.setAttribute('r', String(frame.midARadius));
+    tail.midB.setAttribute('cx', String(frame.midBCx));
+    tail.midB.setAttribute('cy', String(frame.midBCy));
+    tail.midB.setAttribute('r', String(frame.midBRadius));
+    tail.lastPaint = frame.fingerprint;
+    return true;
+  }
+
+  private moveTarget(entry: Entry, box: BlobBox): MoveTarget {
+    return {
+      cx: box.x + box.w / 2 + entry.current.x,
+      cy: box.y + box.h / 2 + entry.current.y,
+      scale: entry.current.scale,
+    };
+  }
+
   private readBox(entry: Entry, group: HTMLElement): BlobBox {
     const offset = offsetTo(entry.host, group);
     const width = entry.host.offsetWidth;
@@ -393,6 +540,42 @@ export class LiquidGooeyEngine {
         ? measureRadius(target, width, height)
         : normalizeRadius(entry.config.radius);
     return { x: offset.x, y: offset.y, w: width, h: height, r: radii };
+  }
+
+  private paintFollowEntry(
+    entry: Entry,
+    box: BlobBox,
+    dt: number,
+    boxChanged: boolean,
+    isFirstBox: boolean,
+  ): { changed: boolean; moving: boolean } {
+    const target = this.moveTarget(entry, box);
+    if (!isFirstBox && boxChanged && !this.reducedMotion && !this.claimed) {
+      if (!this.ensureClaim()) {
+        this.resetMoveEntry(entry);
+        entry.move = createMoveState(target);
+      } else {
+        this.setMode('animated');
+      }
+    }
+    if (!entry.move) entry.move = createMoveState(target);
+    if (this.reducedMotion) {
+      // Reduced motion keeps the same crisp filtered silhouette, but never
+      // spends a process-wide animation slot or leaves a tail behind.
+      snapMoveState(entry.move, target);
+    }
+    const options = this.moveOptions ?? (this.moveOptions = resolveMoveOptions(this.getGroup()));
+    const frame = advanceMove(entry.move, target, box, this.reducedMotion ? 0 : dt, options);
+    const fingerprint = `${frame.path}|${frame.transform}`;
+    let changed = false;
+    if (entry.lastPaint !== fingerprint) {
+      entry.lastPaint = fingerprint;
+      entry.blob.setAttribute('d', frame.path);
+      entry.blob.setAttribute('transform', frame.transform);
+      changed = true;
+    }
+    if (this.paintTail(entry, frame.tail)) changed = true;
+    return { changed, moving: !this.reducedMotion && frame.moving && this.claimed };
   }
 
   private paintEntry(entry: Entry, box: BlobBox): boolean {
@@ -415,6 +598,10 @@ export class LiquidGooeyEngine {
       return;
     }
 
+    const dt =
+      this.lastFrameTime === null ? 1 / 60 : Math.max(0, (now - this.lastFrameTime) / 1000);
+    this.lastFrameTime = now;
+
     let moving = false;
     for (const entry of this.items.values()) {
       if (this.advanceEntry(entry, now)) moving = true;
@@ -428,12 +615,18 @@ export class LiquidGooeyEngine {
       for (const entry of this.items.values()) {
         const box = boxes.get(entry.id);
         if (!box) continue;
-        if (!sameBox(entry.lastBox, box)) {
+        const isFirstBox = entry.lastBox === null;
+        const boxChanged = !sameBox(entry.lastBox, box);
+        if (boxChanged) {
           entry.lastBox = box;
           entry.lastPaint = null;
           geometryChanged = true;
         }
-        if (this.paintEntry(entry, box)) geometryChanged = true;
+        const paint = this.follow
+          ? this.paintFollowEntry(entry, box, dt, boxChanged, isFirstBox)
+          : { changed: this.paintEntry(entry, box), moving: false };
+        if (paint.changed) geometryChanged = true;
+        if (paint.moving) moving = true;
       }
     }
 
@@ -448,6 +641,7 @@ export class LiquidGooeyEngine {
     this.awake = false;
     this.releaseClaim();
     this.setMode(this.reducedMotion ? 'reduced' : 'static');
+    this.lastFrameTime = null;
   };
 
   private ensureSources(): void {
@@ -497,12 +691,14 @@ export class LiquidGooeyEngine {
     if (!entry) return;
     entry.resizeObserver?.disconnect();
     entry.host.style.willChange = '';
+    this.removeTailElements(entry);
     this.items.delete(id);
     if (this.items.size === 0) {
       if (this.raf) this.cancelFrame(this.raf);
       this.raf = 0;
       this.awake = false;
       this.releaseClaim();
+      this.lastFrameTime = null;
     }
   }
 }

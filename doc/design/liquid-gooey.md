@@ -1,8 +1,10 @@
 # LiquidGroup
 
-`LiquidGroup` is the SwimmerUIKit first-version `morph` primitive: two or a
-few nearby UI elements can visually join into one clay-like blob, then pull
-apart with a short elastic thread. It uses an inline SVG filter built from
+`LiquidGroup` is the SwimmerUIKit first-version liquid primitive. Its `merge`
+(Morph) gesture lets two or a few nearby UI elements visually join into one
+clay-like blob, then pull apart with a short elastic thread; its `follow`
+(Move) gesture is reserved for the selected indicator and progress leading
+edge. It uses an inline SVG filter built from
 `feGaussianBlur` and `feColorMatrix`; it does not add a WebGL or npm runtime
 dependency.
 
@@ -23,7 +25,7 @@ child. This keeps focus rings, hit testing, accessible names, and text
 rendering native.
 
 ```tsx
-<LiquidGroup blur={6} contrast={18} filterPadding={24}>
+<LiquidGroup blur={6} contrast={18} filterPadding={24} waviness={6} wavinessFreq={0.018}>
   <LiquidGroup.Item x={24} transition="snappy">
     <button type="button">Collect</button>
   </LiquidGroup.Item>
@@ -39,6 +41,28 @@ The default `fill` is the theme token
 `shadow` prop follows the same rule and accepts token-based CSS box-shadow
 syntax.
 
+## Surface texture
+
+`waviness` and `wavinessFreq` are group-level knobs. They adapt the pinned
+donor's `feTurbulence` plus `feDisplacementMap` pass: the post-goo silhouette
+is displaced once with `seed="7"`, and the resulting `shape` is the source for
+the SVG shadow passes as well as the final rendered silhouette. This keeps the
+neck and its shadow on one edge instead of making the shadow expose a second,
+geometric contour.
+
+The texture is static. There is no animated `baseFrequency`, no time-based
+seed, and no additional requestAnimationFrame work; the existing shared clock
+still sleeps after the normal settle window. The shipped token default is
+`--game-ui-liquid-gooey-waviness: 0` so existing consumers keep their exact
+edge. The recommended brand preset is `6` with
+`--game-ui-liquid-gooey-waviness-freq: 0.018`; `3`/`0.022` is conservative and
+`10`/`0.014` is bold on the same strength axis.
+
+`waviness` also expands the filter pad by the same maximum number of pixels on
+each side. The resulting `(width + 2 × pad) × (height + 2 × pad)` area is the
+value checked against the 480,000 CSS-pixel animation ceiling, so enabling the
+texture cannot under-report its raster cost.
+
 ## Motion and budget
 
 The group uses one shared clock. It watches the small set of DOM geometry
@@ -50,15 +74,15 @@ otherwise the component follows `prefers-reduced-motion: reduce` and snaps
 states without movement.
 
 SVG filters are not WebGL contexts, so the separate gooey budget limits
-simultaneously animated groups and the padded filter-area size. The defaults
-are two animated groups and 480,000 CSS pixels per filter region. A group that
-cannot acquire a slot stays rendered with its SVG filter and snaps to state;
-it does not throw and does not disappear.
+simultaneously animated groups and the padded filter-area size, including the
+waviness slack. The defaults are two animated groups and 480,000 CSS pixels
+per filter region. A group that cannot acquire a slot stays rendered with its
+SVG filter and snaps to state; it does not throw and does not disappear.
 
 ## First-version boundary
 
-This primitive intentionally implements only `morph`. `move` (trail), `melt`
-(image dissolution), `bend` (shape deformation), and `dissolve` are not part of
-this version. A later version would need explicit product use cases, a larger
-measurement/asset pipeline, and separate performance and accessibility tests
-before adding those behaviors.
+This primitive intentionally implements only `morph` and the adopted `follow`
+(Move) surface. `melt` (image dissolution), `bend` (shape deformation), and
+`dissolve` are not part of this version. A later version would need explicit
+product use cases, a larger measurement/asset pipeline, and separate
+performance and accessibility tests before adding those behaviors.

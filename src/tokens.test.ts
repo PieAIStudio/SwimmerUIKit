@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   CLAY_COLOR_TOKENS,
+  CLAY_LIQUID_GOOEY_TOKENS,
   CLAY_TYPE_TOKENS,
   CLAY_TARGET_TOKENS,
   CLAY_UI_TOKENS,
@@ -51,6 +52,7 @@ describe('clay token exports', () => {
     expect(CLAY_UI_TOKENS.semantic.background).toBe('var(--game-ui-bg)');
     expect(CLAY_UI_TOKENS.typography.familyBody).toBe('var(--game-ui-font-body)');
     expect(GAME_UI_TOKENS.surface).toBe('var(--game-ui-surface)');
+    expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--game-ui-liquid-gooey-move-stiffness)');
   });
 
   it('keeps proof viewport targets in code tokens', () => {
@@ -58,6 +60,23 @@ describe('clay token exports', () => {
     expect(CLAY_TARGET_TOKENS.desktopProofHeightPx).toBe(900);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofWidthPx).toBe(844);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofHeightPx).toBe(390);
+  });
+});
+
+describe('liquid-gooey token mirror', () => {
+  it('defines every token used by the liquid resolver in theme.css', () => {
+    for (const value of Object.values(CLAY_LIQUID_GOOEY_TOKENS)) {
+      const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
+      expect(name, `${value} should be a bare var() reference`).toBeTruthy();
+      expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
+    }
+  });
+
+  it('ships waviness off by default with the donor frequency as its token baseline', () => {
+    expect(CLAY_LIQUID_GOOEY_TOKENS.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
+    expect(CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('0');
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness-freq')).toBe('0.018');
   });
 });
 
