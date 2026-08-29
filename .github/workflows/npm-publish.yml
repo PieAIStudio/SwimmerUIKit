@@ -79,15 +79,16 @@ jobs:
 
       - name: Verify package
         run: |
-          for attempt in {1..24}; do
+          for attempt in {1..90}; do
             PUBLISHED=$(npm view "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }}" version --registry https://registry.npmjs.org/ 2>/dev/null || true)
             if [ "$PUBLISHED" = "${{ steps.package.outputs.version }}" ]; then
               echo "@pieai/swimmer-ui-kit@$PUBLISHED is visible on npm."
               exit 0
             fi
-            echo "Waiting for @pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/24)."
+            echo "Waiting for @pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/90)."
             sleep 5
           done
 
-          echo "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm in time." >&2
+          echo "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm within 7.5 minutes." >&2
+          echo "The publish step above succeeded, so the tarball is on npm; this step only watches the registry index." >&2
           exit 1
