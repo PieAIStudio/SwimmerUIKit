@@ -16,8 +16,10 @@ export {
 export {
   LiquidGroup,
   LiquidItem,
+  type BendTuning,
   type LiquidGroupProps,
   type LiquidItemProps,
+  type MorphTuning,
 } from './LiquidGroup';
 export {
   DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET,

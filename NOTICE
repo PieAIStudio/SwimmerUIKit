@@ -32,12 +32,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Liquid-gooey morph filter
--------------------------
-The liquid morph primitive in `src/LiquidGroup.tsx` and its supporting filter,
-geometry, shadow, and spring modules is an original SwimmerUIKit
-implementation informed by the `liquid-gooey` package in the Libraries
-repository (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
+Liquid-gooey Morph/Bend adaptations
+-----------------------------------
+The liquid primitive in `src/LiquidGroup.tsx` and its supporting filter,
+geometry, shadow, spring, evolve, and Move modules includes direct local
+adaptations from the `liquid-gooey` package in the Libraries repository
+(https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
 Copyright (c) 2026 Jakub Antalik, licensed under the MIT License.
 
 The reviewed upstream state is pinned in `donors-individual-lock.json` at commit
@@ -46,22 +46,29 @@ The reviewed upstream state is pinned in `donors-individual-lock.json` at commit
 checkout is `<portfolio-root>/_donors-individual/for_SwimmerUIKit/` and is not
 packaged or loaded at runtime.
 
-We took the donor's morph-specific ideas and small implementation patterns:
-the SVG silhouette/content split, the Gaussian-blur plus alpha color-matrix
-filter, rounded-rectangle geometry, token-compatible shadow passes, and spring
-to easing compilation. We also adapted its Move center spring, velocity-axis
+We directly adapted its Morph centre/size/radius spring timeline and motion
+envelope for `morph.shape`, its 7px-default content cross-blur for
+`morph.contentBlur`, and its Bend velocity-bowed path, horizontal cap
+deformation, surface-glued tracking, and `--lg-bend-x` / `--lg-bend-y` /
+`--lg-bend-xn` / `--lg-bend-yn` CSS variable outlet. The local implementations
+are in `src/liquidGooeyEvolve.ts` and `src/liquidGooeyMove.ts`; their file
+headers repeat this source URL, pinned commit, copyright, MIT license, and
+NOTICE pointer. We also adapted the donor's Move center spring, velocity-axis
 stretch, and lagging tail/mid-droplet physics for the selected segmented
-indicator and progress leading edge. This package now directly adapts the
-donor's group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed
-`feTurbulence` field and `feDisplacementMap` move the silhouette before its
-shadow passes consume it, so the shadow follows the same edge. We did not take
-the donor's melt, bend, or dissolve systems, its general observer, or its
-image-melt engine. We changed the implementation for this kit by making fill
-and shadow values token-driven, keeping waviness static with a shipped-off
-token default, adding a process-wide animated-group and filter-area budget
-that includes the displacement slack, and putting the shared
-requestAnimationFrame clock to sleep after stillness. The actual interactive
-content remains outside the filtered SVG layer.
+indicator and progress leading edge. This package directly adapts the donor's
+group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed `feTurbulence`
+field and `feDisplacementMap` move the silhouette before its shadow passes
+consume it, so the shadow follows the same edge.
+
+We did not take the donor's melt, dissolve, or image-melt systems, nor its
+general observer. SwimmerUIKit changes the implementation for this kit by
+making effect values token-driven, keeping texture static with a visible 6px
+default, adding process-wide animated-group and filter-area budgets that
+include waviness, content-blur, and Bend deformation slack, and putting the
+shared requestAnimationFrame clock to sleep after stillness. The actual
+interactive content remains outside the filtered SVG layer; Morph's blur is
+applied to the content wrapper only, while Bend content receives inherited
+CSS variables.
 
 The MIT License text for that material:
 

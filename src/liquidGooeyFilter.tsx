@@ -15,7 +15,7 @@ const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 
 /** Fallbacks for SSR and hosts that have not loaded the CSS token layer yet. */
 export const LIQUID_GOOEY_FILTER_DEFAULTS = {
-  waviness: 0,
+  waviness: 6,
   wavinessFreq: 0.018,
 } as const;
 

@@ -41,6 +41,20 @@ async function mount(node: ReactNode): Promise<HTMLDivElement> {
   return mountedContainer;
 }
 
+async function waitFrames(count: number): Promise<void> {
+  await act(async () => {
+    await new Promise<void>((resolve) => {
+      let remaining = Math.max(1, count);
+      const tick = (): void => {
+        remaining -= 1;
+        if (remaining <= 0) resolve();
+        else requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  });
+}
+
 function makeRegistration(): LiquidGooeyItemRegistration {
   const host = document.createElement('div');
   host.style.width = '64px';
@@ -179,6 +193,157 @@ describe('LiquidGroup browser architecture', () => {
     expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
     expect(paths).toHaveLength(2);
     expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+  });
+
+  it('cross-blurs the content layer during Morph and sharpens it at rest', async () => {
+    const renderMorph = (x: number): ReactNode => (
+      <LiquidGroup style={{ height: '140px', width: '320px' }} waviness={0}>
+        <LiquidGroup.Item
+          morph={{ contentBlur: 7, shape: true }}
+          style={{ height: '64px', left: '24px', position: 'absolute', top: '38px', width: '96px' }}
+          transition={{ duration: 240, ease: 'linear' }}
+          x={x}
+        >
+          <button
+            style={{
+              background: 'transparent',
+              border: '0',
+              boxShadow: 'none',
+              height: '100%',
+              width: '100%',
+            }}
+            type="button"
+          >
+            Inside
+          </button>
+        </LiquidGroup.Item>
+      </LiquidGroup>
+    );
+
+    const container = await mount(renderMorph(0));
+    await waitFrames(3);
+    await act(async () => {
+      mountedRoot?.render(renderMorph(160));
+    });
+    await waitFrames(4);
+
+    const item = container.querySelector<HTMLElement>('.game-ui-liquid-item');
+    const button = container.querySelector<HTMLButtonElement>('button');
+    const silhouette = container.querySelector<SVGGElement>('[data-liquid-gooey-silhouette] g');
+    expect(item?.style.filter).toContain('blur(');
+    expect(button?.style.filter).toBe('');
+    expect(silhouette?.getAttribute('filter')).toContain('url(#');
+    expect(silhouette?.style.filter).toBe('');
+
+    await waitFrames(180);
+    expect(item?.style.filter).toBe('');
+  });
+
+  it('keeps Bend content glued to the observed rect and publishes all four CSS variables', async () => {
+    const renderBend = (shifted: boolean): ReactNode => (
+      <LiquidGroup style={{ height: '160px', width: '360px' }} waviness={0}>
+        <LiquidGroup.Item
+          bend={{ horizontal: 0.35, vertical: 0.6 }}
+          effect="bend"
+          style={{ left: '24px', position: 'absolute', top: '42px' }}
+        >
+          <button
+            data-testid="bend-content"
+            style={{
+              background: 'transparent',
+              border: '0',
+              boxShadow: 'none',
+              height: '64px',
+              transform: shifted ? 'translate(180px, 20px)' : 'translate(0, 0)',
+              width: '120px',
+            }}
+            type="button"
+          >
+            Glued
+          </button>
+        </LiquidGroup.Item>
+      </LiquidGroup>
+    );
+
+    const container = await mount(renderBend(false));
+    await waitFrames(3);
+    await act(async () => {
+      mountedRoot?.render(renderBend(true));
+    });
+    await waitFrames(4);
+
+    const item = container.querySelector<HTMLElement>('.game-ui-liquid-item');
+    const button = container.querySelector<HTMLButtonElement>('[data-testid="bend-content"]');
+    const blob = container.querySelector<SVGPathElement>('[data-liquid-gooey-blob]');
+    expect(item?.style.transform).toBe('');
+    expect(item?.style.getPropertyValue('--lg-bend-x')).not.toBe('');
+    expect(item?.style.getPropertyValue('--lg-bend-y')).not.toBe('');
+    expect(item?.style.getPropertyValue('--lg-bend-xn')).not.toBe('');
+    expect(item?.style.getPropertyValue('--lg-bend-yn')).not.toBe('');
+    expect(blob?.getAttribute('d')).toContain('Q');
+    expect(container.querySelector('[data-liquid-gooey-move-tail]')).toBeNull();
+    expect(button?.getBoundingClientRect().width).toBeGreaterThan(0);
+
+    await waitFrames(70);
+    expect(item?.style.getPropertyValue('--lg-bend-x')).toBe('0px');
+    expect(item?.style.getPropertyValue('--lg-bend-y')).toBe('0px');
+  });
+
+  it('counts Morph content blur and Bend bow slack in the 480,000px² filter-area readout', async () => {
+    const renderBudget = (kind: 'plain' | 'morph' | 'bend' | 'all'): ReactNode => (
+      <LiquidGroup data-testid={kind} style={{ height: '160px', width: '360px' }} waviness={0}>
+        {(kind === 'plain' || kind === 'morph' || kind === 'all') && (
+          <LiquidGroup.Item
+            morph={kind === 'plain' ? { shape: false } : { contentBlur: 7, shape: true }}
+            style={{
+              height: '64px',
+              left: '24px',
+              position: 'absolute',
+              top: '42px',
+              width: '120px',
+            }}
+          >
+            <span>Shape</span>
+          </LiquidGroup.Item>
+        )}
+        {(kind === 'bend' || kind === 'all') && (
+          <LiquidGroup.Item
+            effect="bend"
+            style={{
+              height: '64px',
+              left: kind === 'all' ? '190px' : '24px',
+              position: 'absolute',
+              top: '42px',
+              width: '120px',
+            }}
+          >
+            <span>Bend</span>
+          </LiquidGroup.Item>
+        )}
+      </LiquidGroup>
+    );
+    const container = await mount(
+      <div>
+        {renderBudget('plain')}
+        {renderBudget('morph')}
+        {renderBudget('bend')}
+        {renderBudget('all')}
+      </div>,
+    );
+    await waitFrames(5);
+
+    const read = (kind: string, name: string): number =>
+      Number(container.querySelector<HTMLElement>(`[data-testid="${kind}"]`)?.dataset[name] ?? 0);
+    const plainArea = read('plain', 'liquidFilterArea');
+    const morphArea = read('morph', 'liquidFilterArea');
+    const bendArea = read('bend', 'liquidFilterArea');
+    const allArea = read('all', 'liquidFilterArea');
+    expect(morphArea).toBeGreaterThan(plainArea);
+    expect(bendArea).toBeGreaterThan(plainArea);
+    expect(allArea).toBeGreaterThan(plainArea);
+    expect(allArea).toBeLessThanOrEqual(480_000);
+    expect(read('morph', 'liquidFeaturePadding')).toBeGreaterThan(0);
+    expect(read('bend', 'liquidFeaturePadding')).toBeGreaterThan(0);
   });
 
   it('keeps focus, hit testing, and focus styles on the unfiltered child DOM', async () => {

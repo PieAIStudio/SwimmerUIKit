@@ -3,6 +3,31 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## Unreleased
+
+### Added
+
+- **Morph shape evolution and content cross-blur.** `LiquidGroup.Item` now
+  accepts `morph={{ shape, speed, bounce, contentBlur }}`. The adopted centre →
+  size → corner timeline makes the liquid change form like jelly, while the
+  default `contentBlur: 7` is written to the content wrapper only and clears as
+  the motion settles. The brand-kit token default deliberately enables shape;
+  pass `shape: false` for a calm opt-out.
+- **Surface-glued Bend.** `effect="bend"` follows an externally moved child,
+  bows its long edges and deforms its rounded caps without a lagging body or
+  tail. It publishes `--lg-bend-x`, `--lg-bend-y`, `--lg-bend-xn`, and
+  `--lg-bend-yn` on the item for content tilt/rotation.
+- **Knob stories and budget evidence.** Storybook now exposes conservative,
+  default, and bold points for Morph and Bend, plus contentBlur off/default/bold
+  comparisons and a combined filter-area readout.
+
+### Performance
+
+- Morph content-blur and Bend deformation slack are part of the existing
+  480,000 CSS-pixel filter-area ceiling. The shared requestAnimationFrame clock
+  remains event-driven and sleeps completely after stillness; an over-budget
+  group snaps to static filtered rendering with a development warning.
+
 ## 1.10.1
 
 ### Fixed

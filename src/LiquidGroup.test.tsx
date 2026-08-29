@@ -82,7 +82,7 @@ describe('LiquidGroup DOM architecture', () => {
     expect(html.match(/class="game-ui-liquid-item"/g)).toHaveLength(2);
   });
 
-  it('keeps the calm default and reserves a larger filter region for waviness', () => {
+  it('keeps an explicit calm override and reserves a larger filter region for waviness', () => {
     const renderGroup = (waviness?: number): string =>
       renderToStaticMarkup(
         <LiquidGroup {...(waviness === undefined ? {} : { waviness })}>

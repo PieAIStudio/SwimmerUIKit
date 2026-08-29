@@ -240,10 +240,41 @@
   --game-ui-liquid-metal-bloom: 2.6;
 
   /*
-    Liquid-gooey Move. These are numeric tokens because the follow surface
-    reads them at runtime; downstream themes may retune the feel without
-    editing the physics module.
+    Liquid-gooey Morph/Bend/Move. Numeric custom properties are read by the
+    shared engine at runtime, so downstream themes can retune the feel
+    without copying the physics module. Shape is deliberately on in the
+    brand-kit baseline: the donor's API still accepts shape=false as an
+    explicit opt-out, but the adopted default must be visible in a story.
   */
+  --game-ui-liquid-gooey-morph-shape: 1;
+  --game-ui-liquid-gooey-morph-speed: 1;
+  --game-ui-liquid-gooey-morph-bounce: 0.5;
+  --game-ui-liquid-gooey-evolve-mass-stiffness: 320;
+  --game-ui-liquid-gooey-evolve-mass-damping: 17;
+  --game-ui-liquid-gooey-evolve-size-stiffness: 170;
+  --game-ui-liquid-gooey-evolve-size-damping: 11.5;
+  --game-ui-liquid-gooey-evolve-radius-stiffness: 900;
+  --game-ui-liquid-gooey-evolve-radius-damping: 60;
+  --game-ui-liquid-gooey-evolve-content-blur: 7;
+  --game-ui-liquid-gooey-evolve-roundness: 1;
+  --game-ui-liquid-gooey-evolve-corner-duration: 460;
+  --game-ui-liquid-gooey-evolve-corner-delay: 0;
+  --game-ui-liquid-gooey-evolve-corner-ease: cubic-bezier(0.3, 1.05, 0.4, 1);
+  --game-ui-liquid-gooey-evolve-anticipation: 90;
+  --game-ui-liquid-gooey-evolve-travel: 32;
+  --game-ui-liquid-gooey-content-blur-area-multiplier: 3;
+  --game-ui-liquid-gooey-bend-vertical: 0.6;
+  --game-ui-liquid-gooey-bend-horizontal: 0.35;
+  --game-ui-liquid-gooey-bend-velocity-vertical: 0.05;
+  --game-ui-liquid-gooey-bend-velocity-horizontal: 0.09;
+  --game-ui-liquid-gooey-bend-smoothing: 9;
+  --game-ui-liquid-gooey-bend-active-threshold: 0.5;
+  --game-ui-liquid-gooey-bend-vertical-cap: 0.5;
+  --game-ui-liquid-gooey-bend-horizontal-cap: 0.9;
+  --game-ui-liquid-gooey-bend-radius-min: 0.2;
+  --game-ui-liquid-gooey-bend-radius-max: 3;
+  --game-ui-liquid-gooey-bend-leading-cap-factor: 0.8;
+  --game-ui-liquid-gooey-bend-trailing-cap-factor: 1.6;
   --game-ui-liquid-gooey-move-stiffness: 380;
   --game-ui-liquid-gooey-move-damping: 18;
   --game-ui-liquid-gooey-move-stretch: 0.18;
@@ -273,10 +304,9 @@
   --game-ui-liquid-gooey-move-integration-rate: 60;
 
   /* Liquid-gooey surface texture. Static by design: the seed is fixed and
-     there is no clock behind the filter. Keep the shipped default off so
-     existing silhouettes retain their exact appearance; 6px at 0.018 is the
-     recommended on-brand preset when a scene opts into the texture. */
-  --game-ui-liquid-gooey-waviness: 0;
+     there is no clock behind the filter. The adopted default is visible:
+     6px at the donor's 0.018 frequency; 0 remains an explicit calm override. */
+  --game-ui-liquid-gooey-waviness: 6;
   --game-ui-liquid-gooey-waviness-freq: 0.018;
 }
 
