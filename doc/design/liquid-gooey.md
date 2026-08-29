@@ -152,10 +152,27 @@ The recommended brand preset is `6` with
 `--game-ui-liquid-gooey-waviness-freq: 0.018`; `3`/`0.022` is conservative and
 `10`/`0.014` is bold on the same strength axis.
 
-`waviness` also expands the filter pad by the same maximum number of pixels on
-each side. The resulting `(width + 2 × pad) × (height + 2 × pad)` area is the
-value checked against the 480,000 CSS-pixel animation ceiling, so enabling the
-texture cannot under-report its raster cost.
+Because `waviness` is an absolute pixel value, `LiquidGroup` clamps the
+effective value after measuring its rendered box:
+
+```text
+effectiveWaviness = min(requestedWaviness, shorterSide × 0.3)
+```
+
+The 30% cap is a visual safety boundary, not a second token that callers need
+to remember. In the Storybook comparison, 6px on a 14px bar made the edge
+consume almost half its height; 4.2px still leaves a small, readable liquid
+undulation. The same request is unchanged on a 52px control (the cap is
+15.6px) and on a 150px blob (the cap is 45px), preserving the existing larger
+surface treatment. `wavinessClamp` accepts another fraction for a reviewed
+preset; pass `false` only when a deliberately exaggerated, size-unsafe effect
+is wanted.
+
+`waviness` expands the filter pad by the same effective maximum number of
+pixels on each side. The resulting `(width + 2 × pad) × (height + 2 × pad)`
+area is the value checked against the 480,000 CSS-pixel animation ceiling, so
+the safe visual value and its raster cost stay in sync. The measured effective
+value is exposed as `data-liquid-waviness` for Storybook and QA inspection.
 
 ## Motion and budget
 

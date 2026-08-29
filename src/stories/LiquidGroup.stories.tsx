@@ -237,6 +237,95 @@ export const WavinessBold: Story = {
   ),
 };
 
+interface WavinessComparisonSize {
+  id: 'bar' | 'control' | 'blob';
+  label: string;
+  width: number;
+  height: number;
+  shape: 'bar' | 'control' | 'blob';
+}
+
+const WAVINESS_COMPARISON_SIZES: WavinessComparisonSize[] = [
+  { id: 'bar', label: '14px thin bar', width: 240, height: 14, shape: 'bar' },
+  { id: 'control', label: '52px control', width: 240, height: 52, shape: 'control' },
+  { id: 'blob', label: '150px blob', width: 150, height: 150, shape: 'blob' },
+];
+
+function WavinessComparisonSurface({
+  clamped,
+  size,
+}: {
+  clamped: boolean;
+  size: WavinessComparisonSize;
+}): ReactNode {
+  return (
+    <div
+      className="game-ui-liquid-waviness-cell"
+      data-waviness-state={clamped ? 'after' : 'before'}
+    >
+      <span className="game-ui-liquid-waviness-label">
+        {clamped ? 'Default clamp' : 'Clamp off'} · 6px requested
+      </span>
+      <LiquidGroup
+        className="game-ui-liquid-waviness-surface"
+        data-testid={`waviness-${size.id}-${clamped ? 'after' : 'before'}`}
+        fill="var(--game-ui-accent)"
+        filterPadding={12}
+        motion="reduced"
+        style={{ height: `${size.height}px`, width: `${size.width}px` }}
+        waviness={6}
+        wavinessFreq={0.018}
+        {...(clamped ? {} : { wavinessClamp: false })}
+      >
+        <LiquidGroup.Item
+          {...(size.shape === 'blob' ? { radius: 999 } : {})}
+          style={{
+            borderRadius: size.shape === 'blob' ? '50%' : 'var(--game-ui-radius-control)',
+            inset: 0,
+            position: 'absolute',
+          }}
+        >
+          {null}
+        </LiquidGroup.Item>
+      </LiquidGroup>
+    </div>
+  );
+}
+
+export const WavinessClampComparison: Story = {
+  render: () => (
+    <article className="game-ui-liquid-gooey-card game-ui-liquid-waviness-comparison">
+      <header className="game-ui-liquid-demo-header">
+        <span className="game-ui-liquid-demo-kicker">Waviness · measured safety</span>
+        <h2>One token, three honest sizes</h2>
+        <p>
+          同一个 6px 请求值在夹紧前后并排展示。默认按 LiquidGroup 的较短边限制为 30%；显式
+          `wavinessClamp={false}` 才会恢复夸张效果。
+        </p>
+      </header>
+      <div className="game-ui-liquid-waviness-grid">
+        <div className="game-ui-liquid-waviness-row game-ui-liquid-waviness-heading-row">
+          <span className="game-ui-liquid-waviness-grid-heading">Measured surface</span>
+          <span className="game-ui-liquid-waviness-grid-heading">Before</span>
+          <span className="game-ui-liquid-waviness-grid-heading">After</span>
+        </div>
+        {WAVINESS_COMPARISON_SIZES.map((size) => (
+          <div className="game-ui-liquid-waviness-row" key={size.id}>
+            <span className="game-ui-liquid-waviness-size">{size.label}</span>
+            <WavinessComparisonSurface clamped={false} size={size} />
+            <WavinessComparisonSurface clamped size={size} />
+          </div>
+        ))}
+      </div>
+      <div className="game-ui-liquid-demo-controls">
+        <span className="game-ui-liquid-demo-status">
+          Default max fraction · 30% of shorter side · 14px → 4.2px · 52px / 150px stay at 6px
+        </span>
+      </div>
+    </article>
+  ),
+};
+
 interface MorphKnobProps {
   shape: boolean;
   speed: number;

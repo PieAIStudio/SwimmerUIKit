@@ -35,6 +35,7 @@ export {
   getLiquidGooeyBudget,
   setLiquidGooeyBudget,
 } from './liquidGooeyBudget';
+export { LIQUID_GOOEY_WAVINESS_MAX_FRACTION } from './liquidGooeyWaviness';
 export { GameCallout, type GameCalloutProps, type GameCalloutTone } from './GameCallout';
 export { GameDialog, type GameDialogProps } from './GameDialog';
 export {

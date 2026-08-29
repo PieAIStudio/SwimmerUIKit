@@ -820,6 +820,59 @@
     align-items: center;
     gap: 12px;
   }
+  .game-ui-liquid-waviness-comparison {
+    width: min(100%, 980px);
+  }
+  .game-ui-liquid-waviness-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .game-ui-liquid-waviness-grid-heading {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .game-ui-liquid-waviness-row {
+    display: grid;
+    grid-template-columns: minmax(112px, 0.62fr) repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 10px;
+    border-top: var(--game-ui-stroke);
+    padding-top: 10px;
+  }
+  .game-ui-liquid-waviness-heading-row {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .game-ui-liquid-waviness-size {
+    color: var(--game-ui-ink-heading);
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-sm);
+    font-weight: var(--game-ui-weight-title);
+  }
+  .game-ui-liquid-waviness-cell {
+    display: grid;
+    justify-items: center;
+    gap: 7px;
+    min-width: 0;
+  }
+  .game-ui-liquid-waviness-label {
+    color: var(--game-ui-text-muted);
+    font-family: var(--game-ui-font-mono);
+    font-size: 0.68rem;
+    font-weight: 760;
+    text-align: center;
+  }
+  .game-ui-liquid-waviness-surface {
+    max-width: 100%;
+    overflow: visible;
+  }
+  .game-ui-liquid-waviness-surface .game-ui-liquid-content {
+    position: absolute;
+    inset: 0;
+  }
   @media (max-width: 480px) {
     .game-ui-liquid-gooey-card {
       padding: 14px;
@@ -830,6 +883,13 @@
     }
     .game-ui-liquid-demo-controls .game-ui-button {
       width: 100%;
+    }
+    .game-ui-liquid-waviness-row {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+    .game-ui-liquid-waviness-cell {
+      justify-items: start;
     }
   }
 }

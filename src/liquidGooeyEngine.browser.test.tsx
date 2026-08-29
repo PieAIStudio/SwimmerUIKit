@@ -12,6 +12,7 @@ import {
 import { LiquidGroup } from './LiquidGroup';
 import { GameProgress } from './GameDisplay';
 import { GameSegmentedControl } from './GameSurfaces';
+import { LIQUID_GOOEY_WAVINESS_MAX_FRACTION } from './liquidGooeyWaviness';
 import './styles.css';
 
 (
@@ -193,6 +194,47 @@ describe('LiquidGroup browser architecture', () => {
     expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
     expect(paths).toHaveLength(2);
     expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+  });
+
+  it('clamps thin surfaces by their shorter side and preserves larger surfaces', async () => {
+    const surface = (testId: string, width: string, height: string, clamp?: number | false) => (
+      <LiquidGroup
+        data-testid={testId}
+        style={{ height, position: 'relative', width }}
+        waviness={6}
+        {...(clamp === undefined ? {} : { wavinessClamp: clamp })}
+      >
+        <LiquidGroup.Item style={{ inset: 0, position: 'absolute' }}>{null}</LiquidGroup.Item>
+      </LiquidGroup>
+    );
+    const container = await mount(
+      <div>
+        {surface('thin-liquid', '240px', '14px')}
+        {surface('control-liquid', '240px', '52px')}
+        {surface('blob-liquid', '150px', '150px')}
+        {surface('explicit-liquid', '240px', '14px', false)}
+      </div>,
+    );
+
+    await waitFrames(2);
+
+    const readWaviness = (testId: string): number =>
+      Number(
+        container.querySelector(`[data-testid="${testId}"]`)?.getAttribute('data-liquid-waviness'),
+      );
+    const readScale = (testId: string): number =>
+      Number(
+        container
+          .querySelector(`[data-testid="${testId}"] feDisplacementMap`)
+          ?.getAttribute('scale'),
+      );
+
+    expect(readWaviness('thin-liquid')).toBeCloseTo(14 * LIQUID_GOOEY_WAVINESS_MAX_FRACTION);
+    expect(readScale('thin-liquid')).toBeCloseTo(14 * LIQUID_GOOEY_WAVINESS_MAX_FRACTION * 2);
+    expect(readWaviness('control-liquid')).toBe(6);
+    expect(readWaviness('blob-liquid')).toBe(6);
+    expect(readWaviness('explicit-liquid')).toBe(6);
+    expect(readScale('explicit-liquid')).toBe(12);
   });
 
   it('cross-blurs the content layer during Morph and sharpens it at rest', async () => {

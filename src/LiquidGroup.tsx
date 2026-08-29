@@ -19,6 +19,10 @@ import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
 import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from './liquidGooeyBudget';
 import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 import {
+  LIQUID_GOOEY_WAVINESS_MAX_FRACTION,
+  resolveLiquidGooeyWaviness,
+} from './liquidGooeyWaviness';
+import {
   LiquidGooeyEngine,
   type LiquidGooeyItemConfig,
   type LiquidGooeyMotionMode,
@@ -81,6 +85,11 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   waviness?: number;
   /** Noise frequency of the undulation; lower values make longer waves. */
   wavinessFreq?: number;
+  /**
+   * Max fraction of the group's shorter side allowed for waviness. Defaults
+   * to 0.3; pass `false` to explicitly disable the size clamp.
+   */
+  wavinessClamp?: number | false;
   /**
    * `auto` follows the existing component transition clock, `follow` adopts
    * the Move surface for an explicit user-caused selection/progress gesture,
@@ -244,6 +253,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     stroke,
     waviness,
     wavinessFreq,
+    wavinessClamp,
     motion = 'auto',
     className,
     style,
@@ -273,9 +283,25 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const blurValue = Math.max(0, finite(blur, 6));
   const contrastValue = Math.max(1, finite(contrast, 18));
   const filterPaddingValue = Math.max(0, finite(filterPadding, 24));
-  const wavinessValue = Math.max(
+  const requestedWavinessValue = Math.max(
     0,
     finite(waviness ?? liquidFilterTokens.waviness, LIQUID_GOOEY_FILTER_DEFAULTS.waviness),
+  );
+  const wavinessClampValue =
+    wavinessClamp === false
+      ? false
+      : Math.max(
+          0,
+          finite(
+            wavinessClamp ?? LIQUID_GOOEY_WAVINESS_MAX_FRACTION,
+            LIQUID_GOOEY_WAVINESS_MAX_FRACTION,
+          ),
+        );
+  const shorterSide = size.w > 0 && size.h > 0 ? Math.min(size.w, size.h) : 0;
+  const wavinessValue = resolveLiquidGooeyWaviness(
+    requestedWavinessValue,
+    shorterSide,
+    wavinessClampValue,
   );
   const wavinessFreqValue = Math.max(
     0,
@@ -411,6 +437,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       data-liquid-filter-budget={DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET}
       data-liquid-feature-padding={Math.round(featurePadding * 10) / 10}
       data-liquid-motion={motionMode}
+      data-liquid-waviness={Math.round(wavinessValue * 100) / 100}
       style={style}
     >
       <svg
