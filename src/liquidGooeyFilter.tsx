@@ -13,6 +13,12 @@ import type { ShadowLayer, StrokeLayer } from './liquidGooeyShadow';
 
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 
+/**
+ * Small post-displacement pass that lets the browser reconstruct a clean
+ * alpha contour after the wavy silhouette has been moved between pixels.
+ */
+export const LIQUID_GOOEY_EDGE_SOFTENING_BLUR = 0.5;
+
 /** Fallbacks for SSR and hosts that have not loaded the CSS token layer yet. */
 export const LIQUID_GOOEY_FILTER_DEFAULTS = {
   waviness: 6,
@@ -198,6 +204,11 @@ export function LiquidGooeyFilter({
             scale={waviness * 2}
             xChannelSelector="R"
             yChannelSelector="G"
+            result="shape-displaced"
+          />
+          <feGaussianBlur
+            in="shape-displaced"
+            stdDeviation={LIQUID_GOOEY_EDGE_SOFTENING_BLUR}
             result="shape"
           />
         </>
