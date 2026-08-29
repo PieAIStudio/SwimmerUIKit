@@ -25,9 +25,21 @@ export const LIQUID_GOOEY_FILTER_DEFAULTS = {
   wavinessFreq: 0.018,
 } as const;
 
+function insetContour(shadow: ShadowLayer): 'bin' | 'shape' {
+  // Spread needs a hard mask: morphology on a soft fringe paints a hairline.
+  // Offset-only inset is drawn from the anti-aliased silhouette so the 2px
+  // clay highlight does not leak as a dashed rim through a binarised contour.
+  return shadow.spread !== 0 ? 'bin' : 'shape';
+}
+
+function needsBinarize(shadows: ShadowLayer[], stroke: StrokeLayer | null): boolean {
+  return stroke !== null || shadows.some((shadow) => shadow.spread !== 0);
+}
+
 function InsetPass({ index, shadow }: { index: number; shadow: ShadowLayer }): ReactElement {
   const parts: ReactElement[] = [];
-  let source = 'bin';
+  const contour = insetContour(shadow);
+  let source: string = contour;
   if (shadow.spread !== 0) {
     parts.push(
       <feMorphology
@@ -64,7 +76,13 @@ function InsetPass({ index, shadow }: { index: number; shadow: ShadowLayer }): R
     source = `shadow-${index}-blur`;
   }
   parts.push(
-    <feComposite key="band" in="bin" in2={source} operator="out" result={`shadow-${index}-band`} />,
+    <feComposite
+      key="band"
+      in={contour}
+      in2={source}
+      operator="out"
+      result={`shadow-${index}-band`}
+    />,
     <feFlood key="color" floodColor={shadow.color} result={`shadow-${index}-color`} />,
     <feComposite
       key="fill"
@@ -213,7 +231,7 @@ export function LiquidGooeyFilter({
           />
         </>
       ) : null}
-      {stroke !== null || shadows.some((shadow) => shadow.inset || shadow.spread !== 0) ? (
+      {needsBinarize(shadows, stroke) ? (
         <feColorMatrix in="shape" type="matrix" values={BINARIZE} result="bin" />
       ) : null}
       {shadows.map((shadow, index) =>

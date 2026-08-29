@@ -1,12 +1,20 @@
 {
-  "measuredAt": "2026-08-29T13:46:07.389Z",
-  "kitVersion": "1.11.2",
+  "measuredAt": "2026-08-29T14:25:24.919Z",
+  "kitVersion": "1.11.3",
   "notes": {
     "dpr": 2,
     "fill": "#1d9a8b",
     "paleExcessThreshold": 18,
     "productionFilter": "feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)",
-    "productionTealIndicator": "GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke"
+    "productionTealIndicator": "GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke. Offset-only inset is drawn from shape; BINARIZE is omitted when nothing consumes bin."
+  },
+  "round3": {
+    "shipped": true,
+    "insetFrom": "shape",
+    "binarizeForOffsetOnlyInset": false,
+    "keepbinIdenticalToAa": true,
+    "livePrimitives": 15,
+    "liveArea": "124160"
   },
   "isolated": [
     {
@@ -386,6 +394,68 @@
       }
     },
     {
+      "id": "cal-inset-aa",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "cal-inset-aa",
+        "passes": 8,
+        "pad": 44,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 101124,
+        "rasterArea": 101124,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "cal-inset-aa",
+          "waviness": 0,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 72588,
+        "edgeCount": 858,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 75.7963,
+        "bboxCss": {
+          "w": 152,
+          "h": 152
+        },
+        "jaggedRmsCssPx": 0.1183,
+        "wobbleRmsCssPx": 0.0361,
+        "organicDeviationCssPx": 0.0211,
+        "jaggedBandRmsCssPx": 0.1112,
+        "wobbleBandRmsCssPx": 0.0229,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2622,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4889,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.45,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 232.8294,
+        "rimMeanAbsentRunCssPx": 243.4126,
+        "rimBreaksPer100CssPx": 0.42,
+        "rimPeakMeanExcess": 49.0412,
+        "rimPeakCv": 0.1676
+      }
+    },
+    {
       "id": "baseline",
       "source": "isolated-svg",
       "meta": {
@@ -664,6 +734,69 @@
       }
     },
     {
+      "id": "wavy-inset-aa-keepbin",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-inset-aa-keepbin",
+        "passes": 12,
+        "pad": 52,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 111556,
+        "rasterArea": 111556,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-inset-aa-keepbin",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "forceBin": true,
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73585,
+        "edgeCount": 865,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.3086,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.139,
+        "wobbleRmsCssPx": 1.0866,
+        "organicDeviationCssPx": 0.2064,
+        "jaggedBandRmsCssPx": 0.1198,
+        "wobbleBandRmsCssPx": 0.4247,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3725,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4972,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4875,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 79.4662,
+        "rimMeanAbsentRunCssPx": 80.3541,
+        "rimBreaksPer100CssPx": 1.2514,
+        "rimPeakMeanExcess": 43.1558,
+        "rimPeakCv": 0.1864
+      }
+    },
+    {
       "id": "wavy-shadow-full",
       "source": "isolated-svg",
       "meta": {
@@ -730,6 +863,76 @@
         "rimBreaksPer100CssPx": 2.5031,
         "rimPeakMeanExcess": 61.433,
         "rimPeakCv": 0.0949
+      }
+    },
+    {
+      "id": "wavy-shadow-full-aa",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-shadow-full-aa",
+        "passes": 15,
+        "pad": 102,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 188356,
+        "rasterArea": 188356,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-shadow-full-aa",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 13,
+              "blur": 26,
+              "spread": 0,
+              "color": "rgba(76, 52, 28, 0.22)",
+              "inset": false
+            },
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73736,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.3869,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.142,
+        "wobbleRmsCssPx": 1.0872,
+        "organicDeviationCssPx": 0.2067,
+        "jaggedBandRmsCssPx": 0.1225,
+        "wobbleBandRmsCssPx": 0.4291,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3961,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4861,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4625,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 58.3276,
+        "rimMeanAbsentRunCssPx": 61.6606,
+        "rimBreaksPer100CssPx": 1.6668,
+        "rimPeakMeanExcess": 42.1165,
+        "rimPeakCv": 0.1946
       }
     },
     {
@@ -1361,6 +1564,112 @@
         "rimPeakMeanExcess": 67.5072,
         "rimPeakCv": 0.0795
       }
+    },
+    {
+      "id": "pill-shadow-full-aa",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "pill-shadow-full-aa",
+        "passes": 15,
+        "pad": 102,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 248,
+        "height": 80,
+        "layoutArea": 128368,
+        "rasterArea": 128368,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-shadow-full-aa",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 13,
+              "blur": 26,
+              "spread": 0,
+              "color": "rgba(76, 52, 28, 0.22)",
+              "inset": false
+            },
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41997,
+        "edgeCount": 885,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.5579,
+        "bboxCss": {
+          "w": 203.5,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.3071,
+        "wobbleRmsCssPx": 25.5817,
+        "organicDeviationCssPx": 2.0856,
+        "jaggedBandRmsCssPx": 0.1597,
+        "wobbleBandRmsCssPx": 2.9982,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.4251,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4972,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.475,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 161.074,
+        "rimMeanAbsentRunCssPx": 162.8737,
+        "rimBreaksPer100CssPx": 0.6174,
+        "rimPeakMeanExcess": 48.4548,
+        "rimPeakCv": 0.1056
+      }
+    }
+  ],
+  "extra": [
+    {
+      "id": "baseline-4x-down",
+      "source": "4x-bilinear-down",
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 460,
+        "mass": 73413,
+        "edgeCount": 862,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2181,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1241,
+        "wobbleRmsCssPx": 1.0847,
+        "organicDeviationCssPx": 0.2046,
+        "jaggedBandRmsCssPx": 0.114,
+        "wobbleBandRmsCssPx": 0.4249,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2735,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 478.8925,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
+      }
     }
   ],
   "storybook": [
@@ -1447,8 +1756,8 @@
       }
     },
     {
-      "id": "story-segmented-teal",
-      "fileStem": "story-segmented-teal",
+      "id": "story-segmented-teal-after",
+      "fileStem": "story-segmented-teal-after",
       "box": {
         "x": 40,
         "y": 40,
@@ -1464,7 +1773,7 @@
           "h": 52
         },
         "filterId": "liquid-gooey-_r_2_",
-        "primitiveCount": 16,
+        "primitiveCount": 15,
         "primitives": [
           {
             "tag": "fegaussianblur",
@@ -1545,19 +1854,6 @@
             "values": null
           },
           {
-            "tag": "fecolormatrix",
-            "in": "shape",
-            "in2": null,
-            "result": "bin",
-            "dx": null,
-            "dy": null,
-            "operator": null,
-            "flood": null,
-            "stdDeviation": null,
-            "radius": null,
-            "values": "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5"
-          },
-          {
             "tag": "fegaussianblur",
             "in": "shape",
             "in2": null,
@@ -1611,7 +1907,7 @@
           },
           {
             "tag": "feoffset",
-            "in": "bin",
+            "in": "shape",
             "in2": null,
             "result": "shadow-1-offset",
             "dx": "0",
@@ -1624,7 +1920,7 @@
           },
           {
             "tag": "fecomposite",
-            "in": "bin",
+            "in": "shape",
             "in2": "shadow-1-offset",
             "result": "shadow-1-band",
             "dx": null,
@@ -1680,36 +1976,36 @@
         "kind": "shape",
         "width": 562,
         "height": 104,
-        "mass": 18612,
-        "edgeCount": 521,
+        "mass": 18677,
+        "edgeCount": 522,
         "pxPerCss": 2.0008,
-        "meanRadiusCssPx": 36.1875,
+        "meanRadiusCssPx": 36.2408,
         "bboxCss": {
           "w": 111.4566,
           "h": 47.4815
         },
-        "jaggedRmsCssPx": 0.202,
-        "wobbleRmsCssPx": 12.1943,
-        "organicDeviationCssPx": 1.2576,
-        "jaggedBandRmsCssPx": 0.1328,
-        "wobbleBandRmsCssPx": 2.1679,
+        "jaggedRmsCssPx": 0.1945,
+        "wobbleRmsCssPx": 12.243,
+        "organicDeviationCssPx": 1.2588,
+        "jaggedBandRmsCssPx": 0.1233,
+        "wobbleBandRmsCssPx": 2.1697,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.7298,
+        "worstLocalJaggedCssPx": 0.7691,
         "fillLum": 126.342,
-        "rimPresentFrac": 0.5014,
+        "rimPresentFrac": 0.5097,
         "rimNorthPresentFrac": 1,
-        "rimEastPresentFrac": 0.5625,
+        "rimEastPresentFrac": 0.6,
         "rimSouthPresentFrac": 0,
-        "rimMeanPresentRunCssPx": 38.0007,
-        "rimMeanAbsentRunCssPx": 37.7902,
-        "rimBreaksPer100CssPx": 2.6388,
-        "rimPeakMeanExcess": 66.3023,
-        "rimPeakCv": 0.0942
+        "rimMeanPresentRunCssPx": 38.6893,
+        "rimMeanAbsentRunCssPx": 37.2134,
+        "rimBreaksPer100CssPx": 2.635,
+        "rimPeakMeanExcess": 46.7393,
+        "rimPeakCv": 0.1523
       }
     },
     {
-      "id": "story-segmented-on-clay",
-      "fileStem": "story-segmented-on-clay",
+      "id": "story-segmented-on-clay-after",
+      "fileStem": "story-segmented-on-clay-after",
       "box": {
         "x": 40,
         "y": 40,
@@ -1725,57 +2021,5 @@
         "edgeCount": 0
       }
     }
-  ],
-  "round2": {
-    "paleExcessThreshold": 18,
-    "opaqueAlpha": 160,
-    "liveTealIndicator": {
-      "file": "src/GameSurfaces.tsx:258",
-      "shadowToken": "src/theme.css:161-162",
-      "insetPass": "src/liquidGooeyFilter.tsx:28-77,216-217,238-240",
-      "parse": "src/liquidGooeyShadow.ts:37-60",
-      "primitives": 16,
-      "feMorphology": false,
-      "stroke": false,
-      "area": 124160,
-      "budget": 480000,
-      "box": {
-        "w": 281,
-        "h": 52
-      },
-      "waviness": 6,
-      "inset": {
-        "in": "bin",
-        "dy": 2,
-        "flood": "rgba(255, 255, 255, 0.42)",
-        "operator": "out"
-      }
-    },
-    "liveDemo": {
-      "area": 327888,
-      "box": {
-        "w": 652,
-        "h": 220
-      },
-      "times4": 1311552,
-      "overBudget": true
-    },
-    "baseline-4x-down": {
-      "jagged": 0.1241,
-      "wobble": 1.0847,
-      "rim": 0,
-      "note": "4x PNG displayed at 230 CSS via bilinear img; layout-size measurement"
-    },
-    "wavy-inset-4x-down": {
-      "jagged": 0.1209,
-      "wobble": 1.0831,
-      "rim": 0.4778,
-      "north": 1,
-      "east": 0.4625,
-      "south": 0,
-      "breaks": 1.6686,
-      "runP": 57.2678,
-      "peak": 58.0398
-    }
-  }
+  ]
 }

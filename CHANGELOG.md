@@ -5,6 +5,26 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 1.11.3
+
+### Fixed
+
+- **The dashed rim on clay inset highlights was leakage through a binarised
+  contour.** Offset-only inset (`inset 0 2px 0`, the second layer of
+  `--game-ui-shadow-button`) was drawn from `BINARIZE` plus `feOffset`. The
+  hard mask and its 2px-down copy do not line up on a displaced edge, so the
+  east and west rims leak as disconnected pale fragments. The inset is now
+  drawn from the anti-aliased silhouette instead.
+
+  On the isolated 150px circle that halves rim breaks (2.51 → 1.25);
+  jaggedness stays on the vector-circle floor (0.139 vs 0.126); wobble stays
+  1.09. The live teal indicator's 10× east crop goes from dashed fragments
+  to a continuous soft band, and the designed top highlight is still a 2px
+  clay band. `BINARIZE` is no longer emitted when nothing in the stack
+  consumes it — the common inset + drop, no-stroke, no-spread case drops
+  from 16 primitives to 15. It stays for stroke and spread, which still
+  need a hard mask.
+
 ## 1.11.2
 
 ### Fixed

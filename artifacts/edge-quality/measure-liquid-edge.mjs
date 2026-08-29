@@ -2,11 +2,10 @@
  * Pixel-true edge-quality harness for the liquid gooey silhouette.
  *
  * Does not import the donor. Replicates the production SVG filter chain from
- * src/liquidGooeyFilter.tsx (1.11.2) so variants can be measured without
- * editing product code. Round 2 adds a rim-highlight continuity metric,
- * inset/stroke ablation, and a 2× CSS-transform supersample. Honest
- * layout-size supersample of a 4× raster is the `*-4x-down` step at the end
- * (display the 4× PNG at 1× CSS and re-measure). See EDGE-QUALITY.md.
+ * src/liquidGooeyFilter.tsx so variants can be measured without editing
+ * product code. Round 3 ships offset-only inset from the anti-aliased
+ * `shape` (the `wavy-inset-aa` control) and asks whether BINARIZE is still
+ * needed when nothing consumes `bin`. See EDGE-QUALITY.md.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -26,6 +25,20 @@ const EDGE_BLUR = 0.5;
 const FILTER_PADDING = 24;
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 const KIT_FILTER_AREA_BUDGET = 480_000;
+/** Clay preview canvas-1. Used to composite honest 10× crops; transparent
+ *  captures force semi-transparent inset pixels to opaque neon. */
+const CLAY_RGB = [246, 232, 210];
+const CLAY_CROP_IDS = new Set([
+  'wavy-inset',
+  'wavy-inset-aa',
+  'wavy-inset-aa-keepbin',
+  'wavy-shadow-full',
+  'wavy-shadow-full-aa',
+  'pill-inset',
+  'pill-inset-aa',
+  'pill-shadow-full',
+  'pill-shadow-full-aa',
+]);
 
 /** Production `--game-ui-shadow-button` layers, already resolved. */
 const INSET_CLAY = {
@@ -205,6 +218,7 @@ function gooFilter({
   shadows = [],
   stroke = null,
   insetFrom = 'bin',
+  forceBin = false,
 }) {
   const intercept = INTERCEPT;
   const wavy = waviness > 0;
@@ -227,6 +241,7 @@ function gooFilter({
     }
   }
   const needsBin =
+    forceBin ||
     stroke !== null ||
     shadows.some((shadow) => shadow.spread !== 0) ||
     (insetFrom === 'bin' && shadows.some((shadow) => shadow.inset));
@@ -352,6 +367,7 @@ function pushGooFigure(figures, meta, { id, width, height, d, downsample = 1, ..
     shadows: variant.shadows ?? [],
     stroke: variant.stroke ?? null,
     insetFrom: variant.insetFrom ?? 'bin',
+    forceBin: variant.forceBin ?? false,
   });
   figures.push(
     figureSvg({
@@ -498,6 +514,13 @@ function buildPage() {
     waviness: 0,
     shadows: [INSET_CLAY],
   });
+  pushGooFigure(figures, meta, {
+    id: 'cal-inset-aa',
+    ...blob,
+    waviness: 0,
+    shadows: [INSET_CLAY],
+    insetFrom: 'shape',
+  });
 
   pushGooFigure(figures, meta, { id: 'baseline', ...blob, waviness: 6, edgeBlur: 0.5 });
   pushGooFigure(figures, meta, { id: 'calm', ...blob, waviness: 0 });
@@ -517,10 +540,25 @@ function buildPage() {
     insetFrom: 'shape',
   });
   pushGooFigure(figures, meta, {
+    id: 'wavy-inset-aa-keepbin',
+    ...blob,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    insetFrom: 'shape',
+    forceBin: true,
+  });
+  pushGooFigure(figures, meta, {
     id: 'wavy-shadow-full',
     ...blob,
     waviness: 6,
     shadows: [DROP_BUTTON, INSET_CLAY],
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-shadow-full-aa',
+    ...blob,
+    waviness: 6,
+    shadows: [DROP_BUTTON, INSET_CLAY],
+    insetFrom: 'shape',
   });
   pushGooFigure(figures, meta, {
     id: 'wavy-stroke',
@@ -613,6 +651,13 @@ function buildPage() {
     waviness: 6,
     shadows: [DROP_BUTTON, INSET_CLAY],
   });
+  pushGooFigure(figures, meta, {
+    id: 'pill-shadow-full-aa',
+    ...pill,
+    waviness: 6,
+    shadows: [DROP_BUTTON, INSET_CLAY],
+    insetFrom: 'shape',
+  });
 
   const html = `<!doctype html>
 <html>
@@ -637,7 +682,7 @@ function buildPage() {
 
 async function analyzeFromDataUrl({ dataUrl, options }) {
   const round4 = (v) => Math.round(v * 10000) / 10000;
-  const nnCrop = (buf, width, height, x, y, size, zoom) => {
+  const nnCrop = (buf, width, height, x, y, size, zoom, bg) => {
     const sx = Math.max(0, Math.min(width - size, x));
     const sy = Math.max(0, Math.min(height - size, y));
     const dw = size * zoom;
@@ -653,7 +698,13 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
         const srcX = sx + Math.floor(xx / zoom);
         const si = (srcY * width + srcX) * 4;
         const di = (yy * dw + xx) * 4;
-        if (buf[si + 3] === 0) {
+        const a = buf[si + 3] / 255;
+        if (bg) {
+          imgData.data[di] = Math.round(buf[si] * a + bg[0] * (1 - a));
+          imgData.data[di + 1] = Math.round(buf[si + 1] * a + bg[1] * (1 - a));
+          imgData.data[di + 2] = Math.round(buf[si + 2] * a + bg[2] * (1 - a));
+          imgData.data[di + 3] = 255;
+        } else if (buf[si + 3] === 0) {
           const checker = ((Math.floor(xx / zoom) + Math.floor(yy / zoom)) & 1) === 0;
           imgData.data[di] = checker ? 240 : 210;
           imgData.data[di + 1] = checker ? 240 : 210;
@@ -823,6 +874,18 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
   }
 
   const threshold = 128;
+  const fillKey = options.fillRgb || null;
+  const fillDist2 = options.fillDist2 ?? 170 * 170;
+  const isInk = (x, y) => {
+    if (x < 0 || y < 0 || x >= w || y >= h) return false;
+    const i = (y * w + x) * 4;
+    if (data[i + 3] < threshold) return false;
+    if (!fillKey) return true;
+    const dr = data[i] - fillKey[0];
+    const dg = data[i + 1] - fillKey[1];
+    const db = data[i + 2] - fillKey[2];
+    return dr * dr + dg * dg + db * db < fillDist2;
+  };
   let mass = 0;
   let cx = 0;
   let cy = 0;
@@ -832,7 +895,7 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
   let maxY = 0;
   for (let y = 0; y < h; y += 1) {
     for (let x = 0; x < w; x += 1) {
-      if (data[(y * w + x) * 4 + 3] >= threshold) {
+      if (isInk(x, y)) {
         mass += 1;
         cx += x;
         cy += y;
@@ -852,12 +915,8 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
   let edgeCount = 0;
   for (let y = 1; y < h - 1; y += 1) {
     for (let x = 1; x < w - 1; x += 1) {
-      if (data[(y * w + x) * 4 + 3] < threshold) continue;
-      const edge =
-        data[(y * w + x - 1) * 4 + 3] < threshold ||
-        data[(y * w + x + 1) * 4 + 3] < threshold ||
-        data[((y - 1) * w + x) * 4 + 3] < threshold ||
-        data[((y + 1) * w + x) * 4 + 3] < threshold;
+      if (!isInk(x, y)) continue;
+      const edge = !isInk(x - 1, y) || !isInk(x + 1, y) || !isInk(x, y - 1) || !isInk(x, y + 1);
       if (!edge) continue;
       edgeCount += 1;
       const dx = x - cx;
@@ -942,6 +1001,7 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
       const x = cx + ux * s * pxPerCss;
       const y = cy + uy * s * pxPerCss;
       if (sampleAlpha(x, y) < OPAQUE) continue;
+      if (fillKey && !isInk(Math.round(x), Math.round(y))) continue;
       const ex = sampleLum(x, y) - fillLum;
       if (ex > peak) peak = ex;
     }
@@ -969,11 +1029,11 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
   const eastAng = 0;
   const northAng = (3 * Math.PI) / 2;
   const worstAng = (worstI / bins) * Math.PI * 2;
-  const cropOf = (ang) => {
+  const cropOf = (ang, bg) => {
     const r = rMax[Math.min(bins - 1, Math.floor((ang / (Math.PI * 2)) * bins))] || meanR;
     const x = cx + Math.cos(ang) * r * pxPerCss;
     const y = cy + Math.sin(ang) * r * pxPerCss;
-    return nnCrop(data, w, h, Math.round(x) - 18, Math.round(y) - 18, 36, 10);
+    return nnCrop(data, w, h, Math.round(x) - 18, Math.round(y) - 18, 36, 10, bg);
   };
 
   return {
@@ -1005,6 +1065,8 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
     cropDataUrl: cropOf(worstAng),
     eastCropDataUrl: cropOf(eastAng),
     northCropDataUrl: cropOf(northAng),
+    clayEastCropDataUrl: options.clayRgb ? cropOf(eastAng, options.clayRgb) : null,
+    clayNorthCropDataUrl: options.clayRgb ? cropOf(northAng, options.clayRgb) : null,
   };
 }
 
@@ -1015,7 +1077,14 @@ async function saveDataUrl(dataUrl, filePath) {
 }
 
 function stripDataUrl(row) {
-  const { cropDataUrl, eastCropDataUrl, northCropDataUrl, ...rest } = row;
+  const {
+    cropDataUrl,
+    eastCropDataUrl,
+    northCropDataUrl,
+    clayEastCropDataUrl,
+    clayNorthCropDataUrl,
+    ...rest
+  } = row;
   return rest;
 }
 
@@ -1033,7 +1102,7 @@ function compactLog(id, analyzed, extra = {}) {
   });
 }
 
-async function captureStory(page, { id, url, selector, fileStem, hideChrome, dumpFilter }) {
+async function captureStory(page, { id, url, selector, fileStem, hideChrome, dumpFilter, fillRgb, clayRgb }) {
   await page.goto(url, { waitUntil: 'networkidle', timeout: 120_000 });
   await page.waitForTimeout(700);
   if (hideChrome) {
@@ -1091,7 +1160,12 @@ async function captureStory(page, { id, url, selector, fileStem, hideChrome, dum
   }
   const analyzed = await page.evaluate(analyzeFromDataUrl, {
     dataUrl: `data:image/png;base64,${buf.toString('base64')}`,
-    options: { viewCssWidth: box?.width ?? 1, kind: 'shape' },
+    options: {
+      viewCssWidth: box?.width ?? 1,
+      kind: 'shape',
+      fillRgb: fillRgb ?? null,
+      clayRgb: clayRgb ?? null,
+    },
   });
   if (analyzed.cropDataUrl) await saveDataUrl(analyzed.cropDataUrl, path.join(cropsDir, `${fileStem}-nn10.png`));
   if (analyzed.eastCropDataUrl) {
@@ -1099,6 +1173,12 @@ async function captureStory(page, { id, url, selector, fileStem, hideChrome, dum
   }
   if (analyzed.northCropDataUrl) {
     await saveDataUrl(analyzed.northCropDataUrl, path.join(cropsDir, `${fileStem}-north-nn10.png`));
+  }
+  if (analyzed.clayEastCropDataUrl) {
+    await saveDataUrl(analyzed.clayEastCropDataUrl, path.join(cropsDir, `${fileStem}-clay-east-nn10.png`));
+  }
+  if (analyzed.clayNorthCropDataUrl) {
+    await saveDataUrl(analyzed.clayNorthCropDataUrl, path.join(cropsDir, `${fileStem}-clay-north-nn10.png`));
   }
   return { id, fileStem, box, filterDump, metrics: stripDataUrl(analyzed) };
 }
@@ -1130,7 +1210,7 @@ async function main() {
     const vw = Number(await loc.evaluate((el) => el.closest('[data-vw]')?.getAttribute('data-vw') ?? '0'));
     const analyzed = await page.evaluate(analyzeFromDataUrl, {
       dataUrl: `data:image/png;base64,${buf.toString('base64')}`,
-      options: { viewCssWidth: vw, kind: 'shape' },
+      options: { viewCssWidth: vw, kind: 'shape', clayRgb: CLAY_CROP_IDS.has(id) ? CLAY_RGB : null },
     });
     if (analyzed.cropDataUrl) await saveDataUrl(analyzed.cropDataUrl, path.join(cropsDir, `${id}-nn10.png`));
     if (analyzed.eastCropDataUrl) {
@@ -1138,6 +1218,12 @@ async function main() {
     }
     if (analyzed.northCropDataUrl) {
       await saveDataUrl(analyzed.northCropDataUrl, path.join(cropsDir, `${id}-north-nn10.png`));
+    }
+    if (analyzed.clayEastCropDataUrl) {
+      await saveDataUrl(analyzed.clayEastCropDataUrl, path.join(cropsDir, `${id}-clay-east-nn10.png`));
+    }
+    if (analyzed.clayNorthCropDataUrl) {
+      await saveDataUrl(analyzed.clayNorthCropDataUrl, path.join(cropsDir, `${id}-clay-north-nn10.png`));
     }
     results.push({
       id,
@@ -1193,20 +1279,21 @@ async function main() {
     );
     stories.push(
       await captureStory(page, {
-        id: 'story-segmented-teal',
+        id: 'story-segmented-teal-after',
         url: `${storybookBase}/iframe.html?id=clay-controls-gamesegmentedcontrol--move-indicator&viewMode=story`,
         selector: '.game-ui-segmented-follow [data-liquid-gooey-silhouette]',
-        fileStem: 'story-segmented-teal',
+        fileStem: 'story-segmented-teal-after',
         hideChrome: true,
         dumpFilter: true,
+        clayRgb: CLAY_RGB,
       }),
     );
     stories.push(
       await captureStory(page, {
-        id: 'story-segmented-on-clay',
+        id: 'story-segmented-on-clay-after',
         url: `${storybookBase}/iframe.html?id=clay-controls-gamesegmentedcontrol--move-indicator&viewMode=story`,
         selector: '.game-ui-segmented',
-        fileStem: 'story-segmented-on-clay',
+        fileStem: 'story-segmented-on-clay-after',
         hideChrome: false,
       }),
     );
@@ -1232,9 +1319,12 @@ async function main() {
     }
   }
 
+  const byId = Object.fromEntries(results.map((row) => [row.id, row]));
+  const metricOf = (id) => byId[id]?.metrics ?? null;
+  const live = stories.find((story) => story?.id === 'story-segmented-teal-after');
   const report = {
     measuredAt: new Date().toISOString(),
-    kitVersion: '1.11.2',
+    kitVersion: '1.11.3',
     notes: {
       dpr: 2,
       fill: TEAL,
@@ -1242,7 +1332,17 @@ async function main() {
       productionFilter:
         'feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)',
       productionTealIndicator:
-        'GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke',
+        'GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke. Offset-only inset is drawn from shape; BINARIZE is omitted when nothing consumes bin.',
+    },
+    round3: {
+      shipped: true,
+      insetFrom: 'shape',
+      binarizeForOffsetOnlyInset: false,
+      keepbinIdenticalToAa:
+        JSON.stringify(metricOf('wavy-inset-aa')) ===
+        JSON.stringify(metricOf('wavy-inset-aa-keepbin')),
+      livePrimitives: live?.filterDump?.primitiveCount ?? null,
+      liveArea: live?.filterDump?.area ?? null,
     },
     isolated: results,
     extra,

@@ -205,6 +205,58 @@ describe('LiquidGroup browser architecture', () => {
     expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
   });
 
+  it('draws offset-only inset from the anti-aliased silhouette and skips BINARIZE', async () => {
+    const surface = (testId: string, shadow: string, stroke?: string) => (
+      <LiquidGroup
+        data-testid={testId}
+        shadow={shadow}
+        style={{ height: '64px', position: 'relative', width: '160px' }}
+        waviness={6}
+        {...(stroke === undefined ? {} : { stroke })}
+      >
+        <LiquidGroup.Item
+          style={{ height: '40px', left: '12px', position: 'absolute', top: '12px', width: '80px' }}
+        >
+          {null}
+        </LiquidGroup.Item>
+      </LiquidGroup>
+    );
+    const container = await mount(
+      <div>
+        {surface(
+          'inset-only',
+          '0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42)',
+        )}
+        {surface(
+          'inset-and-stroke',
+          'inset 0 2px 0 rgba(255, 255, 255, 0.42)',
+          '1px solid rgba(90, 64, 42, 0.28)',
+        )}
+        {surface('spread-shadow', '0 0 0 4px rgba(76, 52, 28, 0.22)')}
+      </div>,
+    );
+    await waitFrames(2);
+
+    const binarizeOf = (testId: string) =>
+      [...container.querySelectorAll(`[data-testid="${testId}"] feColorMatrix`)].find((node) =>
+        (node.getAttribute('values') ?? '').includes('60 -29.5'),
+      );
+    const insetOffset = container.querySelector('[data-testid="inset-only"] feOffset[dy="2"]');
+    const insetBand = [
+      ...container.querySelectorAll('[data-testid="inset-only"] feComposite'),
+    ].find((node) => node.getAttribute('operator') === 'out');
+
+    expect(binarizeOf('inset-only')).toBeUndefined();
+    expect(insetOffset?.getAttribute('in')).toBe('shape');
+    expect(insetBand?.getAttribute('in')).toBe('shape');
+    expect(binarizeOf('inset-and-stroke')).toBeDefined();
+    expect(binarizeOf('spread-shadow')).toBeDefined();
+    const strokeInsetOffset = container.querySelector(
+      '[data-testid="inset-and-stroke"] feOffset[dy="2"]',
+    );
+    expect(strokeInsetOffset?.getAttribute('in')).toBe('shape');
+  });
+
   it('clamps thin surfaces by their shorter side and preserves larger surfaces', async () => {
     const surface = (testId: string, width: string, height: string, clamp?: number | false) => (
       <LiquidGroup
@@ -335,7 +387,11 @@ describe('LiquidGroup browser architecture', () => {
     expect(container.querySelector('[data-liquid-gooey-move-tail]')).toBeNull();
     expect(button?.getBoundingClientRect().width).toBeGreaterThan(0);
 
-    await waitFrames(70);
+    await act(async () => {
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 1200);
+      });
+    });
     expect(item?.style.getPropertyValue('--lg-bend-x')).toBe('0px');
     expect(item?.style.getPropertyValue('--lg-bend-y')).toBe('0px');
   });
