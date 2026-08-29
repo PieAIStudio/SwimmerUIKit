@@ -105,3 +105,33 @@ describe('LiquidGroup DOM architecture', () => {
     expect(filterHeight(wavy)).toBeGreaterThan(filterHeight(calm));
   });
 });
+
+describe('reduced-motion detection', () => {
+  /*
+    The kit's own suite runs in node, where `window` is absent and the first
+    guard is enough. jsdom is the shape nobody tested: `window` exists and
+    `matchMedia` does not, which is how 1.10.0 reached a consumer and threw
+    inside a `useState` initializer — in a client render and again in an SSR
+    pass. Pin the middle case here rather than in the consumer that found it.
+  */
+  it('renders where window exists but matchMedia does not', () => {
+    const globals = globalThis as { window?: unknown };
+    const had = 'window' in globals;
+    const previous = globals.window;
+    globals.window = {};
+
+    try {
+      const html = renderToStaticMarkup(
+        <LiquidGroup>
+          <LiquidItem>
+            <button type="button">Claim reward</button>
+          </LiquidItem>
+        </LiquidGroup>,
+      );
+      expect(html).toContain('data-liquid-gooey-silhouette');
+    } finally {
+      if (had) globals.window = previous;
+      else delete globals.window;
+    }
+  });
+});

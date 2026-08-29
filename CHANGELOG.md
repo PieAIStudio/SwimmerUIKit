@@ -3,6 +3,18 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 1.10.1
+
+### Fixed
+
+- **`<LiquidGroup>` threw where `window` exists and `matchMedia` does not.**
+  The reduced-motion hook guarded on `typeof window === 'undefined'`, which is
+  true in node and false in jsdom — and jsdom has no `matchMedia`. Any consumer
+  testing in jsdom, and any server render that shims `window`, hit a TypeError
+  inside a `useState` initializer. Both the initializer and the subscription now
+  ask for the function itself. The kit's own suite runs in node, so the middle
+  case had never been exercised; a regression test now pins it.
+
 ## 1.10.0
 
 ### Added

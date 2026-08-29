@@ -140,14 +140,24 @@ function joinClasses(...classes: Array<string | undefined>): string | undefined 
   return result || undefined;
 }
 
+/**
+ * `window` existing does not mean `matchMedia` does. jsdom ships the first and
+ * not the second, and a server render has neither, so both the initializer and
+ * the subscription have to ask for the function itself — guarding only on
+ * `typeof window` throws in every test runner and every SSR pass.
+ */
+function reducedMotionQuery(): MediaQueryList | null {
+  if (typeof window === 'undefined') return null;
+  if (typeof window.matchMedia !== 'function') return null;
+  return window.matchMedia('(prefers-reduced-motion: reduce)');
+}
+
 function useSystemReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
+  const [reduced, setReduced] = useState(() => reducedMotionQuery()?.matches ?? false);
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const media = reducedMotionQuery();
+    if (!media) return;
     const onChange = (event: MediaQueryListEvent): void => setReduced(event.matches);
     setReduced(media.matches);
     media.addEventListener('change', onChange);
