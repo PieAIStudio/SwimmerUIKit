@@ -37,6 +37,28 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   process-wide concurrency budgets, degrade visibly with a one-time warning
   when over budget, and sleep their requestAnimationFrame clock at rest.
 
+## 1.11.1
+
+### Fixed
+
+- **Waviness now scales to the element it decorates.** `waviness` is an absolute
+  pixel amount, and 6px is 11.5% of a 52px segmented control and 42.9% of a 14px
+  progress bar — the same token reading as texture in one place and as bites
+  taken out of the bar in the other. The effective amplitude is capped at a
+  fraction of the shorter side, so the default is safe wherever it lands instead
+  of requiring every consumer to remember a rule that fails silently.
+
+- **A clean contour after displacement.** The wavy silhouette is made by moving
+  the alpha edge between pixels and nothing reconstructed it afterwards. A 0.5px
+  blur on the displaced shape gives the rasteriser something to antialias, and
+  the filter region grows to fit it — a blur with no room to spread would have
+  traded a ragged edge for a clipped one.
+
+  This addresses the reconstruction, not the noise. Two octaves at a low base
+  frequency is blocky, and a displacement inherits the shape of what drives it;
+  the rectangular notches visible on a 14px bar are consistent with that, and
+  that hypothesis is still open.
+
 ## 1.11.0
 
 ### Added
