@@ -357,12 +357,14 @@ export class LiquidGooeyEngine {
     mode: LiquidGooeyMotionMode;
     itemCount: number;
     claimed: boolean;
+    filterArea: number;
   } {
     return {
       awake: this.awake,
       mode: this.mode,
       itemCount: this.items.size,
       claimed: this.claimed,
+      filterArea: this.filterArea,
     };
   }
 

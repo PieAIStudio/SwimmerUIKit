@@ -37,9 +37,15 @@ compilation, and the donor's Move center/stretch/tail physics. SwimmerUIKit
 adopted only the donor's Move physics for the selected indicator and progress
 leading edge; it deliberately did not take the donor's Melt, Bend, or dissolve
 systems, general observer, or image-melt engine. The
-local implementation adds token-driven values, process-wide animation and
-filter-area budgets, an idle-sleeping shared animation clock, and its own
-interaction boundary; see `NOTICE` for the legal attribution.
+local implementation now also adopts the donor's group-level `waviness` and
+`wavinessFreq` filter pass as a static, fixed-seed surface texture. These two
+capabilities were previously missing from both the retained list and the
+rejected list: that was an omission in the review record, not a decision to
+reject them. The kit keeps its own token-driven values, process-wide animation
+and filter-area budgets, an idle-sleeping shared animation clock, and its own
+interaction boundary; see `NOTICE` for the legal attribution. The static
+texture never adds an ambient clock, and its maximum displacement is included
+in the filter-area budget.
 
 ### Update policy
 

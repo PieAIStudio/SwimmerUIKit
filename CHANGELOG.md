@@ -3,6 +3,21 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## Unreleased
+
+### Added
+
+- **Optional static waviness on `<LiquidGroup>`.** The new group-level
+  `waviness` and `wavinessFreq` knobs adapt the pinned liquid-gooey noise
+  displacement so merged silhouettes read as fluid instead of as two rounded
+  rectangles. The displaced `shape` feeds both SVG shadow passes and the final
+  SVG raster shadow, so the shadow follows the same edge. The token default is
+  `0` to preserve existing output; the recommended brand preset is `6px` at
+  `0.018`, with `3px`/`0.022` and `10px`/`0.014` available as conservative and
+  bold points on the same intensity axis. The noise is fixed-seed and static,
+  so it adds no idle animation clock. Its maximum displacement is reserved in
+  the filter region and counted by the 480,000 px² budget.
+
 ## 1.9.0
 
 ### Added

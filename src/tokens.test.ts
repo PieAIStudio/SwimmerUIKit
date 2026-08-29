@@ -63,13 +63,20 @@ describe('clay token exports', () => {
   });
 });
 
-describe('liquid-gooey Move token mirror', () => {
-  it('defines every physics token used by the Move resolver in theme.css', () => {
+describe('liquid-gooey token mirror', () => {
+  it('defines every token used by the liquid resolver in theme.css', () => {
     for (const value of Object.values(CLAY_LIQUID_GOOEY_TOKENS)) {
       const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
       expect(name, `${value} should be a bare var() reference`).toBeTruthy();
       expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
     }
+  });
+
+  it('ships waviness off by default with the donor frequency as its token baseline', () => {
+    expect(CLAY_LIQUID_GOOEY_TOKENS.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
+    expect(CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('0');
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness-freq')).toBe('0.018');
   });
 });
 

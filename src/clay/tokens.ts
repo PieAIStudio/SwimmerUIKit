@@ -73,6 +73,8 @@ export const CLAY_LIQUID_GOOEY_TOKENS = {
   moveSettleDistance: 'var(--game-ui-liquid-gooey-move-settle-distance)',
   moveSettleSpeed: 'var(--game-ui-liquid-gooey-move-settle-speed)',
   moveIntegrationRate: 'var(--game-ui-liquid-gooey-move-integration-rate)',
+  waviness: 'var(--game-ui-liquid-gooey-waviness)',
+  wavinessFreq: 'var(--game-ui-liquid-gooey-waviness-freq)',
 } as const;
 
 /**

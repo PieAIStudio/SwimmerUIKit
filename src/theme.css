@@ -271,6 +271,13 @@
   --game-ui-liquid-gooey-move-settle-distance: 0.05;
   --game-ui-liquid-gooey-move-settle-speed: 1;
   --game-ui-liquid-gooey-move-integration-rate: 60;
+
+  /* Liquid-gooey surface texture. Static by design: the seed is fixed and
+     there is no clock behind the filter. Keep the shipped default off so
+     existing silhouettes retain their exact appearance; 6px at 0.018 is the
+     recommended on-brand preset when a scene opts into the texture. */
+  --game-ui-liquid-gooey-waviness: 0;
+  --game-ui-liquid-gooey-waviness-freq: 0.018;
 }
 
 /*

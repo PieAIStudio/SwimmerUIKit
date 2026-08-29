@@ -13,7 +13,8 @@
   "checkoutPath": "<portfolio-root>/_donors-individual/for_SwimmerUIKit/",
   "mode": "review-only",
   "importedScope": [
-    "packages/liquid-gooey/src/observer.ts#MoveOptions,MOVE_DEFAULTS,springStep,springSteps,Move center/stretch/tail physics"
+    "packages/liquid-gooey/src/observer.ts#MoveOptions,MOVE_DEFAULTS,springStep,springSteps,Move center/stretch/tail physics",
+    "packages/liquid-gooey/src/filter.tsx#GooFilterPrimitives,waviness static feTurbulence/feDisplacementMap pass with fixed seed 7"
   ],
   "reviewedScope": [
     "packages/liquid-gooey/README.md",

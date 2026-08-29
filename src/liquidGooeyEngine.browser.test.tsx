@@ -118,6 +118,69 @@ describe('LiquidGroup browser architecture', () => {
     );
   });
 
+  it('renders static waviness and expands the measured filter area', async () => {
+    const container = await mount(
+      <div>
+        <LiquidGroup
+          data-testid="calm-liquid"
+          style={{ height: '120px', width: '240px' }}
+          waviness={0}
+        >
+          <LiquidGroup.Item
+            style={{
+              height: '64px',
+              left: '24px',
+              position: 'absolute',
+              top: '28px',
+              width: '64px',
+            }}
+          >
+            <button type="button">A</button>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+        <LiquidGroup
+          data-testid="wavy-liquid"
+          style={{ height: '120px', width: '240px' }}
+          waviness={6}
+          wavinessFreq={0.018}
+        >
+          <LiquidGroup.Item
+            style={{
+              height: '64px',
+              left: '24px',
+              position: 'absolute',
+              top: '28px',
+              width: '64px',
+            }}
+          >
+            <button type="button">B</button>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      </div>,
+    );
+
+    await act(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    const calmFilter = container.querySelector('[data-testid="calm-liquid"] filter');
+    const wavyFilter = container.querySelector('[data-testid="wavy-liquid"] filter');
+    const calmWidth = Number(calmFilter?.getAttribute('width') ?? 0);
+    const wavyWidth = Number(wavyFilter?.getAttribute('width') ?? 0);
+    const calmHeight = Number(calmFilter?.getAttribute('height') ?? 0);
+    const wavyHeight = Number(wavyFilter?.getAttribute('height') ?? 0);
+    const wavyNoise = container.querySelector('[data-testid="wavy-liquid"] feTurbulence');
+    const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
+
+    expect(wavyWidth).toBeGreaterThan(calmWidth);
+    expect(wavyHeight).toBeGreaterThan(calmHeight);
+    expect(wavyNoise?.getAttribute('baseFrequency')).toBe('0.018');
+    expect(wavyNoise?.getAttribute('seed')).toBe('7');
+    expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
+    expect(paths).toHaveLength(2);
+    expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+  });
+
   it('keeps focus, hit testing, and focus styles on the unfiltered child DOM', async () => {
     const container = await mount(
       <LiquidGroup style={{ width: '240px', height: '120px' }}>
@@ -221,6 +284,7 @@ describe('LiquidGooeyEngine idle clock', () => {
 
     engine.update('test-item', { x: 40, transition: { duration: 120 } });
     expect(engine.getDebugState()).toMatchObject({ awake: true, mode: 'animated', claimed: true });
+    expect(engine.getDebugState().filterArea).toBe(20_000);
     engine.dispose();
     group.remove();
   });
