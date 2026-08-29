@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ownerRepository": "SwimmerUIKit",
+  "ownerScope": "for_SwimmerUIKit",
+  "repository": "https://github.com/Jakubantalik/Libraries.git",
+  "defaultBranch": "main",
+  "upstreamPackagePath": "packages/liquid-gooey",
+  "commit": "3862ffa345217443b63696a8c331a0664eea4b04",
+  "commitDate": "2026-08-28T13:21:03+02:00",
+  "reviewedAt": "2026-08-29",
+  "packageVersion": "0.2.1",
+  "license": "MIT",
+  "checkoutPath": "<portfolio-root>/_donors-individual/for_SwimmerUIKit/",
+  "mode": "review-only",
+  "importedScope": [],
+  "reviewedScope": [
+    "packages/liquid-gooey/README.md",
+    "packages/liquid-gooey/package.json",
+    "packages/liquid-gooey/LICENSE",
+    "packages/liquid-gooey/src/**"
+  ],
+  "rejectedScope": [
+    "packages/liquid-gooey/src/imageMelt.tsx",
+    "Move, Melt, Bend, and dissolve systems as product features",
+    "general observer and image-melt engine"
+  ],
+  "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."
+}

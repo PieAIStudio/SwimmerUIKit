@@ -41,6 +41,17 @@ changing governed files.
 
 <!-- PGS-ROUTER:END -->
 
+## Individual Donor Discovery
+
+`donors-individual.md` is this repository's canonical project-local index for
+external individual donor sources. Before any visual or UI implementation,
+donor or provenance review, or upstream maintenance, read it and follow the exact
+checkout and commit recorded there. The combined workspace checkout for this
+repository uses the `for_SwimmerUIKit` owner scope under
+`<portfolio-root>/_donors-individual/for_SwimmerUIKit/`; it is a
+review/provenance source, not a runtime dependency. `donors-individual-lock.json` is the
+machine-readable pin.
+
 ## Portfolio Laws
 
 - This repository is a brand kit. Read `docs/policy/shared-rules/brand-kit-first.md`.
