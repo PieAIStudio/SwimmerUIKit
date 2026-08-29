@@ -1,0 +1,1172 @@
+{
+  "measuredAt": "2026-08-29T13:18:53.218Z",
+  "kitVersion": "1.11.2",
+  "notes": {
+    "dpr": 2,
+    "fill": "#1d9a8b",
+    "productionFilter": "feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)"
+  },
+  "isolated": [
+    {
+      "id": "cal-circle",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "cal-circle",
+        "passes": 0,
+        "pad": 0,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 70567,
+        "edgeCount": 848,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.7235,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.1263,
+        "wobbleRmsCssPx": 0.0445,
+        "organicDeviationCssPx": 0.0289,
+        "jaggedBandRmsCssPx": 0.1173,
+        "wobbleBandRmsCssPx": 0.036,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2823
+      }
+    },
+    {
+      "id": "cal-wobble",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "cal-wobble",
+        "passes": 0,
+        "pad": 0,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 70899,
+        "edgeCount": 910,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.7899,
+        "bboxCss": {
+          "w": 159,
+          "h": 156
+        },
+        "jaggedRmsCssPx": 0.1619,
+        "wobbleRmsCssPx": 4.147,
+        "organicDeviationCssPx": 0.9332,
+        "jaggedBandRmsCssPx": 0.1229,
+        "wobbleBandRmsCssPx": 4.1469,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4013
+      }
+    },
+    {
+      "id": "cal-stairs",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "cal-stairs",
+        "passes": 0,
+        "pad": 0,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 70716,
+        "edgeCount": 1027,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.8052,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.2569,
+        "wobbleRmsCssPx": 0.2017,
+        "organicDeviationCssPx": 0.0614,
+        "jaggedBandRmsCssPx": 0.2272,
+        "wobbleBandRmsCssPx": 0.0662,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.6597
+      }
+    },
+    {
+      "id": "baseline",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "baseline",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "baseline",
+          "waviness": 6,
+          "octaves": 2,
+          "freq": 0.018,
+          "edgeBlur": 0.5
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73416,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2222,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1368,
+        "wobbleRmsCssPx": 1.0946,
+        "organicDeviationCssPx": 0.2068,
+        "jaggedBandRmsCssPx": 0.1163,
+        "wobbleBandRmsCssPx": 0.4264,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3921
+      }
+    },
+    {
+      "id": "calm",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "calm",
+        "passes": 3,
+        "pad": 42,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "calm",
+          "waviness": 0
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 72482,
+        "edgeCount": 856,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 75.7396,
+        "bboxCss": {
+          "w": 152,
+          "h": 152
+        },
+        "jaggedRmsCssPx": 0.1182,
+        "wobbleRmsCssPx": 0.0313,
+        "organicDeviationCssPx": 0.0226,
+        "jaggedBandRmsCssPx": 0.1131,
+        "wobbleBandRmsCssPx": 0.0249,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2622
+      }
+    },
+    {
+      "id": "no-edge-blur",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "no-edge-blur",
+        "passes": 7,
+        "pad": 48,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "no-edge-blur",
+          "waviness": 6,
+          "edgeBlur": 0
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73391,
+        "edgeCount": 887,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2115,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.1737,
+        "wobbleRmsCssPx": 1.1015,
+        "organicDeviationCssPx": 0.2086,
+        "jaggedBandRmsCssPx": 0.152,
+        "wobbleBandRmsCssPx": 0.429,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.5562
+      }
+    },
+    {
+      "id": "edge-blur-1",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "edge-blur-1",
+        "passes": 7,
+        "pad": 51,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "edge-blur-1",
+          "waviness": 6,
+          "edgeBlur": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73409,
+        "edgeCount": 861,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2175,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1248,
+        "wobbleRmsCssPx": 1.0897,
+        "organicDeviationCssPx": 0.2016,
+        "jaggedBandRmsCssPx": 0.1103,
+        "wobbleBandRmsCssPx": 0.4183,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3012
+      }
+    },
+    {
+      "id": "edge-blur-1-5",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "edge-blur-1-5",
+        "passes": 7,
+        "pad": 53,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "edge-blur-1-5",
+          "waviness": 6,
+          "edgeBlur": 1.5
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73384,
+        "edgeCount": 861,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2047,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1217,
+        "wobbleRmsCssPx": 1.0852,
+        "organicDeviationCssPx": 0.1993,
+        "jaggedBandRmsCssPx": 0.1114,
+        "wobbleBandRmsCssPx": 0.4151,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2862
+      }
+    },
+    {
+      "id": "octaves-1",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "octaves-1",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "octaves-1",
+          "waviness": 6,
+          "octaves": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73473,
+        "edgeCount": 863,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2448,
+        "bboxCss": {
+          "w": 156.5,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1374,
+        "wobbleRmsCssPx": 1.2266,
+        "organicDeviationCssPx": 0.1627,
+        "jaggedBandRmsCssPx": 0.1169,
+        "wobbleBandRmsCssPx": 0.3255,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4711
+      }
+    },
+    {
+      "id": "octaves-4",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "octaves-4",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "octaves-4",
+          "waviness": 6,
+          "octaves": 4
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73366,
+        "edgeCount": 862,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.1975,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.149,
+        "wobbleRmsCssPx": 1.111,
+        "organicDeviationCssPx": 0.2499,
+        "jaggedBandRmsCssPx": 0.1126,
+        "wobbleBandRmsCssPx": 0.3922,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4259
+      }
+    },
+    {
+      "id": "freq-low",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "freq-low",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "freq-low",
+          "waviness": 6,
+          "freq": 0.008
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 71621,
+        "edgeCount": 856,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 75.2841,
+        "bboxCss": {
+          "w": 152,
+          "h": 151.5
+        },
+        "jaggedRmsCssPx": 0.1372,
+        "wobbleRmsCssPx": 0.7837,
+        "organicDeviationCssPx": 0.097,
+        "jaggedBandRmsCssPx": 0.1162,
+        "wobbleBandRmsCssPx": 0.2061,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4028
+      }
+    },
+    {
+      "id": "freq-high",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "freq-high",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "freq-high",
+          "waviness": 6,
+          "freq": 0.04
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 72099,
+        "edgeCount": 872,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 75.5298,
+        "bboxCss": {
+          "w": 153,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.166,
+        "wobbleRmsCssPx": 1.134,
+        "organicDeviationCssPx": 0.4632,
+        "jaggedBandRmsCssPx": 0.1161,
+        "wobbleBandRmsCssPx": 0.7312,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.5961
+      }
+    },
+    {
+      "id": "type-turbulence",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "type-turbulence",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "type-turbulence",
+          "waviness": 6,
+          "type": "turbulence"
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73273,
+        "edgeCount": 869,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.1375,
+        "bboxCss": {
+          "w": 150.5,
+          "h": 155.5
+        },
+        "jaggedRmsCssPx": 0.1553,
+        "wobbleRmsCssPx": 1.6361,
+        "organicDeviationCssPx": 0.42,
+        "jaggedBandRmsCssPx": 0.1177,
+        "wobbleBandRmsCssPx": 0.9416,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.6403
+      }
+    },
+    {
+      "id": "posterize-noise",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "posterize-noise",
+        "passes": 8,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "posterize-noise",
+          "waviness": 6,
+          "posterize": true
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73356,
+        "edgeCount": 904,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.1947,
+        "bboxCss": {
+          "w": 156.5,
+          "h": 154.5
+        },
+        "jaggedRmsCssPx": 0.2953,
+        "wobbleRmsCssPx": 1.2947,
+        "organicDeviationCssPx": 0.4236,
+        "jaggedBandRmsCssPx": 0.1956,
+        "wobbleBandRmsCssPx": 0.6459,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.7092
+      }
+    },
+    {
+      "id": "blur-noise-1",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "blur-noise-1",
+        "passes": 7,
+        "pad": 53,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "blur-noise-1",
+          "waviness": 6,
+          "noiseBlur": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73420,
+        "edgeCount": 863,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2243,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1364,
+        "wobbleRmsCssPx": 1.0938,
+        "organicDeviationCssPx": 0.205,
+        "jaggedBandRmsCssPx": 0.1172,
+        "wobbleBandRmsCssPx": 0.4237,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3921
+      }
+    },
+    {
+      "id": "blur-noise-2",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "blur-noise-2",
+        "passes": 7,
+        "pad": 56,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "blur-noise-2",
+          "waviness": 6,
+          "noiseBlur": 2
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73407,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.214,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.137,
+        "wobbleRmsCssPx": 1.0842,
+        "organicDeviationCssPx": 0.2014,
+        "jaggedBandRmsCssPx": 0.1167,
+        "wobbleBandRmsCssPx": 0.4155,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3638
+      }
+    },
+    {
+      "id": "blur-noise-3",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "blur-noise-3",
+        "passes": 7,
+        "pad": 59,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "blur-noise-3",
+          "waviness": 6,
+          "noiseBlur": 3
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73388,
+        "edgeCount": 862,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2083,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1352,
+        "wobbleRmsCssPx": 1.072,
+        "organicDeviationCssPx": 0.1955,
+        "jaggedBandRmsCssPx": 0.1159,
+        "wobbleBandRmsCssPx": 0.4039,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3638
+      }
+    },
+    {
+      "id": "smooth-field",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "smooth-field",
+        "passes": 7,
+        "pad": 74,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "smooth-field",
+          "waviness": 6,
+          "noiseBlur": 8
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73321,
+        "edgeCount": 859,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.1756,
+        "bboxCss": {
+          "w": 155.5,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1339,
+        "wobbleRmsCssPx": 0.9446,
+        "organicDeviationCssPx": 0.1412,
+        "jaggedBandRmsCssPx": 0.1156,
+        "wobbleBandRmsCssPx": 0.2949,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3693
+      }
+    },
+    {
+      "id": "reconstruct-08-8",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "reconstruct-08-8",
+        "passes": 8,
+        "pad": 51,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "reconstruct-08-8",
+          "waviness": 6,
+          "edgeBlur": 0.8,
+          "reconstruct": true,
+          "reconstructSlope": 8
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73708,
+        "edgeCount": 862,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.3725,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.132,
+        "wobbleRmsCssPx": 1.0868,
+        "organicDeviationCssPx": 0.2067,
+        "jaggedBandRmsCssPx": 0.1149,
+        "wobbleBandRmsCssPx": 0.4291,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3482
+      }
+    },
+    {
+      "id": "reconstruct-12-10",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "reconstruct-12-10",
+        "passes": 8,
+        "pad": 52,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "reconstruct-12-10",
+          "waviness": 6,
+          "edgeBlur": 1.2,
+          "reconstruct": true,
+          "reconstructSlope": 10
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73887,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.4667,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.1233,
+        "wobbleRmsCssPx": 1.0866,
+        "organicDeviationCssPx": 0.2055,
+        "jaggedBandRmsCssPx": 0.1082,
+        "wobbleBandRmsCssPx": 0.4258,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2959
+      }
+    },
+    {
+      "id": "preblur-1",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "preblur-1",
+        "passes": 8,
+        "pad": 51,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "preblur-1",
+          "waviness": 6,
+          "edgeBlur": 0,
+          "noiseBlur": 0,
+          "preBlur": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73400,
+        "edgeCount": 888,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2167,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.1711,
+        "wobbleRmsCssPx": 1.0956,
+        "organicDeviationCssPx": 0.2078,
+        "jaggedBandRmsCssPx": 0.149,
+        "wobbleBandRmsCssPx": 0.4254,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.5562
+      }
+    },
+    {
+      "id": "preblur-1-post-05",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "preblur-1-post-05",
+        "passes": 8,
+        "pad": 53,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "preblur-1-post-05",
+          "waviness": 6,
+          "edgeBlur": 0.5,
+          "preBlur": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73403,
+        "edgeCount": 862,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2134,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1325,
+        "wobbleRmsCssPx": 1.0894,
+        "organicDeviationCssPx": 0.2059,
+        "jaggedBandRmsCssPx": 0.1143,
+        "wobbleBandRmsCssPx": 0.4275,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3932
+      }
+    },
+    {
+      "id": "preblur-075",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "preblur-075",
+        "passes": 8,
+        "pad": 51,
+        "cssScale": 1,
+        "width": 230,
+        "height": 230,
+        "variant": {
+          "id": "preblur-075",
+          "waviness": 6,
+          "edgeBlur": 0,
+          "preBlur": 0.75
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73401,
+        "edgeCount": 888,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2175,
+        "bboxCss": {
+          "w": 156,
+          "h": 153
+        },
+        "jaggedRmsCssPx": 0.1712,
+        "wobbleRmsCssPx": 1.0964,
+        "organicDeviationCssPx": 0.2078,
+        "jaggedBandRmsCssPx": 0.1493,
+        "wobbleBandRmsCssPx": 0.4246,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.5562
+      }
+    },
+    {
+      "id": "baseline-4x",
+      "source": "isolated-svg",
+      "cssScale": 4,
+      "meta": {
+        "id": "baseline-4x",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 4,
+        "width": 230,
+        "height": 230
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 1840,
+        "height": 1842,
+        "mass": 1175909,
+        "edgeCount": 3452,
+        "pxPerCss": 8,
+        "meanRadiusCssPx": 76.4532,
+        "bboxCss": {
+          "w": 155.875,
+          "h": 152.625
+        },
+        "jaggedRmsCssPx": 0.0308,
+        "wobbleRmsCssPx": 1.0846,
+        "organicDeviationCssPx": 0.1984,
+        "jaggedBandRmsCssPx": 0.018,
+        "wobbleBandRmsCssPx": 0.4199,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.0971
+      }
+    },
+    {
+      "id": "pill-baseline",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "pill-baseline",
+        "passes": 7,
+        "pad": 50,
+        "cssScale": 1,
+        "width": 248,
+        "height": 80
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41785,
+        "edgeCount": 883,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.4258,
+        "bboxCss": {
+          "w": 203,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.3102,
+        "wobbleRmsCssPx": 25.5265,
+        "organicDeviationCssPx": 2.0855,
+        "jaggedBandRmsCssPx": 0.1684,
+        "wobbleBandRmsCssPx": 2.9853,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.7089
+      }
+    },
+    {
+      "id": "pill-calm",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": {
+        "id": "pill-calm",
+        "passes": 3,
+        "pad": 42,
+        "cssScale": 1,
+        "width": 248,
+        "height": 80
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41374,
+        "edgeCount": 890,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 50.998,
+        "bboxCss": {
+          "w": 201,
+          "h": 55
+        },
+        "jaggedRmsCssPx": 0.3041,
+        "wobbleRmsCssPx": 25.7032,
+        "organicDeviationCssPx": 2.26,
+        "jaggedBandRmsCssPx": 0.1413,
+        "wobbleBandRmsCssPx": 3.16,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.1598
+      }
+    },
+    {
+      "id": "noise-baseline",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.05162060301507538,
+        "gradZeroFrac": 0.05162060301507538,
+        "gradMean": 3.1731253095139476,
+        "gradP10": 1,
+        "gradP50": 2.23606797749979,
+        "gradP90": 4.242640687119286
+      }
+    },
+    {
+      "id": "noise-octaves-1",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.08548994974874372,
+        "gradZeroFrac": 0.08548994974874372,
+        "gradMean": 2.6513865075666456,
+        "gradP10": 1,
+        "gradP50": 2,
+        "gradP90": 3.6055512754639896
+      }
+    },
+    {
+      "id": "noise-posterize",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.229893216080402,
+        "gradZeroFrac": 0.229893216080402,
+        "gradMean": 5.03315884605083,
+        "gradP10": 0,
+        "gradP50": 1,
+        "gradP90": 2.23606797749979
+      }
+    },
+    {
+      "id": "noise-blur-2",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.05260678391959799,
+        "gradZeroFrac": 0.05260678391959799,
+        "gradMean": 3.1063378028257334,
+        "gradP10": 1,
+        "gradP50": 2.23606797749979,
+        "gradP90": 4.242640687119286
+      }
+    },
+    {
+      "id": "noise-freq-low",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.16124371859296482,
+        "gradZeroFrac": 0.16124371859296482,
+        "gradMean": 2.183942066136114,
+        "gradP10": 0,
+        "gradP50": 1.4142135623730951,
+        "gradP90": 2.8284271247461903
+      }
+    },
+    {
+      "id": "noise-freq-high",
+      "source": "isolated-svg",
+      "cssScale": 1,
+      "meta": null,
+      "metrics": {
+        "kind": "noise",
+        "width": 400,
+        "height": 402,
+        "plateauFrac": 0.011105527638190955,
+        "gradZeroFrac": 0.011105527638190955,
+        "gradMean": 5.8097486192502785,
+        "gradP10": 2,
+        "gradP50": 5,
+        "gradP90": 8.94427190999916
+      }
+    }
+  ],
+  "storybook": [
+    {
+      "id": "story-waviness-default",
+      "fileStem": "story-waviness-default",
+      "box": {
+        "x": 478,
+        "y": 174.765625,
+        "width": 644,
+        "height": 220
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 1288,
+        "height": 442,
+        "mass": 44914,
+        "edgeCount": 979,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 79.7991,
+        "bboxCss": {
+          "w": 278,
+          "h": 78.5
+        },
+        "jaggedRmsCssPx": 3.1155,
+        "wobbleRmsCssPx": 44.9982,
+        "organicDeviationCssPx": 6.0481,
+        "jaggedBandRmsCssPx": 1.6554,
+        "wobbleBandRmsCssPx": 9.3474,
+        "alphaFringeCssPx": 0.2667,
+        "worstLocalJaggedCssPx": 33.7781
+      }
+    },
+    {
+      "id": "story-waviness-blob",
+      "fileStem": "story-waviness-blob",
+      "box": {
+        "x": 1013.859375,
+        "y": 392.859375,
+        "width": 150,
+        "height": 150
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 302,
+        "height": 302,
+        "mass": 72880,
+        "edgeCount": 674,
+        "pxPerCss": 2.0133,
+        "meanRadiusCssPx": 75.4875,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.1345,
+        "wobbleRmsCssPx": 1.1651,
+        "organicDeviationCssPx": 0.2315,
+        "jaggedBandRmsCssPx": 0.1104,
+        "wobbleBandRmsCssPx": 0.6011,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.852
+      }
+    },
+    {
+      "id": "story-segmented-teal",
+      "fileStem": "story-segmented-teal",
+      "box": {
+        "x": 40,
+        "y": 40,
+        "width": 280.890625,
+        "height": 52
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 562,
+        "height": 104,
+        "mass": 18612,
+        "edgeCount": 521,
+        "pxPerCss": 2.0008,
+        "meanRadiusCssPx": 36.1875,
+        "bboxCss": {
+          "w": 111.4566,
+          "h": 47.4815
+        },
+        "jaggedRmsCssPx": 0.202,
+        "wobbleRmsCssPx": 12.1943,
+        "organicDeviationCssPx": 1.2576,
+        "jaggedBandRmsCssPx": 0.1328,
+        "wobbleBandRmsCssPx": 2.1679,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.7298
+      }
+    }
+  ]
+}
