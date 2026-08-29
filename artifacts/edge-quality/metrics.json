@@ -1,23 +1,27 @@
 {
-  "measuredAt": "2026-08-29T13:18:53.218Z",
+  "measuredAt": "2026-08-29T13:46:07.389Z",
   "kitVersion": "1.11.2",
   "notes": {
     "dpr": 2,
     "fill": "#1d9a8b",
-    "productionFilter": "feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)"
+    "paleExcessThreshold": 18,
+    "productionFilter": "feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)",
+    "productionTealIndicator": "GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke"
   },
   "isolated": [
     {
       "id": "cal-circle",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "cal-circle",
         "passes": 0,
         "pad": 0,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
-        "height": 230
+        "height": 230,
+        "layoutArea": 0,
+        "rasterArea": 0
       },
       "metrics": {
         "kind": "shape",
@@ -37,20 +41,32 @@
         "jaggedBandRmsCssPx": 0.1173,
         "wobbleBandRmsCssPx": 0.036,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.2823
+        "worstLocalJaggedCssPx": 0.2823,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 469.5016,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
       "id": "cal-wobble",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "cal-wobble",
         "passes": 0,
         "pad": 0,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
-        "height": 230
+        "height": 230,
+        "layoutArea": 0,
+        "rasterArea": 0
       },
       "metrics": {
         "kind": "shape",
@@ -70,20 +86,32 @@
         "jaggedBandRmsCssPx": 0.1229,
         "wobbleBandRmsCssPx": 4.1469,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.4013
+        "worstLocalJaggedCssPx": 0.4013,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.0014,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0.0125,
+        "rimMeanPresentRunCssPx": 0.6527,
+        "rimMeanAbsentRunCssPx": 469.2664,
+        "rimBreaksPer100CssPx": 0.4256,
+        "rimPeakMeanExcess": 20.3799,
+        "rimPeakCv": 0
       }
     },
     {
       "id": "cal-stairs",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "cal-stairs",
         "passes": 0,
         "pad": 0,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
-        "height": 230
+        "height": 230,
+        "layoutArea": 0,
+        "rasterArea": 0
       },
       "metrics": {
         "kind": "shape",
@@ -103,63 +131,227 @@
         "jaggedBandRmsCssPx": 0.2272,
         "wobbleBandRmsCssPx": 0.0662,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.6597
+        "worstLocalJaggedCssPx": 0.6597,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 470.015,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
-      "id": "baseline",
+      "id": "cal-rim-ring",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
-        "id": "baseline",
-        "passes": 7,
-        "pad": 50,
+        "id": "cal-rim-ring",
+        "passes": 0,
+        "pad": 0,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
         "height": 230,
-        "variant": {
-          "id": "baseline",
-          "waviness": 6,
-          "octaves": 2,
-          "freq": 0.018,
-          "edgeBlur": 0.5
-        }
+        "layoutArea": 0,
+        "rasterArea": 0
       },
       "metrics": {
         "kind": "shape",
         "width": 460,
         "height": 462,
-        "mass": 73416,
-        "edgeCount": 864,
+        "mass": 70755,
+        "edgeCount": 848,
         "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2222,
+        "meanRadiusCssPx": 74.8311,
         "bboxCss": {
-          "w": 156,
-          "h": 152.5
+          "w": 150,
+          "h": 150
         },
-        "jaggedRmsCssPx": 0.1368,
-        "wobbleRmsCssPx": 1.0946,
-        "organicDeviationCssPx": 0.2068,
-        "jaggedBandRmsCssPx": 0.1163,
-        "wobbleBandRmsCssPx": 0.4264,
+        "jaggedRmsCssPx": 0.1194,
+        "wobbleRmsCssPx": 0.0349,
+        "organicDeviationCssPx": 0.022,
+        "jaggedBandRmsCssPx": 0.11,
+        "wobbleBandRmsCssPx": 0.024,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3921
+        "worstLocalJaggedCssPx": 0.269,
+        "fillLum": 126.342,
+        "rimPresentFrac": 1,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 1,
+        "rimSouthPresentFrac": 1,
+        "rimMeanPresentRunCssPx": 470.178,
+        "rimMeanAbsentRunCssPx": 0,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 115.7389,
+        "rimPeakCv": 0.0038
       }
     },
     {
-      "id": "calm",
+      "id": "cal-rim-dashed",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
-        "id": "calm",
-        "passes": 3,
-        "pad": 42,
+        "id": "cal-rim-dashed",
+        "passes": 0,
+        "pad": 0,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
         "height": 230,
+        "layoutArea": 0,
+        "rasterArea": 0
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 70690,
+        "edgeCount": 848,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.7939,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.1274,
+        "wobbleRmsCssPx": 0.0446,
+        "organicDeviationCssPx": 0.0326,
+        "jaggedBandRmsCssPx": 0.112,
+        "wobbleBandRmsCssPx": 0.0314,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3123,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.625,
+        "rimNorthPresentFrac": 0.6125,
+        "rimEastPresentFrac": 0.625,
+        "rimSouthPresentFrac": 0.65,
+        "rimMeanPresentRunCssPx": 5.6484,
+        "rimMeanAbsentRunCssPx": 3.389,
+        "rimBreaksPer100CssPx": 22.1303,
+        "rimPeakMeanExcess": 104.2069,
+        "rimPeakCv": 0.2385
+      }
+    },
+    {
+      "id": "cal-rim-hairline",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "cal-rim-hairline",
+        "passes": 0,
+        "pad": 0,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 0,
+        "rasterArea": 0
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 70890,
+        "edgeCount": 848,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.8977,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.1184,
+        "wobbleRmsCssPx": 0.0328,
+        "organicDeviationCssPx": 0.0257,
+        "jaggedBandRmsCssPx": 0.1124,
+        "wobbleBandRmsCssPx": 0.0279,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2592,
+        "fillLum": 126.342,
+        "rimPresentFrac": 1,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 1,
+        "rimSouthPresentFrac": 1,
+        "rimMeanPresentRunCssPx": 470.5964,
+        "rimMeanAbsentRunCssPx": 0,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 71.6095,
+        "rimPeakCv": 0.2115
+      }
+    },
+    {
+      "id": "cal-css-inset",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "cal-css-inset",
+        "passes": 0,
+        "pad": 0,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 150,
+        "height": 150,
+        "layoutArea": 0,
+        "rasterArea": 0
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 300,
+        "height": 302,
+        "mass": 70612,
+        "edgeCount": 784,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 74.7267,
+        "bboxCss": {
+          "w": 150,
+          "h": 150
+        },
+        "jaggedRmsCssPx": 0.1192,
+        "wobbleRmsCssPx": 0.0759,
+        "organicDeviationCssPx": 0.0378,
+        "jaggedBandRmsCssPx": 0.111,
+        "wobbleBandRmsCssPx": 0.0577,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2823,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.475,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 111.5114,
+        "rimMeanAbsentRunCssPx": 123.2494,
+        "rimBreaksPer100CssPx": 0.8519,
+        "rimPeakMeanExcess": 50.2912,
+        "rimPeakCv": 0.1388
+      }
+    },
+    {
+      "id": "cal-inset-bin",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "cal-inset-bin",
+        "passes": 9,
+        "pad": 44,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 101124,
+        "rasterArea": 101124,
+        "overBudgetIfRasterCounted": false,
         "variant": {
-          "id": "calm",
-          "waviness": 0
+          "id": "cal-inset-bin",
+          "waviness": 0,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 1
         }
       },
       "metrics": {
@@ -180,24 +372,141 @@
         "jaggedBandRmsCssPx": 0.1131,
         "wobbleBandRmsCssPx": 0.0249,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.2622
+        "worstLocalJaggedCssPx": 0.2622,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4667,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.3625,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 24.6756,
+        "rimMeanAbsentRunCssPx": 28.2007,
+        "rimBreaksPer100CssPx": 3.7824,
+        "rimPeakMeanExcess": 57.6495,
+        "rimPeakCv": 0.1169
+      }
+    },
+    {
+      "id": "baseline",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "baseline",
+        "passes": 6,
+        "pad": 50,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 108900,
+        "rasterArea": 108900,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "baseline",
+          "waviness": 6,
+          "edgeBlur": 0.5,
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73416,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2222,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1368,
+        "wobbleRmsCssPx": 1.0946,
+        "organicDeviationCssPx": 0.2068,
+        "jaggedBandRmsCssPx": 0.1163,
+        "wobbleBandRmsCssPx": 0.4264,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3921,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 478.918,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
+      }
+    },
+    {
+      "id": "calm",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "calm",
+        "passes": 3,
+        "pad": 42,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 98596,
+        "rasterArea": 98596,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "calm",
+          "waviness": 0,
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 72482,
+        "edgeCount": 856,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 75.7396,
+        "bboxCss": {
+          "w": 152,
+          "h": 152
+        },
+        "jaggedRmsCssPx": 0.1182,
+        "wobbleRmsCssPx": 0.0313,
+        "organicDeviationCssPx": 0.0226,
+        "jaggedBandRmsCssPx": 0.1131,
+        "wobbleBandRmsCssPx": 0.0249,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.2622,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 475.8861,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
       "id": "no-edge-blur",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "no-edge-blur",
-        "passes": 7,
+        "passes": 6,
         "pad": 48,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
         "height": 230,
+        "layoutArea": 106276,
+        "rasterArea": 106276,
+        "overBudgetIfRasterCounted": false,
         "variant": {
           "id": "no-edge-blur",
           "waviness": 6,
-          "edgeBlur": 0
+          "edgeBlur": 0,
+          "downsample": 1
         }
       },
       "metrics": {
@@ -218,674 +527,280 @@
         "jaggedBandRmsCssPx": 0.152,
         "wobbleBandRmsCssPx": 0.429,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.5562
+        "worstLocalJaggedCssPx": 0.5562,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 478.8507,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
-      "id": "edge-blur-1",
+      "id": "wavy-inset",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
-        "id": "edge-blur-1",
-        "passes": 7,
-        "pad": 51,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "edge-blur-1",
-          "waviness": 6,
-          "edgeBlur": 1
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73409,
-        "edgeCount": 861,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2175,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1248,
-        "wobbleRmsCssPx": 1.0897,
-        "organicDeviationCssPx": 0.2016,
-        "jaggedBandRmsCssPx": 0.1103,
-        "wobbleBandRmsCssPx": 0.4183,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3012
-      }
-    },
-    {
-      "id": "edge-blur-1-5",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "edge-blur-1-5",
-        "passes": 7,
-        "pad": 53,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "edge-blur-1-5",
-          "waviness": 6,
-          "edgeBlur": 1.5
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73384,
-        "edgeCount": 861,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2047,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1217,
-        "wobbleRmsCssPx": 1.0852,
-        "organicDeviationCssPx": 0.1993,
-        "jaggedBandRmsCssPx": 0.1114,
-        "wobbleBandRmsCssPx": 0.4151,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.2862
-      }
-    },
-    {
-      "id": "octaves-1",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "octaves-1",
-        "passes": 7,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "octaves-1",
-          "waviness": 6,
-          "octaves": 1
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73473,
-        "edgeCount": 863,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2448,
-        "bboxCss": {
-          "w": 156.5,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1374,
-        "wobbleRmsCssPx": 1.2266,
-        "organicDeviationCssPx": 0.1627,
-        "jaggedBandRmsCssPx": 0.1169,
-        "wobbleBandRmsCssPx": 0.3255,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.4711
-      }
-    },
-    {
-      "id": "octaves-4",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "octaves-4",
-        "passes": 7,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "octaves-4",
-          "waviness": 6,
-          "octaves": 4
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73366,
-        "edgeCount": 862,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.1975,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.149,
-        "wobbleRmsCssPx": 1.111,
-        "organicDeviationCssPx": 0.2499,
-        "jaggedBandRmsCssPx": 0.1126,
-        "wobbleBandRmsCssPx": 0.3922,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.4259
-      }
-    },
-    {
-      "id": "freq-low",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "freq-low",
-        "passes": 7,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "freq-low",
-          "waviness": 6,
-          "freq": 0.008
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 71621,
-        "edgeCount": 856,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 75.2841,
-        "bboxCss": {
-          "w": 152,
-          "h": 151.5
-        },
-        "jaggedRmsCssPx": 0.1372,
-        "wobbleRmsCssPx": 0.7837,
-        "organicDeviationCssPx": 0.097,
-        "jaggedBandRmsCssPx": 0.1162,
-        "wobbleBandRmsCssPx": 0.2061,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.4028
-      }
-    },
-    {
-      "id": "freq-high",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "freq-high",
-        "passes": 7,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "freq-high",
-          "waviness": 6,
-          "freq": 0.04
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 72099,
-        "edgeCount": 872,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 75.5298,
-        "bboxCss": {
-          "w": 153,
-          "h": 150
-        },
-        "jaggedRmsCssPx": 0.166,
-        "wobbleRmsCssPx": 1.134,
-        "organicDeviationCssPx": 0.4632,
-        "jaggedBandRmsCssPx": 0.1161,
-        "wobbleBandRmsCssPx": 0.7312,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.5961
-      }
-    },
-    {
-      "id": "type-turbulence",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "type-turbulence",
-        "passes": 7,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "type-turbulence",
-          "waviness": 6,
-          "type": "turbulence"
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73273,
-        "edgeCount": 869,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.1375,
-        "bboxCss": {
-          "w": 150.5,
-          "h": 155.5
-        },
-        "jaggedRmsCssPx": 0.1553,
-        "wobbleRmsCssPx": 1.6361,
-        "organicDeviationCssPx": 0.42,
-        "jaggedBandRmsCssPx": 0.1177,
-        "wobbleBandRmsCssPx": 0.9416,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.6403
-      }
-    },
-    {
-      "id": "posterize-noise",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "posterize-noise",
-        "passes": 8,
-        "pad": 50,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "posterize-noise",
-          "waviness": 6,
-          "posterize": true
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73356,
-        "edgeCount": 904,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.1947,
-        "bboxCss": {
-          "w": 156.5,
-          "h": 154.5
-        },
-        "jaggedRmsCssPx": 0.2953,
-        "wobbleRmsCssPx": 1.2947,
-        "organicDeviationCssPx": 0.4236,
-        "jaggedBandRmsCssPx": 0.1956,
-        "wobbleBandRmsCssPx": 0.6459,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 1.7092
-      }
-    },
-    {
-      "id": "blur-noise-1",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "blur-noise-1",
-        "passes": 7,
-        "pad": 53,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "blur-noise-1",
-          "waviness": 6,
-          "noiseBlur": 1
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73420,
-        "edgeCount": 863,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2243,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1364,
-        "wobbleRmsCssPx": 1.0938,
-        "organicDeviationCssPx": 0.205,
-        "jaggedBandRmsCssPx": 0.1172,
-        "wobbleBandRmsCssPx": 0.4237,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3921
-      }
-    },
-    {
-      "id": "blur-noise-2",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "blur-noise-2",
-        "passes": 7,
-        "pad": 56,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "blur-noise-2",
-          "waviness": 6,
-          "noiseBlur": 2
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73407,
-        "edgeCount": 864,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.214,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.137,
-        "wobbleRmsCssPx": 1.0842,
-        "organicDeviationCssPx": 0.2014,
-        "jaggedBandRmsCssPx": 0.1167,
-        "wobbleBandRmsCssPx": 0.4155,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3638
-      }
-    },
-    {
-      "id": "blur-noise-3",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "blur-noise-3",
-        "passes": 7,
-        "pad": 59,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "blur-noise-3",
-          "waviness": 6,
-          "noiseBlur": 3
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73388,
-        "edgeCount": 862,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2083,
-        "bboxCss": {
-          "w": 156,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1352,
-        "wobbleRmsCssPx": 1.072,
-        "organicDeviationCssPx": 0.1955,
-        "jaggedBandRmsCssPx": 0.1159,
-        "wobbleBandRmsCssPx": 0.4039,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3638
-      }
-    },
-    {
-      "id": "smooth-field",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "smooth-field",
-        "passes": 7,
-        "pad": 74,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "smooth-field",
-          "waviness": 6,
-          "noiseBlur": 8
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73321,
-        "edgeCount": 859,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.1756,
-        "bboxCss": {
-          "w": 155.5,
-          "h": 152.5
-        },
-        "jaggedRmsCssPx": 0.1339,
-        "wobbleRmsCssPx": 0.9446,
-        "organicDeviationCssPx": 0.1412,
-        "jaggedBandRmsCssPx": 0.1156,
-        "wobbleBandRmsCssPx": 0.2949,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3693
-      }
-    },
-    {
-      "id": "reconstruct-08-8",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "reconstruct-08-8",
-        "passes": 8,
-        "pad": 51,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "reconstruct-08-8",
-          "waviness": 6,
-          "edgeBlur": 0.8,
-          "reconstruct": true,
-          "reconstructSlope": 8
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73708,
-        "edgeCount": 862,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.3725,
-        "bboxCss": {
-          "w": 156,
-          "h": 153
-        },
-        "jaggedRmsCssPx": 0.132,
-        "wobbleRmsCssPx": 1.0868,
-        "organicDeviationCssPx": 0.2067,
-        "jaggedBandRmsCssPx": 0.1149,
-        "wobbleBandRmsCssPx": 0.4291,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3482
-      }
-    },
-    {
-      "id": "reconstruct-12-10",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "reconstruct-12-10",
-        "passes": 8,
+        "id": "wavy-inset",
+        "passes": 12,
         "pad": 52,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
         "height": 230,
+        "layoutArea": 111556,
+        "rasterArea": 111556,
+        "overBudgetIfRasterCounted": false,
         "variant": {
-          "id": "reconstruct-12-10",
+          "id": "wavy-inset",
           "waviness": 6,
-          "edgeBlur": 1.2,
-          "reconstruct": true,
-          "reconstructSlope": 10
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 1
         }
       },
       "metrics": {
         "kind": "shape",
         "width": 460,
         "height": 462,
-        "mass": 73887,
-        "edgeCount": 864,
+        "mass": 73436,
+        "edgeCount": 863,
         "pxPerCss": 2,
-        "meanRadiusCssPx": 76.4667,
-        "bboxCss": {
-          "w": 156,
-          "h": 153
-        },
-        "jaggedRmsCssPx": 0.1233,
-        "wobbleRmsCssPx": 1.0866,
-        "organicDeviationCssPx": 0.2055,
-        "jaggedBandRmsCssPx": 0.1082,
-        "wobbleBandRmsCssPx": 0.4258,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.2959
-      }
-    },
-    {
-      "id": "preblur-1",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "preblur-1",
-        "passes": 8,
-        "pad": 51,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "preblur-1",
-          "waviness": 6,
-          "edgeBlur": 0,
-          "noiseBlur": 0,
-          "preBlur": 1
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73400,
-        "edgeCount": 888,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2167,
-        "bboxCss": {
-          "w": 156,
-          "h": 153
-        },
-        "jaggedRmsCssPx": 0.1711,
-        "wobbleRmsCssPx": 1.0956,
-        "organicDeviationCssPx": 0.2078,
-        "jaggedBandRmsCssPx": 0.149,
-        "wobbleBandRmsCssPx": 0.4254,
-        "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.5562
-      }
-    },
-    {
-      "id": "preblur-1-post-05",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": {
-        "id": "preblur-1-post-05",
-        "passes": 8,
-        "pad": 53,
-        "cssScale": 1,
-        "width": 230,
-        "height": 230,
-        "variant": {
-          "id": "preblur-1-post-05",
-          "waviness": 6,
-          "edgeBlur": 0.5,
-          "preBlur": 1
-        }
-      },
-      "metrics": {
-        "kind": "shape",
-        "width": 460,
-        "height": 462,
-        "mass": 73403,
-        "edgeCount": 862,
-        "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2134,
+        "meanRadiusCssPx": 76.2319,
         "bboxCss": {
           "w": 156,
           "h": 152.5
         },
-        "jaggedRmsCssPx": 0.1325,
-        "wobbleRmsCssPx": 1.0894,
-        "organicDeviationCssPx": 0.2059,
-        "jaggedBandRmsCssPx": 0.1143,
-        "wobbleBandRmsCssPx": 0.4275,
+        "jaggedRmsCssPx": 0.1358,
+        "wobbleRmsCssPx": 1.0924,
+        "organicDeviationCssPx": 0.2063,
+        "jaggedBandRmsCssPx": 0.1161,
+        "wobbleBandRmsCssPx": 0.4244,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.3932
+        "worstLocalJaggedCssPx": 0.4094,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4722,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4375,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 37.6974,
+        "rimMeanAbsentRunCssPx": 42.1324,
+        "rimBreaksPer100CssPx": 2.5053,
+        "rimPeakMeanExcess": 63.2052,
+        "rimPeakCv": 0.0923
       }
     },
     {
-      "id": "preblur-075",
+      "id": "wavy-inset-aa",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
-        "id": "preblur-075",
-        "passes": 8,
-        "pad": 51,
+        "id": "wavy-inset-aa",
+        "passes": 11,
+        "pad": 52,
         "cssScale": 1,
+        "downsample": 1,
         "width": 230,
         "height": 230,
+        "layoutArea": 111556,
+        "rasterArea": 111556,
+        "overBudgetIfRasterCounted": false,
         "variant": {
-          "id": "preblur-075",
+          "id": "wavy-inset-aa",
           "waviness": 6,
-          "edgeBlur": 0,
-          "preBlur": 0.75
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 1
         }
       },
       "metrics": {
         "kind": "shape",
         "width": 460,
         "height": 462,
-        "mass": 73401,
-        "edgeCount": 888,
+        "mass": 73585,
+        "edgeCount": 865,
         "pxPerCss": 2,
-        "meanRadiusCssPx": 76.2175,
+        "meanRadiusCssPx": 76.3086,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.139,
+        "wobbleRmsCssPx": 1.0866,
+        "organicDeviationCssPx": 0.2064,
+        "jaggedBandRmsCssPx": 0.1198,
+        "wobbleBandRmsCssPx": 0.4247,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3725,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4972,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4875,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 79.4662,
+        "rimMeanAbsentRunCssPx": 80.3541,
+        "rimBreaksPer100CssPx": 1.2514,
+        "rimPeakMeanExcess": 43.1558,
+        "rimPeakCv": 0.1864
+      }
+    },
+    {
+      "id": "wavy-shadow-full",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-shadow-full",
+        "passes": 16,
+        "pad": 102,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 188356,
+        "rasterArea": 188356,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-shadow-full",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 13,
+              "blur": 26,
+              "spread": 0,
+              "color": "rgba(76, 52, 28, 0.22)",
+              "inset": false
+            },
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73576,
+        "edgeCount": 861,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.3006,
         "bboxCss": {
           "w": 156,
           "h": 153
         },
-        "jaggedRmsCssPx": 0.1712,
-        "wobbleRmsCssPx": 1.0964,
-        "organicDeviationCssPx": 0.2078,
-        "jaggedBandRmsCssPx": 0.1493,
-        "wobbleBandRmsCssPx": 0.4246,
+        "jaggedRmsCssPx": 0.138,
+        "wobbleRmsCssPx": 1.0944,
+        "organicDeviationCssPx": 0.2053,
+        "jaggedBandRmsCssPx": 0.1168,
+        "wobbleBandRmsCssPx": 0.4285,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.5562
+        "worstLocalJaggedCssPx": 0.396,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4722,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4375,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 37.7314,
+        "rimMeanAbsentRunCssPx": 42.1704,
+        "rimBreaksPer100CssPx": 2.5031,
+        "rimPeakMeanExcess": 61.433,
+        "rimPeakCv": 0.0949
+      }
+    },
+    {
+      "id": "wavy-stroke",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-stroke",
+        "passes": 12,
+        "pad": 51,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 110224,
+        "rasterArea": 110224,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-stroke",
+          "waviness": 6,
+          "stroke": {
+            "width": 1,
+            "color": "rgba(90, 64, 42, 0.28)"
+          },
+          "downsample": 1
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73450,
+        "edgeCount": 863,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2382,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1361,
+        "wobbleRmsCssPx": 1.0928,
+        "organicDeviationCssPx": 0.2059,
+        "jaggedBandRmsCssPx": 0.1155,
+        "wobbleBandRmsCssPx": 0.4257,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4043,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 479.0185,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
       "id": "baseline-4x",
       "source": "isolated-svg",
-      "cssScale": 4,
       "meta": {
         "id": "baseline-4x",
-        "passes": 7,
+        "passes": 6,
         "pad": 50,
         "cssScale": 4,
+        "downsample": 1,
         "width": 230,
-        "height": 230
+        "height": 230,
+        "layoutArea": 108900,
+        "rasterArea": 1742400,
+        "overBudgetIfRasterCounted": true
       },
       "metrics": {
         "kind": "shape",
@@ -905,20 +820,212 @@
         "jaggedBandRmsCssPx": 0.018,
         "wobbleBandRmsCssPx": 0.4199,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.0971
+        "worstLocalJaggedCssPx": 0.0971,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 480.3696,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
+      }
+    },
+    {
+      "id": "baseline-2x",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "baseline-2x",
+        "passes": 6,
+        "pad": 50,
+        "cssScale": 2,
+        "downsample": 2,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 108900,
+        "rasterArea": 435600,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "baseline-2x",
+          "waviness": 6,
+          "downsample": 2
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73416,
+        "edgeCount": 864,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2222,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1368,
+        "wobbleRmsCssPx": 1.0946,
+        "organicDeviationCssPx": 0.2068,
+        "jaggedBandRmsCssPx": 0.1163,
+        "wobbleBandRmsCssPx": 0.4264,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3921,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 478.918,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
+      }
+    },
+    {
+      "id": "wavy-inset-2x",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-inset-2x",
+        "passes": 12,
+        "pad": 52,
+        "cssScale": 2,
+        "downsample": 2,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 111556,
+        "rasterArea": 446224,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-inset-2x",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 2
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73436,
+        "edgeCount": 863,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.2319,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.1358,
+        "wobbleRmsCssPx": 1.0924,
+        "organicDeviationCssPx": 0.2063,
+        "jaggedBandRmsCssPx": 0.1161,
+        "wobbleBandRmsCssPx": 0.4244,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.4094,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4722,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4375,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 37.6974,
+        "rimMeanAbsentRunCssPx": 42.1324,
+        "rimBreaksPer100CssPx": 2.5053,
+        "rimPeakMeanExcess": 63.206,
+        "rimPeakCv": 0.0922
+      }
+    },
+    {
+      "id": "wavy-inset-aa-2x",
+      "source": "isolated-svg",
+      "meta": {
+        "id": "wavy-inset-aa-2x",
+        "passes": 11,
+        "pad": 52,
+        "cssScale": 2,
+        "downsample": 2,
+        "width": 230,
+        "height": 230,
+        "layoutArea": 111556,
+        "rasterArea": 446224,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "wavy-inset-aa-2x",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 2
+        }
+      },
+      "metrics": {
+        "kind": "shape",
+        "width": 460,
+        "height": 462,
+        "mass": 73585,
+        "edgeCount": 865,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 76.3086,
+        "bboxCss": {
+          "w": 156,
+          "h": 152.5
+        },
+        "jaggedRmsCssPx": 0.139,
+        "wobbleRmsCssPx": 1.0866,
+        "organicDeviationCssPx": 0.2064,
+        "jaggedBandRmsCssPx": 0.1198,
+        "wobbleBandRmsCssPx": 0.4247,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 0.3725,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4972,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4875,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 79.4662,
+        "rimMeanAbsentRunCssPx": 80.3541,
+        "rimBreaksPer100CssPx": 1.2514,
+        "rimPeakMeanExcess": 43.1558,
+        "rimPeakCv": 0.1864
       }
     },
     {
       "id": "pill-baseline",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "pill-baseline",
-        "passes": 7,
+        "passes": 6,
         "pad": 50,
         "cssScale": 1,
+        "downsample": 1,
         "width": 248,
-        "height": 80
+        "height": 80,
+        "layoutArea": 62640,
+        "rasterArea": 62640,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-baseline",
+          "waviness": 6,
+          "downsample": 1
+        }
       },
       "metrics": {
         "kind": "shape",
@@ -938,20 +1045,38 @@
         "jaggedBandRmsCssPx": 0.1684,
         "wobbleBandRmsCssPx": 2.9853,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 1.7089
+        "worstLocalJaggedCssPx": 1.7089,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 323.1181,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
       "id": "pill-calm",
       "source": "isolated-svg",
-      "cssScale": 1,
       "meta": {
         "id": "pill-calm",
         "passes": 3,
         "pad": 42,
         "cssScale": 1,
+        "downsample": 1,
         "width": 248,
-        "height": 80
+        "height": 80,
+        "layoutArea": 54448,
+        "rasterArea": 54448,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-calm",
+          "waviness": 0,
+          "downsample": 1
+        }
       },
       "metrics": {
         "kind": "shape",
@@ -971,109 +1096,270 @@
         "jaggedBandRmsCssPx": 0.1413,
         "wobbleBandRmsCssPx": 3.16,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 1.1598
+        "worstLocalJaggedCssPx": 1.1598,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 320.4301,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
-      "id": "noise-baseline",
+      "id": "pill-inset",
       "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
+      "meta": {
+        "id": "pill-inset",
+        "passes": 12,
+        "pad": 52,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 248,
+        "height": 80,
+        "layoutArea": 64768,
+        "rasterArea": 64768,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-inset",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 1
+        }
+      },
       "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.05162060301507538,
-        "gradZeroFrac": 0.05162060301507538,
-        "gradMean": 3.1731253095139476,
-        "gradP10": 1,
-        "gradP50": 2.23606797749979,
-        "gradP90": 4.242640687119286
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41796,
+        "edgeCount": 884,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.432,
+        "bboxCss": {
+          "w": 203,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.308,
+        "wobbleRmsCssPx": 25.5335,
+        "organicDeviationCssPx": 2.086,
+        "jaggedBandRmsCssPx": 0.1651,
+        "wobbleBandRmsCssPx": 2.9845,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.7088,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4944,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.475,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 159.7832,
+        "rimMeanAbsentRunCssPx": 163.3739,
+        "rimBreaksPer100CssPx": 0.6189,
+        "rimPeakMeanExcess": 68.6987,
+        "rimPeakCv": 0.0779
       }
     },
     {
-      "id": "noise-octaves-1",
+      "id": "pill-inset-aa",
       "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
+      "meta": {
+        "id": "pill-inset-aa",
+        "passes": 11,
+        "pad": 52,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 248,
+        "height": 80,
+        "layoutArea": 64768,
+        "rasterArea": 64768,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-inset-aa",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "insetFrom": "shape",
+          "downsample": 1
+        }
+      },
       "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.08548994974874372,
-        "gradZeroFrac": 0.08548994974874372,
-        "gradMean": 2.6513865075666456,
-        "gradP10": 1,
-        "gradP50": 2,
-        "gradP90": 3.6055512754639896
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41887,
+        "edgeCount": 885,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.4882,
+        "bboxCss": {
+          "w": 203,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.3069,
+        "wobbleRmsCssPx": 25.5617,
+        "organicDeviationCssPx": 2.083,
+        "jaggedBandRmsCssPx": 0.1585,
+        "wobbleBandRmsCssPx": 2.9763,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.6546,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.5,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.4875,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 80.8774,
+        "rimMeanAbsentRunCssPx": 80.8774,
+        "rimBreaksPer100CssPx": 1.2364,
+        "rimPeakMeanExcess": 48.7254,
+        "rimPeakCv": 0.1031
       }
     },
     {
-      "id": "noise-posterize",
+      "id": "pill-inset-2x",
       "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
+      "meta": {
+        "id": "pill-inset-2x",
+        "passes": 12,
+        "pad": 52,
+        "cssScale": 2,
+        "downsample": 2,
+        "width": 248,
+        "height": 80,
+        "layoutArea": 64768,
+        "rasterArea": 259072,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-inset-2x",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 2
+        }
+      },
       "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.229893216080402,
-        "gradZeroFrac": 0.229893216080402,
-        "gradMean": 5.03315884605083,
-        "gradP10": 0,
-        "gradP50": 1,
-        "gradP90": 2.23606797749979
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41796,
+        "edgeCount": 884,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.432,
+        "bboxCss": {
+          "w": 203,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.308,
+        "wobbleRmsCssPx": 25.5335,
+        "organicDeviationCssPx": 2.086,
+        "jaggedBandRmsCssPx": 0.1651,
+        "wobbleBandRmsCssPx": 2.9845,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.7088,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4944,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.475,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 159.7832,
+        "rimMeanAbsentRunCssPx": 163.3739,
+        "rimBreaksPer100CssPx": 0.6189,
+        "rimPeakMeanExcess": 68.6966,
+        "rimPeakCv": 0.0779
       }
     },
     {
-      "id": "noise-blur-2",
+      "id": "pill-shadow-full",
       "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
+      "meta": {
+        "id": "pill-shadow-full",
+        "passes": 16,
+        "pad": 102,
+        "cssScale": 1,
+        "downsample": 1,
+        "width": 248,
+        "height": 80,
+        "layoutArea": 128368,
+        "rasterArea": 128368,
+        "overBudgetIfRasterCounted": false,
+        "variant": {
+          "id": "pill-shadow-full",
+          "waviness": 6,
+          "shadows": [
+            {
+              "x": 0,
+              "y": 13,
+              "blur": 26,
+              "spread": 0,
+              "color": "rgba(76, 52, 28, 0.22)",
+              "inset": false
+            },
+            {
+              "x": 0,
+              "y": 2,
+              "blur": 0,
+              "spread": 0,
+              "color": "rgba(255, 255, 255, 0.42)",
+              "inset": true
+            }
+          ],
+          "downsample": 1
+        }
+      },
       "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.05260678391959799,
-        "gradZeroFrac": 0.05260678391959799,
-        "gradMean": 3.1063378028257334,
-        "gradP10": 1,
-        "gradP50": 2.23606797749979,
-        "gradP90": 4.242640687119286
-      }
-    },
-    {
-      "id": "noise-freq-low",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
-      "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.16124371859296482,
-        "gradZeroFrac": 0.16124371859296482,
-        "gradMean": 2.183942066136114,
-        "gradP10": 0,
-        "gradP50": 1.4142135623730951,
-        "gradP90": 2.8284271247461903
-      }
-    },
-    {
-      "id": "noise-freq-high",
-      "source": "isolated-svg",
-      "cssScale": 1,
-      "meta": null,
-      "metrics": {
-        "kind": "noise",
-        "width": 400,
-        "height": 402,
-        "plateauFrac": 0.011105527638190955,
-        "gradZeroFrac": 0.011105527638190955,
-        "gradMean": 5.8097486192502785,
-        "gradP10": 2,
-        "gradP50": 5,
-        "gradP90": 8.94427190999916
+        "kind": "shape",
+        "width": 496,
+        "height": 162,
+        "mass": 41904,
+        "edgeCount": 884,
+        "pxPerCss": 2,
+        "meanRadiusCssPx": 51.5029,
+        "bboxCss": {
+          "w": 203,
+          "h": 59.5
+        },
+        "jaggedRmsCssPx": 0.3037,
+        "wobbleRmsCssPx": 25.5448,
+        "organicDeviationCssPx": 2.0825,
+        "jaggedBandRmsCssPx": 0.1632,
+        "wobbleBandRmsCssPx": 2.9914,
+        "alphaFringeCssPx": 0,
+        "worstLocalJaggedCssPx": 1.4038,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.4944,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.475,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 160.0033,
+        "rimMeanAbsentRunCssPx": 163.5989,
+        "rimBreaksPer100CssPx": 0.618,
+        "rimPeakMeanExcess": 67.5072,
+        "rimPeakCv": 0.0795
       }
     }
   ],
@@ -1087,6 +1373,7 @@
         "width": 644,
         "height": 220
       },
+      "filterDump": null,
       "metrics": {
         "kind": "shape",
         "width": 1288,
@@ -1105,7 +1392,17 @@
         "jaggedBandRmsCssPx": 1.6554,
         "wobbleBandRmsCssPx": 9.3474,
         "alphaFringeCssPx": 0.2667,
-        "worstLocalJaggedCssPx": 33.7781
+        "worstLocalJaggedCssPx": 33.7781,
+        "fillLum": 0,
+        "rimPresentFrac": 0.4222,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 1,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 105.8496,
+        "rimMeanAbsentRunCssPx": 144.8468,
+        "rimBreaksPer100CssPx": 0.7978,
+        "rimPeakMeanExcess": 244.0784,
+        "rimPeakCv": 0.0511
       }
     },
     {
@@ -1117,6 +1414,7 @@
         "width": 150,
         "height": 150
       },
+      "filterDump": null,
       "metrics": {
         "kind": "shape",
         "width": 302,
@@ -1135,7 +1433,17 @@
         "jaggedBandRmsCssPx": 0.1104,
         "wobbleBandRmsCssPx": 0.6011,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.852
+        "worstLocalJaggedCssPx": 0.852,
+        "fillLum": 136.5462,
+        "rimPresentFrac": 0,
+        "rimNorthPresentFrac": 0,
+        "rimEastPresentFrac": 0,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 0,
+        "rimMeanAbsentRunCssPx": 474.3018,
+        "rimBreaksPer100CssPx": 0,
+        "rimPeakMeanExcess": 0,
+        "rimPeakCv": 0
       }
     },
     {
@@ -1146,6 +1454,227 @@
         "y": 40,
         "width": 280.890625,
         "height": 52
+      },
+      "filterDump": {
+        "area": "124160",
+        "budget": "480000",
+        "waviness": "6",
+        "groupBox": {
+          "w": 281,
+          "h": 52
+        },
+        "filterId": "liquid-gooey-_r_2_",
+        "primitiveCount": 16,
+        "primitives": [
+          {
+            "tag": "fegaussianblur",
+            "in": "SourceGraphic",
+            "in2": null,
+            "result": "blur",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": "6",
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fecolormatrix",
+            "in": "blur",
+            "in2": null,
+            "result": "goo",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+          },
+          {
+            "tag": "fecomposite",
+            "in": "SourceGraphic",
+            "in2": "goo",
+            "result": "shape-raw",
+            "dx": null,
+            "dy": null,
+            "operator": "atop",
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "feturbulence",
+            "in": null,
+            "in2": null,
+            "result": "wave-noise",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fedisplacementmap",
+            "in": "shape-raw",
+            "in2": "wave-noise",
+            "result": "shape-displaced",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fegaussianblur",
+            "in": "shape-displaced",
+            "in2": null,
+            "result": "shape",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": "0.5",
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fecolormatrix",
+            "in": "shape",
+            "in2": null,
+            "result": "bin",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5"
+          },
+          {
+            "tag": "fegaussianblur",
+            "in": "shape",
+            "in2": null,
+            "result": "shadow-0-blur",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": "13",
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "feoffset",
+            "in": "shadow-0-blur",
+            "in2": null,
+            "result": "shadow-0-offset",
+            "dx": "0",
+            "dy": "13",
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "feflood",
+            "in": null,
+            "in2": null,
+            "result": "shadow-0-color",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": "rgba(76, 52, 28, 0.22)",
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fecomposite",
+            "in": "shadow-0-color",
+            "in2": "shadow-0-offset",
+            "result": "shadow-0",
+            "dx": null,
+            "dy": null,
+            "operator": "in",
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "feoffset",
+            "in": "bin",
+            "in2": null,
+            "result": "shadow-1-offset",
+            "dx": "0",
+            "dy": "2",
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fecomposite",
+            "in": "bin",
+            "in2": "shadow-1-offset",
+            "result": "shadow-1-band",
+            "dx": null,
+            "dy": null,
+            "operator": "out",
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "feflood",
+            "in": null,
+            "in2": null,
+            "result": "shadow-1-color",
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": "rgba(255, 255, 255, 0.42)",
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "fecomposite",
+            "in": "shadow-1-color",
+            "in2": "shadow-1-band",
+            "result": "shadow-1",
+            "dx": null,
+            "dy": null,
+            "operator": "in",
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          },
+          {
+            "tag": "femerge",
+            "in": null,
+            "in2": null,
+            "result": null,
+            "dx": null,
+            "dy": null,
+            "operator": null,
+            "flood": null,
+            "stdDeviation": null,
+            "radius": null,
+            "values": null
+          }
+        ]
       },
       "metrics": {
         "kind": "shape",
@@ -1165,8 +1694,88 @@
         "jaggedBandRmsCssPx": 0.1328,
         "wobbleBandRmsCssPx": 2.1679,
         "alphaFringeCssPx": 0,
-        "worstLocalJaggedCssPx": 0.7298
+        "worstLocalJaggedCssPx": 0.7298,
+        "fillLum": 126.342,
+        "rimPresentFrac": 0.5014,
+        "rimNorthPresentFrac": 1,
+        "rimEastPresentFrac": 0.5625,
+        "rimSouthPresentFrac": 0,
+        "rimMeanPresentRunCssPx": 38.0007,
+        "rimMeanAbsentRunCssPx": 37.7902,
+        "rimBreaksPer100CssPx": 2.6388,
+        "rimPeakMeanExcess": 66.3023,
+        "rimPeakCv": 0.0942
+      }
+    },
+    {
+      "id": "story-segmented-on-clay",
+      "fileStem": "story-segmented-on-clay",
+      "box": {
+        "x": 40,
+        "y": 40,
+        "width": 280.890625,
+        "height": 52
+      },
+      "filterDump": null,
+      "metrics": {
+        "error": "no-edge",
+        "width": 562,
+        "height": 104,
+        "mass": 58448,
+        "edgeCount": 0
       }
     }
-  ]
+  ],
+  "round2": {
+    "paleExcessThreshold": 18,
+    "opaqueAlpha": 160,
+    "liveTealIndicator": {
+      "file": "src/GameSurfaces.tsx:258",
+      "shadowToken": "src/theme.css:161-162",
+      "insetPass": "src/liquidGooeyFilter.tsx:28-77,216-217,238-240",
+      "parse": "src/liquidGooeyShadow.ts:37-60",
+      "primitives": 16,
+      "feMorphology": false,
+      "stroke": false,
+      "area": 124160,
+      "budget": 480000,
+      "box": {
+        "w": 281,
+        "h": 52
+      },
+      "waviness": 6,
+      "inset": {
+        "in": "bin",
+        "dy": 2,
+        "flood": "rgba(255, 255, 255, 0.42)",
+        "operator": "out"
+      }
+    },
+    "liveDemo": {
+      "area": 327888,
+      "box": {
+        "w": 652,
+        "h": 220
+      },
+      "times4": 1311552,
+      "overBudget": true
+    },
+    "baseline-4x-down": {
+      "jagged": 0.1241,
+      "wobble": 1.0847,
+      "rim": 0,
+      "note": "4x PNG displayed at 230 CSS via bilinear img; layout-size measurement"
+    },
+    "wavy-inset-4x-down": {
+      "jagged": 0.1209,
+      "wobble": 1.0831,
+      "rim": 0.4778,
+      "north": 1,
+      "east": 0.4625,
+      "south": 0,
+      "breaks": 1.6686,
+      "runP": 57.2678,
+      "peak": 58.0398
+    }
+  }
 }

@@ -2,11 +2,13 @@
  * Pixel-true edge-quality harness for the liquid gooey silhouette.
  *
  * Does not import the donor. Replicates the production SVG filter chain from
- * src/liquidGooeyFilter.tsx (1.11.2 / 1.11.1 baseline) so variants can be
- * measured without editing product code. Storybook captures are taken from
- * the live kit so the owner sees the same pixels.
+ * src/liquidGooeyFilter.tsx (1.11.2) so variants can be measured without
+ * editing product code. Round 2 adds a rim-highlight continuity metric,
+ * inset/stroke ablation, and a 2× CSS-transform supersample. Honest
+ * layout-size supersample of a 4× raster is the `*-4x-down` step at the end
+ * (display the 4× PNG at 1× CSS and re-measure). See EDGE-QUALITY.md.
  */
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -22,6 +24,27 @@ const BASE_FREQ = 0.018;
 const WAVINESS = 6;
 const EDGE_BLUR = 0.5;
 const FILTER_PADDING = 24;
+const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
+const KIT_FILTER_AREA_BUDGET = 480_000;
+
+/** Production `--game-ui-shadow-button` layers, already resolved. */
+const INSET_CLAY = {
+  x: 0,
+  y: 2,
+  blur: 0,
+  spread: 0,
+  color: 'rgba(255, 255, 255, 0.42)',
+  inset: true,
+};
+const DROP_BUTTON = {
+  x: 0,
+  y: 13,
+  blur: 26,
+  spread: 0,
+  color: 'rgba(76, 52, 28, 0.22)',
+  inset: false,
+};
+const STROKE_TOKEN = { width: 1, color: 'rgba(90, 64, 42, 0.28)' };
 
 function roundedRectPath(x, y, w, h, radius) {
   let tl = radius;
@@ -86,6 +109,89 @@ function stairCirclePath(cx, cy, r) {
   return `M ${stepped.map(([x, y]) => `${x} ${y}`).join(' L ')} Z`;
 }
 
+function circlePath(cx, cy, r) {
+  return `M ${cx + r} ${cy} A ${r} ${r} 0 1 0 ${cx - r} ${cy} A ${r} ${r} 0 1 0 ${cx + r} ${cy} Z`;
+}
+
+function shadowExtentOf(shadows) {
+  return (shadows ?? []).reduce(
+    (extent, shadow) =>
+      Math.max(
+        extent,
+        Math.max(Math.abs(shadow.x), Math.abs(shadow.y)) +
+          shadow.blur * 1.5 +
+          Math.max(0, shadow.spread),
+      ),
+    0,
+  );
+}
+
+function insetPassXml(index, shadow, from) {
+  const parts = [];
+  let source = from;
+  if (shadow.spread !== 0) {
+    parts.push(
+      `<feMorphology in="${source}" operator="${shadow.spread > 0 ? 'erode' : 'dilate'}" radius="${Math.abs(shadow.spread)}" result="shadow-${index}-erode"/>`,
+    );
+    source = `shadow-${index}-erode`;
+  }
+  if (shadow.x !== 0 || shadow.y !== 0) {
+    parts.push(
+      `<feOffset in="${source}" dx="${shadow.x}" dy="${shadow.y}" result="shadow-${index}-offset"/>`,
+    );
+    source = `shadow-${index}-offset`;
+  }
+  if (shadow.blur > 0) {
+    parts.push(
+      `<feGaussianBlur in="${source}" stdDeviation="${shadow.blur / 2}" result="shadow-${index}-blur"/>`,
+    );
+    source = `shadow-${index}-blur`;
+  }
+  parts.push(
+    `<feComposite in="${from}" in2="${source}" operator="out" result="shadow-${index}-band"/>`,
+    `<feFlood flood-color="${shadow.color}" result="shadow-${index}-color"/>`,
+    `<feComposite in="shadow-${index}-color" in2="shadow-${index}-band" operator="in" result="shadow-${index}"/>`,
+  );
+  return parts;
+}
+
+function shadowPassXml(index, shadow) {
+  const parts = [];
+  let source = 'shape';
+  if (shadow.spread !== 0) {
+    parts.push(
+      `<feMorphology in="bin" operator="${shadow.spread > 0 ? 'dilate' : 'erode'}" radius="${Math.abs(shadow.spread)}" result="shadow-${index}-spread"/>`,
+    );
+    source = `shadow-${index}-spread`;
+  }
+  if (shadow.blur > 0) {
+    parts.push(
+      `<feGaussianBlur in="${source}" stdDeviation="${shadow.blur / 2}" result="shadow-${index}-blur"/>`,
+    );
+    source = `shadow-${index}-blur`;
+  }
+  if (shadow.x !== 0 || shadow.y !== 0) {
+    parts.push(
+      `<feOffset in="${source}" dx="${shadow.x}" dy="${shadow.y}" result="shadow-${index}-offset"/>`,
+    );
+    source = `shadow-${index}-offset`;
+  }
+  parts.push(
+    `<feFlood flood-color="${shadow.color}" result="shadow-${index}-color"/>`,
+    `<feComposite in="shadow-${index}-color" in2="${source}" operator="in" result="shadow-${index}"/>`,
+  );
+  return parts;
+}
+
+function strokePassXml(stroke) {
+  return [
+    `<feMorphology in="bin" operator="erode" radius="${stroke.width}" result="stroke-erode"/>`,
+    `<feComposite in="bin" in2="stroke-erode" operator="out" result="stroke-band"/>`,
+    `<feFlood flood-color="${stroke.color}" result="stroke-color"/>`,
+    `<feComposite in="stroke-color" in2="stroke-band" operator="in" result="stroke-out"/>`,
+  ];
+}
+
 function gooFilter({
   id,
   width,
@@ -96,76 +202,80 @@ function gooFilter({
   octaves = 2,
   type = 'fractalNoise',
   edgeBlur = EDGE_BLUR,
-  noiseBlur = 0,
-  preBlur = 0,
-  posterize = false,
-  reconstruct = false,
-  reconstructSlope = 8,
+  shadows = [],
+  stroke = null,
+  insetFrom = 'bin',
 }) {
   const intercept = INTERCEPT;
   const wavy = waviness > 0;
   const parts = [
     `<feGaussianBlur in="SourceGraphic" stdDeviation="${GOO_BLUR}" result="blur"/>`,
     `<feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${CONTRAST} ${intercept}" result="goo"/>`,
-    `<feComposite in="SourceGraphic" in2="goo" operator="atop" result="${wavy ? (preBlur > 0 ? 'shape-hard' : 'shape-raw') : 'shape'}"/>`,
+    `<feComposite in="SourceGraphic" in2="goo" operator="atop" result="${wavy ? 'shape-raw' : 'shape'}"/>`,
   ];
-  if (wavy && preBlur > 0) {
-    parts.push(
-      `<feGaussianBlur in="shape-hard" stdDeviation="${preBlur}" result="shape-raw"/>`,
-    );
-  }
   if (wavy) {
     parts.push(
-      `<feTurbulence type="${type}" baseFrequency="${wavinessFreq}" numOctaves="${octaves}" seed="7" result="wave-noise-raw"/>`,
-    );
-    let noiseId = 'wave-noise-raw';
-    if (posterize) {
-      parts.push(`<feComponentTransfer in="wave-noise-raw" result="wave-noise-q">
-        <feFuncR type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1"/>
-        <feFuncG type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1"/>
-        <feFuncB type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1"/>
-      </feComponentTransfer>`);
-      noiseId = 'wave-noise-q';
-    }
-    if (noiseBlur > 0) {
-      parts.push(
-        `<feGaussianBlur in="${noiseId}" stdDeviation="${noiseBlur}" result="wave-noise"/>`,
-      );
-    } else {
-      parts.push(`<feOffset in="${noiseId}" dx="0" dy="0" result="wave-noise"/>`);
-    }
-    parts.push(
+      `<feTurbulence type="${type}" baseFrequency="${wavinessFreq}" numOctaves="${octaves}" seed="7" result="wave-noise"/>`,
       `<feDisplacementMap in="shape-raw" in2="wave-noise" scale="${waviness * 2}" xChannelSelector="R" yChannelSelector="G" result="shape-displaced"/>`,
     );
     if (edgeBlur > 0) {
       parts.push(
-        `<feGaussianBlur in="shape-displaced" stdDeviation="${edgeBlur}" result="${reconstruct ? 'shape-soft' : 'shape'}"/>`,
+        `<feGaussianBlur in="shape-displaced" stdDeviation="${edgeBlur}" result="shape"/>`,
       );
     } else {
-      parts.push(`<feOffset in="shape-displaced" dx="0" dy="0" result="${reconstruct ? 'shape-soft' : 'shape'}"/>`);
-    }
-    if (reconstruct) {
-      const recIntercept = Math.round((0.5 - reconstructSlope * (5 / 12)) * 100) / 100;
-      parts.push(
-        `<feColorMatrix in="shape-soft" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${reconstructSlope} ${recIntercept}" result="shape"/>`,
-      );
+      parts.push(`<feOffset in="shape-displaced" dx="0" dy="0" result="shape"/>`);
     }
   }
+  const needsBin =
+    stroke !== null ||
+    shadows.some((shadow) => shadow.spread !== 0) ||
+    (insetFrom === 'bin' && shadows.some((shadow) => shadow.inset));
+  if (needsBin) {
+    parts.push(`<feColorMatrix in="shape" type="matrix" values="${BINARIZE}" result="bin"/>`);
+  }
+  shadows.forEach((shadow, index) => {
+    if (shadow.inset) {
+      parts.push(...insetPassXml(index, shadow, insetFrom === 'shape' ? 'shape' : 'bin'));
+    } else {
+      parts.push(...shadowPassXml(index, shadow));
+    }
+  });
+  if (stroke) parts.push(...strokePassXml(stroke));
+  if (shadows.length > 0 || stroke) {
+    const outer = shadows
+      .map((shadow, index) => (shadow.inset ? -1 : index))
+      .filter((index) => index >= 0)
+      .reverse()
+      .map((index) => `<feMergeNode in="shadow-${index}"/>`);
+    const inner = shadows
+      .map((shadow, index) => (shadow.inset ? `<feMergeNode in="shadow-${index}"/>` : ''))
+      .filter(Boolean);
+    parts.push(
+      `<feMerge>${outer.join('')}<feMergeNode in="shape"/>${stroke ? '<feMergeNode in="stroke-out"/>' : ''}${inner.join('')}</feMerge>`,
+    );
+  }
   const passes = parts.length;
+  const layoutArea = (width + pad * 2) * (height + pad * 2);
   return {
     passes,
+    layoutArea,
     xml: `<filter id="${id}" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" x="${-pad}" y="${-pad}" width="${width + pad * 2}" height="${height + pad * 2}">${parts.join('')}</filter>`,
   };
 }
 
-function padFor({ waviness = WAVINESS, edgeBlur = EDGE_BLUR, noiseBlur = 0, preBlur = 0 } = {}) {
+function padFor({
+  waviness = WAVINESS,
+  edgeBlur = EDGE_BLUR,
+  shadows = [],
+  stroke = null,
+} = {}) {
   return Math.ceil(
     GOO_BLUR * 3 +
       FILTER_PADDING +
       waviness +
-      (waviness > 0
-        ? Math.ceil(Math.max(edgeBlur, 0) * 3 + Math.max(noiseBlur, 0) * 3 + Math.max(preBlur, 0) * 3)
-        : 0),
+      shadowExtentOf(shadows) +
+      (stroke ? stroke.width : 0) +
+      (waviness > 0 ? Math.ceil(Math.max(edgeBlur, 0) * 3) : 0),
   );
 }
 
@@ -185,135 +295,240 @@ function figureSvg({
   filter,
   fill = TEAL,
   scale = 1,
+  downsample = 1,
+  extra = '',
 }) {
-  const cssW = width * scale;
-  const cssH = height * scale;
-  return `<figure class="cell" data-id="${id}" data-scale="${scale}" data-vw="${width}" data-vh="${height}">
+  const layoutW = width * (downsample === 2 ? 1 : scale);
+  const layoutH = height * (downsample === 2 ? 1 : scale);
+  const svgW = width * (downsample === 2 ? 2 : scale);
+  const svgH = height * (downsample === 2 ? 2 : scale);
+  const shotOnFrame = downsample === 2;
+  const frameStyle = shotOnFrame
+    ? `width:${layoutW}px;height:${layoutH}px;overflow:hidden;position:relative`
+    : `width:${layoutW}px;height:${layoutH}px`;
+  const svgStyle = shotOnFrame
+    ? 'position:absolute;left:0;top:0;transform:scale(0.5);transform-origin:0 0'
+    : '';
+  const svgShot = shotOnFrame ? '' : ` data-shot="${id}"`;
+  const frameShot = shotOnFrame ? ` data-shot="${id}"` : '';
+  return `<figure class="cell" data-id="${id}" data-scale="${scale}" data-down="${downsample}" data-vw="${width}" data-vh="${height}">
     <figcaption>${id}</figcaption>
-    <div class="frame" style="width:${cssW}px;height:${cssH}px">
-      <svg data-shot="${id}" xmlns="http://www.w3.org/2000/svg" width="${cssW}" height="${cssH}" viewBox="0 0 ${width} ${height}" overflow="visible">
+    <div class="frame"${frameShot} style="${frameStyle}">
+      <svg${svgShot} xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${width} ${height}" overflow="visible" style="${svgStyle}">
         <defs>${filter}</defs>
         <g ${filter ? `filter="url(#${id})"` : ''} fill="${fill}">
           <path d="${d}"/>
+          ${extra}
         </g>
       </svg>
     </div>
   </figure>`;
 }
 
-function noiseSvg({ id, octaves = 2, posterize = false, blur = 0, freq = BASE_FREQ, type = 'fractalNoise' }) {
-  const size = 200;
-  const steps = [
-    `<feTurbulence type="${type}" baseFrequency="${freq}" numOctaves="${octaves}" seed="7" result="n0"/>`,
-  ];
-  let src = 'n0';
-  if (posterize) {
-    steps.push(`<feComponentTransfer in="n0" result="nq">
-      <feFuncR type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1"/>
-      <feFuncG type="discrete" tableValues="0 0.2 0.4 0.6 0.8 1"/>
-    </feComponentTransfer>`);
-    src = 'nq';
-  }
-  if (blur > 0) steps.push(`<feGaussianBlur in="${src}" stdDeviation="${blur}" result="n"/>`);
-  else steps.push(`<feOffset in="${src}" dx="0" dy="0" result="n"/>`);
-  return `<figure class="cell" data-id="${id}" data-scale="1" data-vw="${size}" data-vh="${size}" data-kind="noise">
+function cssInsetFigure(id) {
+  const frame = 230;
+  const size = 150;
+  const origin = (frame - size) / 2;
+  return `<figure class="cell" data-id="${id}" data-scale="1" data-down="1" data-vw="${size}" data-vh="${size}">
     <figcaption>${id}</figcaption>
-    <div class="frame" style="width:${size}px;height:${size}px">
-      <svg data-shot="${id}" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-        <defs>
-          <filter id="${id}" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" x="0" y="0" width="${size}" height="${size}">
-            ${steps.join('')}
-          </filter>
-        </defs>
-        <rect width="${size}" height="${size}" filter="url(#${id})"/>
-      </svg>
+    <div class="frame" style="width:${frame}px;height:${frame}px;position:relative">
+      <div data-shot="${id}" style="position:absolute;left:${origin}px;top:${origin}px;width:${size}px;height:${size}px;border-radius:999px;background:${TEAL};box-shadow:inset 0 2px 0 rgba(255, 255, 255, 0.42)"></div>
     </div>
   </figure>`;
 }
 
+function pushGooFigure(figures, meta, { id, width, height, d, downsample = 1, ...variant }) {
+  const pad = padFor(variant);
+  const built = gooFilter({
+    id,
+    width,
+    height,
+    pad,
+    waviness: variant.waviness ?? WAVINESS,
+    wavinessFreq: variant.freq ?? BASE_FREQ,
+    octaves: variant.octaves ?? 2,
+    type: variant.type ?? 'fractalNoise',
+    edgeBlur: variant.edgeBlur ?? EDGE_BLUR,
+    shadows: variant.shadows ?? [],
+    stroke: variant.stroke ?? null,
+    insetFrom: variant.insetFrom ?? 'bin',
+  });
+  figures.push(
+    figureSvg({
+      id,
+      width,
+      height,
+      d,
+      filter: built.xml,
+      downsample,
+    }),
+  );
+  const rasterMul = downsample === 2 ? 4 : 1;
+  meta.push({
+    id,
+    passes: built.passes,
+    pad,
+    cssScale: downsample === 2 ? 2 : 1,
+    downsample,
+    width,
+    height,
+    layoutArea: built.layoutArea,
+    rasterArea: built.layoutArea * rasterMul,
+    overBudgetIfRasterCounted: built.layoutArea * rasterMul > KIT_FILTER_AREA_BUDGET,
+    variant: { id, ...variant, downsample },
+  });
+}
+
 function buildPage() {
   const blob = { width: 230, height: 230, d: blobPath() };
-  const variants = [
-    { id: 'cal-circle', kind: 'path', d: roundedRectPath(40, 40, 150, 150, 999) },
-    { id: 'cal-wobble', kind: 'path', d: wavyCirclePath(115, 115, 75, 6, 7) },
-    { id: 'cal-stairs', kind: 'path', d: stairCirclePath(115, 115, 75) },
-    { id: 'baseline', waviness: 6, octaves: 2, freq: 0.018, edgeBlur: 0.5 },
-    { id: 'calm', waviness: 0 },
-    { id: 'no-edge-blur', waviness: 6, edgeBlur: 0 },
-    { id: 'edge-blur-1', waviness: 6, edgeBlur: 1 },
-    { id: 'edge-blur-1-5', waviness: 6, edgeBlur: 1.5 },
-    { id: 'octaves-1', waviness: 6, octaves: 1 },
-    { id: 'octaves-4', waviness: 6, octaves: 4 },
-    { id: 'freq-low', waviness: 6, freq: 0.008 },
-    { id: 'freq-high', waviness: 6, freq: 0.04 },
-    { id: 'type-turbulence', waviness: 6, type: 'turbulence' },
-    { id: 'posterize-noise', waviness: 6, posterize: true },
-    { id: 'blur-noise-1', waviness: 6, noiseBlur: 1 },
-    { id: 'blur-noise-2', waviness: 6, noiseBlur: 2 },
-    { id: 'blur-noise-3', waviness: 6, noiseBlur: 3 },
-    { id: 'smooth-field', waviness: 6, noiseBlur: 8 },
-    { id: 'reconstruct-08-8', waviness: 6, edgeBlur: 0.8, reconstruct: true, reconstructSlope: 8 },
-    { id: 'reconstruct-12-10', waviness: 6, edgeBlur: 1.2, reconstruct: true, reconstructSlope: 10 },
-    { id: 'preblur-1', waviness: 6, edgeBlur: 0, noiseBlur: 0, preBlur: 1 },
-    { id: 'preblur-1-post-05', waviness: 6, edgeBlur: 0.5, preBlur: 1 },
-    { id: 'preblur-075', waviness: 6, edgeBlur: 0, preBlur: 0.75 },
-  ];
-
+  const pill = { width: 248, height: 80, d: pillPath() };
   const figures = [];
   const meta = [];
 
-  for (const variant of variants) {
-    if (variant.kind === 'path') {
-      figures.push(
-        figureSvg({
-          id: variant.id,
-          width: blob.width,
-          height: blob.height,
-          d: variant.d,
-          filter: '',
-        }),
-      );
-      meta.push({ id: variant.id, passes: 0, pad: 0, cssScale: 1, width: blob.width, height: blob.height });
-      continue;
-    }
-    const pad = padFor(variant);
-    const built = gooFilter({
-      id: variant.id,
-      width: blob.width,
-      height: blob.height,
-      pad,
-      waviness: variant.waviness ?? WAVINESS,
-      wavinessFreq: variant.freq ?? BASE_FREQ,
-      octaves: variant.octaves ?? 2,
-      type: variant.type ?? 'fractalNoise',
-      edgeBlur: variant.edgeBlur ?? EDGE_BLUR,
-      noiseBlur: variant.noiseBlur ?? 0,
-      preBlur: variant.preBlur ?? 0,
-      posterize: variant.posterize ?? false,
-      reconstruct: variant.reconstruct ?? false,
-      reconstructSlope: variant.reconstructSlope ?? 8,
-    });
+  const pathOnly = [
+    { id: 'cal-circle', d: roundedRectPath(40, 40, 150, 150, 999) },
+    { id: 'cal-wobble', d: wavyCirclePath(115, 115, 75, 6, 7) },
+    { id: 'cal-stairs', d: stairCirclePath(115, 115, 75) },
+  ];
+  for (const variant of pathOnly) {
     figures.push(
       figureSvg({
         id: variant.id,
         width: blob.width,
         height: blob.height,
-        d: blob.d,
-        filter: built.xml,
+        d: variant.d,
+        filter: '',
       }),
     );
     meta.push({
       id: variant.id,
-      passes: built.passes,
-      pad,
+      passes: 0,
+      pad: 0,
       cssScale: 1,
+      downsample: 1,
       width: blob.width,
       height: blob.height,
-      variant,
+      layoutArea: 0,
+      rasterArea: 0,
     });
   }
 
-  // 4x re-raster of the current baseline: same user-space filter, more device pixels.
+  const ring = circlePath(115, 115, 74.25);
+  const hair = circlePath(115, 115, 75);
+  figures.push(
+    figureSvg({
+      id: 'cal-rim-ring',
+      width: blob.width,
+      height: blob.height,
+      d: blobPath(),
+      filter: '',
+      extra: `<path d="${ring}" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>`,
+    }),
+  );
+  meta.push({
+    id: 'cal-rim-ring',
+    passes: 0,
+    pad: 0,
+    cssScale: 1,
+    downsample: 1,
+    width: blob.width,
+    height: blob.height,
+    layoutArea: 0,
+    rasterArea: 0,
+  });
+  figures.push(
+    figureSvg({
+      id: 'cal-rim-dashed',
+      width: blob.width,
+      height: blob.height,
+      d: blobPath(),
+      filter: '',
+      extra: `<path d="${ring}" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-dasharray="5 4"/>`,
+    }),
+  );
+  meta.push({
+    id: 'cal-rim-dashed',
+    passes: 0,
+    pad: 0,
+    cssScale: 1,
+    downsample: 1,
+    width: blob.width,
+    height: blob.height,
+    layoutArea: 0,
+    rasterArea: 0,
+  });
+  figures.push(
+    figureSvg({
+      id: 'cal-rim-hairline',
+      width: blob.width,
+      height: blob.height,
+      d: blobPath(),
+      filter: '',
+      extra: `<path d="${hair}" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="0.35"/>`,
+    }),
+  );
+  meta.push({
+    id: 'cal-rim-hairline',
+    passes: 0,
+    pad: 0,
+    cssScale: 1,
+    downsample: 1,
+    width: blob.width,
+    height: blob.height,
+    layoutArea: 0,
+    rasterArea: 0,
+  });
+
+  figures.push(cssInsetFigure('cal-css-inset'));
+  meta.push({
+    id: 'cal-css-inset',
+    passes: 0,
+    pad: 0,
+    cssScale: 1,
+    downsample: 1,
+    width: 150,
+    height: 150,
+    layoutArea: 0,
+    rasterArea: 0,
+  });
+
+  pushGooFigure(figures, meta, {
+    id: 'cal-inset-bin',
+    ...blob,
+    waviness: 0,
+    shadows: [INSET_CLAY],
+  });
+
+  pushGooFigure(figures, meta, { id: 'baseline', ...blob, waviness: 6, edgeBlur: 0.5 });
+  pushGooFigure(figures, meta, { id: 'calm', ...blob, waviness: 0 });
+  pushGooFigure(figures, meta, { id: 'no-edge-blur', ...blob, waviness: 6, edgeBlur: 0 });
+
+  pushGooFigure(figures, meta, {
+    id: 'wavy-inset',
+    ...blob,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-inset-aa',
+    ...blob,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    insetFrom: 'shape',
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-shadow-full',
+    ...blob,
+    waviness: 6,
+    shadows: [DROP_BUTTON, INSET_CLAY],
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-stroke',
+    ...blob,
+    waviness: 6,
+    stroke: STROKE_TOKEN,
+  });
+
   {
     const pad = padFor({ waviness: 6, edgeBlur: 0.5 });
     const built = gooFilter({
@@ -339,37 +554,65 @@ function buildPage() {
       passes: built.passes,
       pad,
       cssScale: 4,
+      downsample: 1,
       width: blob.width,
       height: blob.height,
+      layoutArea: built.layoutArea,
+      rasterArea: built.layoutArea * 16,
+      overBudgetIfRasterCounted: built.layoutArea * 16 > KIT_FILTER_AREA_BUDGET,
     });
   }
 
-  // Teal 52px pill, production baseline — the segmented-control indicator scale.
-  {
-    const width = 248;
-    const height = 80;
-    const pad = padFor({ waviness: 6, edgeBlur: 0.5 });
-    const built = gooFilter({
-      id: 'pill-baseline',
-      width,
-      height,
-      pad,
-      waviness: 6,
-      edgeBlur: 0.5,
-    });
-    figures.push(figureSvg({ id: 'pill-baseline', width, height, d: pillPath(), filter: built.xml }));
-    meta.push({ id: 'pill-baseline', passes: built.passes, pad, cssScale: 1, width, height });
-    const calm = gooFilter({ id: 'pill-calm', width, height, pad: padFor({ waviness: 0 }), waviness: 0 });
-    figures.push(figureSvg({ id: 'pill-calm', width, height, d: pillPath(), filter: calm.xml }));
-    meta.push({ id: 'pill-calm', passes: calm.passes, pad: padFor({ waviness: 0 }), cssScale: 1, width, height });
-  }
+  pushGooFigure(figures, meta, {
+    id: 'baseline-2x',
+    ...blob,
+    waviness: 6,
+    downsample: 2,
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-inset-2x',
+    ...blob,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    downsample: 2,
+  });
+  pushGooFigure(figures, meta, {
+    id: 'wavy-inset-aa-2x',
+    ...blob,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    insetFrom: 'shape',
+    downsample: 2,
+  });
 
-  figures.push(noiseSvg({ id: 'noise-baseline', octaves: 2 }));
-  figures.push(noiseSvg({ id: 'noise-octaves-1', octaves: 1 }));
-  figures.push(noiseSvg({ id: 'noise-posterize', octaves: 2, posterize: true }));
-  figures.push(noiseSvg({ id: 'noise-blur-2', octaves: 2, blur: 2 }));
-  figures.push(noiseSvg({ id: 'noise-freq-low', octaves: 2, freq: 0.008 }));
-  figures.push(noiseSvg({ id: 'noise-freq-high', octaves: 2, freq: 0.04 }));
+  pushGooFigure(figures, meta, { id: 'pill-baseline', ...pill, waviness: 6 });
+  pushGooFigure(figures, meta, { id: 'pill-calm', ...pill, waviness: 0 });
+  pushGooFigure(figures, meta, {
+    id: 'pill-inset',
+    ...pill,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+  });
+  pushGooFigure(figures, meta, {
+    id: 'pill-inset-aa',
+    ...pill,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    insetFrom: 'shape',
+  });
+  pushGooFigure(figures, meta, {
+    id: 'pill-inset-2x',
+    ...pill,
+    waviness: 6,
+    shadows: [INSET_CLAY],
+    downsample: 2,
+  });
+  pushGooFigure(figures, meta, {
+    id: 'pill-shadow-full',
+    ...pill,
+    waviness: 6,
+    shadows: [DROP_BUTTON, INSET_CLAY],
+  });
 
   const html = `<!doctype html>
 <html>
@@ -473,6 +716,53 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
     }
     return Math.sqrt(Math.max(0, energy));
   };
+  const meanOf = (values) =>
+    values.length ? values.reduce((s, v) => s + v, 0) / values.length : 0;
+  const sectorFrac = (flags, fromDeg, toDeg) => {
+    const n = flags.length;
+    let hit = 0;
+    let count = 0;
+    for (let i = 0; i < n; i += 1) {
+      const deg = (i / n) * 360;
+      const inSector =
+        fromDeg <= toDeg ? deg >= fromDeg && deg < toDeg : deg >= fromDeg || deg < toDeg;
+      if (!inSector) continue;
+      count += 1;
+      hit += flags[i];
+    }
+    return count ? hit / count : 0;
+  };
+  const circularRuns = (flags) => {
+    const n = flags.length;
+    if (n === 0) return { present: [], absent: [], breaks: 0 };
+    if (flags.every((v) => v === flags[0])) {
+      return flags[0]
+        ? { present: [n], absent: [], breaks: 0 }
+        : { present: [], absent: [n], breaks: 0 };
+    }
+    let start = 0;
+    for (let k = 1; k < n; k += 1) {
+      if (flags[k] !== flags[0]) {
+        start = k;
+        break;
+      }
+    }
+    const present = [];
+    const absent = [];
+    let val = flags[start];
+    let count = 0;
+    for (let k = 0; k < n; k += 1) {
+      const j = (start + k) % n;
+      if (flags[j] === val) count += 1;
+      else {
+        (val ? present : absent).push(count);
+        val = flags[j];
+        count = 1;
+      }
+    }
+    (val ? present : absent).push(count);
+    return { present, absent, breaks: present.length + absent.length };
+  };
 
   const img = new Image();
   img.src = dataUrl;
@@ -507,40 +797,29 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
       alphaAt(x0 + 1, y0 + 1) * fx * fy
     );
   };
+  const chanAt = (x, y, c) => {
+    const xi = Math.round(x);
+    const yi = Math.round(y);
+    if (xi < 0 || yi < 0 || xi >= w || yi >= h) return 0;
+    return data[(yi * w + xi) * 4 + c];
+  };
+  const sampleChan = (x, y, c) => {
+    const x0 = Math.floor(x);
+    const y0 = Math.floor(y);
+    const fx = x - x0;
+    const fy = y - y0;
+    return (
+      chanAt(x0, y0, c) * (1 - fx) * (1 - fy) +
+      chanAt(x0 + 1, y0, c) * fx * (1 - fy) +
+      chanAt(x0, y0 + 1, c) * (1 - fx) * fy +
+      chanAt(x0 + 1, y0 + 1, c) * fx * fy
+    );
+  };
+  const sampleLum = (x, y) =>
+    0.2126 * sampleChan(x, y, 0) + 0.7152 * sampleChan(x, y, 1) + 0.0722 * sampleChan(x, y, 2);
 
   if (kind === 'noise') {
-    let plateau = 0;
-    let zero = 0;
-    let n = 0;
-    let sum = 0;
-    const mags = [];
-    for (let y = 1; y < h - 1; y += 1) {
-      for (let x = 1; x < w - 1; x += 1) {
-        const i = (y * w + x) * 4;
-        const gx = data[i + 4] - data[i - 4];
-        const gy = data[((y + 1) * w + x) * 4] - data[((y - 1) * w + x) * 4];
-        const mag = Math.hypot(gx, gy);
-        mags.push(mag);
-        sum += mag;
-        if (mag < 0.5) plateau += 1;
-        if (mag === 0) zero += 1;
-        n += 1;
-      }
-    }
-    mags.sort((a, b) => a - b);
-    const pct = (p) => mags[Math.min(mags.length - 1, Math.floor(p * (mags.length - 1)))] ?? 0;
-    return {
-      kind: 'noise',
-      width: w,
-      height: h,
-      plateauFrac: plateau / Math.max(1, n),
-      gradZeroFrac: zero / Math.max(1, n),
-      gradMean: sum / Math.max(1, n),
-      gradP10: pct(0.1),
-      gradP50: pct(0.5),
-      gradP90: pct(0.9),
-      cropDataUrl: nnCrop(data, w, h, Math.floor(w * 0.35), Math.floor(h * 0.35), 32, 10),
-    };
+    return { kind: 'noise', width: w, height: h, error: 'noise-skipped' };
   }
 
   const threshold = 128;
@@ -637,6 +916,47 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
   }
   const fringe = widths.length ? widths.reduce((s, v) => s + v, 0) / widths.length : 0;
 
+  let fillLumAcc = 0;
+  let fillN = 0;
+  for (let y = Math.floor(cy) - 4; y <= Math.floor(cy) + 4; y += 1) {
+    for (let x = Math.floor(cx) - 4; x <= Math.floor(cx) + 4; x += 1) {
+      if (x < 0 || y < 0 || x >= w || y >= h) continue;
+      const i = (y * w + x) * 4;
+      if (data[i + 3] < 250) continue;
+      fillLumAcc += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+      fillN += 1;
+    }
+  }
+  const fillLum = fillN ? fillLumAcc / fillN : 0;
+  const PALE_EXCESS = 18;
+  const OPAQUE = 160;
+  const peakExcess = new Array(bins).fill(0);
+  const present = new Array(bins).fill(0);
+  for (let i = 0; i < bins; i += 1) {
+    const ang = (i / bins) * Math.PI * 2;
+    const ux = Math.cos(ang);
+    const uy = Math.sin(ang);
+    const r = rMax[i];
+    let peak = 0;
+    for (let s = r + 1.2; s >= r - 4; s -= 0.25) {
+      const x = cx + ux * s * pxPerCss;
+      const y = cy + uy * s * pxPerCss;
+      if (sampleAlpha(x, y) < OPAQUE) continue;
+      const ex = sampleLum(x, y) - fillLum;
+      if (ex > peak) peak = ex;
+    }
+    peakExcess[i] = peak;
+    present[i] = peak >= PALE_EXCESS ? 1 : 0;
+  }
+  const perimeterCss = 2 * Math.PI * meanR;
+  const binCss = perimeterCss / bins;
+  const runs = circularRuns(present);
+  const presentPeaks = peakExcess.filter((_, i) => present[i]);
+  const peakMean = meanOf(presentPeaks);
+  const peakStd = presentPeaks.length
+    ? Math.sqrt(meanOf(presentPeaks.map((v) => (v - peakMean) ** 2)))
+    : 0;
+
   let worstI = 0;
   let worst = -1;
   for (let i = 0; i < bins; i += 1) {
@@ -647,6 +967,7 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
     }
   }
   const eastAng = 0;
+  const northAng = (3 * Math.PI) / 2;
   const worstAng = (worstI / bins) * Math.PI * 2;
   const cropOf = (ang) => {
     const r = rMax[Math.min(bins - 1, Math.floor((ang / (Math.PI * 2)) * bins))] || meanR;
@@ -671,8 +992,19 @@ async function analyzeFromDataUrl({ dataUrl, options }) {
     wobbleBandRmsCssPx: round4(bandRms(rAa, meanR, 12, 70)),
     alphaFringeCssPx: round4(fringe),
     worstLocalJaggedCssPx: round4(worst),
+    fillLum: round4(fillLum),
+    rimPresentFrac: round4(meanOf(present)),
+    rimNorthPresentFrac: round4(sectorFrac(present, 250, 290)),
+    rimEastPresentFrac: round4(sectorFrac(present, 340, 20)),
+    rimSouthPresentFrac: round4(sectorFrac(present, 70, 110)),
+    rimMeanPresentRunCssPx: round4(meanOf(runs.present) * binCss),
+    rimMeanAbsentRunCssPx: round4(meanOf(runs.absent) * binCss),
+    rimBreaksPer100CssPx: round4(perimeterCss > 0 ? (runs.breaks / perimeterCss) * 100 : 0),
+    rimPeakMeanExcess: round4(peakMean),
+    rimPeakCv: round4(peakMean > 0 ? peakStd / peakMean : 0),
     cropDataUrl: cropOf(worstAng),
     eastCropDataUrl: cropOf(eastAng),
+    northCropDataUrl: cropOf(northAng),
   };
 }
 
@@ -683,34 +1015,92 @@ async function saveDataUrl(dataUrl, filePath) {
 }
 
 function stripDataUrl(row) {
-  const { cropDataUrl, eastCropDataUrl, ...rest } = row;
+  const { cropDataUrl, eastCropDataUrl, northCropDataUrl, ...rest } = row;
   return rest;
 }
 
-async function captureStory(page, { id, url, selector, fileStem }) {
+function compactLog(id, analyzed, extra = {}) {
+  return JSON.stringify({
+    id,
+    jagged: analyzed.jaggedRmsCssPx,
+    wobble: analyzed.wobbleRmsCssPx,
+    rim: analyzed.rimPresentFrac,
+    north: analyzed.rimNorthPresentFrac,
+    east: analyzed.rimEastPresentFrac,
+    breaks: analyzed.rimBreaksPer100CssPx,
+    error: analyzed.error ?? null,
+    ...extra,
+  });
+}
+
+async function captureStory(page, { id, url, selector, fileStem, hideChrome, dumpFilter }) {
   await page.goto(url, { waitUntil: 'networkidle', timeout: 120_000 });
   await page.waitForTimeout(700);
-  await page.addStyleTag({
-    content: `
-      .game-ui-liquid-content, .game-ui-segmented-option { opacity: 0 !important; }
-      .game-ui-segmented-surface { opacity: 0 !important; }
-      .game-ui-clay-preview { background: transparent !important; }
-      .game-ui-liquid-gooey-card, .game-ui-liquid-demo-stage,
-      .game-ui-liquid-waviness-cell, .game-ui-liquid-waviness-comparison { background: transparent !important; box-shadow: none !important; }
-    `,
-  });
+  if (hideChrome) {
+    await page.addStyleTag({
+      content: `
+        .game-ui-liquid-content, .game-ui-segmented-option { opacity: 0 !important; }
+        .game-ui-segmented-surface { opacity: 0 !important; }
+        .game-ui-clay-preview { background: transparent !important; }
+        .game-ui-liquid-gooey-card, .game-ui-liquid-demo-stage,
+        .game-ui-liquid-waviness-cell, .game-ui-liquid-waviness-comparison { background: transparent !important; box-shadow: none !important; }
+      `,
+    });
+  }
   const loc = page.locator(selector).first();
   await loc.waitFor({ timeout: 60_000 });
-  const buf = await loc.screenshot({ omitBackground: true });
+  const buf = await loc.screenshot({ omitBackground: hideChrome });
   await writeFile(path.join(capturesDir, `${fileStem}.png`), buf);
   const box = await loc.boundingBox();
+  let filterDump = null;
+  if (dumpFilter) {
+    filterDump = await page.evaluate(() => {
+      const group = document.querySelector('.game-ui-segmented-follow');
+      const sil = group?.querySelector('[data-liquid-gooey-silhouette]');
+      const filter = sil?.querySelector('filter');
+      const primitives = filter
+        ? Array.from(filter.children).map((node) => ({
+            tag: node.tagName.toLowerCase(),
+            in: node.getAttribute('in'),
+            in2: node.getAttribute('in2'),
+            result: node.getAttribute('result'),
+            dx: node.getAttribute('dx'),
+            dy: node.getAttribute('dy'),
+            operator: node.getAttribute('operator'),
+            flood: node.getAttribute('flood-color') || node.getAttribute('floodColor'),
+            stdDeviation: node.getAttribute('stdDeviation'),
+            radius: node.getAttribute('radius'),
+            values: node.getAttribute('values'),
+          }))
+        : [];
+      return {
+        area: group?.getAttribute('data-liquid-filter-area'),
+        budget: group?.getAttribute('data-liquid-filter-budget'),
+        waviness: group?.getAttribute('data-liquid-waviness'),
+        groupBox: group
+          ? {
+              w: Math.round(group.getBoundingClientRect().width),
+              h: Math.round(group.getBoundingClientRect().height),
+            }
+          : null,
+        filterId: filter?.id ?? null,
+        primitiveCount: primitives.length,
+        primitives,
+      };
+    });
+  }
   const analyzed = await page.evaluate(analyzeFromDataUrl, {
     dataUrl: `data:image/png;base64,${buf.toString('base64')}`,
     options: { viewCssWidth: box?.width ?? 1, kind: 'shape' },
   });
   if (analyzed.cropDataUrl) await saveDataUrl(analyzed.cropDataUrl, path.join(cropsDir, `${fileStem}-nn10.png`));
-  if (analyzed.eastCropDataUrl) await saveDataUrl(analyzed.eastCropDataUrl, path.join(cropsDir, `${fileStem}-east-nn10.png`));
-  return { id, fileStem, box, metrics: stripDataUrl(analyzed) };
+  if (analyzed.eastCropDataUrl) {
+    await saveDataUrl(analyzed.eastCropDataUrl, path.join(cropsDir, `${fileStem}-east-nn10.png`));
+  }
+  if (analyzed.northCropDataUrl) {
+    await saveDataUrl(analyzed.northCropDataUrl, path.join(cropsDir, `${fileStem}-north-nn10.png`));
+  }
+  return { id, fileStem, box, filterDump, metrics: stripDataUrl(analyzed) };
 }
 
 async function main() {
@@ -722,7 +1112,7 @@ async function main() {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     deviceScaleFactor: 2,
-    viewport: { width: 1600, height: 2400 },
+    viewport: { width: 1600, height: 2800 },
   });
   const page = await context.newPage();
   await page.setContent(html, { waitUntil: 'load' });
@@ -737,32 +1127,47 @@ async function main() {
     const loc = page.locator(`[data-shot="${id}"]`);
     const buf = await loc.screenshot({ omitBackground: true });
     await writeFile(path.join(capturesDir, `${id}.png`), buf);
-    const scale = Number((await loc.evaluate((el) => el.closest('[data-scale]')?.getAttribute('data-scale'))) ?? 1);
     const vw = Number(await loc.evaluate((el) => el.closest('[data-vw]')?.getAttribute('data-vw') ?? '0'));
-    const kind = id.startsWith('noise-') ? 'noise' : 'shape';
     const analyzed = await page.evaluate(analyzeFromDataUrl, {
       dataUrl: `data:image/png;base64,${buf.toString('base64')}`,
-      options: { viewCssWidth: vw, kind },
+      options: { viewCssWidth: vw, kind: 'shape' },
     });
     if (analyzed.cropDataUrl) await saveDataUrl(analyzed.cropDataUrl, path.join(cropsDir, `${id}-nn10.png`));
-    if (analyzed.eastCropDataUrl) await saveDataUrl(analyzed.eastCropDataUrl, path.join(cropsDir, `${id}-east-nn10.png`));
+    if (analyzed.eastCropDataUrl) {
+      await saveDataUrl(analyzed.eastCropDataUrl, path.join(cropsDir, `${id}-east-nn10.png`));
+    }
+    if (analyzed.northCropDataUrl) {
+      await saveDataUrl(analyzed.northCropDataUrl, path.join(cropsDir, `${id}-north-nn10.png`));
+    }
     results.push({
       id,
       source: 'isolated-svg',
-      cssScale: scale,
       meta: metaById[id] ?? null,
       metrics: stripDataUrl(analyzed),
     });
-    console.log(
-      JSON.stringify({
-        id,
-        jagged: analyzed.jaggedRmsCssPx,
-        wobble: analyzed.wobbleRmsCssPx,
-        fringe: analyzed.alphaFringeCssPx,
-        plateau: analyzed.plateauFrac,
-        error: analyzed.error ?? null,
-      }),
+    console.log(compactLog(id, analyzed));
+  }
+
+  const extra = [];
+  for (const srcId of ['baseline-4x']) {
+    const srcPath = path.join(capturesDir, `${srcId}.png`);
+    const destId = `${srcId}-down`;
+    const png = await readFile(srcPath);
+    await page.setContent(
+      `<!doctype html><html><body style="margin:0;background:transparent"><img id="down" src="data:image/png;base64,${png.toString('base64')}" width="230" height="230" style="display:block;image-rendering:auto"/></body></html>`,
     );
+    await page.waitForTimeout(100);
+    const buf = await page.locator('#down').screenshot({ omitBackground: true });
+    await writeFile(path.join(capturesDir, `${destId}.png`), buf);
+    const analyzed = await page.evaluate(analyzeFromDataUrl, {
+      dataUrl: `data:image/png;base64,${buf.toString('base64')}`,
+      options: { viewCssWidth: 230, kind: 'shape' },
+    });
+    if (analyzed.eastCropDataUrl) {
+      await saveDataUrl(analyzed.eastCropDataUrl, path.join(cropsDir, `${destId}-east-nn10.png`));
+    }
+    extra.push({ id: destId, source: '4x-bilinear-down', metrics: stripDataUrl(analyzed) });
+    console.log(compactLog(destId, analyzed, { down: true }));
   }
 
   const storybookBase = process.env.STORYBOOK_URL ?? 'http://127.0.0.1:6006';
@@ -774,6 +1179,7 @@ async function main() {
         url: `${storybookBase}/iframe.html?id=clay-effects-liquidgroup--waviness-default&viewMode=story`,
         selector: '[data-liquid-gooey-silhouette]',
         fileStem: 'story-waviness-default',
+        hideChrome: true,
       }),
     );
     stories.push(
@@ -782,6 +1188,7 @@ async function main() {
         url: `${storybookBase}/iframe.html?id=clay-effects-liquidgroup--waviness-clamp-comparison&viewMode=story`,
         selector: '[data-testid="waviness-blob-after"] [data-liquid-gooey-silhouette]',
         fileStem: 'story-waviness-blob',
+        hideChrome: true,
       }),
     );
     stories.push(
@@ -790,11 +1197,39 @@ async function main() {
         url: `${storybookBase}/iframe.html?id=clay-controls-gamesegmentedcontrol--move-indicator&viewMode=story`,
         selector: '.game-ui-segmented-follow [data-liquid-gooey-silhouette]',
         fileStem: 'story-segmented-teal',
+        hideChrome: true,
+        dumpFilter: true,
+      }),
+    );
+    stories.push(
+      await captureStory(page, {
+        id: 'story-segmented-on-clay',
+        url: `${storybookBase}/iframe.html?id=clay-controls-gamesegmentedcontrol--move-indicator&viewMode=story`,
+        selector: '.game-ui-segmented',
+        fileStem: 'story-segmented-on-clay',
+        hideChrome: false,
       }),
     );
   } catch (error) {
     stories.push({ error: String(error) });
     console.error('storybook capture failed', error);
+  }
+
+  for (const story of stories) {
+    if (story?.metrics) console.log(compactLog(story.id, story.metrics, { story: true }));
+    if (story?.filterDump) {
+      console.log(
+        JSON.stringify({
+          id: 'live-filter',
+          area: story.filterDump.area,
+          budget: story.filterDump.budget,
+          waviness: story.filterDump.waviness,
+          groupBox: story.filterDump.groupBox,
+          primitiveCount: story.filterDump.primitiveCount,
+          primitives: story.filterDump.primitives,
+        }),
+      );
+    }
   }
 
   const report = {
@@ -803,10 +1238,14 @@ async function main() {
     notes: {
       dpr: 2,
       fill: TEAL,
+      paleExcessThreshold: 18,
       productionFilter:
         'feGaussianBlur(goo 6) + feColorMatrix(contrast 18) + feComposite(atop) + feTurbulence(fractalNoise 0.018 octaves=2 seed=7) + feDisplacementMap(scale=12) + feGaussianBlur(0.5)',
+      productionTealIndicator:
+        'GameSurfaces.tsx follow LiquidGroup: fill --game-ui-secondary, shadow --game-ui-shadow-button (outer drop + inset 0 2px 0 rgba(255,255,255,0.42)), no stroke',
     },
     isolated: results,
+    extra,
     storybook: stories,
   };
   await writeFile(path.join(here, 'metrics.json'), JSON.stringify(report, null, 2));
@@ -818,4 +1257,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-
