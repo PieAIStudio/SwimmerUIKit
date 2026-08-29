@@ -25,6 +25,21 @@ import type { CornerRadii } from './liquidGooeyGeometry';
 import { parseShadow, parseStroke } from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
 
+/**
+ * The shared liquid surface primitive. Its motion vocabulary is intentionally
+ * small and semantic:
+ *
+ * | gesture | meaning |
+ * | --- | --- |
+ * | **merge** (Morph) | two things become one: reward settling, collecting, confirming |
+ * | **follow** (Move) | selection, progress, dragging |
+ * | **dissolve** | replacement, transition |
+ * | **still** | THE DEFAULT |
+ *
+ * Liquid appears only on a state change the user caused. There is no ambient,
+ * idle, or decorative liquid; keep the filter-area budget visible when more
+ * than one group is on a screen.
+ */
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   children: ReactNode;
   /** Goo blur sigma in px. Larger values bridge larger gaps. */
@@ -39,8 +54,12 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   shadow?: string;
   /** Optional stroke syntax rebuilt on the merged silhouette. Note: Do NOT add border to children directly! */
   stroke?: string;
-  /** Deterministic reduced-motion override for previews; auto follows the OS. */
-  motion?: 'auto' | 'reduced';
+  /**
+   * `auto` follows the existing component transition clock, `follow` adopts
+   * the Move surface for an explicit user-caused selection/progress gesture,
+   * and `reduced` snaps. Still remains the house default gesture.
+   */
+  motion?: 'auto' | 'follow' | 'reduced';
 }
 
 export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -76,6 +95,22 @@ function sanitizeId(value: string): string {
 
 function finite(value: number, fallback: number): number {
   return Number.isFinite(value) ? value : fallback;
+}
+
+function resolveCssVariable(
+  value: string | undefined,
+  element: HTMLElement | null,
+): string | undefined {
+  if (!value) return value;
+  const variable = /^var\((--[\w-]+)\)$/.exec(value.trim());
+  if (!variable || !element) return value;
+  const view = element.ownerDocument.defaultView;
+  if (!view) return value;
+  const resolved = view
+    .getComputedStyle(element)
+    .getPropertyValue(variable[1] ?? '')
+    .trim();
+  return resolved || value;
 }
 
 function joinClasses(...classes: Array<string | undefined>): string | undefined {
@@ -141,8 +176,14 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const blurValue = Math.max(0, finite(blur, 6));
   const contrastValue = Math.max(1, finite(contrast, 18));
   const filterPaddingValue = Math.max(0, finite(filterPadding, 24));
-  const shadows = useMemo(() => parseShadow(shadow), [shadow]);
-  const parsedStroke = useMemo(() => parseStroke(stroke), [stroke]);
+  // `shadow`/`stroke` may be a complete CSS token such as
+  // `var(--game-ui-shadow-button)`. Resolve it after the first measured render
+  // so the SVG filter receives the token's actual shorthand, not a zero-width
+  // placeholder. Inline token expressions remain valid as-is.
+  const resolvedShadow = resolveCssVariable(shadow, groupRef.current);
+  const resolvedStroke = resolveCssVariable(stroke, groupRef.current);
+  const shadows = useMemo(() => parseShadow(resolvedShadow), [resolvedShadow]);
+  const parsedStroke = useMemo(() => parseStroke(resolvedStroke), [resolvedStroke]);
   const pad = Math.ceil(
     blurValue * 3 +
       filterPaddingValue +
@@ -163,8 +204,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   );
   const setPortalRef = useCallback((node: SVGGElement | null): void => setPortal(node), []);
 
-  // The engine is intentionally stable across prop changes; live values are
-  // updated through its setters so a render cannot tear an animation in half.
+  // The engine is stable across ordinary prop changes; changing the effect
+  // mode replaces it so `follow` cannot leak into a neighboring render.
   const engine = useMemo(
     () =>
       new LiquidGooeyEngine({
@@ -177,9 +218,10 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
           );
         },
         onModeChange: setMotionMode,
+        follow: motion === 'follow',
       }),
-    // Its live values are updated below.
-    [],
+    // Its live reduced-motion value is updated below.
+    [motion],
   );
 
   useLayoutEffect(() => {

@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   CLAY_COLOR_TOKENS,
+  CLAY_LIQUID_GOOEY_TOKENS,
   CLAY_TYPE_TOKENS,
   CLAY_TARGET_TOKENS,
   CLAY_UI_TOKENS,
@@ -51,6 +52,7 @@ describe('clay token exports', () => {
     expect(CLAY_UI_TOKENS.semantic.background).toBe('var(--game-ui-bg)');
     expect(CLAY_UI_TOKENS.typography.familyBody).toBe('var(--game-ui-font-body)');
     expect(GAME_UI_TOKENS.surface).toBe('var(--game-ui-surface)');
+    expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--game-ui-liquid-gooey-move-stiffness)');
   });
 
   it('keeps proof viewport targets in code tokens', () => {
@@ -58,6 +60,16 @@ describe('clay token exports', () => {
     expect(CLAY_TARGET_TOKENS.desktopProofHeightPx).toBe(900);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofWidthPx).toBe(844);
     expect(CLAY_TARGET_TOKENS.mobileLandscapeProofHeightPx).toBe(390);
+  });
+});
+
+describe('liquid-gooey Move token mirror', () => {
+  it('defines every physics token used by the Move resolver in theme.css', () => {
+    for (const value of Object.values(CLAY_LIQUID_GOOEY_TOKENS)) {
+      const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
+      expect(name, `${value} should be a bare var() reference`).toBeTruthy();
+      expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
+    }
   });
 });
 

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { GameProgress } from '../index';
+import { useState, type ReactNode } from 'react';
+
+import { GameButton, GameProgress } from '../index';
 
 const meta = {
   title: 'Clay/Display/GameProgress',
@@ -29,4 +31,20 @@ export const CountLabel: Story = {
     max: 210,
     valueLabel: '12 / 210 节',
   },
+};
+
+function MovingLeadingEdgeStory(): ReactNode {
+  const [value, setValue] = useState(24);
+  return (
+    <div style={{ display: 'grid', gap: '12px', maxWidth: '520px' }}>
+      <GameProgress label="Lessons completed" max={100} showValue value={value} />
+      <GameButton onClick={() => setValue((current) => Math.min(100, current + 18))}>
+        Advance progress
+      </GameButton>
+    </div>
+  );
+}
+
+export const MoveLeadingEdge: Story = {
+  render: () => <MovingLeadingEdgeStory />,
 };

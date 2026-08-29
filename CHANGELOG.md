@@ -20,6 +20,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   child that draws its own `border` will show a static circle that refuses to
   merge — that is the bug this prop exists to remove, and the story documents
   it as a rule rather than a preference.
+- **`motion="follow"` for selection and progress.** `<LiquidGroup>` now carries
+  the donor's Move surface through the token layer and shared animation and
+  filter-area budgets. It is used only by `GameSegmentedControl`'s selected
+  indicator and `GameProgress`'s leading edge; the shared clock sleeps
+  completely at rest.
 
 ## 1.8.1
 

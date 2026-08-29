@@ -40,10 +40,18 @@ implementation informed by the `liquid-gooey` package in the Libraries
 repository (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
 Copyright (c) 2026 Jakub Antalik, licensed under the MIT License.
 
+The reviewed upstream state is pinned in `donors-individual-lock.json` at commit
+`3862ffa345217443b63696a8c331a0664eea4b04`; the package source lives at
+`packages/liquid-gooey/` in that repository. The combined-workspace review
+checkout is `<portfolio-root>/_donors-individual/for_SwimmerUIKit/` and is not
+packaged or loaded at runtime.
+
 We took the donor's morph-specific ideas and small implementation patterns:
 the SVG silhouette/content split, the Gaussian-blur plus alpha color-matrix
 filter, rounded-rectangle geometry, token-compatible shadow passes, and spring
-to easing compilation. We did not take its move, melt, bend, or dissolve
+to easing compilation. We also adapted its Move center spring, velocity-axis
+stretch, and lagging tail/mid-droplet physics for the selected segmented
+indicator and progress leading edge. We did not take its melt, bend, or dissolve
 systems, its general observer, or its image-melt engine. We changed the
 implementation for this kit by making fill and shadow values token-driven,
 adding a process-wide animated-group and filter-area budget, and putting the

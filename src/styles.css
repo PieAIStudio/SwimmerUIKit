@@ -90,7 +90,6 @@
   .game-ui-button,
   .game-ui-icon-button,
   .game-ui-tab,
-  .game-ui-segmented-option,
   .game-ui-toggle,
   .game-ui-language-trigger,
   .game-ui-language-popover button,
@@ -153,13 +152,52 @@
   .game-ui-button--secondary,
   .game-ui-icon-button,
   .game-ui-tab,
-  .game-ui-segmented-option,
   .game-ui-toggle,
   .game-ui-language-trigger,
   .game-ui-language-popover button,
   .game-ui-radial-item {
     background: var(--game-ui-surface-raised);
     color: var(--game-ui-text);
+  }
+  .game-ui-segmented {
+    position: relative;
+    flex-wrap: nowrap;
+    gap: 0;
+    width: fit-content;
+    max-width: 100%;
+    padding: 4px;
+    border-radius: var(--game-ui-radius-control);
+  }
+  .game-ui-segmented-surface,
+  .game-ui-segmented-follow {
+    z-index: 0;
+  }
+  .game-ui-segmented-follow {
+    z-index: 1;
+  }
+  .game-ui-segmented-option {
+    position: relative;
+    z-index: 2;
+    min-height: 44px;
+    min-width: 0;
+    flex: 1 1 auto;
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--game-ui-radius-control);
+    appearance: none;
+    background: transparent;
+    color: var(--game-ui-text);
+    box-shadow: none;
+    font: inherit;
+    font-family: var(--game-ui-font-body);
+    font-weight: 860;
+    cursor: pointer;
+    transition:
+      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
+      color var(--game-ui-motion-fast) var(--game-ui-ease-soft);
+  }
+  .game-ui-segmented-option[aria-pressed='true'] {
+    color: var(--game-ui-accent-contrast);
   }
   .game-ui-button--ghost {
     border-color: var(--game-ui-border-subtle);
@@ -276,8 +314,7 @@
     font-size: var(--game-ui-font-xs);
     font-weight: 760;
   }
-  .game-ui-tab[aria-selected='true'],
-  .game-ui-segmented-option[aria-pressed='true'] {
+  .game-ui-tab[aria-selected='true'] {
     background: var(--game-ui-secondary);
     color: var(--game-ui-accent-contrast);
   }
@@ -859,17 +896,6 @@
   .game-ui-progress-fill {
     height: 100%;
     border-radius: inherit;
-    background: var(--game-ui-accent);
-    transition: width var(--game-ui-motion-base) var(--game-ui-ease-soft);
-  }
-  .game-ui-progress[data-progress-tone='success'] .game-ui-progress-fill {
-    background: var(--game-ui-success);
-  }
-  .game-ui-progress[data-progress-tone='danger'] .game-ui-progress-fill {
-    background: var(--game-ui-danger);
-  }
-  .game-ui-progress[data-progress-tone='warning'] .game-ui-progress-fill {
-    background: var(--game-ui-warning);
   }
   .game-ui-progress-value {
     /* 3ch fits "100%"; count labels ("12 / 210 节") are longer. min-width:3ch
@@ -2626,7 +2652,6 @@
   [data-game-ui-tone='glass'] .game-ui-button,
   [data-game-ui-tone='glass'] .game-ui-icon-button,
   [data-game-ui-tone='glass'] .game-ui-tab,
-  [data-game-ui-tone='glass'] .game-ui-segmented-option,
   [data-game-ui-tone='glass'] .game-ui-toggle,
   [data-game-ui-tone='glass'] .game-ui-language-trigger,
   [data-game-ui-tone='glass'] .game-ui-language-popover button,
@@ -2634,7 +2659,6 @@
   .game-ui-overlay-scope .game-ui-button,
   .game-ui-overlay-scope .game-ui-icon-button,
   .game-ui-overlay-scope .game-ui-tab,
-  .game-ui-overlay-scope .game-ui-segmented-option,
   .game-ui-overlay-scope .game-ui-toggle,
   .game-ui-overlay-scope .game-ui-language-trigger,
   .game-ui-overlay-scope .game-ui-language-popover button,
@@ -2651,14 +2675,12 @@
     [data-game-ui-tone='glass'] .game-ui-language-trigger:hover,
     [data-game-ui-tone='glass'] .game-ui-language-popover button:hover,
     [data-game-ui-tone='glass'] .game-ui-tab:hover,
-    [data-game-ui-tone='glass'] .game-ui-segmented-option:hover,
     [data-game-ui-tone='glass'] .game-ui-radial-item:hover,
     .game-ui-overlay-scope .game-ui-button:hover,
     .game-ui-overlay-scope .game-ui-icon-button:hover,
     .game-ui-overlay-scope .game-ui-language-trigger:hover,
     .game-ui-overlay-scope .game-ui-language-popover button:hover,
     .game-ui-overlay-scope .game-ui-tab:hover,
-    .game-ui-overlay-scope .game-ui-segmented-option:hover,
     .game-ui-overlay-scope .game-ui-radial-item:hover {
       border-color: var(--game-ui-overlay-glass-border-hover);
       background: var(--game-ui-overlay-glass-bg-hover);
@@ -2766,9 +2788,7 @@
     filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--game-ui-scenery-soil) 55%, transparent));
   }
   [data-game-ui-tone='glass'] .game-ui-tab[aria-selected='true'],
-  [data-game-ui-tone='glass'] .game-ui-segmented-option[aria-pressed='true'],
-  .game-ui-overlay-scope .game-ui-tab[aria-selected='true'],
-  .game-ui-overlay-scope .game-ui-segmented-option[aria-pressed='true'] {
+  .game-ui-overlay-scope .game-ui-tab[aria-selected='true'] {
     border-color: color-mix(in srgb, var(--game-ui-secondary) 55%, transparent);
     background:
       linear-gradient(
@@ -2878,7 +2898,6 @@
     .game-ui-button,
     .game-ui-icon-button,
     .game-ui-tab,
-    .game-ui-segmented-option,
     .game-ui-toggle,
     .game-ui-radial-item,
     .game-ui-input,
@@ -2912,7 +2931,6 @@
       outline-color: Highlight;
     }
     .game-ui-tab[aria-selected='true'],
-    .game-ui-segmented-option[aria-pressed='true'],
     .game-ui-asset-card[aria-pressed='true'],
     .game-ui-terrain-mode-option[aria-pressed='true'],
     .game-ui-build-category[aria-selected='true'],
@@ -3532,6 +3550,12 @@
   .game-ui-liquid-group :focus-visible {
     outline: 3px solid var(--game-ui-focus-ring);
     outline-offset: 2px;
+  }
+  .game-ui-segmented-surface .game-ui-liquid-content,
+  .game-ui-segmented-follow .game-ui-liquid-content,
+  .game-ui-progress-liquid .game-ui-liquid-content {
+    position: absolute;
+    inset: 0;
   }
   @media (prefers-reduced-motion: reduce) {
     .game-ui-liquid-item {

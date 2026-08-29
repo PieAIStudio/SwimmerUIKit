@@ -717,9 +717,12 @@
   .game-ui-liquid-demo-capsule {
     display: grid;
     place-items: center;
+    border: 0;
     border-radius: var(--game-ui-radius-bead);
     background: transparent;
+    box-shadow: none;
     color: var(--game-ui-text);
+    appearance: none;
     font-family: var(--game-ui-font-display);
     font-size: var(--game-ui-font-lg);
     font-weight: var(--game-ui-weight-title);

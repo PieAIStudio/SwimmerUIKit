@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { GameAssetIcon } from './ClayComponents';
 import type { ClayIconName } from './clay/assets';
+import { LiquidGroup } from './LiquidGroup';
 
 /** Up to two uppercase initials from a display name, for the avatar fallback. */
 function initialsFromName(name: string): string {
@@ -77,6 +78,12 @@ export function GameProgress({
   const pct = Math.max(0, Math.min(100, (value / safeMax) * 100));
   const classes = ['game-ui-progress', className].filter(Boolean).join(' ');
   const hasValueLabel = Boolean(valueLabel);
+  const fill = {
+    accent: 'var(--game-ui-accent)',
+    danger: 'var(--game-ui-danger)',
+    success: 'var(--game-ui-success)',
+    warning: 'var(--game-ui-warning)',
+  }[tone];
   return (
     <div className={classes} data-progress-tone={tone}>
       <div
@@ -88,7 +95,29 @@ export function GameProgress({
         className="game-ui-progress-track"
         role="progressbar"
       >
-        <div className="game-ui-progress-fill" style={{ width: `${pct}%` }} />
+        <LiquidGroup
+          aria-hidden="true"
+          className="game-ui-progress-liquid"
+          fill={fill}
+          motion="follow"
+          shadow="var(--game-ui-shadow-button)"
+          style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
+        >
+          <LiquidGroup.Item
+            aria-hidden="true"
+            className="game-ui-progress-fill"
+            style={{
+              borderRadius: 'var(--game-ui-radius-control)',
+              height: '100%',
+              left: 0,
+              position: 'absolute',
+              top: 0,
+              width: `${pct}%`,
+            }}
+          >
+            {null}
+          </LiquidGroup.Item>
+        </LiquidGroup>
       </div>
       {hasValueLabel ? (
         <span className="game-ui-progress-value">{valueLabel}</span>

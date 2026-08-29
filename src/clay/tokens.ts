@@ -41,6 +41,41 @@ export const CLAY_LIQUID_METAL_TOKENS = {
 } as const;
 
 /**
+ * Token references for the adopted liquid-gooey Move physics. The values are
+ * deliberately numeric custom properties so a host theme can tune the feel
+ * without putting physics constants in the engine.
+ */
+export const CLAY_LIQUID_GOOEY_TOKENS = {
+  moveStiffness: 'var(--game-ui-liquid-gooey-move-stiffness)',
+  moveDamping: 'var(--game-ui-liquid-gooey-move-damping)',
+  moveStretch: 'var(--game-ui-liquid-gooey-move-stretch)',
+  moveTail: 'var(--game-ui-liquid-gooey-move-tail)',
+  moveForce: 'var(--game-ui-liquid-gooey-move-force)',
+  moveTailSpringStiffness: 'var(--game-ui-liquid-gooey-move-tail-spring-stiffness)',
+  moveTailSpringDamping: 'var(--game-ui-liquid-gooey-move-tail-spring-damping)',
+  moveStretchSpeed: 'var(--game-ui-liquid-gooey-move-stretch-speed)',
+  moveStretchSquash: 'var(--game-ui-liquid-gooey-move-stretch-squash)',
+  moveSpeedThreshold: 'var(--game-ui-liquid-gooey-move-speed-threshold)',
+  moveTailOnsetSpeed: 'var(--game-ui-liquid-gooey-move-tail-onset-speed)',
+  moveTailOnsetRange: 'var(--game-ui-liquid-gooey-move-tail-onset-range)',
+  moveTailRamp: 'var(--game-ui-liquid-gooey-move-tail-ramp)',
+  moveTailMinRadius: 'var(--game-ui-liquid-gooey-move-tail-min-radius)',
+  moveTailWobble: 'var(--game-ui-liquid-gooey-move-tail-wobble)',
+  moveTailPhaseSpeed: 'var(--game-ui-liquid-gooey-move-tail-phase-speed)',
+  moveTailMidpointA: 'var(--game-ui-liquid-gooey-move-tail-midpoint-a)',
+  moveTailMidpointB: 'var(--game-ui-liquid-gooey-move-tail-midpoint-b)',
+  moveTailMidRadiusA: 'var(--game-ui-liquid-gooey-move-tail-mid-radius-a)',
+  moveTailMidRadiusB: 'var(--game-ui-liquid-gooey-move-tail-mid-radius-b)',
+  moveTailWobblePhase: 'var(--game-ui-liquid-gooey-move-tail-wobble-phase)',
+  moveMinPerpendicular: 'var(--game-ui-liquid-gooey-move-min-perpendicular)',
+  moveLagBase: 'var(--game-ui-liquid-gooey-move-lag-base)',
+  moveLagForce: 'var(--game-ui-liquid-gooey-move-lag-force)',
+  moveSettleDistance: 'var(--game-ui-liquid-gooey-move-settle-distance)',
+  moveSettleSpeed: 'var(--game-ui-liquid-gooey-move-settle-speed)',
+  moveIntegrationRate: 'var(--game-ui-liquid-gooey-move-integration-rate)',
+} as const;
+
+/**
  * Semantic CSS vars for the official overlay-glass HUD tone
  * (`data-game-ui-tone="glass"` / `.game-ui-overlay-scope`).
  */
@@ -191,6 +226,7 @@ export const CLAY_UI_TOKENS = {
   assetSizing: CLAY_ASSET_SIZE_TOKENS,
   overlayGlass: CLAY_OVERLAY_GLASS_TOKENS,
   liquidMetal: CLAY_LIQUID_METAL_TOKENS,
+  liquidGooey: CLAY_LIQUID_GOOEY_TOKENS,
 } as const;
 
 export type ClayTokenCategory = keyof typeof CLAY_UI_TOKENS;

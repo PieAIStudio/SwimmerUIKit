@@ -1,8 +1,10 @@
 # LiquidGroup
 
-`LiquidGroup` is the SwimmerUIKit first-version `morph` primitive: two or a
-few nearby UI elements can visually join into one clay-like blob, then pull
-apart with a short elastic thread. It uses an inline SVG filter built from
+`LiquidGroup` is the SwimmerUIKit first-version liquid primitive. Its `merge`
+(Morph) gesture lets two or a few nearby UI elements visually join into one
+clay-like blob, then pull apart with a short elastic thread; its `follow`
+(Move) gesture is reserved for the selected indicator and progress leading
+edge. It uses an inline SVG filter built from
 `feGaussianBlur` and `feColorMatrix`; it does not add a WebGL or npm runtime
 dependency.
 
@@ -57,8 +59,8 @@ it does not throw and does not disappear.
 
 ## First-version boundary
 
-This primitive intentionally implements only `morph`. `move` (trail), `melt`
-(image dissolution), `bend` (shape deformation), and `dissolve` are not part of
-this version. A later version would need explicit product use cases, a larger
-measurement/asset pipeline, and separate performance and accessibility tests
-before adding those behaviors.
+This primitive intentionally implements only `morph` and the adopted `follow`
+(Move) surface. `melt` (image dissolution), `bend` (shape deformation), and
+`dissolve` are not part of this version. A later version would need explicit
+product use cases, a larger measurement/asset pipeline, and separate
+performance and accessibility tests before adding those behaviors.

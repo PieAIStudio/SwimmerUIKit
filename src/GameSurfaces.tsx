@@ -1,7 +1,10 @@
 import {
   cloneElement,
   isValidElement,
+  useLayoutEffect,
   useId,
+  useRef,
+  useState,
   type ButtonHTMLAttributes,
   type CSSProperties,
   type HTMLAttributes,
@@ -11,6 +14,7 @@ import {
 } from 'react';
 
 import { GameButton } from './GameButton';
+import { LiquidGroup } from './LiquidGroup';
 
 export interface GamePanelProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
@@ -171,20 +175,116 @@ export interface GameSegmentedControlProps {
   options: readonly GameSegmentedOption[];
 }
 
+interface SegmentedIndicatorFrame {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+function sameSegmentedIndicator(
+  left: SegmentedIndicatorFrame,
+  right: SegmentedIndicatorFrame,
+): boolean {
+  return (
+    left.x === right.x &&
+    left.y === right.y &&
+    left.width === right.width &&
+    left.height === right.height
+  );
+}
+
 export function GameSegmentedControl({
   activeId,
   label,
   onSelect,
   options,
 }: GameSegmentedControlProps): ReactNode {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [indicator, setIndicator] = useState<SegmentedIndicatorFrame>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const activeIndex = options.findIndex((option) => option.id === activeId);
+
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    const option = activeIndex >= 0 ? optionRefs.current[activeIndex] : null;
+    if (!root || !option) return;
+    const measure = (): void => {
+      const rootRect = root.getBoundingClientRect();
+      const optionRect = option.getBoundingClientRect();
+      const next = {
+        x: optionRect.left - rootRect.left,
+        y: optionRect.top - rootRect.top,
+        width: optionRect.width,
+        height: optionRect.height,
+      };
+      setIndicator((previous) => (sameSegmentedIndicator(previous, next) ? previous : next));
+    };
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    observer.observe(option);
+    return () => observer.disconnect();
+  }, [activeId, activeIndex, options]);
+
   return (
-    <div aria-label={label} className="game-ui-segmented" role="group">
-      {options.map((option) => (
+    <div ref={rootRef} aria-label={label} className="game-ui-segmented" role="group">
+      <LiquidGroup
+        aria-hidden="true"
+        className="game-ui-segmented-surface"
+        fill="var(--game-ui-surface-raised)"
+        shadow="var(--game-ui-shadow-button)"
+        stroke="var(--game-ui-stroke)"
+        style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
+      >
+        <LiquidGroup.Item
+          style={{ borderRadius: 'var(--game-ui-radius-control)', inset: 0, position: 'absolute' }}
+        >
+          {null}
+        </LiquidGroup.Item>
+      </LiquidGroup>
+      {indicator.width > 0 && indicator.height > 0 ? (
+        <LiquidGroup
+          aria-hidden="true"
+          className="game-ui-segmented-follow"
+          fill="var(--game-ui-secondary)"
+          motion="follow"
+          shadow="var(--game-ui-shadow-button)"
+          style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
+        >
+          <LiquidGroup.Item
+            aria-hidden="true"
+            style={{
+              borderRadius: 'var(--game-ui-radius-control)',
+              height: `${indicator.height}px`,
+              left: 0,
+              position: 'absolute',
+              top: 0,
+              width: `${indicator.width}px`,
+            }}
+            transition="snappy"
+            x={indicator.x}
+            y={indicator.y}
+          >
+            {null}
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      ) : null}
+      {options.map((option, index) => (
         <button
           aria-pressed={option.id === activeId}
           className="game-ui-segmented-option"
           key={option.id}
           onClick={onSelect ? () => onSelect(option.id) : undefined}
+          ref={(node) => {
+            optionRefs.current[index] = node;
+          }}
           type="button"
         >
           {option.label}
