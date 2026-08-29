@@ -17,7 +17,11 @@ import { createPortal } from 'react-dom';
 
 import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
 import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from './liquidGooeyBudget';
-import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
+import {
+  LiquidGooeyFilter,
+  LIQUID_GOOEY_EDGE_SOFTENING_BLUR,
+  LIQUID_GOOEY_FILTER_DEFAULTS,
+} from './liquidGooeyFilter';
 import {
   LIQUID_GOOEY_WAVINESS_MAX_FRACTION,
   resolveLiquidGooeyWaviness,
@@ -326,7 +330,11 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       // feDisplacementMap can move either channel by at most `waviness` px;
       // reserve that slack so the wavy silhouette and its shadow stay inside
       // the filter raster and the area budget reflects the real work.
-      wavinessValue,
+      wavinessValue +
+      // The post-displacement AA blur extends the painted alpha by roughly
+      // three sigma; reserve it here so the softened contour is not clipped
+      // and the filter-area budget includes the extra raster work.
+      (wavinessValue > 0 ? Math.ceil(LIQUID_GOOEY_EDGE_SOFTENING_BLUR * 3) : 0),
   );
   const basePadRef = useRef(basePad);
   basePadRef.current = basePad;

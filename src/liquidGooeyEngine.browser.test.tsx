@@ -185,12 +185,21 @@ describe('LiquidGroup browser architecture', () => {
     const calmHeight = Number(calmFilter?.getAttribute('height') ?? 0);
     const wavyHeight = Number(wavyFilter?.getAttribute('height') ?? 0);
     const wavyNoise = container.querySelector('[data-testid="wavy-liquid"] feTurbulence');
+    const wavyDisplacement = container.querySelector(
+      '[data-testid="wavy-liquid"] feDisplacementMap',
+    );
+    const wavyEdgeBlur = container.querySelector(
+      '[data-testid="wavy-liquid"] feGaussianBlur[in="shape-displaced"]',
+    );
     const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
 
     expect(wavyWidth).toBeGreaterThan(calmWidth);
     expect(wavyHeight).toBeGreaterThan(calmHeight);
     expect(wavyNoise?.getAttribute('baseFrequency')).toBe('0.018');
     expect(wavyNoise?.getAttribute('seed')).toBe('7');
+    expect(wavyDisplacement?.getAttribute('result')).toBe('shape-displaced');
+    expect(wavyEdgeBlur?.getAttribute('stdDeviation')).toBe('0.5');
+    expect(wavyEdgeBlur?.getAttribute('result')).toBe('shape');
     expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
     expect(paths).toHaveLength(2);
     expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);

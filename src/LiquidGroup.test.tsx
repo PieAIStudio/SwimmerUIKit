@@ -102,6 +102,8 @@ describe('LiquidGroup DOM architecture', () => {
     expect(calm).not.toContain('feTurbulence');
     expect(wavy).toContain('baseFrequency="0.018"');
     expect(wavy).toContain('scale="12"');
+    expect(wavy).toContain('in="shape-displaced"');
+    expect(wavy).toContain('stdDeviation="0.5"');
     expect(filterWidth(wavy)).toBeGreaterThan(filterWidth(calm));
     expect(filterHeight(wavy)).toBeGreaterThan(filterHeight(calm));
   });
