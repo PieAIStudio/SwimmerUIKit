@@ -2,6 +2,7 @@ import { describe, expect, it, afterEach } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { LiquidGroup, LiquidItem } from './LiquidGroup';
+import { DISSOLVE_DEFAULTS, resolveDissolveOptions } from './liquidGooeyImageMelt';
 import {
   DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET,
   DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET,
@@ -103,6 +104,40 @@ describe('LiquidGroup DOM architecture', () => {
     expect(wavy).toContain('scale="12"');
     expect(filterWidth(wavy)).toBeGreaterThan(filterWidth(calm));
     expect(filterHeight(wavy)).toBeGreaterThan(filterHeight(calm));
+  });
+
+  it('supports the image Melt item without leaking effect props into the DOM', () => {
+    const html = renderToStaticMarkup(
+      <LiquidGroup>
+        <LiquidGroup.Item
+          data-testid="melt-item"
+          effect="melt"
+          melt={{ src: 'data:image/svg+xml,test', mix: 1 }}
+        >
+          <img alt="palette" src="data:image/svg+xml,test" />
+          <span>Keep this label crisp</span>
+        </LiquidGroup.Item>
+      </LiquidGroup>,
+    );
+
+    expect(html).toContain('data-testid="melt-item"');
+    expect(html).toContain('Keep this label crisp');
+    expect(html).not.toContain('effect="melt"');
+    expect(html).not.toContain('dissolve=');
+    expect(html).toContain('class="game-ui-liquid-item"');
+  });
+
+  it('keeps dissolve defaults donor-shaped and numeric shorthand explicit', () => {
+    expect(resolveDissolveOptions(null, true)).toMatchObject(DISSOLVE_DEFAULTS);
+    expect(resolveDissolveOptions(null, 0.5)).toMatchObject({
+      strength: 0.5,
+      mix: DISSOLVE_DEFAULTS.mix,
+      warp: DISSOLVE_DEFAULTS.warp,
+    });
+    expect(resolveDissolveOptions(null, { active: false, mix: 2 })).toMatchObject({
+      active: false,
+      mix: 1,
+    });
   });
 });
 

@@ -32,24 +32,31 @@ modules.
 Patterns retained in the local implementation are the SVG
 silhouette/content split, Gaussian blur plus alpha color-matrix filtering,
 rounded-rectangle geometry, token-compatible shadow passes, spring-to-easing
-compilation, and the donor's Move center/stretch/tail physics. The local
-implementation also directly adapts the donor's Morph shape evolution,
-`contentBlur` content-layer cross-blur, and Bend's velocity-bowed path plus
+compilation, and the donor's Move center/stretch/tail physics. SwimmerUIKit
+adopted those Move physics for the selected indicator and progress leading
+edge, and now directly adapts the donor's Morph shape evolution,
+`contentBlur` content-layer cross-blur, Bend's velocity-bowed path plus
 `--lg-bend-x` / `--lg-bend-y` / `--lg-bend-xn` / `--lg-bend-yn` CSS-variable
-outlet. Morph shape is deliberately token-on in this kit so the adopted default
-is visible; callers can pass `morph={{ shape: false }}` to opt out. The local
-implementation also adopts the donor's group-level `waviness` and
-`wavinessFreq` filter pass as a static, fixed-seed surface texture.
+outlet, and the donor's group-level `waviness` and `wavinessFreq` filter pass as
+a static, fixed-seed surface texture.
 
-This paragraph records a new review decision in this change: the three
-capabilities above move from the previously rejected/omitted boundary into the
-retained scope. The donor's Melt, dissolve, image-melt engine, and general
-observer remain rejected for this package. SwimmerUIKit keeps its own
-token-driven values, process-wide animation and filter-area budgets, an
-idle-sleeping shared animation clock, and its own interaction boundary; see
-`NOTICE` for the legal attribution. No retained effect adds an ambient clock,
-and Morph content blur plus Bend's maximum deformation are included in the
-filter-area budget.
+SwimmerUIKit also adapts the donor's pairwise image-melt engine into
+`src/liquidGooeyImageMelt.tsx`. That module carries the first two
+`effect="melt"` images, the two-palette colour/marbling pass, and the
+image-only contact `dissolve` layer. The dissolve math is a scoped adaptation
+of the donor's contact-observer behavior; it is not a transplant of the
+donor's observer. Morph shape is deliberately token-on so the adopted default
+is visible; callers can pass `morph={{ shape: false }}` to opt out.
+
+Morph content blur, Bend's maximum deformation, Melt marbling, and dissolve
+displacement are included in the filter-area accounting. No retained effect
+adds an ambient clock. The donor's general observer remains outside the
+imported scope because SwimmerUIKit already has its own process-wide
+animation/filter-area budgets and a shared requestAnimationFrame loop that
+sleeps when idle. Replacing that loop would lose the kit's explicit budget and
+idle-sleep guarantees. The local implementation keeps its own interaction
+boundary, token-driven values, graceful budget degradation, and one-time
+development warning; see `NOTICE` for legal attribution.
 
 ### Update policy
 

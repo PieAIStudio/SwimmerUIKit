@@ -27,6 +27,15 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   480,000 CSS-pixel filter-area ceiling. The shared requestAnimationFrame clock
   remains event-driven and sleeps completely after stillness; an over-budget
   group snaps to static filtered rendering with a development warning.
+- **Image Melt and contact dissolve for `LiquidGroup.Item`.** The first two
+  `effect="melt"` items now render the donor-shaped measured image pair with
+  crisp-face seam masks, two-palette colour mixing, and a visible marbling
+  pass. `dissolve` is an image-only contact modifier with liquid displacement
+  and release hysteresis; DOM text stays in the crisp content layer, and the
+  modifier is ignored with a development warning under `effect="move"`.
+  Numeric knobs are token-backed, share the 480,000 px² filter-area and
+  process-wide concurrency budgets, degrade visibly with a one-time warning
+  when over budget, and sleep their requestAnimationFrame clock at rest.
 
 ## 1.10.1
 

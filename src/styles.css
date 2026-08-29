@@ -3538,7 +3538,8 @@
   }
   .game-ui-liquid-content {
     position: relative;
-    z-index: 1;
+    /* Keep DOM labels/controls above the optional image-melt SVG layer. */
+    z-index: 2;
     min-width: 0;
   }
   .game-ui-liquid-item {

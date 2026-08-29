@@ -17,7 +17,9 @@
     "packages/liquid-gooey/src/filter.tsx#GooFilterPrimitives,waviness static feTurbulence/feDisplacementMap pass with fixed seed 7",
     "packages/liquid-gooey/src/observer.ts#EVOLVE_DEFAULTS,centre-size-radius springs,corner timeline,contentBlur motion envelope",
     "packages/liquid-gooey/src/LiquidItem.tsx#MorphTuning shape/speed/bounce mapping and observed Morph shape behavior",
-    "packages/liquid-gooey/src/observer.ts#Bend velocity bow, cap deformation, and --lg-bend-x/y/xn/yn CSS variable publication"
+    "packages/liquid-gooey/src/observer.ts#Bend velocity bow, cap deformation, and --lg-bend-x/y/xn/yn CSS variable publication",
+    "packages/liquid-gooey/src/imageMelt.tsx#ImageMeltOptions,IMAGE_MELT_DEFAULTS,MeltPair,image source resolution,crisp-face masks,and marbling pass",
+    "packages/liquid-gooey/src/observer.ts#scoped contact-image dissolve proximity,warp,and release math only; no general observer loop"
   ],
   "reviewedScope": [
     "packages/liquid-gooey/README.md",
@@ -26,9 +28,7 @@
     "packages/liquid-gooey/src/**"
   ],
   "rejectedScope": [
-    "packages/liquid-gooey/src/imageMelt.tsx",
-    "Melt and dissolve systems as product features",
-    "general observer and image-melt engine"
+    "general observer loop; SwimmerUIKit retains its own budgeted, idle-sleeping image-melt runtime instead of transplanting the donor observer"
   ],
   "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."
 }

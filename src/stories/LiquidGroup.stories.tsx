@@ -22,6 +22,33 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function makeDemoImage(background: string, accent: string): string {
+  const svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">',
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">',
+    '<stop offset="0%" stop-color="',
+    background,
+    '"/><stop offset="100%" stop-color="',
+    accent,
+    '"/></linearGradient></defs>',
+    '<rect width="320" height="200" rx="34" fill="url(#g)"/>',
+    '<circle cx="258" cy="40" r="68" fill="',
+    accent,
+    '" opacity=".34"/>',
+    '<path d="M-20 162 C48 104 88 218 160 142 S272 94 344 154" fill="none" stroke="#fff8ec" stroke-width="18" opacity=".42"/>',
+    '<circle cx="64" cy="48" r="18" fill="#fff8ec" opacity=".72"/>',
+    '</svg>',
+  ].join('');
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+const MELT_IMAGE_A = makeDemoImage('#e8743b', '#f2b35c');
+const MELT_IMAGE_B = makeDemoImage('#1d9a8b', '#5ca6d8');
+
+function ImageLabel({ children }: { children: ReactNode }): ReactNode {
+  return <span className="game-ui-liquid-image-label">{children}</span>;
+}
+
 interface MorphSceneProps {
   eyebrow: string;
   title: string;
@@ -280,6 +307,153 @@ function MorphKnobScene({ shape, speed, bounce, contentBlur }: MorphKnobProps): 
     </article>
   );
 }
+
+function MeltScene(): ReactNode {
+  const [touching, setTouching] = useState(true);
+  const firstLeft = touching ? 'calc(50% - 175px)' : 'calc(50% - 260px)';
+  const secondLeft = touching ? 'calc(50% - 5px)' : 'calc(50% + 90px)';
+
+  return (
+    <article className="game-ui-liquid-gooey-card">
+      <header className="game-ui-liquid-demo-header">
+        <span className="game-ui-liquid-demo-kicker">Melt · image pair</span>
+        <h2>Two palettes, one seam</h2>
+        <p>两张图片在接缝处平均混色，marbling 把两套色板折成条纹；旁边的文字留在清晰层。</p>
+      </header>
+      <div className="game-ui-liquid-demo-stage game-ui-liquid-image-stage">
+        <LiquidGroup
+          className="game-ui-liquid-demo-group game-ui-liquid-image-group"
+          filterPadding={34}
+          style={{ width: '100%', height: '250px' }}
+        >
+          <LiquidGroup.Item
+            effect="melt"
+            melt={{ mix: 1 }}
+            style={{
+              position: 'absolute',
+              top: '60px',
+              left: firstLeft,
+              width: '170px',
+              height: '130px',
+              transition: 'left 560ms cubic-bezier(.22, 1, .36, 1)',
+            }}
+          >
+            <img alt="orange palette" src={MELT_IMAGE_A} />
+            <ImageLabel>EMBER · crisp text</ImageLabel>
+          </LiquidGroup.Item>
+          <LiquidGroup.Item
+            effect="melt"
+            melt={{ mix: 1 }}
+            style={{
+              position: 'absolute',
+              top: '60px',
+              left: secondLeft,
+              width: '170px',
+              height: '130px',
+              transition: 'left 560ms cubic-bezier(.22, 1, .36, 1)',
+            }}
+          >
+            <img alt="teal palette" src={MELT_IMAGE_B} />
+            <ImageLabel>OCEAN · crisp text</ImageLabel>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      </div>
+      <div className="game-ui-liquid-demo-controls">
+        <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
+          {touching ? 'Separate the palettes' : 'Melt the palettes'}
+        </GameButton>
+        <span className="game-ui-liquid-demo-status" aria-live="polite">
+          {touching
+            ? 'Contact · color mix + marbling visible'
+            : 'Separated · pair follows its measured rects'}
+        </span>
+      </div>
+    </article>
+  );
+}
+
+export const ImageMelt: Story = {
+  render: () => <MeltScene />,
+};
+
+function DissolveScene(): ReactNode {
+  const [touching, setTouching] = useState(true);
+  const [active, setActive] = useState(true);
+  const firstX = touching ? 18 : -32;
+  const secondX = touching ? -18 : 32;
+
+  return (
+    <article className="game-ui-liquid-gooey-card">
+      <header className="game-ui-liquid-demo-header">
+        <span className="game-ui-liquid-demo-kicker">Dissolve · image modifier</span>
+        <h2>The contact eats the image</h2>
+        <p>dissolve 只作用于影像：接触处有液体扭曲和双液混合，DOM 文字始终保持清晰。</p>
+      </header>
+      <div className="game-ui-liquid-demo-stage game-ui-liquid-image-stage">
+        <LiquidGroup
+          className="game-ui-liquid-demo-group game-ui-liquid-image-group"
+          contrast={18}
+          filterPadding={34}
+          style={{ width: '100%', height: '250px' }}
+        >
+          <LiquidGroup.Item
+            dissolve={{ active, strength: 1, mix: 1, seamBlur: 6, zone: 22, warp: 32 }}
+            style={{
+              position: 'absolute',
+              top: '60px',
+              left: 'calc(50% - 175px)',
+              width: '170px',
+              height: '130px',
+            }}
+            transition="bouncy"
+            x={firstX}
+          >
+            <div className="game-ui-liquid-dissolve-card">
+              <img alt="orange palette" src={MELT_IMAGE_A} />
+              <ImageLabel>EMBER · never melted</ImageLabel>
+            </div>
+          </LiquidGroup.Item>
+          <LiquidGroup.Item
+            dissolve={{ active, strength: 1, mix: 1, seamBlur: 6, zone: 22, warp: 32 }}
+            style={{
+              position: 'absolute',
+              top: '60px',
+              left: 'calc(50% + 5px)',
+              width: '170px',
+              height: '130px',
+            }}
+            transition="bouncy"
+            x={secondX}
+          >
+            <div className="game-ui-liquid-dissolve-card">
+              <img alt="teal palette" src={MELT_IMAGE_B} />
+              <ImageLabel>OCEAN · never melted</ImageLabel>
+            </div>
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      </div>
+      <div className="game-ui-liquid-demo-controls">
+        <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
+          {touching ? 'Release contact' : 'Reconnect contact'}
+        </GameButton>
+        <GameButton onClick={() => setActive((value) => !value)} variant="secondary">
+          {active ? 'Pause dissolve' : 'Resume dissolve'}
+        </GameButton>
+        <span className="game-ui-liquid-demo-status" aria-live="polite">
+          {active
+            ? touching
+              ? 'Active · image seam is dissolving'
+              : 'Active · waiting for a neighbour'
+            : 'Inactive · image is restored after release'}
+        </span>
+      </div>
+    </article>
+  );
+}
+
+export const ContactDissolve: Story = {
+  render: () => <DissolveScene />,
+};
 
 export const MorphConservative: StoryObj<MorphKnobProps> = {
   argTypes: morphKnobArgTypes,

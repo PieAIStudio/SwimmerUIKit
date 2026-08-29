@@ -60,15 +60,67 @@ group-level `waviness` / `wavinessFreq` filter pass: a fixed-seed `feTurbulence`
 field and `feDisplacementMap` move the silhouette before its shadow passes
 consume it, so the shadow follows the same edge.
 
-We did not take the donor's melt, dissolve, or image-melt systems, nor its
-general observer. SwimmerUIKit changes the implementation for this kit by
-making effect values token-driven, keeping texture static with a visible 6px
-default, adding process-wide animated-group and filter-area budgets that
-include waviness, content-blur, and Bend deformation slack, and putting the
-shared requestAnimationFrame clock to sleep after stillness. The actual
+The local implementation also adapts the donor's pairwise image-melt engine in
+`src/liquidGooeyImageMelt.tsx`, including the two-item pairing, measured image
+rects, crisp-face seam masks, two-palette colour mixing, and marbling pass. Its
+contact dissolve masks only `<img>` pixels; text remains in the unfiltered DOM
+content layer. The dissolve math is a scoped adaptation of the donor's contact
+observer behavior, not a transplant of the donor's general observer loop.
+
+SwimmerUIKit changes the implementation for this kit by making effect values
+token-driven, keeping texture static with a visible 6px default, and adding
+process-wide animated-group and filter-area budgets that include waviness,
+Morph content-blur, Bend deformation, Melt marbling, and dissolve displacement
+slack. The shared requestAnimationFrame clocks sleep after stillness, and
+over-budget effects degrade visibly with a development warning. The actual
 interactive content remains outside the filtered SVG layer; Morph's blur is
-applied to the content wrapper only, while Bend content receives inherited
-CSS variables.
+applied to the content wrapper only, Bend content receives inherited CSS
+variables, and image labels stay crisp above the image layer.
+
+The MIT License text for that material:
+
+MIT License
+
+Copyright (c) 2026 Jakub
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Liquid-gooey image Melt and contact dissolve
+--------------------------------------------
+Portions of the pairwise image-melt and contact-image dissolve implementation
+in `src/liquidGooeyImageMelt.tsx` are adapted from liquid-gooey by Jakub
+Antalik (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
+Copyright (c) 2026 Jakub, licensed under the MIT License.
+
+Source URL: https://github.com/Jakubantalik/Libraries/blob/3862ffa345217443b63696a8c331a0664eea4b04/packages/liquid-gooey/src/imageMelt.tsx
+Pinned donor commit: `3862ffa345217443b63696a8c331a0664eea4b04`
+The scoped contact-dissolve math was reviewed from the same commit's
+`src/observer.ts`. The donor's general observer loop was not imported;
+the kit retains its own budgeted and idle-sleeping runtime. This is a local
+adaptation, not a runtime dependency on the donor checkout.
+
+The adapted surface keeps the donor's two-item Melt pairing, measured image
+rects, crisp-face seam masks, two-palette colour mixing and marbling pass. Its
+contact dissolve masks only `<img>` pixels; text remains in the unfiltered DOM
+content layer. SwimmerUIKit adds token-backed knobs, its 480,000 px² filter-area
+and process-wide concurrency budgets, graceful development-visible degradation,
+and a sleeping requestAnimationFrame clock.
 
 The MIT License text for that material:
 

@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-29T05:28:05.021Z
+generated_at: 2026-08-29T09:42:57.903Z
 generator_version: doc-gov@0.9.9
-docs_count: 25
+docs_count: 27
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -136,6 +136,20 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-08-27
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-IMAGE-ONLY-CONTACT-MASKS-NEED-COMPONENT-SCOPE-CLEANUP
+    path: docs/reference/learnings/workflow-issues/image-only-contact-masks-need-component-scope-cleanup.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-29
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-IMAGE-ONLY-DISSOLVE-MUST-BYPASS-DEFAULT-MORPH-CONTENT-BLUR
+    path: docs/reference/learnings/workflow-issues/image-only-dissolve-must-bypass-default-morph-content-blur.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-29
     pinned: false
   - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
     path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md

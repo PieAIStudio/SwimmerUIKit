@@ -308,6 +308,38 @@
      6px at the donor's 0.018 frequency; 0 remains an explicit calm override. */
   --game-ui-liquid-gooey-waviness: 6;
   --game-ui-liquid-gooey-waviness-freq: 0.018;
+
+  /* Liquid-gooey image Melt. These numeric knobs stay in the token layer so
+     a consuming theme can tune the material without forking the SVG engine. */
+  --game-ui-liquid-gooey-melt-blur: 7;
+  --game-ui-liquid-gooey-melt-contrast: 40;
+  --game-ui-liquid-gooey-melt-reach: 0.8;
+  --game-ui-liquid-gooey-melt-fade: 17;
+  --game-ui-liquid-gooey-melt-warp: 0;
+  --game-ui-liquid-gooey-melt-mix: 1;
+  --game-ui-liquid-gooey-melt-mix-blur: 8;
+  --game-ui-liquid-gooey-melt-gravity: 1.9;
+  --game-ui-liquid-gooey-melt-waviness: 12;
+
+  /* Liquid-gooey contact dissolve. `active` and `warpStyle` are behavioral
+     modifiers, so they remain explicit props; all numeric defaults are
+     theme-addressable here. */
+  --game-ui-liquid-gooey-dissolve-blur: 8;
+  --game-ui-liquid-gooey-dissolve-warp: 26;
+  --game-ui-liquid-gooey-dissolve-pull: 4;
+  --game-ui-liquid-gooey-dissolve-range: 49;
+  --game-ui-liquid-gooey-dissolve-zone: 18;
+  --game-ui-liquid-gooey-dissolve-mix: 0.7;
+  --game-ui-liquid-gooey-dissolve-gravity: 60;
+  --game-ui-liquid-gooey-dissolve-taper: 1;
+  --game-ui-liquid-gooey-dissolve-warp-freq: 1.7;
+  --game-ui-liquid-gooey-dissolve-flow-speed: 22;
+  --game-ui-liquid-gooey-dissolve-detail: 2;
+  --game-ui-liquid-gooey-dissolve-release-ms: 110;
+  --game-ui-liquid-gooey-dissolve-fade-ms: 110;
+  --game-ui-liquid-gooey-dissolve-strength: 1;
+  --game-ui-liquid-gooey-dissolve-sink: 0.8;
+  --game-ui-liquid-gooey-dissolve-seam-blur: 12.8;
 }
 
 /*

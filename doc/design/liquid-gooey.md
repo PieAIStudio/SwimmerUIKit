@@ -6,7 +6,9 @@ elements visually join into one clay-like blob, then pull apart with a short
 elastic thread; `shape` adds the donor's centre → size → corner jelly timeline;
 `follow` (Move) remains reserved for the selected indicator and progress
 leading edge; `bend` deforms a moving surface while keeping content glued to
-its own rendered rectangle. It uses an inline SVG filter built from
+its own rendered rectangle. Its image surface adds pairwise `Melt` and contact
+`dissolve` layers without filtering the real content DOM. It uses inline SVG
+filters built from
 `feGaussianBlur` and `feColorMatrix`; it does not add a WebGL or npm runtime
 dependency.
 
@@ -88,6 +90,51 @@ The Bend implementation and its file header point to the donor URL, pinned
 commit, copyright, MIT license, and this `NOTICE` file. No donor checkout is a
 runtime dependency.
 
+## Image Melt
+
+`effect="melt"` is an image-pair surface, not a replacement for the ordinary
+content layer. The first two Melt items form one pair because the seam
+calculation is a two-body calculation. The runtime follows their measured
+rects, averages both palettes in the contact zone, pulls each crisp face back
+with a seam mask, and adds a separate marbling pass that folds the palettes
+into streaks.
+
+```tsx
+<LiquidGroup>
+  <LiquidGroup.Item effect="melt" melt={{ mix: 1 }}>
+    <img alt="warm palette" src={warmImage} />
+    <span>Warm label stays crisp</span>
+  </LiquidGroup.Item>
+  <LiquidGroup.Item effect="melt" melt={{ mix: 1 }}>
+    <img alt="cool palette" src={coolImage} />
+    <span>Cool label stays crisp</span>
+  </LiquidGroup.Item>
+</LiquidGroup>
+```
+
+The donor defaults are available through the token layer:
+`meltBlur=7`, `meltContrast=40`, `meltReach=0.8`,
+`meltFade=17`, `meltWarp=0`, `meltMix=1`,
+`meltMixBlur=8`, `meltGravity=1.9`, and
+`meltWaviness=12`. A `melt={{ src }}` override is useful when the source image
+URL is supplied by a manifest or changes independently of the child image's
+current `src`.
+
+## Contact dissolve
+
+`dissolve` is a modifier on a normal `LiquidGroup.Item`, not a separate group
+effect. `dissolve`, `dissolve={0.5}`, and
+`dissolve={{ mix: 0.7, active: dragging }}` are supported. Proximity to the
+nearest item grows the contact strength; release uses a short hysteresis window
+so the image does not pop when a moving neighbor crosses a pixel boundary.
+The layer uses displacement, turbulence and two-liquid erosion rather than a
+plain blur. Only the `img` pixels receive the mask and SVG layer. Text and
+other DOM content remain crisp and accessible.
+
+With `effect="move"`, `dissolve` is intentionally ignored and warns once in
+development: Move's liquid surface intentionally lags the measured image rect,
+so the two coordinate systems would visibly disagree.
+
 ## Surface texture
 
 `waviness` and `wavinessFreq` are group-level knobs. They adapt the pinned
@@ -122,17 +169,31 @@ states without movement.
 
 SVG filters are not WebGL contexts, so the separate gooey budget limits
 simultaneously animated groups and the padded filter-area size, including the
-waviness, Morph content-blur, and Bend deformation slack. The defaults are two
-animated groups and 480,000 CSS pixels per filter region. The live group
-attributes `data-liquid-filter-area` and `data-liquid-feature-padding` expose
-the accounting for Storybook/QA. A group that cannot acquire a slot stays
-rendered with its SVG filter and snaps to state; it does not throw and does not
-disappear.
+waviness, Morph content-blur, Bend deformation, Melt marbling, and dissolve
+displacement slack. The defaults are two animated groups and 480,000 CSS pixels
+per filter region. The live group attributes `data-liquid-filter-area` and
+`data-liquid-feature-padding` expose the accounting for Storybook/QA. A group
+that cannot acquire a slot stays rendered with its SVG filter and snaps to
+state; the image layer restores crisp pixels and emits one development warning.
 
-## First-version boundary
+The image layer has its own scoped measurement loop rather than adopting the
+donor's general observer. It wakes for registration, geometry, image, scroll,
+transition, and mutation signals, then stops scheduling requestAnimationFrame
+after roughly 500 ms of stillness. A settled SVG remains painted, but its
+clock is asleep; removing the pair/contact releases its budget lease.
 
-The retained action vocabulary is `merge`, `follow`, `shape`, `bend`,
+The retained action vocabulary is `merge`, `follow`, `shape`, `bend`, `melt`,
 `dissolve`, and `still`. This package implements `merge`/Morph, Morph `shape`,
-`follow`/Move, and Bend. The donor's Melt, image-melt, dissolve systems, and
-general observer remain outside this brand-kit boundary until a separate
-product use case, asset pipeline, and performance/accessibility review exists.
+`follow`/Move, Bend, pairwise image Melt, and image-only contact dissolve.
+
+## Donor boundary
+
+The image Melt engine in `src/liquidGooeyImageMelt.tsx` is a local adaptation of
+the pinned donor `imageMelt.tsx`; the scoped contact-dissolve math was reviewed
+from that same commit's observer code. The donor checkout is provenance only.
+The donor's general observer loop remains rejected because the kit's own
+budgeted, idle-sleeping runtime provides the process-wide limits and lifecycle
+behavior required here.
+
+The supported surfaces are `morph`, `move`, `bend`, pairwise image `melt`, and
+image-only contact `dissolve`. The donor checkout remains provenance only.
