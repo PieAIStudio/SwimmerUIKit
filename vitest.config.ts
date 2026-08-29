@@ -53,6 +53,7 @@ export default defineConfig({
           include: ['src/**/*.browser.test.{ts,tsx}'],
           browser: {
             enabled: true,
+            api: { port: 0 },
             provider: playwright({}),
             instances: [
               {

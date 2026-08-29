@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-28T14:33:01.168Z
+generated_at: 2026-08-29T04:10:56.754Z
 generator_version: doc-gov@0.9.8
-docs_count: 24
+docs_count: 25
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -150,6 +150,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-07-12
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-REACT-STRICTMODE-EFFECT-CLEANUP-MUST-NOT-PERMANENTLY-DISPOSE-A-MEMOIZED-DOM-ANIM
+    path: docs/reference/learnings/workflow-issues/react-strictmode-effect-cleanup-must-not-permanently-dispose-a-memoized-dom-anim.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-08-29
     pinned: false
   - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
     path: docs/reference/usage-and-upgrade-playbook.md

@@ -1,4 +1,4 @@
-import { act, type ReactNode } from 'react';
+import { StrictMode, act, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createRoot, type Root } from 'react-dom/client';
@@ -30,6 +30,7 @@ afterEach(async () => {
   mountedContainer = null;
   resetLiquidGooeyBudgetForTests();
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 
 async function mount(node: ReactNode): Promise<HTMLDivElement> {
@@ -49,6 +50,74 @@ function makeRegistration(): LiquidGooeyItemRegistration {
 }
 
 describe('LiquidGroup browser architecture', () => {
+  it('paints the Morph silhouette when mounted inside React StrictMode', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const renderMorph = (merged: boolean): ReactNode => {
+      const firstX = merged ? 24 : -12;
+      const secondX = merged ? -24 : 12;
+      return (
+        <StrictMode>
+          <LiquidGroup style={{ height: '120px', width: '240px' }}>
+            <LiquidGroup.Item
+              style={{
+                height: '64px',
+                left: '24px',
+                position: 'absolute',
+                top: '28px',
+                width: '64px',
+              }}
+              transition="snappy"
+              x={firstX}
+            >
+              <button
+                style={{ border: '0', boxShadow: 'none', height: '100%', width: '100%' }}
+                type="button"
+              >
+                A
+              </button>
+            </LiquidGroup.Item>
+            <LiquidGroup.Item
+              style={{
+                height: '64px',
+                left: '132px',
+                position: 'absolute',
+                top: '28px',
+                width: '84px',
+              }}
+              transition="snappy"
+              x={secondX}
+            >
+              <button
+                style={{ border: '0', boxShadow: 'none', height: '100%', width: '100%' }}
+                type="button"
+              >
+                B
+              </button>
+            </LiquidGroup.Item>
+          </LiquidGroup>
+        </StrictMode>
+      );
+    };
+
+    const container = await mount(renderMorph(false));
+
+    await act(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    await act(async () => {
+      mountedRoot?.render(renderMorph(true));
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    });
+
+    const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
+    expect(paths).toHaveLength(2);
+    expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);
+    expect(console.warn).not.toHaveBeenCalledWith(
+      expect.stringContaining('liquid animation budget is insufficient'),
+    );
+  });
+
   it('keeps focus, hit testing, and focus styles on the unfiltered child DOM', async () => {
     const container = await mount(
       <LiquidGroup style={{ width: '240px', height: '120px' }}>
@@ -212,6 +281,7 @@ describe('LiquidGooeyEngine idle clock', () => {
   });
 
   it('falls back to filtered static rendering when the animation budget is full', () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     setLiquidGooeyBudget(0);
     const group = document.createElement('div');
     const registration = makeRegistration();
@@ -225,8 +295,14 @@ describe('LiquidGooeyEngine idle clock', () => {
     });
     engine.register(registration);
     engine.update('test-item', { x: 80, transition: { duration: 120 } });
+    engine.update('test-item', { x: 100, transition: { duration: 120 } });
     expect(engine.getDebugState()).toMatchObject({ mode: 'static', claimed: false });
-    expect(registration.host.style.transform).toContain('80px');
+    expect(registration.host.style.transform).toContain('100px');
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining('liquid animation budget is insufficient'),
+    );
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('static rendering'));
     engine.dispose();
     group.remove();
   });

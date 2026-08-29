@@ -165,6 +165,8 @@ export class LiquidGooeyEngine {
 
   private claimed = false;
 
+  private budgetWarningEmitted = false;
+
   private reducedMotion: boolean;
 
   private filterArea = 0;
@@ -198,6 +200,7 @@ export class LiquidGooeyEngine {
   }
 
   register(registration: LiquidGooeyItemRegistration): () => void {
+    this.revive();
     this.unregister(registration.id);
     const config = normalizeConfig(registration.config);
     const entry: Entry = {
@@ -381,10 +384,36 @@ export class LiquidGooeyEngine {
     if (this.claimed) return true;
     const areaFromHost = this.getFilterArea();
     if (Number.isFinite(areaFromHost)) this.filterArea = Math.max(0, areaFromHost);
-    if (!tryAcquireLiquidGooeyAnimation(this.filterArea)) return false;
+    if (!tryAcquireLiquidGooeyAnimation(this.filterArea)) {
+      this.warnBudgetFallback();
+      return false;
+    }
     this.claimed = true;
     this.moveOptions = resolveMoveOptions(this.getGroup());
     return true;
+  }
+
+  private warnBudgetFallback(): void {
+    if (this.budgetWarningEmitted || import.meta.env?.DEV === false) return;
+    this.budgetWarningEmitted = true;
+    const budget = getLiquidGooeyBudget();
+    const reason =
+      budget.activeGroups >= budget.maxAnimatedGroups
+        ? 'the active-group limit is reached'
+        : 'the filter-area limit is exceeded';
+    console.warn(
+      `LiquidGroup: the liquid animation budget is insufficient (${reason}); ` +
+        'degrading to static rendering for this group.',
+    );
+  }
+
+  private revive(): void {
+    if (!this.disposed) return;
+    this.disposed = false;
+    this.mutationObserver = null;
+    this.removeListeners.length = 0;
+    this.lastFrameTime = null;
+    this.budgetWarningEmitted = false;
   }
 
   private releaseClaim(): void {
