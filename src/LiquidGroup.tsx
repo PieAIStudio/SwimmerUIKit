@@ -16,6 +16,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
+import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from './liquidGooeyBudget';
 import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 import {
   LiquidGooeyEngine,
@@ -23,6 +24,8 @@ import {
   type LiquidGooeyMotionMode,
 } from './liquidGooeyEngine';
 import type { CornerRadii } from './liquidGooeyGeometry';
+import type { BendTuning } from './liquidGooeyMove';
+import type { MorphTuning } from './liquidGooeyEvolve';
 import { parseShadow, parseStroke } from './liquidGooeyShadow';
 import type { Transition } from './liquidGooeySpring';
 
@@ -40,6 +43,8 @@ import type { Transition } from './liquidGooeySpring';
  * | --- | --- |
  * | **merge** (Morph) | two things become one: reward settling, collecting, confirming |
  * | **follow** (Move) | selection, progress, dragging |
+ * | **shape** (Morph shape) | the liquid changes size and corners like jelly |
+ * | **bend** | speed bows the surface while content stays glued to it |
  * | **dissolve** | replacement, transition |
  * | **still** | THE DEFAULT |
  *
@@ -61,7 +66,7 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   shadow?: string;
   /** Optional stroke syntax rebuilt on the merged silhouette. Note: Do NOT add border to children directly! */
   stroke?: string;
-  /** Max px the liquid boundary undulates. Defaults to the CSS token (0). */
+  /** Max px the liquid boundary undulates. Defaults to the CSS token (6). */
   waviness?: number;
   /** Noise frequency of the undulation; lower values make longer waves. */
   wavinessFreq?: number;
@@ -90,11 +95,20 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   delay?: number;
   /** Override the measured content border radius for the silhouette. */
   radius?: number | CornerRadii;
+  /** Select the adopted item surface behavior. Bend follows child geometry. */
+  effect?: 'morph' | 'bend';
+  /** Morph shape, tempo, bounce, and content cross-blur tuning. */
+  morph?: MorphTuning;
+  /** Bend strengths for vertical bow and horizontal cap deformation. */
+  bend?: BendTuning;
+  /** Follow a child moved by external code; Bend implies this automatically. */
+  observe?: boolean;
 }
 
 interface LiquidGroupContextValue {
   portal: SVGGElement | null;
   engine: LiquidGooeyEngine;
+  follow: boolean;
 }
 
 const LiquidGroupContext = createContext<LiquidGroupContextValue | null>(null);
@@ -208,6 +222,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     waviness: LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
     wavinessFreq: LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
   });
+  const [featurePadding, setFeaturePadding] = useState(0);
+  const featurePaddingRef = useRef(0);
   const systemReducedMotion = useSystemReducedMotion();
   const reducedMotion = motion === 'reduced' || systemReducedMotion;
   const [motionMode, setMotionMode] = useState<LiquidGooeyMotionMode>(
@@ -236,7 +252,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   const resolvedStroke = resolveCssVariable(stroke, groupRef.current);
   const shadows = useMemo(() => parseShadow(resolvedShadow), [resolvedShadow]);
   const parsedStroke = useMemo(() => parseStroke(resolvedStroke), [resolvedStroke]);
-  const pad = Math.ceil(
+  const basePad = Math.ceil(
     blurValue * 3 +
       filterPaddingValue +
       shadowExtentOf(shadows) +
@@ -246,6 +262,9 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       // the filter raster and the area budget reflects the real work.
       wavinessValue,
   );
+  const basePadRef = useRef(basePad);
+  basePadRef.current = basePad;
+  const pad = Math.ceil(basePad + featurePadding);
   const padRef = useRef(pad);
   padRef.current = pad;
 
@@ -302,10 +321,15 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
           const group = groupRef.current;
           if (!group) return 0;
           return (
-            (group.offsetWidth + padRef.current * 2) * (group.offsetHeight + padRef.current * 2)
+            (group.offsetWidth + (basePadRef.current + featurePaddingRef.current) * 2) *
+            (group.offsetHeight + (basePadRef.current + featurePaddingRef.current) * 2)
           );
         },
         onModeChange: setMotionMode,
+        onFeaturePaddingChange: (next) => {
+          featurePaddingRef.current = next;
+          setFeaturePadding((previous) => (Math.abs(previous - next) < 0.5 ? previous : next));
+        },
         follow: motion === 'follow',
       }),
     // Its live reduced-motion value is updated below.
@@ -318,7 +342,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     const measure = (): void => {
       const next = { w: group.offsetWidth, h: group.offsetHeight };
       setSize((previous) => (previous.w === next.w && previous.h === next.h ? previous : next));
-      engine.setFilterArea((next.w + pad * 2) * (next.h + pad * 2));
+      engine.setFilterArea((next.w + padRef.current * 2) * (next.h + padRef.current * 2));
     };
     measure();
     if (typeof ResizeObserver === 'undefined') return;
@@ -342,6 +366,9 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       {...rest}
       ref={setGroupRef}
       className={classes}
+      data-liquid-filter-area={Math.round((size.w + pad * 2) * (size.h + pad * 2))}
+      data-liquid-filter-budget={DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET}
+      data-liquid-feature-padding={Math.round(featurePadding * 10) / 10}
       data-liquid-motion={motionMode}
       style={style}
     >
@@ -374,7 +401,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
         </defs>
         <g ref={setPortalRef} fill={fill} filter={`url(#${filterId})`} />
       </svg>
-      <LiquidGroupContext.Provider value={{ portal, engine }}>
+      <LiquidGroupContext.Provider value={{ portal, engine, follow: motion === 'follow' }}>
         <div className="game-ui-liquid-content">{children}</div>
       </LiquidGroupContext.Provider>
     </div>
@@ -382,16 +409,40 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
 });
 
 export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function LiquidItem(
-  { x = 0, y = 0, scale = 1, transition, delay, radius, className, style, children, ...rest },
+  {
+    x = 0,
+    y = 0,
+    scale = 1,
+    transition,
+    delay,
+    radius,
+    effect,
+    morph,
+    bend,
+    observe,
+    className,
+    style,
+    children,
+    ...rest
+  },
   forwardedRef,
 ) {
-  const { portal, engine } = useLiquidGroupContext();
+  const { portal, engine, follow } = useLiquidGroupContext();
   const itemId = `liquid-item-${sanitizeId(useId())}`;
   const hostRef = useRef<HTMLDivElement | null>(null);
   const blobRef = useRef<SVGPathElement | null>(null);
   const initialConfig = useRef<LiquidGooeyItemConfig | null>(null);
   const config = useMemo<LiquidGooeyItemConfig>(() => {
+    const bendObserved = effect === 'bend';
+    const effectiveMorph =
+      effect === 'bend' || (follow && morph === undefined && effect !== 'morph')
+        ? undefined
+        : (morph ?? {});
     const next: LiquidGooeyItemConfig = {
+      ...(effect === undefined ? {} : { effect }),
+      ...(effectiveMorph === undefined ? {} : { morph: effectiveMorph }),
+      ...(bend === undefined ? {} : { bend }),
+      ...(observe === undefined && !bendObserved ? {} : { observe: bendObserved || observe }),
       x: finite(x, 0),
       y: finite(y, 0),
       scale: finite(scale, 1),
@@ -400,7 +451,7 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     if (delay !== undefined) next.delay = delay;
     if (radius !== undefined) next.radius = radius;
     return next;
-  }, [delay, radius, scale, transition, x, y]);
+  }, [bend, delay, effect, follow, morph, observe, radius, scale, transition, x, y]);
   if (initialConfig.current === null) initialConfig.current = config;
 
   const setHostRef = useCallback(
@@ -462,9 +513,11 @@ export const LiquidItem = forwardRef<HTMLDivElement, LiquidItemProps>(function L
 
 /**
  * Merges nearby item silhouettes into one shape while leaving their content
- * accessible and unfiltered. Do NOT add border, outline, or box-shadow to
- * children directly; pass the shared treatment to <LiquidGroup>.
+ * accessible and separately filtered. Morph content may cross-blur while it
+ * moves; Bend keeps its content surface-glued and exposes its live CSS vars.
+ * Do NOT add border, outline, or box-shadow to children directly; pass the
+ * shared treatment to <LiquidGroup>.
  */
 export const LiquidGroup = Object.assign(LiquidGroupRoot, { Item: LiquidItem });
 
-export type { CornerRadii, Transition };
+export type { BendTuning, CornerRadii, MorphTuning, Transition };

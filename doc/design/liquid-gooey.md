@@ -1,10 +1,12 @@
 # LiquidGroup
 
-`LiquidGroup` is the SwimmerUIKit first-version liquid primitive. Its `merge`
-(Morph) gesture lets two or a few nearby UI elements visually join into one
-clay-like blob, then pull apart with a short elastic thread; its `follow`
-(Move) gesture is reserved for the selected indicator and progress leading
-edge. It uses an inline SVG filter built from
+`LiquidGroup` is the SwimmerUIKit liquid primitive for short, user-caused
+surface motion. Its `merge` (Morph) gesture lets two or a few nearby UI
+elements visually join into one clay-like blob, then pull apart with a short
+elastic thread; `shape` adds the donor's centre → size → corner jelly timeline;
+`follow` (Move) remains reserved for the selected indicator and progress
+leading edge; `bend` deforms a moving surface while keeping content glued to
+its own rendered rectangle. It uses an inline SVG filter built from
 `feGaussianBlur` and `feColorMatrix`; it does not add a WebGL or npm runtime
 dependency.
 
@@ -26,7 +28,11 @@ rendering native.
 
 ```tsx
 <LiquidGroup blur={6} contrast={18} filterPadding={24} waviness={6} wavinessFreq={0.018}>
-  <LiquidGroup.Item x={24} transition="snappy">
+  <LiquidGroup.Item
+    morph={{ shape: true, speed: 1, bounce: 0.5, contentBlur: 7 }}
+    x={24}
+    transition="snappy"
+  >
     <button type="button">Collect</button>
   </LiquidGroup.Item>
   <LiquidGroup.Item x={-24} transition="snappy">
@@ -41,6 +47,47 @@ The default `fill` is the theme token
 `shadow` prop follows the same rule and accepts token-based CSS box-shadow
 syntax.
 
+## Morph shape and content blur
+
+`morph.shape` is token-on in this brand-kit adoption so the default is visible;
+`morph={{ shape: false }}` is the explicit calm opt-out. The other adopted
+defaults are `speed: 1`, `bounce: 0.5`, and `contentBlur: 7`. `speed` changes
+tempo without changing the spring character. `bounce: 0` is critically damped;
+higher values add overshoot and jelly wobble.
+
+Shape physics are adapted from the pinned donor implementation: the centre
+travels first, width/height follow, and the corner timeline resolves last. The
+content blur is separate from the SVG silhouette: it is applied to the item
+content wrapper while the evolve motion envelope is non-zero and removed as
+the surface settles. A child button remains a real, focusable DOM control; the
+silhouette never receives the content blur.
+
+The raw evolve values are also token-backed under
+`--game-ui-liquid-gooey-evolve-*`. Use the normalized knobs for normal product
+work; the `advanced` field is for a reviewed design-system preset.
+
+## Bend
+
+`effect="bend"` implies `observe`: the item measures the child's rendered
+rectangle, so the liquid surface tracks the child directly. Vertical velocity
+bows the top and bottom edges (middle leads, ends lag); horizontal velocity
+reshapes the caps (front blunts, back stretches). There is no lagging body and
+no Move tail, so text and icons cannot slide out of their own card.
+
+The defaults are `vertical: 0.6` and `horizontal: 0.35`. The live shape is
+published on the item as `--lg-bend-x` / `--lg-bend-y` in px and
+`--lg-bend-xn` / `--lg-bend-yn` as unitless values:
+
+```css
+.card-content {
+  transform: rotate(calc(var(--lg-bend-yn, 0) * 0.35deg));
+}
+```
+
+The Bend implementation and its file header point to the donor URL, pinned
+commit, copyright, MIT license, and this `NOTICE` file. No donor checkout is a
+runtime dependency.
+
 ## Surface texture
 
 `waviness` and `wavinessFreq` are group-level knobs. They adapt the pinned
@@ -53,8 +100,8 @@ geometric contour.
 The texture is static. There is no animated `baseFrequency`, no time-based
 seed, and no additional requestAnimationFrame work; the existing shared clock
 still sleeps after the normal settle window. The shipped token default is
-`--game-ui-liquid-gooey-waviness: 0` so existing consumers keep their exact
-edge. The recommended brand preset is `6` with
+`--game-ui-liquid-gooey-waviness: 6`; `0` remains an explicit calm override.
+The recommended brand preset is `6` with
 `--game-ui-liquid-gooey-waviness-freq: 0.018`; `3`/`0.022` is conservative and
 `10`/`0.014` is bold on the same strength axis.
 
@@ -75,14 +122,17 @@ states without movement.
 
 SVG filters are not WebGL contexts, so the separate gooey budget limits
 simultaneously animated groups and the padded filter-area size, including the
-waviness slack. The defaults are two animated groups and 480,000 CSS pixels
-per filter region. A group that cannot acquire a slot stays rendered with its
-SVG filter and snaps to state; it does not throw and does not disappear.
+waviness, Morph content-blur, and Bend deformation slack. The defaults are two
+animated groups and 480,000 CSS pixels per filter region. The live group
+attributes `data-liquid-filter-area` and `data-liquid-feature-padding` expose
+the accounting for Storybook/QA. A group that cannot acquire a slot stays
+rendered with its SVG filter and snaps to state; it does not throw and does not
+disappear.
 
 ## First-version boundary
 
-This primitive intentionally implements only `morph` and the adopted `follow`
-(Move) surface. `melt` (image dissolution), `bend` (shape deformation), and
-`dissolve` are not part of this version. A later version would need explicit
-product use cases, a larger measurement/asset pipeline, and separate
-performance and accessibility tests before adding those behaviors.
+The retained action vocabulary is `merge`, `follow`, `shape`, `bend`,
+`dissolve`, and `still`. This package implements `merge`/Morph, Morph `shape`,
+`follow`/Move, and Bend. The donor's Melt, image-melt, dissolve systems, and
+general observer remain outside this brand-kit boundary until a separate
+product use case, asset pipeline, and performance/accessibility review exists.

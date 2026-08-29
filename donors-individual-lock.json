@@ -14,7 +14,10 @@
   "mode": "review-only",
   "importedScope": [
     "packages/liquid-gooey/src/observer.ts#MoveOptions,MOVE_DEFAULTS,springStep,springSteps,Move center/stretch/tail physics",
-    "packages/liquid-gooey/src/filter.tsx#GooFilterPrimitives,waviness static feTurbulence/feDisplacementMap pass with fixed seed 7"
+    "packages/liquid-gooey/src/filter.tsx#GooFilterPrimitives,waviness static feTurbulence/feDisplacementMap pass with fixed seed 7",
+    "packages/liquid-gooey/src/observer.ts#EVOLVE_DEFAULTS,centre-size-radius springs,corner timeline,contentBlur motion envelope",
+    "packages/liquid-gooey/src/LiquidItem.tsx#MorphTuning shape/speed/bounce mapping and observed Morph shape behavior",
+    "packages/liquid-gooey/src/observer.ts#Bend velocity bow, cap deformation, and --lg-bend-x/y/xn/yn CSS variable publication"
   ],
   "reviewedScope": [
     "packages/liquid-gooey/README.md",
@@ -24,7 +27,7 @@
   ],
   "rejectedScope": [
     "packages/liquid-gooey/src/imageMelt.tsx",
-    "Melt, Bend, and dissolve systems as product features",
+    "Melt and dissolve systems as product features",
     "general observer and image-melt engine"
   ],
   "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."

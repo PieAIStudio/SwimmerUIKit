@@ -72,11 +72,17 @@ describe('liquid-gooey token mirror', () => {
     }
   });
 
-  it('ships waviness off by default with the donor frequency as its token baseline', () => {
+  it('ships the adopted visible defaults and keeps the donor frequency baseline', () => {
     expect(CLAY_LIQUID_GOOEY_TOKENS.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
     expect(CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
-    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('0');
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('6');
     expect(rootVars.get('--game-ui-liquid-gooey-waviness-freq')).toBe('0.018');
+    expect(rootVars.get('--game-ui-liquid-gooey-morph-shape')).toBe('1');
+    expect(rootVars.get('--game-ui-liquid-gooey-morph-speed')).toBe('1');
+    expect(rootVars.get('--game-ui-liquid-gooey-morph-bounce')).toBe('0.5');
+    expect(rootVars.get('--game-ui-liquid-gooey-evolve-content-blur')).toBe('7');
+    expect(rootVars.get('--game-ui-liquid-gooey-bend-vertical')).toBe('0.6');
+    expect(rootVars.get('--game-ui-liquid-gooey-bend-horizontal')).toBe('0.35');
   });
 });
 

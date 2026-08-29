@@ -23,29 +23,33 @@ never a checkout from `_donors-individual/for_SwimmerUIKit/`.
 
 ### Review and adoption boundary
 
-The current SwimmerUIKit implementation is local code; its Move physics is
-adapted into `src/liquidGooeyMove.ts`; no upstream files are vendored or imported
-at runtime. The reviewed scope is the donor
+The current SwimmerUIKit implementation is local code; no upstream files are
+vendored or imported at runtime. The reviewed scope is the donor
 package's `README.md`, `package.json`, `LICENSE`, and `src/**` so the kit can
-trace the morph design and implementation patterns that informed
-`src/LiquidGroup.tsx` and its supporting modules.
+trace the retained implementation in `src/LiquidGroup.tsx` and its supporting
+modules.
 
 Patterns retained in the local implementation are the SVG
 silhouette/content split, Gaussian blur plus alpha color-matrix filtering,
 rounded-rectangle geometry, token-compatible shadow passes, spring-to-easing
-compilation, and the donor's Move center/stretch/tail physics. SwimmerUIKit
-adopted only the donor's Move physics for the selected indicator and progress
-leading edge; it deliberately did not take the donor's Melt, Bend, or dissolve
-systems, general observer, or image-melt engine. The
-local implementation now also adopts the donor's group-level `waviness` and
-`wavinessFreq` filter pass as a static, fixed-seed surface texture. These two
-capabilities were previously missing from both the retained list and the
-rejected list: that was an omission in the review record, not a decision to
-reject them. The kit keeps its own token-driven values, process-wide animation
-and filter-area budgets, an idle-sleeping shared animation clock, and its own
-interaction boundary; see `NOTICE` for the legal attribution. The static
-texture never adds an ambient clock, and its maximum displacement is included
-in the filter-area budget.
+compilation, and the donor's Move center/stretch/tail physics. The local
+implementation also directly adapts the donor's Morph shape evolution,
+`contentBlur` content-layer cross-blur, and Bend's velocity-bowed path plus
+`--lg-bend-x` / `--lg-bend-y` / `--lg-bend-xn` / `--lg-bend-yn` CSS-variable
+outlet. Morph shape is deliberately token-on in this kit so the adopted default
+is visible; callers can pass `morph={{ shape: false }}` to opt out. The local
+implementation also adopts the donor's group-level `waviness` and
+`wavinessFreq` filter pass as a static, fixed-seed surface texture.
+
+This paragraph records a new review decision in this change: the three
+capabilities above move from the previously rejected/omitted boundary into the
+retained scope. The donor's Melt, dissolve, image-melt engine, and general
+observer remain rejected for this package. SwimmerUIKit keeps its own
+token-driven values, process-wide animation and filter-area budgets, an
+idle-sleeping shared animation clock, and its own interaction boundary; see
+`NOTICE` for the legal attribution. No retained effect adds an ambient clock,
+and Morph content blur plus Bend's maximum deformation are included in the
+filter-area budget.
 
 ### Update policy
 
