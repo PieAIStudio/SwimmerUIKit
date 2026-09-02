@@ -2872,6 +2872,7 @@
     outline: 3px solid var(--game-ui-focus-ring);
     outline-offset: 2px;
   }
+  .game-ui-scroll-surface,
   .game-ui-window-body,
   .game-ui-contractor-job-list,
   .game-ui-compact-job-drawer-list,
@@ -2880,7 +2881,62 @@
   .game-ui-shell-side-panel,
   .game-ui-modal-frame {
     scrollbar-width: thin;
-    scrollbar-color: var(--game-ui-border-strong) transparent;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+  }
+  .game-ui-scroll-surface::-webkit-scrollbar,
+  .game-ui-window-body::-webkit-scrollbar,
+  .game-ui-contractor-job-list::-webkit-scrollbar,
+  .game-ui-compact-job-drawer-list::-webkit-scrollbar,
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar,
+  .game-ui-shell-library::-webkit-scrollbar,
+  .game-ui-shell-side-panel::-webkit-scrollbar,
+  .game-ui-modal-frame::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-scroll-surface::-webkit-scrollbar-track,
+  .game-ui-window-body::-webkit-scrollbar-track,
+  .game-ui-contractor-job-list::-webkit-scrollbar-track,
+  .game-ui-compact-job-drawer-list::-webkit-scrollbar-track,
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-track,
+  .game-ui-shell-library::-webkit-scrollbar-track,
+  .game-ui-shell-side-panel::-webkit-scrollbar-track,
+  .game-ui-modal-frame::-webkit-scrollbar-track,
+  .game-ui-scroll-surface::-webkit-scrollbar-corner,
+  .game-ui-window-body::-webkit-scrollbar-corner,
+  .game-ui-contractor-job-list::-webkit-scrollbar-corner,
+  .game-ui-compact-job-drawer-list::-webkit-scrollbar-corner,
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-corner,
+  .game-ui-shell-library::-webkit-scrollbar-corner,
+  .game-ui-shell-side-panel::-webkit-scrollbar-corner,
+  .game-ui-modal-frame::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-scroll-surface::-webkit-scrollbar-thumb,
+  .game-ui-window-body::-webkit-scrollbar-thumb,
+  .game-ui-contractor-job-list::-webkit-scrollbar-thumb,
+  .game-ui-compact-job-drawer-list::-webkit-scrollbar-thumb,
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb,
+  .game-ui-shell-library::-webkit-scrollbar-thumb,
+  .game-ui-shell-side-panel::-webkit-scrollbar-thumb,
+  .game-ui-modal-frame::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .game-ui-scroll-surface::-webkit-scrollbar-thumb:hover,
+    .game-ui-window-body::-webkit-scrollbar-thumb:hover,
+    .game-ui-contractor-job-list::-webkit-scrollbar-thumb:hover,
+    .game-ui-compact-job-drawer-list::-webkit-scrollbar-thumb:hover,
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb:hover,
+    .game-ui-shell-library::-webkit-scrollbar-thumb:hover,
+    .game-ui-shell-side-panel::-webkit-scrollbar-thumb:hover,
+    .game-ui-modal-frame::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
   }
   .game-ui-panel ::selection,
   .game-ui-modal-frame ::selection,
@@ -2895,6 +2951,45 @@
  * pressed/selected state needs a border (not just a background tint) to stay
  * legible, and focus rings need an explicit system-color outline. */
   @media (forced-colors: active) {
+    .game-ui-scroll-surface,
+    .game-ui-window-body,
+    .game-ui-contractor-job-list,
+    .game-ui-compact-job-drawer-list,
+    .game-ui-compact-game-drawer-panel,
+    .game-ui-shell-library,
+    .game-ui-shell-side-panel,
+    .game-ui-modal-frame {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-scroll-surface::-webkit-scrollbar-track,
+    .game-ui-window-body::-webkit-scrollbar-track,
+    .game-ui-contractor-job-list::-webkit-scrollbar-track,
+    .game-ui-compact-job-drawer-list::-webkit-scrollbar-track,
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-track,
+    .game-ui-shell-library::-webkit-scrollbar-track,
+    .game-ui-shell-side-panel::-webkit-scrollbar-track,
+    .game-ui-modal-frame::-webkit-scrollbar-track,
+    .game-ui-scroll-surface::-webkit-scrollbar-corner,
+    .game-ui-window-body::-webkit-scrollbar-corner,
+    .game-ui-contractor-job-list::-webkit-scrollbar-corner,
+    .game-ui-compact-job-drawer-list::-webkit-scrollbar-corner,
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-corner,
+    .game-ui-shell-library::-webkit-scrollbar-corner,
+    .game-ui-shell-side-panel::-webkit-scrollbar-corner,
+    .game-ui-modal-frame::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-scroll-surface::-webkit-scrollbar-thumb,
+    .game-ui-window-body::-webkit-scrollbar-thumb,
+    .game-ui-contractor-job-list::-webkit-scrollbar-thumb,
+    .game-ui-compact-job-drawer-list::-webkit-scrollbar-thumb,
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb,
+    .game-ui-shell-library::-webkit-scrollbar-thumb,
+    .game-ui-shell-side-panel::-webkit-scrollbar-thumb,
+    .game-ui-modal-frame::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
     .game-ui-button,
     .game-ui-icon-button,
     .game-ui-tab,

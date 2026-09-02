@@ -41,7 +41,7 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 从 npmjs 安装并钉精确版本：
-   `"@pieai/swimmer-ui-kit": "1.0.0"`（不用 `^`，升级必须是
+   `"@pieai/swimmer-ui-kit": "2.1.0"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
    处理器，也不需要 scope-specific `.npmrc` 或 package-read token。

@@ -20,7 +20,7 @@ assets may not be extracted, modified, or redistributed as a standalone pack.
 ```json
 {
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "1.0.0"
+    "@pieai/swimmer-ui-kit": "2.1.0"
   }
 }
 ```
@@ -68,6 +68,10 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
     border-radius: var(--game-ui-radius-panel);
   }
   ```
+
+  Product-owned overflow containers can opt into the kit's cross-browser clay
+  scrollbar treatment with `class="game-ui-scroll-surface"`; tune its size,
+  track, thumb, and hover colors through the `--game-ui-scrollbar-*` tokens.
 
 - **Type**: a HUD scale (`--game-ui-font-xs` … `-xxl`) plus the three things a
   HUD scale does not cover — `--game-ui-font-mono` for code, and

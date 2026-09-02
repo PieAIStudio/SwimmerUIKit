@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -60,7 +60,7 @@
     "format": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
     "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm check:styles && pnpm build",
-    "build": "vite build && node scripts/build-css.mjs && cp src/tailwind-bridge.css dist/tailwind.css && find dist -name '.DS_Store' -delete && node scripts/check-warnings-survive-build.mjs",
+    "build": "vite build && node scripts/build-css.mjs && node scripts/finalize-dist.mjs && node scripts/check-warnings-survive-build.mjs",
     "build:site": "vite build --config vite.config.site.ts",
     "preview:site": "vite preview --config vite.config.site.ts --host 127.0.0.1 --port 4175",
     "test": "vitest run",

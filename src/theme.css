@@ -157,6 +157,17 @@
   --game-ui-radius-panel: 26px;
   --game-ui-radius-modal: 34px;
 
+  /*
+   * Scroll surfaces. Kit-owned scroll containers and the opt-in
+   * `.game-ui-scroll-surface` utility share these values, while the track
+   * remains transparent so the surface behind it stays visible. The semantic
+   * aliases follow border/accent theme overrides by default.
+   */
+  --game-ui-scrollbar-size: 10px;
+  --game-ui-scrollbar-track: transparent;
+  --game-ui-scrollbar-thumb: var(--game-ui-border-strong);
+  --game-ui-scrollbar-thumb-hover: var(--game-ui-accent);
+
   /* Elevation */
   --game-ui-shadow-button:
     0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);

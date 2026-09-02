@@ -25,8 +25,8 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Current phase: **1.0.0 shipped** (SPEC-0002, on top of SPEC-0001's 0.9.0
-  hardening): ESM-only packaging with flat bundled types (publint + attw
+- Current phase: **2.1.0 release** (2.0.0 is already published; SPEC-0002
+  established the 1.0 packaging contract): ESM-only packaging with flat bundled types (publint + attw
   green), `dist/styles.css` is 100% standard CSS built by lightningcss
   (warning = build failure), Tailwind fully decoupled (optional
   `./tailwind.css` bridge; no Tailwind peers), wrapped-app hardening
@@ -34,9 +34,9 @@ This file is the current project work index. It is not the agents-routing algori
   `CHANGELOG.md` + 1.x compatibility contract.
 - Current active spec: `docs/specs/active/SPEC-0002-v1-release-readiness.md`
   (SPEC-0001 is `stable`).
-- Current proof target: consumers upgrade 0.9.0 → 1.0.0 with **zero code
-  changes** (breaking changes are packaging-only, verified unused); Vite 8
-  consumers see zero CSS warnings.
+- Current proof target: consumers upgrade 2.0.0 → 2.1.0 with **zero code
+  changes**; Vite 8 consumers see zero CSS warnings and can opt into the new
+  scroll-surface hook without a parallel CSS implementation.
 - Runtime-dependency policy: **zero runtime deps** — browser-native
   dialog/popover/color-mix/cascade-layers cover current needs; Base UI 1.0
   recorded as the future escape hatch for complex headless widgets.

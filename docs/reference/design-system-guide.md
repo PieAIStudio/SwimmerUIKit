@@ -191,6 +191,25 @@ Tailwind 构建；非 Tailwind 管线引它会得到 unknown at-rule 警告—�
   `interpolate-size: allow-keywords` 作为宽度动画的渐进增强。
 - 所有动效必须有 `prefers-reduced-motion: reduce` 降级。
 
+## 滚动面与滚动条
+
+Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动条。产品自己
+拥有的 overflow 容器可以显式加上 `.game-ui-scroll-surface`，复用同一套
+标准 `scrollbar-color` 与 Chromium/WebKit 滚动条样式：
+
+```html
+<div class="game-ui-scroll-surface" style="overflow: auto; max-height: 24rem">
+  ...long-form content...
+</div>
+```
+
+公开 token 是 `--game-ui-scrollbar-size`、`--game-ui-scrollbar-track`、
+`--game-ui-scrollbar-thumb` 和 `--game-ui-scrollbar-thumb-hover`。默认 thumb
+跟随 `--game-ui-border-strong`，hover 跟随 `--game-ui-accent`；主题只需要
+改语义边框/主色就能保持一致，也可以在确有需要时直接覆写这四个 token。
+这个 class 只作用于加 class 的实际滚动元素，不会把产品页面所有后代的
+滚动条强行改掉。Windows forced-colors 会切换到系统色。
+
 ## 无障碍基线
 
 - 焦点：统一 `:focus-visible` 环（`--game-ui-focus-ring`），所有可交互
@@ -258,6 +277,8 @@ Tailwind 构建；非 Tailwind 管线引它会得到 unknown at-rule 警告—�
   ./fonts.css，字体文件在 `src/fonts/`）
 - `src/tailwind-bridge.css` — 可选 Tailwind v4 映射（发布为 ./tailwind.css）
 - `scripts/build-css.mjs` — CSS 构建（lightningcss，warning 即失败）
+- `scripts/finalize-dist.mjs` — 跨平台复制 tailwind bridge，并清理构建产物
+  中的 `.DS_Store`
 - `src/tokens.test.ts` — 守卫测试（token/主题/打包/套壳合同）
 - `bin/swimmer-ui-check.mjs` — 随包发布的消费方 token 漂移检查（`npx
   swimmer-ui-check`），用法见 usage-and-upgrade-playbook.md

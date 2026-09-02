@@ -3,7 +3,19 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
-## Unreleased
+## 2.1.0 — 2026-09-02
+
+### Added
+
+- **Opt-in clay scroll surfaces.** Product-owned overflow containers can use
+  `.game-ui-scroll-surface` and the four `--game-ui-scrollbar-*` semantic
+  tokens to share the kit's Firefox and Chromium/WebKit scrollbar treatment.
+
+### Changed
+
+- **Build finalization is cross-platform.** The package build now uses a Node
+  script to copy the optional Tailwind bridge and remove `.DS_Store` files,
+  keeping the release path valid on Windows as well as POSIX hosts.
 
 ## 2.0.0
 

@@ -216,6 +216,13 @@ export const CLAY_RADIUS_TOKENS = {
   modal: 'var(--game-ui-radius-modal)',
 } as const;
 
+export const CLAY_SCROLLBAR_TOKENS = {
+  size: 'var(--game-ui-scrollbar-size)',
+  track: 'var(--game-ui-scrollbar-track)',
+  thumb: 'var(--game-ui-scrollbar-thumb)',
+  thumbHover: 'var(--game-ui-scrollbar-thumb-hover)',
+} as const;
+
 export const CLAY_ELEVATION_TOKENS = {
   button: 'var(--game-ui-shadow-button)',
   panel: 'var(--game-ui-shadow-panel)',
@@ -275,6 +282,7 @@ export const CLAY_UI_TOKENS = {
   typography: CLAY_TYPE_TOKENS,
   spacing: CLAY_SPACE_TOKENS,
   radius: CLAY_RADIUS_TOKENS,
+  scrollbars: CLAY_SCROLLBAR_TOKENS,
   elevation: CLAY_ELEVATION_TOKENS,
   motion: CLAY_MOTION_TOKENS,
   layers: CLAY_LAYER_TOKENS,

@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest';
 import {
   CLAY_COLOR_TOKENS,
   CLAY_LIQUID_GOOEY_TOKENS,
+  CLAY_SCROLLBAR_TOKENS,
   CLAY_TYPE_TOKENS,
   CLAY_TARGET_TOKENS,
   CLAY_UI_TOKENS,
@@ -51,8 +52,21 @@ describe('clay token exports', () => {
   it('exports CSS variable tokens for cross-stack integration', () => {
     expect(CLAY_UI_TOKENS.semantic.background).toBe('var(--game-ui-bg)');
     expect(CLAY_UI_TOKENS.typography.familyBody).toBe('var(--game-ui-font-body)');
+    expect(CLAY_UI_TOKENS.scrollbars.thumb).toBe('var(--game-ui-scrollbar-thumb)');
     expect(GAME_UI_TOKENS.surface).toBe('var(--game-ui-surface)');
+    expect(GAME_UI_TOKENS.scrollbarThumb).toBe('var(--game-ui-scrollbar-thumb)');
     expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--game-ui-liquid-gooey-move-stiffness)');
+  });
+
+  it('defines the public scroll-surface tokens and opt-in CSS hook', () => {
+    for (const value of Object.values(CLAY_SCROLLBAR_TOKENS)) {
+      const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
+      expect(name, `${value} should be a bare var() reference`).toBeTruthy();
+      expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
+    }
+    expect(stylesCss).toContain('.game-ui-scroll-surface');
+    expect(stylesCss).toContain('::-webkit-scrollbar-thumb');
+    expect(stylesCss).toContain('scrollbar-color: var(--game-ui-scrollbar-thumb)');
   });
 
   it('keeps proof viewport targets in code tokens', () => {
