@@ -67,7 +67,7 @@
       "id": "pie-skills/devspace-feedback-loop",
       "sourcePath": "skills/pie-skills/devspace-feedback-loop",
       "delivery": "symlink",
-      "contentHash": "sha256:a93c7965d3c6d353df973ea60cc76a0ec51052a7678a82b710fb4d5d51c554a5",
+      "contentHash": "sha256:f22d07af485a672c82c9ba8854b962dc284ce345f6bdff2cce01356cbb350c08",
       "targetPath": ".agents/manual-skills/devspace-feedback-loop"
     },
     {
