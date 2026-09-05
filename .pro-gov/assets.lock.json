@@ -1,26 +1,19 @@
 {
   "schemaVersion": 1,
   "host": "codex",
+  "scope": "project",
   "placement": "registry",
   "bundleIds": [
     "base-governance",
-    "frontend-app",
-    "taste-design"
+    "frontend-app"
   ],
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:8bc20258448560c4b1ddfcd5e5b900aaa7662aac798a8d4d54c88b33abedb67b",
-    "assetCount": 23
+    "hash": "sha256:19bf8c34f0a9a5142ecdae4887b2ef4ff5ec1a93736db9a47978a17b51ca49db",
+    "assetCount": 12
   },
   "assets": [
-    {
-      "id": "npx-skills/agent-browser",
-      "sourcePath": "skills/npx-skills/.agents/skills/agent-browser",
-      "delivery": "symlink",
-      "contentHash": "sha256:80161e6836b3b40f4e83730a290deb40ac14d877d38c97ad5f6d71be37ce74c3",
-      "targetPath": ".agents/skills/agent-browser"
-    },
     {
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
@@ -71,6 +64,13 @@
       "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
     },
     {
+      "id": "pie-skills/devspace-feedback-loop",
+      "sourcePath": "skills/pie-skills/devspace-feedback-loop",
+      "delivery": "symlink",
+      "contentHash": "sha256:a93c7965d3c6d353df973ea60cc76a0ec51052a7678a82b710fb4d5d51c554a5",
+      "targetPath": ".agents/manual-skills/devspace-feedback-loop"
+    },
+    {
       "id": "pie-skills/experience-capture",
       "sourcePath": "skills/pie-skills/experience-capture",
       "delivery": "symlink",
@@ -85,95 +85,20 @@
       "targetPath": ".agents/skills/screenwalk"
     },
     {
-      "id": "third-party-skills/brandkit",
-      "sourcePath": "skills/third-party-without-npx-skills/brandkit",
+      "id": "pie-skills/studio-conductor",
+      "sourcePath": "skills/studio-conductor",
+      "sourceKind": "workspace",
+      "workspace": "studio",
       "delivery": "symlink",
-      "contentHash": "sha256:66c068d44001b4e6354c09e4b799f908ed1a7003211c7e7295331c122bea9f02",
-      "targetPath": ".agents/manual-skills/brandkit"
+      "contentHash": "sha256:51f33dc584efe1309a0292a8559674488208757d3f52e57a195fc037814235cd",
+      "targetPath": ".agents/manual-skills/studio-conductor"
     },
     {
-      "id": "third-party-skills/design-taste-frontend",
-      "sourcePath": "skills/third-party-without-npx-skills/design-taste-frontend",
+      "id": "third-party-skills/codex-with-chatgpt",
+      "sourcePath": "skills/third-party-without-npx-skills/codex-with-chatgpt",
       "delivery": "symlink",
-      "contentHash": "sha256:32134157d57314d41e794e71014c853b24f16f20e396944e47ccc76f96fa01b0",
-      "targetPath": ".agents/manual-skills/design-taste-frontend"
-    },
-    {
-      "id": "third-party-skills/design-taste-frontend-v1",
-      "sourcePath": "skills/third-party-without-npx-skills/design-taste-frontend-v1",
-      "delivery": "symlink",
-      "contentHash": "sha256:8dbcb90df1b95f2c4af24575aa0dfeb55c8eb504d301e8bf09cb0444f6780333",
-      "targetPath": ".agents/manual-skills/design-taste-frontend-v1"
-    },
-    {
-      "id": "third-party-skills/full-output-enforcement",
-      "sourcePath": "skills/third-party-without-npx-skills/full-output-enforcement",
-      "delivery": "symlink",
-      "contentHash": "sha256:933b89da884015e2a4189417fd2dad62610c9aeb1c80d0166567354594836b1c",
-      "targetPath": ".agents/manual-skills/full-output-enforcement"
-    },
-    {
-      "id": "third-party-skills/gpt-taste",
-      "sourcePath": "skills/third-party-without-npx-skills/gpt-taste",
-      "delivery": "symlink",
-      "contentHash": "sha256:2699f333a4cf2c43ef49b7cdf66674b5a19d05c1ca6a9a848dd4ec0acc41984d",
-      "targetPath": ".agents/manual-skills/gpt-taste"
-    },
-    {
-      "id": "third-party-skills/high-end-visual-design",
-      "sourcePath": "skills/third-party-without-npx-skills/high-end-visual-design",
-      "delivery": "symlink",
-      "contentHash": "sha256:49c7b83a53374522fc0603e5b0d8bd2eadc1ad819356f4b56f08f5e73d91ee2d",
-      "targetPath": ".agents/manual-skills/high-end-visual-design"
-    },
-    {
-      "id": "third-party-skills/image-to-code",
-      "sourcePath": "skills/third-party-without-npx-skills/image-to-code",
-      "delivery": "symlink",
-      "contentHash": "sha256:ce9e7282b05e6cf247352c0f68953b943755899eb14a2198d72c97c6e5ffa807",
-      "targetPath": ".agents/manual-skills/image-to-code"
-    },
-    {
-      "id": "third-party-skills/imagegen-frontend-mobile",
-      "sourcePath": "skills/third-party-without-npx-skills/imagegen-frontend-mobile",
-      "delivery": "symlink",
-      "contentHash": "sha256:9d08a2fd4f71d9fa9f6808506fed4a8231ab451e2016570ab80514074571c64a",
-      "targetPath": ".agents/manual-skills/imagegen-frontend-mobile"
-    },
-    {
-      "id": "third-party-skills/imagegen-frontend-web",
-      "sourcePath": "skills/third-party-without-npx-skills/imagegen-frontend-web",
-      "delivery": "symlink",
-      "contentHash": "sha256:d5215faecc59120b499726e2c0d6fd802d47f7f69c9243e328120b4759ed8f60",
-      "targetPath": ".agents/manual-skills/imagegen-frontend-web"
-    },
-    {
-      "id": "third-party-skills/industrial-brutalist-ui",
-      "sourcePath": "skills/third-party-without-npx-skills/industrial-brutalist-ui",
-      "delivery": "symlink",
-      "contentHash": "sha256:d915c228e1fd8ff18f9f417ddfff605f045a15acb85e15906dcb347ba6e2c941",
-      "targetPath": ".agents/manual-skills/industrial-brutalist-ui"
-    },
-    {
-      "id": "third-party-skills/minimalist-ui",
-      "sourcePath": "skills/third-party-without-npx-skills/minimalist-ui",
-      "delivery": "symlink",
-      "contentHash": "sha256:0b63afb03f68657b51042d075b0a7f8c2362bdb5bb1f77caab99693e90c91e21",
-      "targetPath": ".agents/manual-skills/minimalist-ui"
-    },
-    {
-      "id": "third-party-skills/redesign-existing-projects",
-      "sourcePath": "skills/third-party-without-npx-skills/redesign-existing-projects",
-      "delivery": "symlink",
-      "contentHash": "sha256:f6b0637adf3481f0fbd23a365a8e0773ed82b322c1df78a40d7a8b4cda65c9e3",
-      "targetPath": ".agents/manual-skills/redesign-existing-projects"
-    },
-    {
-      "id": "third-party-skills/stitch-design-taste",
-      "sourcePath": "skills/third-party-without-npx-skills/stitch-design-taste",
-      "delivery": "symlink",
-      "contentHash": "sha256:e37419c24236cf2d983dcd39feb1907733a43f9567f8e5ad095d4c539ed851ba",
-      "targetPath": ".agents/manual-skills/stitch-design-taste"
+      "contentHash": "sha256:c750d166501a90c8c4d8a9201305f87aa63cf6e388c6f4941a466b89eb079301",
+      "targetPath": ".agents/manual-skills/codex-with-chatgpt"
     }
   ]
 }
