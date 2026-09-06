@@ -1,7 +1,7 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-08-29T09:42:57.903Z
-generator_version: doc-gov@0.9.9
+generated_at: 2026-09-06T01:23:58.567Z
+generator_version: doc-gov@0.9.10
 docs_count: 27
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
@@ -9,7 +9,7 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-07-16
+    last_reviewed: 2026-08-17
     pinned: true
   - id: REF-DOC-GOVERNANCE-BOUNDARY
     path: docs/governance/boundary.md
