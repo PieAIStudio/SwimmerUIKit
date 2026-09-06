@@ -90,7 +90,7 @@
       "sourceKind": "workspace",
       "workspace": "studio",
       "delivery": "symlink",
-      "contentHash": "sha256:51f33dc584efe1309a0292a8559674488208757d3f52e57a195fc037814235cd",
+      "contentHash": "sha256:d413b70ac760e02f004e2b143bf82a2e81d94dddb1404854174c33b8878cd191",
       "targetPath": ".agents/manual-skills/studio-conductor"
     },
     {
