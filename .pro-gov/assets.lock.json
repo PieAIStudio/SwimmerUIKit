@@ -10,7 +10,7 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:19bf8c34f0a9a5142ecdae4887b2ef4ff5ec1a93736db9a47978a17b51ca49db",
+    "hash": "sha256:abaf59da5986f60fcf20c995fe799a737bd3de546d609d9352aa15b09944497e",
     "assetCount": 12
   },
   "assets": [
@@ -18,28 +18,28 @@
       "id": "npx-skills/frontend-design",
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
       "delivery": "symlink",
-      "contentHash": "sha256:665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a",
+      "contentHash": "sha256:7e9c2af00fd5b3144f49ce6fb1b16037b392ab9c2f049423b0b6114d99381ba2",
       "targetPath": ".agents/skills/frontend-design"
     },
     {
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
-      "contentHash": "sha256:8ae15976ef5453e1fd1307eedc80b8c9efcbd8dadabba21f221cbd6d99c2791c",
+      "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
       "targetPath": ".agents/skills/impeccable"
     },
     {
       "id": "npx-skills/make-interfaces-feel-better",
       "sourcePath": "skills/npx-skills/.agents/skills/make-interfaces-feel-better",
       "delivery": "symlink",
-      "contentHash": "sha256:de4d74dd857d3dc245e6f5d5483adc8795921f071ac2f4c471ab6c87df2b6ba7",
+      "contentHash": "sha256:97d07c19a3244b452ca8a37984f4403346c4744a2efcefb0fbc85afe86c3839e",
       "targetPath": ".agents/skills/make-interfaces-feel-better"
     },
     {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
-      "contentHash": "sha256:6503364c204a3a10e3cf80e3a53323e9ab581b6d06550c3cc893cdcf1206f048",
+      "contentHash": "sha256:f66b17600aed03da23e2f038c5ffe4bf96c8227522339439dd5720b48d3a5824",
       "targetPath": ".agents/skills/ui-ux-pro-max"
     },
     {
