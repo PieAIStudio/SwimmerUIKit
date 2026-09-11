@@ -116,6 +116,7 @@ export function LiquidSurface({
         {...(shadow === undefined ? {} : { shadow })}
         {...(stroke === undefined ? {} : { stroke })}
         waviness={group.waviness}
+        wavinessFreq={group.wavinessFreq}
       >
         <LiquidGroup.Item
           className="game-ui-liquid-surface__shape"

@@ -21,6 +21,7 @@ export {
 export {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
+  LIQUID_REST_EDGE_LIMITS,
   liquidFormGroup,
   liquidFormItem,
   type LiquidForm,

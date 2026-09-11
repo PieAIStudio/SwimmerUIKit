@@ -17,12 +17,28 @@
  * what it looks like, so a caller picks a behaviour instead of a physics
  * configuration.
  *
- * Every form rests at `waviness: 0`. That is not a style preference, it is the
- * one thing we already know from production: waviness applied to a single
- * static rounded rectangle reads as a rendering defect rather than as liquid,
- * because the gooey technique says "fluid" through shapes merging and
- * separating, not through a wobbling outline. Forms that want visible motion
- * get it from the spring, not from a permanently undulating edge.
+ * On the resting edge, and a correction to what this file said first.
+ *
+ * It originally set every form to `waviness: 0`, on the strength of a
+ * production finding that waviness on a static rounded rectangle reads as a
+ * rendering defect. That finding is real, but the rule drawn from it was the
+ * wrong one: it blamed amplitude when the culprit is frequency.
+ *
+ * Rendered side by side at button scale, the old default of amplitude 6 at
+ * frequency 0.018 gives a visibly jittery outline — high-frequency noise at the
+ * same scale as anti-aliasing, which is exactly why it reads as breakage. The
+ * same mechanism at 3 / 0.008 gives a single slow undulation across the whole
+ * silhouette: not a machined pill, obviously deliberate, and still smooth
+ * everywhere. Same displacement, different wavelength, opposite reading.
+ *
+ * So single-body forms now rest with a low-frequency waviness, which is how a
+ * liquid surface can look liquid while standing still. `seed` and frequency are
+ * fixed in the filter, so the silhouette is a stable shape rather than
+ * something that crawls — a moving resting edge would be the defect again.
+ *
+ * The two group forms stay at 0 deliberately. `merge` already says everything
+ * through the neck between two bodies, and `follow` is pointing at something,
+ * where a soft outline costs precision and buys nothing.
  */
 
 import type { MorphTuning } from './liquidGooeyEvolve';
@@ -38,7 +54,14 @@ export type LiquidForm = 'press' | 'settle' | 'merge' | 'follow' | 'fill' | 'dra
 export interface LiquidFormGroup {
   readonly blur: number;
   readonly contrast: number;
+  /** Resting displacement, in px. Judge it together with `wavinessFreq`. */
   readonly waviness: number;
+  /**
+   * Wavelength of that displacement. This is the knob that decides whether a
+   * resting edge reads as liquid or as breakage: at 0.018 it is noise, at
+   * 0.008 it is form.
+   */
+  readonly wavinessFreq: number;
   readonly filterPadding: number;
 }
 
@@ -81,7 +104,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   press: {
     summary: 'A control that squashes under a press and rebounds past its rest shape.',
-    group: { blur: 4, contrast: 24, waviness: 0, filterPadding: 10 },
+    group: { blur: 4, contrast: 24, waviness: 3, wavinessFreq: 0.008, filterPadding: 14 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1, bounce: 0.35, contentBlur: 0 },
@@ -96,7 +119,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   settle: {
     summary: 'Something arrives, overshoots, and comes to rest.',
-    group: { blur: 5, contrast: 22, waviness: 0, filterPadding: 12 },
+    group: { blur: 5, contrast: 22, waviness: 3, wavinessFreq: 0.008, filterPadding: 16 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
@@ -113,7 +136,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   merge: {
     summary: 'Neighbouring shapes reach for each other and fuse into one body.',
-    group: { blur: 10, contrast: 14, waviness: 0, filterPadding: 18 },
+    group: { blur: 10, contrast: 14, waviness: 0, wavinessFreq: 0.008, filterPadding: 18 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.8, bounce: 0.2, contentBlur: 0 },
@@ -129,7 +152,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   follow: {
     summary: 'A single blob travels to whichever item is active.',
-    group: { blur: 6, contrast: 20, waviness: 0, filterPadding: 12 },
+    group: { blur: 6, contrast: 20, waviness: 0, wavinessFreq: 0.008, filterPadding: 12 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1.1, bounce: 0.15, contentBlur: 0 },
@@ -144,7 +167,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   fill: {
     summary: 'A level rises and holds, the way a poured liquid settles.',
-    group: { blur: 6, contrast: 20, waviness: 0, filterPadding: 10 },
+    group: { blur: 6, contrast: 20, waviness: 2, wavinessFreq: 0.008, filterPadding: 12 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.08, contentBlur: 0 },
@@ -159,10 +182,17 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   drain: {
     summary: 'A shape loses its boundary and goes.',
-    group: { blur: 8, contrast: 16, waviness: 0, filterPadding: 14 },
+    group: { blur: 8, contrast: 16, waviness: 3, wavinessFreq: 0.008, filterPadding: 16 },
     item: { dissolve: true, transition: 'smooth' },
   },
 };
+
+/**
+ * The band a resting edge may occupy and still read as a surface rather than as
+ * damage, measured at button scale. Above either number the silhouette starts
+ * looking chipped; the old kit default sat at 6 / 0.018, well outside it.
+ */
+export const LIQUID_REST_EDGE_LIMITS = { waviness: 3, wavinessFreq: 0.01 } as const;
 
 /** Every form name, for shelves, docs and exhaustiveness checks. */
 export const LIQUID_FORM_NAMES = Object.keys(LIQUID_FORMS) as readonly LiquidForm[];

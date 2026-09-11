@@ -5,6 +5,7 @@ import { GameButton } from './GameButton';
 import {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
+  LIQUID_REST_EDGE_LIMITS,
   liquidFormGroup,
   liquidFormItem,
 } from './liquidGooeyForms';
@@ -16,18 +17,46 @@ function compact(markup: string): string {
 
 describe('liquid forms', () => {
   /*
-    The one rule the whole set exists to keep. University verified in production
-    that waviness on a static rounded rectangle reads as a rendering defect, so
-    a form shipping a non-zero resting waviness would be shipping that defect
-    under a friendly name.
+    This assertion used to read 「every form rests at waviness 0」, and that was
+    the wrong invariant. The production finding behind it is real — a static
+    edge can absolutely read as breakage — but the cause is the wavelength, not
+    the amplitude. Rendered side by side at button scale, 6 / 0.018 is visible
+    jitter and 3 / 0.008 is one slow undulation that reads as a liquid surface
+    standing still. So the rule is a band, not a zero.
   */
-  it('rests every form at zero waviness', () => {
-    const wobbly = LIQUID_FORM_NAMES.filter((form) => LIQUID_FORMS[form].group.waviness !== 0);
-    expect(wobbly).toEqual([]);
+  it('keeps every resting edge inside the band that still reads as a surface', () => {
+    const tooLoud = LIQUID_FORM_NAMES.filter(
+      (form) =>
+        LIQUID_FORMS[form].group.waviness > LIQUID_REST_EDGE_LIMITS.waviness ||
+        LIQUID_FORMS[form].group.wavinessFreq > LIQUID_REST_EDGE_LIMITS.wavinessFreq,
+    );
+    expect(tooLoud).toEqual([]);
   });
 
-  it('keeps the kit default at rest too, so an unconfigured surface does not wobble', () => {
+  /*
+    The old kit default has to stay outside the band, or the band means nothing.
+  */
+  it('leaves the noisy old default outside that band', () => {
+    expect(
+      6 > LIQUID_REST_EDGE_LIMITS.waviness || 0.018 > LIQUID_REST_EDGE_LIMITS.wavinessFreq,
+    ).toBe(true);
+  });
+
+  /*
+    An unconfigured surface still rests flat. A consumer that never picked a
+    form has not opted into a shaped edge, and the kit should not give it one.
+  */
+  it('keeps the unconfigured default flat', () => {
     expect(LIQUID_GOOEY_FILTER_DEFAULTS.waviness).toBe(0);
+  });
+
+  /*
+    The two group forms say what they mean through the relationship between
+    bodies, so a shaped outline there is noise competing with the message.
+  */
+  it('keeps the edges of the two group forms flat', () => {
+    expect(LIQUID_FORMS.merge.group.waviness).toBe(0);
+    expect(LIQUID_FORMS.follow.group.waviness).toBe(0);
   });
 
   /*
@@ -58,7 +87,8 @@ describe('liquid forms', () => {
     const group = liquidFormGroup('press', { blur: 9 });
     expect(group.blur).toBe(9);
     expect(group.contrast).toBe(LIQUID_FORMS.press.group.contrast);
-    expect(group.waviness).toBe(0);
+    expect(group.waviness).toBe(LIQUID_FORMS.press.group.waviness);
+    expect(group.wavinessFreq).toBe(LIQUID_FORMS.press.group.wavinessFreq);
 
     const item = liquidFormItem('press', { morph: { bounce: 0.9 } });
     expect(item.morph?.bounce).toBe(0.9);
