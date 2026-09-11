@@ -4,7 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { GameButton } from './GameButton';
 import { LiquidSurface } from './LiquidSurface';
 import { presets } from './liquidGooeySpring';
-import { blobPath, silhouettePath, type CornerRadii } from './liquidGooeyGeometry';
+import {
+  blobPath,
+  LIQUID_BLOB_MAX_FRACTION,
+  silhouettePath,
+  type CornerRadii,
+} from './liquidGooeyGeometry';
 import {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
@@ -80,7 +85,7 @@ describe('liquid blob outline', () => {
     const thin: CornerRadii = [7, 7, 7, 7];
     const d = blobPath(0, 0, 200, 14, thin, { amplitude: 8, seed: 7 });
     const far = Math.max(...anchors(d).map(([x, y]) => roundedBoxDistance(x, y, 200, 14, 7)));
-    expect(far).toBeLessThanOrEqual(14 * 0.18 + 0.01);
+    expect(far).toBeLessThanOrEqual(14 * LIQUID_BLOB_MAX_FRACTION + 0.01);
   });
 
   it('falls back to the plain rounded rectangle when no shape is asked for', () => {
@@ -133,19 +138,50 @@ describe('liquid edge ramp', () => {
   });
 });
 
+const BODY_FORMS = LIQUID_FORM_NAMES.filter((form) => LIQUID_FORMS[form].kind === 'body');
+const GROUP_FORMS = LIQUID_FORM_NAMES.filter((form) => LIQUID_FORMS[form].kind === 'group');
+
 describe('liquid forms', () => {
   /*
-    The two group forms say what they mean through the relationship between
-    bodies, so a poured outline there is noise competing with the message.
+    These two lists were hardcoded while there were six forms, which meant the
+    vocabulary could grow without either rule being applied to the new entries
+    — a gate that has stopped looking at what it guards. They are derived from
+    `kind` now, so a thirteenth form is covered on the day it is written.
   */
-  it('keeps the two group forms rectangular', () => {
-    expect(LIQUID_FORMS.merge.group.blob).toBe(0);
-    expect(LIQUID_FORMS.follow.group.blob).toBe(0);
+  it('splits cleanly into bodies and relationships', () => {
+    expect(BODY_FORMS.length + GROUP_FORMS.length).toBe(LIQUID_FORM_NAMES.length);
+    expect(BODY_FORMS.length).toBeGreaterThan(0);
+    expect(GROUP_FORMS.length).toBeGreaterThan(0);
+  });
+
+  /*
+    A group form whose subject is the *neck* between two bodies keeps its
+    silhouette rectangular, because a poured outline is noise competing with
+    the message. `bead` is the deliberate exception and the reason this rule is
+    about the neck rather than about group forms: its bodies are the message,
+    so it is the one relationship form that pours.
+  */
+  it('keeps the neck forms rectangular and lets bead pour', () => {
+    for (const form of ['merge', 'follow', 'split'] as const)
+      expect(LIQUID_FORMS[form].group.blob, `${form} poured`).toBe(0);
+    expect(LIQUID_FORMS.bead.group.blob).toBeGreaterThan(0);
   });
 
   it('pours every single-body form', () => {
-    for (const form of ['press', 'settle', 'fill', 'drain'] as const)
-      expect(LIQUID_FORMS[form].group.blob).toBeGreaterThan(0);
+    for (const form of BODY_FORMS)
+      expect(LIQUID_FORMS[form].group.blob, `${form} is a plain rectangle`).toBeGreaterThan(0);
+  });
+
+  /*
+    `set` engaged is the shape of a flat control: no pour, a hard rim, the
+    volume gone. If that stopped being true the form would have nothing left to
+    say, since everything else in the file is a degree of liquid.
+  */
+  it('lets set actually stop being liquid', () => {
+    const solid = liquidFormGroup('set', LIQUID_FORMS.set.groupEngaged);
+    expect(solid.blob).toBe(0);
+    expect(solid.gloss).toBeLessThan(LIQUID_FORMS.set.group.gloss);
+    expect(solid.contrast).toBeGreaterThan(LIQUID_FORMS.set.group.contrast);
   });
 
   /*
@@ -251,23 +287,23 @@ describe('liquid cast shadow', () => {
     it in the showcase. The forms are where the fix belongs — a shadow set at
     each call site is a shadow that drifts.
   */
-  const GROUNDED = ['press', 'settle', 'drain'] as const;
-
   it('grounds every form whose subject is a body with weight', () => {
-    for (const form of GROUNDED) {
+    for (const form of BODY_FORMS) {
+      if (form === 'fill') continue;
       expect(LIQUID_FORMS[form].group.shadow, `${form} floats`).toBeTruthy();
     }
   });
 
   /*
-    And leaves the other three alone on purpose, so a later reader does not
-    read the gap as an oversight and "finish" it. `fill` lives inside a recessed
-    track and a level that shadows the groove it fills has stopped being a
-    level; `merge` and `follow` are group forms whose caller arranges the items
-    and therefore owns the ground they sit on.
+    And leaves the rest alone on purpose, so a later reader does not read the
+    gap as an oversight and "finish" it. `fill` lives inside a recessed track,
+    and a level that shadows the groove it is filling has stopped being a
+    level. Every group form's caller arranges the items and therefore owns the
+    ground they sit on — a marker riding in a rail and two bodies mid-split
+    have no one right answer from in here.
   */
-  it('leaves the track form and the two group forms ungrounded', () => {
-    for (const form of ['fill', 'merge', 'follow'] as const) {
+  it('leaves the track form and every group form ungrounded', () => {
+    for (const form of ['fill', ...GROUP_FORMS] as const) {
       expect(LIQUID_FORMS[form].group.shadow, `${form} grew a shadow`).toBeUndefined();
     }
   });

@@ -26,6 +26,7 @@ export {
   type LiquidForm,
   type LiquidFormGroup,
   type LiquidFormItem,
+  type LiquidFormKind,
   type LiquidFormSpec,
 } from './liquidGooeyForms';
 export { LiquidSurface, liquidFormSummary, type LiquidSurfaceProps } from './LiquidSurface';

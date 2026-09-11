@@ -481,10 +481,12 @@
     text-align: center;
     line-height: 1.4;
   }
-  .game-ui-liquid-showcase__body {
-    display: block;
-    width: 132px;
-    height: 56px;
+  /* The gallery's liquid section links out to the Liquid page rather than
+     restating its shelf, so this is the one rule that section still needs of
+     its own. */
+  .game-ui-liquid-showcase__link {
+    color: var(--game-ui-accent-ink);
+    font-weight: 700;
   }
 
   .game-ui-liquid-metal-compare {
@@ -921,6 +923,250 @@
     }
     .game-ui-liquid-waviness-cell {
       justify-items: start;
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* The Liquid page (liquid.html).                                      */
+  /*                                                                     */
+  /* Liquid used to be one section inside the component dump. It is the  */
+  /* brand's signature surface and it keeps growing, so it has its own   */
+  /* destination now; these rules are that page's layout and nothing     */
+  /* else. Generous vertical room everywhere on purpose — a silhouette   */
+  /* is painted outside its control's box and a drop-shadow outside that */
+  /* again, so a tight row clips the exact thing the page exists to      */
+  /* show, and it clips it silently.                                     */
+  /* ------------------------------------------------------------------ */
+  .game-ui-liquid-page__rule {
+    max-width: 62ch;
+    padding: 12px 16px;
+    border-left: 3px solid var(--game-ui-accent);
+    border-radius: var(--game-ui-radius-card);
+    background: var(--game-ui-panel);
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    line-height: 1.55;
+  }
+
+  .game-ui-liquid-page__tone-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .game-ui-liquid-page__tone-picker > span {
+    color: var(--game-ui-text-muted);
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-xs);
+  }
+
+  .game-ui-liquid-page__shelf,
+  .game-ui-liquid-page__sizes,
+  .game-ui-liquid-page__tones,
+  .game-ui-liquid-page__states {
+    display: grid;
+    gap: 16px;
+  }
+  .game-ui-liquid-page__shelf {
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  }
+  .game-ui-liquid-page__sizes {
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  }
+  .game-ui-liquid-page__tones {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+  .game-ui-liquid-page__states {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+
+  .game-ui-liquid-page__tile,
+  .game-ui-liquid-page__tone,
+  .game-ui-liquid-page__state {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    text-align: center;
+  }
+  .game-ui-liquid-page__tile h4,
+  .game-ui-liquid-page__tone h4,
+  .game-ui-liquid-page__state h4,
+  .game-ui-liquid-page__size-row h4 {
+    margin: 0;
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-sm);
+    letter-spacing: 0.04em;
+  }
+  /* A shelf is a comparison, so the twelve tiles have to line up: the summary
+     reserves two lines whether it needs them or not, and the knob table is
+     pushed to the bottom of whatever height the row settles on. Without both,
+     the reader compares twelve differently-cropped photographs. */
+  .game-ui-liquid-page__tile {
+    grid-template-rows: auto auto 1fr auto auto;
+  }
+  .game-ui-liquid-page__tile p {
+    min-height: 2.8em;
+    margin: 0;
+  }
+
+  /* Prose. `.game-ui-small-copy` is uppercase and tracked out — exactly right
+     for a six-word hint under a control, and unreadable at three lines. */
+  .game-ui-liquid-page__prose {
+    max-width: 74ch;
+    margin: 0;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    line-height: 1.6;
+  }
+  .game-ui-liquid-page__tile .game-ui-liquid-page__prose {
+    font-size: var(--game-ui-font-xs);
+  }
+  .game-ui-liquid-page__hint {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    font-weight: 400;
+  }
+
+  /* The follow rail. The labels sit ON the marker, not under it, because that
+     is where they sit in the segmented control this form exists for — and it
+     is also the demonstration: the silhouette below deforms and travels while
+     the words above it stay crisp, selectable and exactly where they were. */
+  .game-ui-liquid-page__rail {
+    display: grid;
+    place-items: center;
+  }
+  .game-ui-liquid-page__rail > * {
+    grid-area: 1 / 1;
+  }
+  .game-ui-liquid-page__rail-slots {
+    /* The silhouette below is `position: absolute` with `will-change:
+       transform`, which paints it in the positioned layer — above a later
+       sibling's ordinary content. So the labels have to be positioned too, or
+       the marker covers the very word it is pointing at. This is the same
+       arrangement `.game-ui-liquid-content` already uses inside the group. */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    color: var(--game-ui-text-muted);
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-xs);
+  }
+  .game-ui-liquid-page__rail-slots span {
+    width: 62px;
+    text-align: center;
+  }
+  .game-ui-liquid-page__rail-slots [data-on='true'] {
+    color: var(--game-ui-accent-contrast);
+    font-weight: 700;
+  }
+
+  /* One stage height for every tile, so twelve forms are actually
+     comparable rather than twelve differently-cropped photographs. */
+  .game-ui-liquid-page__stage-slot {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 104px;
+  }
+  .game-ui-liquid-page__stage-slot--thin {
+    min-height: 72px;
+  }
+  .game-ui-liquid-page__body {
+    display: block;
+  }
+  .game-ui-liquid-page__stage {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+  }
+
+  .game-ui-liquid-page__knobs {
+    display: grid;
+    width: 100%;
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid var(--game-ui-border-subtle);
+    grid-template-columns: auto 1fr;
+    gap: 2px 10px;
+    text-align: left;
+  }
+  .game-ui-liquid-page__knobs dt {
+    color: var(--game-ui-text-muted);
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-xs);
+  }
+  .game-ui-liquid-page__knobs dd {
+    margin: 0;
+    font-size: var(--game-ui-font-xs);
+    overflow-wrap: anywhere;
+  }
+  .game-ui-liquid-page__derived {
+    color: var(--game-ui-text-muted);
+  }
+
+  .game-ui-liquid-page__size-row {
+    display: grid;
+    gap: 12px;
+  }
+  .game-ui-liquid-page__size-row header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .game-ui-liquid-page__size-pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    align-items: end;
+  }
+  .game-ui-liquid-page__size-pair small,
+  .game-ui-liquid-page__state small {
+    display: block;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  /*
+   * The flat button's pressed look, pinned.
+   *
+   * It exists only under `:active`, and a state that requires a finger on it
+   * cannot be compared against the state next to it — which is the entire job
+   * of that section. This restates the two custom properties `:active` sets in
+   * styles.css rather than inventing a look; if that rule changes, this one has
+   * to follow, and a showcase that lied about the reference control would be
+   * worse than no showcase.
+   */
+  .game-ui-liquid-page__pinned-press .game-ui-button {
+    --game-ui-button-lip-depth: 1px;
+    translate: 0 3px;
+  }
+
+  .game-ui-liquid-page__glossary {
+    display: grid;
+    gap: 12px;
+    max-width: 78ch;
+    margin: 0;
+  }
+  .game-ui-liquid-page__glossary dt {
+    color: var(--game-ui-accent-ink);
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-sm);
+  }
+  .game-ui-liquid-page__glossary dd {
+    margin: 2px 0 0;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 560px) {
+    .game-ui-liquid-page__sizes {
+      grid-template-columns: 1fr;
     }
   }
 }

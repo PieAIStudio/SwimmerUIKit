@@ -20,8 +20,6 @@ import {
 import { FirstSessionHud, FirstSessionOnboarding } from './FirstSessionGameShell';
 import { GameAvatar, GameEmptyState, GameProgress } from './GameDisplay';
 import { GameButton, type GameButtonVariant } from './GameButton';
-import { LiquidSurface, liquidFormSummary } from './LiquidSurface';
-import type { LiquidForm } from './liquidGooeyForms';
 import { LiquidMetalButton } from './LiquidMetalButton';
 import { GameCheckbox, GameField, GameInput, GameTextArea } from './GameForms';
 import { GameDialog } from './GameDialog';
@@ -212,10 +210,9 @@ interface PreviewCopy {
     surfacesTitle: string;
     disabledTitle: string;
     disabledBody: string;
-    formsTitle: string;
-    formsBody: string;
-    trigger: string;
-    reset: string;
+    moreTitle: string;
+    moreBody: string;
+    moreLink: string;
     press: string;
   };
   liquidMetal: {
@@ -428,11 +425,10 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       disabledTitle: 'Disabled',
       disabledBody:
         'A disabled control drops the liquid entirely. Liquid is how this kit says \u201Cpress me\u201D, and putting that on something that cannot be pressed is a lie told loudly.',
-      formsTitle: 'The named forms',
-      formsBody:
-        'Each name is a measured bundle of blur, contrast, outline and spring \u2014 a behaviour to pick, not a physics configuration to tune.',
-      trigger: 'Trigger',
-      reset: 'Reset',
+      moreTitle: 'The rest of the vocabulary',
+      moreBody:
+        'Twelve named forms, each a measured bundle of blur, contrast, outline, spring and shadow \u2014 a behaviour to pick rather than a physics configuration to tune. They live on their own page now, with every form live at two sizes, on every tone, and its knobs written out beside it.',
+      moreLink: 'Open the Liquid page',
       press: 'hold to press',
     },
     liquidMetal: {
@@ -647,11 +643,10 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       disabledTitle: '禁用',
       disabledBody:
         '禁用的控件完全不穿液体。液体是这套 UI 说「按我」的方式，把这句话放在按不动的东西上，是大声说一句假话。',
-      formsTitle: '命名形态',
-      formsBody:
-        '每个名字是一组实测过的 blur / contrast / 外形 / 弹簧——挑的是一种行为，不是一组物理参数。',
-      trigger: '触发',
-      reset: '复位',
+      moreTitle: '词汇表的其余部分',
+      moreBody:
+        '十二个命名形态，每一个都是一组实测过的 blur / contrast / 外形 / 弹簧 / 阴影——挑的是一种行为，不是一组物理参数。它们现在有自己的页面：每个形态都是活的，两种尺寸、每一种色调，旋钮就写在旁边。',
+      moreLink: '打开液体页',
       press: '按住看看',
     },
     liquidMetal: {
@@ -1031,19 +1026,25 @@ function OverlayGlassCompare(): ReactNode {
 }
 
 /*
- * The brand's own liquid, in the brand's own showcase.
+ * The brand's own liquid, in the component gallery.
  *
- * It was missing, and the omission had a cost: this page had a section for the
- * WebGL metal CTA — which no product uses — and none for the surface that ships
- * on real boards, so the only way to see a liquid button was to know which
- * screen of which product happened to render one. A showcase that cannot show
- * the signature look is not doing its job.
+ * It was missing entirely once, and the omission had a cost: this page had a
+ * section for the WebGL metal CTA — which no product uses — and none for the
+ * surface that ships on real boards, so the only way to see a liquid button was
+ * to know which screen of which product happened to render one.
+ *
+ * It is deliberately smaller than it was. This gallery's job is 「here is
+ * GameButton, and `surface` is a second axis on it」; the twelve-form
+ * vocabulary's job is a page of its own, which it now has. Keeping the form
+ * shelf in both places meant two shelves to update and, predictably, one of
+ * them lagging — so what stays here is the component, and what left is the
+ * vocabulary. The link is how a reader gets from one to the other, and it is
+ * relative because a host app that renders this gallery may not serve that
+ * page at all.
  */
 function LiquidSurfaceShowcase(): ReactNode {
   const { liquid } = useCopy();
-  const [engaged, setEngaged] = useState<LiquidForm | null>(null);
   const tones: GameButtonVariant[] = ['primary', 'secondary', 'success', 'danger'];
-  const forms: LiquidForm[] = ['press', 'settle', 'fill', 'drain'];
   return (
     <div className="game-ui-liquid-showcase">
       <GamePanel title={liquid.surfacesTitle} tone="strong">
@@ -1074,31 +1075,13 @@ function LiquidSurfaceShowcase(): ReactNode {
         </div>
       </GamePanel>
 
-      <GamePanel title={liquid.formsTitle} tone="strong">
-        <p className="game-ui-small-copy">{liquid.formsBody}</p>
-        <div className="game-ui-liquid-showcase__grid">
-          {forms.map((form) => (
-            <div className="game-ui-liquid-showcase__pair" key={form}>
-              <LiquidSurface
-                active={engaged === form}
-                fill="var(--game-ui-accent)"
-                form={form}
-                radius={20}
-              >
-                <span className="game-ui-liquid-showcase__body" />
-              </LiquidSurface>
-              <GameButton
-                onClick={() => setEngaged((current) => (current === form ? null : form))}
-                variant="ghost"
-              >
-                {engaged === form ? liquid.reset : liquid.trigger}
-              </GameButton>
-              <small>
-                {form} · {liquidFormSummary(form)}
-              </small>
-            </div>
-          ))}
-        </div>
+      <GamePanel title={liquid.moreTitle} tone="strong">
+        <p className="game-ui-small-copy">{liquid.moreBody}</p>
+        <p>
+          <a className="game-ui-liquid-showcase__link" href="liquid.html">
+            {liquid.moreLink} →
+          </a>
+        </p>
       </GamePanel>
     </div>
   );

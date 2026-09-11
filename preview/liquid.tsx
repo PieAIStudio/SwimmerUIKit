@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { GameUiPreview } from '../src/GameUiPreview';
+import { LiquidPreview } from '../src/LiquidPreview';
 import { setClayAssetMode } from '../src/clay/assets';
 import { ShowcaseNav } from './ShowcaseNav';
 import '../src/styles.css';
@@ -21,7 +21,7 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <ShowcaseNav current="components" />
-    <GameUiPreview />
+    <ShowcaseNav current="liquid" />
+    <LiquidPreview />
   </StrictMode>,
 );

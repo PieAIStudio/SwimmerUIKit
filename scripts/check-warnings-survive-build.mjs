@@ -44,6 +44,10 @@ const PROMISED_WARNINGS = [
     message: 'LiquidGroup.Item children should not have their own border',
   },
   {
+    id: 'group-form-on-surface',
+    message: 'it describes a relationship',
+  },
+  {
     id: 'dissolve-on-move',
     // Minifiers keep this as `effect=\"move\"` inside a JS string, so the
     // needle stops before the quotes. `dissolve is ignored for effect=` is

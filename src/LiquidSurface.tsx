@@ -25,6 +25,12 @@ interface Pose {
   scale: number;
   scaleY: number;
   y: number;
+  /**
+   * Horizontal travel. Only `reach` uses it, and that is the whole point of
+   * `reach`: a stretch that stays centred is a body getting wider, and a body
+   * getting wider is not reaching for anything.
+   */
+  x?: number;
 }
 
 /*
@@ -38,17 +44,33 @@ interface Pose {
  * glitch rather than as squash.
  */
 const ENGAGED: Readonly<Record<LiquidForm, Pose>> = {
+  // Firming up: one small contraction as it commits, and then it is furniture.
+  // The visible change is the group swap — no pour, hard rim, no volume.
+  set: { scale: 0.99, scaleY: 0.99, y: 0 },
   // A finger is pushing it in, and it spreads.
   press: { scale: 1.05, scaleY: 0.9, y: 2 },
+  // Nothing is touching it, so nothing squashes it. It inflates.
+  swell: { scale: 1.07, scaleY: 1.07, y: 0 },
   // It has just landed, so engaged is rest and the spring does the arriving.
   settle: { scale: 1, scaleY: 1, y: 0 },
   // The level is owned by the caller's own geometry, not by a press state.
   fill: { scale: 1, scaleY: 1, y: 0 },
+  // Stretching after something: longer, thinner, and its centre goes with it.
+  reach: { scale: 1.26, scaleY: 0.88, x: 12, y: 0 },
+  // A shudder, not a deformation. Small, and the `wobbly` spring does the rest.
+  ripple: { scale: 1.04, scaleY: 0.96, y: 0 },
   // Leaving: it slumps and spreads before it goes.
   drain: { scale: 1.08, scaleY: 0.84, y: 4 },
-  // Present for exhaustiveness; these two are group-level forms.
-  merge: { scale: 1, scaleY: 1, y: 0 },
+  /*
+   * The group forms have no single-body pose, and this is not exhaustiveness
+   * padding: `LiquidSurface` cannot express a relationship between siblings,
+   * so a caller that lands here has picked the wrong tool and gets told rather
+   * than getting a body that quietly never moves.
+   */
   follow: { scale: 1, scaleY: 1, y: 0 },
+  merge: { scale: 1, scaleY: 1, y: 0 },
+  split: { scale: 1, scaleY: 1, y: 0 },
+  bead: { scale: 1, scaleY: 1, y: 0 },
 };
 
 /** Where a form starts from before it is engaged, when that differs from rest. */
@@ -56,6 +78,31 @@ const AT_REST: Readonly<Partial<Record<LiquidForm, Pose>>> = {
   // Stretched thin on the way down, the way a falling drop is.
   settle: { scale: 0.94, scaleY: 1.08, y: -8 },
 };
+
+/**
+ * Say so, once, when a group form is handed to the single-body component.
+ *
+ * It renders a correct-looking body that simply never moves, which is the
+ * worst failure mode a design system has: nothing is broken, so nobody looks.
+ *
+ * Not gated on a build-mode flag, for the reason written at length in
+ * `scripts/check-warnings-survive-build.mjs`: a library cannot see the
+ * consuming app's build, so `import.meta.env.DEV` — and `process.env.NODE_ENV`
+ * with it — resolves against *this* package and bakes the warning out of the
+ * published artifact. That has already happened here three times. Once per
+ * form, because a shelf rendering all twelve would otherwise print a wall.
+ */
+const warnedForms = new Set<LiquidForm>();
+
+function warnGroupForm(form: LiquidForm): void {
+  if (warnedForms.has(form)) return;
+  warnedForms.add(form);
+  console.warn(
+    `LiquidSurface cannot express the '${form}' form: it describes a relationship ` +
+      'between sibling items, not one body. Arrange the items in a <LiquidGroup> ' +
+      'with liquidFormGroup() instead; LiquidSurface will render a body that never moves.',
+  );
+}
 
 export interface LiquidSurfaceProps {
   children: ReactNode;
@@ -89,9 +136,19 @@ export function LiquidSurface({
   style,
 }: LiquidSurfaceProps): ReactNode {
   const reducedMotion = useSystemReducedMotion();
-  const group = useMemo(() => liquidFormGroup(form), [form]);
-  const item = useMemo(() => liquidFormItem(form), [form]);
   const engaged = active && !reducedMotion;
+  /*
+   * `set` is the one form that changes its group knobs mid-gesture, because it
+   * is the one form whose subject is stopping being liquid. The swap snaps —
+   * `blob` is path data and `gloss` is a filter pass, neither tweens — and for
+   * this form that snap is the gesture.
+   */
+  const group = useMemo(
+    () => liquidFormGroup(form, engaged ? LIQUID_FORMS[form].groupEngaged : undefined),
+    [form, engaged],
+  );
+  const item = useMemo(() => liquidFormItem(form), [form]);
+  if (LIQUID_FORMS[form].kind === 'group') warnGroupForm(form);
   const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
   /*
    * The ground under the body.
@@ -135,6 +192,7 @@ export function LiquidSurface({
           scale={target.scale}
           scaleY={target.scaleY}
           {...(item.transition === undefined ? {} : { transition: item.transition })}
+          {...(target.x === undefined ? {} : { x: target.x })}
           y={target.y}
         >
           <span className="game-ui-liquid-surface__fill" />

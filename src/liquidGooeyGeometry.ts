@@ -174,6 +174,16 @@ export interface BlobShape {
 }
 
 /**
+ * The share of a box's shorter side that a poured outline may swell by.
+ *
+ * Exported because it is the reason one `blob` value can be handed to a 44px
+ * button and a 14px meter at all, which makes it a fact the documentation and
+ * the form shelf have to be able to state — and a number stated in three
+ * places is a number that drifts in two of them.
+ */
+export const LIQUID_BLOB_MAX_FRACTION = 0.18;
+
+/**
  * A rounded rectangle whose edge swells outward like a poured body.
  *
  * Amplitude is clamped to a share of the shorter side so one value can be
@@ -188,7 +198,7 @@ export function blobPath(
   shape: BlobShape,
 ): string {
   const short = Math.min(w, h);
-  const amplitude = Math.min(Math.max(0, shape.amplitude), short * 0.18);
+  const amplitude = Math.min(Math.max(0, shape.amplitude), short * LIQUID_BLOB_MAX_FRACTION);
   if (amplitude < 0.15 || short <= 0) return roundedRectPath(x, y, w, h, radii);
   const radius = Math.min(Math.max(...radii, 0), short / 2);
   const seed = shape.seed ?? 7;

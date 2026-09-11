@@ -12,5 +12,8 @@ export default defineConfig({
   build: {
     outDir: 'site-dist',
     emptyOutDir: true,
+    rollupOptions: {
+      input: ['index.html', 'liquid.html'],
+    },
   },
 });
