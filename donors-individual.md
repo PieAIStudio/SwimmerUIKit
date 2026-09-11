@@ -14,8 +14,8 @@ never a checkout from `_donors-individual/for_SwimmerUIKit/`.
 - Owner repository: `SwimmerUIKit`
 - Combined-workspace checkout:
   `<portfolio-root>/_donors-individual/for_SwimmerUIKit/`
-- Pinned commit: `3862ffa345217443b63696a8c331a0664eea4b04`
-- Commit date: `2026-08-28T13:21:03+02:00`
+- Pinned commit: `422180dd7a5ac646c85deedc65500c4a74339127`
+- Commit date: `2026-09-09T11:04:00+02:00`
 - Upstream license: MIT
 - Package version at the pinned commit: `0.2.1`
 - Machine-readable pin: `donors-individual-lock.json`
@@ -102,6 +102,43 @@ for these, which is why they are deferred rather than built now:
 
 Do not move the deferred rows into `rejectedScope` unless a later review
 actually decides against them.
+
+### 2026-09-11 review of the range since `3862ffa`
+
+Two upstream commits touched `packages/liquid-gooey` and only one changed
+behaviour. `c5b6b44` is the repository rename to `Libraries.dev`, which moves
+the `repository` and `bugs` URLs in `package.json` and nothing else. `ae953b9`
+adds a `filter` prop: a raw SVG primitive string, injected with
+`dangerouslySetInnerHTML`, that REPLACES the whole goo chain — the caller then
+owns blur, contrast, waviness and the SVG half of the shadow stack.
+
+**Declined, and the need behind it was real.** The escape hatch exists because
+the chain is closed to extension, and SwimmerUIKit hit exactly that wall while
+adding interior lighting to the liquid surface. But a string of primitives
+spliced into the filter is outside everything this package promises: the
+filter-area budget cannot account for passes it cannot see, `swimmer-ui-check`
+cannot find raw colours inside an opaque string, and a caller who reproduces
+the chain by hand is pinned to this version of it forever. The kit answered the
+same need with a typed `gloss` pass instead, which the budget and the style
+checker can both read.
+
+Nothing else in the reviewed scope changed, so the adopted patterns above stand
+as written. The pin advances to `422180d` to record that the range was read.
+
+### Waviness: adopted, and now superseded in the kit's own forms
+
+The donor's group-level `waviness`/`wavinessFreq` pass is still adopted and
+still exported, and the attribution above is unchanged. It is no longer what
+the kit's named forms use for an organic outline, and the measurement is worth
+recording here because it is a property of the technique rather than of the
+port: Chrome resamples `feDisplacementMap` with nearest-neighbour, so the
+displaced contour can only land on whole pixels. Measured at device ratio 1
+along a straight edge, a high frequency gives per-pixel jitter and a low one
+gives a single one-pixel step across the whole side, with the rest of the
+outline moved by a constant offset. The kit's `blob` draws the outline in path
+data instead. That is a divergence from the donor, not a defect in it — the
+donor's own demos use waviness on large, merging bodies where a pixel of
+contour noise is invisible.
 
 ### Update policy
 

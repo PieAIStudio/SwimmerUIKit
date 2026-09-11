@@ -14,7 +14,6 @@ import { GameProgress } from './GameDisplay';
 import { GameSegmentedControl } from './GameSurfaces';
 import { LIQUID_GOOEY_WAVINESS_MAX_FRACTION } from './liquidGooeyWaviness';
 import './styles.css';
-import { LIQUID_GOOEY_EDGE_SOFTENING_BLUR } from './liquidGooeyFilter';
 
 (
   globalThis as typeof globalThis & {
@@ -189,23 +188,18 @@ describe('LiquidGroup browser architecture', () => {
     const wavyDisplacement = container.querySelector(
       '[data-testid="wavy-liquid"] feDisplacementMap',
     );
-    const wavyEdgeBlur = container.querySelector(
-      '[data-testid="wavy-liquid"] feGaussianBlur[in="shape-displaced"]',
-    );
     const paths = [...container.querySelectorAll<SVGPathElement>('[data-liquid-gooey-blob]')];
 
     expect(wavyWidth).toBeGreaterThan(calmWidth);
     expect(wavyHeight).toBeGreaterThan(calmHeight);
     expect(wavyNoise?.getAttribute('baseFrequency')).toBe('0.018');
     expect(wavyNoise?.getAttribute('seed')).toBe('7');
-    expect(wavyDisplacement?.getAttribute('result')).toBe('shape-displaced');
-    // 0.9 since 2.2.0; 0.5 was sub-pixel against the goo threshold and the
-    // outline stepped visibly at 1x. Read from the constant so the two cannot
-    // drift apart again.
-    expect(wavyEdgeBlur?.getAttribute('stdDeviation')).toBe(
-      String(LIQUID_GOOEY_EDGE_SOFTENING_BLUR),
-    );
-    expect(wavyEdgeBlur?.getAttribute('result')).toBe('shape');
+    // The displacement writes `shape` itself now; the softening pass that used
+    // to follow it was treating a ramp-width problem as an aliasing one.
+    expect(wavyDisplacement?.getAttribute('result')).toBe('shape');
+    expect(
+      container.querySelector('[data-testid="wavy-liquid"] feGaussianBlur[in="shape-displaced"]'),
+    ).toBeNull();
     expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
     expect(paths).toHaveLength(2);
     expect(paths.every((path) => (path.getAttribute('d') ?? '').length > 0)).toBe(true);

@@ -5,9 +5,9 @@
   "repository": "https://github.com/Jakubantalik/Libraries.git",
   "defaultBranch": "main",
   "upstreamPackagePath": "packages/liquid-gooey",
-  "commit": "3862ffa345217443b63696a8c331a0664eea4b04",
-  "commitDate": "2026-08-28T13:21:03+02:00",
-  "reviewedAt": "2026-08-30",
+  "commit": "422180dd7a5ac646c85deedc65500c4a74339127",
+  "commitDate": "2026-09-09T11:04:00+02:00",
+  "reviewedAt": "2026-09-11",
   "packageVersion": "0.2.1",
   "license": "MIT",
   "checkoutPath": "<portfolio-root>/_donors-individual/for_SwimmerUIKit/",
@@ -30,7 +30,8 @@
   ],
   "rejectedScope": [
     "general observer loop; SwimmerUIKit retains its own budgeted, idle-sleeping image-melt runtime instead of transplanting the donor observer",
-    "dissolve flowSpeed ambient stirring while held still; kit gates flow by motion so a settled dissolve adds no clock. This was an adaptation, not a prior rejection — recorded here on 2026-08-30 so it is not later described as if it had been refused from the start"
+    "dissolve flowSpeed ambient stirring while held still; kit gates flow by motion so a settled dissolve adds no clock. This was an adaptation, not a prior rejection — recorded here on 2026-08-30 so it is not later described as if it had been refused from the start",
+    "packages/liquid-gooey/src/Gooey.tsx#filter raw-primitive escape hatch (dangerouslySetInnerHTML replacing the goo chain); reviewed 2026-09-11 and declined — an opaque primitive string is invisible to the kit's filter-area budget and to swimmer-ui-check's colour ownership rule, and pins the caller to one version of the chain. The kit met the same need with a typed gloss pass."
   ],
   "updateDecision": "Manual review only; do not auto-sync, install, or load the donor checkout at runtime."
 }

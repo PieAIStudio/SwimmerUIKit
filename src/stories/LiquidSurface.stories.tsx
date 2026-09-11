@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '液体形态。引擎本身只有 blur / contrast / waviness 这些物理旋钮,没有「长什么样」;`form` 就是补上的那一层——每个名字是一组实测过的参数。所有形态静止时 `waviness` 都是 0:波动加在静止的圆角矩形上会被读成渲染 bug,液体要靠形状的融合与分离来表达,不是靠边缘抖动。',
+          '液体形态。引擎本身只有 blur / contrast 这些物理旋钮,没有「长什么样」;`form` 就是补上的那一层——每个名字是一组实测过的参数。不规则的外形来自 `blob`——路径数据本身向外涌出,不是滤镜位移:Chrome 对 feDisplacementMap 用最近邻采样,轮廓只能落在整像素上,高频是逐像素的毛刺,低频则是整条边突然错开一格。',
       },
     },
   },
@@ -39,8 +39,8 @@ function FormDemo({ form }: { form: LiquidForm }) {
         {active ? '复位' : '触发'}
       </GameButton>
       <code style={{ color: 'var(--game-ui-text-muted)', fontSize: 12 }}>
-        blur {LIQUID_FORMS[form].group.blur} · contrast {LIQUID_FORMS[form].group.contrast} ·
-        waviness {LIQUID_FORMS[form].group.waviness}
+        blur {LIQUID_FORMS[form].group.blur} · contrast {LIQUID_FORMS[form].group.contrast} · blob{' '}
+        {LIQUID_FORMS[form].group.blob}
       </code>
     </div>
   );
@@ -87,7 +87,6 @@ function MergeDemo() {
         contrast={group.contrast}
         fill="var(--game-ui-accent)"
         filterPadding={group.filterPadding}
-        waviness={group.waviness}
       >
         <div
           style={{

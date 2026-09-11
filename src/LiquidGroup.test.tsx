@@ -2,7 +2,6 @@ import { describe, expect, it, afterEach } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { LiquidGroup, LiquidItem } from './LiquidGroup';
-import { LIQUID_GOOEY_EDGE_SOFTENING_BLUR } from './liquidGooeyFilter';
 import { DISSOLVE_DEFAULTS, resolveDissolveOptions } from './liquidGooeyImageMelt';
 import {
   DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET,
@@ -147,15 +146,14 @@ describe('LiquidGroup DOM architecture', () => {
     expect(calm).not.toContain('feTurbulence');
     expect(wavy).toContain('baseFrequency="0.018"');
     expect(wavy).toContain('scale="12"');
-    expect(wavy).toContain('in="shape-displaced"');
     /*
-      0.9 since 2.2.0, and the number matters. The goo threshold compresses a
-      blurred alpha ramp into a fraction of a pixel on purpose; 0.5px of
-      softening after it left about one pixel of ramp, which is not
-      anti-aliasing, and the outline was visibly stepped on a 1x screen while
-      looking perfectly clean in 3x screenshots.
+      The displacement now writes `shape` directly. It used to be followed by a
+      softening blur, on the theory that the stepped outline was an
+      anti-aliasing problem; it was a ramp-width problem, and the ramp floor in
+      the threshold fixes it without spending a whole extra full-region pass.
     */
-    expect(wavy).toContain(`stdDeviation="${LIQUID_GOOEY_EDGE_SOFTENING_BLUR}"`);
+    expect(wavy).toContain('result="shape"');
+    expect(wavy).not.toContain('in="shape-displaced"');
     expect(filterWidth(wavy)).toBeGreaterThan(filterWidth(calm));
     expect(filterHeight(wavy)).toBeGreaterThan(filterHeight(calm));
   });

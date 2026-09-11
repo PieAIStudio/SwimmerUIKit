@@ -2,7 +2,8 @@ import {
   measureRadius,
   normalizeRadius,
   offsetTo,
-  roundedRectPath,
+  silhouettePath,
+  type BlobShape,
   type BlobBox,
   type CornerRadii,
 } from './liquidGooeyGeometry';
@@ -59,6 +60,8 @@ export interface LiquidGooeyItemConfig {
   transition?: Transition;
   delay?: number;
   radius?: number | CornerRadii;
+  /** Pour the silhouette's outline outward instead of leaving it a rectangle. */
+  blob?: BlobShape;
 }
 
 export interface LiquidGooeyItemRegistration {
@@ -79,6 +82,7 @@ interface NormalizedConfig {
   transition?: Transition;
   delay?: number;
   radius?: number | CornerRadii;
+  blob?: BlobShape;
 }
 
 interface Point {
@@ -138,6 +142,7 @@ function normalizeConfig(config: LiquidGooeyItemConfig): NormalizedConfig {
   if (config.transition !== undefined) normalized.transition = config.transition;
   if (config.delay !== undefined) normalized.delay = Math.max(0, finite(config.delay, 0));
   if (config.radius !== undefined) normalized.radius = config.radius;
+  if (config.blob !== undefined) normalized.blob = config.blob;
   return normalized;
 }
 
@@ -805,6 +810,7 @@ export class LiquidGooeyEngine {
       this.reducedMotion || (!this.claimed && !isFirstBox) ? 0 : dt,
       this.now(),
       options,
+      entry.config.blob,
     );
     const fingerprint = `${frame.path}|${frame.transform}`;
     let changed = false;
@@ -896,7 +902,7 @@ export class LiquidGooeyEngine {
     const translateX = box.x + entry.current.x + (box.w * (1 - entry.current.scale)) / 2;
     const translateY = box.y + entry.current.y + (box.h * (1 - entry.current.scale)) / 2;
     const transform = `translate(${format(translateX)} ${format(translateY)}) scale(${format(entry.current.scale)})`;
-    const path = roundedRectPath(0, 0, box.w, box.h, box.r);
+    const path = silhouettePath(0, 0, box.w, box.h, box.r, entry.config.blob);
     const fingerprint = `${path}|${transform}`;
     if (entry.lastPaint === fingerprint) return false;
     entry.lastPaint = fingerprint;

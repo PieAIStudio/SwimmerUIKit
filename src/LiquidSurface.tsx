@@ -112,14 +112,13 @@ export function LiquidSurface({
         contrast={group.contrast}
         gloss={group.gloss}
         fill={fill}
-        filterPadding={group.filterPadding}
+        filterPadding={Math.max(group.filterPadding, Math.ceil(group.blob) + 8)}
         motion={reducedMotion ? 'reduced' : 'auto'}
         {...(shadow === undefined ? {} : { shadow })}
         {...(stroke === undefined ? {} : { stroke })}
-        waviness={group.waviness}
-        wavinessFreq={group.wavinessFreq}
       >
         <LiquidGroup.Item
+          {...(group.blob > 0 ? { blob: { amplitude: group.blob, lobes: group.lobes } } : {})}
           className="game-ui-liquid-surface__shape"
           {...(item.effect === undefined ? {} : { effect: item.effect })}
           {...(item.morph === undefined ? {} : { morph: item.morph })}

@@ -17,11 +17,7 @@ import { createPortal } from 'react-dom';
 
 import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
 import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from './liquidGooeyBudget';
-import {
-  LiquidGooeyFilter,
-  LIQUID_GOOEY_EDGE_SOFTENING_BLUR,
-  LIQUID_GOOEY_FILTER_DEFAULTS,
-} from './liquidGooeyFilter';
+import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 import {
   LIQUID_GOOEY_WAVINESS_MAX_FRACTION,
   resolveLiquidGooeyWaviness,
@@ -31,7 +27,7 @@ import {
   type LiquidGooeyItemConfig,
   type LiquidGooeyMotionMode,
 } from './liquidGooeyEngine';
-import type { CornerRadii } from './liquidGooeyGeometry';
+import type { BlobShape, CornerRadii } from './liquidGooeyGeometry';
 import type { BendTuning } from './liquidGooeyMove';
 import type { MorphTuning } from './liquidGooeyEvolve';
 import {
@@ -131,6 +127,12 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   /** Override the measured content border radius for the silhouette. */
   radius?: number | CornerRadii;
   /**
+   * Pour the outline outward into an organic body instead of leaving it a
+   * rounded rectangle. The bulge is outward-only, so the silhouette always
+   * contains the content's own box however bold the amplitude gets.
+   */
+  blob?: BlobShape;
+  /**
    * Select the adopted item surface behavior. Bend follows child geometry.
    * Move is a group gesture (`motion="follow"`), not an item effect.
    */
@@ -212,6 +214,7 @@ function imageMeltHostProps(
     'transition',
     'delay',
     'radius',
+    'blob',
     'morph',
     'bend',
     'observe',
@@ -339,11 +342,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       // feDisplacementMap can move either channel by at most `waviness` px;
       // reserve that slack so the wavy silhouette stays inside the filter
       // raster. Compositor drop-shadows paint outside this region on purpose.
-      wavinessValue +
-      // The post-displacement AA blur extends the painted alpha by roughly
-      // three sigma; reserve it here so the softened contour is not clipped
-      // and the filter-area budget includes the extra raster work.
-      (wavinessValue > 0 ? Math.ceil(LIQUID_GOOEY_EDGE_SOFTENING_BLUR * 3) : 0),
+      wavinessValue,
   );
   const basePadRef = useRef(basePad);
   basePadRef.current = basePad;
@@ -509,6 +508,7 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     transition,
     delay,
     radius,
+    blob,
     morph,
     bend,
     observe,
@@ -552,8 +552,23 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     if (transition !== undefined) next.transition = transition;
     if (delay !== undefined) next.delay = delay;
     if (radius !== undefined) next.radius = radius;
+    if (blob !== undefined) next.blob = blob;
     return next;
-  }, [bend, delay, effect, follow, hasDissolve, morph, observe, radius, scale, transition, x, y]);
+  }, [
+    bend,
+    blob,
+    delay,
+    effect,
+    follow,
+    hasDissolve,
+    morph,
+    observe,
+    radius,
+    scale,
+    transition,
+    x,
+    y,
+  ]);
   if (initialConfig.current === null) initialConfig.current = config;
 
   const setHostRef = useCallback(
@@ -567,9 +582,9 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
 
   useLayoutEffect(() => {
     const host = hostRef.current;
-    const blob = blobRef.current;
-    if (!portal || !host || !blob || !initialConfig.current) return;
-    return engine.register({ id: itemId, host, blob, config: initialConfig.current });
+    const blobNode = blobRef.current;
+    if (!portal || !host || !blobNode || !initialConfig.current) return;
+    return engine.register({ id: itemId, host, blob: blobNode, config: initialConfig.current });
   }, [engine, itemId, portal]);
 
   useLayoutEffect(() => {

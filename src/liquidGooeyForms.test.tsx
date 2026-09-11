@@ -2,47 +2,123 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { GameButton } from './GameButton';
+import { blobPath, silhouettePath, type CornerRadii } from './liquidGooeyGeometry';
 import {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
-  LIQUID_REST_EDGE_SLOPE_MAX,
   liquidFormGroup,
   liquidFormItem,
-  liquidRestEdgeSlope,
 } from './liquidGooeyForms';
-import { LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
+import {
+  LIQUID_GOOEY_FILTER_DEFAULTS,
+  LIQUID_GOOEY_MIN_EDGE_RAMP,
+  liquidGooeyEdgeContrast,
+} from './liquidGooeyFilter';
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');
 }
 
-describe('liquid forms', () => {
+/** Every anchor point of the blob spline: the end point of each cubic. */
+function anchors(d: string): [number, number][] {
+  const out: [number, number][] = [];
+  for (const match of d.matchAll(/C [-\d.]+ [-\d.]+ [-\d.]+ [-\d.]+ ([-\d.]+) ([-\d.]+)/g))
+    out.push([Number(match[1]), Number(match[2])]);
+  return out;
+}
+
+/** Exact signed distance to a rounded box; negative inside. */
+function roundedBoxDistance(px: number, py: number, w: number, h: number, r: number): number {
+  const qx = Math.abs(px - w / 2) - (w / 2 - r);
+  const qy = Math.abs(py - h / 2) - (h / 2 - r);
+  return Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r;
+}
+
+const PILL: CornerRadii = [22, 22, 22, 22];
+
+describe('liquid blob outline', () => {
   /*
-    This assertion used to read 「every form rests at waviness 0」, and that was
-    the wrong invariant. The production finding behind it is real — a static
-    edge can absolutely read as breakage — but the cause is the wavelength, not
-    the amplitude. Rendered side by side at button scale, 6 / 0.018 is visible
-    jitter and 3 / 0.008 is one slow undulation that reads as a liquid surface
-    standing still. So the rule is a band, not a zero.
+    This is the test the previous two rounds of edge tuning did not have, and
+    the one that would have caught both of them.
+
+    The shape used to come from `feDisplacementMap`. Measured at device ratio 1
+    on a straight edge, the settings that shipped moved the outline a constant
+    1.5px and varied it by 0.01px — a plain rounded rectangle, nudged. Every
+    assertion in the file at the time was about the *configuration* (amplitude
+    times frequency stays under a cap), and configuration is exactly what was
+    not the problem. So this asserts the outcome instead: the outline has to
+    actually go somewhere.
   */
-  it('keeps every resting edge under the slope that still reads as a surface', () => {
-    const tooSteep = LIQUID_FORM_NAMES.filter(
-      (form) => liquidRestEdgeSlope(form) > LIQUID_REST_EDGE_SLOPE_MAX,
-    );
-    expect(tooSteep).toEqual([]);
+  it('actually deviates, rather than shifting the whole outline evenly', () => {
+    const d = blobPath(0, 0, 130, 44, PILL, { amplitude: 5, seed: 7, lobes: 3 });
+    const distances = anchors(d).map(([x, y]) => roundedBoxDistance(x, y, 130, 44, 22));
+    const spread = Math.max(...distances) - Math.min(...distances);
+    expect(spread).toBeGreaterThan(5 * 0.6);
   });
 
   /*
-    The limit is the product, not either knob on its own — that is the whole
-    finding. These three pairs were all rendered and judged: the two that share
-    an amplitude with a passing pair but ride a shorter wavelength are the two
-    that looked torn, which is what a per-knob cap could never express.
+    Outward-only is the property that makes the surface safe to put under any
+    control: no amplitude, however bold, can push the silhouette across a
+    label's padding or inside the hit target.
   */
-  it('rejects a steep edge and accepts a bold one at the same amplitude', () => {
-    expect(5 * 0.008).toBeGreaterThan(LIQUID_REST_EDGE_SLOPE_MAX); // looked ragged
-    expect(5 * 0.005).toBeLessThanOrEqual(LIQUID_REST_EDGE_SLOPE_MAX); // looked smooth
-    expect(7 * 0.004).toBeLessThanOrEqual(LIQUID_REST_EDGE_SLOPE_MAX); // the bold one shipped
-    expect(6 * 0.018).toBeGreaterThan(LIQUID_REST_EDGE_SLOPE_MAX); // the old noisy default
+  it('never cuts inside the control box', () => {
+    for (const amplitude of [2, 5, 8, 40]) {
+      const d = blobPath(0, 0, 130, 44, PILL, { amplitude, seed: 3 });
+      const inside = anchors(d).filter(([x, y]) => roundedBoxDistance(x, y, 130, 44, 22) < -0.02);
+      expect(inside).toEqual([]);
+    }
+  });
+
+  /*
+    One amplitude has to suit a 44px button and a 14px meter, because a form
+    fixes it once for every surface that picks that form.
+  */
+  it('clamps the bulge on a thin box so a meter stays a meter', () => {
+    const thin: CornerRadii = [7, 7, 7, 7];
+    const d = blobPath(0, 0, 200, 14, thin, { amplitude: 8, seed: 7 });
+    const far = Math.max(...anchors(d).map(([x, y]) => roundedBoxDistance(x, y, 200, 14, 7)));
+    expect(far).toBeLessThanOrEqual(14 * 0.18 + 0.01);
+  });
+
+  it('falls back to the plain rounded rectangle when no shape is asked for', () => {
+    const plain = silhouettePath(0, 0, 130, 44, PILL, undefined);
+    expect(plain).toBe(silhouettePath(0, 0, 130, 44, PILL, { amplitude: 0 }));
+    expect(plain).not.toContain('C ');
+  });
+
+  it('is stable: one seed is one silhouette', () => {
+    const a = blobPath(0, 0, 130, 44, PILL, { amplitude: 5, seed: 7 });
+    const b = blobPath(0, 0, 130, 44, PILL, { amplitude: 5, seed: 7 });
+    expect(a).toBe(b);
+    expect(blobPath(0, 0, 130, 44, PILL, { amplitude: 5, seed: 11 })).not.toBe(a);
+  });
+});
+
+describe('liquid edge ramp', () => {
+  /*
+    `contrast` is the alpha slope that turns the blurred silhouette back into
+    an edge, and the crossing sits at a fixed 5/12 of the ramp — so contrast
+    decides how many pixels wide the edge is and nothing else. The shipped
+    pairing of blur 4 and contrast 24 works out at 0.43px, thinner than the
+    pixel drawing it. Measured at device ratio 1, contour roughness bottoms out
+    at 1.3px and gets no better past it.
+  */
+  it('lowers a contrast that would leave a sub-pixel edge', () => {
+    expect(liquidGooeyEdgeContrast(4, 24)).toBeLessThan(24);
+    const ramp = ((1 / 0.3902) * 4) / liquidGooeyEdgeContrast(4, 24);
+    expect(ramp).toBeCloseTo(LIQUID_GOOEY_MIN_EDGE_RAMP, 5);
+  });
+
+  it('leaves a contrast that is already soft enough alone', () => {
+    expect(liquidGooeyEdgeContrast(10, 14)).toBe(14);
+  });
+
+  it('gives every form an edge wide enough to draw', () => {
+    for (const form of LIQUID_FORM_NAMES) {
+      const { blur, contrast } = LIQUID_FORMS[form].group;
+      const ramp = ((1 / 0.3902) * blur) / liquidGooeyEdgeContrast(blur, contrast);
+      expect(ramp).toBeGreaterThanOrEqual(LIQUID_GOOEY_MIN_EDGE_RAMP - 1e-9);
+    }
   });
 
   /*
@@ -52,14 +128,21 @@ describe('liquid forms', () => {
   it('keeps the unconfigured default flat', () => {
     expect(LIQUID_GOOEY_FILTER_DEFAULTS.waviness).toBe(0);
   });
+});
 
+describe('liquid forms', () => {
   /*
     The two group forms say what they mean through the relationship between
-    bodies, so a shaped outline there is noise competing with the message.
+    bodies, so a poured outline there is noise competing with the message.
   */
-  it('keeps the edges of the two group forms flat', () => {
-    expect(LIQUID_FORMS.merge.group.waviness).toBe(0);
-    expect(LIQUID_FORMS.follow.group.waviness).toBe(0);
+  it('keeps the two group forms rectangular', () => {
+    expect(LIQUID_FORMS.merge.group.blob).toBe(0);
+    expect(LIQUID_FORMS.follow.group.blob).toBe(0);
+  });
+
+  it('pours every single-body form', () => {
+    for (const form of ['press', 'settle', 'fill', 'drain'] as const)
+      expect(LIQUID_FORMS[form].group.blob).toBeGreaterThan(0);
   });
 
   /*
@@ -83,15 +166,14 @@ describe('liquid forms', () => {
 
   /*
     Overrides merge into the bundle rather than replacing it. A caller that
-    changes one knob must not silently lose the other three, because then it
-    would be claiming a form it is no longer using.
+    changes one knob must not silently lose the others, because then it would
+    be claiming a form it is no longer using.
   */
   it('merges overrides into a form instead of replacing the bundle', () => {
     const group = liquidFormGroup('press', { blur: 9 });
     expect(group.blur).toBe(9);
     expect(group.contrast).toBe(LIQUID_FORMS.press.group.contrast);
-    expect(group.waviness).toBe(LIQUID_FORMS.press.group.waviness);
-    expect(group.wavinessFreq).toBe(LIQUID_FORMS.press.group.wavinessFreq);
+    expect(group.blob).toBe(LIQUID_FORMS.press.group.blob);
 
     const item = liquidFormItem('press', { morph: { bounce: 0.9 } });
     expect(item.morph?.bounce).toBe(0.9);
@@ -141,18 +223,19 @@ describe('GameButton surface axis', () => {
   });
 
   /*
-    Tone and surface are separate axes on purpose; this is the combination that
-    folding 'liquid' into `variant` would have made unsayable.
+    A disabled control does not wear the liquid at all. Liquid is how this kit
+    says 「press me」, and putting that on something that cannot be pressed was
+    the defect behind the grey blob.
   */
-  it('lets a destructive action still be liquid', () => {
+  it('drops back to the flat button when disabled', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameButton surface="liquid" variant="danger">
-          Delete
+        <GameButton disabled surface="liquid" variant="primary">
+          Run
         </GameButton>,
       ),
     );
-    expect(html).toContain('game-ui-button--danger');
-    expect(html).toContain('game-ui-liquid-surface');
+    expect(html).not.toContain('game-ui-liquid-surface');
+    expect(html).toContain('disabled');
   });
 });

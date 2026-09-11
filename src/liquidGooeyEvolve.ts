@@ -10,7 +10,7 @@
  */
 
 import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
-import { roundedRectPath, type CornerRadii } from './liquidGooeyGeometry';
+import { silhouettePath, type BlobShape, type CornerRadii } from './liquidGooeyGeometry';
 
 export interface EvolveOptions {
   /** Spring driving the liquid mass's centre. */
@@ -350,6 +350,7 @@ export function advanceEvolve(
   dt: number,
   now: number,
   options: Required<EvolveOptions>,
+  shape?: BlobShape | undefined,
 ): EvolveFrame {
   const safeDt = Math.max(0, finite(dt, 0));
   const tcx = target.cx;
@@ -482,7 +483,7 @@ export function advanceEvolve(
     !cornerActive;
   const radii: CornerRadii = [renderRadius, renderRadius, renderRadius, renderRadius];
   return {
-    path: roundedRectPath(-state.w / 2, -state.h / 2, state.w, state.h, radii),
+    path: silhouettePath(-state.w / 2, -state.h / 2, state.w, state.h, radii, shape),
     transform: `translate(${format(state.cx)} ${format(state.cy)}) scale(${format(target.scale)})`,
     contentBlur: blur,
     moving: !settled,

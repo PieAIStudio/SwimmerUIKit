@@ -109,6 +109,33 @@
       scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
       box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
   }
+  /*
+   * The lip is on `.game-ui-button` alone, not on every control that shares
+   * the row above. A tab, a toggle and a segmented option all live inside
+   * something else and read as part of a surface; a button is the thing you
+   * hit, and it is the only one that should look like it has height.
+   */
+  .game-ui-button {
+    box-shadow:
+      0 var(--game-ui-button-lip-depth) 0 var(--game-ui-button-lip-ink),
+      var(--game-ui-shadow-button);
+    transition:
+      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
+      translate var(--game-ui-motion-fast) var(--game-ui-ease-pop),
+      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
+      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
+  }
+  /* Pressing travels the lip's own height, so the button lands on the surface
+   * instead of shrinking in place. */
+  .game-ui-button:active:not(:disabled) {
+    --game-ui-button-lip-depth: 1px;
+    translate: 0 3px;
+  }
+  .game-ui-button--static:active,
+  .game-ui-button:disabled {
+    --game-ui-button-lip-depth: 0px;
+    translate: none;
+  }
   .game-ui-button,
   .game-ui-icon-button,
   .game-ui-radial-item {
@@ -3711,10 +3738,14 @@
    * ring, crisp text, every event — and the silhouette underneath becomes the
    * only thing painting a shape. So the shape a reader sees is the liquid one.
    */
-  .game-ui-button-liquid .game-ui-button {
+  .game-ui-button-liquid .game-ui-button,
+  .game-ui-button-liquid .game-ui-button:active {
     border: 0;
     background: transparent;
     box-shadow: none;
+    /* The liquid body already carries the press. Letting the flat lip travel
+     * as well would slide the label off the silhouette holding it. */
+    translate: none;
   }
   .game-ui-button-liquid {
     --game-ui-liquid-surface-fill: var(--game-ui-surface-raised);

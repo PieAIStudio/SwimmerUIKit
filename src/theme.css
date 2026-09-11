@@ -169,6 +169,12 @@
   --game-ui-scrollbar-thumb-hover: var(--game-ui-accent);
 
   /* Elevation */
+  /* The lip: a solid, unblurred band under a button, in the tone of its own
+   * shadow side. It is what separates a game control from a card — a key has
+   * a height you can see, and pressing it has somewhere to go. Depth is a
+   * token so a press can collapse it without restating the colour. */
+  --game-ui-button-lip-ink: rgba(94, 58, 30, 0.32);
+  --game-ui-button-lip-depth: 4px;
   --game-ui-shadow-button:
     0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);
   --game-ui-shadow-panel:
@@ -405,6 +411,7 @@
 
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.62);
 
+  --game-ui-button-lip-ink: rgba(0, 0, 0, 0.52);
   --game-ui-shadow-button: 0 13px 26px rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.08);
   --game-ui-shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --game-ui-shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -465,6 +472,7 @@
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
 
   /* Flat glass: no clay cast shadows; panels keep a soft lift for dialogue strips */
+  --game-ui-button-lip-ink: transparent;
   --game-ui-shadow-button: none;
   --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
   --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);

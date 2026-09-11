@@ -17,28 +17,28 @@
  * what it looks like, so a caller picks a behaviour instead of a physics
  * configuration.
  *
- * On the resting edge, and a correction to what this file said first.
+ * On the resting edge, and a second correction to what this file said.
  *
- * It originally set every form to `waviness: 0`, on the strength of a
- * production finding that waviness on a static rounded rectangle reads as a
- * rendering defect. That finding is real, but the rule drawn from it was the
- * wrong one: it blamed amplitude when the culprit is frequency.
+ * It first set every form to `waviness: 0`, on the strength of a production
+ * finding that a wavy outline on a static rounded rectangle reads as a
+ * rendering defect. It then reversed that, blaming the frequency rather than
+ * the amplitude, and shipped low-frequency waviness with a cap on the product
+ * of the two. Both revisions were judged from renders. The renders were real;
+ * the reading of them was not.
  *
- * Rendered side by side at button scale, the old default of amplitude 6 at
- * frequency 0.018 gives a visibly jittery outline — high-frequency noise at the
- * same scale as anti-aliasing, which is exactly why it reads as breakage. The
- * same mechanism at 3 / 0.008 gives a single slow undulation across the whole
- * silhouette: not a machined pill, obviously deliberate, and still smooth
- * everywhere. Same displacement, different wavelength, opposite reading.
+ * Measured properly — device ratio 1, alpha recovered from two backgrounds,
+ * sampled along the straight top edge — the low-frequency settings move the
+ * outline by a constant 1.5px and vary it by 0.01px across the whole side.
+ * There was no wave. The cap that looked like it was protecting the edge was
+ * choosing frequencies low enough for the feature to disappear, and scoring
+ * well for it. The one place it did vary, it varied as a single 1px step,
+ * because Chrome resamples `feDisplacementMap` with nearest-neighbour and the
+ * contour can only land on whole pixels.
  *
- * So single-body forms now rest with a low-frequency waviness, which is how a
- * liquid surface can look liquid while standing still. `seed` and frequency are
- * fixed in the filter, so the silhouette is a stable shape rather than
- * something that crawls — a moving resting edge would be the defect again.
- *
- * The two group forms stay at 0 deliberately. `merge` already says everything
- * through the neck between two bodies, and `follow` is pointing at something,
- * where a soft outline costs precision and buys nothing.
+ * So the shape does not come from the filter at all any more. `blob` pours the
+ * outline outward in the path data itself: exact at every device ratio, free
+ * of the sampling grid that made the filter route choose between jitter and a
+ * notch, and cheaper, since it removes two full-region filter passes.
  */
 
 import type { MorphTuning } from './liquidGooeyEvolve';
@@ -54,14 +54,15 @@ export type LiquidForm = 'press' | 'settle' | 'merge' | 'follow' | 'fill' | 'dra
 export interface LiquidFormGroup {
   readonly blur: number;
   readonly contrast: number;
-  /** Resting displacement, in px. Judge it together with `wavinessFreq`. */
-  readonly waviness: number;
   /**
-   * Wavelength of that displacement. This is the knob that decides whether a
-   * resting edge reads as liquid or as breakage: at 0.018 it is noise, at
-   * 0.008 it is form.
+   * How far the outline swells outward from the control's box, in px. The
+   * bulge is outward-only, so this never eats into a label's padding, and it
+   * is clamped to 18% of the shorter side so one number suits a 44px button
+   * and a 14px meter.
    */
-  readonly wavinessFreq: number;
+  readonly blob: number;
+  /** How many swells go round the outline. 2 is lazy, 5 is busy. */
+  readonly lobes: number;
   /**
    * Volume. The edge says 「liquid」 only as an outline; this is what makes the
    * inside of the body look like a material instead of a flat sticker.
@@ -112,8 +113,8 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
     group: {
       blur: 4,
       contrast: 24,
-      waviness: 10,
-      wavinessFreq: 0.0028,
+      blob: 5,
+      lobes: 3,
       gloss: 5,
       filterPadding: 28,
     },
@@ -131,7 +132,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   settle: {
     summary: 'Something arrives, overshoots, and comes to rest.',
-    group: { blur: 5, contrast: 22, waviness: 9, wavinessFreq: 0.003, gloss: 5, filterPadding: 26 },
+    group: { blur: 5, contrast: 22, blob: 4, lobes: 3, gloss: 5, filterPadding: 26 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
@@ -151,8 +152,8 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
     group: {
       blur: 10,
       contrast: 14,
-      waviness: 0,
-      wavinessFreq: 0.008,
+      blob: 0,
+      lobes: 3,
       gloss: 6,
       filterPadding: 18,
     },
@@ -171,7 +172,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   follow: {
     summary: 'A single blob travels to whichever item is active.',
-    group: { blur: 6, contrast: 20, waviness: 0, wavinessFreq: 0.008, gloss: 3, filterPadding: 12 },
+    group: { blur: 6, contrast: 20, blob: 0, lobes: 3, gloss: 3, filterPadding: 12 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1.1, bounce: 0.15, contentBlur: 0 },
@@ -187,12 +188,12 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
   fill: {
     /*
       Calmer than the other single-body forms on purpose. This one lands on
-      progress bars and meters, which are thin: the kit clamps waviness to 30%
-      of the shorter side, so a bold amplitude on a 14px bar spends the whole
-      clamp and the level stops reading as a level.
+      progress bars and meters, which are thin. `blob` clamps to 18% of the
+      shorter side, so a bold amplitude on a 14px bar spends the whole clamp
+      and the level stops reading as a level.
     */
     summary: 'A level rises and holds, the way a poured liquid settles.',
-    group: { blur: 6, contrast: 20, waviness: 3, wavinessFreq: 0.006, gloss: 4, filterPadding: 14 },
+    group: { blur: 6, contrast: 20, blob: 2, lobes: 2, gloss: 4, filterPadding: 14 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.08, contentBlur: 0 },
@@ -210,37 +211,14 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
     group: {
       blur: 8,
       contrast: 16,
-      waviness: 10,
-      wavinessFreq: 0.0028,
+      blob: 7,
+      lobes: 4,
       gloss: 5,
-      filterPadding: 28,
+      filterPadding: 30,
     },
     item: { dissolve: true, transition: 'smooth' },
   },
 };
-
-/**
- * How steep a resting edge may get and still read as a surface rather than as
- * damage.
- *
- * Amplitude and frequency are not two independent limits — their product is,
- * because that is roughly the slope of the displaced contour, and slope is what
- * the eye reads as 「torn」. Eight candidates rendered at button scale say so
- * cleanly: 3/0.008 and 5/0.005 and 7/0.004 and 9/0.003 all land at or under
- * 0.028 and all look like smooth liquid, while 5/0.008 (0.040) and 7/0.008
- * (0.056) look visibly ragged at the same amplitudes that were fine at a longer
- * wavelength. The old kit default, 6/0.018, is 0.108 — four times over.
- *
- * Capping the product instead of each knob is also what lets a form be bold:
- * amplitude can go as far as it likes as long as the wavelength grows with it.
- */
-export const LIQUID_REST_EDGE_SLOPE_MAX = 0.03;
-
-/** The slope a form's resting edge actually has. */
-export function liquidRestEdgeSlope(form: LiquidForm): number {
-  const { waviness, wavinessFreq } = LIQUID_FORMS[form].group;
-  return waviness * wavinessFreq;
-}
 
 /** Every form name, for shelves, docs and exhaustiveness checks. */
 export const LIQUID_FORM_NAMES = Object.keys(LIQUID_FORMS) as readonly LiquidForm[];

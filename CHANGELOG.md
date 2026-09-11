@@ -5,18 +5,17 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## 2.2.0 — 2026-09-11
 
-Minor, not major: nothing exported is removed or renamed, and no `--game-ui-*`
-name changes. One token's **value** changes and the resting look of any surface
-already using liquid changes with it — deliberately, and described under
-Changed.
+Minor, not major: nothing published is removed or renamed, and no `--game-ui-*`
+name changes. Two token **values** change, and every button in every product
+gets a visible lip — deliberately, and described under Changed.
 
 ### Added
 
 - **Named liquid forms.** `LIQUID_FORMS` gives the gooey engine six looks with
   names instead of a page of physical knobs: `press`, `settle`, `merge`,
-  `follow`, `fill`, `drain`. Each is a tested bundle of blur, contrast,
-  waviness and spring, resolved through `liquidFormGroup` / `liquidFormItem`,
-  which merge overrides into a form rather than replacing it.
+  `follow`, `fill`, `drain`. Each is a tested bundle of blur, contrast, outline
+  and spring, resolved through `liquidFormGroup` / `liquidFormItem`, which
+  merge overrides into a form rather than replacing it.
 
   This layer was missing, and its absence had a measurable cost: the only
   production consumer had to hand-tune 166 lines around a normal button to get
@@ -34,28 +33,81 @@ Changed.
   saying "this action is destructive". The default path renders byte-identical
   markup — asserted in a test — so no existing call site moves.
 
-- **`LIQUID_REST_EDGE_SLOPE_MAX` and `liquidRestEdgeSlope`.** The measured
-  limit on how steep a resting liquid edge may get before it reads as damage.
+- **`blob`: an organic silhouette drawn as geometry.** `LiquidGroup.Item`
+  takes a `blob` shape, and the single-body forms use it. The outline swells
+  outward from the control's own box along a closed Catmull-Rom spline, so it
+  is exact at every device ratio and zoom, and it is **outward-only** by
+  construction — no amplitude can push the surface inside a label's padding or
+  across a hit target.
+
+  This replaces `waviness` as the way a form gets an irregular edge, and the
+  reason is a measurement rather than a preference. Chrome resamples
+  `feDisplacementMap` with nearest-neighbour, so a displaced contour can only
+  land on whole pixels. Captured at device ratio 1 with alpha recovered from
+  two backgrounds and sampled along a straight edge, the settings shipped in
+  the 2.2.0 development line moved the outline by a constant 1.5px and varied
+  it by 0.01px across the whole side: there was no wave at all, which is
+  exactly how it looked. Raising the frequency does not fix it — it trades one
+  whole-side step for per-pixel jitter, which is the frayed edge the effect was
+  blamed for in the first place.
+
+  `waviness` and `wavinessFreq` remain exported, documented and unchanged for
+  callers who want the filter-side texture on large merging bodies, which is
+  what the donor uses it for.
+
+- **`gloss`.** Interior volume for a liquid body, from `feSpecularLighting` at
+  a grazing 22° elevation. An irregular outline around a flat fill still reads
+  as a sticker; a surface reads as a material through how it catches light. The
+  light is distant rather than positional so it does not have to be recomputed
+  from a measured box on every resize.
+
+- **`LIQUID_GOOEY_MIN_EDGE_RAMP` and `liquidGooeyEdgeContrast`.** The floor on
+  how narrow the goo threshold may leave an edge.
 
 ### Changed
 
-- **Resting `waviness` is 0 by default, and shaped where a form asks for it.**
-  `--game-ui-liquid-gooey-waviness` was 6 and is now 0; the SSR fallback
-  matches. 6 came from the donor and meant the out-of-the-box look was a
-  permanently undulating outline, which reads as a rendering defect on a static
-  rounded rectangle — University cancelled it with `waviness={0}` on all
-  eighteen surfaces that use liquid, and those overrides are now unnecessary.
+- **Buttons have a lip.** `--game-ui-button-lip-ink` and
+  `--game-ui-button-lip-depth` add a solid, unblurred band under
+  `.game-ui-button`, and a press travels its height instead of only scaling in
+  place. This is what separates a game control from a card: a key has a height
+  you can see, and pressing it has somewhere to go.
 
-  What replaces it is not flatness. The forms rest with a **low-frequency**
-  shaped edge, because the variable that separates "liquid" from "torn" is the
-  wavelength, not the amplitude: rendered side by side at button scale, 6 at
-  frequency 0.018 is visible jitter while 7 at 0.004 is one slow undulation
-  that reads as a liquid surface standing still. The limit is therefore on the
-  product of the two — roughly the slope of the contour — and it is 0.03.
+  **Blast radius: every button in every product using the kit.** Only
+  `.game-ui-button` is affected — tabs, toggles and segmented options live
+  inside other surfaces and keep their flat treatment — and `ghost` and
+  `disabled` opt out. A product that wants the old look sets
+  `--game-ui-button-lip-depth: 0px`.
+
+- **The goo threshold has a minimum edge width.** `contrast` is not a look: the
+  alpha crossing sits at a fixed 5/12 of the ramp, so contrast decides only how
+  many pixels wide the edge is. Blur 4 with contrast 24 — the pairing the one
+  production consumer had converged on — works out at 0.43px, an edge thinner
+  than the pixel drawing it, which is the definition of an aliased one.
+  `liquidGooeyEdgeContrast` now lowers contrast until the ramp is at least
+  1.3px, the width at which measured contour roughness bottoms out at the score
+  of a shape with no displacement at all.
+
+  This cannot move a silhouette, only soften how it is drawn, and it only
+  engages where an edge was too thin. `merge` and the other soft forms are
+  untouched.
+
+- **Resting `waviness` is 0 by default.** `--game-ui-liquid-gooey-waviness` was
+  6 and is now 0; the SSR fallback matches. 6 came from the donor and meant the
+  out-of-the-box look was a permanently undulating outline, which reads as a
+  rendering defect on a static rounded rectangle — University cancelled it with
+  `waviness={0}` on all eighteen surfaces that use liquid, and those overrides
+  are now unnecessary.
 
   **Migration:** none required. A surface that genuinely wants the old molten
-  edge passes `waviness={6}`; one that wants a flat machined outline passes
-  `waviness={0}`, which is also what an unconfigured surface still gets.
+  edge passes `waviness={6}`.
+
+- **Removed before release: `LIQUID_REST_EDGE_SLOPE_MAX` and
+  `liquidRestEdgeSlope`.** Added earlier in this same unreleased line, on the
+  theory that a resting edge tears when amplitude times frequency goes too
+  high. The measurement above shows the cap was not protecting the edge — it
+  was selecting frequencies low enough for the displacement to stop varying,
+  and scoring well because the feature had disappeared. Nothing shipped with
+  them, so nothing has to migrate.
 
 ## 2.1.0 — 2026-09-02
 

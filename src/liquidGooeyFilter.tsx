@@ -14,18 +14,39 @@ import type { ShadowLayer, StrokeLayer } from './liquidGooeyShadow';
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 
 /**
- * Post-displacement pass that lets the browser reconstruct a clean alpha
- * contour after the wavy silhouette has been moved between pixels.
+ * The narrowest alpha ramp the goo threshold is allowed to leave, in px.
  *
- * 0.9, not the 0.5 this shipped with. The goo threshold compresses a blurred
- * alpha ramp into a fraction of a pixel by design — that is what makes a
- * merged body read as one solid shape — and 0.5px of softening afterwards left
- * roughly one pixel of ramp, which is not anti-aliasing. On a 3x capture it
- * looked clean and on a real 1x screen the outline was visibly stepped, which
- * is how it survived review: the screenshots were taken at a density that
- * hides exactly this defect.
+ * `contrast` is not a look, it is the slope that turns the blurred alpha back
+ * into an edge — the crossing itself sits at a fixed 5/12 of the ramp, so
+ * contrast changes how wide the edge is and nothing else. Width in px is
+ * `EDGE_RAMP_K * blur / contrast`, and the shipped pairing of blur 4 with
+ * contrast 24 works out at 0.43px: an edge thinner than the pixel that has to
+ * draw it, which is the definition of an aliased one.
+ *
+ * Rendered at device ratio 1 and measured on a straight edge, 0.9px still
+ * steps, 1.1px is close, and 1.3px is where contour roughness bottoms out at
+ * the value a shape with no displacement at all scores. Past that it only gets
+ * blurrier. So this is a floor on edge width rather than a tuning knob, and it
+ * is applied by lowering contrast — which cannot move the silhouette, only
+ * soften how it is drawn.
  */
-export const LIQUID_GOOEY_EDGE_SOFTENING_BLUR = 0.9;
+export const LIQUID_GOOEY_MIN_EDGE_RAMP = 1.3;
+
+/**
+ * Ramp width in px for a given blur and contrast.
+ *
+ * A straight blurred edge has alpha Phi(x/sigma); at the 5/12 crossing its
+ * slope is phi(Phi^-1(5/12))/sigma = 0.3902/sigma. The threshold spans 1
+ * alpha unit over 1/contrast of that, so the ramp is (1/0.3902) * blur /
+ * contrast.
+ */
+const EDGE_RAMP_K = 1 / 0.3902;
+
+/** Contrast lowered, if needed, until the edge is wide enough to draw. */
+export function liquidGooeyEdgeContrast(blur: number, contrast: number): number {
+  if (blur <= 0) return contrast;
+  return Math.min(contrast, (EDGE_RAMP_K * blur) / LIQUID_GOOEY_MIN_EDGE_RAMP);
+}
 
 /*
  * Fallbacks for SSR and hosts that have not loaded the CSS token layer yet.
@@ -216,7 +237,8 @@ export function LiquidGooeyFilter({
   /** Noise frequency of the undulation; lower values make longer waves. */
   wavinessFreq?: number;
 }): ReactElement {
-  const intercept = Math.round((0.5 - contrast * (5 / 12)) * 100) / 100;
+  const edgeContrast = liquidGooeyEdgeContrast(blur, contrast);
+  const intercept = Math.round((0.5 - edgeContrast * (5 / 12)) * 100) / 100;
   const wavy = waviness > 0;
   return (
     <>
@@ -224,7 +246,7 @@ export function LiquidGooeyFilter({
       <feColorMatrix
         in="blur"
         type="matrix"
-        values={`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${contrast} ${intercept}`}
+        values={`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${edgeContrast} ${intercept}`}
         result="goo"
       />
       <feComposite
@@ -263,11 +285,6 @@ export function LiquidGooeyFilter({
             scale={waviness * 2}
             xChannelSelector="R"
             yChannelSelector="G"
-            result="shape-displaced"
-          />
-          <feGaussianBlur
-            in="shape-displaced"
-            stdDeviation={LIQUID_GOOEY_EDGE_SOFTENING_BLUR}
             result="shape"
           />
         </>
