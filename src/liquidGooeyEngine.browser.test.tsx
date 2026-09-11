@@ -14,6 +14,7 @@ import { GameProgress } from './GameDisplay';
 import { GameSegmentedControl } from './GameSurfaces';
 import { LIQUID_GOOEY_WAVINESS_MAX_FRACTION } from './liquidGooeyWaviness';
 import './styles.css';
+import { LIQUID_GOOEY_EDGE_SOFTENING_BLUR } from './liquidGooeyFilter';
 
 (
   globalThis as typeof globalThis & {
@@ -198,7 +199,12 @@ describe('LiquidGroup browser architecture', () => {
     expect(wavyNoise?.getAttribute('baseFrequency')).toBe('0.018');
     expect(wavyNoise?.getAttribute('seed')).toBe('7');
     expect(wavyDisplacement?.getAttribute('result')).toBe('shape-displaced');
-    expect(wavyEdgeBlur?.getAttribute('stdDeviation')).toBe('0.5');
+    // 0.9 since 2.2.0; 0.5 was sub-pixel against the goo threshold and the
+    // outline stepped visibly at 1x. Read from the constant so the two cannot
+    // drift apart again.
+    expect(wavyEdgeBlur?.getAttribute('stdDeviation')).toBe(
+      String(LIQUID_GOOEY_EDGE_SOFTENING_BLUR),
+    );
     expect(wavyEdgeBlur?.getAttribute('result')).toBe('shape');
     expect(container.querySelector('[data-testid="calm-liquid"] feTurbulence')).toBeNull();
     expect(paths).toHaveLength(2);

@@ -83,6 +83,11 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   blur?: number;
   /** Alpha-contrast slope. Larger values make the liquid edge harder. */
   contrast?: number;
+  /**
+   * Volume. 0 leaves the body a flat colour; higher values light it as a
+   * curved surface so it reads as a material rather than as a silhouette.
+   */
+  gloss?: number;
   /** Surface fill. Defaults to the kit's theme surface token. */
   fill?: string;
   /** Extra filter-region slack in px for the silhouette's painted edges. */
@@ -247,6 +252,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   {
     blur = 6,
     contrast = 18,
+    gloss = 0,
     fill = 'var(--game-ui-surface, var(--game-ui-panel-strong))',
     filterPadding = 24,
     shadow,
@@ -472,6 +478,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
             <LiquidGooeyFilter
               blur={blurValue}
               contrast={contrastValue}
+              gloss={gloss}
               shadows={svgShadows}
               stroke={parsedStroke}
               waviness={wavinessValue}

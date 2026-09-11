@@ -3695,6 +3695,40 @@
   .game-ui-liquid-surface__fill {
     display: block;
   }
+  /*
+   * On a liquid button, the liquid IS the button.
+   *
+   * The first attempt left the control opaque and put the shaped body behind
+   * it, outset by a few pixels. That produced a regular pill with a blob
+   * peeking out around it — and worse, the shaped edge was mostly hidden,
+   * because a 7px displacement on a 7px sliver of visible pad has nowhere to
+   * show. It read as decoration stuck behind a button rather than as a button
+   * made of liquid, which is the opposite of the point.
+   *
+   * `LiquidCtaButton` had already solved this in the product and the answer
+   * was one line: make the real control transparent. The `<button>` keeps
+   * everything that has to stay rectangular and reliable — hit target, focus
+   * ring, crisp text, every event — and the silhouette underneath becomes the
+   * only thing painting a shape. So the shape a reader sees is the liquid one.
+   */
+  .game-ui-button-liquid .game-ui-button {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .game-ui-button-liquid {
+    --game-ui-liquid-surface-fill: var(--game-ui-surface-raised);
+  }
+  .game-ui-button-liquid--primary {
+    --game-ui-liquid-surface-fill: var(--game-ui-accent);
+  }
+  .game-ui-button-liquid--danger {
+    --game-ui-liquid-surface-fill: var(--game-ui-danger);
+  }
+  .game-ui-button-liquid--success {
+    --game-ui-liquid-surface-fill: var(--game-ui-success);
+  }
+
   .game-ui-liquid-surface__content {
     position: relative;
     z-index: 1;

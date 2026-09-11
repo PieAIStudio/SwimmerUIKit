@@ -62,6 +62,11 @@ export interface LiquidFormGroup {
    * 0.008 it is form.
    */
   readonly wavinessFreq: number;
+  /**
+   * Volume. The edge says 「liquid」 only as an outline; this is what makes the
+   * inside of the body look like a material instead of a flat sticker.
+   */
+  readonly gloss: number;
   readonly filterPadding: number;
 }
 
@@ -104,7 +109,14 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   press: {
     summary: 'A control that squashes under a press and rebounds past its rest shape.',
-    group: { blur: 4, contrast: 24, waviness: 7, wavinessFreq: 0.004, filterPadding: 22 },
+    group: {
+      blur: 4,
+      contrast: 24,
+      waviness: 10,
+      wavinessFreq: 0.0028,
+      gloss: 5,
+      filterPadding: 28,
+    },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1, bounce: 0.35, contentBlur: 0 },
@@ -119,7 +131,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   settle: {
     summary: 'Something arrives, overshoots, and comes to rest.',
-    group: { blur: 5, contrast: 22, waviness: 6, wavinessFreq: 0.004, filterPadding: 22 },
+    group: { blur: 5, contrast: 22, waviness: 9, wavinessFreq: 0.003, gloss: 5, filterPadding: 26 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
@@ -136,7 +148,14 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   merge: {
     summary: 'Neighbouring shapes reach for each other and fuse into one body.',
-    group: { blur: 10, contrast: 14, waviness: 0, wavinessFreq: 0.008, filterPadding: 18 },
+    group: {
+      blur: 10,
+      contrast: 14,
+      waviness: 0,
+      wavinessFreq: 0.008,
+      gloss: 6,
+      filterPadding: 18,
+    },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.8, bounce: 0.2, contentBlur: 0 },
@@ -152,7 +171,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   follow: {
     summary: 'A single blob travels to whichever item is active.',
-    group: { blur: 6, contrast: 20, waviness: 0, wavinessFreq: 0.008, filterPadding: 12 },
+    group: { blur: 6, contrast: 20, waviness: 0, wavinessFreq: 0.008, gloss: 3, filterPadding: 12 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1.1, bounce: 0.15, contentBlur: 0 },
@@ -173,7 +192,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
       clamp and the level stops reading as a level.
     */
     summary: 'A level rises and holds, the way a poured liquid settles.',
-    group: { blur: 6, contrast: 20, waviness: 3, wavinessFreq: 0.006, filterPadding: 14 },
+    group: { blur: 6, contrast: 20, waviness: 3, wavinessFreq: 0.006, gloss: 4, filterPadding: 14 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.08, contentBlur: 0 },
@@ -188,7 +207,14 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   drain: {
     summary: 'A shape loses its boundary and goes.',
-    group: { blur: 8, contrast: 16, waviness: 7, wavinessFreq: 0.004, filterPadding: 22 },
+    group: {
+      blur: 8,
+      contrast: 16,
+      waviness: 10,
+      wavinessFreq: 0.0028,
+      gloss: 5,
+      filterPadding: 28,
+    },
     item: { dissolve: true, transition: 'smooth' },
   },
 };

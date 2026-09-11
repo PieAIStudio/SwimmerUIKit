@@ -59,7 +59,18 @@ export function GameButton({
       {children}
     </button>
   );
-  if (surface !== 'liquid') return button;
+  /*
+   * A disabled control does not get the liquid surface at all.
+   *
+   * The first attempt muted the body's fill to the disabled token, which
+   * produced the worst of both: a pale grey blob, large and glossy enough to
+   * draw the eye, carrying text at roughly 1.2:1 against it. But the real
+   * problem was upstream of the colour. Liquid is the brand's way of saying
+   * 「press me」 — a wet, deformable surface is an invitation — and putting
+   * that invitation on a control that cannot be pressed is a lie told loudly.
+   * Falling back to the flat button says the true thing quietly.
+   */
+  if (surface !== 'liquid' || props.disabled === true) return button;
 
   /*
    * The press state lives here rather than on the silhouette because only the
@@ -68,8 +79,8 @@ export function GameButton({
    */
   return (
     <LiquidSurface
-      active={pressed && props.disabled !== true}
-      className="game-ui-button-liquid"
+      active={pressed}
+      className={`game-ui-button-liquid game-ui-button-liquid--${variant}`}
       form="press"
     >
       <span

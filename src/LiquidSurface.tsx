@@ -85,7 +85,7 @@ export function LiquidSurface({
   children,
   form = 'press',
   active = false,
-  fill = 'var(--game-ui-surface-raised)',
+  fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
   stroke,
   shadow,
   radius = 999,
@@ -110,6 +110,7 @@ export function LiquidSurface({
         blur={group.blur}
         className="game-ui-liquid-surface__body"
         contrast={group.contrast}
+        gloss={group.gloss}
         fill={fill}
         filterPadding={group.filterPadding}
         motion={reducedMotion ? 'reduced' : 'auto'}

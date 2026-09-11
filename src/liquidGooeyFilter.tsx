@@ -14,10 +14,18 @@ import type { ShadowLayer, StrokeLayer } from './liquidGooeyShadow';
 const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 
 /**
- * Small post-displacement pass that lets the browser reconstruct a clean
- * alpha contour after the wavy silhouette has been moved between pixels.
+ * Post-displacement pass that lets the browser reconstruct a clean alpha
+ * contour after the wavy silhouette has been moved between pixels.
+ *
+ * 0.9, not the 0.5 this shipped with. The goo threshold compresses a blurred
+ * alpha ramp into a fraction of a pixel by design — that is what makes a
+ * merged body read as one solid shape — and 0.5px of softening afterwards left
+ * roughly one pixel of ramp, which is not anti-aliasing. On a 3x capture it
+ * looked clean and on a real 1x screen the outline was visibly stepped, which
+ * is how it survived review: the screenshots were taken at a density that
+ * hides exactly this defect.
  */
-export const LIQUID_GOOEY_EDGE_SOFTENING_BLUR = 0.5;
+export const LIQUID_GOOEY_EDGE_SOFTENING_BLUR = 0.9;
 
 /*
  * Fallbacks for SSR and hosts that have not loaded the CSS token layer yet.
@@ -190,6 +198,7 @@ export function LiquidGooeyFilter({
   contrast,
   shadows,
   stroke,
+  gloss = 0,
   waviness = LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
   wavinessFreq = LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
 }: {
@@ -197,6 +206,11 @@ export function LiquidGooeyFilter({
   contrast: number;
   shadows: ShadowLayer[];
   stroke: StrokeLayer | null;
+  /**
+   * Volume. 0 leaves the silhouette a flat colour; higher values light it as a
+   * curved body so it reads as a material rather than as a shape.
+   */
+  gloss?: number;
   /** Max px the liquid boundary undulates. 0 keeps the calm geometric edge. */
   waviness?: number;
   /** Noise frequency of the undulation; lower values make longer waves. */
@@ -226,10 +240,20 @@ export function LiquidGooeyFilter({
           then hug the already-merged SVG alpha. */}
       {wavy ? (
         <>
+          {/*
+            One octave, not two.
+            
+            The second octave adds detail at twice the frequency, and with a
+            displacement this large that detail is steep enough to fold the
+            contour back on itself — it showed up as a hard notch part-way
+            along the top edge, the one thing on the shape that did not look
+            deliberate. A single octave keeps the field's gradient gentle
+            enough that a big displacement still maps to a smooth boundary.
+          */}
           <feTurbulence
             type="fractalNoise"
             baseFrequency={wavinessFreq}
-            numOctaves={2}
+            numOctaves={1}
             seed="7"
             result="wave-noise"
           />
@@ -244,6 +268,58 @@ export function LiquidGooeyFilter({
           <feGaussianBlur
             in="shape-displaced"
             stdDeviation={LIQUID_GOOEY_EDGE_SOFTENING_BLUR}
+            result="shape"
+          />
+        </>
+      ) : null}
+      {/*
+        Volume, not just an outline.
+
+        An irregular edge around a flat fill still reads as a sticker: the eye
+        gets its cue about material from how a surface catches light, and a
+        single colour catches none. Blurring the finished alpha gives a height
+        field — high in the middle of the body, falling off at the rim — and
+        lighting that field puts a soft sheen along the top and a darker belly
+        below, which is what a blob of liquid actually looks like.
+
+        `feDistantLight` rather than a point light on purpose: a point light
+        needs coordinates in filter space, so it would have to be recomputed
+        from the host's measured box on every resize and would drift out of
+        place the moment a surface changed size. A direction is the same at
+        every scale.
+      */}
+      {gloss > 0 ? (
+        <>
+          <feGaussianBlur in="shape" stdDeviation={2.5} result="gloss-bump" />
+          <feSpecularLighting
+            in="gloss-bump"
+            surfaceScale={gloss}
+            specularConstant={0.78}
+            specularExponent={20}
+            lightingColor="#ffffff"
+            result="gloss-light"
+          >
+            {/*
+              A low elevation is what makes this a liquid and not a donut.
+              The interior of the body is flat — the blurred alpha has no
+              gradient there — so a light overhead reflects off all of it at
+              once and washes the fill out to near-white, leaving only a ring
+              of colour at the rim. Dropped to a grazing angle, the flat middle
+              reflects almost nothing and only the sloped shoulder catches the
+              sheen, which is where a real wet surface carries it.
+            */}
+            <feDistantLight azimuth={235} elevation={22} />
+          </feSpecularLighting>
+          {/* Keep the sheen inside the body; a specular pass paints past it. */}
+          <feComposite in="gloss-light" in2="shape" operator="in" result="gloss-clip" />
+          <feComposite
+            in="shape"
+            in2="gloss-clip"
+            operator="arithmetic"
+            k1="0"
+            k2="1"
+            k3="1"
+            k4="0"
             result="shape"
           />
         </>
