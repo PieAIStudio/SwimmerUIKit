@@ -57,6 +57,12 @@ export interface LiquidGooeyItemConfig {
   x?: number;
   y?: number;
   scale?: number;
+  /**
+   * Vertical scale, when it differs from `scale`. Squash and stretch is the
+   * difference between a control that shrinks and one made of jelly, and it
+   * needs the two axes to disagree.
+   */
+  scaleY?: number;
   transition?: Transition;
   delay?: number;
   radius?: number | CornerRadii;
@@ -79,6 +85,7 @@ interface NormalizedConfig {
   x: number;
   y: number;
   scale: number;
+  scaleY: number;
   transition?: Transition;
   delay?: number;
   radius?: number | CornerRadii;
@@ -89,6 +96,7 @@ interface Point {
   x: number;
   y: number;
   scale: number;
+  scaleY: number;
 }
 
 interface Motion {
@@ -135,6 +143,7 @@ function normalizeConfig(config: LiquidGooeyItemConfig): NormalizedConfig {
     x: finite(config.x, 0),
     y: finite(config.y, 0),
     scale: Math.max(0.01, finite(config.scale, 1)),
+    scaleY: Math.max(0.01, finite(config.scaleY ?? config.scale, 1)),
   };
   if (config.effect !== undefined) normalized.effect = config.effect;
   if (config.morph !== undefined) normalized.morph = config.morph;
@@ -147,11 +156,11 @@ function normalizeConfig(config: LiquidGooeyItemConfig): NormalizedConfig {
 }
 
 function pointFrom(config: NormalizedConfig): Point {
-  return { x: config.x, y: config.y, scale: config.scale };
+  return { x: config.x, y: config.y, scale: config.scale, scaleY: config.scaleY };
 }
 
 function samePoint(a: Point, b: Point): boolean {
-  return a.x === b.x && a.y === b.y && a.scale === b.scale;
+  return a.x === b.x && a.y === b.y && a.scale === b.scale && a.scaleY === b.scaleY;
 }
 
 function sameBehavior(a: NormalizedConfig, b: NormalizedConfig): boolean {
@@ -663,6 +672,7 @@ export class LiquidGooeyEngine {
       x: motion.from.x + (motion.to.x - motion.from.x) * eased,
       y: motion.from.y + (motion.to.y - motion.from.y) * eased,
       scale: motion.from.scale + (motion.to.scale - motion.from.scale) * eased,
+      scaleY: motion.from.scaleY + (motion.to.scaleY - motion.from.scaleY) * eased,
     };
     this.applyHost(entry);
     if (progress >= 1) {
@@ -685,7 +695,7 @@ export class LiquidGooeyEngine {
     }
     const transform =
       `translate(${format(entry.current.x)}px, ${format(entry.current.y)}px) ` +
-      `scale(${format(entry.current.scale)})`;
+      `scale(${format(entry.current.scale)}, ${format(entry.current.scaleY)})`;
     if (entry.ownTransform === transform) return;
     entry.ownTransform = transform;
     entry.host.style.transform = transform;
@@ -751,6 +761,7 @@ export class LiquidGooeyEngine {
       cx: box.x + box.w / 2 + entry.current.x,
       cy: box.y + box.h / 2 + entry.current.y,
       scale: entry.current.scale,
+      scaleY: entry.current.scaleY,
     };
   }
 
@@ -788,6 +799,7 @@ export class LiquidGooeyEngine {
       cx: box.x + box.w / 2 + (observed ? 0 : entry.current.x),
       cy: box.y + box.h / 2 + (observed ? 0 : entry.current.y),
       scale: observed ? 1 : entry.current.scale,
+      scaleY: observed ? 1 : entry.current.scaleY,
       w: box.w,
       h: box.h,
       r: box.r[0] ?? 0,
@@ -900,8 +912,10 @@ export class LiquidGooeyEngine {
 
   private paintEntry(entry: Entry, box: BlobBox): boolean {
     const translateX = box.x + entry.current.x + (box.w * (1 - entry.current.scale)) / 2;
-    const translateY = box.y + entry.current.y + (box.h * (1 - entry.current.scale)) / 2;
-    const transform = `translate(${format(translateX)} ${format(translateY)}) scale(${format(entry.current.scale)})`;
+    const translateY = box.y + entry.current.y + (box.h * (1 - entry.current.scaleY)) / 2;
+    const transform =
+      `translate(${format(translateX)} ${format(translateY)}) ` +
+      `scale(${format(entry.current.scale)} ${format(entry.current.scaleY)})`;
     const path = silhouettePath(0, 0, box.w, box.h, box.r, entry.config.blob);
     const fingerprint = `${path}|${transform}`;
     if (entry.lastPaint === fingerprint) return false;

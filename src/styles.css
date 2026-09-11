@@ -136,6 +136,16 @@
     --game-ui-button-lip-depth: 0px;
     translate: none;
   }
+  /* A shallower lip where buttons crowd. Height reads as height because there
+   * is room around it; at 34px in a dense row, four solid bands stacked close
+   * together stop reading as four keys and start reading as ruled lines. */
+  [data-game-ui-density='compact'] .game-ui-button {
+    --game-ui-button-lip-depth: 2px;
+  }
+  [data-game-ui-density='compact'] .game-ui-button:active:not(:disabled) {
+    --game-ui-button-lip-depth: 0px;
+    translate: 0 2px;
+  }
   .game-ui-button,
   .game-ui-icon-button,
   .game-ui-radial-item {

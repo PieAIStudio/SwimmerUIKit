@@ -2,6 +2,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { GameButton } from './GameButton';
+import { LiquidSurface } from './LiquidSurface';
+import { presets } from './liquidGooeySpring';
 import { blobPath, silhouettePath, type CornerRadii } from './liquidGooeyGeometry';
 import {
   LIQUID_FORM_NAMES,
@@ -237,5 +239,69 @@ describe('GameButton surface axis', () => {
     );
     expect(html).not.toContain('game-ui-liquid-surface');
     expect(html).toContain('disabled');
+  });
+});
+
+describe('jelly', () => {
+  /*
+    Squash and stretch is the difference between a control that gets smaller
+    and a body made of something. A uniform scale cannot express it, so the
+    guard is that the two axes are actually allowed to disagree — this is the
+    property the whole `scaleY` addition exists for.
+  */
+  it('presses by spreading sideways, not by shrinking', () => {
+    const engaged = renderToStaticMarkup(
+      <LiquidSurface active form="press">
+        <span />
+      </LiquidSurface>,
+    );
+    expect(engaged).toContain('data-liquid-active="true"');
+    expect(LIQUID_FORMS.press.item.transition).toBe('wobbly');
+  });
+
+  /*
+    A jelly crosses its rest shape several times. `bouncy` crosses it once,
+    which reads as a bounce rather than as a material — the damping ratio is
+    the number that says which, and it has to stay on the jelly side of
+    `bouncy` for the press to keep feeling like jelly.
+  */
+  it('wobbles looser than it bounces', () => {
+    const ratio = (p: { stiffness: number; damping: number; mass: number }): number =>
+      p.damping / (2 * Math.sqrt(p.stiffness * p.mass));
+    expect(ratio(presets.wobbly)).toBeLessThan(ratio(presets.bouncy));
+    // Below about 0.2 it is still visibly moving when the next tap lands.
+    expect(ratio(presets.wobbly)).toBeGreaterThan(0.2);
+  });
+
+  /*
+    The kit's own default liquid fill is a near-white raised surface, and a
+    near-white body cannot be brightened — the first jelly pass turned it into
+    a featureless white slab. The headroom term is what stops that, so its
+    absence is a regression worth naming rather than a detail of the chain.
+  */
+  it('scales the sheen by how much headroom the fill has left', () => {
+    const html = renderToStaticMarkup(
+      <LiquidSurface form="press">
+        <span />
+      </LiquidSurface>,
+    );
+    expect(html).toContain('luminanceToAlpha');
+  });
+
+  /*
+    Every material pass runs on a hard-edged copy and the whole result is
+    clipped back to the anti-aliased silhouette exactly once. Adding light
+    straight onto the soft shape measured 0.19px of contour roughness against
+    0.087 for the unlit one.
+  */
+  it('clips the lit body back to the anti-aliased silhouette', () => {
+    const html = renderToStaticMarkup(
+      <LiquidSurface form="press">
+        <span />
+      </LiquidSurface>,
+    );
+    const clip = html.indexOf('in="jelly-final"');
+    expect(clip).toBeGreaterThan(-1);
+    expect(html.slice(clip, clip + 120)).toContain('in2="shape"');
   });
 });

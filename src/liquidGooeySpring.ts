@@ -6,7 +6,7 @@ export interface SpringConfig {
   mass?: number;
 }
 
-export type TransitionPreset = 'snappy' | 'smooth' | 'bouncy';
+export type TransitionPreset = 'snappy' | 'smooth' | 'bouncy' | 'wobbly';
 
 export type Transition = TransitionPreset | SpringConfig | { duration: number; ease?: string };
 
@@ -19,6 +19,13 @@ export const presets: Record<TransitionPreset, Required<SpringConfig>> = {
   snappy: { stiffness: 480, damping: 34, mass: 1 },
   smooth: { stiffness: 190, damping: 26, mass: 1 },
   bouncy: { stiffness: 320, damping: 17, mass: 1 },
+  /*
+    Jelly. Damping ratio 0.24 against bouncy's 0.48, so the body crosses its
+    rest shape three or four times instead of once — the difference between
+    「it bounced」 and 「it is made of something」. Any lower and the control
+    stops looking like it has settled before the next tap arrives.
+  */
+  wobbly: { stiffness: 400, damping: 9.6, mass: 1 },
 };
 
 const DT = 1 / 240;

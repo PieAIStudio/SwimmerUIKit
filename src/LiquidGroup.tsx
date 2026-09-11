@@ -121,6 +121,12 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   x?: number;
   y?: number;
   scale?: number;
+  /**
+   * Vertical scale, when it should differ from `scale`. A body that squashes
+   * wider as it gets shorter reads as jelly; one that scales uniformly reads
+   * as a thing getting smaller.
+   */
+  scaleY?: number;
   /** Spring preset/config or an explicit duration/easing pair. */
   transition?: Transition;
   /** Delay before this item starts its group-clock transition, in ms. */
@@ -212,6 +218,7 @@ function imageMeltHostProps(
     'x',
     'y',
     'scale',
+    'scaleY',
     'transition',
     'delay',
     'radius',
@@ -479,6 +486,7 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     x = 0,
     y = 0,
     scale = 1,
+    scaleY,
     transition,
     delay,
     radius,
@@ -522,6 +530,7 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
       x: finite(x, 0),
       y: finite(y, 0),
       scale: finite(scale, 1),
+      ...(scaleY === undefined ? {} : { scaleY: finite(scaleY, 1) }),
     };
     if (transition !== undefined) next.transition = transition;
     if (delay !== undefined) next.delay = delay;
@@ -539,6 +548,7 @@ const LiquidItemContent = forwardRef<HTMLDivElement, LiquidItemProps>(function L
     observe,
     radius,
     scale,
+    scaleY,
     transition,
     x,
     y,

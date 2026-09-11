@@ -456,6 +456,37 @@
     margin-top: auto;
   }
 
+  .game-ui-liquid-showcase {
+    display: grid;
+    gap: 16px;
+  }
+  .game-ui-liquid-showcase__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 20px 16px;
+    align-items: start;
+  }
+  /* Generous vertical room on purpose: the silhouette is drawn outside the
+   * control's own box, so a tight row would clip the very thing this section
+   * exists to show. */
+  .game-ui-liquid-showcase__pair {
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+    padding: 12px 8px 4px;
+  }
+  .game-ui-liquid-showcase__pair small {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .game-ui-liquid-showcase__body {
+    display: block;
+    width: 132px;
+    height: 56px;
+  }
+
   .game-ui-liquid-metal-compare {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

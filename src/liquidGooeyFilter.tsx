@@ -33,6 +33,47 @@ const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
 export const LIQUID_GOOEY_MIN_EDGE_RAMP = 1.3;
 
 /**
+ * The jelly material, as fixed properties of the substance.
+ *
+ * These are not per-surface knobs: they describe what the brand's liquid is
+ * made of. `gloss` scales how much of it a form wants; a form that wants a
+ * *different* material would be a different brand.
+ */
+const JELLY = {
+  /** Height-field blur. Wide enough to read as a dome on a 44px control. */
+  bump: 5,
+  /**
+   * How much brighter the lit copy of the fill is than the fill.
+   *
+   * Scaling RGB clamps the dominant channel first, so a saturated fill shifts
+   * hue as it brightens — orange towards gold. That is the right direction
+   * (thin orange really does transmit yellower light) but 1.7 overshot it and
+   * the brand colour arrived as caramel. Blending towards white instead would
+   * hold the hue and lose the saturation, which is worse: a pastel body does
+   * not read as a gummy at all.
+   */
+  lift: 1.5,
+  /** How far the unlit body drops, so the sheen has something to beat. */
+  deepen: 0.14,
+  /** How much of the sheen survives on an already-bright fill. */
+  headroom: 0.92,
+  rim: 0.6,
+  rimPx: 3,
+  sheen: 3.4,
+  sheenConstant: 0.9,
+  sheenExponent: 14,
+  sheenElevation: 46,
+  glint: 3,
+  /** The `gloss` value every constant above was measured at. */
+  at: 5,
+} as const;
+
+/** A colour matrix that scales RGB and optionally lifts it, leaving alpha. */
+function rgbScale(scale: number, lift = 0): string {
+  return `${scale} 0 0 0 ${lift}  0 ${scale} 0 0 ${lift}  0 0 ${scale} 0 ${lift}  0 0 0 1 0`;
+}
+
+/**
  * Ramp width in px for a given blur and contrast.
  *
  * A straight blurred edge has alpha Phi(x/sigma); at the 5/12 crossing its
@@ -290,55 +331,132 @@ export function LiquidGooeyFilter({
         </>
       ) : null}
       {/*
-        Volume, not just an outline.
+        Jelly, not a lit solid.
 
-        An irregular edge around a flat fill still reads as a sticker: the eye
-        gets its cue about material from how a surface catches light, and a
-        single colour catches none. Blurring the finished alpha gives a height
-        field — high in the middle of the body, falling off at the rim — and
-        lighting that field puts a soft sheen along the top and a darker belly
-        below, which is what a blob of liquid actually looks like.
+        An irregular outline around a flat fill still reads as a sticker, and a
+        lit *opaque* body reads as ceramic — measured, both: multiplying the
+        fill by a diffuse term darkened the brand orange to brown, and adding
+        white light at the strength a gel needs desaturated it to cream. What
+        actually separates jelly from plastic is that the light coming out of it
+        has passed through something coloured. So the sheen is used as a mask
+        and what it reveals is a brighter copy of the fill's own hue; white is
+        spent only on the small hard glint.
 
-        `feDistantLight` rather than a point light on purpose: a point light
-        needs coordinates in filter space, so it would have to be recomputed
-        from the host's measured box on every resize and would drift out of
-        place the moment a surface changed size. A direction is the same at
-        every scale.
+        Four terms, cheapest first:
+
+        - `deepen` takes the whole body down a little, so the lit part has an
+          unlit part to be brighter than.
+        - `rim` brightens the outermost few pixels — a translucent body is
+          thinnest there, so that is where the most light gets through.
+        - `sheen` is the broad wet highlight, scaled by the fill's own headroom
+          (see below).
+        - `glint` is the one small white catchlight, and the only white here.
+
+        Every pass runs on a hard-edged copy and the result is clipped back to
+        the anti-aliased silhouette exactly once, at the end. Adding light
+        straight onto the soft shape pushes alpha to 1 across the ramp that is
+        doing the anti-aliasing: measured at 0.19px contour roughness against
+        0.087 for the unlit shape.
       */}
       {gloss > 0 ? (
         <>
-          <feGaussianBlur in="shape" stdDeviation={2.5} result="gloss-bump" />
+          <feColorMatrix in="shape" type="matrix" values={BINARIZE} result="jelly-solid" />
+          <feColorMatrix
+            in="jelly-solid"
+            type="matrix"
+            values={rgbScale(JELLY.lift)}
+            result="jelly-bright"
+          />
+          <feGaussianBlur in="jelly-solid" stdDeviation={JELLY.bump} result="jelly-bump" />
+          <feColorMatrix
+            in="jelly-solid"
+            type="matrix"
+            values={rgbScale(1 - JELLY.deepen)}
+            result="jelly-lit"
+          />
+          {/* The rim: the band between the body and an eroded copy of it. */}
+          <feMorphology
+            in="jelly-solid"
+            operator="erode"
+            radius={JELLY.rimPx}
+            result="jelly-inner"
+          />
+          <feComposite in="jelly-solid" in2="jelly-inner" operator="out" result="jelly-rim-band" />
+          <feGaussianBlur
+            in="jelly-rim-band"
+            stdDeviation={JELLY.rimPx / 1.5}
+            result="jelly-rim-soft"
+          />
+          <feComponentTransfer in="jelly-rim-soft" result="jelly-rim-mask">
+            <feFuncA type="linear" slope={(JELLY.rim * gloss) / JELLY.at} intercept={0} />
+          </feComponentTransfer>
+          <feColorMatrix
+            in="jelly-solid"
+            type="matrix"
+            values={rgbScale(JELLY.lift * 1.18, 0.06)}
+            result="jelly-rim-color"
+          />
+          <feComposite in="jelly-rim-color" in2="jelly-rim-mask" operator="in" result="jelly-rim" />
+          <feComposite in="jelly-rim" in2="jelly-lit" operator="over" result="jelly-lit" />
           <feSpecularLighting
-            in="gloss-bump"
-            surfaceScale={gloss}
-            specularConstant={0.78}
-            specularExponent={20}
+            in="jelly-bump"
+            surfaceScale={(JELLY.sheen * gloss) / JELLY.at}
+            specularConstant={JELLY.sheenConstant}
+            specularExponent={JELLY.sheenExponent}
             lightingColor="#ffffff"
-            result="gloss-light"
+            result="jelly-sheen"
           >
-            {/*
-              A low elevation is what makes this a liquid and not a donut.
-              The interior of the body is flat — the blurred alpha has no
-              gradient there — so a light overhead reflects off all of it at
-              once and washes the fill out to near-white, leaving only a ring
-              of colour at the rim. Dropped to a grazing angle, the flat middle
-              reflects almost nothing and only the sloped shoulder catches the
-              sheen, which is where a real wet surface carries it.
-            */}
-            <feDistantLight azimuth={235} elevation={22} />
+            <feDistantLight azimuth={250} elevation={JELLY.sheenElevation} />
           </feSpecularLighting>
-          {/* Keep the sheen inside the body; a specular pass paints past it. */}
-          <feComposite in="gloss-light" in2="shape" operator="in" result="gloss-clip" />
+          <feComposite in="jelly-sheen" in2="jelly-solid" operator="in" result="jelly-sheen-mask" />
+          {/*
+            A white body cannot get brighter, and pretending otherwise turned
+            the kit's own cream surface into a featureless white slab.
+            `luminanceToAlpha` reads the fill's brightness inside the filter, so
+            `1 - luminance` is exactly the headroom it has left. Scaling the
+            sheen by that makes the pass adapt to any fill with no token, no
+            branch, and no second code path.
+          */}
+          <feColorMatrix in="jelly-solid" type="luminanceToAlpha" result="jelly-luma" />
+          <feComponentTransfer in="jelly-luma" result="jelly-headroom">
+            <feFuncA type="table" tableValues={`1 ${1 - JELLY.headroom}`} />
+          </feComponentTransfer>
           <feComposite
-            in="shape"
-            in2="gloss-clip"
+            in="jelly-sheen-mask"
+            in2="jelly-headroom"
+            operator="in"
+            result="jelly-sheen-scaled"
+          />
+          <feComposite
+            in="jelly-bright"
+            in2="jelly-sheen-scaled"
+            operator="in"
+            result="jelly-sheen-lit"
+          />
+          <feComposite in="jelly-sheen-lit" in2="jelly-lit" operator="over" result="jelly-lit" />
+          <feGaussianBlur in="jelly-solid" stdDeviation={4} result="jelly-glint-bump" />
+          <feSpecularLighting
+            in="jelly-glint-bump"
+            surfaceScale={(JELLY.glint * gloss) / JELLY.at}
+            specularConstant={1.1}
+            specularExponent={60}
+            lightingColor="#ffffff"
+            result="jelly-glint"
+          >
+            <feDistantLight azimuth={255} elevation={62} />
+          </feSpecularLighting>
+          <feComposite in="jelly-glint" in2="jelly-solid" operator="in" result="jelly-glint-clip" />
+          <feComposite
+            in="jelly-lit"
+            in2="jelly-glint-clip"
             operator="arithmetic"
             k1="0"
             k2="1"
             k3="1"
             k4="0"
-            result="shape"
+            result="jelly-final"
           />
+          <feComposite in="jelly-final" in2="shape" operator="in" result="shape" />
         </>
       ) : null}
       {needsBinarize(shadows, stroke) ? (

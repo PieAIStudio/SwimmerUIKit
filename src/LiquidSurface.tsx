@@ -21,24 +21,40 @@ import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from '
  * component owns the single-body forms.
  */
 
-/** How each form looks when it is engaged, relative to its rest shape. */
-const ENGAGED: Readonly<Record<LiquidForm, { scale: number; y: number }>> = {
-  // A finger is pushing it in.
-  press: { scale: 0.95, y: 1.5 },
+interface Pose {
+  scale: number;
+  scaleY: number;
+  y: number;
+}
+
+/*
+ * How each form looks when it is engaged, relative to its rest shape.
+ *
+ * The two axes disagree on purpose. A uniform scale is a thing getting
+ * smaller; a body that spreads sideways as it is pushed down is a body made of
+ * something, and that is the whole difference between a pressed button and a
+ * pressed jelly. It is not fully volume-preserving — 0.90 vertical would want
+ * 1.11 horizontal and that much sideways travel on a 44px control reads as a
+ * glitch rather than as squash.
+ */
+const ENGAGED: Readonly<Record<LiquidForm, Pose>> = {
+  // A finger is pushing it in, and it spreads.
+  press: { scale: 1.05, scaleY: 0.9, y: 2 },
   // It has just landed, so engaged is rest and the spring does the arriving.
-  settle: { scale: 1, y: 0 },
+  settle: { scale: 1, scaleY: 1, y: 0 },
   // The level is owned by the caller's own geometry, not by a press state.
-  fill: { scale: 1, y: 0 },
-  // Leaving: give the body a little collapse to go with the dissolve.
-  drain: { scale: 0.92, y: 0 },
+  fill: { scale: 1, scaleY: 1, y: 0 },
+  // Leaving: it slumps and spreads before it goes.
+  drain: { scale: 1.08, scaleY: 0.84, y: 4 },
   // Present for exhaustiveness; these two are group-level forms.
-  merge: { scale: 1, y: 0 },
-  follow: { scale: 1, y: 0 },
+  merge: { scale: 1, scaleY: 1, y: 0 },
+  follow: { scale: 1, scaleY: 1, y: 0 },
 };
 
 /** Where a form starts from before it is engaged, when that differs from rest. */
-const AT_REST: Readonly<Partial<Record<LiquidForm, { scale: number; y: number }>>> = {
-  settle: { scale: 0.97, y: -6 },
+const AT_REST: Readonly<Partial<Record<LiquidForm, Pose>>> = {
+  // Stretched thin on the way down, the way a falling drop is.
+  settle: { scale: 0.94, scaleY: 1.08, y: -8 },
 };
 
 export interface LiquidSurfaceProps {
@@ -75,7 +91,7 @@ export function LiquidSurface({
   const group = useMemo(() => liquidFormGroup(form), [form]);
   const item = useMemo(() => liquidFormItem(form), [form]);
   const engaged = active && !reducedMotion;
-  const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, y: 0 });
+  const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
 
   return (
     <span
@@ -104,6 +120,7 @@ export function LiquidSurface({
           {...(item.dissolve === undefined ? {} : { dissolve: item.dissolve && engaged })}
           radius={radius}
           scale={target.scale}
+          scaleY={target.scaleY}
           {...(item.transition === undefined ? {} : { transition: item.transition })}
           y={target.y}
         >

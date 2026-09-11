@@ -19,7 +19,9 @@ import {
 } from './ClayComponents';
 import { FirstSessionHud, FirstSessionOnboarding } from './FirstSessionGameShell';
 import { GameAvatar, GameEmptyState, GameProgress } from './GameDisplay';
-import { GameButton } from './GameButton';
+import { GameButton, type GameButtonVariant } from './GameButton';
+import { LiquidSurface, liquidFormSummary } from './LiquidSurface';
+import type { LiquidForm } from './liquidGooeyForms';
 import { LiquidMetalButton } from './LiquidMetalButton';
 import { GameCheckbox, GameField, GameInput, GameTextArea } from './GameForms';
 import { GameDialog } from './GameDialog';
@@ -166,6 +168,7 @@ interface PreviewCopy {
     components: string;
     forms: string;
     overlayGlass: string;
+    liquid: string;
     liquidMetal: string;
     firstSession: string;
     orientation: string;
@@ -203,6 +206,17 @@ interface PreviewCopy {
     doubt: string;
     sliderLabel: string;
     toggleLabel: string;
+  };
+  liquid: {
+    body: string;
+    surfacesTitle: string;
+    disabledTitle: string;
+    disabledBody: string;
+    formsTitle: string;
+    formsBody: string;
+    trigger: string;
+    reset: string;
+    press: string;
   };
   liquidMetal: {
     body: string;
@@ -300,6 +314,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       components: 'Component surface',
       forms: 'Forms, inputs and status',
       overlayGlass: 'Overlay glass HUD',
+      liquid: 'Liquid surface',
       liquidMetal: 'Liquid metal CTA',
       firstSession: 'First-session shell',
       orientation: 'Orientation gate preview',
@@ -407,6 +422,19 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       sliderLabel: 'Effects volume',
       toggleLabel: 'Sound on',
     },
+    liquid: {
+      body: 'The brand\u2019s own surface. `surface="liquid"` is a second axis on GameButton, not a variant \u2014 tone still says what the action means, so a destructive action can be liquid too. The silhouette behind is what deforms; the real button never does, so the hit target, the focus ring and the text stay exactly where they were. Press one.',
+      surfacesTitle: 'Flat and liquid, same tone',
+      disabledTitle: 'Disabled',
+      disabledBody:
+        'A disabled control drops the liquid entirely. Liquid is how this kit says \u201Cpress me\u201D, and putting that on something that cannot be pressed is a lie told loudly.',
+      formsTitle: 'The named forms',
+      formsBody:
+        'Each name is a measured bundle of blur, contrast, outline and spring \u2014 a behaviour to pick, not a physics configuration to tune.',
+      trigger: 'Trigger',
+      reset: 'Reset',
+      press: 'hold to press',
+    },
     liquidMetal: {
       body: 'For the few screens that take money or a yes: checkout, sign-up, badge unlock, landing CTA. Not for reading, queues, or the map — a moving rim is a tax you pay every glance, and the aesthetic-usability effect is strongest in the first seconds. More than two of these on a page means the page is the wrong place.',
       cssTitle: 'CSS renderer · zero WebGL context',
@@ -509,6 +537,7 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       components: '组件总览',
       forms: '表单、输入与状态',
       overlayGlass: '叠加玻璃 HUD',
+      liquid: '液体表面',
       liquidMetal: '液态金属 CTA',
       firstSession: '首次会话外壳',
       orientation: '横屏门预览',
@@ -611,6 +640,19 @@ const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       doubt: '怀疑',
       sliderLabel: '音效音量',
       toggleLabel: '声音开',
+    },
+    liquid: {
+      body: '品牌自己的表面。`surface="liquid"` 是 GameButton 上的第二个轴，不是一种 variant——色调仍然负责说明这个动作是什么意思，所以危险动作也可以是液体的。变形的是后面那层轮廓，真正的按钮从不变形，点击区、焦点环和文字都停在原地。按一下试试。',
+      surfacesTitle: '同一色调，扁平与液体',
+      disabledTitle: '禁用',
+      disabledBody:
+        '禁用的控件完全不穿液体。液体是这套 UI 说「按我」的方式，把这句话放在按不动的东西上，是大声说一句假话。',
+      formsTitle: '命名形态',
+      formsBody:
+        '每个名字是一组实测过的 blur / contrast / 外形 / 弹簧——挑的是一种行为，不是一组物理参数。',
+      trigger: '触发',
+      reset: '复位',
+      press: '按住看看',
     },
     liquidMetal: {
       body: '只用在掏钱或拍板的那几屏：付款、注册、徽章解锁、落地页主按钮。阅读、复习队列、3D 地图一个都不要加——会流动的边框在干活面上是每一次都要付的税。美观可用性效应在第一印象最强、随使用次数衰减。一页出现两个以上，就是用错了地方。',
@@ -984,6 +1026,80 @@ function OverlayGlassCompare(): ReactNode {
         </header>
         {cluster('glass')}
       </article>
+    </div>
+  );
+}
+
+/*
+ * The brand's own liquid, in the brand's own showcase.
+ *
+ * It was missing, and the omission had a cost: this page had a section for the
+ * WebGL metal CTA — which no product uses — and none for the surface that ships
+ * on real boards, so the only way to see a liquid button was to know which
+ * screen of which product happened to render one. A showcase that cannot show
+ * the signature look is not doing its job.
+ */
+function LiquidSurfaceShowcase(): ReactNode {
+  const { liquid } = useCopy();
+  const [engaged, setEngaged] = useState<LiquidForm | null>(null);
+  const tones: GameButtonVariant[] = ['primary', 'secondary', 'success', 'danger'];
+  const forms: LiquidForm[] = ['press', 'settle', 'fill', 'drain'];
+  return (
+    <div className="game-ui-liquid-showcase">
+      <GamePanel title={liquid.surfacesTitle} tone="strong">
+        <div className="game-ui-liquid-showcase__grid">
+          {tones.map((tone) => (
+            <div className="game-ui-liquid-showcase__pair" key={tone}>
+              <GameButton variant={tone}>{tone}</GameButton>
+              <GameButton surface="liquid" variant={tone}>
+                {tone}
+              </GameButton>
+              <small>{liquid.press}</small>
+            </div>
+          ))}
+        </div>
+      </GamePanel>
+
+      <GamePanel title={liquid.disabledTitle} tone="strong">
+        <p className="game-ui-small-copy">{liquid.disabledBody}</p>
+        <div className="game-ui-liquid-showcase__grid">
+          <div className="game-ui-liquid-showcase__pair">
+            <GameButton disabled variant="primary">
+              flat
+            </GameButton>
+            <GameButton disabled surface="liquid" variant="primary">
+              liquid
+            </GameButton>
+          </div>
+        </div>
+      </GamePanel>
+
+      <GamePanel title={liquid.formsTitle} tone="strong">
+        <p className="game-ui-small-copy">{liquid.formsBody}</p>
+        <div className="game-ui-liquid-showcase__grid">
+          {forms.map((form) => (
+            <div className="game-ui-liquid-showcase__pair" key={form}>
+              <LiquidSurface
+                active={engaged === form}
+                fill="var(--game-ui-accent)"
+                form={form}
+                radius={20}
+              >
+                <span className="game-ui-liquid-showcase__body" />
+              </LiquidSurface>
+              <GameButton
+                onClick={() => setEngaged((current) => (current === form ? null : form))}
+                variant="ghost"
+              >
+                {engaged === form ? liquid.reset : liquid.trigger}
+              </GameButton>
+              <small>
+                {form} · {liquidFormSummary(form)}
+              </small>
+            </div>
+          ))}
+        </div>
+      </GamePanel>
     </div>
   );
 }
@@ -1711,6 +1827,12 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
             tavern, cinematic stage). Nest inside light or night theme.
           </p>
           <OverlayGlassCompare />
+        </section>
+
+        <section aria-labelledby="game-ui-preview-liquid-title" className="game-ui-preview-section">
+          <h2 id="game-ui-preview-liquid-title">{copy.sections.liquid}</h2>
+          <p className="game-ui-small-copy">{copy.liquid.body}</p>
+          <LiquidSurfaceShowcase />
         </section>
 
         <section

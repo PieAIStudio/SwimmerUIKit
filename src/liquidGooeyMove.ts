@@ -106,6 +106,8 @@ export interface MoveTarget {
   cx: number;
   cy: number;
   scale: number;
+  /** Vertical scale when it differs; Move itself stays uniform. */
+  scaleY?: number;
 }
 
 export interface MoveState {

@@ -121,7 +121,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1, bounce: 0.35, contentBlur: 0 },
-      transition: 'bouncy',
+      transition: 'wobbly',
     },
   },
 
@@ -136,7 +136,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
-      transition: 'bouncy',
+      transition: 'wobbly',
     },
   },
 

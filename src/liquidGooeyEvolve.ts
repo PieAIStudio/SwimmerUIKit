@@ -72,6 +72,8 @@ export interface EvolveTarget {
   h: number;
   r: number;
   scale: number;
+  /** Vertical scale, when the caller is squashing rather than shrinking. */
+  scaleY?: number;
 }
 
 export interface EvolveState {
@@ -484,7 +486,9 @@ export function advanceEvolve(
   const radii: CornerRadii = [renderRadius, renderRadius, renderRadius, renderRadius];
   return {
     path: silhouettePath(-state.w / 2, -state.h / 2, state.w, state.h, radii, shape),
-    transform: `translate(${format(state.cx)} ${format(state.cy)}) scale(${format(target.scale)})`,
+    transform:
+      `translate(${format(state.cx)} ${format(state.cy)}) ` +
+      `scale(${format(target.scale)} ${format(target.scaleY ?? target.scale)})`,
     contentBlur: blur,
     moving: !settled,
   };

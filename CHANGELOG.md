@@ -3,6 +3,60 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.3.0 — 2026-09-11
+
+Minor: additive. One existing look changes — every liquid surface becomes a
+jelly — described under Changed.
+
+### Added
+
+- **`scaleY` on `LiquidGroup.Item`.** The two scale axes can now disagree, which
+  is what squash and stretch needs. A body that spreads sideways as it is pushed
+  down is made of something; one that scales uniformly is a thing getting
+  smaller.
+
+- **`wobbly` transition preset.** Damping ratio 0.24 against `bouncy`'s 0.48, so
+  a pressed body crosses its rest shape three or four times instead of once.
+  `press` and `settle` use it.
+
+- **A Liquid surface section in `GameUiPreview`.** The showcase had a section
+  for the WebGL metal CTA, which no product uses, and none for the surface that
+  actually ships — so the only way to see a liquid button was to know which
+  screen of which product happened to render one.
+
+### Changed
+
+- **The liquid body is a jelly, not a lit solid.** Four terms replace the single
+  specular pass: the body is deepened slightly, the outer 3px are brightened
+  (a translucent body is thinnest at the rim, so that is where most light gets
+  through), a broad sheen reveals a brighter copy of the fill's own hue, and one
+  small white glint sits on top.
+
+  Two measured dead ends are recorded here because they look reasonable on
+  paper. Multiplying the fill by a diffuse term — the standard way to light an
+  opaque body — darkened the brand orange to brown and read as ceramic. Adding
+  white light at the strength a gel needs desaturated it to cream. What actually
+  separates jelly from plastic is that the light leaving it has passed through
+  something coloured, so the sheen brightens the fill's own hue rather than
+  adding white.
+
+  The sheen is scaled by `1 - luminance` of the fill, computed inside the filter
+  with `luminanceToAlpha`. A white body cannot get brighter, and pretending
+  otherwise turned the kit's own near-white raised surface into a featureless
+  white slab. That makes the pass adapt to any fill with no token and no second
+  code path.
+
+  Every material pass runs on a hard-edged copy and the result is clipped back
+  to the anti-aliased silhouette exactly once. Adding light straight onto the
+  soft shape pushes alpha to 1 across the ramp doing the anti-aliasing: measured
+  at 0.19px contour roughness against 0.087 for the unlit shape.
+
+  **Migration:** none. `gloss={0}` on a form still gives the flat fill.
+
+- **The button lip is shallower at compact density.** Height reads as height
+  because there is room around it; four solid bands stacked close together in a
+  34px row read as ruled lines instead of as four keys.
+
 ## 2.2.0 — 2026-09-11
 
 Minor, not major: nothing published is removed or renamed, and no `--game-ui-*`
