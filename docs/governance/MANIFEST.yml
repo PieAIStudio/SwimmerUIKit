@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-06T01:23:58.567Z
-generator_version: doc-gov@0.9.10
-docs_count: 27
+generated_at: 2026-09-11T07:14:32.700Z
+generator_version: doc-gov@0.9.11
+docs_count: 28
 docs:
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
@@ -51,28 +51,35 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-17
+    last_reviewed: 2026-09-08
     pinned: false
   - id: POLICY-SHARED-BRAND-KIT-FIRST
     path: docs/policy/shared-rules/brand-kit-first.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-28
+    last_reviewed: 2026-09-08
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-17
+    last_reviewed: 2026-09-08
+    pinned: false
+  - id: POLICY-SHARED-DOCUMENT-CONVERGENCE
+    path: docs/policy/shared-rules/document-convergence.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-09-10
     pinned: false
   - id: POLICY-SHARED-PIE-PRODUCT-TECHNOLOGY
     path: docs/policy/shared-rules/pie-product-technology-stack.md
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-08-17
+    last_reviewed: 2026-09-08
     pinned: false
   - id: REF-DESIGN-SYSTEM-GUIDE
     path: docs/reference/design-system-guide.md
