@@ -19,9 +19,23 @@ const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
  */
 export const LIQUID_GOOEY_EDGE_SOFTENING_BLUR = 0.5;
 
-/** Fallbacks for SSR and hosts that have not loaded the CSS token layer yet. */
+/*
+ * Fallbacks for SSR and hosts that have not loaded the CSS token layer yet.
+ *
+ * `waviness` rests at 0, and that changed in 2.1.0. It used to be 6, which
+ * meant the out-of-the-box look was a permanently undulating outline — and
+ * University verified in production that waviness on a single static rounded
+ * rectangle reads as a rendering defect rather than as liquid, because the
+ * gooey technique says 「fluid」 through shapes merging and separating, not
+ * through a wobbling edge. Their CTA passes `waviness={0}` on all eighteen
+ * surfaces that use it; that override is now unnecessary.
+ *
+ * Nothing is lost: waviness is still a prop, and a deliberately molten surface
+ * asks for it. The default is simply the value that looks correct on the
+ * common case rather than the one every consumer has to discover and cancel.
+ */
 export const LIQUID_GOOEY_FILTER_DEFAULTS = {
-  waviness: 6,
+  waviness: 0,
   wavinessFreq: 0.018,
 } as const;
 

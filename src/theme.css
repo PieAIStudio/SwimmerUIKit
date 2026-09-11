@@ -317,7 +317,9 @@
   /* Liquid-gooey surface texture. Static by design: the seed is fixed and
      there is no clock behind the filter. The adopted default is visible:
      6px at the donor's 0.018 frequency; 0 remains an explicit calm override. */
-  --game-ui-liquid-gooey-waviness: 6;
+  /* 0 by default since 2.1.0: a wobbling outline on a static shape reads as
+     a rendering defect. Opt in per surface when the shape really is molten. */
+  --game-ui-liquid-gooey-waviness: 0;
   --game-ui-liquid-gooey-waviness-freq: 0.018;
 
   /* Liquid-gooey image Melt. These numeric knobs stay in the token layer so

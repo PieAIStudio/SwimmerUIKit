@@ -89,7 +89,16 @@ describe('liquid-gooey token mirror', () => {
   it('ships the adopted visible defaults and keeps the donor frequency baseline', () => {
     expect(CLAY_LIQUID_GOOEY_TOKENS.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
     expect(CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
-    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('6');
+    /*
+      0 since 2.1.0, changed deliberately rather than drifted. This assertion
+      used to read '6', which was the donor's visible default and which
+      University then had to cancel with `waviness={0}` on all eighteen
+      surfaces that use liquid: a wobbling outline on a static rounded
+      rectangle reads as a rendering defect, not as liquid. The donor frequency
+      baseline below is untouched — what changed is how far the edge travels at
+      rest, not the shape of the noise when a surface asks for it.
+    */
+    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('0');
     expect(rootVars.get('--game-ui-liquid-gooey-waviness-freq')).toBe('0.018');
     expect(rootVars.get('--game-ui-liquid-gooey-morph-shape')).toBe('1');
     expect(rootVars.get('--game-ui-liquid-gooey-morph-speed')).toBe('1');
