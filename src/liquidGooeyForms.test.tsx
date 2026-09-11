@@ -5,9 +5,10 @@ import { GameButton } from './GameButton';
 import {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
-  LIQUID_REST_EDGE_LIMITS,
+  LIQUID_REST_EDGE_SLOPE_MAX,
   liquidFormGroup,
   liquidFormItem,
+  liquidRestEdgeSlope,
 } from './liquidGooeyForms';
 import { LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 
@@ -24,22 +25,24 @@ describe('liquid forms', () => {
     jitter and 3 / 0.008 is one slow undulation that reads as a liquid surface
     standing still. So the rule is a band, not a zero.
   */
-  it('keeps every resting edge inside the band that still reads as a surface', () => {
-    const tooLoud = LIQUID_FORM_NAMES.filter(
-      (form) =>
-        LIQUID_FORMS[form].group.waviness > LIQUID_REST_EDGE_LIMITS.waviness ||
-        LIQUID_FORMS[form].group.wavinessFreq > LIQUID_REST_EDGE_LIMITS.wavinessFreq,
+  it('keeps every resting edge under the slope that still reads as a surface', () => {
+    const tooSteep = LIQUID_FORM_NAMES.filter(
+      (form) => liquidRestEdgeSlope(form) > LIQUID_REST_EDGE_SLOPE_MAX,
     );
-    expect(tooLoud).toEqual([]);
+    expect(tooSteep).toEqual([]);
   });
 
   /*
-    The old kit default has to stay outside the band, or the band means nothing.
+    The limit is the product, not either knob on its own — that is the whole
+    finding. These three pairs were all rendered and judged: the two that share
+    an amplitude with a passing pair but ride a shorter wavelength are the two
+    that looked torn, which is what a per-knob cap could never express.
   */
-  it('leaves the noisy old default outside that band', () => {
-    expect(
-      6 > LIQUID_REST_EDGE_LIMITS.waviness || 0.018 > LIQUID_REST_EDGE_LIMITS.wavinessFreq,
-    ).toBe(true);
+  it('rejects a steep edge and accepts a bold one at the same amplitude', () => {
+    expect(5 * 0.008).toBeGreaterThan(LIQUID_REST_EDGE_SLOPE_MAX); // looked ragged
+    expect(5 * 0.005).toBeLessThanOrEqual(LIQUID_REST_EDGE_SLOPE_MAX); // looked smooth
+    expect(7 * 0.004).toBeLessThanOrEqual(LIQUID_REST_EDGE_SLOPE_MAX); // the bold one shipped
+    expect(6 * 0.018).toBeGreaterThan(LIQUID_REST_EDGE_SLOPE_MAX); // the old noisy default
   });
 
   /*

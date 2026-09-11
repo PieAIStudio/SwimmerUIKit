@@ -21,9 +21,10 @@ export {
 export {
   LIQUID_FORM_NAMES,
   LIQUID_FORMS,
-  LIQUID_REST_EDGE_LIMITS,
+  LIQUID_REST_EDGE_SLOPE_MAX,
   liquidFormGroup,
   liquidFormItem,
+  liquidRestEdgeSlope,
   type LiquidForm,
   type LiquidFormGroup,
   type LiquidFormItem,

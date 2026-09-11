@@ -104,7 +104,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   press: {
     summary: 'A control that squashes under a press and rebounds past its rest shape.',
-    group: { blur: 4, contrast: 24, waviness: 3, wavinessFreq: 0.008, filterPadding: 14 },
+    group: { blur: 4, contrast: 24, waviness: 7, wavinessFreq: 0.004, filterPadding: 22 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 1, bounce: 0.35, contentBlur: 0 },
@@ -119,7 +119,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   settle: {
     summary: 'Something arrives, overshoots, and comes to rest.',
-    group: { blur: 5, contrast: 22, waviness: 3, wavinessFreq: 0.008, filterPadding: 16 },
+    group: { blur: 5, contrast: 22, waviness: 6, wavinessFreq: 0.004, filterPadding: 22 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
@@ -166,8 +166,14 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    * something untrue for a few frames.
    */
   fill: {
+    /*
+      Calmer than the other single-body forms on purpose. This one lands on
+      progress bars and meters, which are thin: the kit clamps waviness to 30%
+      of the shorter side, so a bold amplitude on a 14px bar spends the whole
+      clamp and the level stops reading as a level.
+    */
     summary: 'A level rises and holds, the way a poured liquid settles.',
-    group: { blur: 6, contrast: 20, waviness: 2, wavinessFreq: 0.008, filterPadding: 12 },
+    group: { blur: 6, contrast: 20, waviness: 3, wavinessFreq: 0.006, filterPadding: 14 },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.08, contentBlur: 0 },
@@ -182,17 +188,33 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   drain: {
     summary: 'A shape loses its boundary and goes.',
-    group: { blur: 8, contrast: 16, waviness: 3, wavinessFreq: 0.008, filterPadding: 16 },
+    group: { blur: 8, contrast: 16, waviness: 7, wavinessFreq: 0.004, filterPadding: 22 },
     item: { dissolve: true, transition: 'smooth' },
   },
 };
 
 /**
- * The band a resting edge may occupy and still read as a surface rather than as
- * damage, measured at button scale. Above either number the silhouette starts
- * looking chipped; the old kit default sat at 6 / 0.018, well outside it.
+ * How steep a resting edge may get and still read as a surface rather than as
+ * damage.
+ *
+ * Amplitude and frequency are not two independent limits — their product is,
+ * because that is roughly the slope of the displaced contour, and slope is what
+ * the eye reads as 「torn」. Eight candidates rendered at button scale say so
+ * cleanly: 3/0.008 and 5/0.005 and 7/0.004 and 9/0.003 all land at or under
+ * 0.028 and all look like smooth liquid, while 5/0.008 (0.040) and 7/0.008
+ * (0.056) look visibly ragged at the same amplitudes that were fine at a longer
+ * wavelength. The old kit default, 6/0.018, is 0.108 — four times over.
+ *
+ * Capping the product instead of each knob is also what lets a form be bold:
+ * amplitude can go as far as it likes as long as the wavelength grows with it.
  */
-export const LIQUID_REST_EDGE_LIMITS = { waviness: 3, wavinessFreq: 0.01 } as const;
+export const LIQUID_REST_EDGE_SLOPE_MAX = 0.03;
+
+/** The slope a form's resting edge actually has. */
+export function liquidRestEdgeSlope(form: LiquidForm): number {
+  const { waviness, wavinessFreq } = LIQUID_FORMS[form].group;
+  return waviness * wavinessFreq;
+}
 
 /** Every form name, for shelves, docs and exhaustiveness checks. */
 export const LIQUID_FORM_NAMES = Object.keys(LIQUID_FORMS) as readonly LiquidForm[];
