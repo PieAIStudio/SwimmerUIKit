@@ -3,6 +3,60 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.2.0 — 2026-09-11
+
+Minor, not major: nothing exported is removed or renamed, and no `--game-ui-*`
+name changes. One token's **value** changes and the resting look of any surface
+already using liquid changes with it — deliberately, and described under
+Changed.
+
+### Added
+
+- **Named liquid forms.** `LIQUID_FORMS` gives the gooey engine six looks with
+  names instead of a page of physical knobs: `press`, `settle`, `merge`,
+  `follow`, `fill`, `drain`. Each is a tested bundle of blur, contrast,
+  waviness and spring, resolved through `liquidFormGroup` / `liquidFormItem`,
+  which merge overrides into a form rather than replacing it.
+
+  This layer was missing, and its absence had a measurable cost: the only
+  production consumer had to hand-tune 166 lines around a normal button to get
+  one liquid control, and the corrections it discovered never came back here.
+
+- **`LiquidSurface`.** The packaging for the single-body forms — a
+  non-interactive silhouette behind, real DOM in front and never transformed,
+  so a pressed control keeps its hit target, its focus ring and its crisp text.
+  `merge` and `follow` describe a relationship between siblings and stay with
+  `LiquidGroup`, where they belong.
+
+- **`GameButton` gains `surface="flat" | "liquid"`.** Deliberately a second
+  axis rather than a new `variant`: `variant` is a tone, and folding 'liquid'
+  into it would have made the brand's signature surface mutually exclusive with
+  saying "this action is destructive". The default path renders byte-identical
+  markup — asserted in a test — so no existing call site moves.
+
+- **`LIQUID_REST_EDGE_SLOPE_MAX` and `liquidRestEdgeSlope`.** The measured
+  limit on how steep a resting liquid edge may get before it reads as damage.
+
+### Changed
+
+- **Resting `waviness` is 0 by default, and shaped where a form asks for it.**
+  `--game-ui-liquid-gooey-waviness` was 6 and is now 0; the SSR fallback
+  matches. 6 came from the donor and meant the out-of-the-box look was a
+  permanently undulating outline, which reads as a rendering defect on a static
+  rounded rectangle — University cancelled it with `waviness={0}` on all
+  eighteen surfaces that use liquid, and those overrides are now unnecessary.
+
+  What replaces it is not flatness. The forms rest with a **low-frequency**
+  shaped edge, because the variable that separates "liquid" from "torn" is the
+  wavelength, not the amplitude: rendered side by side at button scale, 6 at
+  frequency 0.018 is visible jitter while 7 at 0.004 is one slow undulation
+  that reads as a liquid surface standing still. The limit is therefore on the
+  product of the two — roughly the slope of the contour — and it is 0.03.
+
+  **Migration:** none required. A surface that genuinely wants the old molten
+  edge passes `waviness={6}`; one that wants a flat machined outline passes
+  `waviness={0}`, which is also what an unconfigured surface still gets.
+
 ## 2.1.0 — 2026-09-02
 
 ### Added
