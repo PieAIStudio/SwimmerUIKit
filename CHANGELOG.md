@@ -3,6 +3,81 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.4.0 — 2026-09-11
+
+Minor: additive. One new token, six new form names, and a cast shadow that
+every liquid body was missing.
+
+### Added
+
+- **A cast shadow on the single-body forms.** `LiquidSurface` accepted a
+  `shadow` and no form set one, so every liquid button floated: the flat button
+  standing next to it carries a solid lip *and* `--game-ui-shadow-button`, and
+  the liquid one carried neither. `press`, `settle`, `drain`, and the new
+  `swell`, `reach`, `ripple` and `set` now carry two layers each — a tight,
+  barely-offset seat that says the body is touching, and a wide low cast that
+  gives it height. Compared at device ratio 1 against the flat control, a seat
+  alone glues the body to the page and a cast alone leaves it hovering.
+
+  Every layer is outer and spreadless, which is the case
+  `compositorDropShadowFilter` lifts onto the compositor: it costs no filter
+  area and it hugs the poured outline rather than a rounded rectangle. A caller
+  that wants its own ground still passes `shadow`, and `shadow="none"` removes
+  it.
+
+- **`--game-ui-shadow-liquid-ink`.** The colour a liquid body casts, per theme.
+  It is a solid colour rather than a finished shadow, so a form states strength
+  and offset without restating the room's light. Deliberately **not** added to
+  `GAME_UI_THEME_CONTRACT`: that list is exported for downstream themes to
+  self-check, and adding an entry would turn a consumer's green check red for a
+  token they have never heard of. A theme that does not define it gets the
+  light theme's warm brown ink.
+
+- **`shadowEngaged` on a form, and a shadow that answers the gesture.** A
+  pressed body is nearer the ground, so its seat hardens and its cast collapses
+  toward it; `settle` rests mid-air with no seat at all and gains one on
+  landing, which is the moment that form exists to mark. The silhouette's
+  filter transitions, so the shadow no longer arrives before the thing casting
+  it.
+
+- **Six more forms: `set`, `swell`, `reach`, `ripple`, `split`, `bead`.** Each
+  says something none of the previous six could. `set` is the only one that
+  stops being liquid — everything else is a degree of wetness — and it snaps
+  rather than tweening, because setting is a discontinuity. `swell` is
+  attention with nothing touching it, so it is the one moving form with no
+  squash. `reach` is the only form with a direction. `ripple` says 「no」 by
+  moving and leaves its shape alone. `split` is `merge` backwards with a harder
+  edge and more recoil. `bead` is the one relationship form that pours, because
+  its bodies are the message rather than the neck between them.
+
+- **`kind` on every form, and `LiquidFormKind`.** A form is one body or a
+  relationship between siblings. `LiquidSurface` can only draw the first;
+  handing it a group form used to render a correct-looking body that silently
+  never moved, and it now warns once, in every build.
+
+- **`groupEngaged` on a form.** Group knobs that change while engaged. Only
+  `set` uses it. `blob` is path data and `gloss` is a filter pass, so neither
+  tweens — they snap, which is right for one form and a flicker for any other.
+
+- **`LIQUID_BLOB_MAX_FRACTION`.** The share of a box's shorter side a poured
+  outline may swell by (0.18). Exported because it is why one `blob` value can
+  be handed to a 44px button and a 14px meter, and a number written in three
+  places drifts in two.
+
+- **A Liquid page on the showcase site, at `/liquid.html`.** Every form live and
+  triggerable, at a control size and a meter size, on any of the four tones, in
+  both themes, with its knobs — including the derived edge width in px — written
+  out beside it.
+
+### Changed
+
+- **`GameUiPreview`'s liquid section is smaller.** It keeps what a component
+  gallery is for — `surface` is a second axis on `GameButton` — and links out to
+  the Liquid page for the vocabulary. Two shelves meant two to update and, in
+  practice, one of them lagging. Hosts that render `<GameUiPreview />` and do
+  not serve `liquid.html` will have a link that does not resolve; the section
+  otherwise stands on its own.
+
 ## 2.3.0 — 2026-09-11
 
 Minor: additive, plus one token value change on the default liquid fill.

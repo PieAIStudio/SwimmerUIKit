@@ -249,6 +249,38 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 
 效果本身的 token：`--game-ui-liquid-metal-face` / `--ink`（日夜两套都要给值，不能继承会在 night 上反相的 ink-deep）、`--game-ui-liquid-metal-accent`（默认等于 `--game-ui-accent`）、`--game-ui-liquid-metal-dispersion`、`--game-ui-liquid-metal-sweep-speed`、`--game-ui-liquid-metal-rest`、`--game-ui-liquid-metal-bloom`。
 
+## 液体表面（`LiquidSurface` / `LiquidGroup` / 形态）
+
+品牌的签名表面。挑的是**形态**（form）——一个已经调好的 blur / contrast /
+外形 / 弹簧 / 阴影的组合，外面套一个说得清它是什么意思的名字——而不是一组
+物理参数。整份词汇表、每个形态的活例子和它的旋钮，都在展示站的
+`/liquid.html`（`swimmer-ui.pieaistudio.com/liquid.html`）。
+
+**一屏只放一个液体元素，只承载一层意图。** 液体只出现在用户造成的状态变化
+上；没有环境液体、待机液体或装饰性液体。把胶质效果放在一块不动的实心方块
+上，读出来是「坏了」，不是「材质」——这是产品侧实测过的结论。
+
+形态分两类，`LIQUID_FORMS[form].kind` 说明是哪一类：
+
+- `body` —— 一个身体。直接交给 `<LiquidSurface form="…">`。
+  `set` / `press` / `swell` / `settle` / `fill` / `reach` / `ripple` / `drain`。
+- `group` —— 兄弟元素之间的关系。`LiquidSurface` 画不出来（给错会在控制台
+  说一次），要自己用 `<LiquidGroup>` 排布元素，旋钮从 `liquidFormGroup(form)`
+  取。`follow` / `merge` / `split` / `bead`。
+
+阴影是形态自带的，不在调用点写：身体离地多远是这个形态**本身**的意思。
+唯一需要主题给值的是 `--game-ui-shadow-liquid-ink`——它是一个纯色，不是一条
+写好的 shadow，这样形态只说强度和偏移，不用重复说这个房间的光。它**不在**
+`GAME_UI_THEME_CONTRACT` 里：那份清单是给下游自检用的，加一项会让消费方为
+一个它没听过的 token 变红。下游自定义主题建议补上，不补就会拿到浅色主题的
+暖棕色。
+
+`contrast` 不是一种「样子」：alpha 跨越点钉死在斜坡 5/12 处，所以它只决定
+边缘宽度，单位是像素，等于 `2.5628 × blur ÷ contrast`；低于约 1.3px 时 kit
+会自动把它压下来。`blob` 是路径数据不是滤镜，向外倒且夹在短边的
+`LIQUID_BLOB_MAX_FRACTION`（0.18）以内，所以同一个值可以同时给 44px 的按钮
+和 14px 的进度条。
+
 ## 面板系统选型
 
 | 需求 | 用 |
