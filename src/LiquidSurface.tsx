@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
+import { useMemo, type CSSProperties, type ReactNode } from 'react';
 
 import { LiquidGroup } from './LiquidGroup';
+import { useSystemReducedMotion } from './reducedMotion';
 import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from './liquidGooeyForms';
 
 /*
@@ -59,28 +60,6 @@ export interface LiquidSurfaceProps {
   style?: CSSProperties;
 }
 
-/**
- * Read the platform motion preference without assuming `matchMedia` exists,
- * which it does not during server rendering or in a bare jsdom test.
- */
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const onChange = (event: MediaQueryListEvent) => setReduced(event.matches);
-    setReduced(media.matches);
-    media.addEventListener('change', onChange);
-    return () => media.removeEventListener('change', onChange);
-  }, []);
-
-  return reduced;
-}
-
 export function LiquidSurface({
   children,
   form = 'press',
@@ -92,7 +71,7 @@ export function LiquidSurface({
   className,
   style,
 }: LiquidSurfaceProps): ReactNode {
-  const reducedMotion = usePrefersReducedMotion();
+  const reducedMotion = useSystemReducedMotion();
   const group = useMemo(() => liquidFormGroup(form), [form]);
   const item = useMemo(() => liquidFormItem(form), [form]);
   const engaged = active && !reducedMotion;
