@@ -69,6 +69,32 @@ export interface LiquidFormGroup {
    */
   readonly gloss: number;
   readonly filterPadding: number;
+  /**
+   * What the body casts on the ground at rest, in CSS box-shadow syntax.
+   *
+   * Every liquid button floated before this existed: the flat button has a lip
+   * *and* `--game-ui-shadow-button`, and the liquid one had neither, which is
+   * most of why it read flatter than its own flat twin. A form is where this
+   * belongs rather than a call site, because how far a body sits off the
+   * surface is part of what the form means.
+   *
+   * Keep it to outer layers with no spread. `liquidGooeyShadow` compiles those
+   * to a CSS `drop-shadow()` on the silhouette — the compositor does the blur,
+   * the shadow hugs the poured outline rather than a rounded rectangle, and it
+   * is allowed to paint outside the filter region. Inset and spread are legal
+   * but stay inside the SVG filter and are charged against the filter-area
+   * budget, so they are a deliberate purchase, not a default.
+   */
+  readonly shadow?: string;
+  /**
+   * What it casts while the form is engaged, when that differs.
+   *
+   * A body that squashes toward the surface gets *closer* to it, and a real
+   * contact shadow answers by tightening and darkening rather than staying
+   * put. Leaving this out is fine; the rest shadow then holds through the
+   * whole gesture, which is what a form with no vertical travel wants.
+   */
+  readonly shadowEngaged?: string;
 }
 
 /** Item-level behaviour a form fixes on each participating item. */
@@ -77,6 +103,40 @@ export interface LiquidFormItem {
   readonly morph?: MorphTuning;
   readonly transition?: Transition;
   readonly dissolve?: boolean;
+}
+
+/*
+ * The one shadow colour is a token; everything else is the form's own.
+ *
+ * `--game-ui-shadow-liquid-ink` is a solid colour per theme rather than a
+ * finished shadow, so a form can say "a fifth of the ink at 2px" without
+ * restating the room's light, and a night theme changes one value instead of
+ * six. Each layer is outer with no spread on purpose — that is exactly the
+ * case `compositorDropShadowFilter` lifts off the SVG filter and onto the
+ * compositor, where it costs nothing and hugs the poured outline instead of a
+ * rounded rectangle.
+ */
+function layer(y: number, blur: number, strength: number): string {
+  return `0 ${y}px ${blur}px color-mix(in srgb, var(--game-ui-shadow-liquid-ink) ${strength}%, transparent)`;
+}
+
+/*
+ * Two layers, because one cannot say both things a resting body says.
+ *
+ * A tight, barely offset layer is the *seat*: the darkness trapped where the
+ * body meets the surface, and the only part of a shadow that says "touching".
+ * A wide, low one is the cast, and it is what gives height. Compared at device
+ * ratio 1 against the flat button — which gets the same two ideas as a solid
+ * lip plus `--game-ui-shadow-button` — a seat alone glues the body to the page
+ * and a cast alone leaves it hovering. The flat control is the reference the
+ * liquid one has to stand next to, so it needs both.
+ *
+ * Chained `drop-shadow()`s do shadow each other. At these strengths that
+ * compounding is what deepens the mid-tone between the two layers, which is
+ * the effect wanted; it is worth remembering before anyone raises them.
+ */
+function cast(...layers: readonly string[]): string {
+  return layers.join(', ');
 }
 
 export interface LiquidFormSpec {
@@ -100,6 +160,22 @@ export interface LiquidFormSpec {
  * So `merge` sits at the high-blur/low-contrast end and `press` at the
  * low-blur/high-contrast end, and the forms between them are the useful
  * intermediate points rather than arbitrary presets.
+ *
+ * Three forms carry a shadow and three deliberately do not, and the split is
+ * not laziness:
+ *
+ * - `press`, `settle` and `drain` are bodies on a surface. Their whole subject
+ *   is weight — being pushed into something, landing on it, slumping off it —
+ *   and a body with weight and no shadow is the one thing the eye refuses.
+ * - `fill` lives *inside* a track, which is usually a recessed groove. A level
+ *   that casts a shadow onto the groove it is filling has stopped being a
+ *   level. What that form wants, if anything, is an inset — and an inset is
+ *   charged to the filter-area budget on a control that is often thin, so it
+ *   is a purchase to make against a real meter, not here.
+ * - `merge` and `follow` are group forms: the caller arranges the items, so
+ *   the caller owns the ground they sit on. `follow`'s marker rides inside a
+ *   rail and `merge`'s bodies may be mid-air; neither has one right answer
+ *   from in here. They take `shadow` on the group like any other caller.
  */
 export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
   /*
@@ -117,6 +193,11 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
       lobes: 3,
       gloss: 5,
       filterPadding: 28,
+      // Resting on the surface, not hovering over it.
+      shadow: cast(layer(2, 4, 22), layer(9, 18, 22)),
+      // Pushed down, so it is nearer the ground: the seat hardens and the cast
+      // collapses toward the body, which is what a shortening gap does.
+      shadowEngaged: cast(layer(1, 3, 28), layer(4, 9, 26)),
     },
     item: {
       effect: 'morph',
@@ -132,7 +213,23 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
    */
   settle: {
     summary: 'Something arrives, overshoots, and comes to rest.',
-    group: { blur: 5, contrast: 22, blob: 4, lobes: 3, gloss: 5, filterPadding: 26 },
+    group: {
+      blur: 5,
+      contrast: 22,
+      blob: 4,
+      lobes: 3,
+      gloss: 5,
+      filterPadding: 26,
+      // Rest for this form is mid-air — `AT_REST` lifts it 8px and stretches
+      // it thin. A body in the air has no seat at all, only a wide weak cast;
+      // adding a tight layer here would be drawing contact that is not
+      // happening.
+      shadow: cast(layer(16, 28, 15)),
+      // Landed, and the ground notices. This pair is the whole reason the
+      // engaged shadow exists: without it a form about arriving arrives onto
+      // nothing.
+      shadowEngaged: cast(layer(2, 4, 26), layer(5, 11, 24)),
+    },
     item: {
       effect: 'morph',
       morph: { shape: true, speed: 0.9, bounce: 0.55, contentBlur: 0 },
@@ -215,6 +312,12 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
       lobes: 4,
       gloss: 5,
       filterPadding: 30,
+      shadow: cast(layer(2, 4, 22), layer(9, 18, 22)),
+      // Slumping: it spreads, so it touches more ground and lifts off less,
+      // and both layers widen as they weaken. The silhouette's own alpha
+      // carries the ending — a `drop-shadow` fades with what casts it, so the
+      // shadow leaves when the body does without being told to.
+      shadowEngaged: cast(layer(2, 7, 15), layer(6, 24, 14)),
     },
     item: { dissolve: true, transition: 'smooth' },
   },

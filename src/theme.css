@@ -182,6 +182,12 @@
   --game-ui-shadow-modal:
     0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --game-ui-shadow-inset: inset 0 2px 8px rgba(76, 52, 28, 0.12);
+  /* The ink a liquid body casts on the ground under it.
+   * Only the colour is a token: how far a body sits off the surface is what
+   * each liquid form *means* — a pressed control is nearly touching, a falling
+   * one is not — so the offset, the blur and the strength belong to the form,
+   * and this is the one thing that has to follow the room's light. */
+  --game-ui-shadow-liquid-ink: rgb(76, 52, 28);
   --game-ui-shadow-scenery:
     0 28px 70px rgba(0, 0, 0, 0.34), inset 0 8px 20px rgba(255, 255, 255, 0.1);
   --game-ui-shadow-seat: 0 8px 18px rgba(0, 0, 0, 0.32);
@@ -416,6 +422,7 @@
   --game-ui-shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --game-ui-shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --game-ui-shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+  --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
 
   --game-ui-preview-glow-warm: rgba(120, 88, 42, 0.35);
   --game-ui-preview-glow-mint: rgba(47, 179, 162, 0.14);
@@ -477,6 +484,7 @@
   --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
   --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);
   --game-ui-shadow-inset: none;
+  --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
   --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.28);
   --game-ui-stroke: 1px solid var(--game-ui-overlay-glass-border);
 }

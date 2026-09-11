@@ -3670,6 +3670,13 @@
     /* Promote the CSS-filtered silhouette: WebKit otherwise repaints the
      * goo a frame or two behind the unfiltered content layer. */
     will-change: filter, transform;
+    /* The cast shadow lives in this filter, and a form changes it when the
+     * body is engaged. The body itself travels on a spring, so a shadow that
+     * cut straight to its pressed value would land before the thing casting
+     * it — which reads as a flicker under the control rather than as contact.
+     * Filter lists of the same shape interpolate, so this is the whole cost of
+     * making it follow. */
+    transition: filter var(--game-ui-motion-base) var(--game-ui-ease-soft);
   }
   .game-ui-liquid-content {
     position: relative;
@@ -3695,7 +3702,8 @@
     inset: 0;
   }
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-liquid-item {
+    .game-ui-liquid-item,
+    .game-ui-liquid-silhouette {
       transition: none;
     }
   }

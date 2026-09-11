@@ -173,6 +173,28 @@ describe('token single source of truth', () => {
     }
   });
 
+  /*
+   * The colour a liquid body casts on the ground.
+   *
+   * It is deliberately not in `GAME_UI_THEME_CONTRACT`: that list is exported
+   * so downstream themes can self-check, and adding an entry turns a
+   * consumer's own green check red for a token they have never heard of. The
+   * kit's three shipped surfaces still have to define it, and this is the gate
+   * that says so — a theme that forgets gets the light theme's warm brown ink
+   * on whatever ground it actually has, which is the exact drift the night
+   * check above exists to catch.
+   */
+  it('defines the liquid shadow ink on every surface the kit ships', () => {
+    const glassVars = parseVars(blockOf(themeCss, "[data-game-ui-tone='glass']"));
+    for (const [label, vars] of [
+      ['light', rootVars],
+      ['night', nightVars],
+      ['glass', glassVars],
+    ] as const) {
+      expect(vars.get('--game-ui-shadow-liquid-ink'), `${label} missing the ink`).toBeTruthy();
+    }
+  });
+
   it('every var(--game-ui-*) referenced by styles.css is defined in theme.css', () => {
     // Component-owned knobs are set by TSX inline styles or consumers, with
     // either an explicit fallback in styles.css or a runtime value.

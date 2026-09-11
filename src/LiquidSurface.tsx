@@ -69,6 +69,7 @@ export interface LiquidSurfaceProps {
   /** Silhouette paint. Defaults to the kit's raised surface token. */
   fill?: string;
   stroke?: string;
+  /** Overrides the form's own cast shadow. `none` removes it. */
   shadow?: string;
   /** Corner radius of the body, in px. 999 gives a pill. */
   radius?: number;
@@ -82,7 +83,7 @@ export function LiquidSurface({
   active = false,
   fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
   stroke,
-  shadow,
+  shadow: shadowOverride,
   radius = 999,
   className,
   style,
@@ -92,6 +93,18 @@ export function LiquidSurface({
   const item = useMemo(() => liquidFormItem(form), [form]);
   const engaged = active && !reducedMotion;
   const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
+  /*
+   * The ground under the body.
+   *
+   * The form is the default and an explicit `shadow` wins, including
+   * `shadow="none"` for a caller that genuinely wants a floating body. The
+   * engaged variant is what makes it a cast shadow rather than a decoration:
+   * these forms move vertically, and a shadow that does not answer that move
+   * is a sticker of a shadow. It transitions with the body because it is a
+   * CSS `filter` on the silhouette and that is an animatable property.
+   */
+  const formShadow = engaged ? (group.shadowEngaged ?? group.shadow) : group.shadow;
+  const shadow = shadowOverride ?? formShadow;
 
   return (
     <span

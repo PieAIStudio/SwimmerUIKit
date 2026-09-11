@@ -16,6 +16,7 @@ import {
   LIQUID_GOOEY_MIN_EDGE_RAMP,
   liquidGooeyEdgeContrast,
 } from './liquidGooeyFilter';
+import { parseShadow, svgFilterShadows } from './liquidGooeyShadow';
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');
@@ -239,6 +240,123 @@ describe('GameButton surface axis', () => {
     );
     expect(html).not.toContain('game-ui-liquid-surface');
     expect(html).toContain('disabled');
+  });
+});
+
+describe('liquid cast shadow', () => {
+  /*
+    Before this existed, every liquid button floated. The flat button carries a
+    solid lip *and* `--game-ui-shadow-button`; the liquid one carried neither,
+    which is most of why it read flatter than its own flat twin sitting next to
+    it in the showcase. The forms are where the fix belongs — a shadow set at
+    each call site is a shadow that drifts.
+  */
+  const GROUNDED = ['press', 'settle', 'drain'] as const;
+
+  it('grounds every form whose subject is a body with weight', () => {
+    for (const form of GROUNDED) {
+      expect(LIQUID_FORMS[form].group.shadow, `${form} floats`).toBeTruthy();
+    }
+  });
+
+  /*
+    And leaves the other three alone on purpose, so a later reader does not
+    read the gap as an oversight and "finish" it. `fill` lives inside a recessed
+    track and a level that shadows the groove it fills has stopped being a
+    level; `merge` and `follow` are group forms whose caller arranges the items
+    and therefore owns the ground they sit on.
+  */
+  it('leaves the track form and the two group forms ungrounded', () => {
+    for (const form of ['fill', 'merge', 'follow'] as const) {
+      expect(LIQUID_FORMS[form].group.shadow, `${form} grew a shadow`).toBeUndefined();
+    }
+  });
+
+  /*
+    The whole reason this is affordable. An outer, spreadless layer compiles to
+    a CSS `drop-shadow()` on the silhouette: the compositor blurs it, it hugs
+    the poured outline rather than a rounded rectangle, and it is allowed to
+    paint outside the filter region. Anything inset or spread falls back into
+    the SVG filter and is charged against the filter-area budget on a control
+    that may be 14px tall.
+  */
+  it('keeps every form shadow on the compositor, off the filter budget', () => {
+    for (const form of LIQUID_FORM_NAMES) {
+      const { shadow, shadowEngaged } = LIQUID_FORMS[form].group;
+      for (const value of [shadow, shadowEngaged]) {
+        if (value === undefined) continue;
+        const layers = parseShadow(value);
+        expect(layers.length, `${form} parsed to nothing`).toBeGreaterThan(0);
+        expect(svgFilterShadows(layers), `${form} spends filter area`).toEqual([]);
+      }
+    }
+  });
+
+  /*
+    One colour, one token, per theme. A literal here would be a light-theme
+    brown baked into a night screen, and `tokens.test.ts` cannot see TS.
+  */
+  it('takes its colour from the theme rather than from a literal', () => {
+    for (const form of LIQUID_FORM_NAMES) {
+      const { shadow, shadowEngaged } = LIQUID_FORMS[form].group;
+      for (const value of [shadow, shadowEngaged]) {
+        if (value === undefined) continue;
+        for (const { color } of parseShadow(value)) {
+          expect(color, `${form} hardcodes ${color}`).toContain('var(--game-ui-shadow-liquid-ink)');
+        }
+      }
+    }
+  });
+
+  /*
+    A cast shadow, not a decoration: a body that squashes toward the surface is
+    *closer* to it, so the gap it casts across gets shorter. If the engaged
+    offset ever stopped shrinking, the shadow would have gone back to being a
+    sticker that happens to sit under the control.
+  */
+  it('closes the gap when a press pushes the body toward the ground', () => {
+    const rest = parseShadow(LIQUID_FORMS.press.group.shadow);
+    const pressed = parseShadow(LIQUID_FORMS.press.group.shadowEngaged);
+    const drop = (layers: ReturnType<typeof parseShadow>): number =>
+      Math.max(...layers.map((layer) => layer.y));
+    expect(drop(pressed)).toBeLessThan(drop(rest));
+  });
+
+  /*
+    `settle` is the one form whose rest state is mid-air — `AT_REST` lifts it
+    8px and stretches it thin. A body in the air has no contact to draw, so its
+    rest shadow is one wide weak layer and its landed shadow gains the tight
+    one. Without that pair, a form about arriving arrives onto nothing.
+  */
+  it('gives settle contact only once it has landed', () => {
+    const air = parseShadow(LIQUID_FORMS.settle.group.shadow);
+    const landed = parseShadow(LIQUID_FORMS.settle.group.shadowEngaged);
+    expect(air).toHaveLength(1);
+    expect(Math.min(...landed.map((layer) => layer.blur))).toBeLessThan(
+      Math.min(...air.map((layer) => layer.blur)),
+    );
+  });
+
+  it('paints the form shadow without the caller asking for one', () => {
+    const html = renderToStaticMarkup(
+      <LiquidSurface form="press">
+        <span />
+      </LiquidSurface>,
+    );
+    expect(html).toContain('drop-shadow(');
+  });
+
+  /*
+    And still lets a caller out. A surface with its own ground — or one that is
+    genuinely meant to float — passes `shadow`, and `none` is a real answer.
+  */
+  it('lets a caller override or remove it', () => {
+    const none = renderToStaticMarkup(
+      <LiquidSurface form="press" shadow="none">
+        <span />
+      </LiquidSurface>,
+    );
+    expect(none).not.toContain('drop-shadow(');
   });
 });
 
