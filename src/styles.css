@@ -3757,8 +3757,18 @@
      * as well would slide the label off the silhouette holding it. */
     translate: none;
   }
+  /*
+   * The default liquid button is tinted, not the raised near-white.
+   *
+   * `surface-raised` is the right fill for a flat secondary button, and the
+   * wrong one for a liquid body: the whole point of this surface is a shape you
+   * can see, and a near-white shape on a cream panel has no shape at all — it
+   * measured as invisible next to its own flat twin while every coloured tone
+   * read clearly. The pale accent is the least loud tint that gives the
+   * silhouette an edge to be, and it adapts across themes on its own.
+   */
   .game-ui-button-liquid {
-    --game-ui-liquid-surface-fill: var(--game-ui-surface-raised);
+    --game-ui-liquid-surface-fill: var(--game-ui-accent-pale);
   }
   .game-ui-button-liquid--primary {
     --game-ui-liquid-surface-fill: var(--game-ui-accent);

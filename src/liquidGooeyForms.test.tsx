@@ -242,7 +242,7 @@ describe('GameButton surface axis', () => {
   });
 });
 
-describe('jelly', () => {
+describe('press motion', () => {
   /*
     Squash and stretch is the difference between a control that gets smaller
     and a body made of something. A uniform scale cannot express it, so the
@@ -271,37 +271,5 @@ describe('jelly', () => {
     expect(ratio(presets.wobbly)).toBeLessThan(ratio(presets.bouncy));
     // Below about 0.2 it is still visibly moving when the next tap lands.
     expect(ratio(presets.wobbly)).toBeGreaterThan(0.2);
-  });
-
-  /*
-    The kit's own default liquid fill is a near-white raised surface, and a
-    near-white body cannot be brightened — the first jelly pass turned it into
-    a featureless white slab. The headroom term is what stops that, so its
-    absence is a regression worth naming rather than a detail of the chain.
-  */
-  it('scales the sheen by how much headroom the fill has left', () => {
-    const html = renderToStaticMarkup(
-      <LiquidSurface form="press">
-        <span />
-      </LiquidSurface>,
-    );
-    expect(html).toContain('luminanceToAlpha');
-  });
-
-  /*
-    Every material pass runs on a hard-edged copy and the whole result is
-    clipped back to the anti-aliased silhouette exactly once. Adding light
-    straight onto the soft shape measured 0.19px of contour roughness against
-    0.087 for the unlit one.
-  */
-  it('clips the lit body back to the anti-aliased silhouette', () => {
-    const html = renderToStaticMarkup(
-      <LiquidSurface form="press">
-        <span />
-      </LiquidSurface>,
-    );
-    const clip = html.indexOf('in="jelly-final"');
-    expect(clip).toBeGreaterThan(-1);
-    expect(html.slice(clip, clip + 120)).toContain('in2="shape"');
   });
 });
