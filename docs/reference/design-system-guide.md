@@ -279,7 +279,60 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 单个自定义物体用 `LiquidSurface`；两个或多个物体相互作用才用 `LiquidGroup`。
 新人顺序是「我要做的控件 → 状态变化 → 看例子」，不是先读 Spring/Filter/Budget。
 
-### 形态、分类、投影
+### 两种液体材质与成品控件（2.6）
+
+同一套几何、动作和预算，通过可选 `liquidFinish="matte" | "glossy"` 选择材质。
+`matte` 去掉现有 specular 高光 pass；`glossy` 复用现有受控灯光，不引入 WebGL。
+轮廓、阴影、命名形态和动作不因为材质切换而换一套实现。
+
+**省略时保留旧外观**：普通按钮、图标按钮和开关默认仍是普通表面；分段选择与
+进度默认仍是原有液体实现。它们不因升级自动全部加高光。
+LiquidSurface 省略 finish 时保留形态自己的 gloss；LiquidGroup 显式 raw `gloss`
+优先于 finish，用于高级配方；`set` 的 engaged 灯光仍可降至自身定义的强度。
+
+| 成品控件 | 选择方式 | 边界 |
+| --- | --- | --- |
+| GameButton | `surface="liquid" liquidFinish="matte"`，可加 fullWidth | 原生按钮，不承包路由过渡 |
+| GameIconButton | 同上，必须提供 label | 按压复用同一内部装配，不缩小图标/目标 |
+| GameToggle | 同上 | 位置表示开关状态，只有滑块变形，标签保持稳定 |
+| GameSegmentedControl | `liquidFinish`；可选 `surface="flat"` | 底座/选中指示器合计两组，勿外包第二层液体 |
+| GameProgress | `liquidFinish`；可选 `surface="flat"` | 有限数值进度，ARIA 与可见值同步限制在有效范围 |
+| GameSelect | `surface="liquid" liquidFinish="glossy"` | 真实 select；关闭的单选框液体化，展开菜单由系统绘制 |
+
+GameSelect 透传 name、required、disabled、value/defaultValue、onChange、ref、
+options/optgroup 与原生 form/reset；multiple 或 size>1 回到普通列表，不模拟自绘多选。
+`invalid` 同时给出错误样式与 `aria-invalid`（显式 ARIA 值优先）。用 GameField 或
+原生 label 关联名称；错误文字由产品提供。键盘与手机菜单交给原生 select，
+不复制第三方的复杂状态机。参考
+[React select](https://react.dev/reference/react-dom/components/select) 和
+[MDN select](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select)。
+
+按钮/图标/开关/分段选择/选择框禁用后采用普通表面，保留可辨的选中位置；
+原生 fieldset 禁用按钮/图标/开关/选择框时，也隐藏其液体装饰。
+forced-colors 使用系统边框、文字和状态。
+GameInput / GameTextArea 的 invalid 也同步到 aria-invalid，显式 ARIA 值仍优先。
+减少动效沿用系统设置。press 装配排除右键、重复按键，丢失指针捕获/取消/键盘失焦会复位；
+macOS WebKit 在鼠标按下后产生的原生按钮失焦不等同于放开鼠标，窗口真正失活仍取消手势。
+GameButton static 也约束液体按压。这些是明确的交互边缘修复，而非“所有行为原封不动”。
+
+### 展厅与状态的权威来源
+
+站点首页按任务选组件，`/?view=reference` 是原完整总览；旧
+`#game-ui-preview-*` 入口仍打开原参考视图。`/liquid.html` 是动作实验，不是控件仓库。
+十二个形态仍来自 LIQUID_FORMS；一次只挂载当前实验，最多两组液体，不提高共享预算。
+同一份 `preview/catalog/recipes.tsx` 被目录和 Storybook `Start Here/Controls and Materials`
+复用；复制代码有真实 TypeScript 编译检查，不向新人展示不存在的属性。
+首页先显示可操作的材质对照，再显示参数。Storybook 本组 Docs 也只挂载一个受控示例，
+不使用默认的全 Stories 画布同时消耗预算，左侧每个命名故事仍保留。
+
+目录提供12组高频示例，其中6类支持液体。普通输入、长文、复选、滑杆、反馈、模态
+保持普通材质；阅读/输入意图不应被材料抢走。用户可切材质、主题、正常/禁用/错误，
+直接操作焦点与按压，并复制带配置的链接。金属仍是独立的受限决策面效果。
+
+参考 [Storybook Controls](https://storybook.js.org/docs/essentials/controls) 的 args/共享示例
+边界。复杂搜索、多选标签、虚拟列表、Toast队列、大图融合优化未被这些示例隐含实现。
+
+### 形态、分类、投影的原有合同
 
 品牌的签名表面。挑的是**形态**（form）——一个已经调好的 blur / contrast /
 外形 / 弹簧 / 阴影的组合，外面套一个说得清它是什么意思的名字——而不是一组

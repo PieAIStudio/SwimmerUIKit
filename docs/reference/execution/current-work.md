@@ -25,6 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Active: **2.6.0 liquid controls and beginner catalog**, authorized after the
+  2.5.0 research delivery. Execution and gates live in
+  [PLAN-0004](../../plans/active/PLAN-0004-liquid-controls-and-catalog.md).
+  The finish API and six liquid control categories are implemented candidates;
+  registry publication is not yet verified. No University migration.
+
 - Completed: **2.5.0 discoverability and maintainability release**.
   npm publication, live showcase checks and remaining boundaries are recorded in
   [the completed closeout](../../plans/completed/PLAN-0003-component-discovery-2.5.0.md).
@@ -35,12 +41,12 @@ This file is the current project work index. It is not the agents-routing algori
   The generated [API inventory](../public-api-inventory.md) is the exhaustive
   index, not the beginner's first reading assignment.
 - Current consumer proof target: University can pin all three packages from
-  2.4.0 to 2.5.0 without import changes; optional custom-CTA migration follows
+  2.5.0 to 2.6.0 without changing existing imports; optional custom-CTA adoption follows
   the [upgrade playbook](../usage-and-upgrade-playbook.md). University owns its
   routing transition and product regression; this repository does not perform it.
-- Next-stage work is [research only](../liquid-next-stage-research.md): distinguish
-  matte/glossy liquid finishes, present real widget/state examples, then prioritize
-  measured donor adaptations. Do not read proposed APIs as implemented features.
+- [Earlier research](../liquid-next-stage-research.md) retains decisions and
+  deferred donor experiments. Actual API/material truth belongs in the design
+  guide; unadopted image optimizations remain research.
 - SPEC-0001/0002 are provenance for earlier packaging and design-system work;
   their old version targets are not this release's checklist.
 - Runtime-dependency policy: **zero runtime deps** — browser-native

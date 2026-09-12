@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-09-11
+last_reviewed: 2026-09-12
 domain: product
 tags:
   - usage
@@ -41,7 +41,7 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 从 npmjs 安装并钉精确版本：
-   `"@pieai/swimmer-ui-kit": "2.5.0"`（不用 `^`，升级必须是
+   `"@pieai/swimmer-ui-kit": "2.6.0"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
    处理器，也不需要 scope-specific `.npmrc` 或 package-read token。
@@ -61,7 +61,51 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
    0.9.0 起 kit 在 `@layer swimmer-ui` 内，未分层的产品 CSS 一定赢）。
 5. 有问题不要在产品仓打补丁盖住 kit，回 kit 仓修，再发补丁版。
 
-## 2.4.0 → 2.5.0：University 的可执行升级边界
+## 2.5.0 → 2.6.0：材质与常用控件
+
+增量 minor：原272个根导出全部保留，增加 GameSelect、GameSelectProps、
+LiquidFinish。不移动已有导出、不新增包子路径；零运行时依赖与 CSS 导入方式不变。
+
+先在消费仓把所有实际依赖此包的 manifest 钉到 `2.6.0`，再更新 lockfile、运行其
+typecheck/test/build/浏览器回归。University 的三个包仍是 packages/ui、packages/world、
+apps/university；本轮没有在消费仓执行升级。不要用本仓测试替代消费方验收。
+
+```bash
+# 仅消费方 AI 在 University 工作区执行；先保存其当前工作。
+pnpm --filter ./packages/ui add --save-exact @pieai/swimmer-ui-kit@2.6.0
+pnpm --filter ./packages/world add --save-exact @pieai/swimmer-ui-kit@2.6.0
+pnpm --filter ./apps/university add --save-exact @pieai/swimmer-ui-kit@2.6.0
+pnpm install --frozen-lockfile
+pnpm verify
+```
+
+可选启用示例：
+
+```tsx
+<GameButton surface="liquid" liquidFinish="matte" variant="primary">开始</GameButton>
+<GameIconButton surface="liquid" liquidFinish="glossy" label="收藏">★</GameIconButton>
+<GameToggle surface="liquid" liquidFinish="matte" checked={checked} label="提醒" onClick={toggle} />
+<GameProgress liquidFinish="glossy" label="进度" value={50} />
+```
+
+完整可复制示例在新版站点目录与 Storybook 的 Start Here。可选材质和控件边界见
+[设计指南](design-system-guide.md#两种液体材质与成品控件26)，这里不重复参数表。
+新 GameSelect 是原生 select：用 label 或 GameField 命名，用 option/optgroup 定义项；
+value 配 onChange 或使用 defaultValue，不混用受控/非受控模式。
+multiple/size>1、disabled 使用普通表面；系统弹出菜单不是可定制的液体 listbox。
+
+省略新属性时保持旧默认材质。有意修复需回归：GameButton static 现在也禁止
+液体按压、右键/重复按键/失去捕获不再卡按压；GameProgress 的异常值经限制后用于
+可见填充与 aria-valuenow，避免两者矛盾。forced-colors 按钮/选择框回到系统色表面。
+液体按钮本体的通用 `:active` scale 和 hover lift 被取消，避免文字和点击区域跟着
+轮廓一起缩放；用实际按住按钮后的矩形验证，而非只派发合成事件。
+禁用图标按钮/开关/分段选择有明确的普通表面状态，原生 fieldset 的禁用也隐藏对应装饰。
+macOS WebKit 的鼠标按下→按钮失焦不会提前结束按压，真正的窗口失活仍取消手势。
+
+回滚时先撤销启用新属性/GameSelect 的消费提交，再恢复所有依赖的2.5.0与lockfile；
+不要对着已发布包覆盖 tarball。University 自建 CTA 的路由过渡仍按下一节保留。
+
+## 2.4.0 → 2.5.0 的既有 CTA 迁移说明
 
 **兼容升级**：272 个根入口名字、包子路径、默认 DOM、主题 token、液体引擎与
 十二形态均保留。唯一新增运行时选项是 `GameButton.fullWidth?: boolean`。

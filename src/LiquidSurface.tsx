@@ -1,6 +1,7 @@
 import { useMemo, type CSSProperties, type ReactNode } from 'react';
 
 import { LiquidGroup } from './LiquidGroup';
+import { liquidFinishGloss, type LiquidFinish } from './liquidGooeyFinish';
 import { useSystemReducedMotion } from './reducedMotion';
 import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from './liquidGooeyForms';
 
@@ -106,6 +107,8 @@ function warnGroupForm(form: LiquidForm): void {
 
 export interface LiquidSurfaceProps {
   children: ReactNode;
+  /** Omitted keeps the form's existing lighting; matte and glossy share the same motion. */
+  liquidFinish?: LiquidFinish;
   /** Which named look. Defaults to the press form, the one a control wants. */
   form?: LiquidForm;
   /**
@@ -126,6 +129,7 @@ export interface LiquidSurfaceProps {
 
 export function LiquidSurface({
   children,
+  liquidFinish,
   form = 'press',
   active = false,
   fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
@@ -167,6 +171,7 @@ export function LiquidSurface({
     <span
       className={['game-ui-liquid-surface', className].filter(Boolean).join(' ')}
       data-liquid-form={form}
+      data-liquid-finish={liquidFinish}
       data-liquid-active={engaged ? 'true' : 'false'}
       style={style}
     >
@@ -175,7 +180,7 @@ export function LiquidSurface({
         blur={group.blur}
         className="game-ui-liquid-surface__body"
         contrast={group.contrast}
-        gloss={group.gloss}
+        gloss={liquidFinishGloss(liquidFinish, group.gloss)}
         fill={fill}
         filterPadding={Math.max(group.filterPadding, Math.ceil(group.blob) + 8)}
         motion={reducedMotion ? 'reduced' : 'auto'}

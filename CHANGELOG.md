@@ -3,6 +3,60 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.6.0 — 2026-09-12
+
+Minor: new optional material selection and native controls. Existing root
+exports and export-map paths remain; omitted options retain prior defaults.
+
+### Added
+
+- `LiquidFinish` and optional `liquidFinish="matte" | "glossy"` across
+  LiquidGroup/LiquidSurface, GameButton, GameIconButton, GameToggle,
+  GameSegmentedControl, GameProgress and GameSelect. Both finishes reuse the
+  existing renderer; matte removes the specular pass, not motion or shadows.
+  Explicit LiquidGroup `gloss` remains the advanced override.
+- Liquid icon buttons and switch thumbs; GameSelect uses a real native select
+  with optional liquid closed-field decoration, form/reset/ref/optgroup support,
+  invalid semantics and ordinary disabled/multiple/list modes. The popup remains
+  platform-native; this is not a searchable combobox or custom liquid listbox.
+- Optional flat, filter-free progress and segmented surfaces. Slider forwards
+  native step, disabled, name and id.
+- A beginner catalog at the site root: 12 shared recipe groups, 6 liquid control
+  categories, matte/glossy comparison, theme/state selection, actual interaction,
+  complete copyable/typechecked React examples and shareable configuration URLs.
+  Storybook uses the same recipes. The old reference remains at `/?view=reference`
+  and old `#game-ui-preview-*` links still open it.
+
+### Fixed and intentionally changed
+
+- Press decoration ignores secondary pointer buttons and key repeat, clears on
+  lost capture/cancellation/blur, resets through disabled, and honors `static`.
+  Native content and hit targets never inherit the squash transform.
+- The liquid button's native element no longer picks up the ordinary button's
+  independent CSS `scale` on press or hover lift; only the silhouette moves.
+- Pointer feedback survives macOS WebKit's native pointerdown-then-blur ordering;
+  a true window deactivation still cancels the gesture. No focus is forced onto
+  the native control to hide this platform difference.
+- Progress ARIA values now agree with the clamped visible value, including invalid
+  maxima and non-finite input. Forced-colors decoration falls back to system UI.
+- `GameInput` and `GameTextArea` now expose `invalid` through `aria-invalid`,
+  like the new select; an explicit ARIA value still wins.
+- Disabled icon buttons, switches and segmented options now have a quiet,
+  non-hovering treatment. Disabled segmented controls retain the selected option
+  on a flat surface instead of reserving animated liquid groups.
+  Inherited native fieldset disabling also hides button/icon/switch/select decoration.
+- The liquid form page selects experiments instead of mounting every form, size,
+  tone and state simultaneously. At most two liquid groups are mounted; the shared
+  budget was not increased and the twelve forms were not removed or retuned.
+
+### Consumer action
+
+Pin the new version and run your own product gates. New materials/controls are
+opt-in; University was not modified. Do not remove its destination/route transition
+when adopting kit buttons. See the upgrade playbook for adoption and rollback.
+No new runtime dependency, ambient clock, donor observer, image optimization or
+commercial donor preset is introduced by this release.
+
 ## 2.5.0 — 2026-09-12
 
 ### Find the right component before reading the whole API

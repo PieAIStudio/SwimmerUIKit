@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-12T09:26:18.636Z
+generated_at: 2026-09-12T11:05:43.819Z
 generator_version: doc-gov@0.9.11
-docs_count: 45
+docs_count: 46
 docs:
   - id: ARCHIVE-CLAY-EXTRACTION
     path: docs/archive/history/clay-extraction.md
@@ -116,6 +116,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-13
     pinned: true
+  - id: PLAN-0004
+    path: docs/plans/active/PLAN-0004-liquid-controls-and-catalog.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-12
+    pinned: false
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
     type: plan
@@ -170,7 +177,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-11
+    last_reviewed: 2026-09-12
     pinned: true
   - id: REF-DESIGN-SYSTEM-GUIDE
     path: docs/reference/design-system-guide.md
@@ -282,7 +289,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-11
+    last_reviewed: 2026-09-12
     pinned: false
   - id: REF-LIQUID-PRIMITIVES
     path: docs/reference/liquid-primitives.md
@@ -296,14 +303,14 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-11
+    last_reviewed: 2026-09-12
     pinned: false
   - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
     path: docs/reference/usage-and-upgrade-playbook.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-11
+    last_reviewed: 2026-09-12
     pinned: true
   - id: SPEC-0001
     path: docs/specs/active/SPEC-0001-design-system-hardening.md

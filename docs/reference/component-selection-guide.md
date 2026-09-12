@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-11
+last_reviewed: 2026-09-12
 domain: product
 tags:
   - components
@@ -55,6 +55,7 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 | 只有图标的操作 | `GameIconButton` | 提供可访问名称，不靠 tooltip 代替 |
 | 文本输入、长文本、勾选 | `GameField` + `GameInput` / `GameTextArea` / `GameCheckbox` | `GameForms` 是源码模块名，不是公开组件 |
 | 设置开关、范围数值 | `GameToggle` / `GameSlider` | 产品拥有值和变化回调 |
+| 从固定选项中选择 | `GameField` + `GameSelect` | 原生 select；弹出菜单归系统，支持 optgroup/表单/reset；不是可搜索 combobox |
 | 在少量选项间切换 | `GameSegmentedControl` | 已集成液体跟随，不要再包第二个 LiquidGroup |
 | 标签页切换 | `GameTabs` | 产品连接 tab 与对应 panel |
 | 一块信息面板 | `GamePanel` / `GameCollapsiblePanel` / `GameWindowPanel` | 窗口式面板不等于模态对话框 |
@@ -95,9 +96,11 @@ preview 的 `liquid.html` 展示全部形态；没有这个页面的消费宿主
 
 `GameButton surface="flat"` 是普通控件表面，不代表“哑光液体”。
 `GameButton surface="liquid"` 使用当前命名形态的体积、高光和投影。
+2.6 起可选 `liquidFinish="matte" | "glossy"`；省略时保持旧配方。
+同一选项也用于液体图标按钮、开关、分段、进度、选择框，以及 LiquidSurface/LiquidGroup。
 `LiquidMetalButton` 是另一套金属效果与 CSS/WebGL renderer，不是普通液体的
-“高光开关”。两种液体 finish 的统一挑选界面仍是
-[下一阶段调查](liquid-next-stage-research.md)，本版没有伪造已经存在的 finish API。
+“高光开关”。[在线目录](https://swimmer-ui-kit.pieaistudio.com/) 已可操作两种 finish；
+设计指南是选项和限制的唯一权威说明。[早期调查](liquid-next-stage-research.md) 保留尚未采纳的候选和理由。
 
 ## 公开，但不应从这里起步
 

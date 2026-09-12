@@ -1,0 +1,317 @@
+/* Site-only composition. Actual controls use the package's unmodified styles. */
+@layer swimmer-ui {
+  body {
+    margin: 0;
+  }
+  .kit-catalog {
+    min-height: 100dvh;
+    color: var(--game-ui-text);
+    background: var(--game-ui-bg);
+    font-family: var(--game-ui-font-body);
+    line-height: 1.6;
+    padding: clamp(18px, 3vw, 44px);
+    -webkit-font-smoothing: antialiased;
+  }
+  .kit-catalog *,
+  .kit-catalog *::before,
+  .kit-catalog *::after {
+    box-sizing: border-box;
+  }
+  .kit-catalog-hero,
+  .kit-catalog-layout {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .kit-catalog-hero {
+    padding: 0 0 24px;
+  }
+  .kit-catalog h1,
+  .kit-catalog h2,
+  .kit-catalog h3 {
+    line-height: 1.2;
+  }
+  .kit-catalog h1 {
+    font-size: clamp(28px, 3.4vw, 44px);
+    margin: 8px 0 12px;
+    letter-spacing: -0.025em;
+  }
+  .kit-catalog-hero > p:not(.kit-catalog-eyebrow) {
+    max-width: 64ch;
+    font-size: 17px;
+  }
+  .kit-catalog-eyebrow {
+    color: var(--game-ui-text-muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 760;
+    margin: 0;
+  }
+  .kit-catalog-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+  .kit-catalog a {
+    color: var(--game-ui-accent-ink);
+    text-underline-offset: 4px;
+  }
+  .kit-catalog-layout {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .kit-catalog-sidebar {
+    display: grid;
+    gap: 12px;
+    position: sticky;
+    top: 110px;
+  }
+  .kit-catalog-sidebar nav {
+    display: grid;
+    gap: 6px;
+    max-height: calc(100dvh - 280px);
+    overflow-y: auto;
+    padding: 3px;
+  }
+  .kit-catalog-sidebar nav button {
+    position: relative;
+    display: grid;
+    gap: 3px;
+    text-align: start;
+    min-height: 76px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--game-ui-text);
+    font: inherit;
+    cursor: pointer;
+  }
+  .kit-catalog-sidebar nav button[aria-current='true'] {
+    border-color: var(--game-ui-border-strong);
+    background: var(--game-ui-panel-strong);
+    box-shadow: var(--game-ui-shadow-panel);
+  }
+  .kit-catalog-sidebar nav button span {
+    font-weight: 800;
+  }
+  .kit-catalog-sidebar nav button small {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+  .kit-catalog-sidebar nav button em {
+    font-size: 11px;
+    color: var(--game-ui-text-muted);
+    font-style: normal;
+  }
+  .kit-catalog-search,
+  .kit-catalog-controls > label {
+    display: grid;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .kit-catalog input[type='search'],
+  .kit-catalog-controls select {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    color: var(--game-ui-text);
+    background: var(--game-ui-panel-strong);
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: 12px;
+  }
+  .kit-catalog-controls select:disabled {
+    opacity: 0.6;
+  }
+  .kit-catalog-workbench {
+    min-width: 0;
+  }
+  .kit-catalog :is(input, select, button, label, [tabindex]) {
+    scroll-margin-block: 125px 24px;
+  }
+  .kit-catalog-heading h2 {
+    font-size: 30px;
+    margin: 10px 0;
+  }
+  .kit-catalog-heading > p:last-child {
+    max-width: 65ch;
+  }
+  .kit-catalog-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 16px;
+    padding: 16px 0;
+  }
+  .kit-catalog-controls > label {
+    flex: 1 1 150px;
+  }
+  .kit-catalog-controls .kit-catalog-compare {
+    display: flex;
+    align-items: center;
+    flex-basis: 100%;
+    min-height: 44px;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .kit-catalog-compare input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--game-ui-accent);
+  }
+  .kit-catalog-note {
+    border-inline-start: 3px solid var(--game-ui-accent);
+    padding-inline-start: 12px;
+    font-size: 13px;
+  }
+  .kit-catalog-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin: 12px 0 18px;
+  }
+  .kit-catalog-stage.is-comparing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .kit-catalog-sample {
+    min-width: 0;
+    padding: clamp(20px, 3vw, 32px);
+    background: var(--game-ui-panel-strong);
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: 24px;
+    box-shadow: var(--game-ui-shadow-panel);
+  }
+  .kit-catalog-sample h3 {
+    margin: 0 0 24px;
+    font-size: 20px;
+  }
+  .kit-catalog-sample h3 small {
+    display: block;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--game-ui-text-muted);
+    margin-top: 8px;
+  }
+  .kit-recipe-stack {
+    display: grid;
+    gap: 24px;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .kit-recipe-stack > output {
+    font-size: 13px;
+    color: var(--game-ui-text-muted);
+  }
+  .kit-recipe-stack .game-ui-segmented {
+    flex-wrap: wrap;
+  }
+  .kit-recipe-stack .game-ui-slider input {
+    margin-inline: 0;
+    width: 100%;
+  }
+  .kit-recipe-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .kit-catalog-caption {
+    font-size: 12px;
+    color: var(--game-ui-text-muted);
+  }
+  .kit-catalog-code {
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: 20px;
+    padding: clamp(16px, 2vw, 24px);
+    background: var(--game-ui-panel);
+    margin-top: 28px;
+  }
+  .kit-catalog-code-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .kit-catalog-code-head h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .kit-catalog-code-head small {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  .kit-catalog-code > p {
+    font-size: 13px;
+  }
+  .kit-catalog-code pre {
+    font-family: var(--game-ui-font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--game-ui-surface);
+  }
+  .kit-catalog-details {
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .kit-catalog-details summary {
+    cursor: pointer;
+    min-height: 44px;
+    font-weight: 700;
+  }
+  .kit-catalog :is(a, button, input, select, pre, summary):focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 3px;
+  }
+  @media (max-width: 760px) {
+    .kit-catalog-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+    .kit-catalog-sidebar {
+      position: static;
+      min-width: 0;
+      gap: 8px;
+    }
+    .kit-catalog-sidebar > .kit-catalog-caption {
+      margin: 0;
+    }
+    .kit-catalog-sidebar nav {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      max-height: none;
+      overflow-x: auto;
+    }
+    .kit-catalog-sidebar nav button {
+      min-height: 44px;
+      padding: 8px 12px;
+    }
+    .kit-catalog-sidebar nav button :is(small, em) {
+      display: none;
+    }
+    .kit-catalog-stage.is-comparing {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (forced-colors: active) {
+    .kit-catalog-sidebar nav button[aria-current='true'] {
+      border: 2px solid Highlight;
+    }
+    .kit-catalog-sample {
+      border: 1px solid CanvasText;
+    }
+  }
+}

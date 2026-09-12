@@ -3764,6 +3764,9 @@
     /* The liquid body already carries the press. Letting the flat lip travel
      * as well would slide the label off the silhouette holding it. */
     translate: none;
+    /* CSS scale is independent of transform; cancel both on real content. */
+    scale: 1;
+    transform: none;
   }
   /*
    * The default liquid button is tinted, not the raised near-white.
@@ -3804,5 +3807,173 @@
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+  }
+
+  /* Opt-in liquid controls share the established silhouette/content split. */
+  .game-ui-icon-button-liquid .game-ui-icon-button {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+    scale: 1;
+  }
+  .game-ui-select {
+    min-height: 44px;
+    max-width: 100%;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-select option,
+  .game-ui-select optgroup {
+    color: var(--game-ui-text);
+    background: var(--game-ui-panel-strong);
+  }
+  .game-ui-select-liquid,
+  .game-ui-select-liquid > .game-ui-liquid-surface__content {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+  }
+  .game-ui-select-liquid .game-ui-select {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .game-ui-select-liquid:has(select:disabled) .game-ui-liquid-surface__body {
+    display: none;
+  }
+  .game-ui-select-liquid select:disabled {
+    background: var(--game-ui-surface-raised);
+  }
+  .game-ui-toggle-liquid-track {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: 52px;
+    height: 28px;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-surface);
+    box-shadow: var(--game-ui-shadow-inset);
+  }
+  .game-ui-toggle[aria-checked='true'] .game-ui-toggle-liquid-track {
+    background: var(--game-ui-secondary);
+  }
+  .game-ui-toggle[data-toggle-surface='liquid']:active {
+    scale: 1;
+  }
+  .game-ui-toggle-liquid-body {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .game-ui-toggle-liquid-thumb {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+  }
+  .game-ui-toggle-liquid-thumb > span {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+  .game-ui-progress-flat-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+  }
+  .game-ui-segmented[data-segmented-surface='flat'] {
+    background: var(--game-ui-surface-raised);
+    border-radius: var(--game-ui-radius-control);
+  }
+  .game-ui-segmented[data-segmented-surface='flat'] .game-ui-segmented-option[aria-pressed='true'] {
+    background: var(--game-ui-secondary);
+  }
+  /* Disabled is a real state, not merely a dropped click handler. Keep the
+   * selected option legible while removing the invitation to press or hover. */
+  .game-ui-icon-button:disabled,
+  .game-ui-toggle:disabled,
+  .game-ui-segmented-option:disabled {
+    color: var(--game-ui-disabled);
+    cursor: not-allowed;
+    transform: none;
+    scale: 1;
+    box-shadow: none;
+  }
+  .game-ui-icon-button:disabled,
+  .game-ui-toggle:disabled {
+    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
+  }
+  .game-ui-segmented[data-segmented-disabled='true']
+    .game-ui-segmented-option[aria-pressed='true'] {
+    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
+    box-shadow: inset 0 0 0 1px var(--game-ui-border-strong);
+  }
+  .game-ui-slider:has(input:disabled) {
+    color: var(--game-ui-disabled);
+  }
+  .game-ui-slider input:disabled {
+    cursor: not-allowed;
+  }
+  /* A disabled fieldset is browser-owned state, even when a React disabled
+   * prop was not set on each descendant. Keep that native path quiet too. */
+  .game-ui-button-liquid:has(.game-ui-button:disabled) .game-ui-liquid-surface__body,
+  .game-ui-icon-button-liquid:has(.game-ui-icon-button:disabled) .game-ui-liquid-surface__body,
+  .game-ui-toggle:disabled .game-ui-toggle-liquid-body {
+    display: none;
+  }
+  .game-ui-button-liquid .game-ui-button:disabled {
+    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
+    color: var(--game-ui-disabled);
+  }
+  .game-ui-toggle:disabled .game-ui-toggle-liquid-track::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--game-ui-disabled);
+  }
+  .game-ui-toggle:disabled[aria-checked='true'] .game-ui-toggle-liquid-track::after {
+    left: 27px;
+  }
+  @media (forced-colors: active) {
+    .game-ui-button-liquid .game-ui-liquid-surface__body,
+    .game-ui-icon-button-liquid .game-ui-liquid-surface__body,
+    .game-ui-select-liquid .game-ui-liquid-surface__body,
+    .game-ui-toggle-liquid-body {
+      display: none;
+    }
+    .game-ui-button-liquid .game-ui-button,
+    .game-ui-icon-button-liquid .game-ui-icon-button,
+    .game-ui-select-liquid .game-ui-select {
+      border: 1px solid ButtonText;
+      color: ButtonText;
+      background: ButtonFace;
+    }
+    .game-ui-toggle-liquid-track {
+      border: 1px solid ButtonText;
+      background: Canvas;
+      box-shadow: none;
+    }
+    .game-ui-toggle-liquid-track::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: ButtonText;
+    }
+    .game-ui-toggle[aria-checked='true'] .game-ui-toggle-liquid-track::after {
+      left: 27px;
+    }
+    .game-ui-progress-flat-fill {
+      background: Highlight !important;
+    }
   }
 }

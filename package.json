@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -54,6 +54,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
+    "check:catalog": "node scripts/verify-catalog.mjs",
     "dev": "vite --host 127.0.0.1 --port 5174",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "oxlint src preview .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts -c ./.oxlintrc.json",

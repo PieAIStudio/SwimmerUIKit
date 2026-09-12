@@ -29,6 +29,7 @@ export const GameInput = forwardRef<HTMLInputElement, GameInputProps>(function G
       ref={ref}
       type={type}
       {...props}
+      aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
     />
   );
 });
@@ -47,6 +48,7 @@ export const GameTextArea = forwardRef<HTMLTextAreaElement, GameTextAreaProps>(
         ref={ref}
         rows={rows}
         {...props}
+        aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
       />
     );
   },

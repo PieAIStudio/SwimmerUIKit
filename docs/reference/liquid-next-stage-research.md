@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-11
+last_reviewed: 2026-09-12
 domain: product
 tags:
   - research
@@ -22,8 +22,14 @@ related:
 
 # 下一阶段：液体分类、可见目录与美学升级调查
 
-**状态：调查与建议，不是实施承诺。** 2.5.0 只交付组件发现性、全宽 CTA 和
-资料整理；下文的 finish API、控件新品与展厅重构均未实施。University 未修改。
+**生命周期说明（2.6实施阶段补记）：** 下文保留2.5研究时的判断与候选，不是当前
+功能清单。用户随后授权实现：统一liquidFinish、六类液体控件、原生GameSelect、
+按用途的展厅和共享Storybook示例已进入2.6实现；现行契约只在
+[设计指南](design-system-guide.md#两种液体材质与成品控件26)维护。
+原生select代替复杂自绘listbox；图像预降采样/接缝优化、通用combobox和Toast队列
+仍未实施，不把候选表当作已交付能力。University未修改。
+
+**原始研究状态：** 2.5.0只交付发现性、全宽CTA和资料整理。当时下面均是提案。
 
 ## 结论
 

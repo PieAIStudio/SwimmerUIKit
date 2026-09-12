@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-11
+last_reviewed: 2026-09-12
 domain: product
 tags:
   - api
@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **272 named exports: 121 values and 151 types**.
+Compiler inventory: **275 named exports: 122 values and 153 types**.
 
 ## GameButton — Controls
 
@@ -81,6 +81,23 @@ Native labelled form controls
 | `GameFieldProps` | type | [source](../../src/GameForms.tsx) |
 | `GameInputProps` | type | [source](../../src/GameForms.tsx) |
 | `GameTextAreaProps` | type | [source](../../src/GameForms.tsx) |
+
+## GameSelect — Forms
+
+Native single/multiple selection; optional liquid closed field
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameSelect` | value | [source](../../src/GameSelect.tsx) |
+| `GameSelectProps` | type | [source](../../src/GameSelect.tsx) |
+
+## liquidGooeyFinish — Liquid vocabulary
+
+Shared matte/glossy material, independent of motion
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `LiquidFinish` | type | [source](../../src/liquidGooeyFinish.ts) |
 
 ## GameDisplay — Display
 

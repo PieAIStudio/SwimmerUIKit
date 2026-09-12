@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { GameUiPreview } from '../src/GameUiPreview';
 import { setClayAssetMode } from '../src/clay/assets';
 import { ShowcaseNav } from './ShowcaseNav';
+import { ComponentCatalog } from './catalog/ComponentCatalog';
 import '../src/styles.css';
 import '../src/preview.css';
 import '../src/fonts.css';
@@ -22,6 +23,11 @@ if (!root) {
 createRoot(root).render(
   <StrictMode>
     <ShowcaseNav current="components" />
-    <GameUiPreview />
+    {new URLSearchParams(window.location.search).get('view') === 'reference' ||
+    window.location.hash.startsWith('#game-ui-preview-') ? (
+      <GameUiPreview />
+    ) : (
+      <ComponentCatalog />
+    )}
   </StrictMode>,
 );

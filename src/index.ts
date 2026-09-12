@@ -2,6 +2,8 @@
 // '@pieai/swimmer-ui-kit/styles.css' once at their entry. Importing
 // CSS here would leak `import './styles.css'` into dist/index.d.ts and
 // break type resolution (arethetypeswrong: internal resolution error).
+export { type LiquidFinish } from './liquidGooeyFinish';
+export { GameSelect, type GameSelectProps } from './GameSelect';
 export {
   GameButton,
   type GameButtonProps,

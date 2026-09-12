@@ -1,4 +1,13 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
+import { liquidFinishGloss, type LiquidFinish } from './liquidGooeyFinish';
 
 import { GameBadge, GameLanguageMenu } from './ClayComponents';
 import { GameButton, type GameButtonVariant } from './GameButton';
@@ -38,6 +47,7 @@ import { LIQUID_BLOB_MAX_FRACTION } from './liquidGooeyGeometry';
  */
 
 type Lang = 'en' | 'zh-CN';
+const FinishContext = createContext<LiquidFinish>('glossy');
 
 interface Copy {
   readonly triggerLabel: string;
@@ -92,7 +102,7 @@ const COPY: Readonly<Record<Lang, Copy>> = {
       knobs: 'What the knobs actually do',
     },
     shelfBody:
-      'Bodies first, then the forms that only mean something between siblings. A body form can go straight into LiquidSurface; a relationship form cannot, because it describes the space between items — hand it to LiquidGroup and arrange them yourself. The tone picker recolours all twelve at once: the material is lit rather than painted, so a form that reads well on a dark accent is not automatically the same form on a pale tint.',
+      'Choose one body and one relationship to inspect. A body form goes into LiquidSurface; a relationship describes the space between siblings and needs LiquidGroup. The tone and finish pickers update the selected experiments, without mounting all twelve and exhausting the animation budget.',
     bodies: 'Bodies',
     groups: 'Relationships',
     bodiesHint: 'One silhouette. LiquidSurface draws these.',
@@ -163,7 +173,7 @@ const COPY: Readonly<Record<Lang, Copy>> = {
       knobs: '这些旋钮到底在控制什么',
     },
     shelfBody:
-      '先是单体，然后是只有在兄弟元素之间才有意义的形态。单体可以直接交给 LiquidSurface；关系形态不行，因为它描述的是元素之间的那段空隙——把它交给 LiquidGroup，自己排布元素。色调选择器会一次给十二个都换色：材质是打光打出来的、不是涂上去的，所以一个在深色主色上好看的形态，换到浅色淡彩上不会自动还是同一个形态。',
+      '先选一个单体和一个多体关系查看。单体交给 LiquidSurface；关系描述兄弟元素之间的空隙，需要用 LiquidGroup 自己排布。色调与材质选择器改变当前实验，不把十二个同时挂载而耗尽动效预算。',
     bodies: '单体',
     groups: '关系',
     bodiesHint: '一个轮廓。LiquidSurface 画的就是这些。',
@@ -320,8 +330,15 @@ function BodyStage({
   style?: CSSProperties;
   radius?: number;
 }): ReactNode {
+  const liquidFinish = useContext(FinishContext);
   return (
-    <LiquidSurface active={engaged} fill={fill} form={form} radius={radius}>
+    <LiquidSurface
+      liquidFinish={liquidFinish}
+      active={engaged}
+      fill={fill}
+      form={form}
+      radius={radius}
+    >
       <span className="game-ui-liquid-page__body" style={style} />
     </LiquidSurface>
   );
@@ -343,6 +360,7 @@ function GroupStage({
   engaged: boolean;
   fill: string;
 }): ReactNode {
+  const finish = useContext(FinishContext);
   const group = liquidFormGroup(form);
   const item = liquidFormItem(form);
   const shared = {
@@ -350,7 +368,7 @@ function GroupStage({
     contrast: group.contrast,
     filterPadding: group.filterPadding,
     fill,
-    gloss: group.gloss,
+    gloss: liquidFinishGloss(finish, group.gloss),
   };
   const itemProps = {
     ...(item.effect === undefined ? {} : { effect: item.effect }),
@@ -479,6 +497,7 @@ function readShadow(value: string | undefined): string | null {
 }
 
 function Knobs({ form, copy }: { form: LiquidForm; copy: Copy }): ReactNode {
+  const finish = useContext(FinishContext);
   const { blur, contrast, blob, lobes, gloss, shadow, shadowEngaged } = LIQUID_FORMS[form].group;
   const effective = liquidGooeyEdgeContrast(blur, contrast);
   const edge = (2.5628 * blur) / effective;
@@ -508,7 +527,9 @@ function Knobs({ form, copy }: { form: LiquidForm; copy: Copy }): ReactNode {
         ) : null}
       </dd>
       <dt>gloss</dt>
-      <dd>{gloss}</dd>
+      <dd>
+        {liquidFinishGloss(finish, gloss)} · {finish}
+      </dd>
       <dt>shadow</dt>
       <dd>
         {rest ?? copy.noShadow}
@@ -535,25 +556,41 @@ function Shelf({
 }): ReactNode {
   const [engaged, toggle] = useFormEngagement();
   const forms = LIQUID_FORM_NAMES.filter((form) => LIQUID_FORMS[form].kind === kind);
+  const [selected, setSelected] = useState<LiquidForm>(() => forms[0]!);
   return (
-    <div className="game-ui-liquid-page__shelf">
-      {forms.map((form) => {
-        const on = engaged.has(form);
-        return (
-          <GamePanel className="game-ui-liquid-page__tile" key={form} tone="strong">
-            <div className="game-ui-liquid-page__stage-slot">
-              <FormStage engaged={on} fill={TONE_FILL[tone]} form={form} />
-            </div>
-            <h4>{form}</h4>
-            <p className="game-ui-liquid-page__prose">{LIQUID_FORMS[form].summary}</p>
-            <GameButton onClick={() => toggle(form)} variant="ghost">
-              {form === 'ripple' ? copy.pulse : on ? copy.reset : copy.trigger}
-            </GameButton>
-            <Knobs copy={copy} form={form} />
-          </GamePanel>
-        );
-      })}
-    </div>
+    <>
+      <div
+        className="game-ui-liquid-demo-controls"
+        role="group"
+        aria-label={kind === 'body' ? '单体形态' : '多体形态'}
+      >
+        {forms.map((form) => (
+          <GameButton key={form} aria-pressed={selected === form} onClick={() => setSelected(form)}>
+            {form}
+          </GameButton>
+        ))}
+      </div>
+      <div className="game-ui-liquid-page__shelf">
+        {forms
+          .filter((form) => form === selected)
+          .map((form) => {
+            const on = engaged.has(form);
+            return (
+              <GamePanel className="game-ui-liquid-page__tile" key={form} tone="strong">
+                <div className="game-ui-liquid-page__stage-slot">
+                  <FormStage engaged={on} fill={TONE_FILL[tone]} form={form} />
+                </div>
+                <h4>{form}</h4>
+                <p className="game-ui-liquid-page__prose">{LIQUID_FORMS[form].summary}</p>
+                <GameButton onClick={() => toggle(form)} variant="ghost">
+                  {form === 'ripple' ? copy.pulse : on ? copy.reset : copy.trigger}
+                </GameButton>
+                <Knobs copy={copy} form={form} />
+              </GamePanel>
+            );
+          })}
+      </div>
+    </>
   );
 }
 
@@ -567,68 +604,91 @@ function Shelf({
 function Sizes({ copy }: { copy: Copy }): ReactNode {
   const [engaged, toggle] = useFormEngagement();
   const bodies = LIQUID_FORM_NAMES.filter((form) => LIQUID_FORMS[form].kind === 'body');
+  const [selected, setSelected] = useState<LiquidForm>('press');
   const poured = (blob: number, shorter: number): string =>
     Math.min(blob, shorter * LIQUID_BLOB_MAX_FRACTION).toFixed(2);
   return (
-    <div className="game-ui-liquid-page__sizes">
-      {bodies.map((form) => {
-        const on = engaged.has(form);
-        const { blob } = LIQUID_FORMS[form].group;
-        return (
-          <GamePanel className="game-ui-liquid-page__size-row" key={form} tone="strong">
-            <header>
-              <h4>{form}</h4>
-              <GameButton onClick={() => toggle(form)} variant="ghost">
-                {form === 'ripple' ? copy.pulse : on ? copy.reset : copy.trigger}
-              </GameButton>
-            </header>
-            <div className="game-ui-liquid-page__size-pair">
-              <div>
-                <div className="game-ui-liquid-page__stage-slot">
-                  <BodyStage engaged={on} form={form} />
+    <>
+      <div className="game-ui-liquid-demo-controls" role="group" aria-label="尺寸对照的形态">
+        {bodies.map((form) => (
+          <GameButton key={form} aria-pressed={selected === form} onClick={() => setSelected(form)}>
+            {form}
+          </GameButton>
+        ))}
+      </div>
+      <div className="game-ui-liquid-page__sizes">
+        {bodies
+          .filter((form) => form === selected)
+          .map((form) => {
+            const on = engaged.has(form);
+            const { blob } = LIQUID_FORMS[form].group;
+            return (
+              <GamePanel className="game-ui-liquid-page__size-row" key={form} tone="strong">
+                <header>
+                  <h4>{form}</h4>
+                  <GameButton onClick={() => toggle(form)} variant="ghost">
+                    {form === 'ripple' ? copy.pulse : on ? copy.reset : copy.trigger}
+                  </GameButton>
+                </header>
+                <div className="game-ui-liquid-page__size-pair">
+                  <div>
+                    <div className="game-ui-liquid-page__stage-slot">
+                      <BodyStage engaged={on} form={form} />
+                    </div>
+                    <small>
+                      {copy.control} · {copy.clamped} {poured(blob, 56)}px
+                    </small>
+                  </div>
+                  <div>
+                    <div className="game-ui-liquid-page__stage-slot game-ui-liquid-page__stage-slot--thin">
+                      <BodyStage engaged={on} form={form} style={{ width: 200, height: 14 }} />
+                    </div>
+                    <small>
+                      {copy.meter} · {copy.clamped} {poured(blob, 14)}px
+                    </small>
+                  </div>
                 </div>
-                <small>
-                  {copy.control} · {copy.clamped} {poured(blob, 56)}px
-                </small>
-              </div>
-              <div>
-                <div className="game-ui-liquid-page__stage-slot game-ui-liquid-page__stage-slot--thin">
-                  <BodyStage engaged={on} form={form} style={{ width: 200, height: 14 }} />
-                </div>
-                <small>
-                  {copy.meter} · {copy.clamped} {poured(blob, 14)}px
-                </small>
-              </div>
-            </div>
-          </GamePanel>
-        );
-      })}
-    </div>
+              </GamePanel>
+            );
+          })}
+      </div>
+    </>
   );
 }
 
 function Tones({ copy }: { copy: Copy }): ReactNode {
+  const liquidFinish = useContext(FinishContext);
+  const [selected, setSelected] = useState<GameButtonVariant>('primary');
   const [pressed, setPressed] = useState<GameButtonVariant | null>(null);
   return (
-    <div className="game-ui-liquid-page__tones">
-      {TONES.map((tone) => (
-        <GamePanel className="game-ui-liquid-page__tone" key={tone} tone="strong">
-          <h4>{tone}</h4>
-          <GameButton variant={tone}>{copy.flat}</GameButton>
-          <span
-            onPointerCancel={() => setPressed(null)}
-            onPointerDown={() => setPressed(tone)}
-            onPointerLeave={() => setPressed(null)}
-            onPointerUp={() => setPressed(null)}
-          >
-            <GameButton surface="liquid" variant={tone}>
-              {copy.liquid}
-            </GameButton>
-          </span>
-          <small>{pressed === tone ? copy.engaged : copy.rest}</small>
-        </GamePanel>
-      ))}
-    </div>
+    <>
+      <div className="game-ui-liquid-demo-controls" role="group" aria-label="颜色对照">
+        {TONES.map((tone) => (
+          <GameButton key={tone} aria-pressed={selected === tone} onClick={() => setSelected(tone)}>
+            {tone}
+          </GameButton>
+        ))}
+      </div>
+      <div className="game-ui-liquid-page__tones">
+        {TONES.filter((tone) => tone === selected).map((tone) => (
+          <GamePanel className="game-ui-liquid-page__tone" key={tone} tone="strong">
+            <h4>{tone}</h4>
+            <GameButton variant={tone}>{copy.flat}</GameButton>
+            <span
+              onPointerCancel={() => setPressed(null)}
+              onPointerDown={() => setPressed(tone)}
+              onPointerLeave={() => setPressed(null)}
+              onPointerUp={() => setPressed(null)}
+            >
+              <GameButton surface="liquid" liquidFinish={liquidFinish} variant={tone}>
+                {copy.liquid}
+              </GameButton>
+            </span>
+            <small>{pressed === tone ? copy.engaged : copy.rest}</small>
+          </GamePanel>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -643,8 +703,10 @@ function Tones({ copy }: { copy: Copy }): ReactNode {
  * <button> on top — held in whichever state the column is about.
  */
 function LiquidButton({ label, active }: { label: string; active: boolean }): ReactNode {
+  const liquidFinish = useContext(FinishContext);
   return (
     <LiquidSurface
+      liquidFinish={liquidFinish}
       active={active}
       className="game-ui-button-liquid game-ui-button-liquid--primary"
       form="press"
@@ -698,7 +760,12 @@ function States({ copy }: { copy: Copy }): ReactNode {
 }
 
 export function LiquidPreview(): ReactNode {
-  const [lang, setLang] = useState<Lang>('en');
+  const [lang, setLang] = useState<Lang>('zh-CN');
+  const [finish, setFinish] = useState<LiquidFinish>('glossy');
+  const [view, setView] = useState(() => {
+    if (typeof window === 'undefined') return 'shelf';
+    return /liquid-(sizes|tones|states|knobs)-title/.exec(window.location.hash)?.[1] ?? 'shelf';
+  });
   const [tone, setTone] = useState<GameButtonVariant>('primary');
   const copy = COPY[lang];
 
@@ -710,83 +777,132 @@ export function LiquidPreview(): ReactNode {
   }, []);
 
   return (
-    <main
-      aria-label="Swimmer UI Kit liquid surface"
-      className="game-ui-preview game-ui-clay-preview game-ui-liquid-page"
-    >
-      <header className="game-ui-preview-hero">
-        <GameBadge tone="ai">@pieai/swimmer-ui-kit</GameBadge>
-        <GameLanguageMenu
-          currentLabel={copy.triggerLabel}
-          label={copy.langMenuLabel}
-          onSelect={(id) => setLang(id as Lang)}
-          options={[
-            { id: 'en', label: 'English', meta: 'Page copy' },
-            { id: 'zh-CN', label: '简体中文', meta: '页面文案' },
-          ]}
-          value={lang}
-        />
-        <h1>{copy.heroTitle}</h1>
-        <p>{copy.heroBody}</p>
-        <p className="game-ui-liquid-page__rule">{copy.heroRule}</p>
-      </header>
+    <FinishContext.Provider value={finish}>
+      <main
+        aria-label="Swimmer UI Kit liquid surface"
+        className="game-ui-preview game-ui-clay-preview game-ui-liquid-page"
+      >
+        <header className="game-ui-preview-hero">
+          <GameBadge tone="ai">@pieai/swimmer-ui-kit</GameBadge>
+          <GameLanguageMenu
+            currentLabel={copy.triggerLabel}
+            label={copy.langMenuLabel}
+            onSelect={(id) => setLang(id as Lang)}
+            options={[
+              { id: 'en', label: 'English', meta: 'Page copy' },
+              { id: 'zh-CN', label: '简体中文', meta: '页面文案' },
+            ]}
+            value={lang}
+          />
+          <h1>{copy.heroTitle}</h1>
+          <p>{copy.heroBody}</p>
+          <p className="game-ui-liquid-page__rule">{copy.heroRule}</p>
+          <p>
+            <a href="/">先选成品控件：按钮、开关、进度、下拉 →</a>
+          </p>
+        </header>
 
-      <section aria-labelledby="liquid-shelf-title" className="game-ui-preview-section">
-        <h2 id="liquid-shelf-title">{copy.sections.shelf}</h2>
-        <p className="game-ui-liquid-page__prose">{copy.shelfBody}</p>
-        <div className="game-ui-liquid-page__tone-picker" role="group" aria-label={copy.tonePicker}>
-          <span>{copy.tonePicker}</span>
-          {TONES.map((option) => (
-            <GameButton
-              aria-pressed={tone === option}
-              key={option}
-              onClick={() => setTone(option)}
-              variant={tone === option ? option : 'ghost'}
+        <section className="game-ui-preview-section" aria-label="材料实验选择">
+          <p>
+            这里展示的是动作形态，不是成品控件。只挂载当前实验，保留两组共享动效预算，不把其余示例静默降级。
+          </p>
+          <label>
+            液体材质{' '}
+            <select
+              value={finish}
+              onChange={(event) => setFinish(event.currentTarget.value as LiquidFinish)}
             >
-              {option}
-            </GameButton>
-          ))}
-        </div>
-        <h3>
-          {copy.bodies} <small className="game-ui-liquid-page__hint">{copy.bodiesHint}</small>
-        </h3>
-        <Shelf copy={copy} kind="body" tone={tone} />
-        <h3>
-          {copy.groups} <small className="game-ui-liquid-page__hint">{copy.groupsHint}</small>
-        </h3>
-        <Shelf copy={copy} kind="group" tone={tone} />
-      </section>
+              <option value="matte">哑光 · Matte</option>
+              <option value="glossy">高光 · Glossy</option>
+            </select>
+          </label>
+          <div className="game-ui-liquid-demo-controls" role="group" aria-label="材料实验类别">
+            {(['shelf', 'sizes', 'tones', 'states', 'knobs'] as const).map((key) => (
+              <GameButton
+                key={key}
+                aria-pressed={view === key}
+                onClick={() => {
+                  setView(key);
+                  window.history.replaceState(null, '', `#liquid-${key}-title`);
+                }}
+              >
+                {copy.sections[key]}
+              </GameButton>
+            ))}
+          </div>
+        </section>
 
-      <section aria-labelledby="liquid-sizes-title" className="game-ui-preview-section">
-        <h2 id="liquid-sizes-title">{copy.sections.sizes}</h2>
-        <p className="game-ui-liquid-page__prose">{copy.sizesBody}</p>
-        <Sizes copy={copy} />
-      </section>
-
-      <section aria-labelledby="liquid-tones-title" className="game-ui-preview-section">
-        <h2 id="liquid-tones-title">{copy.sections.tones}</h2>
-        <p className="game-ui-liquid-page__prose">{copy.tonesBody}</p>
-        <Tones copy={copy} />
-      </section>
-
-      <section aria-labelledby="liquid-states-title" className="game-ui-preview-section">
-        <h2 id="liquid-states-title">{copy.sections.states}</h2>
-        <p className="game-ui-liquid-page__prose">{copy.statesBody}</p>
-        <States copy={copy} />
-      </section>
-
-      <section aria-labelledby="liquid-knobs-title" className="game-ui-preview-section">
-        <h2 id="liquid-knobs-title">{copy.sections.knobs}</h2>
-        <p className="game-ui-liquid-page__prose">{copy.knobsBody}</p>
-        <dl className="game-ui-liquid-page__glossary">
-          {copy.knobRows.map(([name, text]) => (
-            <div key={name}>
-              <dt>{name}</dt>
-              <dd>{text}</dd>
+        {view === 'shelf' && (
+          <section aria-labelledby="liquid-shelf-title" className="game-ui-preview-section">
+            <h2 id="liquid-shelf-title">{copy.sections.shelf}</h2>
+            <p className="game-ui-liquid-page__prose">{copy.shelfBody}</p>
+            <div
+              className="game-ui-liquid-page__tone-picker"
+              role="group"
+              aria-label={copy.tonePicker}
+            >
+              <span>{copy.tonePicker}</span>
+              {TONES.map((option) => (
+                <GameButton
+                  aria-pressed={tone === option}
+                  key={option}
+                  onClick={() => setTone(option)}
+                  variant={tone === option ? option : 'ghost'}
+                >
+                  {option}
+                </GameButton>
+              ))}
             </div>
-          ))}
-        </dl>
-      </section>
-    </main>
+            <h3>
+              {copy.bodies} <small className="game-ui-liquid-page__hint">{copy.bodiesHint}</small>
+            </h3>
+            <Shelf copy={copy} kind="body" tone={tone} />
+            <h3>
+              {copy.groups} <small className="game-ui-liquid-page__hint">{copy.groupsHint}</small>
+            </h3>
+            <Shelf copy={copy} kind="group" tone={tone} />
+          </section>
+        )}
+
+        {view === 'sizes' && (
+          <section aria-labelledby="liquid-sizes-title" className="game-ui-preview-section">
+            <h2 id="liquid-sizes-title">{copy.sections.sizes}</h2>
+            <p className="game-ui-liquid-page__prose">{copy.sizesBody}</p>
+            <Sizes copy={copy} />
+          </section>
+        )}
+
+        {view === 'tones' && (
+          <section aria-labelledby="liquid-tones-title" className="game-ui-preview-section">
+            <h2 id="liquid-tones-title">{copy.sections.tones}</h2>
+            <p className="game-ui-liquid-page__prose">{copy.tonesBody}</p>
+            <Tones copy={copy} />
+          </section>
+        )}
+
+        {view === 'states' && (
+          <section aria-labelledby="liquid-states-title" className="game-ui-preview-section">
+            <h2 id="liquid-states-title">{copy.sections.states}</h2>
+            <p className="game-ui-liquid-page__prose">{copy.statesBody}</p>
+            <States copy={copy} />
+          </section>
+        )}
+
+        {view === 'knobs' && (
+          <section aria-labelledby="liquid-knobs-title" className="game-ui-preview-section">
+            <h2 id="liquid-knobs-title">{copy.sections.knobs}</h2>
+            <p className="game-ui-liquid-page__prose">{copy.knobsBody}</p>
+            <dl className="game-ui-liquid-page__glossary">
+              {copy.knobRows.map(([name, text]) => (
+                <div key={name}>
+                  <dt>{name}</dt>
+                  <dd>{text}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+      </main>
+    </FinishContext.Provider>
   );
 }

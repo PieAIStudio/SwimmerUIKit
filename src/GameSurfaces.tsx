@@ -15,6 +15,9 @@ import {
 
 import { GameButton } from './GameButton';
 import { LiquidGroup } from './LiquidGroup';
+import { LiquidPressSurface } from './LiquidPressSurface';
+import type { GameButtonSurface } from './GameButton';
+import type { LiquidFinish } from './liquidGooeyFinish';
 
 export interface GamePanelProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
@@ -42,20 +45,33 @@ export function GamePanel({
 export interface GameIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   label: string;
+  surface?: GameButtonSurface;
+  liquidFinish?: LiquidFinish;
 }
 
 export function GameIconButton({
   children,
   className,
   label,
+  surface = 'flat',
+  liquidFinish,
   type = 'button',
   ...props
 }: GameIconButtonProps): ReactNode {
   const classes = ['game-ui-icon-button', className].filter(Boolean).join(' ');
-  return (
+  const button = (
     <button aria-label={label} className={classes} type={type} {...props}>
       {children}
     </button>
+  );
+  if (surface !== 'liquid' || props.disabled) return button;
+  return (
+    <LiquidPressSurface
+      className="game-ui-icon-button-liquid"
+      {...(liquidFinish === undefined ? {} : { liquidFinish })}
+    >
+      {button}
+    </LiquidPressSurface>
   );
 }
 
@@ -173,6 +189,10 @@ export interface GameSegmentedControlProps {
   label: string;
   onSelect?: (id: string) => void;
   options: readonly GameSegmentedOption[];
+  /** Existing default is liquid. Flat provides a quiet, filter-free option. */
+  surface?: GameButtonSurface;
+  liquidFinish?: LiquidFinish;
+  disabled?: boolean;
 }
 
 interface SegmentedIndicatorFrame {
@@ -199,6 +219,9 @@ export function GameSegmentedControl({
   label,
   onSelect,
   options,
+  surface = 'liquid',
+  liquidFinish,
+  disabled,
 }: GameSegmentedControlProps): ReactNode {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -209,6 +232,7 @@ export function GameSegmentedControl({
     height: 0,
   });
   const activeIndex = options.findIndex((option) => option.id === activeId);
+  const liquid = surface === 'liquid' && !disabled;
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -234,23 +258,37 @@ export function GameSegmentedControl({
   }, [activeId, activeIndex, options]);
 
   return (
-    <div ref={rootRef} aria-label={label} className="game-ui-segmented" role="group">
-      <LiquidGroup
-        aria-hidden="true"
-        className="game-ui-segmented-surface"
-        fill="var(--game-ui-surface-raised)"
-        shadow="var(--game-ui-shadow-button)"
-        stroke="var(--game-ui-stroke)"
-        style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
-      >
-        <LiquidGroup.Item
-          style={{ borderRadius: 'var(--game-ui-radius-control)', inset: 0, position: 'absolute' }}
-        >
-          {null}
-        </LiquidGroup.Item>
-      </LiquidGroup>
-      {indicator.width > 0 && indicator.height > 0 ? (
+    <div
+      ref={rootRef}
+      aria-label={label}
+      className="game-ui-segmented"
+      role="group"
+      data-segmented-surface={!liquid ? 'flat' : undefined}
+      data-segmented-disabled={disabled ? 'true' : undefined}
+    >
+      {liquid ? (
         <LiquidGroup
+          aria-hidden="true"
+          className="game-ui-segmented-surface"
+          fill="var(--game-ui-surface-raised)"
+          shadow="var(--game-ui-shadow-button)"
+          stroke="var(--game-ui-stroke)"
+          style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
+        >
+          <LiquidGroup.Item
+            style={{
+              borderRadius: 'var(--game-ui-radius-control)',
+              inset: 0,
+              position: 'absolute',
+            }}
+          >
+            {null}
+          </LiquidGroup.Item>
+        </LiquidGroup>
+      ) : null}
+      {liquid && indicator.width > 0 && indicator.height > 0 ? (
+        <LiquidGroup
+          {...(liquidFinish === undefined ? {} : { liquidFinish })}
           aria-hidden="true"
           className="game-ui-segmented-follow"
           fill="var(--game-ui-secondary)"
@@ -280,6 +318,7 @@ export function GameSegmentedControl({
         <button
           aria-pressed={option.id === activeId}
           className="game-ui-segmented-option"
+          disabled={disabled}
           key={option.id}
           onClick={onSelect ? () => onSelect(option.id) : undefined}
           ref={(node) => {
@@ -296,13 +335,23 @@ export function GameSegmentedControl({
 
 export interface GameSliderProps extends Pick<
   InputHTMLAttributes<HTMLInputElement>,
-  'max' | 'min' | 'value'
+  'max' | 'min' | 'value' | 'step' | 'disabled' | 'name' | 'id'
 > {
   label: string;
   onChange?: (value: number) => void;
 }
 
-export function GameSlider({ label, max, min, onChange, value }: GameSliderProps): ReactNode {
+export function GameSlider({
+  label,
+  max,
+  min,
+  step,
+  disabled,
+  name,
+  id,
+  onChange,
+  value,
+}: GameSliderProps): ReactNode {
   return (
     <label className="game-ui-slider">
       <span>{label}</span>
@@ -310,6 +359,10 @@ export function GameSlider({ label, max, min, onChange, value }: GameSliderProps
         aria-label={label}
         max={max}
         min={min}
+        step={step}
+        disabled={disabled}
+        name={name}
+        id={id}
         onChange={onChange ? (event) => onChange(Number(event.currentTarget.value)) : undefined}
         readOnly={!onChange}
         type="range"
@@ -325,9 +378,18 @@ export interface GameToggleProps extends Pick<
 > {
   checked: boolean;
   label: string;
+  surface?: GameButtonSurface;
+  liquidFinish?: LiquidFinish;
 }
 
-export function GameToggle({ checked, disabled, label, onClick }: GameToggleProps): ReactNode {
+export function GameToggle({
+  checked,
+  disabled,
+  label,
+  onClick,
+  surface = 'flat',
+  liquidFinish,
+}: GameToggleProps): ReactNode {
   return (
     <button
       aria-checked={checked}
@@ -336,9 +398,32 @@ export function GameToggle({ checked, disabled, label, onClick }: GameToggleProp
       onClick={onClick}
       role="switch"
       type="button"
+      data-toggle-surface={surface === 'liquid' && !disabled ? 'liquid' : undefined}
     >
       <span>{label}</span>
-      <span aria-hidden="true" className="game-ui-toggle-track" />
+      {surface === 'liquid' && !disabled ? (
+        <span aria-hidden="true" className="game-ui-toggle-liquid-track">
+          <LiquidGroup
+            className="game-ui-toggle-liquid-body"
+            blur={3}
+            contrast={18}
+            liquidFinish={liquidFinish ?? 'glossy'}
+            fill="var(--game-ui-text)"
+            filterPadding={10}
+          >
+            <LiquidGroup.Item
+              className="game-ui-toggle-liquid-thumb"
+              radius={999}
+              x={checked ? 24 : 0}
+              transition="wobbly"
+            >
+              <span />
+            </LiquidGroup.Item>
+          </LiquidGroup>
+        </span>
+      ) : (
+        <span aria-hidden="true" className="game-ui-toggle-track" />
+      )}
     </button>
   );
 }

@@ -17,14 +17,18 @@ assets may not be extracted, modified, or redistributed as a standalone pack.
   [Usage and upgrade playbook](docs/reference/usage-and-upgrade-playbook.md)
 - Exhaustive reference (not the starting point):
   [Generated public API inventory](docs/reference/public-api-inventory.md)
-- Live catalog: `pnpm dev` (preview page) and `pnpm storybook`
+- [Interactive catalog](https://swimmer-ui-kit.pieaistudio.com/): real controls,
+  matte/glossy comparison, theme/state selectors and copyable React examples.
+- [Full reference](https://swimmer-ui-kit.pieaistudio.com/?view=reference) and
+  [liquid form laboratory](https://swimmer-ui-kit.pieaistudio.com/liquid.html).
+  Local: `pnpm dev` and `pnpm storybook`.
 
 ## Install
 
 ```json
 {
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "2.5.0"
+    "@pieai/swimmer-ui-kit": "2.6.0"
   }
 }
 ```

@@ -16,6 +16,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { CLAY_LIQUID_GOOEY_TOKENS } from './clay/tokens';
+import { liquidFinishGloss, type LiquidFinish } from './liquidGooeyFinish';
 import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from './liquidGooeyBudget';
 import { LiquidGooeyFilter, LIQUID_GOOEY_FILTER_DEFAULTS } from './liquidGooeyFilter';
 import {
@@ -85,6 +86,8 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
    * curved surface so it reads as a material rather than as a silhouette.
    */
   gloss?: number;
+  /** Optional named finish. An explicit raw gloss wins; omitted preserves the old rendering. */
+  liquidFinish?: LiquidFinish;
   /** Surface fill. Defaults to the kit's theme surface token. */
   fill?: string;
   /** Extra filter-region slack in px for the silhouette's painted edges. */
@@ -236,7 +239,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
   {
     blur = 6,
     contrast = 18,
-    gloss = 0,
+    gloss,
+    liquidFinish,
     fill = 'var(--game-ui-surface, var(--game-ui-panel-strong))',
     filterPadding = 24,
     shadow,
@@ -434,6 +438,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       data-liquid-filter-budget={DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET}
       data-liquid-feature-padding={Math.round(featurePadding * 10) / 10}
       data-liquid-motion={motionMode}
+      data-liquid-finish={liquidFinish}
       data-liquid-waviness={Math.round(wavinessValue * 100) / 100}
       style={style}
     >
@@ -458,7 +463,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
             <LiquidGooeyFilter
               blur={blurValue}
               contrast={contrastValue}
-              gloss={gloss}
+              gloss={gloss ?? liquidFinishGloss(liquidFinish, 0)}
               shadows={svgShadows}
               stroke={parsedStroke}
               waviness={wavinessValue}

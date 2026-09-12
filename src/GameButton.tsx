@@ -1,7 +1,8 @@
-import { useState, type ButtonHTMLAttributes, type MouseEventHandler, type ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type MouseEventHandler, type ReactNode } from 'react';
 
 import { playGameInteractionSound, type GameInteractionSoundOptions } from './interactionSound';
-import { LiquidSurface } from './LiquidSurface';
+import { LiquidPressSurface } from './LiquidPressSurface';
+import type { LiquidFinish } from './liquidGooeyFinish';
 
 export type GameButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success';
 
@@ -19,6 +20,8 @@ export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   children: ReactNode;
   /** Fill the available row, including the liquid silhouette and hit target. */
   fullWidth?: boolean;
+  /** Named liquid material. Only used with surface="liquid"; omitted keeps the current look. */
+  liquidFinish?: LiquidFinish;
   sound?: GameInteractionSoundOptions | false;
   /** Disable the scale-on-press feedback where the motion would distract. */
   static?: boolean;
@@ -35,6 +38,7 @@ export function GameButton({
   children,
   className,
   fullWidth = false,
+  liquidFinish,
   onClick,
   sound = false,
   static: isStatic = false,
@@ -43,7 +47,6 @@ export function GameButton({
   variant = 'secondary',
   ...props
 }: GameButtonProps): ReactNode {
-  const [pressed, setPressed] = useState(false);
   const classes = [
     'game-ui-button',
     `game-ui-button--${variant}`,
@@ -77,13 +80,13 @@ export function GameButton({
   if (surface !== 'liquid' || props.disabled === true) return button;
 
   /*
-   * The press state lives here rather than on the silhouette because only the
-   * button receives the events; the body below it is `pointer-events: none` by
-   * design, which is what keeps the real control clickable.
+   * The shared press assembly listens to the native control's events, never
+   * the pointer-transparent silhouette. Icon buttons reuse that boundary.
    */
   return (
-    <LiquidSurface
-      active={pressed}
+    <LiquidPressSurface
+      {...(liquidFinish === undefined ? {} : { liquidFinish })}
+      static={isStatic}
       className={[
         'game-ui-button-liquid',
         `game-ui-button-liquid--${variant}`,
@@ -91,21 +94,8 @@ export function GameButton({
       ]
         .filter(Boolean)
         .join(' ')}
-      form="press"
     >
-      <span
-        onBlur={() => setPressed(false)}
-        onKeyDown={(event) => {
-          if (event.key === ' ' || event.key === 'Enter') setPressed(true);
-        }}
-        onKeyUp={() => setPressed(false)}
-        onPointerCancel={() => setPressed(false)}
-        onPointerDown={() => setPressed(true)}
-        onPointerLeave={() => setPressed(false)}
-        onPointerUp={() => setPressed(false)}
-      >
-        {button}
-      </span>
-    </LiquidSurface>
+      {button}
+    </LiquidPressSurface>
   );
 }

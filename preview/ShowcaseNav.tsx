@@ -4,6 +4,8 @@ const THEME_STORAGE_KEY = 'swimmer-ui-preview-theme';
 
 function readStoredTheme(): 'light' | 'night' {
   try {
+    const shared = new URLSearchParams(window.location.search).get('theme');
+    if (shared === 'night' || shared === 'light') return shared;
     return localStorage.getItem(THEME_STORAGE_KEY) === 'night' ? 'night' : 'light';
   } catch {
     return 'light';
@@ -27,8 +29,11 @@ function useThemeToggle(): [theme: 'light' | 'night', toggle: () => void] {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
       // Storage may be unavailable (private mode, disabled) — theme still
-      // applies for this session, it just won't persist across reloads.
+      // applies. The URL remains a shareable source even when storage fails.
     }
+    const url = new URL(window.location.href);
+    url.searchParams.set('theme', theme);
+    window.history.replaceState(null, '', url);
   }, [theme]);
 
   return [theme, () => setTheme((current) => (current === 'night' ? 'light' : 'night'))];
@@ -111,7 +116,7 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
         href="/"
         style={current === 'components' ? activeLinkStyle : inactiveLinkStyle}
       >
-        组件总览
+        选组件
       </a>
       <a
         aria-current={current === 'liquid' ? 'page' : undefined}
