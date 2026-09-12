@@ -24,21 +24,35 @@ export const GameSelect = forwardRef<HTMLSelectElement, GameSelectProps>(functio
   const select = (
     <select
       {...props}
+      key="control"
       aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
       className={['game-ui-input', 'game-ui-select', className].filter(Boolean).join(' ')}
       data-invalid={invalid ? 'true' : undefined}
       ref={ref}
     />
   );
-  if (!liquid) return select;
+  // Keep the native element at one React position. Replacing a select with a
+  // LiquidSurface wrapper on disabled/material/size changes remounts it and
+  // silently resets uncontrolled values, validity, focus and the forwarded ref.
+  // Only the decoration may come and go; the browser continues owning the field.
   return (
-    <LiquidSurface
-      className="game-ui-select-liquid"
-      form="press"
-      radius={16}
-      {...(liquidFinish === undefined ? {} : { liquidFinish })}
+    <span
+      className={['game-ui-select-frame', liquid && 'game-ui-select-liquid']
+        .filter(Boolean)
+        .join(' ')}
     >
+      {liquid ? (
+        <LiquidSurface
+          key="decoration"
+          className="game-ui-select-decoration"
+          form="press"
+          radius={16}
+          {...(liquidFinish === undefined ? {} : { liquidFinish })}
+        >
+          {null}
+        </LiquidSurface>
+      ) : null}
       {select}
-    </LiquidSurface>
+    </span>
   );
 });

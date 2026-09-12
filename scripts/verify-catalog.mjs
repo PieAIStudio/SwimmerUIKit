@@ -138,9 +138,21 @@ try {
         // and retain the unverified OS-popup boundary in the evidence record.
         await select.selectOption({ label: '思考与表达' });
         assert.equal(await select.inputValue(), 'thinking');
+        const originalSelect = await select.elementHandle();
+        await page.locator('.kit-catalog-controls select').nth(1).selectOption('disabled');
+        assert.equal(await select.isDisabled(), true);
+        assert.equal(await originalSelect.evaluate((element) => element.isConnected), true);
+        await page.locator('.kit-catalog-controls select').nth(1).selectOption('ready');
+        for (const material of ['matte', 'flat', 'glossy']) {
+          await page.locator('.kit-catalog-controls select').first().selectOption(material);
+          assert.equal(await originalSelect.evaluate((element) => element.isConnected), true);
+          assert.equal(await select.inputValue(), 'thinking');
+        }
+        await originalSelect.dispose();
         results.push({
           name,
           nativeSelectValueChangeAndReset: true,
+          selectionAndNativeNodeSurviveReconfiguration: true,
           nativePopupKeyboard: 'not established in Mac headless; previous Down/Enter check failed',
         });
       } else if (recipe === 'input' || recipe === 'textarea') {

@@ -131,7 +131,10 @@ export function ComponentCatalog(): ReactNode {
             {(comparing ? (['matte', 'glossy'] as const) : [effectiveMaterial]).map((finish) => (
               <section
                 className="kit-catalog-sample"
-                key={`${recipe}-${finish}-${effectiveState}`}
+                // Changing a material/state is a comparison, not a form reset.
+                // Keep the single recipe alive so input, selection and counters
+                // survive tuning. Paired samples remain separate instances.
+                key={comparing ? `${recipe}-${finish}` : recipe}
                 aria-label={`${item.title} · ${finish}`}
               >
                 <h3>

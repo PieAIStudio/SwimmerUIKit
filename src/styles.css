@@ -3829,11 +3829,21 @@
     color: var(--game-ui-text);
     background: var(--game-ui-panel-strong);
   }
-  .game-ui-select-liquid,
-  .game-ui-select-liquid > .game-ui-liquid-surface__content {
+  .game-ui-select-frame {
+    position: relative;
+    isolation: isolate;
     display: flex;
     width: 100%;
     min-width: 0;
+  }
+  .game-ui-select-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .game-ui-select-frame > .game-ui-select {
+    position: relative;
+    z-index: 1;
   }
   .game-ui-select-liquid .game-ui-select {
     background-color: transparent;

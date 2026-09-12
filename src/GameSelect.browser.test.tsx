@@ -28,6 +28,55 @@ afterEach(async () => {
 });
 
 describe('native selection remains real underneath the liquid', () => {
+  it('preserves the native node and an uncontrolled selection when decoration or disabled state changes', async () => {
+    const ref = createRef<HTMLSelectElement>();
+    const render = (
+      disabled = false,
+      surface: 'flat' | 'liquid' = 'liquid',
+      size = 1,
+    ): ReactNode => (
+      <form>
+        <GameSelect
+          ref={ref}
+          aria-label="Course"
+          name="course"
+          defaultValue="one"
+          disabled={disabled}
+          surface={surface}
+          size={size}
+        >
+          <option value="one">One</option>
+          <option value="two">Two</option>
+        </GameSelect>
+      </form>
+    );
+    const container = await mount(render());
+    const select = ref.current!;
+    await act(async () => {
+      select.value = 'two';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    for (const [disabled, surface, size] of [
+      [true, 'liquid', 1],
+      [false, 'liquid', 1],
+      [false, 'flat', 1],
+      [false, 'liquid', 1],
+      [false, 'liquid', 4],
+      [false, 'liquid', 1],
+    ] as const) {
+      await act(async () => root?.render(render(disabled, surface, size)));
+      expect(ref.current).toBe(select);
+      expect(select.value).toBe('two');
+      expect(new FormData(container.querySelector('form')!).get('course')).toBe(
+        disabled ? null : 'two',
+      );
+      if (disabled || surface === 'flat' || size > 1)
+        expect(container.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
+    }
+    container.querySelector('form')!.reset();
+    expect(select.value).toBe('one');
+  });
+
   it('submits and resets an uncontrolled select and forwards the actual focus ref', async () => {
     const ref = createRef<HTMLSelectElement>();
     const change = vi.fn();

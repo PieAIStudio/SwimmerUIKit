@@ -41,6 +41,11 @@ exports and export-map paths remain; omitted options retain prior defaults.
   maxima and non-finite input. Forced-colors decoration falls back to system UI.
 - `GameInput` and `GameTextArea` now expose `invalid` through `aria-invalid`,
   like the new select; an explicit ARIA value still wins.
+- Select decoration is a sibling of the persistent native field. Disabling,
+  changing material or switching single/list presentation must not remount the
+  select and lose an uncontrolled choice or replace its forwarded DOM ref.
+  Catalog material/state adjustments likewise preserve the current example's
+  entered values instead of silently resetting the recipe.
 - Disabled icon buttons, switches and segmented options now have a quiet,
   non-hovering treatment. Disabled segmented controls retain the selected option
   on a flat surface instead of reserving animated liquid groups.

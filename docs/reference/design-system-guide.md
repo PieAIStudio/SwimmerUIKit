@@ -301,6 +301,9 @@ LiquidSurface 省略 finish 时保留形态自己的 gloss；LiquidGroup 显式 
 
 GameSelect 透传 name、required、disabled、value/defaultValue、onChange、ref、
 options/optgroup 与原生 form/reset；multiple 或 size>1 回到普通列表，不模拟自绘多选。
+真实 select 保持同一个 DOM 节点，液体只作为可移除的兄弟装饰。切换 disabled、
+材质或 size 不重建字段，不丢掉非受控选择、原生校验状态或 ref；只有显式表单 reset
+才回到初始选项。不要为了改变装饰，条件切换包裹原生字段的 React 树层级。
 `invalid` 同时给出错误样式与 `aria-invalid`（显式 ARIA 值优先）。用 GameField 或
 原生 label 关联名称；错误文字由产品提供。键盘与手机菜单交给原生 select，
 不复制第三方的复杂状态机。参考
@@ -328,6 +331,8 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 目录提供12组高频示例，其中6类支持液体。普通输入、长文、复选、滑杆、反馈、模态
 保持普通材质；阅读/输入意图不应被材料抢走。用户可切材质、主题、正常/禁用/错误，
 直接操作焦点与按压，并复制带配置的链接。金属仍是独立的受限决策面效果。
+在同一个示例内调材质或禁用状态，保留刚才输入的内容、选择与计数；切换组件类别
+或进入/退出双实例对照才建立新示例，避免把“比较外观”误当成“重置表单”。
 
 参考 [Storybook Controls](https://storybook.js.org/docs/essentials/controls) 的 args/共享示例
 边界。复杂搜索、多选标签、虚拟列表、Toast队列、大图融合优化未被这些示例隐含实现。
