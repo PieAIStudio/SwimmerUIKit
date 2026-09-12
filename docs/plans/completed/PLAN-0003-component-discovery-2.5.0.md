@@ -2,7 +2,7 @@
 id: PLAN-0003
 title: Component Discovery 2.5.0 Closeout
 type: plan
-status: active
+status: completed
 canonical: true
 owner: project
 created: 2026-09-12
@@ -35,8 +35,24 @@ matte/glossy API、下拉选择或新效果。
 
 ## 发布状态
 
-本地实现与发布闸门已通过；提交、远端发布与线上验证待本记录下一次更新。
-`package.json` 的 2.5.0 此时仍是候选版本号，不是 npm 可用证明。
+**已发布并核验 `@pieai/swimmer-ui-kit@2.5.0`。** 发布源码提交为
+`deb1f0518111df6119c05b02ab3e366630876312`，从 main 经既有 OIDC workflow 发布，
+未运行本机 npm publish 或修改认证。之后的收尾提交仅更新文档与完成状态。
+
+- [发布工作流 34685507925](https://github.com/PieAIStudio/SwimmerUIKit/actions/runs/34685507925)：completed / success。
+- `npm view @pieai/swimmer-ui-kit@2.5.0 version dist.integrity dist.tarball --json --registry https://registry.npmjs.org/` 返回 2.5.0。
+- 发布 tarball 的 SRI：`sha512-ZfQMYPobGe5lbWe7e8XedDmZoIulfULPUW+iVVHACwaWSD7RkEhxPRhfZe8aDh1RtjfYsBGD0yPrrqpQDqJiqA==`。
+- 在本仓隔离证据目录下载实际 npm tarball，再次核对：121 个运行时名字与 2.4.0 基线完全一致，export map 不变，fullWidth 的声明和 CSS 已入包；没有在 University 安装。
+
+Vercel 的 Production deployment `6408067709` 对应同一源码 SHA，状态 success。
+实际浏览器验证 [在线展厅](https://swimmer-ui-kit.pieaistudio.com/)、
+[液体页](https://swimmer-ui-kit.pieaistudio.com/liquid.html) 和
+[全宽 CTA Storybook](https://swimmer-ui-storybook.pieaistudio.com/storybook/?path=/story/clay-controls-gamebutton--full-width-liquid-cta)。
+展厅新选择区已上线，375px 全页宽度仍为 375px，主题按钮可切换；故事索引包含
+新条目，iframe 中真实按钮带 full-width class，触屏高度44px；所有页面无 pageerror。
+本地记录为 `live-release-evidence.json` 与 `live-2.5-*.png`，已查看实际截图。
+原指南中的 `swimmer-ui.pieaistudio.com` 在本机无法解析，已改指官方实际使用的
+`swimmer-ui-kit.pieaistudio.com`；没有改 DNS、Vercel 项目设置或其他仓库。
 
 ## 选择与否决的边界
 
@@ -61,7 +77,7 @@ University 目的地注册和 `LiquidCtaTransition` 仍属产品；可执行迁�
 | 闸门 | 结果 |
 | --- | --- |
 | `pnpm verify` | 47 个测试文件、309 项通过；包含 typecheck、lint、format、API 漂移、unit、Chromium browser、Storybook axe、样式和 build |
-| `pnpm docs:check` | 加入本记录后 45 份文档通过，36 current files / 302 local links；audit/doctor 零警告 |
+| `pnpm docs:check` | 加入本记录后 45 份文档通过；归档完成状态后再过文档门，audit/doctor 零警告 |
 | `pnpm build-storybook` / `pnpm build:site` | 通过 |
 | `npx publint` | All good |
 | attw，按 SOP 的 esm-only profile | node16-ESM、bundler 通过；CJS/node10 被排除，非兼容证明 |

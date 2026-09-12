@@ -25,11 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Current work unit: **2.5.0 discoverability and maintainability release**.
+- Completed: **2.5.0 discoverability and maintainability release**.
+  npm publication, live showcase checks and remaining boundaries are recorded in
+  [the completed closeout](../../plans/completed/PLAN-0003-component-discovery-2.5.0.md).
   Version truth is `package.json`; release changes are in `CHANGELOG.md`.
   No export/subpath restructure, liquid-engine rewrite or consumer migration.
-  Implementation is verified; publication is tracked in
-  [the release closeout](../../plans/active/PLAN-0003-component-discovery-2.5.0.md).
+  There is no ongoing implementation task from this release.
 - Primary entry: [component selection](../component-selection-guide.md).
   The generated [API inventory](../public-api-inventory.md) is the exhaustive
   index, not the beginner's first reading assignment.

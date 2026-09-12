@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-09-11
+last_reviewed: 2026-09-12
 domain: product
 tags:
   - design
@@ -284,7 +284,7 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 品牌的签名表面。挑的是**形态**（form）——一个已经调好的 blur / contrast /
 外形 / 弹簧 / 阴影的组合，外面套一个说得清它是什么意思的名字——而不是一组
 物理参数。整份词汇表、每个形态的活例子和它的旋钮，都在展示站的
-`/liquid.html`（`swimmer-ui.pieaistudio.com/liquid.html`）。
+`/liquid.html`（`swimmer-ui-kit.pieaistudio.com/liquid.html`）。
 
 **产品一屏只突出一个液体意图。** 展厅可并排对照，不能据此照搬成产品的常驻动效。
 液体只出现在用户造成的状态变化

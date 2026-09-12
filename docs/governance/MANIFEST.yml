@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-12T09:15:41.352Z
+generated_at: 2026-09-12T09:26:18.636Z
 generator_version: doc-gov@0.9.11
 docs_count: 45
 docs:
@@ -117,9 +117,9 @@ docs:
     last_reviewed: 2026-07-13
     pinned: true
   - id: PLAN-0003
-    path: docs/plans/active/PLAN-0003-component-discovery-2.5.0.md
+    path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
     type: plan
-    status: active
+    status: completed
     canonical: true
     last_reviewed: 2026-09-12
     pinned: false
@@ -177,7 +177,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-11
+    last_reviewed: 2026-09-12
     pinned: true
   - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
     path: docs/reference/design/contractor-ui-pack.md
