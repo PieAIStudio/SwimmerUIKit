@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LIQUID-EDGE-QUALITY
+title: Liquid Edge Quality 1.11.3 Evidence
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-measurement
+---
+
+> 版本化测量原文，不是 2.5.0 的视觉基线。原始图像和脚本仍在仓库根的 `artifacts/edge-quality/`；正文命令仍从仓库根执行，会写测量输出，勿覆盖历史证据。其测量局限保持原样。
+
 # 液态边缘毛刺：测量报告
 
 版本：`1.11.3`。产品滤镜 **已改**：offset-only inset 从抗锯齿 `shape` 取差，不再走 `BINARIZE`。复现：`node artifacts/edge-quality/measure-liquid-edge.mjs`（需 Storybook `http://127.0.0.1:6006`）。原始表：`artifacts/edge-quality/metrics.json`。

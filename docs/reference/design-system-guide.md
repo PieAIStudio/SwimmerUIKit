@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-08-24
+last_reviewed: 2026-09-11
 domain: product
 tags:
   - design
@@ -26,6 +26,23 @@ related:
 
 SwimmerUIKit 设计系统的唯一说明书：token 架构、主题化配方、动效与
 无障碍规则。改视觉先读本文，别直接往组件里写色值。
+
+选组件先读 [我该用哪个组件](component-selection-guide.md)，安装和钉版操作只在
+[升级手册](usage-and-upgrade-playbook.md) 维护。完整公开成员由源码生成的
+[API 索引](public-api-inventory.md) 提供。
+
+## 品牌与术语
+
+品牌性格是 **tactile、playful、dependable**：有触感、轻快、可靠。Clay 是
+圆润、雕塑般的游戏 UI 基础语言；液体是有意图的局部反馈，不是整页都流动。
+组件必须产品中立、可组合；不把产品路由、状态库或业务工作流带进共享包。
+不要把通用企业模板、默认玻璃拟态、无治理的 token 分叉当作品牌升级。
+
+**组件**承载操作/显示语义；**token**承载命名的视觉规格；**形态 form**承载
+液体的动作和物性组合，不等于控件类别。**guard test** 把设计或打包合同变成
+可执行检查。**wrapped app** 是同一 web UI 在 WebView 壳里运行，不是第二套 UI。
+中央厨房模型与显式升级规则以升级手册为准。`PRODUCT.md`、`CONCEPTS.md` 是
+工具适配入口，指向这里，不再各维护一份品牌定义。
 
 ## Token 架构（三层）
 
@@ -185,8 +202,9 @@ Tailwind 构建；非 Tailwind 管线引它会得到 unknown at-rule 警告—�
 
 ## 动效规则
 
-- 只用 motion token：`--game-ui-motion-fast/base/slow` +
+- 常规 CSS 动效使用 motion token：`--game-ui-motion-fast/base/slow` +
   `--game-ui-ease-pop`（弹性）/`--game-ui-ease-soft`（柔和）。
+- 液体弹簧与形变取命名形态的共享配置，不在消费调用点复制物理参数。
 - 高度伸缩动画用 grid-template-rows 0fr/1fr（全浏览器），
   `interpolate-size: allow-keywords` 作为宽度动画的渐进增强。
 - 所有动效必须有 `prefers-reduced-motion: reduce` 降级。
@@ -249,14 +267,27 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 
 效果本身的 token：`--game-ui-liquid-metal-face` / `--ink`（日夜两套都要给值，不能继承会在 night 上反相的 ink-deep）、`--game-ui-liquid-metal-accent`（默认等于 `--game-ui-accent`）、`--game-ui-liquid-metal-dispersion`、`--game-ui-liquid-metal-sweep-speed`、`--game-ui-liquid-metal-rest`、`--game-ui-liquid-metal-bloom`。
 
-## 液体表面（`LiquidSurface` / `LiquidGroup` / 形态）
+## 液体从使用者到实现者
+
+### 先用成品，再学形态
+
+主 CTA 用 `GameButton variant="primary" surface="liquid"`，需要整行布局加
+`fullWidth`。它已经选好 `press` 形态；没有必要另建一个名为 `cta` 的形态。
+按压是非均匀形变和回弹，真实按钮、文字和点击区域不跟着缩小。
+升级消费方自建 CTA 的具体边界见升级手册，而不是把页面过渡搬进 kit。
+
+单个自定义物体用 `LiquidSurface`；两个或多个物体相互作用才用 `LiquidGroup`。
+新人顺序是「我要做的控件 → 状态变化 → 看例子」，不是先读 Spring/Filter/Budget。
+
+### 形态、分类、投影
 
 品牌的签名表面。挑的是**形态**（form）——一个已经调好的 blur / contrast /
 外形 / 弹簧 / 阴影的组合，外面套一个说得清它是什么意思的名字——而不是一组
 物理参数。整份词汇表、每个形态的活例子和它的旋钮，都在展示站的
 `/liquid.html`（`swimmer-ui.pieaistudio.com/liquid.html`）。
 
-**一屏只放一个液体元素，只承载一层意图。** 液体只出现在用户造成的状态变化
+**产品一屏只突出一个液体意图。** 展厅可并排对照，不能据此照搬成产品的常驻动效。
+液体只出现在用户造成的状态变化
 上；没有环境液体、待机液体或装饰性液体。把胶质效果放在一块不动的实心方块
 上，读出来是「坏了」，不是「材质」——这是产品侧实测过的结论。
 
@@ -278,8 +309,27 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 `contrast` 不是一种「样子」：alpha 跨越点钉死在斜坡 5/12 处，所以它只决定
 边缘宽度，单位是像素，等于 `2.5628 × blur ÷ contrast`；低于约 1.3px 时 kit
 会自动把它压下来。`blob` 是路径数据不是滤镜，向外倒且夹在短边的
-`LIQUID_BLOB_MAX_FRACTION`（0.18）以内，所以同一个值可以同时给 44px 的按钮
+内部常量 `LIQUID_BLOB_MAX_FRACTION`（0.18，不是包根公开导出）以内，所以同一个值可以同时给 44px 的按钮
 和 14px 的进度条。
+
+### 实现地图：不要为“好找”拆坏引擎
+
+| 边界 | 源码家 | 下一次正确改动 |
+| --- | --- | --- |
+| 成品控件语义与事件 | `GameButton`、`GameSurfaces`、`GameDisplay` | CTA、分段、进度的交互入口 |
+| 单体内容 / 装饰分层 | `LiquidSurface.tsx` | 一团液体背后承载真实 DOM 的装配 |
+| 命名词汇与物性 | `liquidGooeyForms.ts` | 形态的分类、默认参数、投影；preview 直接读它 |
+| React 注册与宿主属性 | `LiquidGroup.tsx` | 参与者和 JSX API，不承包所有物理 |
+| 生命周期、测量、时钟 | `liquidGooeyEngine.ts` | 注册/卸载、唤醒/休眠、预算租约 |
+| 形状 / 运动 | `Geometry`、`Spring`、`Move`、`Evolve` 模块 | 路径几何与弹簧数学，不是消费入口 |
+| 渲染与成本 | `Filter`、`Shadow`、`Waviness`、`Budget` 模块 | SVG/CSS 分工、面积限额和降级 |
+| 图像相互作用 | `liquidGooeyImageMelt.tsx` | 图像接触、融合、清理和专用测试 |
+| 展示与证据 | `LiquidPreview.tsx`、stories、browser tests | 相同运行时的可见例子，不另写一套效果 |
+
+这里的短模块名均有 `liquidGooey` 前缀。当前切分主要服务实现者，这是合理的；
+使用者不需要把这些文件学完。本版不合并物理文件、不改 preset，不以行数为目标。
+高级组合详见 [液体原语参考](liquid-primitives.md)；donor 采纳与拒绝的事实唯一
+来源仍为根目录 `donors-individual.md` 与其 lock。
 
 ## 面板系统选型
 
@@ -296,10 +346,10 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 
 ## 未来出口（记录，不预装）
 
-- **DTCG token 管线**（W3C 规范 2025-10 稳定）：当出现 Figma/多工具
-  协作需求时，把 theme.css 升级为 DTCG JSON + Style Dictionary 生成。
-- **Base UI 1.0**（MUI 维护）：当需要 combobox/multiselect 等复杂
-  headless 组件时的第一候选，届时按组件单独引入。
+- **DTCG token 管线**：有 Figma/多工具协作需求再评估，不为清理仓库预装生成链。
+- **Base UI**：需要复杂 combobox/multiselect 等 headless 行为时优先评估成熟实现，
+  但引入运行时依赖必须先变更现有零依赖边界；不能悄悄安装或复制其状态机。
+  [下一阶段调查](liquid-next-stage-research.md) 区分已实现、提案和待验证事项。
 
 ## Related Commands / Files
 

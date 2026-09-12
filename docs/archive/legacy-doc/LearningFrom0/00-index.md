@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-INDEX
+title: Legacy Learning Index
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-tutorial
+---
+
+> 历史教程原文，非当前安装或 API 权威。当前入口：[选组件](../../../reference/component-selection-guide.md)。旧版本、依赖和示例仅用于追溯，不能当升级指令。
+
 # SwimmerUIKit 从 0 开始学习指南
 
 > 这套教程写给：**用 AI 编程约 2 年、没系统学过代码、擅长指挥 AI 的人**。

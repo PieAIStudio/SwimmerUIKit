@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-07-03
+last_reviewed: 2026-09-12
 domain: meta
 tags:
   - current-work
@@ -25,38 +25,44 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Current phase: **2.1.0 release** (2.0.0 is already published; SPEC-0002
-  established the 1.0 packaging contract): ESM-only packaging with flat bundled types (publint + attw
-  green), `dist/styles.css` is 100% standard CSS built by lightningcss
-  (warning = build failure), Tailwind fully decoupled (optional
-  `./tailwind.css` bridge; no Tailwind peers), wrapped-app hardening
-  (touch-action / tap-highlight / hover guards / safe-area tokens),
-  `CHANGELOG.md` + 1.x compatibility contract.
-- Current active spec: `docs/specs/active/SPEC-0002-v1-release-readiness.md`
-  (SPEC-0001 is `stable`).
-- Current proof target: consumers upgrade 2.0.0 → 2.1.0 with **zero code
-  changes**; Vite 8 consumers see zero CSS warnings and can opt into the new
-  scroll-surface hook without a parallel CSS implementation.
+- Current work unit: **2.5.0 discoverability and maintainability release**.
+  Version truth is `package.json`; release changes are in `CHANGELOG.md`.
+  No export/subpath restructure, liquid-engine rewrite or consumer migration.
+  Implementation is verified; publication is tracked in
+  [the release closeout](../../plans/active/PLAN-0003-component-discovery-2.5.0.md).
+- Primary entry: [component selection](../component-selection-guide.md).
+  The generated [API inventory](../public-api-inventory.md) is the exhaustive
+  index, not the beginner's first reading assignment.
+- Current consumer proof target: University can pin all three packages from
+  2.4.0 to 2.5.0 without import changes; optional custom-CTA migration follows
+  the [upgrade playbook](../usage-and-upgrade-playbook.md). University owns its
+  routing transition and product regression; this repository does not perform it.
+- Next-stage work is [research only](../liquid-next-stage-research.md): distinguish
+  matte/glossy liquid finishes, present real widget/state examples, then prioritize
+  measured donor adaptations. Do not read proposed APIs as implemented features.
+- SPEC-0001/0002 are provenance for earlier packaging and design-system work;
+  their old version targets are not this release's checklist.
 - Runtime-dependency policy: **zero runtime deps** — browser-native
-  dialog/popover/color-mix/cascade-layers cover current needs; Base UI 1.0
-  recorded as the future escape hatch for complex headless widgets.
+  dialog/color-mix/cascade-layers cover current implementations. Native controls
+  or a reviewed mature headless package are future options, not preinstalled deps.
 - Distribution direction: public npmjs package plus a publicly readable GitHub
   repository under the PieAI Limited Use License. Releases use the manual
   `npm-publish.yml` Trusted Publishing workflow; no long-lived npm write token.
 
 ## Reading Order
 
-1. `docs/reference/design-system-guide.md` — tokens, theming, motion, a11y,
+1. `docs/reference/component-selection-guide.md` — choose by task.
+2. `docs/reference/design-system-guide.md` — tokens, theming, motion, a11y,
    tailwind bridge, wrapped-app rules.
-2. `docs/reference/usage-and-upgrade-playbook.md` — consumers + release SOP.
-3. `CHANGELOG.md` — release history and migration notes.
-4. `docs/specs/active/SPEC-0002-v1-release-readiness.md` — why.
+3. `docs/reference/usage-and-upgrade-playbook.md` — consumers + release SOP.
+4. `CHANGELOG.md` — release history and migration notes.
 
 ## Verification
 
-`pnpm typecheck` · `pnpm test` (70 tests incl. token + packaging guards) ·
-`pnpm build` (fails on any CSS warning) · `pnpm build-storybook` ·
-`pnpm docs:check` · `npx publint` · `npx @arethetypeswrong/cli --pack .`.
+`pnpm verify` (includes generated API drift check and current tests) ·
+`pnpm docs:check` · `pnpm build-storybook` · `pnpm build:site` · `npx publint` ·
+`npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only`.
+Use current command output for test counts; do not add historical totals together.
 
 ## Completed Proof History
 

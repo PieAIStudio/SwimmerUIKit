@@ -3794,4 +3794,15 @@
     display: inline-flex;
     min-width: 0;
   }
+
+  /* Opt-in layout only. The native button, content and decorative body share
+   * one box; putting width:100% on the button alone leaves its wrapper narrow. */
+  .game-ui-button--full-width,
+  .game-ui-button-liquid--full-width,
+  .game-ui-button-liquid--full-width > .game-ui-liquid-surface__content,
+  .game-ui-button-liquid--full-width > .game-ui-liquid-surface__content > span {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
 }

@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-3D-ICON-RESEARCH
+title: Legacy 3D Icon Research
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-research
+---
+
+> 未实施的历史前瞻，不是已交付 API。原始方案和风险保留；本轮没有引入 3D 图标或常驻动画。
+
 # 图标走向真 3D —— 可行性与接口设计(前瞻笔记)
 
 > 状态:**只做思考,不写代码**(2026-06)。本文回答一个问题:

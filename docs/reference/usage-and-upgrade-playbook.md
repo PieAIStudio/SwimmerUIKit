@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-07-13
+last_reviewed: 2026-09-11
 domain: product
 tags:
   - usage
@@ -23,7 +23,7 @@ related:
 
 ## Purpose
 
-给消费项目（Show / TuringPact / OwnMySpace / Non-Heroes 及未来产品）的
+给消费项目（University 及其他产品）的
 接入、定制、升级手册，以及本仓自己的发版清单。
 
 ## 中央厨房模型
@@ -41,7 +41,7 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 从 npmjs 安装并钉精确版本：
-   `"@pieai/swimmer-ui-kit": "2.1.0"`（不用 `^`，升级必须是
+   `"@pieai/swimmer-ui-kit": "2.5.0"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
    处理器，也不需要 scope-specific `.npmrc` 或 package-read token。
@@ -61,6 +61,82 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
    0.9.0 起 kit 在 `@layer swimmer-ui` 内，未分层的产品 CSS 一定赢）。
 5. 有问题不要在产品仓打补丁盖住 kit，回 kit 仓修，再发补丁版。
 
+## 2.4.0 → 2.5.0：University 的可执行升级边界
+
+**兼容升级**：272 个根入口名字、包子路径、默认 DOM、主题 token、液体引擎与
+十二形态均保留。唯一新增运行时选项是 `GameButton.fullWidth?: boolean`。
+没有新增 `cta` 形态，也没有要求消费者改 import。旧调用继续可用。
+
+本轮只读核实 University 的 `packages/ui`、`packages/world`、`apps/university`
+均钉 `2.4.0`，**没有在 University 修改、安装或运行迁移**。以下由消费方 AI 执行，
+不要把本仓的绿色测试当作产品回归证明。
+
+```bash
+# 在 University 根目录；先保存自己所属的进行中工作，不覆盖别的 agent 改动。
+pnpm --filter ./packages/ui add --save-exact @pieai/swimmer-ui-kit@2.5.0
+pnpm --filter ./packages/world add --save-exact @pieai/swimmer-ui-kit@2.5.0
+pnpm --filter ./apps/university add --save-exact @pieai/swimmer-ui-kit@2.5.0
+pnpm install --frozen-lockfile
+pnpm verify
+```
+
+检查三个 `package.json` 和 lockfile，而不是只更新 UI 包。常规产品入口继续只引
+`styles.css`；渲染 `GameUiPreview` 仍需 `preview.css`。字体与素材接入保持不变。
+
+### 先升级包，再另一个提交迁移自建 CTA
+
+`packages/ui/src/cta/LiquidCtaButton.tsx` 的共享按钮表面可以交回 kit：
+
+```tsx
+<GameButton variant="primary" surface="liquid" fullWidth onClick={onStart}>
+  开始学习
+</GameButton>
+```
+
+旧 `width="full"` 映射为 `fullWidth`，`width="auto"` 映射为省略它。
+`type`、`disabled`、`aria-*`、`name`、`value`、本地化 children 仍走真实按钮。
+`className` 仍落在真实按钮；`wrapperClassName` 不是 kit 新增属性，产品要保留
+自己的布局 wrapper，不能不看调用点就删掉。
+
+**有 `destination` 的调用不能只替换成上面的裸按钮。**
+`LiquidCtaTransition.tsx` 的目标注册、pending/active/settling、超时、取消、
+跨屏衔接由产品拥有，保留原文件和测试。可以在原适配层内换掉视觉组合：
+
+```tsx
+// 此回调属于 University 的适配层，不是新增 kit API。
+// 保留现有“先捕获源矩形，再调用导航”的次序，避免路由卸载后找不到源。
+onClick={(event) => {
+  if (destination && !event.defaultPrevented) {
+    beginLiquidCtaTransition(event.currentTarget, destination);
+  }
+  onClick?.(event);
+}}
+```
+
+该 API 接受 HTMLElement，真实按钮可以作源；但旧源是外层 wrapper，消费方必须
+对照两者矩形和过渡截图。布局 wrapper 有额外 padding/offset 时，仍保留原 ref。
+这不是“823 行过渡已被 kit 吸收”的承诺。
+
+**有意的视觉迁移**：旧自建 CTA 的统一 `scale=0.95` / `bouncy` 将变成 kit 已有的
+`press` 非均匀压扁 / `wobbly` 回弹，投影与轮廓也取 kit 形态。这是消费方选择
+迁移时才发生的观感变化；2.5.0 没有重调 2.4.0 的物理。旧 `static`、自建
+LiquidGroup、视觉 pressed state、`.liquid-cta__surface` 和针对 button 的
+透明底/阴影覆写应逐项检查后移除，避免双层表面或未分层 CSS 把 kit 覆盖掉。
+产品自己的排版、目的地、业务状态不是需要删除的重复实现。
+
+### 消费方验收与回滚
+
+先跑原 CTA 与 transition tests，再走产品全门。按实际调用清单检查开始/继续、
+课程入口、空状态、表单 submit、禁用、Enter/Space、pointer cancel、快速重复点击、
+长中文、375px 窄屏、day/night、reduced-motion；导航还要检查目标缺失/延迟挂载、
+同屏/跨屏、取消和卸载。观察焦点、点击矩形、文字清晰度和动画最终停稳。
+本轮只读 JSX 查询在该快照得到 17 个生产 `<LiquidCtaButton` 标签；这不是对用户
+历史“19 处”数字的覆盖，也不是完整运行时调用次数。迁移前重新枚举，不用旧数字验收。
+
+回滚按钮迁移：revert 消费方的独立 CTA 提交，恢复旧适配层/CSS；需要回滚依赖时，
+同时恢复三个包的 `2.4.0` 与对应 lockfile 并重跑产品门。不撤销或覆盖其他 AI 的工作。
+本包已发布版本不可覆写；kit 的后续修复用新补丁版本。
+
 ## 检查消费方是否真的在吃 token（`swimmer-ui-check`）
 
 kit 内部靠 `src/tokens.test.ts` 强制"裸颜色只能住在 theme.css"；消费方
@@ -79,7 +155,7 @@ npx swimmer-ui-check src --ext=css,tsx
 （如 `.card { background: #123456; }`）里的裸颜色才算漂移。退出码
 非零可直接接进消费方自己的 lint/CI。
 
-### Break 裸色迁移指引（试点，待 Break 仓库内执行）
+### Break 裸色迁移指引（2026-07 历史试点，当前状态未复查）
 
 Break 引了 kit 的 `styles.css` 却 0 处 `var(--game-ui-*)`、76 个裸
 hex/rgb 色值散在自己约 1476 行 CSS 里——中央厨房模式下这是治理缺口，不是
@@ -108,7 +184,10 @@ hex/rgb 色值散在自己约 1476 行 CSS 里——中央厨房模式下这是�
 4. 产出一份简短迁移笔记（映射了多少处、跳过了多少处、为什么）回填到
    Break 仓库自己的文档；不需要改动本仓库。
 
-## 全生态版本对齐清单（发新版后逐仓执行）
+## 历史消费者清单与其他产品升级
+
+以下七仓清单、使用深度和接入状态来自 2026-07，不是本轮确认的当前资产表；
+本轮没有授权批量升级它们。去对应仓核实后再执行通用 SOP。
 
 kit 发新版后，7 个消费仓库**不会自动升级**（钉版是有意设计，见"消费方接入"
 一节）。每个仓库按下面同一套命令逐一执行，任何一步失败就停在那个仓库，
@@ -116,7 +195,7 @@ kit 发新版后，7 个消费仓库**不会自动升级**（钉版是有意设�
 
 ```bash
 # 在每个消费仓库根目录：
-pnpm add @pieai/swimmer-ui-kit@<new-version>
+pnpm add --save-exact @pieai/swimmer-ui-kit@<new-version>
 pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可能略有出入
 ```
 
@@ -143,15 +222,18 @@ pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可�
 
 ## 本仓发版清单（维护者/AI 用）
 
-1. `pnpm typecheck && pnpm test && pnpm build && pnpm build-storybook` 全绿
+1. `pnpm verify && pnpm docs:check && pnpm build-storybook && pnpm build:site` 全绿
    （build 内含 lightningcss CSS 构建，任何 warning 即失败）。
 2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/night 完整/
    禁 Tailwind at-rule/ESM-only 打包合同/套壳硬化存续）。
-3. 打包体检：`npx publint` 零发现；`npx @arethetypeswrong/cli --pack .`
-   node10/node16-ESM/bundler 全绿（node16-CJS 的 ⚠️ 是 ESM-only 固有
-   属性，属预期）。
+3. 打包体检：`npx publint` 零发现；
+   `npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only`
+   的 node16-ESM/bundler 通过。与发布工作流使用同一 profile；node10 与
+   node16-CJS 不在该 profile 的验收范围，不能把忽略的解析模式称为已验证兼容。
 4. API 变化分类：纯增量 → minor；破坏性 → major 并写迁移说明。
-   更新 `CHANGELOG.md`。
+   改公开导出结构必须按 major 处理；不能借“整理”移除名字。本版保持结构不变，
+   新增可选布局属性，因此为 minor。运行 `pnpm api:inventory` 更新派生索引，
+   `api:check` 和公开合同测试阻止清单漂移；更新 `CHANGELOG.md`。
 5. bump `package.json` version；`pnpm docs:check`；commit + push 到 `main`。
 6. 发布 = `gh workflow run npm-publish.yml --ref main`。该手动安全开关
    通过 GitHub Actions OIDC Trusted Publishing 发布到 npmjs；不运行本机
@@ -163,7 +245,7 @@ pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可�
 
 ## 兼容性承诺（1.0 合同）
 
-- `1.x` 内：导出的组件与 props 只增不删；删除/改名先 deprecation
+- 同一 major 内：导出的组件与 props 只增不删；删除/改名先 deprecation
   一个 minor 周期，实际移除必须走 major。
 - CSS 类名 `.game-ui-*` 视为公共 API 的一部分（TuringPact 等在覆写），
   改名等同破坏性变更。

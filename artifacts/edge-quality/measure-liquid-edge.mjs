@@ -5,7 +5,7 @@
  * src/liquidGooeyFilter.tsx so variants can be measured without editing
  * product code. Round 3 ships offset-only inset from the anti-aliased
  * `shape` (the `wavy-inset-aa` control) and asks whether BINARIZE is still
- * needed when nothing consumes `bin`. See EDGE-QUALITY.md.
+ * needed when nothing consumes `bin`. See docs/archive/measurements/liquid-edge-quality-1.11.3.md.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';

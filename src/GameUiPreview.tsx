@@ -1756,6 +1756,62 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
           <p>{heroBody}</p>
         </header>
 
+        <section
+          aria-labelledby="game-ui-preview-start-title"
+          className="game-ui-preview-section game-ui-preview-start"
+        >
+          <h2 id="game-ui-preview-start-title">
+            {lang === 'zh-CN' ? '从这里开始：选组件' : 'Start here: choose a component'}
+          </h2>
+          <nav
+            aria-label={lang === 'zh-CN' ? '按用途找组件' : 'Find a component by task'}
+            className="game-ui-preview-two-up"
+          >
+            <a className="game-ui-liquid-showcase__link" href="#game-ui-preview-cta-title">
+              {lang === 'zh-CN' ? '主按钮 / 液体 CTA' : 'Primary button / liquid CTA'}
+            </a>
+            <a className="game-ui-liquid-showcase__link" href="#game-ui-preview-forms-title">
+              {lang === 'zh-CN' ? '表单与输入' : 'Forms and inputs'}
+            </a>
+            <a className="game-ui-liquid-showcase__link" href="#game-ui-preview-components-title">
+              {lang === 'zh-CN' ? '控件与面板' : 'Controls and panels'}
+            </a>
+            <a className="game-ui-liquid-showcase__link" href="#game-ui-preview-liquid-title">
+              {lang === 'zh-CN' ? '液体表面与形态入口' : 'Liquid surfaces and forms'}
+            </a>
+          </nav>
+          <h3 id="game-ui-preview-cta-title">
+            GameButton · {lang === 'zh-CN' ? '主操作按钮' : 'Primary action'}
+          </h3>
+          <p className="game-ui-small-copy">
+            {lang === 'zh-CN'
+              ? 'variant 说用途，surface 说表面。开始、继续、进入课程不需要先学物理参数。点击示例只展示交互，不会导航。'
+              : 'variant chooses the tone; surface chooses the material. Start, continue or enter a course without learning physics knobs. These examples do not navigate.'}
+          </p>
+          <div className="game-ui-preview-two-up">
+            <GamePanel title={lang === 'zh-CN' ? '普通主按钮' : 'Ordinary primary action'}>
+              <GameButton variant="primary">
+                {lang === 'zh-CN' ? '开始学习' : 'Start learning'}
+              </GameButton>
+              <pre>
+                <code>{'<GameButton variant="primary">Start learning</GameButton>'}</code>
+              </pre>
+            </GamePanel>
+            <GamePanel title={lang === 'zh-CN' ? '全宽液体主按钮' : 'Full-width liquid CTA'}>
+              <GameButton fullWidth surface="liquid" variant="primary">
+                {lang === 'zh-CN' ? '进入课程' : 'Enter course'}
+              </GameButton>
+              <pre>
+                <code>
+                  {
+                    '<GameButton variant="primary"\n  surface="liquid" fullWidth>\n  Enter course\n</GameButton>'
+                  }
+                </code>
+              </pre>
+            </GamePanel>
+          </div>
+        </section>
+
         <section aria-labelledby="game-ui-preview-token-title" className="game-ui-preview-section">
           <h2 id="game-ui-preview-token-title">{copy.sections.tokens}</h2>
           <TokenSwatches />

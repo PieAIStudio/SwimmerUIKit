@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-UPGRADE-PLAN-2026-07
+title: Retired July Upgrade Plan
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - retired-plan
+---
+
+> 已退役的旧计划，**不是所有条目已完成**。字体、样式拆分、主题检查等已有发布记录；Select/Popover/Toast 队列、消费者逐仓迁移等不能据此宣称完成。未确认和未实施项进入 [下一阶段调查](../../reference/liquid-next-stage-research.md)。旧版本、旧路由及发版命令只作原始证据。
+
 # SwimmerUIKit 升级计划（2026-07 全面评估产出）
 
 > 本文件由 Claude Fable 5 全面评估后撰写，供执行 AI（Sonnet 等）自主执行。

@@ -1,49 +1,32 @@
 # Product
 
-> Impeccable design-context adapter. Package truth remains in source, Storybook,
-> `docs/reference/design-system-guide.md`, and the active hardening spec.
+> Impeccable design-context adapter; this filename is a tool entry, not redundant history.
 
 ## Register
-
 product
 
 ## Platform
-
 web
 
 ## Users
-
-Pie product developers and designers building consistent browser-game and
-interactive-product interfaces across multiple repositories.
+Pie product developers and designers; see [design context](docs/reference/design-system-guide.md#品牌与术语).
 
 ## Product Purpose
-
-Provide reusable, accessible, tactile React UI primitives and tokens so every
-product can feel related without copying components or inventing local brands.
+See [design-system purpose](docs/reference/design-system-guide.md#purpose).
 
 ## Positioning
-
-SwimmerUIKit is the product line's compact game-UI foundation, not a general
-component marketplace or a replacement for each product's composition decisions.
+See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
 
 ## Brand Personality
-
-Tactile, playful, dependable.
+See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
 
 ## Anti-references
-
-Generic enterprise component libraries, glassmorphism defaults, ungoverned token
-forks, product-specific logic inside shared components, and demos that do not
-represent the published package.
+See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
 
 ## Design Principles
-
-- Keep primitives composable and product-neutral.
-- Make tokens and component states the shared contract.
-- Preserve accessibility and predictable behavior as visual style evolves.
-- Prove package changes through real consumer-like previews and tests.
+See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
 
 ## Accessibility & Inclusion
+See [accessibility baseline](docs/reference/design-system-guide.md#无障碍基线).
 
-Components must support visible focus, keyboard operation, semantic markup,
-contrast-safe token combinations, reduced motion, and consumer-controlled labels.
+Start implementation with the [component selection guide](docs/reference/component-selection-guide.md).

@@ -1,9 +1,86 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-11T07:14:32.700Z
+generated_at: 2026-09-12T09:15:41.352Z
 generator_version: doc-gov@0.9.11
-docs_count: 28
+docs_count: 45
 docs:
+  - id: ARCHIVE-CLAY-EXTRACTION
+    path: docs/archive/history/clay-extraction.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-UPGRADE-PLAN-2026-07
+    path: docs/archive/history/upgrade-plan-2026-07.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-3D-ICON-RESEARCH
+    path: docs/archive/legacy-doc/design/3d-icon-roadmap.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-VALIDATION
+    path: docs/archive/legacy-doc/LearningFrom0/_cross-validation-report.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-INDEX
+    path: docs/archive/legacy-doc/LearningFrom0/00-index.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-SEPARATION
+    path: docs/archive/legacy-doc/LearningFrom0/01-why-separate-ui-kit.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-TOKENS
+    path: docs/archive/legacy-doc/LearningFrom0/02-components-and-tokens.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-DECOUPLING
+    path: docs/archive/legacy-doc/LearningFrom0/03-why-no-app-dependency.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LEGACY-LEARNING-INSTALL
+    path: docs/archive/legacy-doc/LearningFrom0/04-use-in-new-app.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LIQUID-EDGE-QUALITY
+    path: docs/archive/measurements/liquid-edge-quality-1.11.3.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: ARCHIVE-LIQUID-SHADOW-COST
+    path: docs/archive/measurements/liquid-shadow-cost-2.0.0.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
     type: policy
@@ -39,6 +116,13 @@ docs:
     canonical: true
     last_reviewed: 2026-07-13
     pinned: true
+  - id: PLAN-0003
+    path: docs/plans/active/PLAN-0003-component-discovery-2.5.0.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-12
+    pinned: false
   - id: POLICY-PROJECT-BEST-PRACTICE
     path: docs/policy/best-practice-for-this-project.md
     type: policy
@@ -81,12 +165,19 @@ docs:
     canonical: true
     last_reviewed: 2026-09-08
     pinned: false
+  - id: REF-COMPONENT-SELECTION-GUIDE
+    path: docs/reference/component-selection-guide.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-11
+    pinned: true
   - id: REF-DESIGN-SYSTEM-GUIDE
     path: docs/reference/design-system-guide.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-08-24
+    last_reviewed: 2026-09-11
     pinned: true
   - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
     path: docs/reference/design/contractor-ui-pack.md
@@ -114,8 +205,15 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-03
+    last_reviewed: 2026-09-12
     pinned: true
+  - id: REF-GAME-SURFACE-PACK
+    path: docs/reference/game-surface-pack.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-11
+    pinned: false
   - id: REF-LEARNING-TOKEN-DERIVATION-COLOR-MIX-GUARD-TESTS
     path: docs/reference/learnings/design-patterns/token-derivation-color-mix-guard-tests.md
     type: reference
@@ -179,12 +277,33 @@ docs:
     canonical: true
     last_reviewed: 2026-08-29
     pinned: false
+  - id: REF-LIQUID-NEXT-STAGE-RESEARCH
+    path: docs/reference/liquid-next-stage-research.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: REF-LIQUID-PRIMITIVES
+    path: docs/reference/liquid-primitives.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: REF-PUBLIC-API-INVENTORY
+    path: docs/reference/public-api-inventory.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-09-11
+    pinned: false
   - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
     path: docs/reference/usage-and-upgrade-playbook.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-13
+    last_reviewed: 2026-09-11
     pinned: true
   - id: SPEC-0001
     path: docs/specs/active/SPEC-0001-design-system-hardening.md

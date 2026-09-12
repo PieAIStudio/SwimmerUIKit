@@ -1,7 +1,31 @@
+---
+id: REF-LIQUID-PRIMITIVES
+title: Liquid Primitives
+type: reference
+status: active
+canonical: true
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+domain: product
+tags:
+  - liquid
+  - primitives
+pinned: false
+related:
+  - REF-DESIGN-SYSTEM-GUIDE
+  - REF-COMPONENT-SELECTION-GUIDE
+---
+
 # LiquidGroup
 
+Advanced reference, not the route to an ordinary button. Start with the
+[component selection guide](component-selection-guide.md). Design policy and
+named-form defaults belong to the [design system guide](design-system-guide.md)
+and `LIQUID_FORMS`; this document owns low-level composition explanations.
+
 `LiquidGroup` is the SwimmerUIKit liquid primitive for short, user-caused
-surface motion. Its `merge` (Morph) gesture lets two or a few nearby UI
+surface motion. Its merge (Morph) gesture lets two or a few nearby UI
 elements visually join into one clay-like blob, then pull apart with a short
 elastic thread; `shape` adds the donor's centre → size → corner jelly timeline;
 `follow` (Move) remains reserved for the selected indicator and progress
@@ -16,8 +40,9 @@ dependency.
 
 Use this effect for a one-off celebration, merge moment, reward settlement, or
 short transition. It is **not a persistent background**, must not sit behind
-body copy, and must not be placed on navigation. If the user needs to read,
-scan, or operate something repeatedly, use an ordinary kit surface instead.
+body copy. For persistent navigation, use the kit's ordinary controls. The
+existing selected-indicator and progress-leading-edge follow effects are scoped
+exceptions: the labels and hit targets stay native.
 
 ## Content and silhouette are separate
 
@@ -153,9 +178,9 @@ The texture is static. There is no animated `baseFrequency`, no time-based
 seed, and no additional requestAnimationFrame work; the existing shared clock
 still sleeps after the normal settle window. The shipped token default is
 `--game-ui-liquid-gooey-waviness: 6`; `0` remains an explicit calm override.
-The recommended brand preset is `6` with
-`--game-ui-liquid-gooey-waviness-freq: 0.018`; `3`/`0.022` is conservative and
-`10`/`0.014` is bold on the same strength axis.
+These are legacy primitive texture controls, not the recommended recipe for a
+new button. Named forms now draw the organic outline in path geometry (`blob`)
+instead; do not reintroduce the superseded wave preset by copying this example.
 
 Because `waviness` is an absolute pixel value, `LiquidGroup` clamps the
 effective value after measuring its rendered box:
@@ -217,5 +242,6 @@ The donor's general observer loop remains rejected because the kit's own
 budgeted, idle-sleeping runtime provides the process-wide limits and lifecycle
 behavior required here.
 
-The supported surfaces are `morph`, `move`, `bend`, pairwise image `melt`, and
-image-only contact `dissolve`. The donor checkout remains provenance only.
+The supported techniques are Morph, group-level Move (`motion="follow"`), Bend,
+pairwise image Melt, and image-only contact dissolve. They are not five values
+of the item `effect` union. The donor checkout remains provenance only.

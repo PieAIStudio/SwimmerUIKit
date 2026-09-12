@@ -9,10 +9,14 @@ Source is publicly readable. Use is governed by the
 [PieAI Limited Use License](./LICENSE), not an open-source license. The visual
 assets may not be extracted, modified, or redistributed as a standalone pack.
 
+- **Start here / 我该用哪个组件？**
+  [Primary button, liquid CTA, forms, panels and other tasks](docs/reference/component-selection-guide.md)
 - Design system truth (tokens, theming, motion, a11y):
-  `docs/reference/design-system-guide.md`
+  [Design system guide](docs/reference/design-system-guide.md)
 - Consumer onboarding / upgrade SOP / release checklist:
-  `docs/reference/usage-and-upgrade-playbook.md`
+  [Usage and upgrade playbook](docs/reference/usage-and-upgrade-playbook.md)
+- Exhaustive reference (not the starting point):
+  [Generated public API inventory](docs/reference/public-api-inventory.md)
 - Live catalog: `pnpm dev` (preview page) and `pnpm storybook`
 
 ## Install
@@ -20,7 +24,7 @@ assets may not be extracted, modified, or redistributed as a standalone pack.
 ```json
 {
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "2.1.0"
+    "@pieai/swimmer-ui-kit": "2.5.0"
   }
 }
 ```
@@ -48,7 +52,7 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 
 ## What's inside
 
-- **~60 components** across: core controls (`GameButton`,
+- **Ready-to-use components** across: core controls (`GameButton`,
   `LiquidMetalButton`, `GameTabs`,
   `GameSlider`, `GameToggle`, `GameForms` inputs…), panels and windows
   (`GamePanel`, `GameCollapsiblePanel`, `GameWindowPanel`, `GameModal` on
@@ -145,10 +149,15 @@ See `CHANGELOG.md` for release history and migration notes.
 pnpm install
 pnpm dev              # preview page (token ledger + all surfaces)
 pnpm storybook        # component catalog
-pnpm typecheck && pnpm test && pnpm build && pnpm docs:check
+pnpm verify && pnpm docs:check
+pnpm api:inventory    # regenerate the public API index after a reviewed API change
 ```
 
 Releases use GitHub Actions Trusted Publishing: bump `package.json`, commit and
 push `main`, then run `gh workflow run npm-publish.yml --ref main`. The manual
 workflow is the release safety switch; it publishes to npmjs with short-lived
 OIDC credentials and provenance, without a local login or stored npm token.
+
+The former `doc/` tutorials and one-off root reports are catalogued in the
+[documentation and evidence relocation record](docs/archive/relocations-2.5.0.json). Historical
+material is retained, but installation and component selection follow the guides above.

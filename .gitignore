@@ -4,6 +4,7 @@ site-dist/
 storybook-static/
 coverage/
 .devspace-visual/
+.devspace-reports/
 .DS_Store
 *.log
 .vercel
@@ -16,3 +17,8 @@ package-lock.json
 tmp/
 REPORT.md
 SHOTS/
+
+# SCRATCH contains six preserved historical review PNGs, not a new output sink.
+# Existing tracked files remain tracked; only new scratch output is ignored.
+SCRATCH/*
+!SCRATCH/README.md

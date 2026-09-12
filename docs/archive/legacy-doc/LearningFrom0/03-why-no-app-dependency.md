@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-DECOUPLING
+title: Legacy Learning Decoupling
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-tutorial
+---
+
+> 历史原文，包含已过时的 Tailwind peer 表。当前依赖与接入以 [升级手册](../../../reference/usage-and-upgrade-playbook.md) 为准；正文保留抽取时的设计理由。
+
 # 第 03 篇：餐具不挑哪家店——组件为什么不能依赖具体 App
 
 > 🟢 初级 | 预计阅读 9 分钟

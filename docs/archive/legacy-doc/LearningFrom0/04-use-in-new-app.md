@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-INSTALL
+title: Legacy Learning Install
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-tutorial
+---
+
+> 历史原文，非可直接执行的当前安装指南。请用 [升级手册](../../../reference/usage-and-upgrade-playbook.md)；未撰写的第 05 篇并未在本轮被假装补齐。
+
 # 第 04 篇：跟着走一遍——在新 App 里用上这套 UI
 
 > 🟢 初级 | 预计阅读 12 分钟

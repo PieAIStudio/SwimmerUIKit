@@ -40,6 +40,8 @@ const baseLinkStyle = {
   fontSize: 14,
   fontWeight: 600,
   textDecoration: 'none',
+  whiteSpace: 'nowrap' as const,
+  flexShrink: 0,
 };
 
 const activeLinkStyle = {
@@ -71,6 +73,7 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
         top: 0,
         zIndex: 50,
         display: 'flex',
+        flexWrap: 'wrap',
         gap: 12,
         alignItems: 'center',
         padding: '10px 20px',
@@ -95,6 +98,8 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
           fontWeight: 600,
           border: 'none',
           cursor: 'pointer',
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
           background: 'rgba(255,255,255,.16)',
           color: '#fff',
         }}

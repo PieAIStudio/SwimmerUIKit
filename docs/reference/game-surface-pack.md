@@ -1,3 +1,22 @@
+---
+id: REF-GAME-SURFACE-PACK
+title: Game Surface Pack
+type: reference
+status: active
+canonical: true
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+domain: product
+tags:
+  - compositions
+  - game-shell
+pinned: false
+related:
+  - REF-COMPONENT-SELECTION-GUIDE
+  - REF-USAGE-AND-UPGRADE-PLAYBOOK
+---
+
 # OwnMySpace Game Surface Pack
 
 This pack adds official SwimmerUIKit components for game/editor DOM surfaces that sit around a host app's canvas or 3D runtime. The package owns visible UI shape, tokens, accessible labels, dense/mobile hooks, and action patterns. The host app still owns runtime state, scene rendering, persistence, asset manifests, providers, routing, and business rules.
@@ -66,7 +85,7 @@ Shared official action pattern. Actions are data objects with label, optional ic
 
 ## Official distribution strategy
 
-The official consumption path is the public npmjs package `@pieai/swimmer-ui-kit`, published by `.github/workflows/npm-publish.yml` through npm Trusted Publishing. Consuming apps should pin an exact version; no package-read token or scope-specific registry configuration is required.
+Follow the [usage and upgrade playbook](usage-and-upgrade-playbook.md) for the authoritative distribution and release procedure.
 
 Do not use committed tarballs as the long-term bridge. A host app may temporarily use a `.tgz` bridge only before a registry version is available, and should remove `vendor/packages/*.tgz` once the matching package version is published.
 

@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-TOKENS
+title: Legacy Learning Tokens
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-tutorial
+---
+
+> 历史原文，不是当前组件表、token 值或语义保证。当前入口：[选组件](../../../reference/component-selection-guide.md)。
+
 # 第 02 篇：组件 vs 设计令牌——两种"餐具"的区别
 
 > 🟢 初级 | 预计阅读 10 分钟

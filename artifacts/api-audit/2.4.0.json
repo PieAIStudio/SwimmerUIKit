@@ -1,0 +1,4679 @@
+{
+  "baselineCommit": "1055db1d91a474b968104888da0da42ad4c623e3",
+  "consumer": "University",
+  "consumerCommit": "6840b2663207d72988e5119c4abbacddfd44121f",
+  "scope": "Compiler-resolved local symbol references; tracked consumer named imports/re-exports, including aliases. Consumer imports are reachability evidence, not runtime invocation counts. Dynamic/namespace access is reported, not guessed. Other repositories, untracked files and external consumers are not observed.",
+  "unknownConsumerAccess": [],
+  "exports": [
+    {
+      "name": "GameButton",
+      "kind": "value",
+      "module": "./GameButton",
+      "family": "Controls",
+      "audience": "Start here: ordinary actions and liquid CTAs",
+      "declaration": "src/GameButton.tsx:32",
+      "references": [
+        "src/FirstSessionGameShell.tsx:105",
+        "src/FirstSessionGameShell.tsx:108",
+        "src/FirstSessionGameShell.tsx:109",
+        "src/FirstSessionGameShell.tsx:112",
+        "src/FirstSessionGameShell.tsx:113",
+        "src/FirstSessionGameShell.tsx:116",
+        "src/FirstSessionGameShell.tsx:192",
+        "src/FirstSessionGameShell.tsx:194",
+        "src/FirstSessionGameShell.tsx:195",
+        "src/FirstSessionGameShell.tsx:197",
+        "src/GameSurfacePack.tsx:200",
+        "src/GameSurfacePack.tsx:209",
+        "src/GameSurfaces.tsx:415",
+        "src/GameTerrainBuildTools.tsx:792",
+        "src/GameTerrainBuildTools.tsx:803",
+        "src/GameUiPreview.tsx:1054",
+        "src/GameUiPreview.tsx:1055",
+        "src/GameUiPreview.tsx:1057",
+        "src/GameUiPreview.tsx:1068",
+        "src/GameUiPreview.tsx:1070",
+        "src/GameUiPreview.tsx:1071",
+        "src/GameUiPreview.tsx:1073",
+        "src/GameUiPreview.tsx:1115",
+        "src/GameUiPreview.tsx:1116",
+        "src/GameUiPreview.tsx:1638",
+        "src/GameUiPreview.tsx:819",
+        "src/GameUiPreview.tsx:820",
+        "src/GameUiPreview.tsx:821",
+        "src/GameUiPreview.tsx:822",
+        "src/GameUiPreview.tsx:823",
+        "src/GameUiPreview.tsx:824",
+        "src/GameUiPreview.tsx:826",
+        "src/GameUiPreview.tsx:909",
+        "src/GameUiPreview.tsx:910",
+        "src/GameUiPreview.tsx:996",
+        "src/GameUiPreview.tsx:997",
+        "src/GameUiPreview.tsx:998",
+        "src/LiquidPreview.tsx:549",
+        "src/LiquidPreview.tsx:551",
+        "src/LiquidPreview.tsx:581",
+        "src/LiquidPreview.tsx:583",
+        "src/LiquidPreview.tsx:617",
+        "src/LiquidPreview.tsx:624",
+        "src/LiquidPreview.tsx:626",
+        "src/LiquidPreview.tsx:652",
+        "src/LiquidPreview.tsx:676",
+        "src/LiquidPreview.tsx:682",
+        "src/LiquidPreview.tsx:688",
+        "src/LiquidPreview.tsx:690",
+        "src/LiquidPreview.tsx:691",
+        "src/LiquidPreview.tsx:693",
+        "src/LiquidPreview.tsx:740",
+        "src/LiquidPreview.tsx:747",
+        "src/OverlayGlass.test.tsx:150",
+        "src/OverlayGlass.test.tsx:151",
+        "src/liquidGooeyForms.test.tsx:231",
+        "src/liquidGooeyForms.test.tsx:234",
+        "src/liquidGooeyForms.test.tsx:236",
+        "src/liquidGooeyForms.test.tsx:252",
+        "src/liquidGooeyForms.test.tsx:254",
+        "src/liquidGooeyForms.test.tsx:272",
+        "src/liquidGooeyForms.test.tsx:274",
+        "src/stories/GameButton.stories.tsx:16",
+        "src/stories/GameButton.stories.tsx:6",
+        "src/stories/GameEmptyState.stories.tsx:28",
+        "src/stories/GamePanelSystem.stories.tsx:100",
+        "src/stories/GamePanelSystem.stories.tsx:102",
+        "src/stories/GamePanelSystem.stories.tsx:103",
+        "src/stories/GamePanelSystem.stories.tsx:105",
+        "src/stories/GamePanelSystem.stories.tsx:131",
+        "src/stories/GamePanelSystem.stories.tsx:133",
+        "src/stories/GamePanelSystem.stories.tsx:136",
+        "src/stories/GamePanelSystem.stories.tsx:138",
+        "src/stories/GamePanelSystem.stories.tsx:67",
+        "src/stories/GamePanelSystem.stories.tsx:77",
+        "src/stories/GamePanelSystem.stories.tsx:79",
+        "src/stories/GamePanelSystem.stories.tsx:94",
+        "src/stories/GamePanelSystem.stories.tsx:96",
+        "src/stories/GameProgress.stories.tsx:41",
+        "src/stories/GameProgress.stories.tsx:43",
+        "src/stories/LiquidGroup.stories.tsx:137",
+        "src/stories/LiquidGroup.stories.tsx:139",
+        "src/stories/LiquidGroup.stories.tsx:389",
+        "src/stories/LiquidGroup.stories.tsx:391",
+        "src/stories/LiquidGroup.stories.tsx:451",
+        "src/stories/LiquidGroup.stories.tsx:453",
+        "src/stories/LiquidGroup.stories.tsx:525",
+        "src/stories/LiquidGroup.stories.tsx:527",
+        "src/stories/LiquidGroup.stories.tsx:528",
+        "src/stories/LiquidGroup.stories.tsx:530",
+        "src/stories/LiquidGroup.stories.tsx:636",
+        "src/stories/LiquidGroup.stories.tsx:638",
+        "src/stories/LiquidSurface.stories.tsx:116",
+        "src/stories/LiquidSurface.stories.tsx:118",
+        "src/stories/LiquidSurface.stories.tsx:139",
+        "src/stories/LiquidSurface.stories.tsx:141",
+        "src/stories/LiquidSurface.stories.tsx:142",
+        "src/stories/LiquidSurface.stories.tsx:38",
+        "src/stories/LiquidSurface.stories.tsx:40",
+        "src/stories/OverlayGlass.stories.tsx:128",
+        "src/stories/OverlayGlass.stories.tsx:129",
+        "src/stories/OverlayGlass.stories.tsx:130",
+        "src/stories/OverlayGlass.stories.tsx:131"
+      ],
+      "consumerImports": [
+        "apps/university/e2e-fixtures/planet.tsx:4",
+        "apps/university/src/app/App.tsx:50",
+        "apps/university/src/authoring/CourseSection.tsx:4",
+        "apps/university/src/avatar-lab/AvatarLab.tsx:5",
+        "apps/university/src/learner/UaDashboardButton.tsx:3",
+        "apps/university/src/lesson/Settlement.tsx:22",
+        "apps/university/src/map-studio/MapStudioScreen.tsx:7",
+        "packages/ui/src/capability/CapabilityExplanation.tsx:2",
+        "packages/ui/src/catalog/CatalogSurface.tsx:4",
+        "packages/ui/src/cta/LiquidCtaButton.tsx:3",
+        "packages/ui/src/entry/CopyTextButton.tsx:2",
+        "packages/ui/src/entry/DemoMiniature.tsx:5",
+        "packages/ui/src/entry/PronunciationButton.tsx:2",
+        "packages/ui/src/evidence/EvidenceSourceSheet.tsx:3",
+        "packages/ui/src/evidence/LayerCoverage.tsx:3",
+        "packages/ui/src/learning-play/AgentGame.tsx:2",
+        "packages/ui/src/learning-play/AgentTools.tsx:2",
+        "packages/ui/src/learning-play/AgentWorkspace.tsx:1",
+        "packages/ui/src/learning-play/BriefGame.tsx:2",
+        "packages/ui/src/learning-play/ConnectGame.tsx:2",
+        "packages/ui/src/learning-play/ContextCounter.tsx:1",
+        "packages/ui/src/learning-play/ContextGame.tsx:2",
+        "packages/ui/src/learning-play/DispatchGame.tsx:2",
+        "packages/ui/src/learning-play/EvalGame.tsx:2",
+        "packages/ui/src/learning-play/HuntGame.tsx:2",
+        "packages/ui/src/learning-play/LearningActivity.tsx:2",
+        "packages/ui/src/learning-play/LearningPlayLab.tsx:2",
+        "packages/ui/src/learning-play/PlayGuide.tsx:2",
+        "packages/ui/src/learning-play/ProgramGame.tsx:2",
+        "packages/ui/src/learning-play/RepairGame.tsx:2",
+        "packages/ui/src/learning-play/TuneGame.tsx:2",
+        "packages/ui/src/learning-play/TuneVisualization.tsx:2",
+        "packages/ui/src/lesson/LessonNextStep.tsx:2",
+        "packages/ui/src/lesson/LessonSourceVersion.tsx:3",
+        "packages/ui/src/loading/RecoveryState.tsx:1",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:4",
+        "packages/ui/src/navigation/empty/SettingsScreen.tsx:3",
+        "packages/ui/src/navigation/screens/PlansScreen.tsx:4",
+        "packages/ui/src/notifications/ReviewReminderPrompt.tsx:3",
+        "packages/ui/src/onboarding/WelcomeExperience.tsx:1",
+        "packages/ui/src/path/CoursePickCard.tsx:18",
+        "packages/ui/src/path/CourseRouteQuiz.tsx:3",
+        "packages/ui/src/path/UnitCard.tsx:2",
+        "packages/ui/src/path/UnitSkipTest.tsx:2",
+        "packages/ui/src/practice/MistakeList.tsx:5",
+        "packages/ui/src/practice/PracticeOverview.tsx:2",
+        "packages/ui/src/practice/PracticeStream.tsx:3",
+        "packages/ui/src/practice/PracticeSurface.tsx:3",
+        "packages/ui/src/progress/LearningSaveStatus.tsx:2",
+        "packages/ui/src/review/ChoiceBlock.tsx:3",
+        "packages/ui/src/review/ExerciseBlock.tsx:2",
+        "packages/ui/src/review/RecapPrompt.tsx:3",
+        "packages/ui/src/review/ReviewCard.tsx:4",
+        "packages/ui/src/review/VocabularyReview.tsx:3",
+        "packages/ui/src/today/TodaySection.tsx:2",
+        "packages/world/src/WorldMapCanvas.tsx:2",
+        "packages/world/src/planet/PlanetDomainLabels.tsx:3",
+        "packages/world/src/planet/PlanetPage.tsx:16"
+      ]
+    },
+    {
+      "name": "GameButtonProps",
+      "kind": "type",
+      "module": "./GameButton",
+      "family": "Controls",
+      "audience": "Start here: ordinary actions and liquid CTAs",
+      "declaration": "src/GameButton.tsx:18",
+      "references": [
+        "src/GameButton.tsx:42"
+      ],
+      "consumerImports": [
+        "packages/ui/src/cta/LiquidCtaButton.tsx:3"
+      ]
+    },
+    {
+      "name": "GameButtonSurface",
+      "kind": "type",
+      "module": "./GameButton",
+      "family": "Controls",
+      "audience": "Start here: ordinary actions and liquid CTAs",
+      "declaration": "src/GameButton.tsx:16",
+      "references": [
+        "src/GameButton.tsx:28"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameButtonVariant",
+      "kind": "type",
+      "module": "./GameButton",
+      "family": "Controls",
+      "audience": "Start here: ordinary actions and liquid CTAs",
+      "declaration": "src/GameButton.tsx:6",
+      "references": [
+        "src/GameButton.tsx:29",
+        "src/GameContractorTools.tsx:44",
+        "src/GameSurfacePack.tsx:131",
+        "src/GameUiPreview.tsx:1047",
+        "src/LiquidPreview.tsx:223",
+        "src/LiquidPreview.tsx:301",
+        "src/LiquidPreview.tsx:534",
+        "src/LiquidPreview.tsx:611",
+        "src/LiquidPreview.tsx:702"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidMetalButton",
+      "kind": "value",
+      "module": "./LiquidMetalButton",
+      "family": "Decision-only effect",
+      "audience": "Separate metal CTA, not glossy gooey",
+      "declaration": "src/LiquidMetalButton.tsx:41",
+      "references": [
+        "src/GameUiPreview.tsx:1096",
+        "src/GameUiPreview.tsx:1101",
+        "src/LiquidMetalButton.test.tsx:86",
+        "src/stories/LiquidMetalButton.stories.tsx:19",
+        "src/stories/LiquidMetalButton.stories.tsx:51",
+        "src/stories/LiquidMetalButton.stories.tsx:62",
+        "src/stories/LiquidMetalButton.stories.tsx:74",
+        "src/stories/LiquidMetalButton.stories.tsx:79",
+        "src/stories/LiquidMetalButton.stories.tsx:9"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidMetalButtonProps",
+      "kind": "type",
+      "module": "./LiquidMetalButton",
+      "family": "Decision-only effect",
+      "audience": "Separate metal CTA, not glossy gooey",
+      "declaration": "src/LiquidMetalButton.tsx:28",
+      "references": [
+        "src/LiquidMetalButton.tsx:49"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidMetalRendererMode",
+      "kind": "type",
+      "module": "./LiquidMetalButton",
+      "family": "Decision-only effect",
+      "audience": "Separate metal CTA, not glossy gooey",
+      "declaration": "src/liquidMetalBudget.ts:17",
+      "references": [
+        "src/LiquidMetalButton.tsx:38",
+        "src/liquidMetalBudget.ts:46"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DEFAULT_LIQUID_METAL_CONTEXT_BUDGET",
+      "kind": "value",
+      "module": "./liquidMetalBudget",
+      "family": "Host integration",
+      "audience": "WebGL context limits for the metal CTA",
+      "declaration": "src/liquidMetalBudget.ts:12",
+      "references": [
+        "src/LiquidMetalButton.test.tsx:28",
+        "src/liquidMetalBudget.ts:14",
+        "src/liquidMetalBudget.ts:41"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getLiquidMetalContextBudget",
+      "kind": "value",
+      "module": "./liquidMetalBudget",
+      "family": "Host integration",
+      "audience": "WebGL context limits for the metal CTA",
+      "declaration": "src/liquidMetalBudget.ts:19",
+      "references": [
+        "src/LiquidMetalButton.test.tsx:32",
+        "src/LiquidMetalButton.test.tsx:40"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "setLiquidMetalContextBudget",
+      "kind": "value",
+      "module": "./liquidMetalBudget",
+      "family": "Host integration",
+      "audience": "WebGL context limits for the metal CTA",
+      "declaration": "src/liquidMetalBudget.ts:23",
+      "references": [
+        "src/LiquidMetalButton.test.tsx:45",
+        "src/LiquidMetalButton.test.tsx:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LIQUID_FORM_NAMES",
+      "kind": "value",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:549",
+      "references": [
+        "src/LiquidPreview.tsx:537",
+        "src/LiquidPreview.tsx:569",
+        "src/liquidGooeyForms.test.tsx:125",
+        "src/liquidGooeyForms.test.tsx:141",
+        "src/liquidGooeyForms.test.tsx:142",
+        "src/liquidGooeyForms.test.tsx:152",
+        "src/liquidGooeyForms.test.tsx:194",
+        "src/liquidGooeyForms.test.tsx:195",
+        "src/liquidGooeyForms.test.tsx:202",
+        "src/liquidGooeyForms.test.tsx:320",
+        "src/liquidGooeyForms.test.tsx:336"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LIQUID_FORMS",
+      "kind": "value",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:231",
+      "references": [
+        "src/LiquidPreview.tsx:446",
+        "src/LiquidPreview.tsx:482",
+        "src/LiquidPreview.tsx:537",
+        "src/LiquidPreview.tsx:548",
+        "src/LiquidPreview.tsx:569",
+        "src/LiquidPreview.tsx:576",
+        "src/LiquidSurface.tsx:147",
+        "src/LiquidSurface.tsx:151",
+        "src/LiquidSurface.tsx:208",
+        "src/liquidGooeyForms.test.tsx:126",
+        "src/liquidGooeyForms.test.tsx:141",
+        "src/liquidGooeyForms.test.tsx:142",
+        "src/liquidGooeyForms.test.tsx:166",
+        "src/liquidGooeyForms.test.tsx:167",
+        "src/liquidGooeyForms.test.tsx:172",
+        "src/liquidGooeyForms.test.tsx:181",
+        "src/liquidGooeyForms.test.tsx:183",
+        "src/liquidGooeyForms.test.tsx:184",
+        "src/liquidGooeyForms.test.tsx:194",
+        "src/liquidGooeyForms.test.tsx:195",
+        "src/liquidGooeyForms.test.tsx:196",
+        "src/liquidGooeyForms.test.tsx:197",
+        "src/liquidGooeyForms.test.tsx:198",
+        "src/liquidGooeyForms.test.tsx:202",
+        "src/liquidGooeyForms.test.tsx:214",
+        "src/liquidGooeyForms.test.tsx:215",
+        "src/liquidGooeyForms.test.tsx:219",
+        "src/liquidGooeyForms.test.tsx:220",
+        "src/liquidGooeyForms.test.tsx:293",
+        "src/liquidGooeyForms.test.tsx:307",
+        "src/liquidGooeyForms.test.tsx:321",
+        "src/liquidGooeyForms.test.tsx:337",
+        "src/liquidGooeyForms.test.tsx:354",
+        "src/liquidGooeyForms.test.tsx:355",
+        "src/liquidGooeyForms.test.tsx:368",
+        "src/liquidGooeyForms.test.tsx:369",
+        "src/liquidGooeyForms.test.tsx:413",
+        "src/liquidGooeyForms.ts:549",
+        "src/liquidGooeyForms.ts:562",
+        "src/liquidGooeyForms.ts:567",
+        "src/stories/LiquidSurface.stories.tsx:126",
+        "src/stories/LiquidSurface.stories.tsx:42",
+        "src/stories/LiquidSurface.stories.tsx:43",
+        "src/stories/LiquidSurface.stories.tsx:52",
+        "src/stories/LiquidSurface.stories.tsx:58",
+        "src/stories/LiquidSurface.stories.tsx:64",
+        "src/stories/LiquidSurface.stories.tsx:70"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "liquidFormGroup",
+      "kind": "value",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:558",
+      "references": [
+        "src/LiquidPreview.tsx:346",
+        "src/LiquidSurface.tsx:147",
+        "src/liquidGooeyForms.test.tsx:181",
+        "src/liquidGooeyForms.test.tsx:212",
+        "src/stories/LiquidSurface.stories.tsx:81"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "liquidFormItem",
+      "kind": "value",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:566",
+      "references": [
+        "src/LiquidPreview.tsx:347",
+        "src/LiquidSurface.tsx:150",
+        "src/liquidGooeyForms.test.tsx:217",
+        "src/stories/LiquidSurface.stories.tsx:82"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidForm",
+      "kind": "type",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:63",
+      "references": [
+        "src/LiquidPreview.tsx:248",
+        "src/LiquidPreview.tsx:249",
+        "src/LiquidPreview.tsx:251",
+        "src/LiquidPreview.tsx:252",
+        "src/LiquidPreview.tsx:262",
+        "src/LiquidPreview.tsx:317",
+        "src/LiquidPreview.tsx:342",
+        "src/LiquidPreview.tsx:442",
+        "src/LiquidPreview.tsx:481",
+        "src/LiquidSurface.tsx:110",
+        "src/LiquidSurface.tsx:207",
+        "src/LiquidSurface.tsx:46",
+        "src/LiquidSurface.tsx:77",
+        "src/LiquidSurface.tsx:95",
+        "src/LiquidSurface.tsx:97",
+        "src/liquidGooeyForms.ts:231",
+        "src/liquidGooeyForms.ts:549",
+        "src/liquidGooeyForms.ts:559",
+        "src/liquidGooeyForms.ts:566",
+        "src/stories/LiquidSurface.stories.tsx:31"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidFormGroup",
+      "kind": "type",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:91",
+      "references": [
+        "src/liquidGooeyForms.ts:184",
+        "src/liquidGooeyForms.ts:196",
+        "src/liquidGooeyForms.ts:560",
+        "src/liquidGooeyForms.ts:561"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidFormItem",
+      "kind": "type",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:138",
+      "references": [
+        "src/liquidGooeyForms.ts:197",
+        "src/liquidGooeyForms.ts:566"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidFormKind",
+      "kind": "type",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:88",
+      "references": [
+        "src/liquidGooeyForms.ts:183"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidFormSpec",
+      "kind": "type",
+      "module": "./liquidGooeyForms",
+      "family": "Liquid vocabulary",
+      "audience": "Named behavior presets; not widget types",
+      "declaration": "src/liquidGooeyForms.ts:179",
+      "references": [
+        "src/liquidGooeyForms.ts:231"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidSurface",
+      "kind": "value",
+      "module": "./LiquidSurface",
+      "family": "Liquid primitives",
+      "audience": "One decorative body behind real DOM",
+      "declaration": "src/LiquidSurface.tsx:127",
+      "references": [
+        "src/GameButton.tsx:81",
+        "src/GameButton.tsx:99",
+        "src/LiquidPreview.tsx:324",
+        "src/LiquidPreview.tsx:326",
+        "src/LiquidPreview.tsx:647",
+        "src/LiquidPreview.tsx:653",
+        "src/liquidGooeyForms.test.tsx:378",
+        "src/liquidGooeyForms.test.tsx:380",
+        "src/liquidGooeyForms.test.tsx:391",
+        "src/liquidGooeyForms.test.tsx:393",
+        "src/liquidGooeyForms.test.tsx:408",
+        "src/liquidGooeyForms.test.tsx:410",
+        "src/stories/LiquidSurface.stories.tsx:16",
+        "src/stories/LiquidSurface.stories.tsx:26",
+        "src/stories/LiquidSurface.stories.tsx:35",
+        "src/stories/LiquidSurface.stories.tsx:37"
+      ],
+      "consumerImports": [
+        "packages/ui/src/learning-play/SortGame.tsx:9"
+      ]
+    },
+    {
+      "name": "liquidFormSummary",
+      "kind": "value",
+      "module": "./LiquidSurface",
+      "family": "Liquid primitives",
+      "audience": "One decorative body behind real DOM",
+      "declaration": "src/LiquidSurface.tsx:207",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidSurfaceProps",
+      "kind": "type",
+      "module": "./LiquidSurface",
+      "family": "Liquid primitives",
+      "audience": "One decorative body behind real DOM",
+      "declaration": "src/LiquidSurface.tsx:107",
+      "references": [
+        "src/LiquidSurface.tsx:137"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidGroup",
+      "kind": "value",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/LiquidGroup.tsx:688",
+      "references": [
+        "src/GameDisplay.tsx:106",
+        "src/GameDisplay.tsx:119",
+        "src/GameDisplay.tsx:120",
+        "src/GameDisplay.tsx:98",
+        "src/GameSurfaces.tsx:238",
+        "src/GameSurfaces.tsx:246",
+        "src/GameSurfaces.tsx:250",
+        "src/GameSurfaces.tsx:251",
+        "src/GameSurfaces.tsx:253",
+        "src/GameSurfaces.tsx:261",
+        "src/GameSurfaces.tsx:276",
+        "src/GameSurfaces.tsx:277",
+        "src/LiquidGroup.test.tsx:105",
+        "src/LiquidGroup.test.tsx:106",
+        "src/LiquidGroup.test.tsx:108",
+        "src/LiquidGroup.test.tsx:109",
+        "src/LiquidGroup.test.tsx:112",
+        "src/LiquidGroup.test.tsx:113",
+        "src/LiquidGroup.test.tsx:115",
+        "src/LiquidGroup.test.tsx:116",
+        "src/LiquidGroup.test.tsx:119",
+        "src/LiquidGroup.test.tsx:120",
+        "src/LiquidGroup.test.tsx:122",
+        "src/LiquidGroup.test.tsx:123",
+        "src/LiquidGroup.test.tsx:133",
+        "src/LiquidGroup.test.tsx:134",
+        "src/LiquidGroup.test.tsx:136",
+        "src/LiquidGroup.test.tsx:137",
+        "src/LiquidGroup.test.tsx:163",
+        "src/LiquidGroup.test.tsx:164",
+        "src/LiquidGroup.test.tsx:171",
+        "src/LiquidGroup.test.tsx:172",
+        "src/LiquidGroup.test.tsx:212",
+        "src/LiquidGroup.test.tsx:216",
+        "src/LiquidGroup.test.tsx:55",
+        "src/LiquidGroup.test.tsx:59",
+        "src/LiquidGroup.test.tsx:73",
+        "src/LiquidGroup.test.tsx:74",
+        "src/LiquidGroup.test.tsx:76",
+        "src/LiquidGroup.test.tsx:80",
+        "src/LiquidGroup.test.tsx:88",
+        "src/LiquidGroup.test.tsx:89",
+        "src/LiquidGroup.test.tsx:91",
+        "src/LiquidGroup.test.tsx:92",
+        "src/LiquidPreview.tsx:368",
+        "src/LiquidPreview.tsx:369",
+        "src/LiquidPreview.tsx:371",
+        "src/LiquidPreview.tsx:372",
+        "src/LiquidPreview.tsx:374",
+        "src/LiquidPreview.tsx:375",
+        "src/LiquidPreview.tsx:388",
+        "src/LiquidPreview.tsx:389",
+        "src/LiquidPreview.tsx:391",
+        "src/LiquidPreview.tsx:392",
+        "src/LiquidPreview.tsx:420",
+        "src/LiquidPreview.tsx:422",
+        "src/LiquidPreview.tsx:431",
+        "src/LiquidPreview.tsx:433",
+        "src/LiquidSurface.tsx:173",
+        "src/LiquidSurface.tsx:185",
+        "src/LiquidSurface.tsx:199",
+        "src/LiquidSurface.tsx:200",
+        "src/liquidGooeyEngine.browser.test.tsx:111",
+        "src/liquidGooeyEngine.browser.test.tsx:112",
+        "src/liquidGooeyEngine.browser.test.tsx:139",
+        "src/liquidGooeyEngine.browser.test.tsx:144",
+        "src/liquidGooeyEngine.browser.test.tsx:154",
+        "src/liquidGooeyEngine.browser.test.tsx:155",
+        "src/liquidGooeyEngine.browser.test.tsx:156",
+        "src/liquidGooeyEngine.browser.test.tsx:162",
+        "src/liquidGooeyEngine.browser.test.tsx:172",
+        "src/liquidGooeyEngine.browser.test.tsx:173",
+        "src/liquidGooeyEngine.browser.test.tsx:210",
+        "src/liquidGooeyEngine.browser.test.tsx:217",
+        "src/liquidGooeyEngine.browser.test.tsx:221",
+        "src/liquidGooeyEngine.browser.test.tsx:222",
+        "src/liquidGooeyEngine.browser.test.tsx:262",
+        "src/liquidGooeyEngine.browser.test.tsx:268",
+        "src/liquidGooeyEngine.browser.test.tsx:272",
+        "src/liquidGooeyEngine.browser.test.tsx:273",
+        "src/liquidGooeyEngine.browser.test.tsx:296",
+        "src/liquidGooeyEngine.browser.test.tsx:302",
+        "src/liquidGooeyEngine.browser.test.tsx:306",
+        "src/liquidGooeyEngine.browser.test.tsx:307",
+        "src/liquidGooeyEngine.browser.test.tsx:311",
+        "src/liquidGooeyEngine.browser.test.tsx:312",
+        "src/liquidGooeyEngine.browser.test.tsx:339",
+        "src/liquidGooeyEngine.browser.test.tsx:346",
+        "src/liquidGooeyEngine.browser.test.tsx:348",
+        "src/liquidGooeyEngine.browser.test.tsx:349",
+        "src/liquidGooeyEngine.browser.test.tsx:367",
+        "src/liquidGooeyEngine.browser.test.tsx:368",
+        "src/liquidGooeyEngine.browser.test.tsx:372",
+        "src/liquidGooeyEngine.browser.test.tsx:373",
+        "src/liquidGooeyEngine.browser.test.tsx:383",
+        "src/liquidGooeyEngine.browser.test.tsx:389",
+        "src/liquidGooeyEngine.browser.test.tsx:390",
+        "src/liquidGooeyEngine.browser.test.tsx:424",
+        "src/liquidGooeyEngine.browser.test.tsx:425",
+        "src/liquidGooeyEngine.browser.test.tsx:443",
+        "src/liquidGooeyEngine.browser.test.tsx:444",
+        "src/liquidGooeyEngine.browser.test.tsx:468",
+        "src/liquidGooeyEngine.browser.test.tsx:469",
+        "src/liquidGooeyEngine.browser.test.tsx:488",
+        "src/liquidGooeyEngine.browser.test.tsx:489",
+        "src/liquidGooeyEngine.browser.test.tsx:522",
+        "src/liquidGooeyEngine.browser.test.tsx:524",
+        "src/liquidGooeyEngine.browser.test.tsx:535",
+        "src/liquidGooeyEngine.browser.test.tsx:538",
+        "src/liquidGooeyEngine.browser.test.tsx:549",
+        "src/liquidGooeyEngine.browser.test.tsx:551",
+        "src/liquidGooeyEngine.browser.test.tsx:579",
+        "src/liquidGooeyEngine.browser.test.tsx:580",
+        "src/liquidGooeyEngine.browser.test.tsx:601",
+        "src/liquidGooeyEngine.browser.test.tsx:602",
+        "src/liquidGooeyEngine.browser.test.tsx:687",
+        "src/liquidGooeyEngine.browser.test.tsx:688",
+        "src/liquidGooeyEngine.browser.test.tsx:704",
+        "src/liquidGooeyEngine.browser.test.tsx:705",
+        "src/liquidGooeyEngine.browser.test.tsx:714",
+        "src/liquidGooeyEngine.browser.test.tsx:715",
+        "src/liquidGooeyEngine.browser.test.tsx:731",
+        "src/liquidGooeyEngine.browser.test.tsx:732",
+        "src/liquidGooeyEngine.browser.test.tsx:75",
+        "src/liquidGooeyEngine.browser.test.tsx:76",
+        "src/liquidGooeyEngine.browser.test.tsx:93",
+        "src/liquidGooeyEngine.browser.test.tsx:94",
+        "src/liquidGooeyImageMelt.browser.test.tsx:107",
+        "src/liquidGooeyImageMelt.browser.test.tsx:108",
+        "src/liquidGooeyImageMelt.browser.test.tsx:122",
+        "src/liquidGooeyImageMelt.browser.test.tsx:123",
+        "src/liquidGooeyImageMelt.browser.test.tsx:137",
+        "src/liquidGooeyImageMelt.browser.test.tsx:138",
+        "src/liquidGooeyImageMelt.browser.test.tsx:155",
+        "src/liquidGooeyImageMelt.browser.test.tsx:156",
+        "src/liquidGooeyImageMelt.browser.test.tsx:167",
+        "src/liquidGooeyImageMelt.browser.test.tsx:168",
+        "src/liquidGooeyImageMelt.browser.test.tsx:178",
+        "src/liquidGooeyImageMelt.browser.test.tsx:179",
+        "src/liquidGooeyImageMelt.browser.test.tsx:195",
+        "src/liquidGooeyImageMelt.browser.test.tsx:196",
+        "src/liquidGooeyImageMelt.browser.test.tsx:209",
+        "src/liquidGooeyImageMelt.browser.test.tsx:210",
+        "src/liquidGooeyImageMelt.browser.test.tsx:56",
+        "src/liquidGooeyImageMelt.browser.test.tsx:57",
+        "src/liquidGooeyImageMelt.browser.test.tsx:69",
+        "src/liquidGooeyImageMelt.browser.test.tsx:70",
+        "src/liquidGooeyImageMelt.browser.test.tsx:82",
+        "src/liquidGooeyImageMelt.browser.test.tsx:83",
+        "src/stories/LiquidGroup.stories.tsx:102",
+        "src/stories/LiquidGroup.stories.tsx:117",
+        "src/stories/LiquidGroup.stories.tsx:118",
+        "src/stories/LiquidGroup.stories.tsx:133",
+        "src/stories/LiquidGroup.stories.tsx:134",
+        "src/stories/LiquidGroup.stories.tsx:20",
+        "src/stories/LiquidGroup.stories.tsx:269",
+        "src/stories/LiquidGroup.stories.tsx:280",
+        "src/stories/LiquidGroup.stories.tsx:289",
+        "src/stories/LiquidGroup.stories.tsx:290",
+        "src/stories/LiquidGroup.stories.tsx:359",
+        "src/stories/LiquidGroup.stories.tsx:366",
+        "src/stories/LiquidGroup.stories.tsx:385",
+        "src/stories/LiquidGroup.stories.tsx:386",
+        "src/stories/LiquidGroup.stories.tsx:413",
+        "src/stories/LiquidGroup.stories.tsx:418",
+        "src/stories/LiquidGroup.stories.tsx:432",
+        "src/stories/LiquidGroup.stories.tsx:433",
+        "src/stories/LiquidGroup.stories.tsx:447",
+        "src/stories/LiquidGroup.stories.tsx:448",
+        "src/stories/LiquidGroup.stories.tsx:482",
+        "src/stories/LiquidGroup.stories.tsx:488",
+        "src/stories/LiquidGroup.stories.tsx:504",
+        "src/stories/LiquidGroup.stories.tsx:505",
+        "src/stories/LiquidGroup.stories.tsx:521",
+        "src/stories/LiquidGroup.stories.tsx:522",
+        "src/stories/LiquidGroup.stories.tsx:609",
+        "src/stories/LiquidGroup.stories.tsx:616",
+        "src/stories/LiquidGroup.stories.tsx:632",
+        "src/stories/LiquidGroup.stories.tsx:633",
+        "src/stories/LiquidGroup.stories.tsx:678",
+        "src/stories/LiquidGroup.stories.tsx:684",
+        "src/stories/LiquidGroup.stories.tsx:695",
+        "src/stories/LiquidGroup.stories.tsx:696",
+        "src/stories/LiquidGroup.stories.tsx:708",
+        "src/stories/LiquidGroup.stories.tsx:709",
+        "src/stories/LiquidGroup.stories.tsx:9",
+        "src/stories/LiquidGroup.stories.tsx:91",
+        "src/stories/LiquidSurface.stories.tsx:105",
+        "src/stories/LiquidSurface.stories.tsx:106",
+        "src/stories/LiquidSurface.stories.tsx:113",
+        "src/stories/LiquidSurface.stories.tsx:115",
+        "src/stories/LiquidSurface.stories.tsx:85",
+        "src/stories/LiquidSurface.stories.tsx:98"
+      ],
+      "consumerImports": [
+        "packages/ui/src/cta/LiquidCtaButton.tsx:3",
+        "packages/ui/src/cta/LiquidCtaTransition.tsx:9"
+      ]
+    },
+    {
+      "name": "LiquidItem",
+      "kind": "value",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/LiquidGroup.tsx:657",
+      "references": [
+        "src/LiquidGroup.test.tsx:213",
+        "src/LiquidGroup.test.tsx:215",
+        "src/LiquidGroup.test.tsx:56",
+        "src/LiquidGroup.test.tsx:58",
+        "src/LiquidGroup.test.tsx:77",
+        "src/LiquidGroup.test.tsx:79",
+        "src/LiquidGroup.tsx:688"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "BendTuning",
+      "kind": "type",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/liquidGooeyMove.ts:37",
+      "references": [
+        "src/LiquidGroup.tsx:150",
+        "src/liquidGooeyMove.ts:245"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidGroupProps",
+      "kind": "type",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/LiquidGroup.tsx:77",
+      "references": [
+        "src/LiquidGroup.tsx:235"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LiquidItemProps",
+      "kind": "type",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/LiquidGroup.tsx:113",
+      "references": [
+        "src/LiquidGroup.tsx:210",
+        "src/LiquidGroup.tsx:481",
+        "src/LiquidGroup.tsx:657"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "MorphTuning",
+      "kind": "type",
+      "module": "./LiquidGroup",
+      "family": "Liquid primitives",
+      "audience": "Advanced sibling relationships and effects",
+      "declaration": "src/liquidGooeyEvolve.ts:55",
+      "references": [
+        "src/LiquidGroup.tsx:148",
+        "src/liquidGooeyEngine.ts:53",
+        "src/liquidGooeyEngine.ts:82",
+        "src/liquidGooeyEvolve.ts:166",
+        "src/liquidGooeyEvolve.ts:215",
+        "src/liquidGooeyEvolve.ts:221",
+        "src/liquidGooeyForms.ts:140"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DISSOLVE_DEFAULTS",
+      "kind": "value",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:134",
+      "references": [
+        "src/LiquidGroup.test.tsx:183",
+        "src/LiquidGroup.test.tsx:186",
+        "src/LiquidGroup.test.tsx:187",
+        "src/liquidGooeyImageMelt.tsx:244",
+        "src/liquidGooeyImageMelt.tsx:246",
+        "src/liquidGooeyImageMelt.tsx:247",
+        "src/liquidGooeyImageMelt.tsx:248",
+        "src/liquidGooeyImageMelt.tsx:249",
+        "src/liquidGooeyImageMelt.tsx:250",
+        "src/liquidGooeyImageMelt.tsx:251",
+        "src/liquidGooeyImageMelt.tsx:252",
+        "src/liquidGooeyImageMelt.tsx:253",
+        "src/liquidGooeyImageMelt.tsx:254",
+        "src/liquidGooeyImageMelt.tsx:255",
+        "src/liquidGooeyImageMelt.tsx:256",
+        "src/liquidGooeyImageMelt.tsx:257",
+        "src/liquidGooeyImageMelt.tsx:258",
+        "src/liquidGooeyImageMelt.tsx:259",
+        "src/liquidGooeyImageMelt.tsx:260",
+        "src/liquidGooeyImageMelt.tsx:262",
+        "src/liquidGooeyImageMelt.tsx:263"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "IMAGE_MELT_DEFAULTS",
+      "kind": "value",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:60",
+      "references": [
+        "src/liquidGooeyImageMelt.tsx:211"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DissolveOptions",
+      "kind": "type",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:72",
+      "references": [
+        "src/LiquidGroup.tsx:156",
+        "src/liquidGooeyImageMelt.tsx:111",
+        "src/liquidGooeyImageMelt.tsx:230"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DissolveValue",
+      "kind": "type",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:111",
+      "references": [
+        "src/liquidGooeyImageMelt.tsx:227",
+        "src/liquidGooeyImageMelt.tsx:293",
+        "src/liquidGooeyImageMelt.tsx:378",
+        "src/liquidGooeyImageMelt.tsx:407"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ImageMeltOptions",
+      "kind": "type",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:39",
+      "references": [
+        "src/LiquidGroup.tsx:154",
+        "src/liquidGooeyImageMelt.tsx:1246",
+        "src/liquidGooeyImageMelt.tsx:208",
+        "src/liquidGooeyImageMelt.tsx:209",
+        "src/liquidGooeyImageMelt.tsx:210",
+        "src/liquidGooeyImageMelt.tsx:279",
+        "src/liquidGooeyImageMelt.tsx:429",
+        "src/liquidGooeyImageMelt.tsx:541",
+        "src/liquidGooeyImageMelt.tsx:60",
+        "src/liquidGooeyImageMelt.tsx:618",
+        "src/liquidGooeyImageMelt.tsx:664",
+        "src/liquidGooeyImageMelt.tsx:908"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "resolveDissolveOptions",
+      "kind": "value",
+      "module": "./liquidGooeyImageMelt",
+      "family": "Advanced liquid support",
+      "audience": "Image effect options and resolution helpers",
+      "declaration": "src/liquidGooeyImageMelt.tsx:225",
+      "references": [
+        "src/LiquidGroup.test.tsx:183",
+        "src/LiquidGroup.test.tsx:184",
+        "src/LiquidGroup.test.tsx:189",
+        "src/liquidGooeyImageMelt.tsx:385",
+        "src/liquidGooeyImageMelt.tsx:423"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET",
+      "kind": "value",
+      "module": "./liquidGooeyBudget",
+      "family": "Host integration",
+      "audience": "Process-wide animation and filter-area limits",
+      "declaration": "src/liquidGooeyBudget.ts:10",
+      "references": [
+        "src/LiquidGroup.test.tsx:20",
+        "src/liquidGooeyBudget.ts:24",
+        "src/liquidGooeyBudget.ts:63"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET",
+      "kind": "value",
+      "module": "./liquidGooeyBudget",
+      "family": "Host integration",
+      "audience": "Process-wide animation and filter-area limits",
+      "declaration": "src/liquidGooeyBudget.ts:11",
+      "references": [
+        "src/LiquidGroup.test.tsx:21",
+        "src/LiquidGroup.test.tsx:24",
+        "src/LiquidGroup.tsx:434",
+        "src/liquidGooeyBudget.ts:25",
+        "src/liquidGooeyBudget.ts:64"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getLiquidGooeyBudget",
+      "kind": "value",
+      "module": "./liquidGooeyBudget",
+      "family": "Host integration",
+      "audience": "Process-wide animation and filter-area limits",
+      "declaration": "src/liquidGooeyBudget.ts:32",
+      "references": [
+        "src/LiquidGroup.test.tsx:22",
+        "src/LiquidGroup.test.tsx:34",
+        "src/liquidGooeyEngine.browser.test.tsx:710",
+        "src/liquidGooeyEngine.browser.test.tsx:737",
+        "src/liquidGooeyEngine.ts:417",
+        "src/liquidGooeyEngine.ts:518",
+        "src/liquidGooeyImageMelt.tsx:917"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "setLiquidGooeyBudget",
+      "kind": "value",
+      "module": "./liquidGooeyBudget",
+      "family": "Host integration",
+      "audience": "Process-wide animation and filter-area limits",
+      "declaration": "src/liquidGooeyBudget.ts:37",
+      "references": [
+        "src/LiquidGroup.test.tsx:39",
+        "src/LiquidGroup.test.tsx:45",
+        "src/LiquidGroup.test.tsx:47",
+        "src/liquidGooeyEngine.browser.test.tsx:742",
+        "src/liquidGooeyEngine.browser.test.tsx:825",
+        "src/liquidGooeyEngine.browser.test.tsx:850",
+        "src/liquidGooeyImageMelt.browser.test.tsx:221"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "LIQUID_GOOEY_WAVINESS_MAX_FRACTION",
+      "kind": "value",
+      "module": "./liquidGooeyWaviness",
+      "family": "Advanced liquid support",
+      "audience": "Filter safety bound, not a control recipe",
+      "declaration": "src/liquidGooeyWaviness.ts:6",
+      "references": [
+        "src/LiquidGroup.tsx:286",
+        "src/LiquidGroup.tsx:287",
+        "src/liquidGooeyEngine.browser.test.tsx:414",
+        "src/liquidGooeyEngine.browser.test.tsx:415",
+        "src/liquidGooeyWaviness.test.ts:10",
+        "src/liquidGooeyWaviness.ts:21",
+        "src/liquidGooeyWaviness.ts:28"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCallout",
+      "kind": "value",
+      "module": "./GameCallout",
+      "family": "Display",
+      "audience": "Inline feedback",
+      "declaration": "src/GameCallout.tsx:16",
+      "references": [],
+      "consumerImports": [
+        "packages/ui/src/entry/RegionQuiz.tsx:3",
+        "packages/ui/src/entry/default-renderers.tsx:3",
+        "packages/ui/src/learning-play/ProgramGame.tsx:2",
+        "packages/ui/src/loading/RecoveryState.tsx:1",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:5",
+        "packages/ui/src/navigation/empty/ReviewReminderSettings.tsx:3",
+        "packages/ui/src/navigation/screens/PlansScreen.tsx:5",
+        "packages/ui/src/navigation/screens/QuestsScreen.tsx:2",
+        "packages/ui/src/practice/MistakeList.tsx:6",
+        "packages/ui/src/progress/LearningSaveStatus.tsx:2",
+        "packages/ui/src/reference/AntiPatternIndex.tsx:3",
+        "packages/ui/src/reference/KnowledgeNotes.tsx:2",
+        "packages/ui/src/review/ChoiceBlock.tsx:3",
+        "packages/ui/src/review/ExerciseBlock.tsx:2",
+        "packages/ui/src/review/RecapPrompt.tsx:3",
+        "packages/ui/src/review/ReviewCard.tsx:4",
+        "packages/ui/src/today/TodaySection.tsx:2"
+      ]
+    },
+    {
+      "name": "GameCalloutProps",
+      "kind": "type",
+      "module": "./GameCallout",
+      "family": "Display",
+      "audience": "Inline feedback",
+      "declaration": "src/GameCallout.tsx:5",
+      "references": [
+        "src/GameCallout.tsx:22"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCalloutTone",
+      "kind": "type",
+      "module": "./GameCallout",
+      "family": "Display",
+      "audience": "Inline feedback",
+      "declaration": "src/GameCallout.tsx:3",
+      "references": [
+        "src/GameCallout.tsx:9"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameDialog",
+      "kind": "value",
+      "module": "./GameDialog",
+      "family": "Panels",
+      "audience": "Inline dialogue, not a modal",
+      "declaration": "src/GameDialog.tsx:9",
+      "references": [
+        "src/GameUiPreview.tsx:1112",
+        "src/GameUiPreview.tsx:1118",
+        "src/stories/GameDialog.stories.tsx:16",
+        "src/stories/GameDialog.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameDialogProps",
+      "kind": "type",
+      "module": "./GameDialog",
+      "family": "Panels",
+      "audience": "Inline dialogue, not a modal",
+      "declaration": "src/GameDialog.tsx:3",
+      "references": [
+        "src/GameDialog.tsx:9"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHistoryPanel",
+      "kind": "value",
+      "module": "./GameHistoryPanel",
+      "family": "Compositions",
+      "audience": "History view; product owns the entries",
+      "declaration": "src/GameHistoryPanel.tsx:18",
+      "references": [
+        "src/GameUiPreview.tsx:1794"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHistoryPanelProps",
+      "kind": "type",
+      "module": "./GameHistoryPanel",
+      "family": "Compositions",
+      "audience": "History view; product owns the entries",
+      "declaration": "src/GameHistoryPanel.tsx:13",
+      "references": [
+        "src/GameHistoryPanel.tsx:18"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUiHistoryEntry",
+      "kind": "type",
+      "module": "./GameHistoryPanel",
+      "family": "Compositions",
+      "audience": "History view; product owns the entries",
+      "declaration": "src/GameHistoryPanel.tsx:5",
+      "references": [
+        "src/GameHistoryPanel.tsx:14",
+        "src/GameUiPreview.tsx:297",
+        "src/GameUiPreview.tsx:83",
+        "src/previewStates.ts:3"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUiHistoryKind",
+      "kind": "type",
+      "module": "./GameHistoryPanel",
+      "family": "Compositions",
+      "audience": "History view; product owns the entries",
+      "declaration": "src/GameHistoryPanel.tsx:3",
+      "references": [
+        "src/GameHistoryPanel.tsx:7"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHudActions",
+      "kind": "value",
+      "module": "./GameHudActions",
+      "family": "Compositions",
+      "audience": "HUD action composition",
+      "declaration": "src/GameHudActions.tsx:9",
+      "references": [
+        "src/FirstSessionGameShell.tsx:104",
+        "src/FirstSessionGameShell.tsx:117",
+        "src/GameSurfacePack.tsx:155",
+        "src/GameSurfacePack.tsx:212",
+        "src/GameUiPreview.tsx:1114",
+        "src/GameUiPreview.tsx:1117",
+        "src/GameUiPreview.tsx:891",
+        "src/GameUiPreview.tsx:898",
+        "src/GameUiPreview.tsx:979",
+        "src/GameUiPreview.tsx:986",
+        "src/stories/OverlayGlass.stories.tsx:104",
+        "src/stories/OverlayGlass.stories.tsx:111"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHudActionsProps",
+      "kind": "type",
+      "module": "./GameHudActions",
+      "family": "Compositions",
+      "audience": "HUD action composition",
+      "declaration": "src/GameHudActions.tsx:3",
+      "references": [
+        "src/GameHudActions.tsx:14"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameIconButton",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:47",
+      "references": [
+        "src/GameSurfacePack.tsx:186",
+        "src/GameSurfacePack.tsx:195",
+        "src/GameSurfacePack.tsx:302",
+        "src/GameSurfacePack.tsx:320",
+        "src/GameSurfaces.test.tsx:31",
+        "src/GameUiPreview.tsx:830",
+        "src/GameUiPreview.tsx:832",
+        "src/GameUiPreview.tsx:834",
+        "src/GameUiPreview.tsx:836",
+        "src/GameUiPreview.tsx:892",
+        "src/GameUiPreview.tsx:894",
+        "src/GameUiPreview.tsx:895",
+        "src/GameUiPreview.tsx:897",
+        "src/GameUiPreview.tsx:980",
+        "src/GameUiPreview.tsx:982",
+        "src/GameUiPreview.tsx:983",
+        "src/GameUiPreview.tsx:985",
+        "src/OverlayGlass.test.tsx:142",
+        "src/OverlayGlass.test.tsx:144",
+        "src/stories/OverlayGlass.stories.tsx:105",
+        "src/stories/OverlayGlass.stories.tsx:107",
+        "src/stories/OverlayGlass.stories.tsx:108",
+        "src/stories/OverlayGlass.stories.tsx:110"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GamePanel",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:26",
+      "references": [
+        "src/GameContractorTools.tsx:833",
+        "src/GameContractorTools.tsx:912",
+        "src/GameSurfacePack.tsx:511",
+        "src/GameSurfacePack.tsx:566",
+        "src/GameSurfacePack.tsx:610",
+        "src/GameSurfacePack.tsx:634",
+        "src/GameTerrainBuildTools.tsx:649",
+        "src/GameTerrainBuildTools.tsx:760",
+        "src/GameTerrainBuildTools.tsx:810",
+        "src/GameTerrainBuildTools.tsx:812",
+        "src/GameTerrainBuildTools.tsx:987",
+        "src/GameTerrainBuildTools.tsx:996",
+        "src/GameUiPreview.tsx:1000",
+        "src/GameUiPreview.tsx:1050",
+        "src/GameUiPreview.tsx:1062",
+        "src/GameUiPreview.tsx:1064",
+        "src/GameUiPreview.tsx:1076",
+        "src/GameUiPreview.tsx:1078",
+        "src/GameUiPreview.tsx:1085",
+        "src/GameUiPreview.tsx:1094",
+        "src/GameUiPreview.tsx:1098",
+        "src/GameUiPreview.tsx:1099",
+        "src/GameUiPreview.tsx:1103",
+        "src/GameUiPreview.tsx:1119",
+        "src/GameUiPreview.tsx:1124",
+        "src/GameUiPreview.tsx:1133",
+        "src/GameUiPreview.tsx:1142",
+        "src/GameUiPreview.tsx:1143",
+        "src/GameUiPreview.tsx:1151",
+        "src/GameUiPreview.tsx:1616",
+        "src/GameUiPreview.tsx:1627",
+        "src/GameUiPreview.tsx:1628",
+        "src/GameUiPreview.tsx:1643",
+        "src/GameUiPreview.tsx:817",
+        "src/GameUiPreview.tsx:868",
+        "src/GameUiPreview.tsx:989",
+        "src/LiquidPreview.tsx:543",
+        "src/LiquidPreview.tsx:553",
+        "src/LiquidPreview.tsx:578",
+        "src/LiquidPreview.tsx:603",
+        "src/LiquidPreview.tsx:615",
+        "src/LiquidPreview.tsx:629",
+        "src/LiquidPreview.tsx:674",
+        "src/LiquidPreview.tsx:678",
+        "src/LiquidPreview.tsx:679",
+        "src/LiquidPreview.tsx:685",
+        "src/LiquidPreview.tsx:686",
+        "src/LiquidPreview.tsx:695",
+        "src/OverlayGlass.test.tsx:147",
+        "src/OverlayGlass.test.tsx:152",
+        "src/stories/GamePanel.stories.tsx:15",
+        "src/stories/GamePanel.stories.tsx:6",
+        "src/stories/LiquidMetalButton.stories.tsx:49",
+        "src/stories/LiquidMetalButton.stories.tsx:53",
+        "src/stories/LiquidMetalButton.stories.tsx:60",
+        "src/stories/LiquidMetalButton.stories.tsx:64",
+        "src/stories/LiquidMetalButton.stories.tsx:72",
+        "src/stories/LiquidMetalButton.stories.tsx:76",
+        "src/stories/LiquidMetalButton.stories.tsx:77",
+        "src/stories/LiquidMetalButton.stories.tsx:81",
+        "src/stories/OverlayGlass.stories.tsx:116",
+        "src/stories/OverlayGlass.stories.tsx:133"
+      ],
+      "consumerImports": [
+        "apps/university/src/authoring/EmptyCampus.tsx:2",
+        "apps/university/src/authoring/StudyDetail.tsx:3",
+        "apps/university/src/avatar-lab/AvatarLab.tsx:9",
+        "apps/university/src/lesson/Settlement.tsx:22",
+        "apps/university/src/map-studio/MapStudioScreen.tsx:10",
+        "packages/ui/src/learning-play/LearningActivity.tsx:2",
+        "packages/ui/src/loading/LoadingTrivia.tsx:3",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:10",
+        "packages/ui/src/navigation/screens/BadgeWall.tsx:2",
+        "packages/ui/src/navigation/screens/LeagueScreen.tsx:2",
+        "packages/ui/src/navigation/screens/PlansScreen.tsx:6",
+        "packages/ui/src/navigation/screens/QuestsScreen.tsx:2",
+        "packages/ui/src/notifications/ReviewReminderPrompt.tsx:3",
+        "packages/ui/src/path/CoursePickCard.tsx:18",
+        "packages/ui/src/practice/MistakeList.tsx:8",
+        "packages/ui/src/practice/PracticeStream.tsx:3",
+        "packages/ui/src/reference/CollectionIndex.tsx:3",
+        "packages/ui/src/review/ChoiceBlock.tsx:3",
+        "packages/ui/src/review/ExerciseBlock.tsx:2",
+        "packages/ui/src/review/RecapPrompt.tsx:3",
+        "packages/ui/src/review/ReviewCard.tsx:4",
+        "packages/ui/src/review/VocabularyReview.tsx:3",
+        "packages/world/src/planet/PlanetPage.tsx:17"
+      ]
+    },
+    {
+      "name": "GamePrompt",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:408",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRadialMenu",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:362",
+      "references": [
+        "src/GameUiPreview.tsx:858"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSegmentedControl",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:197",
+      "references": [
+        "src/GameContractorTools.tsx:571",
+        "src/GameUiPreview.tsx:841",
+        "src/liquidGooeyEngine.browser.test.tsx:880",
+        "src/stories/GameSegmentedControl.stories.tsx:17",
+        "src/stories/GameSegmentedControl.stories.tsx:37",
+        "src/stories/GameSegmentedControl.stories.tsx:8"
+      ],
+      "consumerImports": [
+        "packages/ui/src/entry/DemoMiniature.tsx:8",
+        "packages/ui/src/lesson/LessonReader.tsx:3",
+        "packages/ui/src/navigation/screens/PlansScreen.tsx:7",
+        "packages/ui/src/reference/LibrarySurface.tsx:9"
+      ]
+    },
+    {
+      "name": "GameSlider",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:305",
+      "references": [
+        "src/GameUiPreview.tsx:866"
+      ],
+      "consumerImports": [
+        "packages/ui/src/entry/DemoMiniature.tsx:9",
+        "packages/ui/src/learning-play/HuntGame.tsx:2",
+        "packages/ui/src/learning-play/RepairGame.tsx:2",
+        "packages/ui/src/learning-play/TuneGame.tsx:2"
+      ]
+    },
+    {
+      "name": "GameTabs",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:109",
+      "references": [
+        "src/GameSurfaces.test.tsx:56",
+        "src/GameSurfaces.test.tsx:75",
+        "src/GameUiPreview.tsx:850"
+      ],
+      "consumerImports": [
+        "apps/university/src/map-studio/MapStudioScreen.tsx:11",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:11"
+      ]
+    },
+    {
+      "name": "GameToast",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:390",
+      "references": [
+        "src/GameUiPreview.tsx:1120",
+        "src/GameUiPreview.tsx:1121"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameToggle",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:330",
+      "references": [
+        "src/GameSurfaces.test.tsx:83",
+        "src/GameSurfaces.test.tsx:86",
+        "src/GameUiPreview.tsx:867"
+      ],
+      "consumerImports": [
+        "apps/university/src/avatar-lab/AvatarLab.tsx:10",
+        "packages/ui/src/entry/DemoMiniature.tsx:10",
+        "packages/ui/src/learning-play/AgentActionFiles.tsx:2",
+        "packages/ui/src/learning-play/AgentTools.tsx:2",
+        "packages/ui/src/learning-play/ContextGame.tsx:2",
+        "packages/ui/src/learning-play/DispatchGame.tsx:2",
+        "packages/ui/src/learning-play/EvalGame.tsx:2",
+        "packages/ui/src/lesson/LessonReader.tsx:3",
+        "packages/ui/src/navigation/empty/ReviewReminderSettings.tsx:3",
+        "packages/ui/src/navigation/empty/SettingsScreen.tsx:3"
+      ]
+    },
+    {
+      "name": "GameTooltip",
+      "kind": "value",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:68",
+      "references": [
+        "src/GameSurfaces.test.tsx:30",
+        "src/GameSurfaces.test.tsx:32",
+        "src/GameSurfaces.test.tsx:45",
+        "src/GameUiPreview.tsx:829",
+        "src/GameUiPreview.tsx:833"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameIconButtonProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:42",
+      "references": [
+        "src/GameSurfaces.tsx:53"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GamePanelProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:19",
+      "references": [
+        "src/GameSurfaces.tsx:32"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GamePromptProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:402",
+      "references": [
+        "src/GameSurfaces.tsx:408"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRadialMenuProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:351",
+      "references": [
+        "src/GameSurfaces.tsx:362"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSegmentedControlProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:171",
+      "references": [
+        "src/GameSurfaces.tsx:202"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSliderProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:297",
+      "references": [
+        "src/GameSurfaces.tsx:305"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTabItem",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:89",
+      "references": [
+        "src/GameSurfaces.tsx:106"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTabsProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:96",
+      "references": [
+        "src/GameSurfaces.tsx:109"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameToastProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:385",
+      "references": [
+        "src/GameSurfaces.tsx:390"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameToggleProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:322",
+      "references": [
+        "src/GameSurfaces.tsx:330"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTooltipProps",
+      "kind": "type",
+      "module": "./GameSurfaces",
+      "family": "Controls",
+      "audience": "Controls, feedback and simple containers",
+      "declaration": "src/GameSurfaces.tsx:62",
+      "references": [
+        "src/GameSurfaces.tsx:68"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionHud",
+      "kind": "value",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:59",
+      "references": [
+        "src/GameUiPreview.tsx:1557"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionOnboarding",
+      "kind": "value",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:162",
+      "references": [
+        "src/GameUiPreview.tsx:1569"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionHudIconSlots",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:34",
+      "references": [
+        "src/FirstSessionGameShell.tsx:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionHudLabels",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:8",
+      "references": [
+        "src/FirstSessionGameShell.tsx:48"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionHudProps",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:42",
+      "references": [
+        "src/FirstSessionGameShell.tsx:70"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionOnboardingLabels",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:147",
+      "references": [
+        "src/FirstSessionGameShell.tsx:157"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionOnboardingProps",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:156",
+      "references": [
+        "src/FirstSessionGameShell.tsx:166"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "FirstSessionOnboardingStep",
+      "kind": "type",
+      "module": "./FirstSessionGameShell",
+      "family": "Compositions",
+      "audience": "First-session HUD and onboarding",
+      "declaration": "src/FirstSessionGameShell.tsx:142",
+      "references": [
+        "src/FirstSessionGameShell.tsx:152"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCheckbox",
+      "kind": "value",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:106",
+      "references": [
+        "src/GameUiPreview.tsx:1626",
+        "src/stories/GameCheckbox.stories.tsx:17",
+        "src/stories/GameCheckbox.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameField",
+      "kind": "value",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:67",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:443",
+        "src/GameTerrainBuildTools.tsx:473",
+        "src/GameTerrainBuildTools.tsx:474",
+        "src/GameTerrainBuildTools.tsx:504",
+        "src/GameUiPreview.tsx:1617",
+        "src/GameUiPreview.tsx:1619",
+        "src/GameUiPreview.tsx:1620",
+        "src/GameUiPreview.tsx:1622",
+        "src/GameUiPreview.tsx:1623",
+        "src/GameUiPreview.tsx:1625",
+        "src/stories/GameField.stories.tsx:17",
+        "src/stories/GameField.stories.tsx:6"
+      ],
+      "consumerImports": [
+        "apps/university/src/avatar-lab/AvatarLab.tsx:6",
+        "apps/university/src/map-studio/MapStudioScreen.tsx:8",
+        "packages/ui/src/catalog/CatalogSurface.tsx:4",
+        "packages/ui/src/learning-play/HuntGame.tsx:2",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:6",
+        "packages/ui/src/reference/CollectionIndex.tsx:3"
+      ]
+    },
+    {
+      "name": "GameInput",
+      "kind": "value",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:20",
+      "references": [
+        "src/GameUiPreview.tsx:1618",
+        "src/GameUiPreview.tsx:1621",
+        "src/stories/GameField.stories.tsx:16",
+        "src/stories/GameField.stories.tsx:25",
+        "src/stories/GameInput.stories.tsx:17",
+        "src/stories/GameInput.stories.tsx:6"
+      ],
+      "consumerImports": [
+        "apps/university/src/avatar-lab/AvatarLab.tsx:7",
+        "apps/university/src/map-studio/MapStudioScreen.tsx:9",
+        "packages/ui/src/catalog/CatalogSurface.tsx:4",
+        "packages/ui/src/entry/DemoMiniature.tsx:6",
+        "packages/ui/src/learning-play/HuntGame.tsx:2",
+        "packages/ui/src/learning-play/ProgramGame.tsx:2",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:7",
+        "packages/ui/src/reference/CollectionIndex.tsx:3"
+      ]
+    },
+    {
+      "name": "GameTextArea",
+      "kind": "value",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:40",
+      "references": [
+        "src/GameUiPreview.tsx:1624",
+        "src/stories/GameTextArea.stories.tsx:17",
+        "src/stories/GameTextArea.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCheckboxProps",
+      "kind": "type",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:98",
+      "references": [
+        "src/GameForms.tsx:106"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameFieldProps",
+      "kind": "type",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:55",
+      "references": [
+        "src/GameForms.tsx:74"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInputProps",
+      "kind": "type",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:15",
+      "references": [
+        "src/GameForms.tsx:20"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTextAreaProps",
+      "kind": "type",
+      "module": "./GameForms",
+      "family": "Forms",
+      "audience": "Native labelled form controls",
+      "declaration": "src/GameForms.tsx:36",
+      "references": [
+        "src/GameForms.tsx:40"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameActionGrid",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:145",
+      "references": [
+        "src/GameContractorTools.tsx:486",
+        "src/GameSurfacePack.test.tsx:254",
+        "src/GameSurfacePack.tsx:623",
+        "src/GameSurfacePack.tsx:626",
+        "src/GameTerrainBuildTools.tsx:396",
+        "src/GameTerrainBuildTools.tsx:619",
+        "src/stories/GameSurfacePack.stories.tsx:166",
+        "src/stories/GameSurfacePack.stories.tsx:168"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetCard",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:384",
+      "references": [
+        "src/GameSurfacePack.test.tsx:165",
+        "src/GameSurfacePack.tsx:551"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetLibrary",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:484",
+      "references": [
+        "src/GameSurfacePack.test.tsx:130",
+        "src/GameSurfacePack.test.tsx:189",
+        "src/GameSurfacePack.test.tsx:66",
+        "src/GameUiPreview.tsx:1381",
+        "src/GameUiPreview.tsx:1516",
+        "src/stories/GameSurfacePack.stories.tsx:147",
+        "src/stories/GameSurfacePack.stories.tsx:150",
+        "src/stories/GameSurfacePack.stories.tsx:85"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameFactList",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:83",
+      "references": [
+        "src/GameSurfacePack.test.tsx:25",
+        "src/GameSurfacePack.tsx:112",
+        "src/GameSurfacePack.tsx:612",
+        "src/GameUiPreview.tsx:1370",
+        "src/stories/GamePanelSystem.stories.tsx:37",
+        "src/stories/GameSurfacePack.stories.tsx:74"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMovementPad",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:268",
+      "references": [
+        "src/GameSurfacePack.test.tsx:31",
+        "src/GameSurfacePack.test.tsx:50",
+        "src/GameUiPreview.tsx:1379",
+        "src/stories/GameSurfacePack.stories.tsx:129",
+        "src/stories/GameSurfacePack.stories.tsx:83"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameObjectToolbar",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:638",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GamePlacementToolbar",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:586",
+      "references": [
+        "src/GameSurfacePack.test.tsx:222",
+        "src/GameSurfacePack.test.tsx:32",
+        "src/GameSurfacePack.tsx:638",
+        "src/GameUiPreview.tsx:1436",
+        "src/stories/GameSurfacePack.stories.tsx:131",
+        "src/stories/GameSurfacePack.stories.tsx:98"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSceneHudLayout",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:63",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GameShell",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:36",
+      "references": [
+        "src/GameSurfacePack.test.tsx:22",
+        "src/GameSurfacePack.test.tsx:35",
+        "src/GameSurfacePack.tsx:63",
+        "src/GameUiPreview.tsx:1367",
+        "src/GameUiPreview.tsx:1463",
+        "src/stories/GameSurfacePack.stories.tsx:14",
+        "src/stories/GameSurfacePack.stories.tsx:24"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameStatList",
+      "kind": "value",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:112",
+      "references": [],
+      "consumerImports": [
+        "packages/world/src/planet/PlanetPage.tsx:19"
+      ]
+    },
+    {
+      "name": "GameActionGridProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:136",
+      "references": [
+        "src/GameSurfacePack.tsx:152"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameActionIconLabelMode",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:134",
+      "references": [
+        "src/GameSurfacePack.tsx:140",
+        "src/GameTerrainBuildTools.tsx:19",
+        "src/GameTerrainBuildTools.tsx:312"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameActionStyle",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:115",
+      "references": [
+        "src/GameSurfacePack.tsx:142"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetBadge",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:337",
+      "references": [
+        "src/GameSurfacePack.tsx:347"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetCardLayout",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:12",
+      "references": [
+        "src/GameSurfacePack.tsx:348",
+        "src/GameSurfacePack.tsx:470"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetCardProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:342",
+      "references": [
+        "src/GameSurfacePack.tsx:405",
+        "src/GameSurfacePack.tsx:463"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetFact",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:331",
+      "references": [
+        "src/GameSurfacePack.tsx:350"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetGroup",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:462",
+      "references": [
+        "src/GameSurfacePack.tsx:476"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetLibraryProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:469",
+      "references": [
+        "src/GameSurfacePack.tsx:497"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetSource",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:328",
+      "references": [
+        "src/GameSurfacePack.tsx:354",
+        "src/GameSurfacePack.tsx:363",
+        "src/GameSurfacePack.tsx:369",
+        "src/GameSurfacePack.tsx:466",
+        "src/GameSurfacePack.tsx:500",
+        "src/GameSurfacePack.tsx:516",
+        "src/GameSurfacePack.tsx:517"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetStatus",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:329",
+      "references": [
+        "src/GameSurfacePack.tsx:356",
+        "src/GameSurfacePack.tsx:375"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameFactItem",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:66",
+      "references": [
+        "src/GameSurfacePack.tsx:604",
+        "src/GameSurfacePack.tsx:78"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameFactListProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:75",
+      "references": [
+        "src/GameSurfacePack.tsx:113",
+        "src/GameSurfacePack.tsx:89"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMovementAction",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:225",
+      "references": [
+        "src/GameSurfacePack.tsx:235",
+        "src/GameSurfacePack.tsx:245"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMovementDirection",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:216",
+      "references": [
+        "src/GameSurfacePack.tsx:226",
+        "src/GameSurfacePack.tsx:242",
+        "src/GameSurfacePack.tsx:252",
+        "src/GameSurfacePack.tsx:279"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMovementPadProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:234",
+      "references": [
+        "src/GameSurfacePack.tsx:277"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameObjectToolbarProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:639",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GamePlacementToolbarProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:570",
+      "references": [
+        "src/GameSurfacePack.tsx:600",
+        "src/GameSurfacePack.tsx:639"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSceneHudLayoutProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:64",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GameShellProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:14",
+      "references": [
+        "src/GameSurfacePack.tsx:48",
+        "src/GameSurfacePack.tsx:64"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameStatListProps",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:113",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSurfaceDensity",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:10",
+      "references": [
+        "src/GameContractorTools.tsx:162",
+        "src/GameContractorTools.tsx:195",
+        "src/GameSurfacePack.tsx:139",
+        "src/GameSurfacePack.tsx:22",
+        "src/GameSurfacePack.tsx:237",
+        "src/GameSurfacePack.tsx:472",
+        "src/GameSurfacePack.tsx:574",
+        "src/GameSurfacePack.tsx:77",
+        "src/GameTerrainBuildTools.tsx:149",
+        "src/GameTerrainBuildTools.tsx:193",
+        "src/GameTerrainBuildTools.tsx:230"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameSurfaceLayout",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:11",
+      "references": [
+        "src/GameSurfacePack.tsx:25"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUiAction",
+      "kind": "type",
+      "module": "./GameSurfacePack",
+      "family": "Compositions",
+      "audience": "Scene shell and asset/action compositions",
+      "declaration": "src/GameSurfacePack.tsx:117",
+      "references": [
+        "src/GameContractorTools.tsx:334",
+        "src/GameContractorTools.tsx:335",
+        "src/GameSurfacePack.tsx:137",
+        "src/GameSurfacePack.tsx:571",
+        "src/GameSurfacePack.tsx:576",
+        "src/GameTerrainBuildTools.tsx:283",
+        "src/GameTerrainBuildTools.tsx:284",
+        "src/GameTerrainBuildTools.tsx:589"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBeforeAfterToggle",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:549",
+      "references": [
+        "src/GameContractorTools.test.tsx:191",
+        "src/GameContractorTools.tsx:686",
+        "src/GameContractorTools.tsx:883",
+        "src/stories/GameContractorTools.stories.tsx:306"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCompactJobDrawer",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:712",
+      "references": [
+        "src/GameContractorTools.test.tsx:212",
+        "src/GameContractorTools.test.tsx:223",
+        "src/GameContractorTools.tsx:799"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionApprovalBar",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:444",
+      "references": [
+        "src/GameContractorTools.test.tsx:133",
+        "src/GameContractorTools.test.tsx:138",
+        "src/GameContractorTools.test.tsx:143",
+        "src/GameContractorTools.tsx:698",
+        "src/GameContractorTools.tsx:898",
+        "src/stories/GameContractorTools.stories.tsx:273"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionJobCard",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:596",
+      "references": [
+        "src/GameContractorTools.test.tsx:178",
+        "src/GameContractorTools.tsx:750",
+        "src/GameContractorTools.tsx:815",
+        "src/GameContractorTools.tsx:854",
+        "src/stories/GameContractorTools.stories.tsx:319"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionProgress",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:359",
+      "references": [
+        "src/GameContractorTools.test.tsx:184",
+        "src/GameContractorTools.tsx:674",
+        "src/GameContractorTools.tsx:871",
+        "src/stories/GameContractorTools.stories.tsx:290"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameContractorPanel",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:767",
+      "references": [
+        "src/GameContractorTools.test.tsx:104",
+        "src/GameContractorTools.test.tsx:157",
+        "src/GameUiPreview.tsx:1345",
+        "src/GameUiPreview.tsx:1353",
+        "src/stories/GameContractorTools.stories.tsx:18",
+        "src/stories/GameContractorTools.stories.tsx:28",
+        "src/stories/GameContractorTools.stories.tsx:384"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRobotCrewStatus",
+      "kind": "value",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:496",
+      "references": [
+        "src/GameContractorTools.test.tsx:190",
+        "src/GameContractorTools.tsx:695",
+        "src/GameContractorTools.tsx:892",
+        "src/stories/GameContractorTools.stories.tsx:297"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBeforeAfterToggleProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:149",
+      "references": [
+        "src/GameContractorTools.tsx:558"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBeforeAfterView",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:22",
+      "references": [
+        "src/GameContractorTools.tsx:150",
+        "src/GameContractorTools.tsx:155",
+        "src/GameContractorTools.tsx:193",
+        "src/GameContractorTools.tsx:203",
+        "src/GameContractorTools.tsx:575",
+        "src/stories/GameContractorTools.stories.tsx:304"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCompactJobDrawerProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:173",
+      "references": [
+        "src/GameContractorTools.tsx:729"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionAction",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:37",
+      "references": [
+        "src/GameContractorTools.tsx:125",
+        "src/GameContractorTools.tsx:262",
+        "src/GameContractorTools.tsx:331",
+        "src/GameContractorTools.tsx:88"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionActionId",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:29",
+      "references": [
+        "src/GameContractorTools.tsx:41"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionApprovalBarProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:124",
+      "references": [
+        "src/GameContractorTools.tsx:456"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionBadge",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:53",
+      "references": [
+        "src/GameContractorTools.tsx:90"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionFact",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:47",
+      "references": [
+        "src/GameContractorTools.tsx:611",
+        "src/GameContractorTools.tsx:95"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionJob",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:87",
+      "references": [
+        "src/GameContractorTools.test.tsx:17",
+        "src/GameContractorTools.test.tsx:98",
+        "src/GameContractorTools.tsx:163",
+        "src/GameContractorTools.tsx:178",
+        "src/GameContractorTools.tsx:199",
+        "src/GameContractorTools.tsx:352",
+        "src/GameUiPreview.tsx:1259",
+        "src/stories/GameContractorTools.stories.tsx:213",
+        "src/stories/GameContractorTools.stories.tsx:320",
+        "src/stories/GameContractorTools.stories.tsx:42"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionJobCardProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:160",
+      "references": [
+        "src/GameContractorTools.tsx:607"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionJobStatus",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:11",
+      "references": [
+        "src/GameContractorTools.tsx:102",
+        "src/GameContractorTools.tsx:115",
+        "src/GameContractorTools.tsx:132",
+        "src/GameContractorTools.tsx:212",
+        "src/GameContractorTools.tsx:223",
+        "src/GameContractorTools.tsx:262",
+        "src/GameContractorTools.tsx:290",
+        "src/GameContractorTools.tsx:301",
+        "src/GameContractorTools.tsx:309"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionPreviewPane",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:81",
+      "references": [
+        "src/GameContractorTools.tsx:151",
+        "src/GameContractorTools.tsx:152",
+        "src/GameContractorTools.tsx:353",
+        "src/GameContractorTools.tsx:354",
+        "src/GameContractorTools.tsx:89",
+        "src/GameContractorTools.tsx:91"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionProgressProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:109",
+      "references": [
+        "src/GameContractorTools.tsx:372"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionProgressStep",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:65",
+      "references": [
+        "src/GameContractorTools.tsx:104",
+        "src/GameContractorTools.tsx:117"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionProgressStepStatus",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:20",
+      "references": [
+        "src/GameContractorTools.tsx:234",
+        "src/GameContractorTools.tsx:69"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionProviderMode",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:24",
+      "references": [
+        "src/GameContractorTools.tsx:101",
+        "src/GameContractorTools.tsx:131",
+        "src/GameContractorTools.tsx:249",
+        "src/GameContractorTools.tsx:255"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionValidationTone",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:25",
+      "references": [
+        "src/GameContractorTools.tsx:348",
+        "src/GameContractorTools.tsx:62"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionValidationWarning",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:58",
+      "references": [
+        "src/GameContractorTools.tsx:106",
+        "src/GameContractorTools.tsx:118",
+        "src/GameContractorTools.tsx:133"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameConstructionVariant",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:23",
+      "references": [
+        "src/GameContractorTools.tsx:120",
+        "src/GameContractorTools.tsx:134",
+        "src/GameContractorTools.tsx:145",
+        "src/GameContractorTools.tsx:156",
+        "src/GameContractorTools.tsx:169",
+        "src/GameContractorTools.tsx:188",
+        "src/GameContractorTools.tsx:208"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameContractorPanelProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:192",
+      "references": [
+        "src/GameContractorTools.tsx:785"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRobotCrewMember",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:72",
+      "references": [
+        "src/GameContractorTools.tsx:140",
+        "src/GameContractorTools.tsx:92"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRobotCrewMemberStatus",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:21",
+      "references": [
+        "src/GameContractorTools.tsx:241",
+        "src/GameContractorTools.tsx:77"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameRobotCrewStatusProps",
+      "kind": "type",
+      "module": "./GameContractorTools",
+      "family": "Specialized compositions",
+      "audience": "Construction-job UI; no job execution",
+      "declaration": "src/GameContractorTools.tsx:138",
+      "references": [
+        "src/GameContractorTools.tsx:505"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBrushControls",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:407",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:97",
+        "src/GameTerrainBuildTools.tsx:921"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildLibrary",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:624",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:125",
+        "src/GameTerrainBuildTools.tsx:939",
+        "src/stories/GameTerrainBuildTools.stories.tsx:310",
+        "src/stories/GameTerrainBuildTools.stories.tsx:330"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCompactGameDrawer",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:764",
+      "references": [
+        "src/GameContractorTools.tsx:733",
+        "src/GameContractorTools.tsx:763",
+        "src/GameTerrainBuildTools.test.tsx:132",
+        "src/GameTerrainBuildTools.test.tsx:134",
+        "src/GameTerrainBuildTools.test.tsx:152",
+        "src/GameTerrainBuildTools.test.tsx:159",
+        "src/GameTerrainBuildTools.test.tsx:164",
+        "src/GameTerrainBuildTools.test.tsx:166",
+        "src/GameTerrainBuildTools.tsx:971",
+        "src/GameTerrainBuildTools.tsx:982",
+        "src/stories/GameTerrainBuildTools.stories.tsx:323",
+        "src/stories/GameTerrainBuildTools.stories.tsx:338",
+        "src/stories/GameTerrainBuildTools.stories.tsx:346",
+        "src/stories/GameTerrainBuildTools.stories.tsx:355"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMaterialSwatches",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:509",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:98",
+        "src/GameTerrainBuildTools.tsx:928"
+      ],
+      "consumerImports": [
+        "apps/university/src/avatar-lab/AvatarLab.tsx:8"
+      ]
+    },
+    {
+      "name": "GameTerrainBuildToolbox",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:955",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:181",
+        "src/GameUiPreview.tsx:1194",
+        "src/GameUiPreview.tsx:1217",
+        "src/stories/GameTerrainBuildTools.stories.tsx:17",
+        "src/stories/GameTerrainBuildTools.stories.tsx:27",
+        "src/stories/GameTerrainBuildTools.stories.tsx:292",
+        "src/stories/GameTerrainBuildTools.stories.tsx:354"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainModeControl",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:317",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:90",
+        "src/GameTerrainBuildTools.tsx:891"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainToolStrip",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:372",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:91",
+        "src/GameTerrainBuildTools.tsx:900"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUndoRedoActions",
+      "kind": "value",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:575",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:99",
+        "src/GameTerrainBuildTools.tsx:910"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBrushControlLabels",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:75",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:160"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBrushControlState",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:82",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:163",
+        "src/GameTerrainBuildTools.tsx:227"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBrushControlsProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:158",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:415"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildCategory",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:108",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:54",
+        "src/GameTerrainBuildTools.tsx:191",
+        "src/GameTerrainBuildTools.tsx:228",
+        "src/GameUiPreview.tsx:1176",
+        "src/stories/GameTerrainBuildTools.stories.tsx:106"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildCategoryId",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:32",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:112"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildItem",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:94",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:113"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildItemStatus",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:25",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:105",
+        "src/GameTerrainBuildTools.tsx:269"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBuildLibraryProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:189",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:638"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCompactGameDrawerProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:205",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:779"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainMaterialPattern",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:20",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:71"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainMaterialSwatch",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:64",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:35",
+        "src/GameTerrainBuildTools.tsx:173",
+        "src/GameTerrainBuildTools.tsx:235",
+        "src/GameUiPreview.tsx:1170",
+        "src/stories/GameTerrainBuildTools.stories.tsx:55"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameMaterialSwatchesProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:168",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:518"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainBuildModeId",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:17",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainBuildModeOption",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:41",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:22",
+        "src/GameTerrainBuildTools.tsx:139",
+        "src/GameTerrainBuildTools.tsx:236",
+        "src/GameUiPreview.tsx:1156",
+        "src/stories/GameTerrainBuildTools.stories.tsx:32"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainBuildToolboxProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:222",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:874",
+        "src/GameTerrainBuildTools.tsx:965"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainBuildVariant",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:16",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:141",
+        "src/GameTerrainBuildTools.tsx:154",
+        "src/GameTerrainBuildTools.tsx:164",
+        "src/GameTerrainBuildTools.tsx:175",
+        "src/GameTerrainBuildTools.tsx:185",
+        "src/GameTerrainBuildTools.tsx:201",
+        "src/GameTerrainBuildTools.tsx:218",
+        "src/GameTerrainBuildTools.tsx:253",
+        "src/GameTerrainBuildTools.tsx:305",
+        "src/GameTerrainBuildTools.tsx:311"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainToolCompactLabelMode",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:19",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:148",
+        "src/GameTerrainBuildTools.tsx:250",
+        "src/GameTerrainBuildTools.tsx:310"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainModeControlProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:134",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:326"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainStatusState",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:118",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:248",
+        "src/GameTerrainBuildTools.tsx:818"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainStatusTone",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:21",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:124"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainToolId",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:18",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:58"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainToolOption",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:52",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:27",
+        "src/GameTerrainBuildTools.tsx:153",
+        "src/GameTerrainBuildTools.tsx:251",
+        "src/GameTerrainBuildTools.tsx:279",
+        "src/GameUiPreview.tsx:1162",
+        "src/stories/GameTerrainBuildTools.stories.tsx:39",
+        "src/stories/GameTerrainBuildTools.stories.tsx:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameTerrainToolStripProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:145",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:383"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUndoRedoActionsProps",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:179",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:587"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUndoRedoState",
+      "kind": "type",
+      "module": "./GameTerrainBuildTools",
+      "family": "Specialized compositions",
+      "audience": "Terrain/build UI; no terrain runtime",
+      "declaration": "src/GameTerrainBuildTools.tsx:127",
+      "references": [
+        "src/GameTerrainBuildTools.tsx:179",
+        "src/GameTerrainBuildTools.tsx:252"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAvatar",
+      "kind": "value",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:26",
+      "references": [
+        "src/GameUiPreview.tsx:1630",
+        "src/GameUiPreview.tsx:1631",
+        "src/GameUiPreview.tsx:1632",
+        "src/GameUiPreview.tsx:1633",
+        "src/stories/GameAvatar.stories.tsx:17",
+        "src/stories/GameAvatar.stories.tsx:29",
+        "src/stories/GameAvatar.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameEmptyState",
+      "kind": "value",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:141",
+      "references": [
+        "src/GameContractorTools.tsx:522",
+        "src/GameContractorTools.tsx:826",
+        "src/GameContractorTools.tsx:844",
+        "src/GameSurfacePack.tsx:522",
+        "src/GameTerrainBuildTools.tsx:694",
+        "src/GameUiPreview.tsx:1637",
+        "src/stories/GameEmptyState.stories.tsx:21",
+        "src/stories/GameEmptyState.stories.tsx:6"
+      ],
+      "consumerImports": [
+        "packages/ui/src/favourites/FavouritesEmpty.tsx:2",
+        "packages/ui/src/navigation/empty/LeagueEmpty.tsx:2",
+        "packages/ui/src/navigation/empty/NextStepEmpty.tsx:2",
+        "packages/ui/src/navigation/empty/QuestsEmpty.tsx:2",
+        "packages/ui/src/practice/MistakeList.tsx:7",
+        "packages/ui/src/practice/PracticeStream.tsx:3",
+        "packages/ui/src/reference/CollectionIndex.tsx:3"
+      ]
+    },
+    {
+      "name": "GameProgress",
+      "kind": "value",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:68",
+      "references": [
+        "src/GameContractorTools.tsx:395",
+        "src/GameDisplay.test.tsx:13",
+        "src/GameDisplay.test.tsx:24",
+        "src/GameDisplay.test.tsx:29",
+        "src/GameDisplay.test.tsx:35",
+        "src/GameDisplay.test.tsx:41",
+        "src/GameDisplay.test.tsx:45",
+        "src/GameSurfacePack.tsx:614",
+        "src/GameTerrainBuildTools.tsx:835",
+        "src/GameUiPreview.tsx:1635",
+        "src/GameUiPreview.tsx:1636",
+        "src/GameUiPreview.tsx:993",
+        "src/OverlayGlass.test.tsx:149",
+        "src/liquidGooeyEngine.browser.test.tsx:888",
+        "src/stories/GameProgress.stories.tsx:19",
+        "src/stories/GameProgress.stories.tsx:40",
+        "src/stories/GameProgress.stories.tsx:8",
+        "src/stories/OverlayGlass.stories.tsx:121"
+      ],
+      "consumerImports": [
+        "apps/university/src/authoring/CourseSection.tsx:4",
+        "apps/university/src/lesson/Settlement.tsx:22",
+        "packages/ui/src/entry/DemoMiniature.tsx:7",
+        "packages/ui/src/learning-play/DispatchGame.tsx:2",
+        "packages/ui/src/lesson/LessonNav.tsx:3",
+        "packages/ui/src/navigation/screens/BadgeWall.tsx:2",
+        "packages/ui/src/navigation/screens/LeagueScreen.tsx:2",
+        "packages/ui/src/navigation/screens/LevelProgress.tsx:2",
+        "packages/ui/src/navigation/screens/QuestsScreen.tsx:2",
+        "packages/world/src/planet/PlanetPage.tsx:18"
+      ]
+    },
+    {
+      "name": "GameAvatarProps",
+      "kind": "type",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:15",
+      "references": [
+        "src/GameDisplay.tsx:32"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameEmptyStateProps",
+      "kind": "type",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:131",
+      "references": [
+        "src/GameDisplay.tsx:147"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameProgressProps",
+      "kind": "type",
+      "module": "./GameDisplay",
+      "family": "Display",
+      "audience": "Progress, empty states and avatars",
+      "declaration": "src/GameDisplay.tsx:51",
+      "references": [
+        "src/GameDisplay.tsx:76"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCollapsiblePanel",
+      "kind": "value",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:51",
+      "references": [
+        "src/GamePanelSystem.test.tsx:14",
+        "src/GamePanelSystem.test.tsx:16",
+        "src/GamePanelSystem.test.tsx:31",
+        "src/GamePanelSystem.test.tsx:33",
+        "src/GamePanelSystem.test.tsx:41",
+        "src/GamePanelSystem.test.tsx:47",
+        "src/stories/GamePanelSystem.stories.tsx:14",
+        "src/stories/GamePanelSystem.stories.tsx:173",
+        "src/stories/GamePanelSystem.stories.tsx:177",
+        "src/stories/GamePanelSystem.stories.tsx:27",
+        "src/stories/GamePanelSystem.stories.tsx:36",
+        "src/stories/GamePanelSystem.stories.tsx:45",
+        "src/stories/GamePanelSystem.stories.tsx:46",
+        "src/stories/GamePanelSystem.stories.tsx:48"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameModal",
+      "kind": "value",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:270",
+      "references": [
+        "src/GamePanelSystem.test.tsx:118",
+        "src/GamePanelSystem.test.tsx:126",
+        "src/GamePanelSystem.test.tsx:143",
+        "src/GamePanelSystem.test.tsx:145",
+        "src/GamePanelSystem.test.tsx:156",
+        "src/GamePanelSystem.test.tsx:158",
+        "src/GamePanelSystem.test.tsx:165",
+        "src/GamePanelSystem.test.tsx:167",
+        "src/stories/GamePanelSystem.stories.tsx:117",
+        "src/stories/GamePanelSystem.stories.tsx:134",
+        "src/stories/GamePanelSystem.stories.tsx:149",
+        "src/stories/GamePanelSystem.stories.tsx:97"
+      ],
+      "consumerImports": [
+        "packages/ui/src/capability/CapabilityExplanation.tsx:2",
+        "packages/ui/src/evidence/EvidenceSourceSheet.tsx:3",
+        "packages/ui/src/evidence/LayerCoverage.tsx:3",
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:9",
+        "packages/ui/src/onboarding/WelcomeExperience.tsx:1"
+      ]
+    },
+    {
+      "name": "GameWindowPanel",
+      "kind": "value",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:160",
+      "references": [
+        "src/GamePanelSystem.test.tsx:104",
+        "src/GamePanelSystem.test.tsx:59",
+        "src/GamePanelSystem.test.tsx:61",
+        "src/GamePanelSystem.test.tsx:76",
+        "src/GamePanelSystem.test.tsx:83",
+        "src/GamePanelSystem.test.tsx:96",
+        "src/stories/GamePanelSystem.stories.tsx:178",
+        "src/stories/GamePanelSystem.stories.tsx:180",
+        "src/stories/GamePanelSystem.stories.tsx:66",
+        "src/stories/GamePanelSystem.stories.tsx:75"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCollapsiblePanelLabels",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:26",
+      "references": [
+        "src/GamePanelSystem.tsx:31",
+        "src/GamePanelSystem.tsx:46"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCollapsiblePanelProps",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:36",
+      "references": [
+        "src/GamePanelSystem.tsx:62"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameModalProps",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:249",
+      "references": [
+        "src/GamePanelSystem.tsx:281"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameWindowPanelLabels",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:112",
+      "references": [
+        "src/GamePanelSystem.tsx:119",
+        "src/GamePanelSystem.tsx:137"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameWindowPanelProps",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:126",
+      "references": [
+        "src/GamePanelSystem.tsx:174"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameWindowState",
+      "kind": "type",
+      "module": "./GamePanelSystem",
+      "family": "Panels",
+      "audience": "Collapsible/window panels and native dialog",
+      "declaration": "src/GamePanelSystem.tsx:110",
+      "references": [
+        "src/GamePanelSystem.tsx:134",
+        "src/GamePanelSystem.tsx:140",
+        "src/GamePanelSystem.tsx:142",
+        "src/GamePanelSystem.tsx:175",
+        "src/GamePanelSystem.tsx:179"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUiPreview",
+      "kind": "value",
+      "module": "./GameUiPreview",
+      "family": "Showcase support",
+      "audience": "Optional catalog, requires preview.css",
+      "declaration": "src/GameUiPreview.tsx:1724",
+      "references": [
+        "preview/main.tsx:25"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameUiPreviewProps",
+      "kind": "type",
+      "module": "./GameUiPreview",
+      "family": "Showcase support",
+      "audience": "Optional catalog, requires preview.css",
+      "declaration": "src/GameUiPreview.tsx:1719",
+      "references": [
+        "src/GameUiPreview.tsx:1724"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_PREVIEW_MESSAGES",
+      "kind": "value",
+      "module": "./previewStates",
+      "family": "Showcase support",
+      "audience": "Preview data, not product state",
+      "declaration": "src/previewStates.ts:3",
+      "references": [
+        "src/GameUiPreview.tsx:521"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetIcon",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:43",
+      "references": [
+        "src/ClayComponents.tsx:130",
+        "src/ClayComponents.tsx:171",
+        "src/ClayComponents.tsx:248",
+        "src/ClayComponents.tsx:308",
+        "src/ClayComponents.tsx:91",
+        "src/FirstSessionGameShell.tsx:178",
+        "src/FirstSessionGameShell.tsx:56",
+        "src/GameContractorTools.tsx:388",
+        "src/GameContractorTools.tsx:428",
+        "src/GameContractorTools.tsx:531",
+        "src/GameContractorTools.tsx:587",
+        "src/GameContractorTools.tsx:634",
+        "src/GameDisplay.tsx:151",
+        "src/GameSurfacePack.tsx:166",
+        "src/GameSurfacePack.tsx:311",
+        "src/GameSurfacePack.tsx:432",
+        "src/GameSurfacePack.tsx:96",
+        "src/GameTerrainBuildTools.tsx:357",
+        "src/GameTerrainBuildTools.tsx:682",
+        "src/GameTerrainBuildTools.tsx:735",
+        "src/GameTerrainBuildTools.tsx:801",
+        "src/GameUiPreview.tsx:1252",
+        "src/GameUiPreview.tsx:1662",
+        "src/GameUiPreview.tsx:831",
+        "src/GameUiPreview.tsx:835",
+        "src/GameUiPreview.tsx:893",
+        "src/GameUiPreview.tsx:896",
+        "src/GameUiPreview.tsx:981",
+        "src/GameUiPreview.tsx:984",
+        "src/OverlayGlass.test.tsx:143",
+        "src/stories/GameIconFamilies.stories.tsx:156",
+        "src/stories/GameIconFamilies.stories.tsx:158",
+        "src/stories/GameIconFamilies.stories.tsx:48",
+        "src/stories/OverlayGlass.stories.tsx:106",
+        "src/stories/OverlayGlass.stories.tsx:109"
+      ],
+      "consumerImports": [
+        "packages/ui/src/navigation/screens/LeagueScreen.tsx:2",
+        "packages/ui/src/navigation/screens/PlansScreen.tsx:3",
+        "packages/ui/src/onboarding/WelcomeExperience.tsx:1",
+        "packages/ui/src/practice/PracticeStream.tsx:3"
+      ]
+    },
+    {
+      "name": "GameBadge",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:20",
+      "references": [
+        "src/ClayComponents.tsx:177",
+        "src/ClayComponents.tsx:249",
+        "src/FirstSessionGameShell.tsx:126",
+        "src/FirstSessionGameShell.tsx:179",
+        "src/GameContractorTools.tsx:392",
+        "src/GameContractorTools.tsx:411",
+        "src/GameContractorTools.tsx:473",
+        "src/GameContractorTools.tsx:475",
+        "src/GameContractorTools.tsx:478",
+        "src/GameContractorTools.tsx:480",
+        "src/GameContractorTools.tsx:482",
+        "src/GameContractorTools.tsx:540",
+        "src/GameContractorTools.tsx:641",
+        "src/GameContractorTools.tsx:643",
+        "src/GameContractorTools.tsx:645",
+        "src/GameContractorTools.tsx:648",
+        "src/GameContractorTools.tsx:650",
+        "src/GameSurfacePack.tsx:104",
+        "src/GameSurfacePack.tsx:177",
+        "src/GameSurfacePack.tsx:437",
+        "src/GameSurfacePack.tsx:438",
+        "src/GameSurfacePack.tsx:440",
+        "src/GameSurfacePack.tsx:442",
+        "src/GameSurfacePack.tsx:516",
+        "src/GameSurfacePack.tsx:518",
+        "src/GameSurfacePack.tsx:540",
+        "src/GameSurfacePack.tsx:542",
+        "src/GameTerrainBuildTools.tsx:743",
+        "src/GameTerrainBuildTools.tsx:745",
+        "src/GameTerrainBuildTools.tsx:747",
+        "src/GameTerrainBuildTools.tsx:832",
+        "src/GameUiPreview.tsx:1515",
+        "src/GameUiPreview.tsx:1596",
+        "src/GameUiPreview.tsx:1603",
+        "src/GameUiPreview.tsx:1696",
+        "src/GameUiPreview.tsx:1703",
+        "src/GameUiPreview.tsx:1710",
+        "src/GameUiPreview.tsx:1744",
+        "src/GameUiPreview.tsx:837",
+        "src/GameUiPreview.tsx:838",
+        "src/GameUiPreview.tsx:839",
+        "src/GameUiPreview.tsx:991",
+        "src/GameUiPreview.tsx:992",
+        "src/LiquidPreview.tsx:718",
+        "src/OverlayGlass.test.tsx:148",
+        "src/stories/GameIconFamilies.stories.tsx:157",
+        "src/stories/GameIconFamilies.stories.tsx:159",
+        "src/stories/OverlayGlass.stories.tsx:118",
+        "src/stories/OverlayGlass.stories.tsx:119",
+        "src/stories/OverlayGlass.stories.tsx:120"
+      ],
+      "consumerImports": [
+        "apps/university/src/authoring/CourseSection.tsx:4",
+        "apps/university/src/map-studio/MapStudioScreen.tsx:6",
+        "packages/ui/src/entry/DemoMiniature.tsx:4",
+        "packages/ui/src/lesson/LessonWordList.tsx:4",
+        "packages/ui/src/navigation/screens/BadgeWall.tsx:2",
+        "packages/ui/src/navigation/screens/LeagueScreen.tsx:2",
+        "packages/ui/src/navigation/screens/LevelProgress.tsx:2",
+        "packages/ui/src/navigation/screens/QuestsScreen.tsx:2",
+        "packages/ui/src/practice/MistakeList.tsx:4",
+        "packages/ui/src/practice/PracticeOverview.tsx:2",
+        "packages/ui/src/reference/CollectionIndex.tsx:3",
+        "packages/ui/src/reference/KnowledgeNotes.tsx:2",
+        "packages/ui/src/review/ChoiceBlock.tsx:3",
+        "packages/ui/src/review/ReviewCard.tsx:4",
+        "packages/ui/src/review/VocabularyReview.tsx:3",
+        "packages/ui/src/today/TodaySection.tsx:2",
+        "packages/world/src/planet/PlanetPage.tsx:15"
+      ]
+    },
+    {
+      "name": "GameCardFan",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:118",
+      "references": [
+        "src/GameUiPreview.tsx:1134",
+        "src/stories/GameCardFan.stories.tsx:15",
+        "src/stories/GameCardFan.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHud",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:84",
+      "references": [
+        "src/FirstSessionGameShell.tsx:76",
+        "src/GameUiPreview.tsx:877",
+        "src/GameUiPreview.tsx:965",
+        "src/OverlayGlass.test.tsx:138",
+        "src/stories/OverlayGlass.stories.tsx:90"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameLanguageMenu",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:275",
+      "references": [
+        "src/GameUiPreview.tsx:1745",
+        "src/LiquidPreview.tsx:719"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameLoadingState",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:339",
+      "references": [
+        "src/GameUiPreview.tsx:1122",
+        "src/GameUiPreview.tsx:1123"
+      ],
+      "consumerImports": [
+        "packages/ui/src/navigation/empty/AccountPanel.tsx:8"
+      ]
+    },
+    {
+      "name": "GameOrientationGate",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:200",
+      "references": [
+        "src/GameUiPreview.tsx:1887"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameStageTile",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:150",
+      "references": [
+        "src/GameUiPreview.tsx:914",
+        "src/GameUiPreview.tsx:923",
+        "src/GameUiPreview.tsx:931",
+        "src/stories/GameStageTile.stories.tsx:16",
+        "src/stories/GameStageTile.stories.tsx:6"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClayCatalogPaths",
+      "kind": "value",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:352",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GameAssetIconProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:29",
+      "references": [
+        "src/ClayComponents.tsx:50"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBadgeProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:14",
+      "references": [
+        "src/ClayComponents.tsx:20"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameBadgeTone",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:12",
+      "references": [
+        "src/ClayComponents.tsx:17",
+        "src/GameContractorTools.tsx:212",
+        "src/GameContractorTools.tsx:234",
+        "src/GameContractorTools.tsx:241",
+        "src/GameContractorTools.tsx:255",
+        "src/GameContractorTools.tsx:26",
+        "src/GameContractorTools.tsx:55",
+        "src/GameSurfacePack.tsx:339",
+        "src/GameSurfacePack.tsx:369",
+        "src/GameSurfacePack.tsx:375",
+        "src/GameSurfacePack.tsx:581",
+        "src/GameSurfacePack.tsx:71",
+        "src/GameTerrainBuildTools.tsx:22",
+        "src/GameTerrainBuildTools.tsx:269",
+        "src/GameTerrainBuildTools.tsx:95"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCardFanCard",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:105",
+      "references": [
+        "src/ClayComponents.tsx:113"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameCardFanProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:112",
+      "references": [
+        "src/ClayComponents.tsx:118"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHudItem",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:69",
+      "references": [
+        "src/ClayComponents.tsx:80"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameHudProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:77",
+      "references": [
+        "src/ClayComponents.tsx:84"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameLanguageMenuProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:261",
+      "references": [
+        "src/ClayComponents.tsx:283"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameLoadingStateProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:334",
+      "references": [
+        "src/ClayComponents.tsx:339"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameOrientationGateProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:189",
+      "references": [
+        "src/ClayComponents.tsx:207"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameStageTileProps",
+      "kind": "type",
+      "module": "./ClayComponents",
+      "family": "Assets and display",
+      "audience": "Icons, badges, HUD and display compositions",
+      "declaration": "src/ClayComponents.tsx:140",
+      "references": [
+        "src/ClayComponents.tsx:161"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ASSET_SIZE_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:265",
+      "references": [
+        "src/GameUiPreview.tsx:758",
+        "src/clay/tokens.ts:290",
+        "src/tokens.ts:46"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_COLOR_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:1",
+      "references": [
+        "src/GameUiPreview.tsx:745",
+        "src/GameUiPreview.tsx:788",
+        "src/OverlayGlass.test.tsx:51",
+        "src/OverlayGlass.test.tsx:52",
+        "src/clay/assets.ts:239",
+        "src/clay/assets.ts:240",
+        "src/clay/assets.ts:241",
+        "src/clay/assets.ts:242",
+        "src/clay/assets.ts:243",
+        "src/clay/assets.ts:244",
+        "src/clay/assets.ts:245",
+        "src/clay/assets.ts:246",
+        "src/clay/assets.ts:247",
+        "src/clay/assets.ts:248",
+        "src/clay/assets.ts:249",
+        "src/clay/assets.ts:250",
+        "src/clay/assets.ts:251",
+        "src/clay/assets.ts:252",
+        "src/clay/assets.ts:253",
+        "src/clay/assets.ts:254",
+        "src/clay/assets.ts:255",
+        "src/clay/assets.ts:256",
+        "src/clay/assets.ts:257",
+        "src/clay/assets.ts:258",
+        "src/clay/assets.ts:259",
+        "src/clay/assets.ts:260",
+        "src/clay/assets.ts:261",
+        "src/clay/assets.ts:262",
+        "src/clay/assets.ts:263",
+        "src/clay/assets.ts:264",
+        "src/clay/assets.ts:265",
+        "src/clay/assets.ts:266",
+        "src/clay/assets.ts:267",
+        "src/clay/assets.ts:268",
+        "src/clay/assets.ts:269",
+        "src/clay/assets.ts:270",
+        "src/clay/assets.ts:271",
+        "src/clay/assets.ts:272",
+        "src/clay/assets.ts:273",
+        "src/clay/assets.ts:279",
+        "src/clay/tokens.ts:280",
+        "src/tokens.test.ts:146",
+        "src/tokens.test.ts:164"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ELEVATION_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:226",
+      "references": [
+        "src/GameUiPreview.tsx:751",
+        "src/clay/tokens.ts:286",
+        "src/tokens.ts:43"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_LAYER_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:243",
+      "references": [
+        "src/GameUiPreview.tsx:756",
+        "src/clay/tokens.ts:288",
+        "src/tokens.ts:45"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_LIQUID_GOOEY_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:48",
+      "references": [
+        "src/GameUiPreview.tsx:755",
+        "src/LiquidGroup.tsx:353",
+        "src/LiquidGroup.tsx:363",
+        "src/clay/tokens.ts:293",
+        "src/liquidGooeyEvolve.ts:146",
+        "src/liquidGooeyEvolve.ts:158",
+        "src/liquidGooeyImageMelt.tsx:199",
+        "src/liquidGooeyMove.ts:174",
+        "src/liquidGooeyMove.ts:191",
+        "src/tokens.test.ts:82",
+        "src/tokens.test.ts:90",
+        "src/tokens.test.ts:91",
+        "src/tokens.ts:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_LIQUID_METAL_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:33",
+      "references": [
+        "src/GameUiPreview.tsx:754",
+        "src/clay/tokens.ts:292"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_MOTION_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:234",
+      "references": [
+        "src/GameUiPreview.tsx:752",
+        "src/clay/tokens.ts:287",
+        "src/tokens.ts:44"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_OVERLAY_GLASS_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:138",
+      "references": [
+        "src/GameUiPreview.tsx:753",
+        "src/OverlayGlass.test.tsx:60",
+        "src/OverlayGlass.test.tsx:61",
+        "src/OverlayGlass.test.tsx:62",
+        "src/clay/tokens.ts:291"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_RADIUS_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:211",
+      "references": [
+        "src/GameUiPreview.tsx:749",
+        "src/clay/tokens.ts:284",
+        "src/tokens.ts:38"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_SCROLLBAR_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:219",
+      "references": [
+        "src/GameUiPreview.tsx:750",
+        "src/clay/tokens.ts:285",
+        "src/tokens.test.ts:62",
+        "src/tokens.ts:39",
+        "src/tokens.ts:40",
+        "src/tokens.ts:41",
+        "src/tokens.ts:42"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_SEMANTIC_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:152",
+      "references": [
+        "src/GameUiPreview.tsx:746",
+        "src/clay/tokens.ts:281",
+        "src/tokens.ts:35"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_SPACE_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:194",
+      "references": [
+        "src/GameUiPreview.tsx:748",
+        "src/clay/tokens.ts:283",
+        "src/tokens.ts:37"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_TARGET_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:252",
+      "references": [
+        "src/GameUiPreview.tsx:757",
+        "src/clay/tokens.ts:289",
+        "src/tokens.test.ts:73",
+        "src/tokens.test.ts:74",
+        "src/tokens.test.ts:75",
+        "src/tokens.test.ts:76",
+        "src/tokens.ts:64"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_TYPE_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:173",
+      "references": [
+        "src/GameUiPreview.tsx:747",
+        "src/clay/tokens.ts:282",
+        "src/tokens.test.ts:122",
+        "src/tokens.ts:36"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_UI_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:279",
+      "references": [
+        "src/clay/tokens.ts:296",
+        "src/tokens.test.ts:53",
+        "src/tokens.test.ts:54",
+        "src/tokens.test.ts:55"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_LIQUID_METAL_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:33",
+      "references": [
+        "src/GameUiPreview.tsx:754",
+        "src/clay/tokens.ts:292"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_LIQUID_GOOEY_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:48",
+      "references": [
+        "src/GameUiPreview.tsx:755",
+        "src/LiquidGroup.tsx:353",
+        "src/LiquidGroup.tsx:363",
+        "src/clay/tokens.ts:293",
+        "src/liquidGooeyEvolve.ts:146",
+        "src/liquidGooeyEvolve.ts:158",
+        "src/liquidGooeyImageMelt.tsx:199",
+        "src/liquidGooeyMove.ts:174",
+        "src/liquidGooeyMove.ts:191",
+        "src/tokens.test.ts:82",
+        "src/tokens.test.ts:90",
+        "src/tokens.test.ts:91",
+        "src/tokens.ts:47"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_OVERLAY",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/tokens.ts:56",
+      "references": [
+        "src/GameUiPreview.tsx:1018",
+        "src/GameUiPreview.tsx:1019",
+        "src/GameUiPreview.tsx:954",
+        "src/GameUiPreview.tsx:960",
+        "src/GameUiPreview.tsx:961",
+        "src/OverlayGlass.test.tsx:134",
+        "src/OverlayGlass.test.tsx:135",
+        "src/OverlayGlass.test.tsx:136",
+        "src/OverlayGlass.test.tsx:63",
+        "src/OverlayGlass.test.tsx:64",
+        "src/OverlayGlass.test.tsx:65",
+        "src/stories/OverlayGlass.stories.tsx:78",
+        "src/stories/OverlayGlass.stories.tsx:79",
+        "src/stories/OverlayGlass.stories.tsx:83"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_OVERLAY_GLASS_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:138",
+      "references": [
+        "src/GameUiPreview.tsx:753",
+        "src/OverlayGlass.test.tsx:60",
+        "src/OverlayGlass.test.tsx:61",
+        "src/OverlayGlass.test.tsx:62",
+        "src/clay/tokens.ts:291"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_TARGETS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/tokens.ts:64",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_THEME_CONTRACT",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/tokens.ts:75",
+      "references": [
+        "src/tokens.test.ts:171"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GAME_UI_TOKENS",
+      "kind": "value",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/tokens.ts:34",
+      "references": [
+        "src/tokens.test.ts:56",
+        "src/tokens.test.ts:57",
+        "src/tokens.test.ts:58"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayTokenCategory",
+      "kind": "type",
+      "module": "./tokens",
+      "family": "Theme integration",
+      "audience": "Token mirrors and theme contract",
+      "declaration": "src/clay/tokens.ts:296",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ASSETS",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:157",
+      "references": [
+        "src/ClayComponents.tsx:352",
+        "src/ClayComponents.tsx:353",
+        "src/GameUiPreview.tsx:1146",
+        "src/GameUiPreview.tsx:1147",
+        "src/GameUiPreview.tsx:1148",
+        "src/GameUiPreview.tsx:1149",
+        "src/clay/assets.ts:193"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ASSET_BASE_PATH",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:3",
+      "references": [
+        "src/clay/assets.test.ts:14",
+        "src/clay/assets.test.ts:21",
+        "src/clay/assets.test.ts:23",
+        "src/clay/assets.ts:5",
+        "src/clay/assets.ts:86",
+        "src/clay/assets.ts:92",
+        "src/clay/assets.ts:93",
+        "src/clay/assets.ts:94"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_GAME_SPRITES",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:124",
+      "references": [
+        "src/GameUiPreview.tsx:1681",
+        "src/clay/assets.ts:153",
+        "src/clay/assets.ts:155",
+        "src/stories/GameIconFamilies.stories.tsx:129"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_GAME_SPRITE_NAMES",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:155",
+      "references": [
+        "src/GameUiPreview.tsx:1673",
+        "src/stories/GameIconFamilies.stories.tsx:109"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ICON_NAMES",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:81",
+      "references": [
+        "src/GameUiPreview.tsx:1648",
+        "src/GameUiPreview.tsx:1649",
+        "src/clay/assets.ts:180",
+        "src/stories/GameIconFamilies.stories.tsx:15",
+        "src/stories/GameIconFamilies.stories.tsx:16",
+        "src/stories/GameIconFamilies.stories.tsx:17"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "CLAY_ICON_VARIANTS",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:32",
+      "references": [
+        "src/clay/assets.ts:108",
+        "src/clay/assets.ts:79",
+        "src/clay/assets.ts:81",
+        "src/clay/assets.ts:99"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "acknowledgeClayPlaceholders",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:342",
+      "references": [
+        "src/clay/assets.test.ts:58"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClayAssetBasePath",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:316",
+      "references": [
+        "src/clay/assets.test.ts:21"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClayIconPath",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:353",
+      "references": [
+        "src/ClayComponents.tsx:346",
+        "src/ClayComponents.tsx:53",
+        "src/clay/assets.test.ts:50",
+        "src/clay/assets.test.ts:51",
+        "src/clay/assets.test.ts:52",
+        "src/clay/assets.test.ts:62",
+        "src/clay/assets.test.ts:71"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClayIconStyles",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:107",
+      "references": [
+        "src/GameUiPreview.tsx:1648",
+        "src/GameUiPreview.tsx:1649",
+        "src/stories/GameIconFamilies.stories.tsx:15",
+        "src/stories/GameIconFamilies.stories.tsx:16",
+        "src/stories/GameIconFamilies.stories.tsx:17"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClaySourceAssetPath",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:362",
+      "references": [
+        "src/clay/assets.test.ts:22",
+        "src/clay/assets.test.ts:29",
+        "src/clay/assets.test.ts:36"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "setClayAssetBasePath",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:312",
+      "references": [
+        "src/clay/assets.test.ts:14",
+        "src/clay/assets.test.ts:28",
+        "src/clay/assets.test.ts:35"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "setClayAssetMode",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:297",
+      "references": [
+        "preview/liquid.tsx:14",
+        "preview/main.tsx:14",
+        "src/GameTerrainBuildTools.test.tsx:104",
+        "src/GameTerrainBuildTools.test.tsx:84",
+        "src/clay/assets.test.ts:15",
+        "src/clay/assets.test.ts:48",
+        "src/clay/assets.test.ts:60",
+        "src/clay/assets.test.ts:69"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "getClayAssetMode",
+      "kind": "value",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:301",
+      "references": [
+        "src/GameTerrainBuildTools.test.tsx:83"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayAssetGroup",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:193",
+      "references": [],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayAssetMode",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:284",
+      "references": [
+        "src/clay/assets.ts:286",
+        "src/clay/assets.ts:297",
+        "src/clay/assets.ts:301"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayGameSpriteName",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:153",
+      "references": [
+        "src/clay/assets.ts:155"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayIconName",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:79",
+      "references": [
+        "src/ClayComponents.tsx:107",
+        "src/ClayComponents.tsx:142",
+        "src/ClayComponents.tsx:31",
+        "src/ClayComponents.tsx:70",
+        "src/FirstSessionGameShell.tsx:55",
+        "src/GameContractorTools.tsx:223",
+        "src/GameContractorTools.tsx:40",
+        "src/GameContractorTools.tsx:73",
+        "src/GameDisplay.tsx:133",
+        "src/GameSurfacePack.tsx:124",
+        "src/GameSurfacePack.tsx:228",
+        "src/GameSurfacePack.tsx:351",
+        "src/GameSurfacePack.tsx:67",
+        "src/GameTerrainBuildTools.tsx:111",
+        "src/GameTerrainBuildTools.tsx:208",
+        "src/GameTerrainBuildTools.tsx:216",
+        "src/GameTerrainBuildTools.tsx:257",
+        "src/GameTerrainBuildTools.tsx:46",
+        "src/GameTerrainBuildTools.tsx:57",
+        "src/GameTerrainBuildTools.tsx:99",
+        "src/GameUiPreview.tsx:1655",
+        "src/clay/assets.ts:107",
+        "src/clay/assets.ts:181",
+        "src/clay/assets.ts:195",
+        "src/clay/assets.ts:238",
+        "src/clay/assets.ts:276",
+        "src/clay/assets.ts:353",
+        "src/clay/assets.ts:362",
+        "src/clay/assets.ts:81",
+        "src/clay/assets.ts:98",
+        "src/stories/GameIconFamilies.stories.tsx:23"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayIconResolveOptions",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:346",
+      "references": [
+        "src/clay/assets.ts:353"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "ClayIconStyle",
+      "kind": "type",
+      "module": "./clay/assets",
+      "family": "Asset integration",
+      "audience": "Asset setup, catalogs and resolution",
+      "declaration": "src/clay/assets.ts:23",
+      "references": [
+        "src/ClayComponents.tsx:39",
+        "src/GameUiPreview.tsx:1656",
+        "src/clay/assets.ts:107",
+        "src/clay/assets.ts:109",
+        "src/clay/assets.ts:348",
+        "src/clay/assets.ts:362",
+        "src/clay/assets.ts:98",
+        "src/stories/GameIconFamilies.stories.tsx:24"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "playGameInteractionSound",
+      "kind": "value",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:130",
+      "references": [
+        "src/GameButton.tsx:53",
+        "src/LiquidMetalButton.tsx:145"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "playGameInteractionSoundForContext",
+      "kind": "value",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:101",
+      "references": [
+        "src/interactionSound.ts:133"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInteractionAudioContext",
+      "kind": "type",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:19",
+      "references": [
+        "src/interactionSound.ts:102",
+        "src/interactionSound.ts:60"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInteractionAudioParam",
+      "kind": "type",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:1",
+      "references": [
+        "src/interactionSound.ts:13",
+        "src/interactionSound.ts:8"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInteractionGainNode",
+      "kind": "type",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:6",
+      "references": [
+        "src/interactionSound.ts:12",
+        "src/interactionSound.ts:20",
+        "src/interactionSound.ts:61",
+        "src/interactionSound.ts:66",
+        "src/interactionSound.ts:78"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInteractionOscillatorNode",
+      "kind": "type",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:11",
+      "references": [
+        "src/interactionSound.ts:21"
+      ],
+      "consumerImports": []
+    },
+    {
+      "name": "GameInteractionSoundOptions",
+      "kind": "type",
+      "module": "./interactionSound",
+      "family": "Host integration",
+      "audience": "Opt-in sound; host owns settings",
+      "declaration": "src/interactionSound.ts:29",
+      "references": [
+        "src/GameButton.tsx:20",
+        "src/LiquidMetalButton.tsx:30",
+        "src/interactionSound.ts:103",
+        "src/interactionSound.ts:130"
+      ],
+      "consumerImports": []
+    }
+  ]
+}

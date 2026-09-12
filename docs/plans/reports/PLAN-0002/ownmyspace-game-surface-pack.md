@@ -69,7 +69,7 @@ Also added:
 - Render/a11y/variant tests in `src/GameSurfacePack.test.tsx`.
 - Storybook examples in `src/stories/GameSurfacePack.stories.tsx`.
 - Game UI preview section in `src/GameUiPreview.tsx` so the package preview includes the OwnMySpace surface pack.
-- Documentation in `README.md` and `doc/design/ownmyspace-game-surface-pack.md`.
+- Documentation in `README.md` and `docs/reference/game-surface-pack.md` (relocated in 2.5.0).
 
 ## Component API Summary
 
@@ -282,7 +282,7 @@ Known limitations and follow-ups:
 - `package.json`
 - `package-lock.json`
 - `README.md`
-- `doc/design/ownmyspace-game-surface-pack.md`
+- `docs/reference/game-surface-pack.md` (formerly `doc/design/ownmyspace-game-surface-pack.md`)
 - `docs/plans/reports/PLAN-0002/ownmyspace-game-surface-pack.md`
 - `src/GameSurfacePack.tsx`
 - `src/GameSurfacePack.test.tsx`

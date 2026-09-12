@@ -3,6 +3,74 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.5.0 — 2026-09-12
+
+### Find the right component before reading the whole API
+
+- README now starts with a task-based component selection guide. A primary
+  button is `GameButton variant="primary"`; a liquid CTA adds
+  `surface="liquid"`. The documented README → recipe → live story path takes
+  no more than three steps. Preview opens with the same primary-action examples;
+  code recipes wrap and the existing showcase navigation fits narrow screens.
+  Preview-only grid, asset-path and construction-status wrapping fixes prevent
+  horizontal page overflow; anchored headings stay below the sticky navigation.
+  These shelf-layout fixes do not alter consumer component styles.
+- A TypeScript-generated inventory classifies all **272** existing named root
+  exports (**121 values / 151 types**) and links their definitions. The frozen
+  audit records actual local symbol references and read-only University imports;
+  no observed import is not evidence that a public helper is safe to remove.
+  `pnpm api:inventory` regenerates the index; `pnpm api:check` joins `verify`.
+- **No root export was removed, renamed or moved to a new package subpath.**
+  Package export routes, existing class/token names, the ESM-only / zero-runtime-
+  dependency contract and all twelve liquid forms remain intact.
+
+### A ready-to-use liquid CTA, not another liquid engine
+
+- Add optional `GameButton.fullWidth`. Both the native button and its liquid
+  silhouette fill the available row; omitted/false preserves existing layout.
+  Native disabled, submit, keyboard, focus, pointer-cancel and reduced-motion
+  behavior remain. Preview and Storybook include ordinary, liquid, full-width
+  and disabled examples, with browser and markup regression tests.
+- Reuse the existing `press` form and its non-uniform squash / `wobbly` rebound.
+  There is **no new `cta` form and no retuning of the 2.4.0 liquid engine,
+  geometry, shadows or presets**. Newcomers no longer need to assemble a CTA
+  from `LiquidGroup` physics knobs.
+
+### Documentation and evidence convergence
+
+- Retire the ambiguous `doc/` tree: preserve the six historical tutorials and
+  unimplemented 3D-icon research in `docs/archive/legacy-doc/`; reconcile the
+  active liquid-primitives and game-surface guides in `docs/reference/`.
+- Archive the extraction report, retired July upgrade plan and version-scoped
+  edge/shadow measurements. The July plan is **not** marked wholly completed.
+  Original archive bodies and all pre-existing PNG bytes/paths are retained.
+  The [relocation map](docs/archive/relocations-2.5.0.json) records every reason.
+- Keep `PRODUCT.md` and `CONCEPTS.md` as tool adapters pointing to the design
+  guide; keep `AGENTS.md`, its `CLAUDE.md` symlink and live donor provenance.
+  Label historical `artifacts/` and six `SCRATCH/` captures instead of deleting
+  evidence with unenumerated external readers. Ignore new scratch output.
+- Record the next-stage matte/glossy liquid catalog, widget coverage and donor
+  investigation in `docs/reference/liquid-next-stage-research.md`.
+  **That roadmap is research, not a shipped finish API or new widget suite.**
+
+### Consumer action: University 2.4.0 → 2.5.0
+
+Pin **all three** packages (`packages/ui`, `packages/world`, `apps/university`)
+to 2.5.0, then run the product's own gates. Existing imports need no migration.
+University was inspected read-only; it was **not** modified by this release.
+
+Migrating its custom `LiquidCtaButton` is a separate optional change:
+`width="full"` maps to `fullWidth`, while the product keeps destination
+registration, routing and `LiquidCtaTransition`. Its old uniform `scale=0.95`
+/ `bouncy` motion deliberately changes to the kit's existing `press` behavior
+only when that custom wrapper is migrated. Preserve transition source geometry,
+callback ordering and tests; do not discard the 823-line transition as if the
+kit had absorbed it. See the [upgrade playbook](docs/reference/usage-and-upgrade-playbook.md)
+for exact commands, CSS ownership, acceptance cases and rollback.
+
+This is a **minor**: additive opt-in layout and discovery, not a public-export
+restructure. Any future restructure still requires a major and compatibility path.
+
 ## 2.4.0 — 2026-09-11
 
 Minor: additive. One new token, six new form names, and a cast shadow that
@@ -271,7 +339,8 @@ removed member never worked makes the removal correct, not non-breaking.
   WebKit CPU-rasterises large SVG blurs. Inset and spread stay in SVG; they
   are not expressible as `drop-shadow()` and they are cheap. The pad no longer
   reserves the outer blur. Visual comparison of the segmented indicator and
-  the merged-blob story is in `SHADOW-COST.md`.
+  the merged-blob story is in `docs/archive/measurements/liquid-shadow-cost-2.0.0.md`
+  (formerly `SHADOW-COST.md`).
 
 - **Two authoring warnings were still dead in the published bundle.** 1.11.2
   unblocked the budget warnings; `LiquidGroup.Item` children-with-border and

@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-VALIDATION
+title: Legacy Learning Validation
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-evidence
+---
+
+> 历史校验记录原文。其“通过”只代表当时结论，不代表 2.5.0；原文与教程后来漂移的矛盾也保留，以免抹去证据。
+
 # 文档交叉验证报告
 
 ## 验证范围

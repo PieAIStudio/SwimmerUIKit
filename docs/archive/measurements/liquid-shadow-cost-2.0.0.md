@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LIQUID-SHADOW-COST
+title: Liquid Shadow Cost 2.0.0 Evidence
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-measurement
+---
+
+> 版本化测量原文。原始图像仍在仓库根的 `artifacts/shadow-cost/`；正文中的 `EDGE-QUALITY.md` 已迁至同目录的 [边缘测量](liquid-edge-quality-1.11.3.md)。实测、推断和未测的分层没有改变。
+
 # 外阴影搬出 SVG 滤镜：2.0.0 实测记录
 
 日期：2026-08-30  

@@ -1,0 +1,29 @@
+{
+  "baselineCommit": "1055db1",
+  "owner": "SwimmerUIKit",
+  "purpose": "Known repository references are retargeted. Archived originals are preserved after a dated wrapper; active references are reconciled. Public package exports do not change. External bookmarks cannot be enumerated; this map and the baseline Git history preserve recovery paths.",
+  "moves": [
+    { "from": "EXTRACTION-REPORT.md", "to": "docs/archive/history/clay-extraction.md", "preserveOriginalBody": true, "reason": "One-off extraction provenance, not a current packaging or installation contract." },
+    { "from": "UPGRADE-PLAN-2026-07.md", "to": "docs/archive/history/upgrade-plan-2026-07.md", "preserveOriginalBody": true, "reason": "Retired plan contains shipped work and uncompleted options; retirement is not completion." },
+    { "from": "EDGE-QUALITY.md", "to": "docs/archive/measurements/liquid-edge-quality-1.11.3.md", "preserveOriginalBody": true, "reason": "Version-scoped measurement owns its evidence. The renderer script and PNG paths are preserved." },
+    { "from": "SHADOW-COST.md", "to": "docs/archive/measurements/liquid-shadow-cost-2.0.0.md", "preserveOriginalBody": true, "reason": "Version-scoped measurements and explicit unmeasured cases remain together, not duplicated into design rules." },
+    { "from": "doc/LearningFrom0/00-index.md", "to": "docs/archive/legacy-doc/LearningFrom0/00-index.md", "preserveOriginalBody": true, "reason": "Historical 1.0 teaching series; current beginner entry is the selection guide." },
+    { "from": "doc/LearningFrom0/01-why-separate-ui-kit.md", "to": "docs/archive/legacy-doc/LearningFrom0/01-why-separate-ui-kit.md", "preserveOriginalBody": true, "reason": "Preserve original explanation; mark automatic-upgrade wording as historical, not current." },
+    { "from": "doc/LearningFrom0/02-components-and-tokens.md", "to": "docs/archive/legacy-doc/LearningFrom0/02-components-and-tokens.md", "preserveOriginalBody": true, "reason": "Old component counts, tokens and modal descriptions are not today's API." },
+    { "from": "doc/LearningFrom0/03-why-no-app-dependency.md", "to": "docs/archive/legacy-doc/LearningFrom0/03-why-no-app-dependency.md", "preserveOriginalBody": true, "reason": "Old Tailwind peers conflict with current distribution; decoupling history is still useful." },
+    { "from": "doc/LearningFrom0/04-use-in-new-app.md", "to": "docs/archive/legacy-doc/LearningFrom0/04-use-in-new-app.md", "preserveOriginalBody": true, "reason": "Installation lives in one upgrade playbook; preserve this prior lesson, including the unwritten chapter note." },
+    { "from": "doc/LearningFrom0/_cross-validation-report.md", "to": "docs/archive/legacy-doc/LearningFrom0/_cross-validation-report.md", "preserveOriginalBody": true, "reason": "Historical validation evidence, including conclusions that later drifted; not a new passing claim." },
+    { "from": "doc/design/3d-icon-roadmap.md", "to": "docs/archive/legacy-doc/design/3d-icon-roadmap.md", "preserveOriginalBody": true, "reason": "Unimplemented exploratory proposal, not an exported feature." },
+    { "from": "doc/design/liquid-gooey.md", "to": "docs/reference/liquid-primitives.md", "preserveOriginalBody": false, "reason": "Active advanced reference retained; distinguish group Move from item effect and old waviness recipes from named forms." },
+    { "from": "doc/design/ownmyspace-game-surface-pack.md", "to": "docs/reference/game-surface-pack.md", "preserveOriginalBody": false, "reason": "Active composition guide retained; release facts delegated to the upgrade playbook." }
+  ],
+  "retainedAdapters": {
+    "AGENTS.md": "Project routing entry remains.",
+    "CLAUDE.md": "Existing symlink to AGENTS.md remains.",
+    "PRODUCT.md": "Impeccable design-context consumer: preserve filename and field headings, delegate facts to the design guide.",
+    "CONCEPTS.md": "Vocabulary-tool consumer: preserve entry, replace duplicate definitions with pointers.",
+    "donors-individual.md": "Published package provenance index with paired lock and NOTICE: active, not cleanup debris."
+  },
+  "binaryPolicy": "All previously tracked PNG bytes and paths under artifacts/ and SCRATCH/ remain. Known owner/reproduction evidence is indexed in artifacts/README.md and SCRATCH/README.md. Unenumerated external human-review references are not grounds for deletion.",
+  "removedIgnoredMetadata": "Only doc/.DS_Store: Finder-generated directory metadata, no repository reference or runtime consumer; removed to retire the empty legacy directory."
+}

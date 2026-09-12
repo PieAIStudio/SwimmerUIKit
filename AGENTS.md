@@ -31,7 +31,8 @@ changing governed files.
 - Governed Markdown lives under `docs/**` by default.
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
-- `CONCEPTS.md` (repo root, ungoverned) holds shared domain vocabulary (clay, token layers, guard tests, central kitchen model); relevant when orienting to the design system or discussing its concepts.
+- For component choice, start at `docs/reference/component-selection-guide.md`.
+- `CONCEPTS.md` is the retained vocabulary-tool entry; it points to the design guide and upgrade playbook rather than defining their facts again.
 
 ## Routing
 

@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-LEGACY-LEARNING-SEPARATION
+title: Legacy Learning Separation
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-tutorial
+---
+
+> 历史原文。钉版消费者不会自动升级；当前合同见 [升级手册](../../../reference/usage-and-upgrade-playbook.md)。
+
 # 第 01 篇：为什么要把 UI 单独抽成"装修包"？
 
 > 🟢 初级 | 预计阅读 8 分钟

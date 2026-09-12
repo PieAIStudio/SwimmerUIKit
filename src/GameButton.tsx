@@ -17,6 +17,8 @@ export type GameButtonSurface = 'flat' | 'liquid';
 
 export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  /** Fill the available row, including the liquid silhouette and hit target. */
+  fullWidth?: boolean;
   sound?: GameInteractionSoundOptions | false;
   /** Disable the scale-on-press feedback where the motion would distract. */
   static?: boolean;
@@ -32,6 +34,7 @@ export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 export function GameButton({
   children,
   className,
+  fullWidth = false,
   onClick,
   sound = false,
   static: isStatic = false,
@@ -44,6 +47,7 @@ export function GameButton({
   const classes = [
     'game-ui-button',
     `game-ui-button--${variant}`,
+    fullWidth && 'game-ui-button--full-width',
     isStatic && 'game-ui-button--static',
     className,
   ]
@@ -80,7 +84,13 @@ export function GameButton({
   return (
     <LiquidSurface
       active={pressed}
-      className={`game-ui-button-liquid game-ui-button-liquid--${variant}`}
+      className={[
+        'game-ui-button-liquid',
+        `game-ui-button-liquid--${variant}`,
+        fullWidth && 'game-ui-button-liquid--full-width',
+      ]
+        .filter(Boolean)
+        .join(' ')}
       form="press"
     >
       <span

@@ -1,3 +1,18 @@
+---
+id: ARCHIVE-CLAY-EXTRACTION
+title: Original Clay Extraction Evidence
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-09-11
+last_reviewed: 2026-09-11
+tags:
+  - historical-evidence
+---
+
+> 原始抽取证据，非当前安装指南。private/CJS/Tailwind 及资产状态均是当时记录；正文与原始判断完整保留。当前合同见 [设计系统](../../reference/design-system-guide.md)。
+
 # SwimmerUIKit Clay UI Extraction Report
 
 ## 工作目录
