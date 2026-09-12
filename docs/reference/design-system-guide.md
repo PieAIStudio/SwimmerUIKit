@@ -318,6 +318,12 @@ GameInput / GameTextArea 的 invalid 也同步到 aria-invalid，显式 ARIA 值
 macOS WebKit 在鼠标按下后产生的原生按钮失焦不等同于放开鼠标，窗口真正失活仍取消手势。
 GameButton static 也约束液体按压。这些是明确的交互边缘修复，而非“所有行为原封不动”。
 
+发布 CSS 也是交互合同：独立 `scale` / `translate` 的重置采用 `initial`，不能因
+静止画面相同就改成会被压缩器折叠掉的字面值。`transform: none` 不替代这两个
+独立属性。`src/liquidCssBuild.test.tsx` 对真实压缩结果做浏览器按压验证，并保留
+普通按钮的正向动效对照；过程与负面知识见
+[打包合同的压缩行为补充](learnings/tooling-decisions/esm-only-bundled-types-css-build-gate.md)。
+
 ### 展厅与状态的权威来源
 
 站点首页按任务选组件，`/?view=reference` 是原完整总览；旧

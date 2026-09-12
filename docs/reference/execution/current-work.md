@@ -25,11 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Active: **2.6.0 liquid controls and beginner catalog**, authorized after the
+- Active: **2.6 liquid controls and beginner catalog, finalizing 2.6.1**, authorized after the
   2.5.0 research delivery. Execution and gates live in
   [PLAN-0004](../../plans/active/PLAN-0004-liquid-controls-and-catalog.md).
-  The finish API and six liquid control categories are implemented candidates;
-  registry publication is not yet verified. No University migration.
+  2.6.0 was published and registry-verified; live acceptance exposed a minified-CSS
+  press regression, now corrected for patch 2.6.1. Do not overwrite 2.6.0 or
+  announce 2.6.1 until its own registry/live checks pass. No University migration.
 
 - Completed: **2.5.0 discoverability and maintainability release**.
   npm publication, live showcase checks and remaining boundaries are recorded in
@@ -41,7 +42,7 @@ This file is the current project work index. It is not the agents-routing algori
   The generated [API inventory](../public-api-inventory.md) is the exhaustive
   index, not the beginner's first reading assignment.
 - Current consumer proof target: University can pin all three packages from
-  2.5.0 to 2.6.0 without changing existing imports; optional custom-CTA adoption follows
+  2.5.0 to 2.6.1 without changing existing imports; optional custom-CTA adoption follows
   the [upgrade playbook](../usage-and-upgrade-playbook.md). University owns its
   routing transition and product regression; this repository does not perform it.
 - [Earlier research](../liquid-next-stage-research.md) retains decisions and

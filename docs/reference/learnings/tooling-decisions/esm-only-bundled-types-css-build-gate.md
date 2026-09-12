@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: ai-assisted
 created: 2026-07-03
-last_reviewed: 2026-07-12
+last_reviewed: 2026-09-12
 domain: learning
 tags:
   - esm
@@ -37,6 +37,7 @@ applies_when:
   - "Wanting zero-warning shipped CSS to be enforced by the build rather than logged"
   - "Hardening UI components for Capacitor/Tauri WebView hosts (touch, tap-highlight, hover, safe-area)"
   - "An entry module side-effect-imports CSS and the import leaks into dist/index.d.ts"
+  - "A CSS minifier combines independent transform properties and drops a cascade reset that worked in development"
 ---
 
 # ESM-only bundled-types distribution with a CSS build gate (1.0 packaging contract)
@@ -113,7 +114,37 @@ mkdirSync('dist', { recursive: true });
 writeFileSync('dist/styles.css', code);
 ```
 
-Two choices here are worth calling out. First, `lightningcss` the **library**, not the `lightningcss-cli` package — the CLI requires pnpm build-script approval and its postinstall placeholder binary broke outright ("This: command not found") in this environment; the library has no postinstall step. Second, `lightningcss` is the exact CSS engine Vite 8 runs internally, so a clean local `bundle()` call is not just "probably fine downstream" — it's the same parser, so passing locally *is* passing in every consumer, by construction, not by hope.
+Two choices here are worth calling out. First, `lightningcss` the **library**, not the `lightningcss-cli` package — the CLI requires pnpm build-script approval and its postinstall placeholder binary broke outright ("This: command not found") in this environment; the library has no postinstall step. Second, using the same CSS engine as the consumer narrows parser differences, but **a clean parse/build does not prove equivalent browser behavior**. The earlier claim here that passing locally meant passing in every consumer was too strong; the measured 2.6.0 counterexample below supersedes that inference.
+
+### 2026-09-12 amendment: test the minified cascade, not only the source
+
+The liquid button kept a stable native target in development but shrank from
+879.21875px to 844.05px when pressed on the published site. The actual npm CSS
+had the same defect. With the installed Lightning CSS, this input:
+
+```css
+.button:active { scale: .96; translate: 0 3px; }
+.liquid .button { scale: 1; translate: none; transform: none; }
+```
+
+compiled to a liquid rule containing only `transform: none`. That property
+does not reset the independent `scale` or `translate` inherited through the
+cascade from the ordinary-button rule. The static screenshot still looked
+correct; only the held press exposed it.
+
+Use explicit `scale: initial; translate: initial; transform: none` at this
+override boundary. The current compiler preserves those resets; do not add
+`!important`, new theme tokens, or globally suppress ordinary button motion to
+hide the problem. Static-button opt-outs also need specificity sufficient to
+override the ordinary press rule.
+
+`src/liquidCssBuild.test.tsx` now runs the actual minifying compiler and drives
+its output in Chromium. Before the correction, three of five cases failed;
+afterward liquid button/icon/switch and static targets stay fixed, while the
+ordinary-button positive control still moves. Run the catalog acceptance against
+`pnpm preview:site`'s **built** output as well as development, and verify the
+published target separately. Reassess this workaround when the compiler changes;
+retain outcome tests rather than permanently asserting one serialization.
 
 **4. Split optional integrations into their own export instead of bundling them for everyone.** `styles.css` used to embed a Tailwind v4 `@theme inline` block mapping Tailwind theme names (`--color-primary`, etc.) onto `--game-ui-*` tokens. That forced `tailwindcss` and `@tailwindcss/vite` onto every consumer's peerDependencies, and non-Tailwind CSS pipelines (plain Vite + lightningcss) emitted "unknown at-rule @theme" warnings on a file they never asked to opt into. A grep across all six consumers confirmed zero usage of the bridge's Tailwind class names. The fix: extract the block to its own file, publish it as a separate optional export, and delete the Tailwind peers.
 

@@ -63,9 +63,10 @@ observer 或付费预设；本地高光、几何、预算已有可复用实现�
 ## 状态
 
 初轮实现已提交到 `c3ee0c2`；网络恢复后继续独立复验并修复选择框生命周期边缘。
-增补后的本地完整验证已通过，最终发布与线上核验仍待完成。
-不能把 package.json 的 2.6.0 当作 npm 发布证明；
-发布完成后本记录移入 completed。
+2.6.0 已由 `138b176` 发布，工作流 `34692091216` 成功，registry 可见。
+线上接受测试随后发现构建 CSS 的真实按压回归；不得把该版本写成完整验收成功。
+补丁2.6.1保持功能/API不变，补压缩产物浏览器闸门。其发布与线上核验仍待完成，
+全部完成后本记录才移入 completed。
 
 ### 网络恢复后的增补复验
 
@@ -75,6 +76,18 @@ observer 或付费预设；本地高光、几何、预算已有可复用实现�
 FormData 的禁用排除、重新启用及真正的 form.reset。
 展厅也不再使用材质/状态作为重建示例的 key。三引擎目录验收增加同一选择节点与
 用户选值跨禁用/重新启用、哑光/普通/高光切换的断言。
+
+### 发布构建回归与补丁
+
+2.6.0 线上原生按钮按压从879.21875px缩至844.05px，而开发模式保持879.21875px。
+锁定的 Lightning CSS 将 `scale:1; translate:none; transform:none` 折叠成仅
+`transform:none`，不能覆盖另一个规则里的独立scale/translate。实际npm包也有同一问题，
+所以另发2.6.1，不覆写或撤掉原版本。CSS全局 `initial` 重置在本机最小复现中保留。
+同时修正static按压选择器权重，使普通按钮的3px位移不覆盖明确的静态选项。
+
+新增 `src/liquidCssBuild.test.tsx`：使用真实构建压缩器和Chromium，旧候选5项中3项
+失败（液体按钮、液体图标、static位移）；修复后5项通过。普通按钮仍保留正常按压，
+不是全局关动效。最终目录验收改对本地静态构建而不是开发服务器执行。
 
 ## 已完成的变更与契约
 
@@ -98,14 +111,16 @@ fieldset 继承禁用的装饰降级。WebKit 实测 pointerdown 后会让已键
 
 ## 本地证据与闸门
 
-- 最终功能门 `pnpm verify`：51个测试文件、354项测试通过；含27个新增配方故事、
-  9项选择/跨浏览器事件/禁用边缘回归，计数是当前总数，不累加历史结果。
+- 最终功能门 `pnpm verify`：52个测试文件、359项测试通过；含27个新增配方故事、
+  9项选择/跨浏览器事件/禁用边缘回归及5项真实压缩CSS浏览器检查，计数是当前总数，
+  不累加历史结果。此结果来自2.6.1补丁后的完整门。
 - `pnpm build-storybook`、`pnpm build:site`、publint、attw 的 ESM-only profile通过。
   CSS构建零warning；API Extractor 的 TS5.9.3/项目TS6.0.3版本提示、Storybook大chunk
   与无MDX提示仍是工具链已知信息，不冒称全命令零warning。
 - `pnpm check:catalog <origin> [chromium|firefox|webkit]` 是可重跑的验收入口。
-  最终本地结果：Chromium31组、Firefox31组、WebKit29组；WebKit未运行forced-colors
-  模拟，非Chromium未宣称系统剪贴板roundtrip。数字是各引擎场景数，不与353项测试相加。
+  2.6.1最终本地结果（`pnpm preview:site` 静态构建，127.0.0.1:4177）：
+  Chromium31组、Firefox31组、WebKit29组；WebKit未运行forced-colors
+  模拟，非Chromium未宣称系统剪贴板roundtrip。数字是各引擎场景数，不与359项测试相加。
   三引擎分别执行12组桌面与375px/夜间真实交互，检查首屏可见、宽度、材质切换、
   禁用、进度、表单值/重置、checkbox、键盘按钮、原生dialog的键盘打开/焦点归还。
   网络恢复后的最终重跑也覆盖选择框节点/选值跨禁用与材质切换保持不变。
@@ -122,7 +137,8 @@ fieldset 继承禁用的装饰降级。WebKit 实测 pointerdown 后会让已键
 详细日志与真实截图保存在 `.devspace-visual/liquid-2.6/` 和按浏览器/时间命名的
 `liquid-catalog-*` 目录。旧失败结果没有被提升为通过，最终结果以本次脚本输出为准。
 网络恢复后的完整门及三浏览器结果集中在 `.devspace-visual/liquid-2.6-closeout/`
-的 `final-*.log`；其中354为最终功能测试总数，31/31/29是各引擎独立场景数。
+的 `patch-*.log`（2.6.1最终完整门）与 `built-catalog-*.log`（静态发布构建）。
+旧 `final-*.log` 是2.6.0候选开发验证，不能取代补丁发布构建的证明。
 旧PNG、donor账本、theme及引擎数学/预算/十二形态未为了本轮清理或视觉数量重写。
 
 ## 选择边界、回滚与剩余不确定性
@@ -143,4 +159,6 @@ axe对叠在SVG上的两颗液体按钮报对比度 incomplete 而非 violation�
 回滚使用正常 revert，不覆写已发布版本；消费方先撤销新API采用，再同步回退各manifest
 与lockfile到2.5.0。旧入口与默认样式保留，故不需要强制迁移才能升级。
 
-Learning skipped -> WebKit事件教训已进入设计指南、实现注释和回归测试，避免再建重复权威。
+Learning reconciled -> WebKit事件教训进入设计指南、实现注释和回归测试；压缩器改变
+独立transform属性重置的教训补入既有打包学习记录，并更正其“同解析器就等于所有
+消费方通过”的过强结论。没有再建一份重复的学习文档。

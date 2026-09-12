@@ -28,7 +28,7 @@ assets may not be extracted, modified, or redistributed as a standalone pack.
 ```json
 {
   "dependencies": {
-    "@pieai/swimmer-ui-kit": "2.6.0"
+    "@pieai/swimmer-ui-kit": "2.6.1"
   }
 }
 ```

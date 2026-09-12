@@ -41,7 +41,7 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 ## 消费方接入（三步）
 
 1. 从 npmjs 安装并钉精确版本：
-   `"@pieai/swimmer-ui-kit": "2.6.0"`（不用 `^`，升级必须是
+   `"@pieai/swimmer-ui-kit": "2.6.1"`（不用 `^`，升级必须是
    显式动作 + 本仓库回归验证）。包是 **ESM-only**、**零运行时依赖**，
    peer 只有 react/react-dom ≥19——不需要 Tailwind、不需要任何 CSS
    处理器，也不需要 scope-specific `.npmrc` 或 package-read token。
@@ -63,18 +63,22 @@ SwimmerUIKit 的运转模式（创始人定义，本文固化）：
 
 ## 2.5.0 → 2.6.0：材质与常用控件
 
+**实际安装选 2.6.1。** 2.6.0 的功能已发布，但线上验收发现 CSS 压缩删除了液体
+按钮的独立 scale/translate 重置。2.6.1 修复发布后的按压行为与 static 按钮位移，
+不新增 API；从2.6.0升级无需改调用。只看开发模式或静止截图不足以验收此项。
+
 增量 minor：原272个根导出全部保留，增加 GameSelect、GameSelectProps、
 LiquidFinish。不移动已有导出、不新增包子路径；零运行时依赖与 CSS 导入方式不变。
 
-先在消费仓把所有实际依赖此包的 manifest 钉到 `2.6.0`，再更新 lockfile、运行其
+先在消费仓把所有实际依赖此包的 manifest 钉到 `2.6.1`，再更新 lockfile、运行其
 typecheck/test/build/浏览器回归。University 的三个包仍是 packages/ui、packages/world、
 apps/university；本轮没有在消费仓执行升级。不要用本仓测试替代消费方验收。
 
 ```bash
 # 仅消费方 AI 在 University 工作区执行；先保存其当前工作。
-pnpm --filter ./packages/ui add --save-exact @pieai/swimmer-ui-kit@2.6.0
-pnpm --filter ./packages/world add --save-exact @pieai/swimmer-ui-kit@2.6.0
-pnpm --filter ./apps/university add --save-exact @pieai/swimmer-ui-kit@2.6.0
+pnpm --filter ./packages/ui add --save-exact @pieai/swimmer-ui-kit@2.6.1
+pnpm --filter ./packages/world add --save-exact @pieai/swimmer-ui-kit@2.6.1
+pnpm --filter ./apps/university add --save-exact @pieai/swimmer-ui-kit@2.6.1
 pnpm install --frozen-lockfile
 pnpm verify
 ```
@@ -268,6 +272,9 @@ pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可�
 
 1. `pnpm verify && pnpm docs:check && pnpm build-storybook && pnpm build:site` 全绿
    （build 内含 lightningcss CSS 构建，任何 warning 即失败）。
+   `verify` 还在真实浏览器执行压缩 CSS 的按压合同。发布前启动 `pnpm preview:site`
+   并对其实际 origin 跑 `pnpm check:catalog <origin> chromium`（同时覆盖 Firefox/WebKit）；
+   不用 Vite 开发服务器的绿色结果冒充发布构建的操作证明。
 2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/night 完整/
    禁 Tailwind at-rule/ESM-only 打包合同/套壳硬化存续）。
 3. 打包体检：`npx publint` 零发现；

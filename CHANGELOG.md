@@ -3,6 +3,25 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.6.1 — 2026-09-12
+
+Patch: production CSS behavior, not a new material or API.
+
+- Preserve the liquid button/icon's independent `scale` and `translate` resets
+  through CSS minification. The compiler folded literal identity values into
+  `transform: none`, but transform does not reset the independent properties:
+  development looked correct while the published native hit target shrank on
+  press. Explicit CSS `initial` resets survive the build and a consumer rebuild.
+- Fix static-button press specificity so the normal 3px lip travel does not win
+  over the static opt-out. Ordinary buttons keep their intentional press motion.
+- Add real-browser tests against actually minified CSS to `pnpm verify`, with
+  an ordinary-button positive control. Source-only and screenshot-at-rest checks
+  did not establish this built interaction contract.
+
+Consumers should use **2.6.1** rather than 2.6.0. No import/prop migration is
+needed from 2.6.0; existing release versions are not overwritten. The two finishes,
+six liquid control categories and native-select state preservation remain unchanged.
+
 ## 2.6.0 — 2026-09-12
 
 Minor: new optional material selection and native controls. Existing root

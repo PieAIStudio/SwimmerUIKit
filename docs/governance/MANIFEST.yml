@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-12T11:49:07.723Z
+generated_at: 2026-09-12T12:16:36.658Z
 generator_version: doc-gov@0.9.11
 docs_count: 46
 docs:
@@ -233,7 +233,7 @@ docs:
     type: reference
     status: stable
     canonical: true
-    last_reviewed: 2026-07-12
+    last_reviewed: 2026-09-12
     pinned: false
   - id: REF-LEARNING-TOOLING-DECISIONS-VITEST-INCLUDE-GLOB-SILENTLY-EXCLUDED-ALL-TEST-TSX-FILES
     path: docs/reference/learnings/tooling-decisions/vitest-include-glob-silently-excluded-all-test-tsx-files.md

@@ -131,7 +131,7 @@
     --game-ui-button-lip-depth: 1px;
     translate: 0 3px;
   }
-  .game-ui-button--static:active,
+  .game-ui-button--static:active:not(:disabled),
   .game-ui-button:disabled {
     --game-ui-button-lip-depth: 0px;
     translate: none;
@@ -3763,9 +3763,12 @@
     box-shadow: none;
     /* The liquid body already carries the press. Letting the flat lip travel
      * as well would slide the label off the silhouette holding it. */
-    translate: none;
-    /* CSS scale is independent of transform; cancel both on real content. */
-    scale: 1;
+    /* Keep explicit independent resets through CSS minification. Lightning CSS
+     * folds literal identity scale/translate + transform:none into transform
+     * alone, which cannot override another rule's independent scale/translate.
+     * Global initial values retain those resets without !important or new tokens. */
+    translate: initial;
+    scale: initial;
     transform: none;
   }
   /*
@@ -3815,7 +3818,7 @@
     border-color: transparent;
     box-shadow: none;
     transform: none;
-    scale: 1;
+    scale: initial;
   }
   .game-ui-select {
     min-height: 44px;
