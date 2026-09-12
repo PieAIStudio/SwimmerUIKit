@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-12T12:16:36.658Z
+generated_at: 2026-09-12T12:23:42.847Z
 generator_version: doc-gov@0.9.11
 docs_count: 46
 docs:
@@ -116,15 +116,15 @@ docs:
     canonical: true
     last_reviewed: 2026-07-13
     pinned: true
-  - id: PLAN-0004
-    path: docs/plans/active/PLAN-0004-liquid-controls-and-catalog.md
+  - id: PLAN-0003
+    path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
     type: plan
-    status: active
+    status: completed
     canonical: true
     last_reviewed: 2026-09-12
     pinned: false
-  - id: PLAN-0003
-    path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
+  - id: PLAN-0004
+    path: docs/plans/completed/PLAN-0004-liquid-controls-and-catalog.md
     type: plan
     status: completed
     canonical: true

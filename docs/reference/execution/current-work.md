@@ -25,12 +25,13 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Active: **2.6 liquid controls and beginner catalog, finalizing 2.6.1**, authorized after the
-  2.5.0 research delivery. Execution and gates live in
-  [PLAN-0004](../../plans/active/PLAN-0004-liquid-controls-and-catalog.md).
-  2.6.0 was published and registry-verified; live acceptance exposed a minified-CSS
-  press regression, now corrected for patch 2.6.1. Do not overwrite 2.6.0 or
-  announce 2.6.1 until its own registry/live checks pass. No University migration.
+- Completed: **2.6 liquid controls and beginner catalog, delivered as 2.6.1**,
+  authorized after the 2.5.0 research delivery. Scope, current gates, real npm
+  tarball/type checks and live-site evidence are in
+  [PLAN-0004](../../plans/completed/PLAN-0004-liquid-controls-and-catalog.md).
+  Use 2.6.1: it fixes the compiled-CSS press regression found while accepting
+  2.6.0. Both registry and live interaction checks passed; no University migration
+  was performed. No unfinished implementation or release task remains in this unit.
 
 - Completed: **2.5.0 discoverability and maintainability release**.
   npm publication, live showcase checks and remaining boundaries are recorded in

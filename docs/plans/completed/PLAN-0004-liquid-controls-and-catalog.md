@@ -2,7 +2,7 @@
 id: PLAN-0004
 title: Liquid Controls and Beginner Catalog
 type: plan
-status: active
+status: completed
 canonical: true
 owner: project
 created: 2026-09-12
@@ -65,8 +65,29 @@ observer 或付费预设；本地高光、几何、预算已有可复用实现�
 初轮实现已提交到 `c3ee0c2`；网络恢复后继续独立复验并修复选择框生命周期边缘。
 2.6.0 已由 `138b176` 发布，工作流 `34692091216` 成功，registry 可见。
 线上接受测试随后发现构建 CSS 的真实按压回归；不得把该版本写成完整验收成功。
-补丁2.6.1保持功能/API不变，补压缩产物浏览器闸门。其发布与线上核验仍待完成，
-全部完成后本记录才移入 completed。
+补丁2.6.1保持功能/API不变，补压缩产物浏览器闸门，现已正式发布并完成线上和实际包核验。
+本轮实施、发布和证据收尾完成；消费者选择2.6.1，不再采用有构建交互缺陷的2.6.0。
+
+### 最终发布收据（2026-09-12）
+
+- 发布源码：`69d282049ed985bdc7c77984055440a8397e142f`。
+  [npm-publish 34693288522](https://github.com/PieAIStudio/SwimmerUIKit/actions/runs/34693288522)
+  completed/success；独立 registry 查询返回 `@pieai/swimmer-ui-kit@2.6.1`。
+- Registry integrity：`sha512-SQw5Ynu789TJhA0CJ3aVQF75D8E0dOGrGzDPnb1g4UkSM5voW81ootHvB69abzqlqflCVPyfal8FJCd4P6/uvg==`。
+  实际下载tarball，验证122个运行时导出、原有公开值、exports map、零运行时依赖。
+  消费方TSX样例直接以发布包的d.ts编译通过，包含材质属性与全部六类控件。
+- 发布包原CSS和经消费方再次压缩的CSS，分别在真实Chromium按压：
+  原生按钮矩形均保持x72/y72/width164.796875/height40；未只检查文件里有某个字符串。
+- [正式组件展厅](https://swimmer-ui-kit.pieaistudio.com/)执行完整31组Chromium验收通过，
+  包含此前失败的按压目标稳定、选值保留、375px、复制/拒绝回退和材料实验入口。
+  Vercel对该发布源码的部署状态为success；不是只看本地build成功。
+- [线上Storybook](https://swimmer-ui-storybook.pieaistudio.com/storybook/)的27个共享配方故事
+  可见，Docs实际只有1张Canvas/1组液体，无pageerror或预算警告。
+  发布后Docs按钮按下前后均x381/y286/width420/height40。
+
+原始收据在 `.devspace-visual/liquid-2.6-closeout/`：`patch-publish-watch.log`、
+`published261-package.json`、`patch-live-catalog-chromium.log`、`patch-live-storybook.json`
+及对应实际截图。其测试、场景与像素尺寸均只对应说明的环境，不扩大到真实手机或全部消费者。
 
 ### 网络恢复后的增补复验
 
