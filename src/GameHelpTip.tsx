@@ -32,7 +32,16 @@ export function GameHelpTip({ label, children }: GameHelpTipProps): ReactNode {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | undefined>(undefined);
   const { refs, floatingStyles, context } = useFloating({
     open,
-    onOpenChange: setOpen,
+    onOpenChange(next, event, reason) {
+      // A hover-opened tip may not own keyboard focus. Prevent the native
+      // dialog's Escape default at the library dismissal boundary, not only
+      // on the trigger. No custom document listeners or second popup engine.
+      if (!next && reason === 'escape-key') {
+        event?.preventDefault();
+        event?.stopPropagation();
+      }
+      setOpen(next);
+    },
     placement: 'bottom-start',
     strategy: 'fixed',
     middleware: [offset(8), flip(), shift({ padding: 12 })],

@@ -3,6 +3,14 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.7.1 — 2026-09-16
+
+- Fix help dismissal inside native dialogs when the tip was opened by hover
+  while keyboard focus stayed in another control. Escape closes only the tip;
+  it no longer also cancels the dialog and interrupts the user's work.
+- Keep Floating UI as the interaction owner. No added global key handler,
+  consumer-specific patch or public API change.
+
 ## 2.7.0 — 2026-09-16
 
 Minor: shared optional help for creator-facing products. Existing controls and

@@ -84,3 +84,27 @@ it('provides a touch-sized trigger and releases the portal on unmount', async ()
   root = undefined;
   expect(document.querySelector('[role="tooltip"]')).toBeNull();
 });
+
+it('cancels native Escape when help is open but focus remains in another modal control', async () => {
+  const container = await mount(
+    <>
+      <input aria-label="Another control" />
+      <GameHelpTip label="Hover help">Optional explanation.</GameHelpTip>
+    </>,
+    true,
+  );
+  const button = container.querySelector('button')!;
+  const input = container.querySelector('input')!;
+  await act(async () => {
+    input.focus();
+    button.click();
+  });
+  await expect.poll(() => container.querySelector('[role="tooltip"]')).not.toBeNull();
+  expect(document.activeElement).toBe(input);
+  const escape = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+  await act(async () => input.dispatchEvent(escape));
+  expect(escape.defaultPrevented).toBe(true);
+  await expect.poll(() => container.querySelector('[role="tooltip"]')).toBeNull();
+  expect((container as HTMLDialogElement).open).toBe(true);
+  expect(document.activeElement).toBe(input);
+});
