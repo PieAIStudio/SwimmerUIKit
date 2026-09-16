@@ -248,6 +248,14 @@ function contrastRatio(fg: string, bg: string): number {
 }
 
 describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
+  it('editable placeholders use readable muted ink rather than the disabled-control token', () => {
+    const placeholder = blockOf(stylesCss, '.game-ui-input::placeholder');
+    expect(placeholder).toContain('color: var(--game-ui-text-muted)');
+    expect(placeholder).toContain('opacity: 1');
+    expect(blockOf(stylesCss, '.game-ui-input:disabled::placeholder')).toContain(
+      'var(--game-ui-disabled)',
+    );
+  });
   // Every pair below is normal-or-bold small UI text (not WCAG "large
   // text"), so the AA floor is 4.5:1 for all of them.
   const MIN_AA = 4.5;

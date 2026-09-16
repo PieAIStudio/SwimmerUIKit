@@ -773,6 +773,10 @@
       box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
   }
   .game-ui-input::placeholder {
+    color: var(--game-ui-text-muted);
+    opacity: 1;
+  }
+  .game-ui-input:disabled::placeholder {
     color: var(--game-ui-disabled);
   }
   .game-ui-input:focus-visible {

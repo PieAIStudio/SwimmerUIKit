@@ -3,6 +3,14 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.7.2 — 2026-09-16
+
+- Use readable muted ink for editable input and textarea placeholders. Empty
+  fields no longer inherit the intentionally low-contrast disabled-control color.
+- Keep disabled inputs visually distinct. Explicit placeholder opacity and the
+  existing light/night contrast guards protect the shared field treatment.
+- No component API, layout, or interaction changes.
+
 ## 2.7.1 — 2026-09-16
 
 - Fix help dismissal inside native dialogs when the tip was opened by hover
