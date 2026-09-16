@@ -50,11 +50,11 @@ SwimmerUIKit 设计系统的唯一说明书：token 架构、主题化配方、�
 的成品漆；**派生基准**是调色用的原浆；**布景层**是舞台背景幕布专用漆。
 组件永远买成品漆，不自己兑颜料。
 
-| 层 | 例子 | 谁可以改 |
-| --- | --- | --- |
-| 1. 语义 token | `--game-ui-panel`、`--game-ui-accent`、`--game-ui-text` | 下游主题第一目标 |
-| 2. 派生基准 | `--game-ui-ink-deep`（深色水洗底）、`--game-ui-border-ink`（描边底）、`--game-ui-text-on-dark` | 下游做完整主题时一起改 |
-| 3. 布景/预览 | `--game-ui-scenery-*`、`--game-ui-preview-*` | 一般不用动（demo 舞台专用） |
+| 层            | 例子                                                                                           | 谁可以改                    |
+| ------------- | ---------------------------------------------------------------------------------------------- | --------------------------- |
+| 1. 语义 token | `--game-ui-panel`、`--game-ui-accent`、`--game-ui-text`                                        | 下游主题第一目标            |
+| 2. 派生基准   | `--game-ui-ink-deep`（深色水洗底）、`--game-ui-border-ink`（描边底）、`--game-ui-text-on-dark` | 下游做完整主题时一起改      |
+| 3. 布景/预览  | `--game-ui-scenery-*`、`--game-ui-preview-*`                                                   | 一般不用动（demo 舞台专用） |
 
 规则（由 `src/tokens.test.ts` 强制）：
 
@@ -237,8 +237,14 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 - Tabs：roving tabindex + 方向键/Home/End（ARIA tabs 模式）。`GameTabs`
   可选 `id`（本实例的 base id）与每个 tab 的 `panelId`——传了之后自动给
   tab 按钮补 `aria-controls`；消费方自己渲染的 `<div role="tabpanel"
-  id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
+id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
   反向关联（`baseId` 用你传的 `id`，不传则是内部生成值，两端要用同一个）。
+- 可选帮助：`<GameHelpTip label="备份说明">下载一份作品副本到你的设备，之后可以从文件恢复。</GameHelpTip>`。
+  短文本解释支持 hover、键盘 focus、点击／触摸；Escape 与外部点击关闭，内容可悬停阅读。
+  Floating UI 负责定位、边缘避让与交互；原生 dialog 内的帮助留在同一 top layer，避免被页面 inert。
+  Trigger 不提交表单、可触达区域44px，正文不参与排版。不要在帮助内放按钮／链接；需要交互的内容
+  使用正式面板。当前状态、错误后的下一步、费用和不可逆动作确认始终直接显示。
+  参考：WAI 的 hover/focus 与 status-message 要求，以及 Floating UI 的 tooltip / useClick 文档。
 - Tooltip：`GameTooltip` 自动给唯一的直接子元素（须是单个可聚焦元素，如
   `GameIconButton`）加 `aria-describedby` 关联气泡文字；触屏设备摸不到
   tooltip，重要信息不要只放在这里。
@@ -290,14 +296,14 @@ Kit 自有的长列表、窗口正文和模态正文使用统一的 clay 滚动�
 LiquidSurface 省略 finish 时保留形态自己的 gloss；LiquidGroup 显式 raw `gloss`
 优先于 finish，用于高级配方；`set` 的 engaged 灯光仍可降至自身定义的强度。
 
-| 成品控件 | 选择方式 | 边界 |
-| --- | --- | --- |
-| GameButton | `surface="liquid" liquidFinish="matte"`，可加 fullWidth | 原生按钮，不承包路由过渡 |
-| GameIconButton | 同上，必须提供 label | 按压复用同一内部装配，不缩小图标/目标 |
-| GameToggle | 同上 | 位置表示开关状态，只有滑块变形，标签保持稳定 |
-| GameSegmentedControl | `liquidFinish`；可选 `surface="flat"` | 底座/选中指示器合计两组，勿外包第二层液体 |
-| GameProgress | `liquidFinish`；可选 `surface="flat"` | 有限数值进度，ARIA 与可见值同步限制在有效范围 |
-| GameSelect | `surface="liquid" liquidFinish="glossy"` | 真实 select；关闭的单选框液体化，展开菜单由系统绘制 |
+| 成品控件             | 选择方式                                                | 边界                                                |
+| -------------------- | ------------------------------------------------------- | --------------------------------------------------- |
+| GameButton           | `surface="liquid" liquidFinish="matte"`，可加 fullWidth | 原生按钮，不承包路由过渡                            |
+| GameIconButton       | 同上，必须提供 label                                    | 按压复用同一内部装配，不缩小图标/目标               |
+| GameToggle           | 同上                                                    | 位置表示开关状态，只有滑块变形，标签保持稳定        |
+| GameSegmentedControl | `liquidFinish`；可选 `surface="flat"`                   | 底座/选中指示器合计两组，勿外包第二层液体           |
+| GameProgress         | `liquidFinish`；可选 `surface="flat"`                   | 有限数值进度，ARIA 与可见值同步限制在有效范围       |
+| GameSelect           | `surface="liquid" liquidFinish="glossy"`                | 真实 select；关闭的单选框液体化，展开菜单由系统绘制 |
 
 GameSelect 透传 name、required、disabled、value/defaultValue、onChange、ref、
 options/optgroup 与原生 form/reset；multiple 或 size>1 回到普通列表，不模拟自绘多选。
@@ -378,17 +384,17 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 
 ### 实现地图：不要为“好找”拆坏引擎
 
-| 边界 | 源码家 | 下一次正确改动 |
-| --- | --- | --- |
-| 成品控件语义与事件 | `GameButton`、`GameSurfaces`、`GameDisplay` | CTA、分段、进度的交互入口 |
-| 单体内容 / 装饰分层 | `LiquidSurface.tsx` | 一团液体背后承载真实 DOM 的装配 |
-| 命名词汇与物性 | `liquidGooeyForms.ts` | 形态的分类、默认参数、投影；preview 直接读它 |
-| React 注册与宿主属性 | `LiquidGroup.tsx` | 参与者和 JSX API，不承包所有物理 |
-| 生命周期、测量、时钟 | `liquidGooeyEngine.ts` | 注册/卸载、唤醒/休眠、预算租约 |
-| 形状 / 运动 | `Geometry`、`Spring`、`Move`、`Evolve` 模块 | 路径几何与弹簧数学，不是消费入口 |
-| 渲染与成本 | `Filter`、`Shadow`、`Waviness`、`Budget` 模块 | SVG/CSS 分工、面积限额和降级 |
-| 图像相互作用 | `liquidGooeyImageMelt.tsx` | 图像接触、融合、清理和专用测试 |
-| 展示与证据 | `LiquidPreview.tsx`、stories、browser tests | 相同运行时的可见例子，不另写一套效果 |
+| 边界                 | 源码家                                        | 下一次正确改动                               |
+| -------------------- | --------------------------------------------- | -------------------------------------------- |
+| 成品控件语义与事件   | `GameButton`、`GameSurfaces`、`GameDisplay`   | CTA、分段、进度的交互入口                    |
+| 单体内容 / 装饰分层  | `LiquidSurface.tsx`                           | 一团液体背后承载真实 DOM 的装配              |
+| 命名词汇与物性       | `liquidGooeyForms.ts`                         | 形态的分类、默认参数、投影；preview 直接读它 |
+| React 注册与宿主属性 | `LiquidGroup.tsx`                             | 参与者和 JSX API，不承包所有物理             |
+| 生命周期、测量、时钟 | `liquidGooeyEngine.ts`                        | 注册/卸载、唤醒/休眠、预算租约               |
+| 形状 / 运动          | `Geometry`、`Spring`、`Move`、`Evolve` 模块   | 路径几何与弹簧数学，不是消费入口             |
+| 渲染与成本           | `Filter`、`Shadow`、`Waviness`、`Budget` 模块 | SVG/CSS 分工、面积限额和降级                 |
+| 图像相互作用         | `liquidGooeyImageMelt.tsx`                    | 图像接触、融合、清理和专用测试               |
+| 展示与证据           | `LiquidPreview.tsx`、stories、browser tests   | 相同运行时的可见例子，不另写一套效果         |
 
 这里的短模块名均有 `liquidGooey` 前缀。当前切分主要服务实现者，这是合理的；
 使用者不需要把这些文件学完。本版不合并物理文件、不改 preset，不以行数为目标。
@@ -397,16 +403,16 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 
 ## 面板系统选型
 
-| 需求 | 用 |
-| --- | --- |
-| 分组内容可收起 | `GameCollapsiblePanel` |
-| 游戏内浮动窗口（最小化成 chip/最大化） | `GameWindowPanel`（最大化填充最近的定位祖先） |
-| 阻断式确认/表单 | `GameModal`（`position="center"`，默认） |
-| 移动端操作面板/action sheet | `GameModal position="bottom"`——同一个原生
-  `<dialog>`，焦点陷阱/Esc/backdrop 不变，只换位置/圆角/入场动画。**不要**
-  自己手搓 backdrop+滑出面板（无 focus trap/Esc 处理的手搓版本是已知的
-  下游 a11y 缺口来源） |
-| 内联卡片容器 | `GamePanel` / `GameDialog` |
+| 需求                                                                     | 用                                            |
+| ------------------------------------------------------------------------ | --------------------------------------------- |
+| 分组内容可收起                                                           | `GameCollapsiblePanel`                        |
+| 游戏内浮动窗口（最小化成 chip/最大化）                                   | `GameWindowPanel`（最大化填充最近的定位祖先） |
+| 阻断式确认/表单                                                          | `GameModal`（`position="center"`，默认）      |
+| 移动端操作面板/action sheet                                              | `GameModal position="bottom"`——同一个原生     |
+| `<dialog>`，焦点陷阱/Esc/backdrop 不变，只换位置/圆角/入场动画。**不要** |
+| 自己手搓 backdrop+滑出面板（无 focus trap/Esc 处理的手搓版本是已知的     |
+| 下游 a11y 缺口来源）                                                     |
+| 内联卡片容器                                                             | `GamePanel` / `GameDialog`                    |
 
 ## 未来出口（记录，不预装）
 
@@ -427,5 +433,5 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
   中的 `.DS_Store`
 - `src/tokens.test.ts` — 守卫测试（token/主题/打包/套壳合同）
 - `bin/swimmer-ui-check.mjs` — 随包发布的消费方 token 漂移检查（`npx
-  swimmer-ui-check`），用法见 usage-and-upgrade-playbook.md
+swimmer-ui-check`），用法见 usage-and-upgrade-playbook.md
 - `pnpm storybook` — 组件与 night 主题演示

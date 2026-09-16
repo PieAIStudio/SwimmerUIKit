@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **275 named exports: 122 values and 153 types**.
+Compiler inventory: **277 named exports: 123 values and 154 types**.
 
 ## GameButton — Controls
 
@@ -66,6 +66,15 @@ Controls, feedback and simple containers
 | `GameToastProps` | type | [source](../../src/GameSurfaces.tsx) |
 | `GameToggleProps` | type | [source](../../src/GameSurfaces.tsx) |
 | `GameTooltipProps` | type | [source](../../src/GameSurfaces.tsx) |
+
+## GameHelpTip — Controls
+
+Optional help accessible by hover, focus and touch
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameHelpTip` | value | [source](../../src/GameHelpTip.tsx) |
+| `GameHelpTipProps` | type | [source](../../src/GameHelpTip.tsx) |
 
 ## GameForms — Forms
 

@@ -49,21 +49,22 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 
 ## 按要完成的事情选
 
-| 我要做什么 | 先用什么 | 容易用错的地方 |
-| --- | --- | --- |
-| 开始、继续、保存、提交 | `GameButton` | 表单提交须写 `type="submit"`；默认是 button |
-| 只有图标的操作 | `GameIconButton` | 提供可访问名称，不靠 tooltip 代替 |
-| 文本输入、长文本、勾选 | `GameField` + `GameInput` / `GameTextArea` / `GameCheckbox` | `GameForms` 是源码模块名，不是公开组件 |
-| 设置开关、范围数值 | `GameToggle` / `GameSlider` | 产品拥有值和变化回调 |
-| 从固定选项中选择 | `GameField` + `GameSelect` | 原生 select；弹出菜单归系统，支持 optgroup/表单/reset；不是可搜索 combobox |
-| 在少量选项间切换 | `GameSegmentedControl` | 已集成液体跟随，不要再包第二个 LiquidGroup |
-| 标签页切换 | `GameTabs` | 产品连接 tab 与对应 panel |
-| 一块信息面板 | `GamePanel` / `GameCollapsiblePanel` / `GameWindowPanel` | 窗口式面板不等于模态对话框 |
-| 真正阻断背景操作的模态框 | `GameModal` | `GameDialog` 是内联对话内容，不是 native dialog |
-| 空状态、提示、进度 | `GameEmptyState` / `GameCallout` / `GameProgress` | `GameToast` 是展示组件，不是完整队列服务 |
-| 图标、头像、徽章 | `GameAssetIcon` / `GameAvatar` / `GameBadge` | 图标需先完成 [README 素材设置](../../README.md#whats-inside) |
-| 围绕游戏画布的壳、HUD、资产栏 | `GameShell` / `GameSceneHudLayout` / `GameAssetLibrary` | [游戏壳说明](game-surface-pack.md)；不包含游戏运行时 |
-| 地形工具或建造任务面板 | `GameTerrainBuildToolbox` / `GameContractorPanel` | 领域组合，不是所有产品的起步依赖 |
+| 我要做什么                    | 先用什么                                                    | 容易用错的地方                                                             |
+| ----------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 开始、继续、保存、提交        | `GameButton`                                                | 表单提交须写 `type="submit"`；默认是 button                                |
+| 只有图标的操作                | `GameIconButton`                                            | 提供可访问名称，不靠 tooltip 代替                                          |
+| 文本输入、长文本、勾选        | `GameField` + `GameInput` / `GameTextArea` / `GameCheckbox` | `GameForms` 是源码模块名，不是公开组件                                     |
+| 设置开关、范围数值            | `GameToggle` / `GameSlider`                                 | 产品拥有值和变化回调                                                       |
+| 从固定选项中选择              | `GameField` + `GameSelect`                                  | 原生 select；弹出菜单归系统，支持 optgroup/表单/reset；不是可搜索 combobox |
+| 在少量选项间切换              | `GameSegmentedControl`                                      | 已集成液体跟随，不要再包第二个 LiquidGroup                                 |
+| 标签页切换                    | `GameTabs`                                                  | 产品连接 tab 与对应 panel                                                  |
+| 一块信息面板                  | `GamePanel` / `GameCollapsiblePanel` / `GameWindowPanel`    | 窗口式面板不等于模态对话框                                                 |
+| 真正阻断背景操作的模态框      | `GameModal`                                                 | `GameDialog` 是内联对话内容，不是 native dialog                            |
+| 空状态、提示、进度            | `GameEmptyState` / `GameCallout` / `GameProgress`           | `GameToast` 是展示组件，不是完整队列服务                                   |
+| 标题／操作旁的解释            | `GameHelpTip`                                               | 短文本；hover、focus、点击／触摸可用。错误原因与必要操作不能藏在这里。     |
+| 图标、头像、徽章              | `GameAssetIcon` / `GameAvatar` / `GameBadge`                | 图标需先完成 [README 素材设置](../../README.md#whats-inside)               |
+| 围绕游戏画布的壳、HUD、资产栏 | `GameShell` / `GameSceneHudLayout` / `GameAssetLibrary`     | [游戏壳说明](game-surface-pack.md)；不包含游戏运行时                       |
+| 地形工具或建造任务面板        | `GameTerrainBuildToolbox` / `GameContractorPanel`           | 领域组合，不是所有产品的起步依赖                                           |
 
 没有列出的名字不是私有，也不是废弃。完整的 [公开 API 分组索引](public-api-inventory.md)
 由 TypeScript 生成，列出每个值、类型和定义文件；`pnpm api:check` 防止遗漏。
@@ -74,12 +75,12 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 自定义单体反馈才需要 `LiquidSurface` 和 `active`。多个物体相互融合、分离、
 跟随时，才读 `LiquidGroup`。预算、滤镜和弹簧不是使用按钮的前置知识。
 
-| 使用层 | 入口 | 何时需要 |
-| --- | --- | --- |
-| 成品控件 | `GameButton`、`GameSegmentedControl`、`GameProgress` | 常见交互，先用这层 |
-| 单体装饰 | `LiquidSurface form="press" active={pressed}` | 自己拥有真实 DOM 控件，只借用背后的一团液体 |
+| 使用层   | 入口                                                 | 何时需要                                       |
+| -------- | ---------------------------------------------------- | ---------------------------------------------- |
+| 成品控件 | `GameButton`、`GameSegmentedControl`、`GameProgress` | 常见交互，先用这层                             |
+| 单体装饰 | `LiquidSurface form="press" active={pressed}`        | 自己拥有真实 DOM 控件，只借用背后的一团液体    |
 | 多体关系 | `LiquidGroup` + `liquidFormGroup` / `liquidFormItem` | 融合、分离、跟随、液滴关系，需要自己安排参与者 |
-| 高级支持 | image-melt 配置、预算设置、安全常量 | 经设计评审的特殊效果或宿主性能管理 |
+| 高级支持 | image-melt 配置、预算设置、安全常量                  | 经设计评审的特殊效果或宿主性能管理             |
 
 十二个形态是**动作词汇，不是十二种控件**。
 完整分类只在设计系统入口维护；例如 `press` 是单体，`merge` 是多体。

@@ -16,6 +16,7 @@ const inventoryPath = 'docs/reference/public-api-inventory.md';
 const families = {
   './GameButton': ['Controls', 'Start here: ordinary actions and liquid CTAs'],
   './GameSurfaces': ['Controls', 'Controls, feedback and simple containers'],
+  './GameHelpTip': ['Controls', 'Optional help accessible by hover, focus and touch'],
   './GameForms': ['Forms', 'Native labelled form controls'],
   './GameSelect': ['Forms', 'Native single/multiple selection; optional liquid closed field'],
   './liquidGooeyFinish': [

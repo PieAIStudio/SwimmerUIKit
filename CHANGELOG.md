@@ -3,6 +3,24 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.7.0 — 2026-09-16
+
+Minor: shared optional help for creator-facing products. Existing controls and
+their defaults remain compatible.
+
+- Add `GameHelpTip`: one named, 44px, non-submit help trigger for short text.
+  Hover, keyboard focus and tap/click open the same explanation; Escape and
+  outside interaction dismiss it. Hovering the explanation keeps it readable.
+- Use the maintained `@floating-ui/react` dependency for positioning, collision
+  avoidance and interaction composition instead of building another popup
+  engine. Other controls retain their existing native implementations.
+- Keep help inside an enclosing native dialog's top layer. It does not portal
+  into the inert page, move focus into noninteractive text, or close the account
+  dialog when the user dismisses help.
+- Required errors, action labels and cost confirmation must remain visible;
+  this is not a menu, rich interactive popover or a replacement for instructions
+  needed to complete an action. Products own the words, not a second help service.
+
 ## 2.6.1 — 2026-09-12
 
 Patch: production CSS behavior, not a new material or API.
@@ -158,7 +176,7 @@ every liquid body was missing.
 
 - **A cast shadow on the single-body forms.** `LiquidSurface` accepted a
   `shadow` and no form set one, so every liquid button floated: the flat button
-  standing next to it carries a solid lip *and* `--game-ui-shadow-button`, and
+  standing next to it carries a solid lip _and_ `--game-ui-shadow-button`, and
   the liquid one carried neither. `press`, `settle`, `drain`, and the new
   `swell`, `reach`, `ripple` and `set` now carry two layers each — a tight,
   barely-offset seat that says the body is touching, and a wide low cast that
@@ -461,7 +479,7 @@ removed member never worked makes the removal correct, not non-breaking.
 
 - **The budget warnings were dead in every published build.** Both budget
   fallbacks — the animation engine's and Melt/dissolve's — were gated on
-  `import.meta.env.DEV`. That flag resolves when *this package* is built, not
+  `import.meta.env.DEV`. That flag resolves when _this package_ is built, not
   when the app importing it is, so it was baked to `false` in the artifact and
   the guard minified to `if (this.budgetWarningEmitted || !0) return;` — an
   unconditional early return. The kit degraded to static rendering silently,
@@ -515,7 +533,7 @@ removed member never worked makes the removal correct, not non-breaking.
 - **The rest of the donor's liquid vocabulary.** `morph.shape` gives the
   surface a timeline instead of a resize — the mass travels to the new centre,
   size follows, corners sharpen last. `morph.contentBlur` acts on your content
-  rather than the silhouette, which is what makes text read as sitting *in* the
+  rather than the silhouette, which is what makes text read as sitting _in_ the
   liquid instead of on it. `effect="bend"` deforms the body with velocity while
   staying glued to its content, and publishes `--lg-bend-x/y` plus unitless
   twins so the content can lean with it. `effect="melt"` runs two images into
@@ -650,7 +668,7 @@ removed member never worked makes the removal correct, not non-breaking.
 ### Fixed
 
 - **Every tooltip was invisible on the night theme.** `.game-ui-tooltip
-  [role='tooltip']` painted `background: var(--game-ui-text)` with
+[role='tooltip']` painted `background: var(--game-ui-text)` with
   `color: var(--game-ui-text-on-dark)`. On light that is a dark chip over a
   pale page and reads correctly. On night `--game-ui-text` flips to cream, so
   the chip became cream-on-cream at **1.15:1**. The light theme looking right
@@ -753,7 +771,7 @@ file a bug, because it reads as a design choice rather than a missing step.
 The sculpted PNGs were never missing — 350 files travel inside the package, in
 `dist/assets`. What was missing was any route from there to a path the host
 actually serves. `CLAY_ASSET_BASE_PATH` names an absolute URL on the
-*consumer's* origin, and nothing copied, exported or explained it. The kit's own
+_consumer's_ origin, and nothing copied, exported or explained it. The kit's own
 Storybook worked throughout, because its assets sit in `public/`.
 
 ### Added

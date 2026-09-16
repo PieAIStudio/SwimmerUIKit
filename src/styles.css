@@ -19,6 +19,47 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
+  .game-ui-help-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--game-ui-radius-control);
+    background: transparent;
+    color: var(--game-ui-text-muted);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-help-trigger:hover,
+  .game-ui-help-trigger:focus-visible {
+    color: var(--game-ui-text);
+    background: color-mix(in srgb, var(--game-ui-secondary) 12%, transparent);
+  }
+  .game-ui-help-trigger:focus-visible {
+    outline: 2px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-help-tip {
+    z-index: 100;
+    width: max-content;
+    max-width: min(22rem, calc(100vw - 24px));
+    box-sizing: border-box;
+    padding: var(--game-ui-space-12) var(--game-ui-space-16);
+    border-radius: var(--game-ui-radius-card);
+    color: var(--game-ui-tooltip-ink);
+    background: var(--game-ui-tooltip-surface);
+    box-shadow: var(--game-ui-shadow-callout);
+    font-family: var(--game-ui-font-body);
+    font-size: var(--game-ui-font-md);
+    font-weight: 400;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
   .game-ui-dialog h2,
   .game-ui-panel h3,
   .game-ui-prompt h3,

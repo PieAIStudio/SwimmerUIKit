@@ -45,6 +45,10 @@ describe('2.x public contract retained through discoverability work', () => {
       './tailwind.css': './dist/tailwind.css',
       './package.json': './package.json',
     });
-    expect(pkg.dependencies ?? {}).toEqual({});
+    // 2.7 explicitly adopts one maintained headless dependency for contextual
+    // help. Keep the allowlist exact; this is not permission for other engines
+    // or an export-map change. The earlier zero-dependency failure is retained
+    // in this release's evidence as a reviewed contract change.
+    expect(pkg.dependencies).toEqual({ '@floating-ui/react': '0.27.20' });
   });
 });

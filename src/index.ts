@@ -4,6 +4,7 @@
 // break type resolution (arethetypeswrong: internal resolution error).
 export { type LiquidFinish } from './liquidGooeyFinish';
 export { GameSelect, type GameSelectProps } from './GameSelect';
+export { GameHelpTip, type GameHelpTipProps } from './GameHelpTip';
 export {
   GameButton,
   type GameButtonProps,

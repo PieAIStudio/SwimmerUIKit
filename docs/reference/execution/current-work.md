@@ -25,6 +25,18 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Active: **2.7.0 optional contextual help**, requested by Directing's creator
+  feedback across backup, navigation and writing panels. `GameHelpTip` composes
+  maintained Floating UI interaction/positioning with brand tokens and a native
+  non-submit control. Existing tooltip and dialog APIs remain compatible.
+  Local verification passes 365 tests, docs, production CSS/JS, Storybook and
+  publint/type packaging. A real 390px touch browser opened help within a native
+  modal, then Escape dismissed only help; its screenshot was inspected.
+  Evidence: `.devspace-reports/creator-help/`. The old zero-runtime-dependency
+  test failed first, then was explicitly changed to an exact one-dependency
+  allowlist for this reviewed feature, not removed. Publication/consumer
+  acceptance remain separate from these local results.
+
 - Completed: **2.6 liquid controls and beginner catalog, delivered as 2.6.1**,
   authorized after the 2.5.0 research delivery. Scope, current gates, real npm
   tarball/type checks and live-site evidence are in
@@ -51,9 +63,12 @@ This file is the current project work index. It is not the agents-routing algori
   guide; unadopted image optimizations remain research.
 - SPEC-0001/0002 are provenance for earlier packaging and design-system work;
   their old version targets are not this release's checklist.
-- Runtime-dependency policy: **zero runtime deps** — browser-native
-  dialog/color-mix/cascade-layers cover current implementations. Native controls
-  or a reviewed mature headless package are future options, not preinstalled deps.
+- Runtime-dependency boundary: existing dialogs and ordinary controls remain
+  native. 2.7.0 adds the reviewed Floating UI React dependency only for contextual
+  help: current CSS-only tooltip cannot provide touch dismissal, collision
+  avoidance and modal-aware portals. It does not replace native dialogs or the
+  liquid renderer. Native popover was considered but does not alone provide the
+  required hover/focus/click composition and viewport positioning across hosts.
 - Distribution direction: public npmjs package plus a publicly readable GitHub
   repository under the PieAI Limited Use License. Releases use the manual
   `npm-publish.yml` Trusted Publishing workflow; no long-lived npm write token.

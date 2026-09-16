@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -74,6 +74,9 @@
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
     "check:styles": "node bin/swimmer-ui-check.mjs src"
+  },
+  "dependencies": {
+    "@floating-ui/react": "0.27.20"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
