@@ -3,6 +3,12 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.8.0 — 2026-09-18
+
+- Add optional `GameModal keepMounted` for unfinished form state that should
+  survive close/reopen. Closed modal content remains inert and keyboard
+  unreachable; the default still unmounts `children` on close.
+
 ## 2.7.2 — 2026-09-16
 
 - Use readable muted ink for editable input and textarea placeholders. Empty

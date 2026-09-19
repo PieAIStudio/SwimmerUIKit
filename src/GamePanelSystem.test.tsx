@@ -150,6 +150,20 @@ describe('GameModal', () => {
     expect(html).toContain('Hidden');
   });
 
+  it('keeps closed body content mounted and inert when requested', () => {
+    const html = compact(
+      renderToStaticMarkup(
+        <GameModal keepMounted onClose={() => {}} open={false} title="Preserved">
+          <input aria-label="unfinished answer" defaultValue="draft" />
+        </GameModal>,
+      ),
+    );
+
+    expect(html).toContain('unfinished answer');
+    expect(html).toContain('value="draft"');
+    expect(html).toContain('inert');
+  });
+
   it('defaults to a centered position and accepts a bottom-sheet variant', () => {
     const centered = compact(
       renderToStaticMarkup(

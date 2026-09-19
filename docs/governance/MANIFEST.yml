@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-16T07:32:55.251Z
+generated_at: 2026-09-19T00:27:15.204Z
 generator_version: doc-gov@0.9.11
 docs_count: 46
 docs:
@@ -149,7 +149,7 @@ docs:
     type: policy
     status: stable
     canonical: true
-    last_reviewed: 2026-09-08
+    last_reviewed: 2026-09-17
     pinned: true
   - id: POLICY-SHARED-CLEAN-IMAGE-GENERATION
     path: docs/policy/shared-rules/clean-image-generation-rules.md

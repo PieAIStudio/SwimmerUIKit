@@ -59,7 +59,7 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 | 在少量选项间切换              | `GameSegmentedControl`                                      | 已集成液体跟随，不要再包第二个 LiquidGroup                                 |
 | 标签页切换                    | `GameTabs`                                                  | 产品连接 tab 与对应 panel                                                  |
 | 一块信息面板                  | `GamePanel` / `GameCollapsiblePanel` / `GameWindowPanel`    | 窗口式面板不等于模态对话框                                                 |
-| 真正阻断背景操作的模态框      | `GameModal`                                                 | `GameDialog` 是内联对话内容，不是 native dialog                            |
+| 真正阻断背景操作的模态框      | `GameModal`                                                 | `GameDialog` 是内联对话内容，不是 native dialog；未提交表单要跨关闭保留时传 `keepMounted` |
 | 空状态、提示、进度            | `GameEmptyState` / `GameCallout` / `GameProgress`           | `GameToast` 是展示组件，不是完整队列服务                                   |
 | 标题／操作旁的解释            | `GameHelpTip`                                               | 短文本；hover、focus、点击／触摸可用。错误原因与必要操作不能藏在这里。     |
 | 图标、头像、徽章              | `GameAssetIcon` / `GameAvatar` / `GameBadge`                | 图标需先完成 [README 素材设置](../../README.md#whats-inside)               |

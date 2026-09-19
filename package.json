@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "2.7.2",
+  "version": "2.8.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
