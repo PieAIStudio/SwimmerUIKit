@@ -25,23 +25,26 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Liquid presence refinement preserves the Owner-approved body and the existing
+- Liquid presence refinement preserves the Owner-approved body and the published
   optional `./liquid-presence` entry. It adds continuous gather/retraction,
   event-driven DOM positioning, interruption/visibility guards and high-contrast
   rendering, without changing ordinary controls or adding a runtime dependency.
   The sole cross-repository record is SwimmerNerveKit's
   `docs/plans/completed/liquid-presence-refinement.md`; the API and lifecycle
   contract remains in this Kit's [design guide](../design-system-guide.md#液体协作身体源码候选).
-  Local checkpoints preserve the approved baseline. Publication and actual
-  device/provider/production acceptance remain separate.
+  Local checkpoints preserve the approved baseline. The current published
+  version is `2.9.0`; actual device/provider/production acceptance remains
+  separate.
 
-- Completed local implementation, unpublished: **Liquid Presence** adds the optional `./liquid-presence`
+- Completed and published as **2.9.0**: **Liquid Presence** adds the optional `./liquid-presence`
   renderer and CSS leaf for an existing assistant's grounded split/fly/dock/return
   gesture. It reuses the liquid geometry, material and budget, not another agent
   or media connection. Usage lives in the design guide; the single cross-project
   plan and preview evidence belong to SwimmerNerveKit's
-  `docs/plans/completed/liquid-presence.md`. No package publication is implied and
-  ordinary controls keep their existing defaults.
+  `docs/plans/completed/liquid-presence.md`. The package source and registry
+  tarball keep ordinary controls on their existing defaults; the exact release
+  commit, workflow and registry integrity are recorded in the release receipt
+  below after Trusted Publishing completes.
 
 - Active: **2.7.0 optional contextual help**, requested by Directing's creator
   feedback across backup, navigation and writing panels. `GameHelpTip` composes

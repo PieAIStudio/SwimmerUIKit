@@ -50,7 +50,7 @@ jobs:
       - run: pnpm build-storybook
       - run: pnpm docs:check
       - run: npx publint
-      - run: npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only
+      - run: npx @arethetypeswrong/cli --pack . --entrypoints . ./liquid-presence ./package.json --profile esm-only
 
       - name: Resolve package version
         id: package

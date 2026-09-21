@@ -3,6 +3,18 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.9.0 — 2026-09-21
+
+Minor: publish the optional liquid presence leaf for products that already own
+an assistant and its real target registry.
+
+- Add the public `./liquid-presence` renderer and `./liquid-presence.css` leaf.
+  The body, split/fly/dock/return gesture, reduced-motion fallback, target
+  visibility guards and liquid budget remain opt-in and isolated from the root
+  controls entry.
+- Consumers still own task identity, navigation, media observations, business
+  actions and accessible text. No model, media or runtime dependency is added.
+
 ## 2.8.0 — 2026-09-18
 
 - Add optional `GameModal keepMounted` for unfinished form state that should
