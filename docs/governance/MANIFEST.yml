@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-21T13:12:06.586Z
+generated_at: 2026-09-21T16:09:04.125Z
 generator_version: doc-gov@0.9.11
 docs_count: 46
 docs:
@@ -212,7 +212,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-12
+    last_reviewed: 2026-09-22
     pinned: true
   - id: REF-GAME-SURFACE-PACK
     path: docs/reference/game-surface-pack.md

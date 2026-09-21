@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-22
 domain: meta
 tags:
   - current-work
@@ -42,9 +42,14 @@ This file is the current project work index. It is not the agents-routing algori
   or media connection. Usage lives in the design guide; the single cross-project
   plan and preview evidence belong to SwimmerNerveKit's
   `docs/plans/completed/liquid-presence.md`. The package source and registry
-  tarball keep ordinary controls on their existing defaults; the exact release
-  commit, workflow and registry integrity are recorded in the release receipt
-  below after Trusted Publishing completes.
+  tarball keep ordinary controls on their existing defaults.
+
+- **2.9.0 release receipt:** source commit `371149c965fc46c4ed9bdc7f02183d3c30ee48f9`,
+  Trusted Publishing workflow `35622503148` completed successfully, and the
+  official npm registry returned integrity
+  `sha512-2V/a4LwHAKlBJ58PO5TaN4vykFiy3tvt4G01wFr9AQvgLhZbbyrZAadHaVdGNyRgv64RvSSZR0VSYyjCoFAHmw==`.
+  The registry tarball was read back and contains `dist/liquid-presence.js`,
+  `dist/liquid-presence.d.ts` and `dist/liquid-presence.css`.
 
 - Active: **2.7.0 optional contextual help**, requested by Directing's creator
   feedback across backup, navigation and writing panels. `GameHelpTip` composes
