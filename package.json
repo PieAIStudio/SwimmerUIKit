@@ -42,6 +42,11 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./liquid-presence": {
+      "types": "./dist/liquid-presence.d.ts",
+      "default": "./dist/liquid-presence.js"
+    },
+    "./liquid-presence.css": "./dist/liquid-presence.css",
     "./assets/*": "./dist/assets/*",
     "./styles.css": "./dist/styles.css",
     "./preview.css": "./dist/preview.css",

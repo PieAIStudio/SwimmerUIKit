@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-21
 domain: product
 tags:
   - design
@@ -274,6 +274,62 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 效果本身的 token：`--game-ui-liquid-metal-face` / `--ink`（日夜两套都要给值，不能继承会在 night 上反相的 ink-deep）、`--game-ui-liquid-metal-accent`（默认等于 `--game-ui-accent`）、`--game-ui-liquid-metal-dispersion`、`--game-ui-liquid-metal-sweep-speed`、`--game-ui-liquid-metal-rest`、`--game-ui-liquid-metal-bloom`。
 
 ## 液体从使用者到实现者
+
+### 液体协作身体（源码候选）
+
+`./liquid-presence` 是可选浏览器入口，导出 `LiquidPresence` 及其类型。
+`./liquid-presence.css` 单独导入，不改变普通控件的根入口或默认动效。
+该入口是当前本地候选；正式产品应在新包发布后钉版消费，不能把相邻仓库
+源码变成生产依赖。跨库计划和实际试玩证据由 SwimmerNerveKit 的
+`docs/plans/completed/liquid-presence.md` 统一维护，不在 UIKit 再开一份计划。
+
+本体和飞出的液滴仍是一个助手的视觉手势。UIKit 负责材质和局部运动，
+Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
+产品仍负责真实可见性、页面导航、作品权限、编辑和保存。
+
+```tsx
+import { LiquidPresence, type LiquidPresenceTarget } from '@pieai/swimmer-ui-kit/liquid-presence';
+import '@pieai/swimmer-ui-kit/styles.css';
+import '@pieai/swimmer-ui-kit/liquid-presence.css';
+
+export function AssistantEntry({ guide, busy, open, clearGuide }: {
+  guide: LiquidPresenceTarget | null;
+  busy: boolean;
+  open(): void;
+  clearGuide(): void;
+}) {
+  return (
+    <button type="button" aria-label="打开 AI 协作" onClick={open}>
+      <LiquidPresence
+        size={76}
+        activity={busy ? 'working' : 'idle'}
+        target={guide}
+        onDismiss={clearGuide}
+      />
+    </button>
+  );
+}
+```
+
+`target` 包含本次手势的 `key`、可读 `label`、读取真实当前位置的 `getRect()`，
+以及可选的 `contextElement`。后者提供滚动和原生弹窗上下文，不是模拟点击
+入口。重新指示相同目标也应换 `key`；位置改变仍由原读取函数返回，不能问
+模型生成 CSS 或像素坐标。失去目标时返回 `null`，更换账号、作品或视图时
+由宿主撤销旧目标并重建该作用域的身体。
+
+待命静止，交流或实际工作状态才激活动态；`levelRef` 只接收已有媒体连接的
+真实归一化音量，没有读数就留空。声音活动和任务进度是两类事实，不能用
+动画推断已经录音、生成完成或保存成功。颜色默认取品牌 secondary；
+可用 `colorFrom` / `colorTo` 指定经产品选择的色板，错误与待核对仍采用
+warning 色，并由宿主保留文字说明。
+
+本体附近做分裂，途中移动小块液滴，到达后在目标边缘停靠；没有全屏融合
+滤镜。沿用现有液体预算；预算不足或 `reducedMotion` / 系统减少动态开启时
+直接保留静态目标说明，不提高全局预算。原生弹窗与外部本体不在同一层时
+直接在正确层级指示，不假装穿过模态遮罩。装饰层不抢点击，按钮和文字
+保持原来的真实 DOM。`onDismiss` 只清除指示，不能接取消任务、保存或付款。
+
+### 普通液体控件
 
 ### 先用成品，再学形态
 

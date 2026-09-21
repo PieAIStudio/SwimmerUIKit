@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-12
+last_reviewed: 2026-09-21
 domain: product
 tags:
   - components
@@ -92,6 +92,16 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 [设计系统的液体入口](design-system-guide.md#液体从使用者到实现者)。
 需要研究图像 Morph / Melt / Bend 才读 [液体原语参考](liquid-primitives.md)。
 preview 的 `liquid.html` 展示全部形态；没有这个页面的消费宿主不应照搬相对链接。
+
+## 可选的液体协作身体（源码候选）
+
+AI 本体保留、分出液滴指向真实入口时，用独立的
+`@pieai/swimmer-ui-kit/liquid-presence`，不是再包一层 LiquidGroup。
+这是当前源码新增的可选入口，**不是已发布版本的新功能公告**。
+它只画身体和手势，不开启麦克风、不运行模型，也不点击目标。
+使用方法、状态和接入边界见
+[液体协作身体](design-system-guide.md#液体协作身体源码候选)。
+根入口生成的 API 索引不包含这个独立叶子；独立样式需要显式导入。
 
 ## 不要混淆三种“扁平 / 发亮”
 

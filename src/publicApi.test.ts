@@ -34,7 +34,7 @@ describe('2.x public contract retained through discoverability work', () => {
     for (const { name, kind } of baseline.exports) expect(current).toContainEqual({ name, kind });
   });
 
-  it('preserves the existing package export-map routes', () => {
+  it('preserves existing routes and adds only the optional liquid-presence leaf', () => {
     const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
     expect(pkg.exports).toEqual({
       '.': { types: './dist/index.d.ts', default: './dist/index.js' },
@@ -44,11 +44,16 @@ describe('2.x public contract retained through discoverability work', () => {
       './fonts.css': './dist/fonts.css',
       './tailwind.css': './dist/tailwind.css',
       './package.json': './package.json',
+      './liquid-presence': {
+        types: './dist/liquid-presence.d.ts',
+        default: './dist/liquid-presence.js',
+      },
+      './liquid-presence.css': './dist/liquid-presence.css',
     });
-    // 2.7 explicitly adopts one maintained headless dependency for contextual
-    // help. Keep the allowlist exact; this is not permission for other engines
-    // or an export-map change. The earlier zero-dependency failure is retained
-    // in this release's evidence as a reviewed contract change.
+    // The liquid body is deliberately opt-in, not a new root barrel export.
+    // Keep the route allowlist exact and preserve every preexisting path above.
+    // 2.7's one maintained headless dependency already supplies its positioning;
+    // this feature must not introduce a renderer/agent dependency of its own.
     expect(pkg.dependencies).toEqual({ '@floating-ui/react': '0.27.20' });
   });
 });

@@ -22,6 +22,12 @@ function bundleOrExit(filename) {
 
 mkdirSync('dist', { recursive: true });
 
+const presenceCode = bundleOrExit('src/liquid-presence.css');
+writeFileSync('dist/liquid-presence.css', presenceCode);
+console.log(
+  `[build-css] dist/liquid-presence.css written (${presenceCode.length} bytes, 0 warnings)`,
+);
+
 const stylesCode = bundleOrExit('src/styles.css');
 writeFileSync('dist/styles.css', stylesCode);
 console.log(`[build-css] dist/styles.css written (${stylesCode.length} bytes, 0 warnings)`);

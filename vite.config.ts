@@ -16,10 +16,13 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
+      },
       name: 'SwimmerUiKit',
       formats: ['es'],
-      fileName: () => 'index.js',
+      fileName: (_format, entryName) => `${entryName}.js`,
       cssFileName: 'styles',
     },
     rollupOptions: {

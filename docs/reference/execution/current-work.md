@@ -25,6 +25,14 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Completed local implementation, unpublished: **Liquid Presence** adds the optional `./liquid-presence`
+  renderer and CSS leaf for an existing assistant's grounded split/fly/dock/return
+  gesture. It reuses the liquid geometry, material and budget, not another agent
+  or media connection. Usage lives in the design guide; the single cross-project
+  plan and preview evidence belong to SwimmerNerveKit's
+  `docs/plans/completed/liquid-presence.md`. No package publication is implied and
+  ordinary controls keep their existing defaults.
+
 - Active: **2.7.0 optional contextual help**, requested by Directing's creator
   feedback across backup, navigation and writing panels. `GameHelpTip` composes
   maintained Floating UI interaction/positioning with brand tokens and a native
