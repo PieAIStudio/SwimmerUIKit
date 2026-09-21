@@ -72,3 +72,18 @@
     display: none;
   }
 }
+
+@media (forced-colors: active) {
+  .game-ui-liquid-presence svg g,
+  .game-ui-liquid-presence-overlay svg g,
+  .game-ui-liquid-presence-overlay svg path {
+    filter: none;
+    fill: Highlight;
+  }
+  .game-ui-liquid-presence-label {
+    color: CanvasText;
+    background: Canvas;
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+}

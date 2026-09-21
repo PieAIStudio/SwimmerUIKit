@@ -116,4 +116,25 @@ describe('liquid gesture independent geometry review', () => {
     expect(seat.y).toBeLessThan(target.y);
     expect(seat.width).toBeLessThanOrEqual(84);
   });
+
+  it('keeps the landing inside the viewport for a tall partly clipped editor', () => {
+    const seat = presenceLanding({ x: 40, y: -1200, width: 600, height: 3000 }, viewport);
+    expect(seat.y).toBeGreaterThanOrEqual(16);
+    expect(seat.y).toBeLessThanOrEqual(viewport.height - 16);
+  });
+
+  it('changes direction during the neck phase without resetting the current shape', () => {
+    const origin = sample(180);
+    const redirected = samplePresenceMotion({
+      elapsed: 0,
+      source,
+      viewport,
+      destination: { x: 20, y: 500 },
+      origin,
+    });
+    expect(redirected.bud).toEqual(origin.bud);
+    expect(redirected.point.x).toBeCloseTo(origin.point.x);
+    expect(redirected.point.y).toBeCloseTo(origin.point.y);
+    expect(redirected.separation).toBe(origin.separation);
+  });
 });

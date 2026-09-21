@@ -16,10 +16,14 @@ export interface PresenceElements {
 }
 export function showPresenceNode(element: Element, show: boolean): void {
   element.toggleAttribute('hidden', !show);
-  (element as HTMLElement | SVGElement).style.display = show ? '' : 'none';
+  const style = (element as HTMLElement | SVGElement).style;
+  const display = show ? '' : 'none';
+  if (style.display !== display) style.display = display;
 }
-const set = (element: Element, key: string, value: number | string) =>
-  element.setAttribute(key, String(value));
+const set = (element: Element, key: string, value: number | string) => {
+  const text = String(value);
+  if (element.getAttribute(key) !== text) element.setAttribute(key, text);
+};
 
 /** The overlay may live inside a transformed native dialog. Coordinates still
  * originate in the viewport, then convert into that actual containing block. */
@@ -37,9 +41,17 @@ export function paintPresenceFrame(
   bodyPhase: number,
   energy = 0,
 ) {
-  nodes.source.dataset.liquidPhase = frame.phase;
-  nodes.overlay.dataset.liquidPhase = frame.phase;
+  set(nodes.source, 'data-liquid-phase', frame.phase);
+  set(nodes.overlay, 'data-liquid-phase', frame.phase);
   set(nodes.body, 'd', presenceBody(bodyPhase, energy, frame.separation));
+  // A little directional give makes the neck belong to the body; the native
+  // button never moves. The two endpoints are exactly neutral.
+  const pull = frame.bud ? Math.sin(frame.separation * Math.PI) * 0.045 : 0;
+  set(
+    nodes.body,
+    'transform',
+    `translate(${((frame.bud?.x ?? 80) - 80) * pull} ${((frame.bud?.y ?? 80) - 80) * pull})`,
+  );
   showPresenceNode(nodes.bud, Boolean(frame.bud));
   if (frame.bud) {
     set(nodes.bud, 'cx', frame.bud.x);
@@ -62,9 +74,16 @@ export function paintPresenceFrame(
   showPresenceNode(nodes.seat, frame.seat !== null);
   if (frame.seat !== null) {
     nodes.seat.style.transform = `translate(${point.x - 56}px, ${point.y - 28}px)`;
-    set(nodes.seatBody, 'd', presenceSeat(seatWidth, frame.seat, frame.diameter));
+    set(
+      nodes.seatBody,
+      'd',
+      presenceSeat(frame.seatWidth ?? seatWidth, frame.seat, frame.diameter),
+    );
   }
-  showPresenceNode(nodes.label, frame.seat !== null && frame.seat > 0.45);
+  showPresenceNode(
+    nodes.label,
+    frame.phase !== 'gather' && frame.seat !== null && frame.seat > 0.45,
+  );
 }
 
 export function paintPresenceSatellites(

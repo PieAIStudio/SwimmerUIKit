@@ -53,17 +53,42 @@ export function direction(from: LiquidPoint, to: LiquidPoint): LiquidPoint {
   return { x: (to.x - from.x) / length, y: (to.y - from.y) / length };
 }
 
+export function clipPresenceRect(
+  rect: LiquidPresenceRect,
+  viewport: LiquidPresenceRect,
+): LiquidPresenceRect {
+  const x = Math.max(rect.x, viewport.x);
+  const y = Math.max(rect.y, viewport.y);
+  return {
+    x,
+    y,
+    width: Math.max(0, Math.min(rect.x + rect.width, viewport.x + viewport.width) - x),
+    height: Math.max(0, Math.min(rect.y + rect.height, viewport.y + viewport.height) - y),
+  };
+}
+
 /** Stay beside the target, not on its text or hit area. */
 export function presenceLanding(rect: LiquidPresenceRect, viewport: LiquidPresenceRect) {
   const below = rect.y + rect.height + 88 < viewport.y + viewport.height;
   const side = below ? 'bottom' : 'top';
   const left = Math.max(viewport.x + 18, rect.x);
   const right = Math.min(viewport.x + viewport.width - 18, rect.x + rect.width);
+  const width = clampPresence(Math.max(0, right - left) * 0.58, 36, 84);
   return {
-    x: (left + right) / 2,
-    y: below ? rect.y + rect.height + 10 : rect.y - 10,
+    x: clampPresence(
+      (left + right) / 2,
+      viewport.x + width / 2 + 8,
+      viewport.x + viewport.width - width / 2 - 8,
+    ),
+    // An editor can span beyond BOTH viewport edges. Keep the cue in the
+    // visible portion rather than landing above an offscreen first line.
+    y: clampPresence(
+      below ? rect.y + rect.height + 10 : rect.y - 10,
+      viewport.y + 18,
+      viewport.y + viewport.height - 18,
+    ),
     side,
-    width: clampPresence(rect.width * 0.58, 36, 84),
+    width,
   } as const;
 }
 

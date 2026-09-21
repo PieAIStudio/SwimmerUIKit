@@ -281,7 +281,8 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 `./liquid-presence.css` 单独导入，不改变普通控件的根入口或默认动效。
 该入口是当前本地候选；正式产品应在新包发布后钉版消费，不能把相邻仓库
 源码变成生产依赖。跨库计划和实际试玩证据由 SwimmerNerveKit 的
-`docs/plans/completed/liquid-presence.md` 统一维护，不在 UIKit 再开一份计划。
+`docs/plans/completed/liquid-presence.md` 保留认可的基线，精修与交付记录在同库的
+`docs/plans/completed/liquid-presence-refinement.md`；不在 UIKit 再开一份计划。
 
 本体和飞出的液滴仍是一个助手的视觉手势。UIKit 负责材质和局部运动，
 Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
@@ -321,13 +322,33 @@ export function AssistantEntry({ guide, busy, open, clearGuide }: {
 真实归一化音量，没有读数就留空。声音活动和任务进度是两类事实，不能用
 动画推断已经录音、生成完成或保存成功。颜色默认取品牌 secondary；
 可用 `colorFrom` / `colorTo` 指定经产品选择的色板，错误与待核对仍采用
-warning 色，并由宿主保留文字说明。
+warning 色，并由宿主保留文字说明。消费 Nerve 时优先使用它的
+`nervePresenceActivity` 投影真实状态，别在每个项目复制语音/任务优先级判断。
+连接已打开不代表正在说话；缺少真实媒体观察时，不伪造音量或播放活动。
 
 本体附近做分裂，途中移动小块液滴，到达后在目标边缘停靠；没有全屏融合
 滤镜。沿用现有液体预算；预算不足或 `reducedMotion` / 系统减少动态开启时
 直接保留静态目标说明，不提高全局预算。原生弹窗与外部本体不在同一层时
 直接在正确层级指示，不假装穿过模态遮罩。装饰层不抢点击，按钮和文字
 保持原来的真实 DOM。`onDismiss` 只清除指示，不能接取消任务、保存或付款。
+
+#### 连续动作与资源边界
+
+停靠后的回归先把液体托座收拢成滴，再沿原空间关系返回；分裂没结束就取消，
+从当前液颈缩回，不先瞬移成已脱离的小球。重定向保留已经画出的形状和位置，
+已用静态提示交付的同一 `key` 不因重新开启动效而补播一次飞行。
+关闭动效或资源不足时仍保留可读目标，不让辅助动作变成操作的等待条件。
+
+普通 DOM 目标在布局/滚动/样式改变时更新，静止停靠不逐帧查询位置；只有没有
+DOM 的虚拟目标、投影或当前正在 CSS 运动的目标才开启位置帧时钟。页面隐藏
+后暂停绘制与定位订阅。材质进度使用真实时间而非帧数，音量读数做轻量平滑。
+高对比模式用系统颜色和边框保留信息。以上均不增加模型调用或修改业务生命周期。
+
+实现地图按职责而不是场景分叉：`LiquidPresence.tsx` 组装可访问宿主里的视觉；
+`liquidPresenceMotion.ts` 为纯动作采样；`liquidPresenceGeometry.ts` 处理轮廓和
+可见区域；`liquidPresencePaint.ts` 只写 DOM；`liquidPresenceTracking.ts` 拥有
+位置订阅；`useLiquidPresenceMotion.ts` 协调同一手势与资源释放。公开入口仍然
+只有原 `./liquid-presence` 叶子，不要求消费者 deep-import 这些内部模块。
 
 ### 普通液体控件
 

@@ -1,12 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import {
-  autoUpdate,
-  computePosition,
-  flip,
-  offset,
-  shift,
-  type VirtualElement,
-} from '@floating-ui/react';
+import { computePosition, flip, offset, shift, type VirtualElement } from '@floating-ui/react';
 import {
   getLiquidGooeyBudget,
   releaseLiquidGooeyAnimation,
@@ -14,9 +7,9 @@ import {
 } from './liquidGooeyBudget';
 import {
   clampPresence,
+  clipPresenceRect,
   presenceLanding,
   rectCenter,
-  validPresenceRect,
   visiblePresenceRect,
   type LiquidPoint,
 } from './liquidPresenceGeometry';
@@ -29,6 +22,7 @@ import {
   type PresenceElements,
 } from './liquidPresencePaint';
 import type { LiquidPresenceProps } from './liquidPresenceTypes';
+import { readPresenceTarget, trackPresenceGeometry } from './liquidPresenceTracking';
 
 /** Single visual clock. The existing Kit budget arbitrates with liquid controls;
  * a denied lease falls back to a static, fully readable target indication. */
@@ -42,6 +36,8 @@ export function useLiquidPresenceMotion(
   latest.current = props;
   const previous = useRef<LiquidPresenceFrame | null>(null);
   const rejected = useRef<string | null>(null);
+  const delivered = useRef<string | null>(null);
+  const materialPhase = useRef(0);
   const wakeRef = useRef(() => {});
   useEffect(() => {
     const source = sourceRef.current;
@@ -66,16 +62,22 @@ export function useLiquidPresenceMotion(
     const old = previous.current;
     let returning = !target && Boolean(old && old.phase !== 'still');
     let from =
-      old && ['flight', 'dock', 'land', 'return'].includes(old.phase) ? old.point : undefined;
+      old && ['flight', 'dock', 'land', 'gather', 'return'].includes(old.phase)
+        ? old.point
+        : undefined;
     let destination: LiquidPoint = old?.point ?? rectCenter(source.getBoundingClientRect());
-    let seatWidth = 48;
+    let seatWidth = old?.seatWidth ?? 48;
+    let origin = old ?? undefined;
+    const departure = source.getBoundingClientRect();
     let begin = performance.now();
-    let frameId = 0;
+    let frameId: number | null = null;
     let active = true;
     let leased = false;
     let onScreen = true;
     let lastPaint = 0;
-    let bodyPhase = 0;
+    let bodyPhase = materialPhase.current;
+    let lastMaterialTime = performance.now();
+    let level = 0;
     let positionTicket = 0;
     let stopPosition = () => {};
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -88,6 +90,7 @@ export function useLiquidPresenceMotion(
       rejected.current = target.key;
       target = null;
       returning = Boolean(previous.current && previous.current.phase !== 'still');
+      origin = previous.current ?? undefined;
       from = previous.current?.point;
       destination = from ?? destination;
       begin = performance.now();
@@ -95,24 +98,19 @@ export function useLiquidPresenceMotion(
       clearTimeout(timer);
       positionTicket++;
       showPresenceNode(nodes.label, false);
-      latest.current.onDismiss?.(reason);
+      try {
+        latest.current.onDismiss?.(reason);
+      } catch {
+        /* An observer has no control authority. */
+      }
       wake();
     };
-    const getTarget = () => {
-      if (!target) return null;
-      try {
-        const element = target.contextElement;
-        if (element && (!element.isConnected || element.closest('[hidden], [inert]'))) return null;
-        const modal = document.querySelector('dialog:modal');
-        if (modal && (!element || !modal.contains(element))) return null;
-        const rect = target.getRect();
-        return validPresenceRect(rect) && visiblePresenceRect(rect, presenceViewport())
-          ? rect
-          : null;
-      } catch {
-        return null;
-      }
-    };
+    const getTarget = () =>
+      target
+        ? readPresenceTarget(
+            latest.current.target?.key === target.key ? latest.current.target : target,
+          )
+        : null;
     const positionLabel = () => {
       if (!target) return;
       const rect = getTarget();
@@ -121,23 +119,24 @@ export function useLiquidPresenceMotion(
         return;
       }
       const landing = presenceLanding(rect, presenceViewport());
+      const visible = clipPresenceRect(rect, presenceViewport());
       destination = landing;
       seatWidth = landing.width;
       const virtual: VirtualElement = {
         ...(target.contextElement ? { contextElement: target.contextElement } : {}),
         getBoundingClientRect: () => ({
-          ...rect,
-          top: rect.y,
-          left: rect.x,
-          bottom: rect.y + rect.height,
-          right: rect.x + rect.width,
+          ...visible,
+          top: visible.y,
+          left: visible.x,
+          bottom: visible.y + visible.height,
+          right: visible.x + visible.width,
         }),
       };
       const ticket = ++positionTicket;
       void computePosition(virtual, nodes.label, {
         strategy: 'absolute',
         placement: landing.side,
-        middleware: [offset(26), flip(), shift({ padding: 16 })],
+        middleware: [offset(26), flip(), shift({ padding: 16, crossAxis: true })],
       })
         .then(({ x, y }) => {
           if (active && ticket === positionTicket)
@@ -150,11 +149,19 @@ export function useLiquidPresenceMotion(
         latest.current.activity ?? 'idle',
       );
     const canAnimate = () => {
-      if (latest.current.reducedMotion || document.hidden || !onScreen) return false;
+      if (
+        latest.current.reducedMotion ||
+        latest.current.activity === 'disabled' ||
+        document.hidden ||
+        !onScreen
+      )
+        return false;
       if (!visiblePresenceRect(source.getBoundingClientRect(), presenceViewport())) return false;
+      const modal = document.querySelector('dialog:modal');
+      if (modal && !modal.contains(source)) return false;
       const targetDialog = target?.contextElement?.closest('dialog') ?? null;
       if (target && source.closest('dialog') !== targetDialog) return false;
-      const area = Math.max(112 * 56, (source.getBoundingClientRect().width * 2) ** 2);
+      const area = 112 * 56 + 96 * 72 + (source.getBoundingClientRect().width * 2) ** 2;
       const budget = getLiquidGooeyBudget();
       if (budget.maxAnimatedGroups === 0 || area > budget.maxFilterArea) {
         release();
@@ -166,6 +173,21 @@ export function useLiquidPresenceMotion(
     function paint(now: number) {
       if (!active || document.hidden) return;
       const sourceRect = nodes.source.getBoundingClientRect();
+      if (
+        !nodes.source.isConnected ||
+        nodes.source.closest('[hidden], [inert]') ||
+        sourceRect.width <= 0 ||
+        sourceRect.height <= 0
+      ) {
+        returning = false;
+        previous.current = null;
+        end('unavailable');
+        showPresenceNode(nodes.label, false);
+        showPresenceNode(nodes.flight, false);
+        showPresenceNode(nodes.seat, false);
+        release();
+        return;
+      }
       if (target && !getTarget()) {
         end('unavailable');
         return;
@@ -173,28 +195,34 @@ export function useLiquidPresenceMotion(
       const animated = canAnimate();
       let frame = samplePresenceMotion({
         elapsed: now - begin,
-        source: sourceRect,
+        source: returning ? sourceRect : departure,
         destination,
         viewport: presenceViewport(),
         returning,
         ...(from ? { from } : {}),
+        ...(origin ? { origin } : {}),
       });
       if (!target && !returning)
         frame = { ...frame, phase: 'still', separation: 0, bud: null, seat: null };
-      if (!animated)
+      if (!animated || (target && delivered.current === target.key))
         frame = {
           ...frame,
           phase: target ? 'dock' : 'still',
           point: destination,
           bud: null,
           seat: target ? 1 : null,
-          separation: 0,
+          separation: target ? 1 : 0,
         };
       if (returning && frame.phase === 'still') returning = false;
+      if (target && frame.phase === 'dock') delivered.current = target.key;
       const moving = !['still', 'dock'].includes(frame.phase);
       const raw = latest.current.levelRef?.current;
-      const level = typeof raw === 'number' ? clampPresence(raw, 0, 1) : 0;
-      if (animated && (moving || bodyActive())) bodyPhase += 0.035;
+      const elapsed = Math.max(0, Math.min(64, now - lastMaterialTime));
+      lastMaterialTime = now;
+      const amplitude = typeof raw === 'number' ? clampPresence(raw, 0, 1) : 0;
+      level += (amplitude - level) * (1 - Math.exp(-elapsed / (amplitude > level ? 65 : 140)));
+      if (animated && (moving || bodyActive())) bodyPhase += elapsed * 0.00105;
+      materialPhase.current = bodyPhase;
       const energy = animated && bodyActive() && !moving ? 0.14 + level * 0.75 : moving ? 0.2 : 0;
       const wasHidden = nodes.label.hasAttribute('hidden');
       paintPresenceFrame(nodes, frame, seatWidth, bodyPhase, energy);
@@ -204,15 +232,18 @@ export function useLiquidPresenceMotion(
         animated && latest.current.activity === 'speaking' && frame.phase === 'still',
         level,
       );
-      nodes.source.dataset.liquidMotion =
-        animated && (moving || bodyActive()) ? 'animated' : 'static';
-      previous.current = frame;
+      const motion = animated && (moving || bodyActive()) ? 'animated' : 'static';
+      if (nodes.source.dataset.liquidMotion !== motion) nodes.source.dataset.liquidMotion = motion;
+      previous.current = {
+        ...frame,
+        seatWidth: frame.phase === 'gather' ? (origin?.seatWidth ?? seatWidth) : seatWidth,
+      };
       if (target && wasHidden && !nodes.label.hasAttribute('hidden')) positionLabel();
       if (animated && (moving || bodyActive())) frameId = requestAnimationFrame(tick);
       else release();
     }
     function tick(now: number) {
-      frameId = 0;
+      frameId = null;
       if (!active || document.hidden) {
         release();
         return;
@@ -226,39 +257,27 @@ export function useLiquidPresenceMotion(
       paint(now);
     }
     function wake() {
-      if (!active || frameId || document.hidden) return;
+      if (!active || frameId !== null || document.hidden) return;
       paint(performance.now());
     }
     wakeRef.current = wake;
+    const startPosition = () => {
+      stopPosition();
+      stopPosition = () => {};
+      if (!target || document.hidden) return;
+      const stop = trackPresenceGeometry(nodes.source, target, nodes.label, () => {
+        positionLabel();
+        wake();
+      });
+      stopPosition = stop;
+      if (!target) stop();
+    };
     if (target) {
       nodes.label.textContent = target.label.slice(0, 240);
       positionLabel();
       if (target) {
-        const virtual: VirtualElement = {
-          ...(target.contextElement ? { contextElement: target.contextElement } : {}),
-          getBoundingClientRect: () => {
-            const rect = getTarget() ?? { x: 0, y: 0, width: 0, height: 0 };
-            return {
-              ...rect,
-              top: rect.y,
-              left: rect.x,
-              right: rect.x + rect.width,
-              bottom: rect.y + rect.height,
-            };
-          },
-        };
-        const stop = autoUpdate(
-          virtual,
-          nodes.label,
-          () => {
-            positionLabel();
-            wake();
-          },
-          { animationFrame: true },
-        );
-        stopPosition = stop;
-        if (!target) stop();
-        else timer = setTimeout(() => end('expired'), 12_000);
+        startPosition();
+        if (target) timer = setTimeout(() => end('expired'), 12_000);
       }
     }
     const key = (event: KeyboardEvent) => {
@@ -274,10 +293,16 @@ export function useLiquidPresenceMotion(
     };
     const visibility = () => {
       if (document.hidden) {
-        cancelAnimationFrame(frameId);
-        frameId = 0;
+        if (frameId !== null) cancelAnimationFrame(frameId);
+        frameId = null;
+        stopPosition();
+        positionTicket++;
         release();
-      } else wake();
+      } else {
+        lastMaterialTime = performance.now();
+        startPosition();
+        wake();
+      }
     };
     const intersection =
       typeof IntersectionObserver === 'undefined'
@@ -285,8 +310,8 @@ export function useLiquidPresenceMotion(
         : new IntersectionObserver((entries) => {
             onScreen = entries[0]?.isIntersecting ?? true;
             if (!onScreen) {
-              cancelAnimationFrame(frameId);
-              frameId = 0;
+              if (frameId !== null) cancelAnimationFrame(frameId);
+              frameId = null;
               release();
             }
             wake();
@@ -300,7 +325,7 @@ export function useLiquidPresenceMotion(
       active = false;
       wakeRef.current = () => {};
       positionTicket++;
-      cancelAnimationFrame(frameId);
+      if (frameId !== null) cancelAnimationFrame(frameId);
       clearTimeout(timer);
       stopPosition();
       intersection?.disconnect();

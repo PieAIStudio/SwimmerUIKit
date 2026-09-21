@@ -25,6 +25,16 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Liquid presence refinement preserves the Owner-approved body and the existing
+  optional `./liquid-presence` entry. It adds continuous gather/retraction,
+  event-driven DOM positioning, interruption/visibility guards and high-contrast
+  rendering, without changing ordinary controls or adding a runtime dependency.
+  The sole cross-repository record is SwimmerNerveKit's
+  `docs/plans/completed/liquid-presence-refinement.md`; the API and lifecycle
+  contract remains in this Kit's [design guide](../design-system-guide.md#液体协作身体源码候选).
+  Local checkpoints preserve the approved baseline. Publication and actual
+  device/provider/production acceptance remain separate.
+
 - Completed local implementation, unpublished: **Liquid Presence** adds the optional `./liquid-presence`
   renderer and CSS leaf for an existing assistant's grounded split/fly/dock/return
   gesture. It reuses the liquid geometry, material and budget, not another agent
