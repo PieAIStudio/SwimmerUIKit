@@ -371,3 +371,80 @@ it('ambient yields to a real control lease and resumes without a user having to 
   await expect.poll(() => body().dataset.liquidMotion).toBe('ambient');
   expect(getLiquidGooeyBudget().activeGroups).toBe(0);
 });
+
+it('editor-attached review remains when the real target is clicked; ordinary guidance still dismisses', async () => {
+  const guide = await mount();
+  const dismissed = vi.fn();
+  await render({
+    target: guide,
+    reducedMotion: true,
+    dismissOnTargetClick: false,
+    guideContent: <p>Keep the review</p>,
+    onDismiss: dismissed,
+  });
+  target!.click();
+  expect(dismissed).not.toHaveBeenCalled();
+  expect(label().hidden).toBe(false);
+  await render({ dismissOnTargetClick: true });
+  target!.click();
+  expect(dismissed).toHaveBeenCalledWith('dismissed');
+});
+
+it('expanded review is bounded to the viewport and retains native editing controls', async () => {
+  const guide = await mount();
+  await render({
+    target: guide,
+    reducedMotion: true,
+    guideSize: 'expanded',
+    guideContent: <textarea aria-label="review draft" defaultValue="My version" />,
+  });
+  await expect.poll(() => label().hidden).toBe(false);
+  await wait(100);
+  const bounds = label().getBoundingClientRect();
+  expect(bounds.width).toBeLessThanOrEqual(Math.min(420, innerWidth - 32));
+  expect(bounds.height).toBeLessThanOrEqual(innerHeight * 0.65);
+  expect(label().querySelector('textarea')?.value).toBe('My version');
+});
+
+it('an expanded review does not cover its real target when neither side fits all its content', async () => {
+  const guide = await mount();
+  target!.style.top = '45vh';
+  await render({
+    target: guide,
+    reducedMotion: true,
+    guideSize: 'expanded',
+    guideContent: <div style={{ height: 700 }}>A long review, still beside the original</div>,
+  });
+  await wait(150);
+  const source = target!.getBoundingClientRect(),
+    card = label().getBoundingClientRect();
+  expect(
+    card.bottom <= source.top ||
+      card.top >= source.bottom ||
+      card.left >= source.right ||
+      card.right <= source.left,
+  ).toBe(true);
+  expect(card.top).toBeGreaterThanOrEqual(0);
+  expect(card.bottom).toBeLessThanOrEqual(innerHeight);
+});
+
+it('interactive review owns Escape and IME while ordinary outside dismissal remains available', async () => {
+  const guide = await mount(),
+    dismissed = vi.fn();
+  await render({
+    target: guide,
+    reducedMotion: true,
+    guideContent: <textarea />,
+    onDismiss: dismissed,
+  });
+  label()
+    .querySelector('textarea')!
+    .dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  expect(dismissed).not.toHaveBeenCalled();
+  document.dispatchEvent(
+    new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true }),
+  );
+  expect(dismissed).not.toHaveBeenCalled();
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  expect(dismissed).toHaveBeenCalledTimes(1);
+});

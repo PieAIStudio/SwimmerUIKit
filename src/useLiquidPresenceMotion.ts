@@ -1,5 +1,12 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { computePosition, flip, offset, shift, type VirtualElement } from '@floating-ui/react';
+import {
+  computePosition,
+  flip,
+  offset,
+  shift,
+  size as fitFloatingSize,
+  type VirtualElement,
+} from '@floating-ui/react';
 import {
   getLiquidGooeyBudget,
   releaseLiquidGooeyAnimation,
@@ -152,6 +159,8 @@ export function useLiquidPresenceMotion(
         }),
       };
       const ticket = ++positionTicket;
+      const expanded = latest.current.guideSize === 'expanded';
+      if (!expanded) nodes.label.style.maxHeight = '';
       // Measure the real card without a one-frame flash/hitbox at (0, 0).
       // On retarget keep the mounted controls visible so keyboard focus survives.
       if (latest.current.guideContent && !nodes.label.style.transform) {
@@ -160,8 +169,31 @@ export function useLiquidPresenceMotion(
       }
       void computePosition(virtual, nodes.label, {
         strategy: 'absolute',
-        placement: landing.side,
-        middleware: [offset(26), flip(), shift({ padding: 16, crossAxis: true })],
+        placement: expanded && presenceViewport().width >= 900 ? 'right' : landing.side,
+        middleware: [
+          offset(26),
+          flip({
+            padding: 16,
+            ...(expanded && presenceViewport().width >= 900
+              ? { fallbackPlacements: ['left', 'bottom', 'top'] as const }
+              : {}),
+          }),
+          shift({ padding: 16, crossAxis: !expanded }),
+          ...(expanded
+            ? [
+                fitFloatingSize({
+                  padding: 16,
+                  apply({ availableHeight, elements }) {
+                    // Fit the real available side; do not slide a tall review across the
+                    // original selection. Scroll its contents rather than hide the source.
+                    const height = `${Math.max(0, Math.min(560, presenceViewport().height * 0.65, availableHeight))}px`;
+                    if (elements.floating.style.maxHeight !== height)
+                      elements.floating.style.maxHeight = height;
+                  },
+                }),
+              ]
+            : []),
+        ],
       })
         .then(({ x, y, placement }) => {
           if (active && ticket === positionTicket) {
@@ -169,7 +201,11 @@ export function useLiquidPresenceMotion(
             nodes.label.style.visibility = '';
             // A tall explanation can flip even when the small liquid marker
             // would fit below. Keep BOTH on the same side of the actual target.
-            resolvedSide = placement.startsWith('top') ? 'top' : 'bottom';
+            resolvedSide = placement.startsWith('top')
+              ? 'top'
+              : placement.startsWith('bottom')
+                ? 'bottom'
+                : landing.side;
             const nextY = landingY(resolvedSide);
             if (destination.y !== nextY) {
               destination = { x: landing.x, y: nextY };
@@ -360,7 +396,15 @@ export function useLiquidPresenceMotion(
       }
     }
     const key = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && target) {
+      if (event.key === 'Escape' && !event.isComposing && target) {
+        // Interactive content owns its own close/busy/IME decision. Its React
+        // handler runs after this capture listener; do not dismiss it first.
+        if (
+          latest.current.guideContent &&
+          event.target instanceof Node &&
+          nodes.label.contains(event.target)
+        )
+          return;
         const modal = document.querySelector('dialog:modal');
         if (modal && !modal.contains(nodes.label)) return;
         if (latest.current.guideContent) event.preventDefault();
@@ -369,6 +413,7 @@ export function useLiquidPresenceMotion(
     };
     const click = (event: MouseEvent) => {
       if (
+        latest.current.dismissOnTargetClick !== false &&
         target?.contextElement &&
         event.target instanceof Node &&
         target.contextElement.contains(event.target)
@@ -434,6 +479,7 @@ export function useLiquidPresenceMotion(
     props.target?.key,
     props.reducedMotion,
     props.size,
+    props.guideSize,
     hasGuideContent,
   ]);
   useEffect(

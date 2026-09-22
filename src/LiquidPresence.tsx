@@ -185,7 +185,7 @@ export function LiquidPresence(props: LiquidPresenceProps) {
               />
             </svg>
             <div
-              className={`game-ui-liquid-presence-label${props.guideContent ? ' game-ui-liquid-presence-label--guide' : ''}`}
+              className={`game-ui-liquid-presence-label${props.guideContent ? ' game-ui-liquid-presence-label--guide' : ''}${props.guideContent && props.guideSize === 'expanded' ? ' game-ui-liquid-presence-label--expanded' : ''}`}
               role={props.guideContent ? undefined : 'status'}
               aria-atomic={props.guideContent ? undefined : true}
               onClick={props.guideContent ? (event) => event.stopPropagation() : undefined}

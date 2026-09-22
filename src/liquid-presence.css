@@ -78,6 +78,12 @@
   border-radius: 16px;
   text-wrap: wrap;
 }
+.game-ui-liquid-presence-label--expanded {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  max-height: min(560px, 65dvh);
+}
 @media (prefers-reduced-motion: reduce) {
   .game-ui-liquid-presence-flight {
     display: none;

@@ -45,6 +45,11 @@ export interface LiquidPresenceProps {
   /** Human-paced explanation at the destination. The host owns its controls;
    * this stays until explicit dismissal/target loss, not a reading deadline. */
   guideContent?: ReactNode;
+  /** Expanded for review/editing content; still bounded to the visible viewport. */
+  guideSize?: 'compact' | 'expanded';
+  /** Pointing at a button dismisses by default. Editor-attached assistance may
+   * opt out so selecting/typing never discards the user's comparison draft. */
+  dismissOnTargetClick?: boolean;
   /** Visual dismissal only; never wire this to task cancellation. */
   onDismiss?(reason: 'dismissed' | 'unavailable' | 'expired'): void;
 }
