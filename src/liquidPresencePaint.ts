@@ -12,7 +12,7 @@ export interface PresenceElements {
   trail: SVGGElement;
   seat: SVGSVGElement;
   seatBody: SVGPathElement;
-  label: HTMLSpanElement;
+  label: HTMLElement;
 }
 export function showPresenceNode(element: Element, show: boolean): void {
   element.toggleAttribute('hidden', !show);
@@ -41,6 +41,7 @@ export function paintPresenceFrame(
   bodyPhase: number,
   energy = 0,
   intensity = 1,
+  keepExplanation = false,
 ) {
   set(nodes.source, 'data-liquid-phase', frame.phase);
   set(nodes.overlay, 'data-liquid-phase', frame.phase);
@@ -83,7 +84,7 @@ export function paintPresenceFrame(
   }
   showPresenceNode(
     nodes.label,
-    frame.phase !== 'gather' && frame.seat !== null && frame.seat > 0.45,
+    keepExplanation || (frame.phase !== 'gather' && frame.seat !== null && frame.seat > 0.45),
   );
 }
 

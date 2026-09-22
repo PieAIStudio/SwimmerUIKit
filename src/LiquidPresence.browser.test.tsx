@@ -63,6 +63,81 @@ afterEach(async () => {
   resetLiquidGooeyBudgetForTests();
 });
 
+it('interactive guide clicks do not reopen the source launcher and focus survives a new destination', async () => {
+  const guide = await mount();
+  const launch = vi.fn(),
+    next = vi.fn();
+  const renderGuide = async (key: string) =>
+    act(async () =>
+      root!.render(
+        <StrictMode>
+          <button onClick={launch} aria-label="Source">
+            <LiquidPresence
+              size={76}
+              target={{ ...guide, key }}
+              guideContent={<button onClick={next}>Next place</button>}
+            />
+          </button>
+        </StrictMode>,
+      ),
+    );
+  await renderGuide('first');
+  await expect.poll(() => label()?.hidden).toBe(false);
+  const button = label().querySelector('button')!;
+  button.focus();
+  button.click();
+  expect(next).toHaveBeenCalledTimes(1);
+  expect(launch).not.toHaveBeenCalled();
+  await renderGuide('second');
+  expect(document.activeElement).toBe(button);
+  await wait(300);
+  expect(document.activeElement).toBe(button);
+  expect(label().hidden).toBe(false);
+  expect(document.querySelectorAll('[data-presence-overlay]').length).toBe(1);
+});
+
+it('a human-paced explanation does not expire while being read', async () => {
+  const guide = await mount();
+  const dismiss = vi.fn();
+  await render({
+    target: guide,
+    guideContent: <button>Keep reading</button>,
+    reducedMotion: true,
+    onDismiss: dismiss,
+  });
+  await wait(12_300);
+  expect(label().hidden).toBe(false);
+  expect(dismiss).not.toHaveBeenCalled();
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+  await act(async () =>
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', cancelable: true })),
+  );
+  expect(dismiss).toHaveBeenCalledExactlyOnceWith('dismissed');
+  expect(label().hidden).toBe(true);
+}, 20_000);
+
+it('a tall explanation and its liquid marker use the same final flipped side', async () => {
+  const guide = await mount();
+  target!.style.top = `${innerHeight - 160}px`;
+  await render({
+    target: guide,
+    guideContent: <div style={{ height: 210 }}>Long explanation</div>,
+    reducedMotion: true,
+  });
+  await expect
+    .poll(() => {
+      const destination = target!.getBoundingClientRect();
+      const explanation = label().getBoundingClientRect();
+      const seat = document.querySelector('[data-presence-seat-body]')!.getBoundingClientRect();
+      return (
+        explanation.bottom < destination.top &&
+        seat.bottom < destination.top &&
+        seat.top > explanation.bottom
+      );
+    })
+    .toBe(true);
+});
+
 it('switching reduced motion off never replays a guide already delivered statically', async () => {
   const guide = await mount();
   await render({ target: guide, reducedMotion: true });

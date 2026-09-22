@@ -1,4 +1,5 @@
 import type { LiquidPresenceRect } from './liquidPresenceGeometry';
+import type { ReactNode } from 'react';
 
 /** Presentation observations, not a provider/session/task state machine. */
 export type LiquidPresenceActivity =
@@ -41,6 +42,9 @@ export interface LiquidPresenceProps {
   colorFrom?: string;
   colorTo?: string;
   className?: string;
+  /** Human-paced explanation at the destination. The host owns its controls;
+   * this stays until explicit dismissal/target loss, not a reading deadline. */
+  guideContent?: ReactNode;
   /** Visual dismissal only; never wire this to task cancellation. */
   onDismiss?(reason: 'dismissed' | 'unavailable' | 'expired'): void;
 }

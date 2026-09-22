@@ -25,6 +25,11 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Completed local candidate: optional interactive explanation at the existing
+  liquid destination, with human-paced dismissal and portal-safe controls.
+  No new renderer or ordinary-control behavior. Nerve owns the finite sequence;
+  the only cross-project record is NerveKit `docs/plans/completed/guided-walk.md`.
+
 - Completed local candidate: explicit, low-rate living contour and bounded material
   settings for the shared companion. Default `LiquidPresence` stays still;
   this host opts in, with reduced-motion/visibility/budget taking precedence.

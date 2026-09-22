@@ -34,6 +34,7 @@ export function useLiquidPresenceMotion(
 ) {
   const latest = useRef(props);
   latest.current = props;
+  const hasGuideContent = Boolean(props.guideContent);
   const previous = useRef<LiquidPresenceFrame | null>(null);
   const rejected = useRef<string | null>(null);
   const delivered = useRef<string | null>(null);
@@ -81,6 +82,7 @@ export function useLiquidPresenceMotion(
     let lastMaterialTime = performance.now();
     let level = 0;
     let positionTicket = 0;
+    let resolvedSide: 'top' | 'bottom' | null = null;
     let stopPosition = () => {};
     let timer: ReturnType<typeof setTimeout> | undefined;
     const release = () => {
@@ -107,12 +109,21 @@ export function useLiquidPresenceMotion(
       }
       wake();
     };
-    const getTarget = () =>
-      target
-        ? readPresenceTarget(
-            latest.current.target?.key === target.key ? latest.current.target : target,
-          )
-        : null;
+    const getTarget = () => {
+      if (!target) return null;
+      // A newly requested destination may be underneath our PREVIOUS caption.
+      // Exclude only our own explanatory hit layer during host occlusion checks;
+      // other dialogs/overlays still block. This never clicks through anything.
+      const pointerEvents = nodes.label.style.pointerEvents;
+      if (latest.current.guideContent) nodes.label.style.pointerEvents = 'none';
+      try {
+        return readPresenceTarget(
+          latest.current.target?.key === target.key ? latest.current.target : target,
+        );
+      } finally {
+        nodes.label.style.pointerEvents = pointerEvents;
+      }
+    };
     const positionLabel = () => {
       if (!target) return;
       const rect = getTarget();
@@ -122,7 +133,13 @@ export function useLiquidPresenceMotion(
       }
       const landing = presenceLanding(rect, presenceViewport());
       const visible = clipPresenceRect(rect, presenceViewport());
-      destination = landing;
+      const landingY = (side: 'top' | 'bottom') =>
+        clampPresence(
+          side === 'top' ? visible.y - 10 : visible.y + visible.height + 10,
+          presenceViewport().y + 18,
+          presenceViewport().y + presenceViewport().height - 18,
+        );
+      destination = { x: landing.x, y: landingY(resolvedSide ?? landing.side) };
       seatWidth = landing.width;
       const virtual: VirtualElement = {
         ...(target.contextElement ? { contextElement: target.contextElement } : {}),
@@ -135,14 +152,30 @@ export function useLiquidPresenceMotion(
         }),
       };
       const ticket = ++positionTicket;
+      // Measure the real card without a one-frame flash/hitbox at (0, 0).
+      // On retarget keep the mounted controls visible so keyboard focus survives.
+      if (latest.current.guideContent && !nodes.label.style.transform) {
+        nodes.label.style.visibility = 'hidden';
+        showPresenceNode(nodes.label, true);
+      }
       void computePosition(virtual, nodes.label, {
         strategy: 'absolute',
         placement: landing.side,
         middleware: [offset(26), flip(), shift({ padding: 16, crossAxis: true })],
       })
-        .then(({ x, y }) => {
-          if (active && ticket === positionTicket)
+        .then(({ x, y, placement }) => {
+          if (active && ticket === positionTicket) {
             nodes.label.style.transform = `translate(${x}px, ${y}px)`;
+            nodes.label.style.visibility = '';
+            // A tall explanation can flip even when the small liquid marker
+            // would fit below. Keep BOTH on the same side of the actual target.
+            resolvedSide = placement.startsWith('top') ? 'top' : 'bottom';
+            const nextY = landingY(resolvedSide);
+            if (destination.y !== nextY) {
+              destination = { x: landing.x, y: nextY };
+              wake();
+            }
+          }
         })
         .catch(() => {});
     };
@@ -248,6 +281,7 @@ export function useLiquidPresenceMotion(
         bodyPhase,
         energy,
         intensity * (ambient ? 0.65 : 1),
+        Boolean(latest.current.guideContent && target),
       );
       paintPresenceSatellites(
         nodes,
@@ -318,15 +352,20 @@ export function useLiquidPresenceMotion(
       if (!target) stop();
     };
     if (target) {
-      nodes.label.textContent = target.label.slice(0, 240);
       positionLabel();
       if (target) {
         startPosition();
-        if (target) timer = setTimeout(() => end('expired'), 12_000);
+        if (target && !latest.current.guideContent)
+          timer = setTimeout(() => end('expired'), 12_000);
       }
     }
     const key = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') end('dismissed');
+      if (event.key === 'Escape' && target) {
+        const modal = document.querySelector('dialog:modal');
+        if (modal && !modal.contains(nodes.label)) return;
+        if (latest.current.guideContent) event.preventDefault();
+        end('dismissed');
+      }
     };
     const click = (event: MouseEvent) => {
       if (
@@ -366,7 +405,7 @@ export function useLiquidPresenceMotion(
             wake();
           });
     intersection?.observe(source);
-    document.addEventListener('keydown', key);
+    document.addEventListener('keydown', key, true);
     document.addEventListener('click', click);
     document.addEventListener('visibilitychange', visibility);
     document.addEventListener('close', wake, true);
@@ -382,13 +421,21 @@ export function useLiquidPresenceMotion(
       stopPosition();
       intersection?.disconnect();
       release();
-      document.removeEventListener('keydown', key);
+      document.removeEventListener('keydown', key, true);
       document.removeEventListener('click', click);
       document.removeEventListener('visibilitychange', visibility);
       document.removeEventListener('close', wake, true);
       document.removeEventListener('toggle', wake, true);
     };
-  }, [sourceRef, overlayRef, portalRoot, props.target?.key, props.reducedMotion, props.size]);
+  }, [
+    sourceRef,
+    overlayRef,
+    portalRoot,
+    props.target?.key,
+    props.reducedMotion,
+    props.size,
+    hasGuideContent,
+  ]);
   useEffect(
     () => wakeRef.current(),
     [props.activity, props.idleMotion, props.motionSpeed, props.motionIntensity, props.splashes],

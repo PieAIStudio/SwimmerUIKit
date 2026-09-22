@@ -37,6 +37,17 @@ export function LiquidPresence(props: LiquidPresenceProps) {
       '--game-ui-font-body',
       '--game-ui-radius-control',
       '--game-ui-shadow-button',
+      // Interactive explanations reuse brand controls, not a second control
+      // theme. Carry their semantic paint tokens across the same portal.
+      '--game-ui-surface-raised',
+      '--game-ui-text-muted',
+      '--game-ui-border-subtle',
+      '--game-ui-border-ink',
+      '--game-ui-disabled',
+      '--game-ui-button-lip-ink',
+      '--game-ui-accent',
+      '--game-ui-accent-bright',
+      '--game-ui-accent-contrast',
     ];
     const sync = () => {
       const computed = getComputedStyle(anchor);
@@ -173,12 +184,25 @@ export function LiquidPresence(props: LiquidPresenceProps) {
                 filter={`url(#${id}-seat-goo)`}
               />
             </svg>
-            <span
-              className="game-ui-liquid-presence-label"
-              role="status"
-              aria-atomic="true"
+            <div
+              className={`game-ui-liquid-presence-label${props.guideContent ? ' game-ui-liquid-presence-label--guide' : ''}`}
+              role={props.guideContent ? undefined : 'status'}
+              aria-atomic={props.guideContent ? undefined : true}
+              onClick={props.guideContent ? (event) => event.stopPropagation() : undefined}
+              onPointerDown={props.guideContent ? (event) => event.stopPropagation() : undefined}
+              onKeyDown={
+                props.guideContent
+                  ? (event) => {
+                      // Portals bubble through the source launcher in the React tree.
+                      event.stopPropagation();
+                      if (event.key === 'Escape') event.preventDefault();
+                    }
+                  : undefined
+              }
               hidden
-            />
+            >
+              {props.guideContent ?? props.target?.label.slice(0, 240)}
+            </div>
           </div>,
           portalRoot,
         )}

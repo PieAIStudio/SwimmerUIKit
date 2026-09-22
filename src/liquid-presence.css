@@ -67,6 +67,17 @@
   overflow-wrap: anywhere;
   text-wrap: pretty;
 }
+.game-ui-liquid-presence-label--guide {
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  max-height: min(300px, 42dvh);
+  overflow: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  padding: 16px;
+  border-radius: 16px;
+  text-wrap: wrap;
+}
 @media (prefers-reduced-motion: reduce) {
   .game-ui-liquid-presence-flight {
     display: none;
