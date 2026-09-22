@@ -25,6 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Completed local candidate: explicit, low-rate living contour and bounded material
+  settings for the shared companion. Default `LiquidPresence` stays still;
+  this host opts in, with reduced-motion/visibility/budget taking precedence.
+  NerveKit owns its settings and portable Markdown, not this renderer.
+  Cross-repository delivery: NerveKit `docs/plans/completed/companion-personalization.md`.
+
 - Liquid presence refinement preserves the Owner-approved body and the published
   optional `./liquid-presence` entry. It adds continuous gather/retraction,
   event-driven DOM positioning, interruption/visibility guards and high-contrast

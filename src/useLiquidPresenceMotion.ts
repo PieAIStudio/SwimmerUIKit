@@ -71,8 +71,10 @@ export function useLiquidPresenceMotion(
     const departure = source.getBoundingClientRect();
     let begin = performance.now();
     let frameId: number | null = null;
+    let ambientTimer: ReturnType<typeof setTimeout> | undefined;
     let active = true;
     let leased = false;
+    let ambientDeferred = false;
     let onScreen = true;
     let lastPaint = 0;
     let bodyPhase = materialPhase.current;
@@ -148,7 +150,10 @@ export function useLiquidPresenceMotion(
       ['connecting', 'listening', 'thinking', 'speaking', 'working'].includes(
         latest.current.activity ?? 'idle',
       );
+    const wantsAmbient = () =>
+      latest.current.idleMotion === 'breathe' && (latest.current.activity ?? 'idle') === 'idle';
     const canAnimate = () => {
+      ambientDeferred = false;
       if (
         latest.current.reducedMotion ||
         latest.current.activity === 'disabled' ||
@@ -165,6 +170,13 @@ export function useLiquidPresenceMotion(
       const budget = getLiquidGooeyBudget();
       if (budget.maxAnimatedGroups === 0 || area > budget.maxFilterArea) {
         release();
+        return false;
+      }
+      // Idle is courtesy work: do not reserve a slot that a real liquid control
+      // or guidance gesture needs. Its lease is released after each paint.
+      const moving = target || returning || bodyActive();
+      if (!moving && wantsAmbient() && !leased && budget.activeGroups > 0) {
+        ambientDeferred = true;
         return false;
       }
       if (!leased) leased = tryAcquireLiquidGooeyAnimation(area);
@@ -217,22 +229,41 @@ export function useLiquidPresenceMotion(
       if (target && frame.phase === 'dock') delivered.current = target.key;
       const moving = !['still', 'dock'].includes(frame.phase);
       const raw = latest.current.levelRef?.current;
-      const elapsed = Math.max(0, Math.min(64, now - lastMaterialTime));
+      const ambient = !moving && wantsAmbient();
+      const elapsed = Math.max(0, Math.min(160, now - lastMaterialTime));
       lastMaterialTime = now;
       const amplitude = typeof raw === 'number' ? clampPresence(raw, 0, 1) : 0;
       level += (amplitude - level) * (1 - Math.exp(-elapsed / (amplitude > level ? 65 : 140)));
-      if (animated && (moving || bodyActive())) bodyPhase += elapsed * 0.00105;
+      const speed = clampPresence(latest.current.motionSpeed ?? 1, 0.5, 1.5);
+      const intensity = clampPresence(latest.current.motionIntensity ?? 1, 0.25, 1.25);
+      if (animated && (moving || bodyActive() || ambient))
+        bodyPhase += elapsed * (ambient ? 0.00032 : 0.00105) * speed;
       materialPhase.current = bodyPhase;
       const energy = animated && bodyActive() && !moving ? 0.14 + level * 0.75 : moving ? 0.2 : 0;
       const wasHidden = nodes.label.hasAttribute('hidden');
-      paintPresenceFrame(nodes, frame, seatWidth, bodyPhase, energy);
+      paintPresenceFrame(
+        nodes,
+        frame,
+        seatWidth,
+        bodyPhase,
+        energy,
+        intensity * (ambient ? 0.65 : 1),
+      );
       paintPresenceSatellites(
         nodes,
         bodyPhase,
-        animated && latest.current.activity === 'speaking' && frame.phase === 'still',
+        animated &&
+          latest.current.splashes !== false &&
+          latest.current.activity === 'speaking' &&
+          frame.phase === 'still',
         level,
       );
-      const motion = animated && (moving || bodyActive()) ? 'animated' : 'static';
+      const motion =
+        animated && (moving || bodyActive())
+          ? 'animated'
+          : animated && ambient
+            ? 'ambient'
+            : 'static';
       if (nodes.source.dataset.liquidMotion !== motion) nodes.source.dataset.liquidMotion = motion;
       previous.current = {
         ...frame,
@@ -240,7 +271,19 @@ export function useLiquidPresenceMotion(
       };
       if (target && wasHidden && !nodes.label.hasAttribute('hidden')) positionLabel();
       if (animated && (moving || bodyActive())) frameId = requestAnimationFrame(tick);
-      else release();
+      else {
+        release();
+        if (ambient && (animated || ambientDeferred)) {
+          // No 60Hz polling just to throttle to 12Hz. One timed wake, one paint.
+          ambientTimer = setTimeout(
+            () => {
+              ambientTimer = undefined;
+              if (active && !document.hidden && onScreen) frameId = requestAnimationFrame(tick);
+            },
+            ambientDeferred ? 250 : 1000 / 12,
+          );
+        }
+      }
     }
     function tick(now: number) {
       frameId = null;
@@ -258,6 +301,8 @@ export function useLiquidPresenceMotion(
     }
     function wake() {
       if (!active || frameId !== null || document.hidden) return;
+      clearTimeout(ambientTimer);
+      ambientTimer = undefined;
       paint(performance.now());
     }
     wakeRef.current = wake;
@@ -293,6 +338,8 @@ export function useLiquidPresenceMotion(
     };
     const visibility = () => {
       if (document.hidden) {
+        clearTimeout(ambientTimer);
+        ambientTimer = undefined;
         if (frameId !== null) cancelAnimationFrame(frameId);
         frameId = null;
         stopPosition();
@@ -310,6 +357,8 @@ export function useLiquidPresenceMotion(
         : new IntersectionObserver((entries) => {
             onScreen = entries[0]?.isIntersecting ?? true;
             if (!onScreen) {
+              clearTimeout(ambientTimer);
+              ambientTimer = undefined;
               if (frameId !== null) cancelAnimationFrame(frameId);
               frameId = null;
               release();
@@ -320,6 +369,8 @@ export function useLiquidPresenceMotion(
     document.addEventListener('keydown', key);
     document.addEventListener('click', click);
     document.addEventListener('visibilitychange', visibility);
+    document.addEventListener('close', wake, true);
+    document.addEventListener('toggle', wake, true);
     wake();
     return () => {
       active = false;
@@ -327,13 +378,19 @@ export function useLiquidPresenceMotion(
       positionTicket++;
       if (frameId !== null) cancelAnimationFrame(frameId);
       clearTimeout(timer);
+      clearTimeout(ambientTimer);
       stopPosition();
       intersection?.disconnect();
       release();
       document.removeEventListener('keydown', key);
       document.removeEventListener('click', click);
       document.removeEventListener('visibilitychange', visibility);
+      document.removeEventListener('close', wake, true);
+      document.removeEventListener('toggle', wake, true);
     };
   }, [sourceRef, overlayRef, portalRoot, props.target?.key, props.reducedMotion, props.size]);
-  useEffect(() => wakeRef.current(), [props.activity]);
+  useEffect(
+    () => wakeRef.current(),
+    [props.activity, props.idleMotion, props.motionSpeed, props.motionIntensity, props.splashes],
+  );
 }

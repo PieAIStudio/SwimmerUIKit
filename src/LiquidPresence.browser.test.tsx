@@ -3,7 +3,13 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it, vi } from 'vitest';
 import { LiquidPresence } from './LiquidPresence';
 import type { LiquidPresenceProps } from './liquidPresenceTypes';
-import { getLiquidGooeyBudget, resetLiquidGooeyBudgetForTests } from './liquidGooeyBudget';
+import {
+  getLiquidGooeyBudget,
+  resetLiquidGooeyBudgetForTests,
+  setLiquidGooeyBudget,
+  tryAcquireLiquidGooeyAnimation,
+  releaseLiquidGooeyAnimation,
+} from './liquidGooeyBudget';
 import './styles.css';
 import './liquid-presence.css';
 
@@ -212,4 +218,81 @@ it('visibility suspension stops geometry work and does not replay the settled ge
     if (original) Object.defineProperty(document, 'hidden', original);
     else Reflect.deleteProperty(document, 'hidden');
   }
+});
+
+it('opt-in living contour moves slowly without moving the native target or retaining a budget lease', async () => {
+  await mount();
+  await render({ idleMotion: 'breathe', size: 76 });
+  const rect = body().getBoundingClientRect();
+  const contour = body().querySelector('[data-presence-body]')!;
+  const before = contour.getAttribute('d');
+  let writes = 0;
+  const observer = new MutationObserver((records) => {
+    writes += records.length;
+  });
+  observer.observe(contour, { attributes: true, attributeFilter: ['d'] });
+  await wait(520);
+  observer.disconnect();
+  expect(contour.getAttribute('d')).not.toBe(before);
+  expect(writes).toBeGreaterThan(1);
+  expect(writes).toBeLessThanOrEqual(8);
+  expect(body().getBoundingClientRect().toJSON()).toEqual(rect.toJSON());
+  expect(body().dataset.activity).toBe('idle');
+  expect(body().dataset.liquidMotion).toBe('ambient');
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+  expect(
+    [...body().querySelectorAll<SVGElement>('[data-presence-satellite]')].every(
+      (node) => node.style.display === 'none',
+    ),
+  ).toBe(true);
+});
+
+it('reduced motion and zero budget override ambient motion, and turning idle off cancels its timed wake', async () => {
+  await mount();
+  await render({ idleMotion: 'breathe', reducedMotion: true });
+  const contour = body().querySelector('[data-presence-body]')!;
+  let before = contour.getAttribute('d');
+  await wait(180);
+  expect(contour.getAttribute('d')).toBe(before);
+  await render({ reducedMotion: false });
+  await wait(160);
+  await render({ idleMotion: 'still' });
+  before = contour.getAttribute('d');
+  await wait(200);
+  expect(contour.getAttribute('d')).toBe(before);
+  setLiquidGooeyBudget(0);
+  await render({ idleMotion: 'breathe' });
+  before = contour.getAttribute('d');
+  await wait(160);
+  expect(contour.getAttribute('d')).toBe(before);
+  expect(body().dataset.liquidMotion).toBe('static');
+});
+
+it('ambient does not claim audio and yields to a native modal then resumes after closure', async () => {
+  await mount();
+  await render({ idleMotion: 'breathe' });
+  const dialog = document.createElement('dialog');
+  document.body.append(dialog);
+  try {
+    dialog.showModal();
+    await wait(200);
+    expect(body().dataset.liquidMotion).toBe('static');
+    expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+    dialog.close();
+    await expect.poll(() => body().dataset.liquidMotion).toBe('ambient');
+    expect(body().dataset.activity).toBe('idle');
+  } finally {
+    dialog.remove();
+  }
+});
+
+it('ambient yields to a real control lease and resumes without a user having to wake it again', async () => {
+  await mount();
+  expect(tryAcquireLiquidGooeyAnimation(1000)).toBe(true);
+  await render({ idleMotion: 'breathe' });
+  expect(body().dataset.liquidMotion).toBe('static');
+  expect(getLiquidGooeyBudget().activeGroups).toBe(1);
+  releaseLiquidGooeyAnimation();
+  await expect.poll(() => body().dataset.liquidMotion).toBe('ambient');
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
 });

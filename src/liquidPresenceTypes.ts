@@ -27,6 +27,15 @@ export interface LiquidPresenceProps {
   target?: LiquidPresenceTarget | null;
   /** True disables travel but never removes the target explanation. */
   reducedMotion?: boolean;
+  /** Explicit host opt-in. A quiet living contour, never an audio observation.
+   * The ordinary component stays still when omitted. */
+  idleMotion?: 'still' | 'breathe';
+  /** Material flow only, not task or guidance duration. Clamped to 0.5..1.5. */
+  motionSpeed?: number;
+  /** Contour/speech detail, clamped to 0.25..1.25. Hit targets never change. */
+  motionIntensity?: number;
+  /** Small liquid satellites during observed speech; never during idle. */
+  splashes?: boolean;
   /** Actual amplitude only. Null/invalid values mean unavailable, not mock audio. */
   levelRef?: { readonly current: number | null };
   colorFrom?: string;

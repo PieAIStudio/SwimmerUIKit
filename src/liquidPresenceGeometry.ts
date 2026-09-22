@@ -124,7 +124,7 @@ export function presenceCurve(
 }
 
 /** Uses the same smooth outline geometry as the brand's liquid controls. */
-export function presenceBody(phase = 0, energy = 0, separated = 0): string {
+export function presenceBody(phase = 0, energy = 0, separated = 0, intensity = 1): string {
   // Approximate area conservation; the core never vanishes with its guide bead.
   const radius = LIQUID_PRESENCE_RADIUS * Math.sqrt(1 - 0.075 * clampPresence(separated, 0, 1));
   return blobPath(
@@ -134,7 +134,7 @@ export function presenceBody(phase = 0, energy = 0, separated = 0): string {
     radius * 2,
     [radius, radius, radius, radius],
     {
-      amplitude: 3.5 + clampPresence(energy, 0, 1) * 9,
+      amplitude: (3.5 + clampPresence(energy, 0, 1) * 9) * clampPresence(intensity, 0.15, 1.25),
       lobes: 3,
       seed: 17,
       phase,

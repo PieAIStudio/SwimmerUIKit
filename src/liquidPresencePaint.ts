@@ -40,10 +40,11 @@ export function paintPresenceFrame(
   seatWidth: number,
   bodyPhase: number,
   energy = 0,
+  intensity = 1,
 ) {
   set(nodes.source, 'data-liquid-phase', frame.phase);
   set(nodes.overlay, 'data-liquid-phase', frame.phase);
-  set(nodes.body, 'd', presenceBody(bodyPhase, energy, frame.separation));
+  set(nodes.body, 'd', presenceBody(bodyPhase, energy, frame.separation, intensity));
   // A little directional give makes the neck belong to the body; the native
   // button never moves. The two endpoints are exactly neutral.
   const pull = frame.bud ? Math.sin(frame.separation * Math.PI) * 0.045 : 0;
