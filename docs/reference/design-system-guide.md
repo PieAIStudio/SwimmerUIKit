@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-09-21
+last_reviewed: 2026-09-23
 domain: product
 tags:
   - design
@@ -278,6 +278,7 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 ### 液体协作身体（源码候选）
 
 `./liquid-presence` 是可选浏览器入口，导出 `LiquidPresence` 及其类型。
+源码候选还提供 `LiquidReveal`：用同一实色液体材质描出输入/内容边界，不替换身体。
 `./liquid-presence.css` 单独导入，不改变普通控件的根入口或默认动效。
 基础入口已在 2.9.0 发布；本轮待机与配置属性是尚未发布的增量，正式产品须在
 包含这些增量的新包发布后钉版消费，不能把相邻仓库源码变成生产依赖。跨库计划和实际试玩证据由 SwimmerNerveKit 的
@@ -287,6 +288,17 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 本体和飞出的液滴仍是一个助手的视觉手势。UIKit 负责材质和局部运动，
 Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 产品仍负责真实可见性、页面导航、作品权限、编辑和保存。
+
+`LiquidReveal` 只承载原生 DOM：`source` 是真实启动按钮的 ref，`variant="input"`
+是细长输入，默认 `content` 是深色阅览面。`revealKey` 只在新的人类请求时更换，
+不要用 token、时间戳或流式字符触发重绘。边框复用同一 goo/gloss 和动画预算，
+分滴、描边在约 610ms 内结束；内容即时可用，不等待动画。缩放只测量新尺寸，
+不重新飞一次。减少动态、不可见页面、预算不足直接呈现；超滤镜面积时不启用
+体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas、媒体连接或后台动画循环。
+`--game-ui-liquid-reveal-*` 是这个深色承载面的语义 token；默认正文保持浅色，
+外框颜色沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是透明玻璃。
+来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
+交互合同与跨库验收只记在 NerveKit `docs/plans/completed/liquid-interaction.md`。
 
 ```tsx
 import { LiquidPresence, type LiquidPresenceTarget } from '@pieai/swimmer-ui-kit/liquid-presence';

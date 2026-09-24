@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-09-22
+last_reviewed: 2026-09-23
 domain: meta
 tags:
   - current-work
@@ -24,6 +24,13 @@ related:
 This file is the current project work index. It is not the agents-routing algorithm.
 
 ## Current Focus
+
+- Source candidate: `LiquidReveal` in the existing liquid-presence leaf shares
+  the opaque material and finite animation budget, composing a slim input or a
+  quiet dark content perimeter. It owns no microphone, agent or modal semantics.
+  Nerve owns body-first voice/text and Peek composition; the cross-repository
+  acceptance record is NerveKit `docs/plans/completed/liquid-interaction.md`.
+  No npm publication or production consumer upgrade is implied.
 
 - Completed local candidate: optional interactive explanation at the existing
   liquid destination, with human-paced dismissal and portal-safe controls.
