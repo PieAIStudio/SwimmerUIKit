@@ -14,6 +14,10 @@
   --game-ui-liquid-action-lip: #ae9e87;
   --game-ui-liquid-action-border: #dccdb9;
   --game-ui-liquid-field-face: rgb(0 0 0 / 24%);
+  --game-ui-liquid-material-ink: #062721;
+  --game-ui-liquid-material-muted: #062721;
+  --game-ui-liquid-material-field: #104a41;
+  --game-ui-liquid-field-ink: #f2f7f4;
 }
 .game-ui-liquid-reveal .game-ui-button--secondary {
   background: var(--game-ui-liquid-action-face);
@@ -54,6 +58,28 @@
   position: relative;
   min-width: 0;
   padding: 12px;
+  z-index: 1;
+}
+.game-ui-liquid-reveal[data-reveal-surface='material'] {
+  --game-ui-liquid-reveal-text: var(--game-ui-liquid-material-ink);
+  --game-ui-liquid-reveal-muted: var(--game-ui-liquid-material-muted);
+  --game-ui-liquid-field-face: var(--game-ui-liquid-material-field);
+}
+.game-ui-liquid-reveal[data-reveal-surface='material']::before {
+  background: none;
+  backdrop-filter: none;
+}
+.game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
+  .game-ui-liquid-reveal-content,
+.game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
+  .game-ui-liquid-reveal-ink {
+  opacity: 0;
+}
+.game-ui-liquid-reveal[data-reveal-surface='material']:is(
+  [data-reveal-motion='preparing'],
+  [data-reveal-motion='drawing']
+)::before {
+  box-shadow: none;
 }
 .game-ui-liquid-reveal[data-reveal-filter='flat']::before {
   backdrop-filter: none;
@@ -80,6 +106,15 @@
     background: Canvas;
     box-shadow: none;
     backdrop-filter: none;
+  }
+  .game-ui-liquid-reveal[data-reveal-surface='material'] {
+    --game-ui-liquid-reveal-text: CanvasText;
+    --game-ui-liquid-reveal-muted: CanvasText;
+    --game-ui-liquid-field-ink: CanvasText;
+    --game-ui-liquid-field-face: Canvas;
+  }
+  .game-ui-liquid-reveal[data-reveal-surface='material']::before {
+    background: Canvas;
   }
   .game-ui-liquid-reveal-ink {
     display: none;

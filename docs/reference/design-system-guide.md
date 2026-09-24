@@ -290,14 +290,18 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 产品仍负责真实可见性、页面导航、作品权限、编辑和保存。
 
 `LiquidReveal` 只承载原生 DOM：`source` 是真实启动按钮的 ref，`variant="input"`
-是细长输入，默认 `content` 是深色阅览面。`revealKey` 只在新的人类请求时更换，
-不要用 token、时间戳或流式字符触发重绘。边框复用同一 goo/gloss 和动画预算，
-分滴就近到达边缘，材质在约 840ms 内柔和显现，不再绕框追逐或同步弯曲四条边；
-内容即时可用，不等待动画。缩放只测量新尺寸，
-不重新飞一次。减少动态、不可见页面、预算不足直接呈现；超滤镜面积时不启用
+是输入形状，默认 `content` 是阅览形状。`surface="material"` 把内部与边缘画成
+同一份实色液体，Nerve 当前组合显式采用它；默认 `surface="dark"` 保留前阶段
+黑色面板供旧消费者选择。`revealKey` 只在新的人类请求时更换，不能用 token 或
+时间戳重播。出场等真实锚点完成定位，再由一滴飞出、展开成面，约640ms完成；
+用现有同拓扑 blobPath 的浏览器原生关键帧，不引入任意路径插值器。内容稳定，
+在展开过程中淡入，聚焦/点选立即结束装饰。缩放/滚动打断后不重飞。
+减少动态、不可见页面、预算不足直接呈现；路径动画不支持时短淡入。超滤镜面积时不启用
 体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas 或媒体连接；默认没有常驻动效。
-`--game-ui-liquid-reveal-*` 是这个深色承载面的语义 token；默认正文保持浅色，
-外框颜色沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是透明玻璃。
+`--game-ui-liquid-reveal-*` 是承载面的语义 token；深色模式用浅字，同材质模式
+使用 `--game-ui-liquid-material-ink/muted/field` 和 `--game-ui-liquid-field-ink`。
+内部和外缘沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是玻璃。
+自选主体颜色的宿主须同时核对文字对比；默认品牌日夜色已实测，不能推断任意色都可读。
 来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
 可选 `idleMotion="breathe"` 使包边在约十秒周期内小幅流动。外缘直接复用主体的
 闭合 C1 `blobPath`，内缘固定，局部厚薄形成体积；不靠附着小圆或整圈跑珠装饰。
@@ -316,8 +320,10 @@ Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个�
 安置临时内容，不给主体设屏幕位置。`placement` 默认 `top-end`，会避让视口，
 也可由宿主选择；`onBoundsChange` 返回内容当前矩形或 null，供三维标签避让。
 源在 native dialog 内时保留原层，外部模态/不可见源不会留下错误浮层。
+原生外部模态直接卸载也会恢复临时内容；只在被遮挡期间观察该模态的存在。
+跨 portal 继承主体实际调色及品牌 tokens，不观察逐帧路径，不改变宿主布局。
 宿主可覆盖 `--game-ui-assistance-z` 调整自身图层规则。
-交互合同与验收只记在 NerveKit `docs/plans/completed/living-entry-convergence.md`；
+交互合同在 Nerve README，本轮跨库记录在 NerveKit `docs/plans/completed/liquid-continuity.md`；
 完成源码验收不等于已发布新包。
 
 ```tsx

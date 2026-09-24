@@ -41,6 +41,8 @@ export function LiquidAnchor({
     if (!anchor || !node) return;
     let active = true,
       serial = 0;
+    let watchedModal: Element | null = null;
+    let modalRemoval: MutationObserver | null = null;
     const syncTheme = () => {
       const style = getComputedStyle(anchor);
       // Preserve scoped brand tokens across the portal without copying host styles.
@@ -50,11 +52,31 @@ export function LiquidAnchor({
           if (node.style.getPropertyValue(name) !== value) node.style.setProperty(name, value);
         }
       }
+      const body = anchor.querySelector('.game-ui-liquid-presence');
+      if (body) {
+        const pigment = getComputedStyle(body);
+        for (const name of ['--liquid-presence-from', '--liquid-presence-to'])
+          node.style.setProperty(name, pigment.getPropertyValue(name));
+      }
     };
     const update = () => {
       const ticket = ++serial;
       const rect = anchor.getBoundingClientRect();
       const modal = document.querySelector('dialog:modal');
+      if (watchedModal !== modal) {
+        modalRemoval?.disconnect();
+        modalRemoval = null;
+        watchedModal = modal;
+        if (modal && !modal.contains(anchor) && !node.contains(modal)) {
+          // React may remove an external dialog without a bubbling close
+          // event. Watch just that dialog and its parent while suspended.
+          modalRemoval = new MutationObserver(() => {
+            if (!modal.isConnected || !modal.matches(':modal')) update();
+          });
+          modalRemoval.observe(modal, { attributes: true, attributeFilter: ['open'] });
+          if (modal.parentNode) modalRemoval.observe(modal.parentNode, { childList: true });
+        }
+      }
       if (
         !anchor.isConnected ||
         anchor.closest('[hidden], [inert], [aria-hidden="true"]') ||
@@ -121,6 +143,12 @@ export function LiquidAnchor({
         attributes: true,
         attributeFilter: ['class', 'style', 'data-game-ui-theme', 'hidden', 'inert', 'aria-hidden'],
       });
+    const body = anchor.querySelector('.game-ui-liquid-presence');
+    if (body)
+      theme.observe(body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-activity'],
+      });
     document.addEventListener('toggle', update, true);
     document.addEventListener('close', update, true);
     return () => {
@@ -128,6 +156,7 @@ export function LiquidAnchor({
       serial++;
       stop();
       theme.disconnect();
+      modalRemoval?.disconnect();
       document.removeEventListener('toggle', update, true);
       document.removeEventListener('close', update, true);
       latest.current?.(null);

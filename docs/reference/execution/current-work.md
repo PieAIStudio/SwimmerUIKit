@@ -25,16 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Source candidate: `LiquidReveal` supports optional slow perimeter flow, sharing
-  the body's low-rate wake and animation budget. `LiquidAnchor` uses existing
-  Floating UI to place temporary content beside a host-positioned body and reports
-  its occupied bounds. The leaf owns no microphone, agent or modal semantics.
-  The current contract is in the design guide; the one cross-repository record is
-  NerveKit `docs/plans/completed/living-entry-convergence.md`; the follow-up visual
-  refinement uses the same blob geometry and clear GameButton surfaces, recorded
-  in NerveKit `docs/plans/completed/liquid-clarity-refinement.md`. Paired browser and
-  packed-consumer gates passed, separate from registry/product adoption.
-  No npm publication or production consumer upgrade is implied.
+- Current source candidate: `LiquidReveal surface="material"` fills the same
+  teal face as its rim, with a bounded source-to-drop-to-surface entrance and
+  existing gentle ambient motion. `LiquidAnchor` retains host position, palette
+  and modal boundaries. Contract: design guide; the single cross-kit record:
+  NerveKit `docs/plans/completed/liquid-continuity.md`. No agent, microphone,
+  package publication or production upgrade is implied.
 
 - Completed local candidate: optional interactive explanation at the existing
   liquid destination, with human-paced dismissal and portal-safe controls.

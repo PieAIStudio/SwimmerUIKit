@@ -28,6 +28,7 @@ export function useLiquidRevealAmbient(
     let last = performance.now();
     let cancel = () => {};
     const path = element.querySelector<SVGPathElement>('[data-reveal-outline]');
+    const body = element.querySelector<SVGPathElement>('[data-reveal-body]');
     const ribbon = element.querySelector<SVGPathElement>('[data-reveal-ribbon]');
     const area = (width + 24) * (height + 24);
     const paint = (now: number) => {
@@ -36,7 +37,8 @@ export function useLiquidRevealAmbient(
       last = now;
       const modal = document.querySelector('dialog:modal');
       const blocked =
-        (modal && !modal.contains(element)) || element.dataset.revealMotion === 'drawing';
+        (modal && !modal.contains(element)) ||
+        ['drawing', 'preparing'].includes(element.dataset.revealMotion ?? '');
       const budget = getLiquidGooeyBudget();
       if (blocked || budget.activeGroups > 0 || !tryAcquireLiquidGooeyAnimation(area)) {
         element.dataset.revealAmbient = 'paused';
@@ -47,6 +49,7 @@ export function useLiquidRevealAmbient(
         phase.current += (elapsed * Math.PI * 2) / 10000;
         const shape = liquidRevealShape(width, height, input, phase.current);
         path?.setAttribute('d', shape.outline);
+        body?.setAttribute('d', shape.outline);
         ribbon?.setAttribute('d', shape.ribbon);
         element.dataset.revealAmbient = 'flowing';
       } finally {

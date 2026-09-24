@@ -2,6 +2,7 @@ import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it } from 'vitest';
 import { LiquidReveal } from './LiquidReveal';
+import { LiquidAnchor } from './LiquidAnchor';
 import {
   getLiquidGooeyBudget,
   resetLiquidGooeyBudgetForTests,
@@ -134,4 +135,48 @@ it('pause and rerender retain the current material rather than flashing phase ze
   expect(outline()).toBe(pausedPath);
   await expect.poll(outline).not.toBe(pausedPath);
   expect(host!.querySelector('textarea')!.value).toBe('keep me');
+});
+
+it('material grows from the positioned source, not a fully visible panel at frame zero', async () => {
+  host = document.createElement('div');
+  origin = document.createElement('button');
+  origin.style.cssText = 'position:fixed;right:30px;bottom:30px;width:64px;height:64px';
+  document.body.append(host, origin);
+  const source = { current: origin };
+  root = createRoot(host);
+  await act(async () =>
+    root!.render(
+      <StrictMode>
+        <LiquidAnchor source={source}>
+          <LiquidReveal source={source} surface="material">
+            <div style={{ width: 300, height: 200 }}>
+              <button>Original action</button>
+            </div>
+          </LiquidReveal>
+        </LiquidAnchor>
+      </StrictMode>,
+    ),
+  );
+  const element = () => document.querySelector<HTMLElement>('.game-ui-liquid-reveal')!;
+  await expect.poll(() => element()?.dataset.revealMotion, { interval: 10 }).toBe('drawing');
+  const shape = element().querySelector<SVGPathElement>('[data-reveal-body]')!;
+  const animation = shape.getAnimations()[0]!;
+  expect(animation).toBeDefined();
+  const frames = (animation.effect as KeyframeEffect).getKeyframes();
+  expect(frames.length).toBe(33);
+  expect(frames[0]!.d).not.toBe(frames[32]!.d);
+  const region = element().getBoundingClientRect();
+  expect(region.x).toBeGreaterThan(0);
+  expect(region.bottom).toBeLessThan(origin.getBoundingClientRect().top);
+  animation.pause();
+  animation.currentTime = 70;
+  const small = shape.getBBox();
+  expect(small.width).toBeLessThan(40);
+  animation.currentTime = 530;
+  expect(shape.getBBox().width).toBeGreaterThan(270);
+  // Keyboard focus ends decorative delay but does not trigger the action.
+  element().querySelector('button')!.focus();
+  await expect.poll(() => element().dataset.revealMotion).toBe('settled');
+  expect(element().getAnimations({ subtree: true })).toHaveLength(0);
+  expect(getComputedStyle(element(), '::before').backgroundColor).toBe('rgba(0, 0, 0, 0)');
 });
