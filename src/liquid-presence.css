@@ -1,4 +1,63 @@
 /* Optional visual leaf. Import after the normal UIKit token/control sheet. */
+:root {
+  --game-ui-liquid-reveal-bg: rgb(5 12 13 / 94%);
+  --game-ui-liquid-reveal-text: #f2f7f4;
+  --game-ui-liquid-reveal-muted: #b6c7c0;
+  --game-ui-liquid-reveal-shadow: 0 22px 70px rgb(0 0 0 / 22%);
+  --game-ui-liquid-reveal-backdrop: rgb(0 0 0 / 24%);
+}
+.game-ui-liquid-reveal {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  border-radius: 32px;
+  color: var(--game-ui-liquid-reveal-text);
+  font-family: var(--game-ui-font-body);
+}
+.game-ui-liquid-reveal::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  z-index: -1;
+  border-radius: 27px;
+  background: var(--game-ui-liquid-reveal-bg);
+  /* Local scrim only: preserves background colour without readable ghost text.
+     Neither the content nor the entire host/3D scene is filtered. */
+  backdrop-filter: blur(8px);
+  box-shadow: var(--game-ui-liquid-reveal-shadow);
+  pointer-events: none;
+}
+.game-ui-liquid-reveal-content {
+  position: relative;
+  min-width: 0;
+  padding: 12px;
+}
+.game-ui-liquid-reveal-ink {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.game-ui-liquid-reveal[data-reveal-variant='input'] {
+  border-radius: 36px;
+}
+.game-ui-liquid-reveal[data-reveal-variant='input']::before {
+  border-radius: 30px;
+}
+@media (forced-colors: active) {
+  .game-ui-liquid-reveal {
+    border: 2px solid CanvasText;
+    color: CanvasText;
+  }
+  .game-ui-liquid-reveal::before {
+    background: Canvas;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  .game-ui-liquid-reveal-ink {
+    display: none;
+  }
+}
 .game-ui-liquid-presence {
   --liquid-presence-from: var(--game-ui-secondary);
   --liquid-presence-to: var(--game-ui-secondary);

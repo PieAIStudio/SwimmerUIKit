@@ -277,7 +277,8 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 
 ### 液体协作身体（源码候选）
 
-`./liquid-presence` 是可选浏览器入口，导出 `LiquidPresence` 及其类型。
+`./liquid-presence` 是可选浏览器入口，导出 `LiquidPresence` 及其类型；本轮源码
+候选还导出 `LiquidReveal` / `LiquidRevealProps`，未将新能力冒充 2.9.0 已发布内容。
 `./liquid-presence.css` 单独导入，不改变普通控件的根入口或默认动效。
 基础入口已在 2.9.0 发布；本轮待机与配置属性是尚未发布的增量，正式产品须在
 包含这些增量的新包发布后钉版消费，不能把相邻仓库源码变成生产依赖。跨库计划和实际试玩证据由 SwimmerNerveKit 的
@@ -287,6 +288,18 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
 本体和飞出的液滴仍是一个助手的视觉手势。UIKit 负责材质和局部运动，
 Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 产品仍负责真实可见性、页面导航、作品权限、编辑和保存。
+
+`LiquidReveal` 包裹真实 DOM 输入/内容，`variant="input" | "content"` 选择轮廓，
+`source` 为主体的元素 ref，`revealKey` 为这次显现身份。它从主体分滴到真实边缘，
+绘制同品牌实色青绿轮廓，中心采用局部暗色半透明阅读底；不是透明玻璃球。
+装饰与文字分离，内容无需等待动画才可读/可点。关闭由宿主卸载这块装饰，
+不会取消语音或已接收任务。`LiquidPresence` 原来的指路回流不变。
+
+动画复用 `presenceCurve`、`LiquidGooeyFilter` 和共享预算，只有限运行约半秒，
+结束即释放。减少动态、不可见、无可用预算或WAAPI不可用时静态显示，大小变化
+不重复播放；飞行期间滚动/缩放则静态落位，避免旧坐标错位。所有新规则只在
+可选CSS叶生效。跨库交互与实测记录在Nerve的
+`docs/plans/completed/liquid-interaction.md`；本轮两侧隔离分支保留并行主目录现场。
 
 ```tsx
 import { LiquidPresence, type LiquidPresenceTarget } from '@pieai/swimmer-ui-kit/liquid-presence';

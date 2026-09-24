@@ -25,6 +25,14 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Body-first interaction candidate: `LiquidReveal` in the existing optional
+  liquid-presence leaf draws a dense teal boundary around real DOM content.
+  Finite motion reuses the existing material/budget; it is not voice or agent
+  logic. Work is isolated on `feat/liquid-reveal-review` to preserve concurrently
+  edited main. API usage is in the design guide; the sole cross-repository
+  acceptance record is NerveKit `docs/plans/completed/liquid-interaction.md`.
+  No package publication or production adoption is claimed.
+
 - Completed local candidate: optional interactive explanation at the existing
   liquid destination, with human-paced dismissal and portal-safe controls.
   No new renderer or ordinary-control behavior. Nerve owns the finite sequence;

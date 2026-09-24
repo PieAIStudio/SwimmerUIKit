@@ -1,0 +1,79 @@
+import { act, StrictMode } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
+import { afterEach, expect, it } from 'vitest';
+import { LiquidReveal } from './LiquidReveal';
+import {
+  getLiquidGooeyBudget,
+  resetLiquidGooeyBudgetForTests,
+  setLiquidGooeyBudget,
+} from './liquidGooeyBudget';
+import './styles.css';
+import './liquid-presence.css';
+
+(
+  globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
+).IS_REACT_ACT_ENVIRONMENT = true;
+let root: Root | undefined, host: HTMLDivElement | undefined, origin: HTMLButtonElement | undefined;
+afterEach(async () => {
+  await act(async () => root?.unmount());
+  host?.remove();
+  origin?.remove();
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+  resetLiquidGooeyBudgetForTests();
+});
+async function mount(reduced = false) {
+  host = document.createElement('div');
+  host.style.cssText = 'position:fixed;left:50px;top:50px;width:360px';
+  origin = document.createElement('button');
+  origin.style.cssText = 'position:fixed;left:480px;top:480px;width:64px;height:64px';
+  document.body.append(host, origin);
+  root = createRoot(host);
+  await act(async () =>
+    root!.render(
+      <StrictMode>
+        <LiquidReveal source={{ current: origin! }} reducedMotion={reduced}>
+          <textarea aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    ),
+  );
+}
+it('draws then sleeps, preserves controls, and resize never replays the scene', async () => {
+  await mount();
+  await expect
+    .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'))
+    .toMatch(/drawing|settled/);
+  await expect
+    .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'), {
+      timeout: 3000,
+    })
+    .toBe('settled');
+  expect(host!.querySelector('textarea')!.value).toBe('keep me');
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+  await act(async () => {
+    host!.style.width = '300px';
+    await new Promise<void>((done) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => done())),
+    );
+  });
+  await expect.poll(() => host!.querySelector('svg')?.getAttribute('width')).toBe('300');
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+});
+it('zero budget and reduced motion leave an immediately usable still frame', async () => {
+  setLiquidGooeyBudget(0);
+  await mount(true);
+  await expect
+    .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'))
+    .toBe('static');
+  expect(host!.querySelector('textarea')!.value).toBe('keep me');
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+});
+
+it('a viewport change settles the captured flight and releases its budget', async () => {
+  await mount();
+  window.dispatchEvent(new Event('resize'));
+  await expect.poll(() => getLiquidGooeyBudget().activeGroups).toBe(0);
+  expect(host!.querySelector('textarea')!.value).toBe('keep me');
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+});
