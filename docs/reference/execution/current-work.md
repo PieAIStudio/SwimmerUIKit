@@ -25,11 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Current source candidate: `LiquidReveal surface="material"` fills the same
-  teal face as its rim, with a bounded source-to-drop-to-surface entrance and
-  existing gentle ambient motion. `LiquidAnchor` retains host position, palette
-  and modal boundaries. Contract: design guide; the single cross-kit record:
-  NerveKit `docs/plans/completed/liquid-continuity.md`. No agent, microphone,
+- Current source candidate: `LiquidReveal` shares the body's palette and motion
+  controls, with outward swells and a 720ms gather/flight/spread entrance.
+  Focused input stays immediately visible; restoring decoration never replays
+  an already static surface. `LiquidAnchor` retains host position and modal
+  boundaries. Contract: design guide; cross-kit record:
+  NerveKit `docs/plans/completed/living-presence-and-spatial.md`. No agent, microphone,
   package publication or production upgrade is implied.
 
 - Completed local candidate: optional interactive explanation at the existing

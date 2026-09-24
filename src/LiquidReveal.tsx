@@ -1,4 +1,13 @@
-import { useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
+import {
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+  type CSSProperties,
+} from 'react';
+import { clampPresence } from './liquidPresenceGeometry';
 import { liquidRevealShape } from './liquidRevealGeometry';
 import { useLiquidRevealAmbient } from './useLiquidRevealAmbient';
 import { LiquidGooeyFilter } from './liquidGooeyFilter';
@@ -18,6 +27,11 @@ export interface LiquidRevealProps {
   reducedMotion?: boolean;
   /** Optional slow perimeter flow. Caller must offer a persistent pause control. */
   idleMotion?: 'still' | 'breathe';
+  /** Same palette as the source; appearance only, never provider state. */
+  colorFrom?: string;
+  colorTo?: string;
+  motionIntensity?: number;
+  motionSpeed?: number;
   className?: string;
 }
 
@@ -32,10 +46,16 @@ export function LiquidReveal({
   surface = 'dark',
   reducedMotion,
   idleMotion = 'still',
+  colorFrom,
+  colorTo,
+  motionIntensity = 1,
+  motionSpeed = 1,
   className = '',
 }: LiquidRevealProps) {
   const systemReduced = useSystemReducedMotion();
   const reduced = systemReduced || reducedMotion === true;
+  const intensity = clampPresence(motionIntensity, 0.25, 1.25);
+  const speed = clampPresence(motionSpeed, 0.5, 1.5);
   const root = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const id = `liquid-reveal-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -62,6 +82,7 @@ export function LiquidReveal({
     reduced,
     surface === 'material',
     variant === 'input',
+    intensity,
   );
 
   const w = Math.max(44, size.width),
@@ -72,13 +93,21 @@ export function LiquidReveal({
     size.width,
     size.height,
     variant === 'input',
+    intensity,
+    speed,
   );
-  const shape = liquidRevealShape(w, h, variant === 'input', phase.current);
+  const shape = liquidRevealShape(w, h, variant === 'input', phase.current, intensity);
   const filterOK = (w + 24) * (h + 24) <= getLiquidGooeyBudget().maxFilterArea;
   return (
     <div
       ref={root}
       className={`game-ui-liquid-reveal ${className}`}
+      style={
+        {
+          ...(colorFrom ? { '--liquid-presence-from': colorFrom } : {}),
+          ...(colorTo ? { '--liquid-presence-to': colorTo } : {}),
+        } as CSSProperties
+      }
       data-reveal-variant={variant}
       data-reveal-surface={surface}
       data-reveal-filter={filterOK ? 'volume' : 'flat'}

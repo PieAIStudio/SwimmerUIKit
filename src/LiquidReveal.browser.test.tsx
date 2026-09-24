@@ -94,6 +94,81 @@ it('zero budget and reduced motion leave an immediately usable still frame', asy
   expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
 });
 
+it('enabling motion later never replays a surface already shown with reduced motion', async () => {
+  await mount(true);
+  await act(async () => {
+    root!.render(
+      <StrictMode>
+        <LiquidReveal source={{ current: origin! }} reducedMotion={false}>
+          <textarea aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    );
+    await new Promise((done) => setTimeout(done, 120));
+  });
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+  expect(getComputedStyle(host!.querySelector('.game-ui-liquid-reveal-content')!).opacity).toBe(
+    '1',
+  );
+  expect(host!.querySelector('textarea')!.value).toBe('keep me');
+});
+
+it('a directly focused input is visible immediately and resizing never hides it again', async () => {
+  await mount();
+  await act(async () => {
+    root!.render(
+      <StrictMode>
+        <LiquidReveal
+          source={{ current: origin! }}
+          surface="material"
+          variant="input"
+          revealKey="text"
+        >
+          <textarea key="direct-text" autoFocus aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    );
+  });
+  const input = host!.querySelector('textarea')!;
+  expect(document.activeElement).toBe(input);
+  const visible = () =>
+    getComputedStyle(host!.querySelector('.game-ui-liquid-reveal-content')!).opacity;
+  expect(visible()).toBe('1');
+  await act(async () => {
+    host!.style.width = '300px';
+    await new Promise((done) => setTimeout(done, 160));
+  });
+  expect(visible()).toBe('1');
+  expect(input.value).toBe('keep me');
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+});
+
+it('focused text never becomes transparent when a new measurement arrives', async () => {
+  await mount(false, 'breathe');
+  const input = host!.querySelector('textarea')!;
+  input.focus();
+  await act(async () =>
+    root!.render(
+      <StrictMode>
+        <LiquidReveal
+          source={{ current: origin! }}
+          surface="material"
+          revealKey="focused-new-layout"
+        >
+          <textarea aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    ),
+  );
+  await new Promise((done) => setTimeout(done, 200));
+  expect(document.activeElement).toBe(input);
+  expect(getComputedStyle(host!.querySelector('.game-ui-liquid-reveal-content')!).opacity).toBe(
+    '1',
+  );
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+  expect(input.value).toBe('keep me');
+});
+
 it('pause and rerender retain the current material rather than flashing phase zero', async () => {
   await mount(false, 'breathe');
   const outline = () => host!.querySelector('[data-reveal-outline]')!.getAttribute('d');
@@ -163,8 +238,8 @@ it('material grows from the positioned source, not a fully visible panel at fram
   const animation = shape.getAnimations()[0]!;
   expect(animation).toBeDefined();
   const frames = (animation.effect as KeyframeEffect).getKeyframes();
-  expect(frames.length).toBe(33);
-  expect(frames[0]!.d).not.toBe(frames[32]!.d);
+  expect(frames.length).toBe(49);
+  expect(frames[0]!.d).not.toBe(frames[48]!.d);
   const region = element().getBoundingClientRect();
   expect(region.x).toBeGreaterThan(0);
   expect(region.bottom).toBeLessThan(origin.getBoundingClientRect().top);

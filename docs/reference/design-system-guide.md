@@ -293,7 +293,8 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 是输入形状，默认 `content` 是阅览形状。`surface="material"` 把内部与边缘画成
 同一份实色液体，Nerve 当前组合显式采用它；默认 `surface="dark"` 保留前阶段
 黑色面板供旧消费者选择。`revealKey` 只在新的人类请求时更换，不能用 token 或
-时间戳重播。出场等真实锚点完成定位，再由一滴飞出、展开成面，约640ms完成；
+时间戳重播。出场等真实锚点完成定位，再经蓄力、拉长飞行、汇聚、分轴舒展和
+定型，约720ms完成；
 用现有同拓扑 blobPath 的浏览器原生关键帧，不引入任意路径插值器。内容稳定，
 在展开过程中淡入，聚焦/点选立即结束装饰。缩放/滚动打断后不重飞。
 减少动态、不可见页面、预算不足直接呈现；路径动画不支持时短淡入。超滤镜面积时不启用
@@ -301,15 +302,21 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 `--game-ui-liquid-reveal-*` 是承载面的语义 token；深色模式用浅字，同材质模式
 使用 `--game-ui-liquid-material-ink/muted/field` 和 `--game-ui-liquid-field-ink`。
 内部和外缘沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是玻璃。
-自选主体颜色的宿主须同时核对文字对比；默认品牌日夜色已实测，不能推断任意色都可读。
+`LiquidReveal` 与 `LiquidPresence` 可接同一 `colorFrom/colorTo`、
+`motionIntensity/motionSpeed`。Nerve 从原 Companion 设置投影这组属性，默认
+潮汐渐变，但不覆盖已保存配色；Kit 低层默认仍沿用宿主 secondary。
+自选颜色须同时核对文字对比；品牌日夜色与 Companion 预置色已实测，不能
+推断任意色都可读。
 来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
 可选 `idleMotion="breathe"` 使包边在约十秒周期内小幅流动。外缘直接复用主体的
-闭合 C1 `blobPath`，内缘固定，局部厚薄形成体积；不靠附着小圆或整圈跑珠装饰。
+闭合 C1 `blobPath`，本轮向外的舒展更明显；内缘固定，局部厚薄形成体积，不靠
+附着小圆或整圈跑珠装饰。强度范围0.25–1.25，速度0.5–1.5，仍共用既有预算。
 主体的缓慢姿态比前版明显，但速度不增加，普通静止默认不变。暂停/恢复保留当前
 轮廓相位，不回跳首帧。两者共享一个
 低频唤醒时钟及既有预算，不每个框开一条 60Hz 循环。`reducedMotion` 和系统偏好
 优先；关闭/隐藏/离开屏幕清理订阅。Nerve 投影输入、选择、拖动与暂停偏好，
-Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个形变。
+Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个形变。直接文字入口
+已聚焦时跳过出场；已静态展示的面不因后来恢复动画而重新飞入或隐藏文字。
 
 阅览面内的 `GameButton variant="secondary"` 保留明确的浅色底面、深色文字和
 原生按压厚度，而不是被覆盖为裸文字。`--game-ui-liquid-action-*` 统一声明这组
@@ -323,7 +330,7 @@ Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个�
 原生外部模态直接卸载也会恢复临时内容；只在被遮挡期间观察该模态的存在。
 跨 portal 继承主体实际调色及品牌 tokens，不观察逐帧路径，不改变宿主布局。
 宿主可覆盖 `--game-ui-assistance-z` 调整自身图层规则。
-交互合同在 Nerve README，本轮跨库记录在 NerveKit `docs/plans/completed/liquid-continuity.md`；
+交互合同在 Nerve README，本轮跨库记录在 NerveKit `docs/plans/completed/living-presence-and-spatial.md`；
 完成源码验收不等于已发布新包。
 
 ```tsx

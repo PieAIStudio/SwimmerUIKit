@@ -15,6 +15,8 @@ export function useLiquidRevealAmbient(
   width: number,
   height: number,
   input: boolean,
+  intensity = 1,
+  speed = 1,
 ) {
   const phase = useRef(0);
   useEffect(() => {
@@ -46,8 +48,8 @@ export function useLiquidRevealAmbient(
         return;
       }
       try {
-        phase.current += (elapsed * Math.PI * 2) / 10000;
-        const shape = liquidRevealShape(width, height, input, phase.current);
+        phase.current += (elapsed * Math.PI * 2 * speed) / 10000;
+        const shape = liquidRevealShape(width, height, input, phase.current, intensity);
         path?.setAttribute('d', shape.outline);
         body?.setAttribute('d', shape.outline);
         ribbon?.setAttribute('d', shape.ribbon);
@@ -80,7 +82,7 @@ export function useLiquidRevealAmbient(
       document.removeEventListener('visibilitychange', wake);
       element.dataset.revealAmbient = 'static';
     };
-  }, [root, enabled, width, height, input]);
+  }, [root, enabled, width, height, input, intensity, speed]);
   // React must render the retained phase too: resize/pause must not replace the
   // imperatively painted shape with phase zero for a visible frame.
   return phase;

@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react';
-import { blobPath } from './liquidGooeyGeometry';
-import { presenceCurve, validPresenceRect } from './liquidPresenceGeometry';
-import { liquidRevealShape } from './liquidRevealGeometry';
+import { validPresenceRect } from './liquidPresenceGeometry';
+import { liquidRevealEntranceFrames, LIQUID_REVEAL_DURATION } from './liquidRevealEntranceGeometry';
 import { tryAcquireLiquidGooeyAnimation, releaseLiquidGooeyAnimation } from './liquidGooeyBudget';
 
 /** A bounded browser-native timeline, not a task state machine. The initial
@@ -16,12 +15,21 @@ export function useLiquidRevealEntrance(
   reduced: boolean,
   material: boolean,
   input: boolean,
+  intensity = 1,
 ) {
   const last = useRef<string | null>(null);
   useLayoutEffect(() => {
     const element = root.current;
     if (!element) return;
-    if (!source || reduced || window.matchMedia('(forced-colors: active)').matches) {
+    if (
+      !source ||
+      reduced ||
+      element.contains(document.activeElement) ||
+      window.matchMedia('(forced-colors: active)').matches
+    ) {
+      // This presentation has already been shown without motion. Enabling
+      // decoration later must not replay an entrance over somebody's reading.
+      last.current = key;
       element.dataset.revealMotion = 'static';
       return;
     }
@@ -60,6 +68,7 @@ export function useLiquidRevealEntrance(
       const text = element.querySelector<HTMLElement>('.game-ui-liquid-reveal-content');
       last.current = key;
       if (
+        element.contains(document.activeElement) ||
         !origin ||
         !validPresenceRect(origin) ||
         document.hidden ||
@@ -88,38 +97,23 @@ export function useLiquidRevealEntrance(
         width: innerWidth / sx,
         height: innerHeight / sy,
       };
-      const duration = 640;
+      const duration = LIQUID_REVEAL_DURATION;
       if (material && body && CSS.supports('d', 'path("M0 0L1 1Z")')) {
-        const outline = liquidRevealShape(width, height, input).outline;
-        const frames = Array.from({ length: 33 }, (_, i) => {
-          const t = i / 32;
-          const flight = Math.min(1, t / 0.38);
-          const point = presenceCurve(from, landing, flight * flight * (3 - 2 * flight), viewport);
-          const swell = Math.max(0, Math.min(1, (t - 0.33) / 0.55));
-          const grow = 1 - (1 - swell) ** 3;
-          const diameter = 10 + Math.min(1, t / 0.18) * 18;
-          const w = diameter + (width - 12 - diameter) * grow;
-          const h = diameter + (height - 12 - diameter) * grow;
-          const x = point.x - diameter / 2 + (6 - point.x + diameter / 2) * grow;
-          const y = point.y - diameter / 2 + (6 - point.y + diameter / 2) * grow;
-          const radius = Math.min(w / 2, h / 2, 28);
-          const path =
-            grow >= 1
-              ? outline
-              : blobPath(x, y, w, h, [radius, radius, radius, radius], {
-                  amplitude: 1.2 + (input ? 3.8 : 5.8) * grow,
-                  seed: 17,
-                  lobes: 3,
-                  phase: 0,
-                });
-          return { d: `path("${path}")`, offset: t };
-        });
+        const frames = liquidRevealEntranceFrames(
+          width,
+          height,
+          input,
+          from,
+          landing,
+          viewport,
+          intensity,
+        );
         animations.push(body.animate(frames, { duration, fill: 'both', easing: 'linear' }));
         // The body becomes the surface. Its edge highlight appears only when
         // the material is nearly spread; it is not a second arriving panel.
         if (ink)
           animations.push(
-            ink.animate([{ opacity: 0 }, { opacity: 0, offset: 0.88 }, { opacity: 1 }], {
+            ink.animate([{ opacity: 0 }, { opacity: 0, offset: 0.93 }, { opacity: 1 }], {
               duration,
               fill: 'both',
             }),
@@ -129,7 +123,7 @@ export function useLiquidRevealEntrance(
             text.animate(
               [
                 { opacity: 0 },
-                { opacity: 0, offset: 0.7 },
+                { opacity: 0, offset: 0.78 },
                 { opacity: 1, offset: 0.98 },
                 { opacity: 1 },
               ],
@@ -145,10 +139,18 @@ export function useLiquidRevealEntrance(
       const visual = source.current?.querySelector<SVGSVGElement>('.game-ui-liquid-presence > svg');
       if (visual)
         animations.push(
-          visual.animate([{ scale: '1' }, { scale: '.94', offset: 0.24 }, { scale: '1' }], {
-            duration: 360,
-            easing: 'ease-in-out',
-          }),
+          visual.animate(
+            [
+              { transform: 'scale(1)' },
+              { transform: 'scale(1.05, .9)', offset: 0.22 },
+              { transform: 'scale(.96, 1.04)', offset: 0.5 },
+              { transform: 'scale(1)' },
+            ],
+            {
+              duration: 440,
+              easing: 'ease-in-out',
+            },
+          ),
         );
       void Promise.all(animations.map((a) => a.finished)).then(finish, finish);
     };
@@ -177,5 +179,5 @@ export function useLiquidRevealEntrance(
       window.removeEventListener('resize', interrupt);
       window.removeEventListener('scroll', interrupt, true);
     };
-  }, [root, source, key, width, height, reduced, material, input]);
+  }, [root, source, key, width, height, reduced, material, input, intensity]);
 }
