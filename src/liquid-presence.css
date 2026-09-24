@@ -7,6 +7,27 @@
   --game-ui-liquid-reveal-muted: #b6c7c0;
   --game-ui-liquid-reveal-shadow: 0 22px 70px rgb(0 0 0 / 22%);
   --game-ui-liquid-reveal-backdrop: rgb(0 0 0 / 24%);
+  /* Cream keys retain the brand's readable button/ink pairing on BOTH themes.
+     These are action colours, deliberately not inherited from the dark reader. */
+  --game-ui-liquid-action-face: #fff8ec;
+  --game-ui-liquid-action-ink: #403127;
+  --game-ui-liquid-action-lip: #ae9e87;
+  --game-ui-liquid-action-border: #dccdb9;
+  --game-ui-liquid-field-face: rgb(0 0 0 / 24%);
+}
+.game-ui-liquid-reveal .game-ui-button--secondary {
+  background: var(--game-ui-liquid-action-face);
+  color: var(--game-ui-liquid-action-ink);
+  border: 1px solid var(--game-ui-liquid-action-border);
+  --game-ui-button-lip-ink: var(--game-ui-liquid-action-lip);
+  --game-ui-shadow-button: inset 0 1px 0
+    color-mix(in srgb, var(--game-ui-liquid-action-face) 90%, transparent);
+}
+.game-ui-liquid-reveal .game-ui-button:disabled {
+  opacity: 0.55;
+}
+.game-ui-liquid-reveal .game-ui-button--ghost {
+  color: var(--game-ui-liquid-reveal-muted);
 }
 .game-ui-liquid-reveal {
   position: relative;

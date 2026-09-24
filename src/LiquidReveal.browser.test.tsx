@@ -92,3 +92,46 @@ it('zero budget and reduced motion leave an immediately usable still frame', asy
   expect(host!.querySelector('textarea')!.value).toBe('keep me');
   expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
 });
+
+it('pause and rerender retain the current material rather than flashing phase zero', async () => {
+  await mount(false, 'breathe');
+  const outline = () => host!.querySelector('[data-reveal-outline]')!.getAttribute('d');
+  const ribbon = () => host!.querySelector('[data-reveal-ribbon]')!.getAttribute('d');
+  await expect
+    .poll(() => host!.querySelector<HTMLElement>('.game-ui-liquid-reveal')!.dataset.revealAmbient, {
+      timeout: 4000,
+    })
+    .toBe('flowing');
+  await new Promise((done) => setTimeout(done, 600));
+  let pausedPath: string | null = null,
+    pausedRibbon: string | null = null;
+  await act(async () => {
+    pausedPath = outline();
+    pausedRibbon = ribbon();
+    root!.render(
+      <StrictMode>
+        <LiquidReveal source={{ current: origin! }} idleMotion="still">
+          <textarea aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    );
+  });
+  expect(outline()).toBe(pausedPath);
+  expect(ribbon()).toBe(pausedRibbon);
+  await new Promise((done) => setTimeout(done, 220));
+  expect(outline()).toBe(pausedPath);
+  expect(host!.querySelector('[data-reveal-tip]')).toBeNull();
+  expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+  await act(async () => {
+    root!.render(
+      <StrictMode>
+        <LiquidReveal source={{ current: origin! }} idleMotion="breathe">
+          <textarea aria-label="draft" defaultValue="keep me" />
+        </LiquidReveal>
+      </StrictMode>,
+    );
+  });
+  expect(outline()).toBe(pausedPath);
+  await expect.poll(outline).not.toBe(pausedPath);
+  expect(host!.querySelector('textarea')!.value).toBe('keep me');
+});

@@ -30,7 +30,9 @@ This file is the current project work index. It is not the agents-routing algori
   Floating UI to place temporary content beside a host-positioned body and reports
   its occupied bounds. The leaf owns no microphone, agent or modal semantics.
   The current contract is in the design guide; the one cross-repository record is
-  NerveKit `docs/plans/completed/living-entry-convergence.md`; paired browser and
+  NerveKit `docs/plans/completed/living-entry-convergence.md`; the follow-up visual
+  refinement uses the same blob geometry and clear GameButton surfaces, recorded
+  in NerveKit `docs/plans/completed/liquid-clarity-refinement.md`. Paired browser and
   packed-consumer gates passed, separate from registry/product adoption.
   No npm publication or production consumer upgrade is implied.
 

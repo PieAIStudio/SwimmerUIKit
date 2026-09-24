@@ -1,6 +1,24 @@
-/** Only decoration moves. Neither text layout nor the native hit area uses this path. */
-export function liquidRevealContour(w: number, h: number, input: boolean, phase = 0) {
-  const r = Math.max(0, Math.min(28, h / 2 - 6, w / 2 - 6));
-  const wave = input ? Math.sin(phase) * 1.5 : 3 + Math.sin(phase) * 3;
-  return `M ${w - 6} ${h - r - 6} Q ${w - 4} ${h - 5} ${w - r - 6} ${h - 6} C ${w * 0.66} ${h - 6 - wave} ${w * 0.3} ${h - 6 + wave} ${r + 6} ${h - 6} Q 5 ${h - 4} 6 ${h - r - 6} C ${6 + wave} ${h * 0.67} ${6 - wave} ${h * 0.3} 6 ${r + 6} Q 4 5 ${r + 6} 6 C ${w * 0.34} ${6 - wave} ${w * 0.66} ${6 + wave} ${w - r - 6} 6 Q ${w - 5} 4 ${w - 6} ${r + 6} C ${w - 6 - wave} ${h * 0.3} ${w - 6 + wave} ${h * 0.67} ${w - 6} ${h - r - 6} Z`;
+import { blobPath, roundedRectPath } from './liquidGooeyGeometry';
+
+/** The SAME closed C1 silhouette as the body. A fixed inner shore makes local
+ * swells read as liquid thickness, not four synchronized bending rules.
+ * Text, the backing and native hit boxes do not use either path. */
+export function liquidRevealShape(width: number, height: number, input: boolean, phase = 0) {
+  const w = Math.max(44, width),
+    h = Math.max(44, height);
+  const r = Math.min(28, (w - 12) / 2, (h - 12) / 2);
+  const outline = blobPath(6, 6, w - 12, h - 12, [r, r, r, r], {
+    amplitude: input ? 5 : 7,
+    lobes: 3,
+    seed: 17,
+    phase,
+  });
+  const innerRadius = Math.max(0, r - 2.5);
+  const inner = roundedRectPath(8.5, 8.5, w - 17, h - 17, [
+    innerRadius,
+    innerRadius,
+    innerRadius,
+    innerRadius,
+  ]);
+  return { outline, ribbon: `${outline} ${inner}` };
 }

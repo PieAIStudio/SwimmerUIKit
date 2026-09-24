@@ -1,6 +1,6 @@
 import { useEffect, useRef, type RefObject } from 'react';
 import { requestLiquidAmbient } from './liquidAmbientClock';
-import { liquidRevealContour } from './liquidRevealGeometry';
+import { liquidRevealShape } from './liquidRevealGeometry';
 import {
   getLiquidGooeyBudget,
   tryAcquireLiquidGooeyAnimation,
@@ -28,6 +28,7 @@ export function useLiquidRevealAmbient(
     let last = performance.now();
     let cancel = () => {};
     const path = element.querySelector<SVGPathElement>('[data-reveal-outline]');
+    const ribbon = element.querySelector<SVGPathElement>('[data-reveal-ribbon]');
     const area = (width + 24) * (height + 24);
     const paint = (now: number) => {
       if (!active || !visible || document.hidden) return;
@@ -44,7 +45,9 @@ export function useLiquidRevealAmbient(
       }
       try {
         phase.current += (elapsed * Math.PI * 2) / 10000;
-        path?.setAttribute('d', liquidRevealContour(width, height, input, phase.current));
+        const shape = liquidRevealShape(width, height, input, phase.current);
+        path?.setAttribute('d', shape.outline);
+        ribbon?.setAttribute('d', shape.ribbon);
         element.dataset.revealAmbient = 'flowing';
       } finally {
         releaseLiquidGooeyAnimation();
@@ -75,4 +78,7 @@ export function useLiquidRevealAmbient(
       element.dataset.revealAmbient = 'static';
     };
   }, [root, enabled, width, height, input]);
+  // React must render the retained phase too: resize/pause must not replace the
+  // imperatively painted shape with phase zero for a visible frame.
+  return phase;
 }

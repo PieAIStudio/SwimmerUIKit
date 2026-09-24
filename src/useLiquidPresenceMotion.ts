@@ -47,6 +47,9 @@ export function useLiquidPresenceMotion(
   const rejected = useRef<string | null>(null);
   const delivered = useRef<string | null>(null);
   const materialPhase = useRef(0);
+  // Keep posture when courtesy/explicit pause stops the clock. Do not snap back
+  // to a round body; real activity transitions ease back to the active material.
+  const materialLiving = useRef(props.idleMotion === 'breathe' ? 1 : 0);
   const wakeRef = useRef(() => {});
   useEffect(() => {
     const source = sourceRef.current;
@@ -309,6 +312,9 @@ export function useLiquidPresenceMotion(
       if (animated && (moving || bodyActive() || ambient))
         bodyPhase += elapsed * (ambient ? 0.00084 : 0.00105) * speed;
       materialPhase.current = bodyPhase;
+      if (animated && (moving || bodyActive() || ambient))
+        materialLiving.current +=
+          ((ambient ? 1 : 0) - materialLiving.current) * (1 - Math.exp(-elapsed / 500));
       const energy = animated && bodyActive() && !moving ? 0.14 + level * 0.75 : moving ? 0.2 : 0;
       const wasHidden = nodes.label.hasAttribute('hidden');
       paintPresenceFrame(
@@ -317,8 +323,9 @@ export function useLiquidPresenceMotion(
         seatWidth,
         bodyPhase,
         energy,
-        intensity * (ambient ? 0.95 : 1),
+        intensity,
         Boolean(latest.current.guideContent && target),
+        materialLiving.current,
       );
       paintPresenceSatellites(
         nodes,

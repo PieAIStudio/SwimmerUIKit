@@ -292,16 +292,25 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 `LiquidReveal` 只承载原生 DOM：`source` 是真实启动按钮的 ref，`variant="input"`
 是细长输入，默认 `content` 是深色阅览面。`revealKey` 只在新的人类请求时更换，
 不要用 token、时间戳或流式字符触发重绘。边框复用同一 goo/gloss 和动画预算，
-分滴、描边在约 610ms 内结束；内容即时可用，不等待动画。缩放只测量新尺寸，
+分滴就近到达边缘，材质在约 840ms 内柔和显现，不再绕框追逐或同步弯曲四条边；
+内容即时可用，不等待动画。缩放只测量新尺寸，
 不重新飞一次。减少动态、不可见页面、预算不足直接呈现；超滤镜面积时不启用
 体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas 或媒体连接；默认没有常驻动效。
 `--game-ui-liquid-reveal-*` 是这个深色承载面的语义 token；默认正文保持浅色，
 外框颜色沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是透明玻璃。
 来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
-可选 `idleMotion="breathe"` 使包边在约十秒周期内小幅流动，和主体共享一个
+可选 `idleMotion="breathe"` 使包边在约十秒周期内小幅流动。外缘直接复用主体的
+闭合 C1 `blobPath`，内缘固定，局部厚薄形成体积；不靠附着小圆或整圈跑珠装饰。
+主体的缓慢姿态比前版明显，但速度不增加，普通静止默认不变。暂停/恢复保留当前
+轮廓相位，不回跳首帧。两者共享一个
 低频唤醒时钟及既有预算，不每个框开一条 60Hz 循环。`reducedMotion` 和系统偏好
 优先；关闭/隐藏/离开屏幕清理订阅。Nerve 投影输入、选择、拖动与暂停偏好，
 Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个形变。
+
+阅览面内的 `GameButton variant="secondary"` 保留明确的浅色底面、深色文字和
+原生按压厚度，而不是被覆盖为裸文字。`--game-ui-liquid-action-*` 统一声明这组
+跨日夜主题的动作配色；`--game-ui-liquid-field-face` 为输入提供较安静的凹入底面。
+以上仅作用于可选 LiquidReveal 内的控件，普通 GameButton 不改变。
 
 同一可选入口另导出 `LiquidAnchor`：接 `source` ref，用已有 Floating UI
 安置临时内容，不给主体设屏幕位置。`placement` 默认 `top-end`，会避让视口，

@@ -331,7 +331,9 @@ it('reduced motion and zero budget override ambient motion, and turning idle off
   expect(contour.getAttribute('d')).toBe(before);
   await render({ reducedMotion: false });
   await wait(160);
+  const postureBeforePause = contour.getAttribute('d');
   await render({ idleMotion: 'still' });
+  expect(contour.getAttribute('d')).toBe(postureBeforePause);
   before = contour.getAttribute('d');
   await wait(200);
   expect(contour.getAttribute('d')).toBe(before);

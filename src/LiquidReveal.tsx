@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react';
-import { liquidRevealContour } from './liquidRevealGeometry';
+import { liquidRevealShape } from './liquidRevealGeometry';
 import { useLiquidRevealAmbient } from './useLiquidRevealAmbient';
 import { LiquidGooeyFilter } from './liquidGooeyFilter';
 import { presenceCurve, validPresenceRect } from './liquidPresenceGeometry';
@@ -91,7 +91,16 @@ export function LiquidReveal({
       x: (sourceBox.x + sourceBox.width / 2 - rect.x) / sx,
       y: (sourceBox.y + sourceBox.height / 2 - rect.y) / sy,
     };
-    const to = { x: size.width - 18, y: size.height - 30 };
+    const path = drawing.querySelector<SVGPathElement>('[data-reveal-outline]');
+    const length = path?.getTotalLength() ?? 0;
+    // The material arrives at the nearest real edge from ANY host placement.
+    // No fast bead races a whole rectangle like a loading indicator.
+    const to = path
+      ? Array.from({ length: 48 }, (_, i) => path.getPointAtLength((length * i) / 48)).reduce(
+          (a, b) =>
+            Math.hypot(b.x - from.x, b.y - from.y) < Math.hypot(a.x - from.x, a.y - from.y) ? b : a,
+        )
+      : { x: size.width - 18, y: size.height - 30 };
     const viewport = {
       x: -rect.x / sx,
       y: -rect.y / sy,
@@ -111,38 +120,21 @@ export function LiquidReveal({
       });
       animations.push(
         bead.animate(frames, {
-          duration: 240,
-          delay: index * 30,
+          duration: 340,
+          delay: index * 35,
           easing: 'cubic-bezier(.2,.7,.2,1)',
         }),
       );
     }
-    for (const path of drawing.querySelectorAll<SVGPathElement>('[data-reveal-outline]')) {
+    const material = drawing.querySelector<SVGGElement>('[data-reveal-material]');
+    if (material) {
       animations.push(
-        path.animate(
-          [
-            { strokeDasharray: '1', strokeDashoffset: '1' },
-            { strokeDasharray: '1', strokeDashoffset: '0' },
-          ],
-          { duration: 460, delay: 150, fill: 'backwards', easing: 'cubic-bezier(.18,.65,.2,1)' },
-        ),
-      );
-    }
-    const path = drawing.querySelector<SVGPathElement>('[data-reveal-outline]');
-    const tip = drawing.querySelector<SVGGElement>('[data-reveal-tip]');
-    if (path && tip) {
-      const length = path.getTotalLength();
-      animations.push(
-        tip.animate(
-          Array.from({ length: 49 }, (_, index) => {
-            const p = path.getPointAtLength((length * index) / 48);
-            return {
-              transform: `translate(${p.x}px, ${p.y}px)`,
-              opacity: index === 0 || index === 48 ? 0 : 1,
-            };
-          }),
-          { duration: 460, delay: 150, easing: 'cubic-bezier(.18,.65,.2,1)' },
-        ),
+        material.animate([{ opacity: 0.18 }, { opacity: 1 }], {
+          duration: 700,
+          delay: 140,
+          fill: 'backwards',
+          easing: 'cubic-bezier(.18,.65,.2,1)',
+        }),
       );
     }
     let released = false;
@@ -172,14 +164,14 @@ export function LiquidReveal({
 
   const w = Math.max(44, size.width),
     h = Math.max(44, size.height);
-  const contour = liquidRevealContour(w, h, variant === 'input');
-  useLiquidRevealAmbient(
+  const phase = useLiquidRevealAmbient(
     root,
     !reduced && idleMotion === 'breathe',
     size.width,
     size.height,
     variant === 'input',
   );
+  const shape = liquidRevealShape(w, h, variant === 'input', phase.current);
   const filterOK = (w + 24) * (h + 24) <= getLiquidGooeyBudget().maxFilterArea;
   return (
     <div
@@ -223,37 +215,22 @@ export function LiquidReveal({
               />
             </filter>
           </defs>
-          <g filter={filterOK ? `url(#${id}-finish)` : undefined}>
+          <g data-reveal-material="" filter={filterOK ? `url(#${id}-finish)` : undefined}>
+            <path
+              data-reveal-ribbon=""
+              d={shape.ribbon}
+              fillRule="evenodd"
+              fill={`url(#${id}-fill)`}
+            />
             <path
               data-reveal-outline=""
-              d={contour}
+              d={shape.outline}
               pathLength="1"
               fill="none"
               stroke={`url(#${id}-fill)`}
-              strokeWidth={variant === 'input' ? 4 : 4.5}
+              strokeWidth="1.2"
               strokeLinecap="round"
             />
-            <g fill={`url(#${id}-fill)`}>
-              {variant === 'content' && (
-                <>
-                  <ellipse cx={w * 0.78} cy="6" rx="17" ry="3.8" />
-                  <ellipse cx="6" cy={h * 0.64} rx="3.8" ry="11" />
-                  <circle cx={w - 22} cy="0" r="3.5" />
-                  <circle cx={w - 10} cy="-7" r="2" />
-                </>
-              )}
-              <ellipse
-                cx={w - 16}
-                cy={h - 12}
-                rx="10"
-                ry="5"
-                transform={`rotate(-32 ${w - 16} ${h - 12})`}
-              />
-              <ellipse cx="18" cy="12" rx="8" ry="4" transform="rotate(-25 18 12)" />
-              <g data-reveal-tip="" opacity="0">
-                <circle r="7" />
-              </g>
-            </g>
           </g>
           {/* Small flights must not be clipped by the perimeter's filter bounds. */}
           {[0, 1, 2].map((index) => (
