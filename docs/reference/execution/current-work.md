@@ -25,11 +25,13 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- Source candidate: `LiquidReveal` in the existing liquid-presence leaf shares
-  the opaque material and finite animation budget, composing a slim input or a
-  quiet dark content perimeter. It owns no microphone, agent or modal semantics.
-  Nerve owns body-first voice/text and Peek composition; the cross-repository
-  acceptance record is NerveKit `docs/plans/completed/liquid-interaction.md`.
+- Source candidate: `LiquidReveal` supports optional slow perimeter flow, sharing
+  the body's low-rate wake and animation budget. `LiquidAnchor` uses existing
+  Floating UI to place temporary content beside a host-positioned body and reports
+  its occupied bounds. The leaf owns no microphone, agent or modal semantics.
+  The current contract is in the design guide; the one cross-repository record is
+  NerveKit `docs/plans/completed/living-entry-convergence.md`; paired browser and
+  packed-consumer gates passed, separate from registry/product adoption.
   No npm publication or production consumer upgrade is implied.
 
 - Completed local candidate: optional interactive explanation at the existing

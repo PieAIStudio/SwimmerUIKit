@@ -6,6 +6,10 @@ import { playwright } from '@vitest/browser-playwright';
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
+// Recorded verification cost on the owner's Mac, 2026-09-24: 409 unit/browser/
+// Storybook tests ~62s, full verify ~85s with concurrent host work. Iterations use
+// the affected files first. Evidence: .devspace-visual/living-entry/final/verify-final.log.
+
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   // pretty-format (pulled by Storybook's browser test harness) still references

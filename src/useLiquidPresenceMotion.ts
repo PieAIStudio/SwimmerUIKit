@@ -1,3 +1,4 @@
+import { requestLiquidAmbient } from './liquidAmbientClock';
 import { useEffect, useRef, type RefObject } from 'react';
 import {
   computePosition,
@@ -79,7 +80,7 @@ export function useLiquidPresenceMotion(
     const departure = source.getBoundingClientRect();
     let begin = performance.now();
     let frameId: number | null = null;
-    let ambientTimer: ReturnType<typeof setTimeout> | undefined;
+    let cancelAmbient = () => {};
     let active = true;
     let leased = false;
     let ambientDeferred = false;
@@ -306,7 +307,7 @@ export function useLiquidPresenceMotion(
       const speed = clampPresence(latest.current.motionSpeed ?? 1, 0.5, 1.5);
       const intensity = clampPresence(latest.current.motionIntensity ?? 1, 0.25, 1.25);
       if (animated && (moving || bodyActive() || ambient))
-        bodyPhase += elapsed * (ambient ? 0.00032 : 0.00105) * speed;
+        bodyPhase += elapsed * (ambient ? 0.00084 : 0.00105) * speed;
       materialPhase.current = bodyPhase;
       const energy = animated && bodyActive() && !moving ? 0.14 + level * 0.75 : moving ? 0.2 : 0;
       const wasHidden = nodes.label.hasAttribute('hidden');
@@ -316,7 +317,7 @@ export function useLiquidPresenceMotion(
         seatWidth,
         bodyPhase,
         energy,
-        intensity * (ambient ? 0.65 : 1),
+        intensity * (ambient ? 0.95 : 1),
         Boolean(latest.current.guideContent && target),
       );
       paintPresenceSatellites(
@@ -345,10 +346,10 @@ export function useLiquidPresenceMotion(
         release();
         if (ambient && (animated || ambientDeferred)) {
           // No 60Hz polling just to throttle to 12Hz. One timed wake, one paint.
-          ambientTimer = setTimeout(
+          cancelAmbient = requestLiquidAmbient(
             () => {
-              ambientTimer = undefined;
-              if (active && !document.hidden && onScreen) frameId = requestAnimationFrame(tick);
+              cancelAmbient = () => {};
+              if (active && !document.hidden && onScreen) tick(performance.now());
             },
             ambientDeferred ? 250 : 1000 / 12,
           );
@@ -371,8 +372,8 @@ export function useLiquidPresenceMotion(
     }
     function wake() {
       if (!active || frameId !== null || document.hidden) return;
-      clearTimeout(ambientTimer);
-      ambientTimer = undefined;
+      cancelAmbient();
+      cancelAmbient = () => {};
       paint(performance.now());
     }
     wakeRef.current = wake;
@@ -422,8 +423,8 @@ export function useLiquidPresenceMotion(
     };
     const visibility = () => {
       if (document.hidden) {
-        clearTimeout(ambientTimer);
-        ambientTimer = undefined;
+        cancelAmbient();
+        cancelAmbient = () => {};
         if (frameId !== null) cancelAnimationFrame(frameId);
         frameId = null;
         stopPosition();
@@ -441,8 +442,8 @@ export function useLiquidPresenceMotion(
         : new IntersectionObserver((entries) => {
             onScreen = entries[0]?.isIntersecting ?? true;
             if (!onScreen) {
-              clearTimeout(ambientTimer);
-              ambientTimer = undefined;
+              cancelAmbient();
+              cancelAmbient = () => {};
               if (frameId !== null) cancelAnimationFrame(frameId);
               frameId = null;
               release();
@@ -462,7 +463,7 @@ export function useLiquidPresenceMotion(
       positionTicket++;
       if (frameId !== null) cancelAnimationFrame(frameId);
       clearTimeout(timer);
-      clearTimeout(ambientTimer);
+      cancelAmbient();
       stopPosition();
       intersection?.disconnect();
       release();

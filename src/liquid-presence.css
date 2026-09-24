@@ -1,5 +1,6 @@
 /* Optional visual leaf. Import after the normal UIKit token/control sheet. */
 :root {
+  --game-ui-assistance-z: 96;
   --game-ui-liquid-reveal-bg: rgb(5 12 13 / 94%);
   --game-ui-liquid-reveal-solid: #101718;
   --game-ui-liquid-reveal-text: #f2f7f4;
@@ -167,4 +168,10 @@
     border: 1px solid CanvasText;
     box-shadow: none;
   }
+}
+
+/* Source placement belongs to the host. Only its temporary outlet floats. */
+.game-ui-liquid-anchor {
+  z-index: var(--game-ui-assistance-z, 95);
+  width: max-content;
 }

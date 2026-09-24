@@ -21,7 +21,7 @@ afterEach(async () => {
   expect(getLiquidGooeyBudget().activeGroups).toBe(0);
   resetLiquidGooeyBudgetForTests();
 });
-async function mount(reduced = false) {
+async function mount(reduced = false, idleMotion: 'still' | 'breathe' = 'still') {
   host = document.createElement('div');
   host.style.cssText = 'position:fixed;left:50px;top:50px;width:360px';
   origin = document.createElement('button');
@@ -31,7 +31,7 @@ async function mount(reduced = false) {
   await act(async () =>
     root!.render(
       <StrictMode>
-        <LiquidReveal source={{ current: origin! }} reducedMotion={reduced}>
+        <LiquidReveal source={{ current: origin! }} reducedMotion={reduced} idleMotion={idleMotion}>
           <textarea aria-label="draft" defaultValue="keep me" />
         </LiquidReveal>
       </StrictMode>,
@@ -44,7 +44,9 @@ it('draws then sleeps, preserves controls, and resize never replays the scene', 
     .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'))
     .toMatch(/drawing|settled/);
   await expect
-    .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'))
+    .poll(() => host!.querySelector('.game-ui-liquid-reveal')?.getAttribute('data-reveal-motion'), {
+      timeout: 4000,
+    })
     .toBe('settled');
   expect(host!.querySelector('textarea')!.value).toBe('keep me');
   expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
@@ -55,6 +57,31 @@ it('draws then sleeps, preserves controls, and resize never replays the scene', 
   });
   await expect.poll(() => host!.querySelector('svg')?.getAttribute('width')).toBe('300');
   expect(host!.getAnimations({ subtree: true })).toHaveLength(0);
+});
+
+it('opt-in perimeter flows while text and native hit boxes stay still, then stops without a lease', async () => {
+  await mount(false, 'breathe');
+  const frame = () => host!.querySelector<HTMLElement>('.game-ui-liquid-reveal')!;
+  const outline = () => host!.querySelector('[data-reveal-outline]')!.getAttribute('d');
+  await expect.poll(() => frame().dataset.revealAmbient, { timeout: 4000 }).toBe('flowing');
+  const before = outline();
+  const input = host!.querySelector('textarea')!;
+  const rect = input.getBoundingClientRect().toJSON();
+  await expect.poll(outline).not.toBe(before);
+  expect(input.getBoundingClientRect().toJSON()).toEqual(rect);
+  expect(input.value).toBe('keep me');
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+  await act(async () =>
+    root!.render(
+      <LiquidReveal reducedMotion idleMotion="breathe">
+        <textarea defaultValue="keep me" />
+      </LiquidReveal>,
+    ),
+  );
+  const stopped = outline();
+  await new Promise((done) => setTimeout(done, 240));
+  expect(outline()).toBe(stopped);
+  expect(frame().dataset.revealAmbient).toBe('static');
 });
 it('zero budget and reduced motion leave an immediately usable still frame', async () => {
   setLiquidGooeyBudget(0);

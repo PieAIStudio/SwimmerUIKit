@@ -7,6 +7,8 @@ import {
   type ReactNode,
   type RefObject,
 } from 'react';
+import { liquidRevealContour } from './liquidRevealGeometry';
+import { useLiquidRevealAmbient } from './useLiquidRevealAmbient';
 import { LiquidGooeyFilter } from './liquidGooeyFilter';
 import { presenceCurve, validPresenceRect } from './liquidPresenceGeometry';
 import {
@@ -24,6 +26,8 @@ export interface LiquidRevealProps {
   revealKey?: string;
   variant?: 'content' | 'input';
   reducedMotion?: boolean;
+  /** Optional slow perimeter flow. Caller must offer a persistent pause control. */
+  idleMotion?: 'still' | 'breathe';
   className?: string;
 }
 
@@ -36,6 +40,7 @@ export function LiquidReveal({
   revealKey = 'initial',
   variant = 'content',
   reducedMotion,
+  idleMotion = 'still',
   className = '',
 }: LiquidRevealProps) {
   const systemReduced = useSystemReducedMotion();
@@ -153,9 +158,13 @@ export function LiquidReveal({
       if (document.hidden) finish();
     };
     document.addEventListener('visibilitychange', hide);
+    window.addEventListener('resize', finish);
+    window.addEventListener('scroll', finish, true);
     return () => {
       finish();
       document.removeEventListener('visibilitychange', hide);
+      window.removeEventListener('resize', finish);
+      window.removeEventListener('scroll', finish, true);
       // Resize / preference changes settle, rather than replaying a flight from
       // a stale source. A genuinely new mounted surface gets its own ref.
     };
@@ -163,10 +172,14 @@ export function LiquidReveal({
 
   const w = Math.max(44, size.width),
     h = Math.max(44, size.height);
-  const r = variant === 'input' ? Math.min(28, h / 2 - 6) : 28;
-  // Begin beside the incoming droplet. Fixed geometry, not a moving text mask.
-  const wave = variant === 'input' ? 0 : 3;
-  const contour = `M ${w - 6} ${h - r - 6} Q ${w - 4} ${h - 5} ${w - r - 6} ${h - 6} C ${w * 0.66} ${h - 6 - wave} ${w * 0.3} ${h - 6 + wave} ${r + 6} ${h - 6} Q 5 ${h - 4} 6 ${h - r - 6} C ${6 + wave} ${h * 0.67} ${6 - wave} ${h * 0.3} 6 ${r + 6} Q 4 5 ${r + 6} 6 C ${w * 0.34} ${6 - wave} ${w * 0.66} ${6 + wave} ${w - r - 6} 6 Q ${w - 5} 4 ${w - 6} ${r + 6} C ${w - 6 - wave} ${h * 0.3} ${w - 6 + wave} ${h * 0.67} ${w - 6} ${h - r - 6} Z`;
+  const contour = liquidRevealContour(w, h, variant === 'input');
+  useLiquidRevealAmbient(
+    root,
+    !reduced && idleMotion === 'breathe',
+    size.width,
+    size.height,
+    variant === 'input',
+  );
   const filterOK = (w + 24) * (h + 24) <= getLiquidGooeyBudget().maxFilterArea;
   return (
     <div

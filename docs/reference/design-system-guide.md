@@ -294,11 +294,22 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 不要用 token、时间戳或流式字符触发重绘。边框复用同一 goo/gloss 和动画预算，
 分滴、描边在约 610ms 内结束；内容即时可用，不等待动画。缩放只测量新尺寸，
 不重新飞一次。减少动态、不可见页面、预算不足直接呈现；超滤镜面积时不启用
-体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas、媒体连接或后台动画循环。
+体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas 或媒体连接；默认没有常驻动效。
 `--game-ui-liquid-reveal-*` 是这个深色承载面的语义 token；默认正文保持浅色，
 外框颜色沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是透明玻璃。
 来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
-交互合同与跨库验收只记在 NerveKit `docs/plans/completed/liquid-interaction.md`。
+可选 `idleMotion="breathe"` 使包边在约十秒周期内小幅流动，和主体共享一个
+低频唤醒时钟及既有预算，不每个框开一条 60Hz 循环。`reducedMotion` 和系统偏好
+优先；关闭/隐藏/离开屏幕清理订阅。Nerve 投影输入、选择、拖动与暂停偏好，
+Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个形变。
+
+同一可选入口另导出 `LiquidAnchor`：接 `source` ref，用已有 Floating UI
+安置临时内容，不给主体设屏幕位置。`placement` 默认 `top-end`，会避让视口，
+也可由宿主选择；`onBoundsChange` 返回内容当前矩形或 null，供三维标签避让。
+源在 native dialog 内时保留原层，外部模态/不可见源不会留下错误浮层。
+宿主可覆盖 `--game-ui-assistance-z` 调整自身图层规则。
+交互合同与验收只记在 NerveKit `docs/plans/completed/living-entry-convergence.md`；
+完成源码验收不等于已发布新包。
 
 ```tsx
 import { LiquidPresence, type LiquidPresenceTarget } from '@pieai/swimmer-ui-kit/liquid-presence';
