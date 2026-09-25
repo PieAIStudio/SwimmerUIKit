@@ -25,6 +25,15 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- **2.10.0 release preparation:** package the existing reviewed liquid source
+  at `7268a37` so published NerveKit 0.3.0 consumers can actually render guide
+  content, selection comparison and companion motion. Registry 2.9.0 lacks
+  these optional props; a successful TypeScript JSX spread does not prove the
+  runtime supports them. Local verify passed 421 tests, Storybook build, docs,
+  publint and ESM-only type packaging. The version bump is not yet a publication
+  receipt. Ordinary controls, original defaults and all authoring evidence stay
+  unchanged. Do not copy candidate source into product builds.
+
 - Current source candidate: `LiquidReveal` shares the body's palette and motion
   controls, with outward swells and a 720ms gather/flight/spread entrance.
   Focused input stays immediately visible; restoring decoration never replays

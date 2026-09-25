@@ -3,6 +3,24 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## 2.10.0 — 2026-09-24
+
+Minor: publish the reviewed optional liquid interaction surface required by
+NerveKit's human-paced guidance, companion settings and selection comparison.
+
+- `LiquidPresence` accepts interactive guide content, an expanded review size,
+  explicit ambient motion and bounded material settings. Ordinary controls and
+  the omitted-option defaults remain unchanged.
+- Export `LiquidAnchor` and `LiquidReveal` from the existing optional leaf for
+  host-positioned surfaces. These are presentation only, not agent, credential,
+  microphone, task or persistence implementations.
+- Preserve native-dialog placement, reduced motion, visibility suspension,
+  original target hit boxes and shared rendering budgets. Final accepted model
+  results and user actions remain owned by the consuming application.
+
+This release packages the previously committed and reviewed liquid work; it
+does not replace a product's live-provider or deployment acceptance.
+
 ## 2.9.0 — 2026-09-21
 
 Minor: publish the optional liquid presence leaf for products that already own
