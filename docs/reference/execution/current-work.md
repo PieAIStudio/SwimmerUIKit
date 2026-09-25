@@ -25,44 +25,25 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- **2.10.0 release preparation:** package the existing reviewed liquid source
-  at `7268a37` so published NerveKit 0.3.0 consumers can actually render guide
-  content, selection comparison and companion motion. Registry 2.9.0 lacks
-  these optional props; a successful TypeScript JSX spread does not prove the
-  runtime supports them. Local verify passed 421 tests, Storybook build, docs,
-  publint and ESM-only type packaging. The version bump is not yet a publication
-  receipt. Ordinary controls, original defaults and all authoring evidence stay
-  unchanged. Do not copy candidate source into product builds.
+**Published 2.10.0:** the optional liquid leaf now supplies interactive guide
+content, expanded selection comparison, companion motion, `LiquidAnchor` and
+`LiquidReveal`. Ordinary controls and omitted-option defaults stay unchanged.
+NerveKit 0.3.0 consumers must use this released renderer for these options:
+2.9.0 can silently ignore extra props supplied through a JSX spread.
 
-- Current source candidate: `LiquidReveal` shares the body's palette and motion
-  controls, with outward swells and a 720ms gather/flight/spread entrance.
-  Focused input stays immediately visible; restoring decoration never replays
-  an already static surface. `LiquidAnchor` retains host position and modal
-  boundaries. Contract: design guide; cross-kit record:
-  NerveKit `docs/plans/completed/living-presence-and-spatial.md`. No agent, microphone,
-  package publication or production upgrade is implied.
+Release source `4a448c34ec9abf75c33f094fa69de8c74014f4bc`, Trusted Publishing
+run `36092614508`, completed successfully. Independent official-registry
+readback verified the actual tarball, SHA-512 and declarations. Local verify
+passed 421 tests, Storybook build, documentation, publint and ESM-only type
+checks. Exact receipt: `.devspace-reports/liquid-interaction-release-20260924/registry-receipt.json`.
+No product deployment, model request or media/microphone activation is implied.
 
-- Completed local candidate: optional interactive explanation at the existing
-  liquid destination, with human-paced dismissal and portal-safe controls.
-  No new renderer or ordinary-control behavior. Nerve owns the finite sequence;
-  the only cross-project record is NerveKit `docs/plans/completed/guided-walk.md`.
+The existing liquid source and authoring evidence were preserved, not rewritten
+for publication. Contracts remain in the design guide; finite guidance,
+personalization and approved selection edits belong to Nerve and its host.
+Directing is validating the paired published packages in its own repository.
 
-- Completed local candidate: explicit, low-rate living contour and bounded material
-  settings for the shared companion. Default `LiquidPresence` stays still;
-  this host opts in, with reduced-motion/visibility/budget taking precedence.
-  NerveKit owns its settings and portable Markdown, not this renderer.
-  Cross-repository delivery: NerveKit `docs/plans/completed/companion-personalization.md`.
-
-- Liquid presence refinement preserves the Owner-approved body and the published
-  optional `./liquid-presence` entry. It adds continuous gather/retraction,
-  event-driven DOM positioning, interruption/visibility guards and high-contrast
-  rendering, without changing ordinary controls or adding a runtime dependency.
-  The sole cross-repository record is SwimmerNerveKit's
-  `docs/plans/completed/liquid-presence-refinement.md`; the API and lifecycle
-  contract remains in this Kit's [design guide](../design-system-guide.md#液体协作身体源码候选).
-  Local checkpoints preserve the approved baseline. The current published
-  version is `2.9.0`; actual device/provider/production acceptance remains
-  separate.
+## Earlier checkpoints (not pending releases)
 
 - Completed and published as **2.9.0**: **Liquid Presence** adds the optional `./liquid-presence`
   renderer and CSS leaf for an existing assistant's grounded split/fly/dock/return
