@@ -31,6 +31,7 @@ import {
 } from './liquidPresencePaint';
 import type { LiquidPresenceProps } from './liquidPresenceTypes';
 import { readPresenceTarget, trackPresenceGeometry } from './liquidPresenceTracking';
+import { clearLiquidLabel, readLiquidPanels, observeLiquidPanels } from './liquidPanelObstacles';
 
 /** Single visual clock. The existing Kit budget arbitrates with liquid controls;
  * a denied lease falls back to a static, fully readable target indication. */
@@ -201,6 +202,21 @@ export function useLiquidPresenceMotion(
       })
         .then(({ x, y, placement }) => {
           if (active && ticket === positionTicket) {
+            const panels = readLiquidPanels(nodes.label);
+            if (panels.length && nodes.label.offsetWidth && nodes.label.offsetHeight) {
+              const clear = clearLiquidLabel(
+                { x, y },
+                { width: nodes.label.offsetWidth, height: nodes.label.offsetHeight },
+                presenceViewport(),
+                [...panels, visible],
+              );
+              if (!clear) {
+                nodes.label.style.visibility = 'hidden';
+                return;
+              }
+              x = clear.x;
+              y = clear.y;
+            }
             nodes.label.style.transform = `translate(${x}px, ${y}px)`;
             nodes.label.style.visibility = '';
             // A tall explanation can flip even when the small liquid marker
@@ -463,6 +479,10 @@ export function useLiquidPresenceMotion(
     document.addEventListener('visibilitychange', visibility);
     document.addEventListener('close', wake, true);
     document.addEventListener('toggle', wake, true);
+    const stopPanels = observeLiquidPanels(() => {
+      positionLabel();
+      wake();
+    });
     wake();
     return () => {
       active = false;
@@ -472,6 +492,7 @@ export function useLiquidPresenceMotion(
       clearTimeout(timer);
       cancelAmbient();
       stopPosition();
+      stopPanels();
       intersection?.disconnect();
       release();
       document.removeEventListener('keydown', key, true);

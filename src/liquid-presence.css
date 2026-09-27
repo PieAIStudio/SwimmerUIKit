@@ -1,233 +1,251 @@
-/* Optional visual leaf. Import after the normal UIKit token/control sheet. */
-:root {
-  --game-ui-assistance-z: 96;
-  --game-ui-liquid-reveal-bg: rgb(5 12 13 / 94%);
-  --game-ui-liquid-reveal-solid: #101718;
-  --game-ui-liquid-reveal-text: #f2f7f4;
-  --game-ui-liquid-reveal-muted: #b6c7c0;
-  --game-ui-liquid-reveal-shadow: 0 22px 70px rgb(0 0 0 / 22%);
-  --game-ui-liquid-reveal-backdrop: rgb(0 0 0 / 24%);
-  /* Cream keys retain the brand's readable button/ink pairing on BOTH themes.
+/* Optional components obey the same host-overridable layer as the main kit. */
+@layer swimmer-ui {
+  /* The button remains a real, accessible Kit control. This family delegates
+     paint to its liquid body rather than drawing a second pill behind it. */
+  .game-ui-button[data-game-ui-control='liquid-presence'] {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 50%;
+    color: inherit;
+  }
+  .game-ui-button[data-game-ui-control='liquid-presence']:is(:hover, :active) {
+    transform: none;
+    translate: none;
+    scale: none;
+  }
+  /* Optional visual leaf. Import after the normal UIKit token/control sheet. */
+  :root {
+    --game-ui-assistance-z: 96;
+    --game-ui-liquid-reveal-bg: rgb(5 12 13 / 94%);
+    --game-ui-liquid-reveal-solid: #101718;
+    --game-ui-liquid-reveal-text: #f2f7f4;
+    --game-ui-liquid-reveal-muted: #b6c7c0;
+    --game-ui-liquid-reveal-shadow: 0 22px 70px rgb(0 0 0 / 22%);
+    --game-ui-liquid-reveal-backdrop: rgb(0 0 0 / 24%);
+    /* Cream keys retain the brand's readable button/ink pairing on BOTH themes.
      These are action colours, deliberately not inherited from the dark reader. */
-  --game-ui-liquid-action-face: #fff8ec;
-  --game-ui-liquid-action-ink: #403127;
-  --game-ui-liquid-action-lip: #ae9e87;
-  --game-ui-liquid-action-border: #dccdb9;
-  --game-ui-liquid-field-face: rgb(0 0 0 / 24%);
-  --game-ui-liquid-material-ink: #020a08;
-  --game-ui-liquid-material-muted: #020a08;
-  --game-ui-liquid-material-field: #104a41;
-  --game-ui-liquid-field-ink: #f2f7f4;
-}
-.game-ui-liquid-reveal .game-ui-button--secondary {
-  background: var(--game-ui-liquid-action-face);
-  color: var(--game-ui-liquid-action-ink);
-  border: 1px solid var(--game-ui-liquid-action-border);
-  --game-ui-button-lip-ink: var(--game-ui-liquid-action-lip);
-  --game-ui-shadow-button: inset 0 1px 0
-    color-mix(in srgb, var(--game-ui-liquid-action-face) 90%, transparent);
-}
-.game-ui-liquid-reveal .game-ui-button:disabled {
-  opacity: 0.55;
-}
-.game-ui-liquid-reveal .game-ui-button--ghost {
-  color: var(--game-ui-liquid-reveal-muted);
-}
-.game-ui-liquid-reveal {
-  position: relative;
-  isolation: isolate;
-  min-width: 0;
-  border-radius: 32px;
-  color: var(--game-ui-liquid-reveal-text);
-  font-family: var(--game-ui-font-body);
-}
-.game-ui-liquid-reveal::before {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  z-index: -1;
-  border-radius: 27px;
-  background: var(--game-ui-liquid-reveal-bg);
-  /* Local scrim only: preserves background colour without readable ghost text.
-     Neither the content nor the entire host/3D scene is filtered. */
-  backdrop-filter: blur(8px);
-  box-shadow: var(--game-ui-liquid-reveal-shadow);
-  pointer-events: none;
-}
-.game-ui-liquid-reveal-content {
-  position: relative;
-  min-width: 0;
-  padding: 12px;
-  z-index: 1;
-}
-.game-ui-liquid-reveal[data-reveal-surface='material'] {
-  --game-ui-liquid-reveal-text: var(--game-ui-liquid-material-ink);
-  --game-ui-liquid-reveal-muted: var(--game-ui-liquid-material-muted);
-  --game-ui-liquid-field-face: var(--game-ui-liquid-material-field);
-}
-.game-ui-liquid-reveal[data-reveal-surface='material']::before {
-  background: none;
-  backdrop-filter: none;
-}
-.game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
-  .game-ui-liquid-reveal-content,
-.game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
-  .game-ui-liquid-reveal-ink {
-  opacity: 0;
-}
-.game-ui-liquid-reveal[data-reveal-surface='material']:is(
-  [data-reveal-motion='preparing'],
-  [data-reveal-motion='drawing']
-)::before {
-  box-shadow: none;
-}
-.game-ui-liquid-reveal[data-reveal-filter='flat']::before {
-  backdrop-filter: none;
-  background: var(--game-ui-liquid-reveal-solid);
-}
-.game-ui-liquid-reveal-ink {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: visible;
-}
-.game-ui-liquid-reveal[data-reveal-variant='input'] {
-  border-radius: 36px;
-}
-.game-ui-liquid-reveal[data-reveal-variant='input']::before {
-  border-radius: 30px;
-}
-@media (forced-colors: active) {
+    --game-ui-liquid-action-face: #fff8ec;
+    --game-ui-liquid-action-ink: #403127;
+    --game-ui-liquid-action-lip: #ae9e87;
+    --game-ui-liquid-action-border: #dccdb9;
+    --game-ui-liquid-field-face: rgb(0 0 0 / 24%);
+    --game-ui-liquid-material-ink: #020a08;
+    --game-ui-liquid-material-muted: #020a08;
+    --game-ui-liquid-material-field: #104a41;
+    --game-ui-liquid-field-ink: #f2f7f4;
+  }
+  .game-ui-liquid-reveal .game-ui-button--secondary {
+    background: var(--game-ui-liquid-action-face);
+    color: var(--game-ui-liquid-action-ink);
+    border: 1px solid var(--game-ui-liquid-action-border);
+    --game-ui-button-lip-ink: var(--game-ui-liquid-action-lip);
+    --game-ui-shadow-button: inset 0 1px 0
+      color-mix(in srgb, var(--game-ui-liquid-action-face) 90%, transparent);
+  }
+  .game-ui-liquid-reveal .game-ui-button:disabled {
+    opacity: 0.55;
+  }
+  .game-ui-liquid-reveal .game-ui-button--ghost {
+    color: var(--game-ui-liquid-reveal-muted);
+  }
   .game-ui-liquid-reveal {
-    border: 2px solid CanvasText;
-    color: CanvasText;
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+    border-radius: 32px;
+    color: var(--game-ui-liquid-reveal-text);
+    font-family: var(--game-ui-font-body);
   }
   .game-ui-liquid-reveal::before {
-    background: Canvas;
-    box-shadow: none;
-    backdrop-filter: none;
+    content: '';
+    position: absolute;
+    inset: 6px;
+    z-index: -1;
+    border-radius: 27px;
+    background: var(--game-ui-liquid-reveal-bg);
+    /* Local scrim only: preserves background colour without readable ghost text.
+     Neither the content nor the entire host/3D scene is filtered. */
+    backdrop-filter: blur(8px);
+    box-shadow: var(--game-ui-liquid-reveal-shadow);
+    pointer-events: none;
+  }
+  .game-ui-liquid-reveal-content {
+    position: relative;
+    min-width: 0;
+    padding: 12px;
+    z-index: 1;
   }
   .game-ui-liquid-reveal[data-reveal-surface='material'] {
-    --game-ui-liquid-reveal-text: CanvasText;
-    --game-ui-liquid-reveal-muted: CanvasText;
-    --game-ui-liquid-field-ink: CanvasText;
-    --game-ui-liquid-field-face: Canvas;
+    --game-ui-liquid-reveal-text: var(--game-ui-liquid-material-ink);
+    --game-ui-liquid-reveal-muted: var(--game-ui-liquid-material-muted);
+    --game-ui-liquid-field-face: var(--game-ui-liquid-material-field);
   }
   .game-ui-liquid-reveal[data-reveal-surface='material']::before {
-    background: Canvas;
+    background: none;
+    backdrop-filter: none;
   }
-  .game-ui-liquid-reveal-ink {
-    display: none;
+  .game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
+    .game-ui-liquid-reveal-content,
+  .game-ui-liquid-reveal[data-reveal-surface='material'][data-reveal-motion='preparing']
+    .game-ui-liquid-reveal-ink {
+    opacity: 0;
   }
-}
-.game-ui-liquid-presence {
-  --liquid-presence-from: var(--game-ui-secondary);
-  --liquid-presence-to: var(--game-ui-secondary);
-  display: inline-block;
-  position: relative;
-  flex: none;
-  line-height: 0;
-  vertical-align: middle;
-  pointer-events: none;
-  color: var(--game-ui-secondary);
-}
-.game-ui-liquid-presence > svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.game-ui-liquid-presence[data-activity='disabled'] {
-  opacity: 0.5;
-}
-.game-ui-liquid-presence[data-activity='error'],
-.game-ui-liquid-presence[data-activity='unknown'] {
-  --liquid-presence-from: var(--game-ui-warning);
-  --liquid-presence-to: var(--game-ui-warning);
-}
-.game-ui-liquid-presence-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  pointer-events: none;
-  overflow: visible;
-  color: var(--game-ui-secondary);
-}
-.game-ui-liquid-presence-overlay > [hidden] {
-  display: none !important;
-}
-.game-ui-liquid-presence-flight,
-.game-ui-liquid-presence-seat {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: visible;
-  transform-origin: center;
-}
-.game-ui-liquid-presence-flight {
-  width: 96px;
-  height: 72px;
-}
-.game-ui-liquid-presence-seat {
-  width: 112px;
-  height: 56px;
-}
-.game-ui-liquid-presence-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  max-width: min(260px, calc(100vw - 32px));
-  width: max-content;
-  padding: 9px 14px;
-  border-radius: var(--game-ui-radius-control, 12px);
-  background: var(--game-ui-panel-strong);
-  color: var(--game-ui-text);
-  box-shadow: var(--game-ui-shadow-button);
-  font: 500 13px/1.5 var(--game-ui-font-body);
-  overflow-wrap: anywhere;
-  text-wrap: pretty;
-}
-.game-ui-liquid-presence-label--guide {
-  width: 300px;
-  max-width: calc(100vw - 32px);
-  max-height: min(300px, 42dvh);
-  overflow: auto;
-  overscroll-behavior: contain;
-  pointer-events: auto;
-  padding: 16px;
-  border-radius: 16px;
-  text-wrap: wrap;
-}
-.game-ui-liquid-presence-label--expanded {
-  display: flex;
-  flex-direction: column;
-  width: 420px;
-  max-height: min(560px, 65dvh);
-}
-@media (prefers-reduced-motion: reduce) {
-  .game-ui-liquid-presence-flight {
-    display: none;
-  }
-}
-
-@media (forced-colors: active) {
-  .game-ui-liquid-presence svg g,
-  .game-ui-liquid-presence-overlay svg g,
-  .game-ui-liquid-presence-overlay svg path {
-    filter: none;
-    fill: Highlight;
-  }
-  .game-ui-liquid-presence-label {
-    color: CanvasText;
-    background: Canvas;
-    border: 1px solid CanvasText;
+  .game-ui-liquid-reveal[data-reveal-surface='material']:is(
+    [data-reveal-motion='preparing'],
+    [data-reveal-motion='drawing']
+  )::before {
     box-shadow: none;
   }
-}
+  .game-ui-liquid-reveal[data-reveal-filter='flat']::before {
+    backdrop-filter: none;
+    background: var(--game-ui-liquid-reveal-solid);
+  }
+  .game-ui-liquid-reveal-ink {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .game-ui-liquid-reveal[data-reveal-variant='input'] {
+    border-radius: 36px;
+  }
+  .game-ui-liquid-reveal[data-reveal-variant='input']::before {
+    border-radius: 30px;
+  }
+  @media (forced-colors: active) {
+    .game-ui-liquid-reveal {
+      border: 2px solid CanvasText;
+      color: CanvasText;
+    }
+    .game-ui-liquid-reveal::before {
+      background: Canvas;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+    .game-ui-liquid-reveal[data-reveal-surface='material'] {
+      --game-ui-liquid-reveal-text: CanvasText;
+      --game-ui-liquid-reveal-muted: CanvasText;
+      --game-ui-liquid-field-ink: CanvasText;
+      --game-ui-liquid-field-face: Canvas;
+    }
+    .game-ui-liquid-reveal[data-reveal-surface='material']::before {
+      background: Canvas;
+    }
+    .game-ui-liquid-reveal-ink {
+      display: none;
+    }
+  }
+  .game-ui-liquid-presence {
+    --liquid-presence-from: var(--game-ui-secondary);
+    --liquid-presence-to: var(--game-ui-secondary);
+    display: inline-block;
+    position: relative;
+    flex: none;
+    line-height: 0;
+    vertical-align: middle;
+    pointer-events: none;
+    color: var(--game-ui-secondary);
+  }
+  .game-ui-liquid-presence > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .game-ui-liquid-presence[data-activity='disabled'] {
+    opacity: 0.5;
+  }
+  .game-ui-liquid-presence[data-activity='error'],
+  .game-ui-liquid-presence[data-activity='unknown'] {
+    --liquid-presence-from: var(--game-ui-warning);
+    --liquid-presence-to: var(--game-ui-warning);
+  }
+  .game-ui-liquid-presence-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    pointer-events: none;
+    overflow: visible;
+    color: var(--game-ui-secondary);
+  }
+  .game-ui-liquid-presence-overlay > [hidden] {
+    display: none !important;
+  }
+  .game-ui-liquid-presence-flight,
+  .game-ui-liquid-presence-seat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+    transform-origin: center;
+  }
+  .game-ui-liquid-presence-flight {
+    width: 96px;
+    height: 72px;
+  }
+  .game-ui-liquid-presence-seat {
+    width: 112px;
+    height: 56px;
+  }
+  .game-ui-liquid-presence-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    max-width: min(260px, calc(100vw - 32px));
+    width: max-content;
+    padding: 9px 14px;
+    border-radius: var(--game-ui-radius-control, 12px);
+    background: var(--game-ui-panel-strong);
+    color: var(--game-ui-text);
+    box-shadow: var(--game-ui-shadow-button);
+    font: 500 13px/1.5 var(--game-ui-font-body);
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+  .game-ui-liquid-presence-label--guide {
+    width: 300px;
+    max-width: calc(100vw - 32px);
+    max-height: min(300px, 42dvh);
+    overflow: auto;
+    overscroll-behavior: contain;
+    pointer-events: auto;
+    padding: 16px;
+    border-radius: 16px;
+    text-wrap: wrap;
+  }
+  .game-ui-liquid-presence-label--expanded {
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    max-height: min(560px, 65dvh);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-liquid-presence-flight {
+      display: none;
+    }
+  }
 
-/* Source placement belongs to the host. Only its temporary outlet floats. */
-.game-ui-liquid-anchor {
-  z-index: var(--game-ui-assistance-z, 95);
-  width: max-content;
+  @media (forced-colors: active) {
+    .game-ui-liquid-presence svg g,
+    .game-ui-liquid-presence-overlay svg g,
+    .game-ui-liquid-presence-overlay svg path {
+      filter: none;
+      fill: Highlight;
+    }
+    .game-ui-liquid-presence-label {
+      color: CanvasText;
+      background: Canvas;
+      border: 1px solid CanvasText;
+      box-shadow: none;
+    }
+  }
+
+  /* Source placement belongs to the host. Only its temporary outlet floats. */
+  .game-ui-liquid-anchor {
+    z-index: var(--game-ui-assistance-z, 95);
+    width: max-content;
+  }
 }

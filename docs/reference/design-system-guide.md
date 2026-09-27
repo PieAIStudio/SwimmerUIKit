@@ -602,3 +602,16 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 - `bin/swimmer-ui-check.mjs` — 随包发布的消费方 token 漂移检查（`npx
 swimmer-ui-check`），用法见 usage-and-upgrade-playbook.md
 - `pnpm storybook` — 组件与 night 主题演示
+
+### Nerve 0.6 配套修复（尚未发布）
+
+可选 `liquid-presence.css` 与主样式一样归入 `@layer swimmer-ui`。产品的不分层
+样式可以直接覆盖品牌控件，不再被可选液体样式的特殊选择器压住。
+`GameButton data-game-ui-control="liquid-presence"` 由 Kit 去掉重复按钮底面，
+让内部液体主体负责外观；原生按钮、可达名字和交互仍保留。
+
+`LiquidAnchor` 的可见占用范围只交给本 Kit 的标签定位。Floating UI 先定位，
+有限的碰撞候选再避开打开的面板与真实目标；没有空位时不留下不可见可点的标签。
+面板变化或卸载触发更新，静止时没有新动画时钟。产品不需要把
+`--game-ui-assistance-z` 降到 94。目标可见性、页面选择和业务权限仍归产品。
+本节是已验证源码候选，不表示 registry 已发新版本；需 Owner 另行批准发布。

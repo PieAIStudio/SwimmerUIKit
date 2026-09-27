@@ -25,6 +25,14 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- Nerve 0.6 paired **unpublished fix**: optional liquid CSS is in `swimmer-ui`,
+  matching ordinary controls. LiquidAnchor reports its occupied rectangle to
+  the same family's destination labels; labels avoid panels instead of requiring
+  host z-index workarounds. One bounded layout registry, no task/model state.
+  A Kit GameButton with `data-game-ui-control="liquid-presence"` delegates paint
+  to its contained liquid body, retaining native interaction. Owner must approve
+  publication before a Nerve release pins this candidate. No product is changed.
+
 **Published 2.10.0:** the optional liquid leaf now supplies interactive guide
 content, expanded selection comparison, companion motion, `LiquidAnchor` and
 `LiquidReveal`. Ordinary controls and omitted-option defaults stay unchanged.

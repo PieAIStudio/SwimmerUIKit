@@ -11,6 +11,7 @@ import {
   type Placement,
 } from '@floating-ui/react';
 import type { LiquidPresenceRect } from './liquidPresenceGeometry';
+import { reportLiquidPanel } from './liquidPanelObstacles';
 
 export interface LiquidAnchorProps {
   source: RefObject<HTMLElement | null>;
@@ -39,6 +40,10 @@ export function LiquidAnchor({
     const anchor = source.current,
       node = layer;
     if (!anchor || !node) return;
+    const report = (rect: LiquidPresenceRect | null) => {
+      reportLiquidPanel(node, rect);
+      latest.current?.(rect);
+    };
     let active = true,
       serial = 0;
     let watchedModal: Element | null = null;
@@ -87,7 +92,7 @@ export function LiquidAnchor({
         (modal && !modal.contains(anchor) && !node.contains(modal))
       ) {
         node.style.visibility = 'hidden';
-        latest.current?.(null);
+        report(null);
         return;
       }
       void computePosition(anchor, node, {
@@ -112,14 +117,14 @@ export function LiquidAnchor({
           if (!active || ticket !== serial) return;
           if (middlewareData.hide?.referenceHidden) {
             node.style.visibility = 'hidden';
-            latest.current?.(null);
+            report(null);
             return;
           }
           node.style.left = `${x}px`;
           node.style.top = `${y}px`;
           node.style.visibility = 'visible';
           const bounds = node.getBoundingClientRect();
-          latest.current?.({
+          report({
             x: bounds.x,
             y: bounds.y,
             width: bounds.width,
@@ -129,7 +134,7 @@ export function LiquidAnchor({
         .catch(() => {
           if (!active || ticket !== serial) return;
           node.style.visibility = 'hidden';
-          latest.current?.(null);
+          report(null);
         });
     };
     syncTheme();
@@ -159,7 +164,7 @@ export function LiquidAnchor({
       modalRemoval?.disconnect();
       document.removeEventListener('toggle', update, true);
       document.removeEventListener('close', update, true);
-      latest.current?.(null);
+      report(null);
     };
   }, [layer, placement, source]);
   return portal ? (
