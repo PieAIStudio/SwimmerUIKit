@@ -4034,4 +4034,83 @@
       background: Highlight !important;
     }
   }
+
+  /*
+   * GameSplash: the opening screen and the scene-change screen. Full-viewport,
+   * the kit's own surface, one line at a time rising in, the bar under it.
+   */
+  .game-ui-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: var(--game-ui-safe-top) var(--game-ui-safe-right) var(--game-ui-safe-bottom)
+      var(--game-ui-safe-left);
+    background: var(--game-ui-bg);
+    color: var(--game-ui-text);
+  }
+  .game-ui-splash-body {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    width: min(28rem, 100%);
+    text-align: center;
+  }
+  .game-ui-splash-title {
+    margin: 0;
+    font-family: var(--game-ui-font-display);
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: var(--game-ui-weight-strong);
+    letter-spacing: -0.01em;
+  }
+  .game-ui-splash-line {
+    min-height: 3.2em;
+    margin: 0;
+    color: var(--game-ui-text);
+    font-size: var(--game-ui-font-lg);
+    line-height: var(--game-ui-line-body);
+    text-wrap: balance;
+    animation: game-ui-splash-line var(--game-ui-motion-slow) var(--game-ui-ease-soft) both;
+  }
+  .game-ui-splash-mark {
+    padding: 0 0.12em;
+    border-radius: 0.3em;
+    background: transparent;
+    color: var(--game-ui-accent-ink);
+    font-weight: var(--game-ui-weight-strong);
+    animation: game-ui-splash-mark var(--game-ui-motion-slow) var(--game-ui-motion-base)
+      var(--game-ui-ease-soft) both;
+  }
+  .game-ui-splash-progress {
+    width: 100%;
+  }
+  .game-ui-splash-start {
+    animation: game-ui-rise var(--game-ui-motion-base) var(--game-ui-ease-pop) both;
+  }
+  @keyframes game-ui-splash-line {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes game-ui-splash-mark {
+    from {
+      background: transparent;
+    }
+    to {
+      background: var(--game-ui-accent-pale);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-splash-line,
+    .game-ui-splash-mark,
+    .game-ui-splash-start {
+      animation: none;
+    }
+  }
 }

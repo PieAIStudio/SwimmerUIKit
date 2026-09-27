@@ -6,6 +6,12 @@ export { type LiquidFinish } from './liquidGooeyFinish';
 export { GameSelect, type GameSelectProps } from './GameSelect';
 export { GameHelpTip, type GameHelpTipProps } from './GameHelpTip';
 export {
+  GameSplash,
+  useGameSplashDelay,
+  type GameSplashLine,
+  type GameSplashProps,
+} from './GameSplash';
+export {
   GameButton,
   type GameButtonProps,
   type GameButtonSurface,

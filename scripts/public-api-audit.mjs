@@ -27,6 +27,7 @@ const families = {
   './GameDialog': ['Panels', 'Inline dialogue, not a modal'],
   './GamePanelSystem': ['Panels', 'Collapsible/window panels and native dialog'],
   './GameCallout': ['Display', 'Inline feedback'],
+  './GameSplash': ['Display', 'Opening and scene-change screen with real progress'],
   './ClayComponents': ['Assets and display', 'Icons, badges, HUD and display compositions'],
   './GameHistoryPanel': ['Compositions', 'History view; product owns the entries'],
   './GameHudActions': ['Compositions', 'HUD action composition'],

@@ -3,6 +3,15 @@
 All notable changes to `@pieai/swimmer-ui-kit`.
 Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
+## Unreleased
+
+- Add `GameSplash`, the opening and scene-change screen: rotating selling
+  lines with a highlighted phrase, a progress bar that tracks real readiness,
+  and an enter button offered only once ready (the tap that also lets a web
+  page start sound). `mode="transition"` shows one line and the bar with no
+  button; `useGameSplashDelay` shows it only after a wait outlasts its delay.
+  All text comes from the product. First consumer: University's V7 opening.
+
 ## 2.10.0 — 2026-09-24
 
 Minor: publish the reviewed optional liquid interaction surface required by

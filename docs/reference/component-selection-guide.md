@@ -61,6 +61,7 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 | 一块信息面板                  | `GamePanel` / `GameCollapsiblePanel` / `GameWindowPanel`    | 窗口式面板不等于模态对话框                                                 |
 | 真正阻断背景操作的模态框      | `GameModal`                                                 | `GameDialog` 是内联对话内容，不是 native dialog；未提交表单要跨关闭保留时传 `keepMounted` |
 | 空状态、提示、进度            | `GameEmptyState` / `GameCallout` / `GameProgress`           | `GameToast` 是展示组件，不是完整队列服务                                   |
+| 开屏、卡顿时的转场屏          | `GameSplash` + `useGameSplashDelay`                         | 进度必须是真实加载；文字由产品传入；转场只在等待超过延迟后出现             |
 | 标题／操作旁的解释            | `GameHelpTip`                                               | 短文本；hover、focus、点击／触摸可用。错误原因与必要操作不能藏在这里。     |
 | 图标、头像、徽章              | `GameAssetIcon` / `GameAvatar` / `GameBadge`                | 图标需先完成 [README 素材设置](../../README.md#whats-inside)               |
 | 围绕游戏画布的壳、HUD、资产栏 | `GameShell` / `GameSceneHudLayout` / `GameAssetLibrary`     | [游戏壳说明](game-surface-pack.md)；不包含游戏运行时                       |

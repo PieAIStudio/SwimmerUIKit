@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **277 named exports: 123 values and 154 types**.
+Compiler inventory: **281 named exports: 125 values and 156 types**.
 
 ## GameButton — Controls
 
@@ -155,6 +155,17 @@ Inline feedback
 | `GameCallout` | value | [source](../../src/GameCallout.tsx) |
 | `GameCalloutProps` | type | [source](../../src/GameCallout.tsx) |
 | `GameCalloutTone` | type | [source](../../src/GameCallout.tsx) |
+
+## GameSplash — Display
+
+Opening and scene-change screen with real progress
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameSplash` | value | [source](../../src/GameSplash.tsx) |
+| `useGameSplashDelay` | value | [source](../../src/GameSplash.tsx) |
+| `GameSplashLine` | type | [source](../../src/GameSplash.tsx) |
+| `GameSplashProps` | type | [source](../../src/GameSplash.tsx) |
 
 ## ClayComponents — Assets and display
 
