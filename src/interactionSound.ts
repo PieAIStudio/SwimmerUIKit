@@ -132,3 +132,58 @@ export function playGameInteractionSound(options: GameInteractionSoundOptions = 
   if (!audioContext) return false;
   return playGameInteractionSoundForContext(adaptAudioContext(audioContext), options);
 }
+
+/**
+ * A card turning over: a short falling sweep, and for a rarer card one or two
+ * bell notes after it. Synthesized, so nothing is downloaded; like every kit
+ * sound, the browser lets it play only once the page has been interacted with.
+ */
+export function playGameCardRevealSoundForContext(
+  audioContext: GameInteractionAudioContext,
+  rarity: 'common' | 'rare' | 'legendary',
+  options: GameInteractionSoundOptions = {},
+): boolean {
+  if (options.enabled === false) return false;
+  const peak =
+    0.05 * clampUnitInterval(options.masterVolume) * clampUnitInterval(options.sfxVolume);
+  if (peak <= 0) return false;
+
+  if (audioContext.state === 'suspended') void audioContext.resume();
+  const now = audioContext.currentTime;
+  const tone = (
+    type: OscillatorType,
+    from: number,
+    to: number,
+    start: number,
+    length: number,
+    level: number,
+  ) => {
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(from, start);
+    oscillator.frequency.exponentialRampToValueAtTime(to, start + length);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(level, start + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(start);
+    oscillator.stop(start + length);
+  };
+  tone('triangle', 900, 260, now, 0.09, peak);
+  const bells = rarity === 'legendary' ? [880, 1320] : rarity === 'rare' ? [990] : [];
+  bells.forEach((frequency, index) =>
+    tone('sine', frequency, frequency, now + 0.08 + index * 0.09, 0.35, peak * 0.8),
+  );
+  return true;
+}
+
+export function playGameCardRevealSound(
+  rarity: 'common' | 'rare' | 'legendary',
+  options: GameInteractionSoundOptions = {},
+): boolean {
+  const audioContext = resolveAudioContext();
+  if (!audioContext) return false;
+  return playGameCardRevealSoundForContext(adaptAudioContext(audioContext), rarity, options);
+}

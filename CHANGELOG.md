@@ -11,6 +11,16 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   page start sound). `mode="transition"` shows one line and the bar with no
   button; `useGameSplashDelay` shows it only after a wait outlasts its delay.
   All text comes from the product. First consumer: University's V7 opening.
+- Add `GameCollectibleCard` and `GameCollectibleCardSlot`: a printed card that
+  tilts toward the pointer with a glare that follows it and flips on a tap
+  (a drag that tilted it is not a tap). Framed by rarity: `common` silver,
+  `rare` violet with a gem, `legendary` gold with a crown, a foil kept off the
+  words, and an optional `spotlight` light turning behind it for the reveal.
+  The slot shows an uncollected card and what unlocks it. Card inks are theme
+  tokens (`--game-ui-collect-card-*`) that stay the same on every theme; band
+  inks meet 4.5:1. Reduced motion drops tilt, shine and the turning light.
+- Add `playGameCardRevealSound`: a synthesized flip, with bell notes for the
+  rarer cards. First consumer: University's V7 card album.
 
 ## 2.10.0 — 2026-09-24
 

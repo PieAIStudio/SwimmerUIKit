@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **281 named exports: 125 values and 156 types**.
+Compiler inventory: **287 named exports: 129 values and 158 types**.
 
 ## GameButton — Controls
 
@@ -166,6 +166,17 @@ Opening and scene-change screen with real progress
 | `useGameSplashDelay` | value | [source](../../src/GameSplash.tsx) |
 | `GameSplashLine` | type | [source](../../src/GameSplash.tsx) |
 | `GameSplashProps` | type | [source](../../src/GameSplash.tsx) |
+
+## GameCollectibleCard — Display
+
+Tilting, flipping collectible card framed by rarity
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameCollectibleCard` | value | [source](../../src/GameCollectibleCard.tsx) |
+| `GameCollectibleCardSlot` | value | [source](../../src/GameCollectibleCard.tsx) |
+| `GameCollectibleCardProps` | type | [source](../../src/GameCollectibleCard.tsx) |
+| `GameCollectibleCardRarity` | type | [source](../../src/GameCollectibleCard.tsx) |
 
 ## ClayComponents — Assets and display
 
@@ -501,6 +512,8 @@ Opt-in sound; host owns settings
 
 | Export | Kind | Definition |
 | --- | --- | --- |
+| `playGameCardRevealSound` | value | [source](../../src/interactionSound.ts) |
+| `playGameCardRevealSoundForContext` | value | [source](../../src/interactionSound.ts) |
 | `playGameInteractionSound` | value | [source](../../src/interactionSound.ts) |
 | `playGameInteractionSoundForContext` | value | [source](../../src/interactionSound.ts) |
 | `GameInteractionAudioContext` | type | [source](../../src/interactionSound.ts) |

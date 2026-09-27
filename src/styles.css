@@ -4113,4 +4113,331 @@
       animation: none;
     }
   }
+
+  /*
+   * GameCollectibleCard: a printed card that tilts toward the pointer, shines
+   * where the light would catch it and flips on a tap. Frame by rarity; the
+   * legendary card adds a foil and, when spotlit, a turning light behind it.
+   */
+  .game-ui-collect-card {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 7;
+    cursor: pointer;
+    font-family: var(--game-ui-font-body);
+    transform-style: preserve-3d;
+    transform: rotateX(var(--card-rx)) rotateY(var(--card-ry));
+    transition: transform var(--game-ui-motion-slow) var(--game-ui-ease-pop);
+    --card-frame: var(--game-ui-collect-card-common-frame);
+    --card-frame-deep: var(--game-ui-collect-card-common-frame-deep);
+    --card-band: var(--game-ui-collect-card-common-band);
+    --card-band-ink: var(--game-ui-collect-card-common-band-ink);
+    --card-art: var(--game-ui-collect-card-common-art);
+    --card-art-deep: var(--game-ui-collect-card-common-art-deep);
+    --card-dot: var(--game-ui-collect-card-common-dot);
+  }
+  .game-ui-collect-card--rare {
+    --card-frame: var(--game-ui-collect-card-rare-frame);
+    --card-frame-deep: var(--game-ui-collect-card-rare-frame-deep);
+    --card-band: var(--game-ui-collect-card-rare-band);
+    --card-band-ink: var(--game-ui-collect-card-rare-band-ink);
+    --card-art: var(--game-ui-collect-card-rare-art);
+    --card-art-deep: var(--game-ui-collect-card-rare-art-deep);
+    --card-dot: var(--game-ui-collect-card-rare-dot);
+  }
+  .game-ui-collect-card--legendary {
+    --card-frame: var(--game-ui-collect-card-legendary-frame);
+    --card-frame-deep: var(--game-ui-collect-card-legendary-frame-deep);
+    --card-band: var(--game-ui-collect-card-legendary-band);
+    --card-band-ink: var(--game-ui-collect-card-legendary-band-ink);
+    --card-art: var(--game-ui-collect-card-legendary-art);
+    --card-art-deep: var(--game-ui-collect-card-legendary-art-deep);
+    --card-dot: var(--game-ui-collect-card-legendary-dot);
+  }
+  .game-ui-collect-card:focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 4px;
+    border-radius: 16px;
+  }
+  .game-ui-collect-card--down {
+    transform: rotateY(180deg);
+  }
+  .game-ui-collect-card-face,
+  .game-ui-collect-card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 3px solid var(--game-ui-collect-card-ink);
+    backface-visibility: hidden;
+    box-shadow:
+      0 8px 0 var(--game-ui-collect-card-shadow),
+      0 14px 26px var(--game-ui-collect-card-drop);
+  }
+  .game-ui-collect-card-face {
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    background: linear-gradient(
+      145deg,
+      var(--card-frame),
+      var(--card-frame-deep) 55%,
+      var(--card-frame)
+    );
+  }
+  .game-ui-collect-card-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+    border: 2px solid var(--game-ui-collect-card-ink);
+    border-radius: 10px;
+    background: var(--game-ui-collect-card-paper);
+  }
+  .game-ui-collect-card-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 7px;
+    border-bottom: 2px solid var(--game-ui-collect-card-ink);
+    background: var(--card-band);
+    color: var(--card-band-ink);
+    font-size: var(--game-ui-font-xs);
+    font-weight: var(--game-ui-weight-strong);
+    letter-spacing: 0.04em;
+  }
+  .game-ui-collect-card-chip {
+    padding: 0 6px;
+    border-radius: 6px;
+    background: var(--game-ui-collect-card-ink);
+    color: var(--game-ui-collect-card-paper);
+  }
+  .game-ui-collect-card-art {
+    position: relative;
+    display: grid;
+    flex: 1;
+    place-items: center;
+    min-height: 0;
+    border-bottom: 2px solid var(--game-ui-collect-card-ink);
+    background:
+      radial-gradient(circle, var(--card-dot) 1.5px, transparent 1.6px) 0 0 / 12px 12px,
+      linear-gradient(var(--card-art), var(--card-art-deep));
+  }
+  .game-ui-collect-card-art > svg,
+  .game-ui-collect-card-art > img {
+    width: 74%;
+    height: auto;
+  }
+  .game-ui-collect-card-title {
+    padding: 5px 4px 0;
+    color: var(--game-ui-collect-card-ink);
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-lg);
+    font-weight: var(--game-ui-weight-strong);
+    line-height: 1.2;
+    text-align: center;
+  }
+  .game-ui-collect-card-caption {
+    padding: 0 8px;
+    color: var(--game-ui-collect-card-caption);
+    font-size: var(--game-ui-font-xs);
+    line-height: 1.45;
+    text-align: center;
+  }
+  .game-ui-collect-card-pips {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 0 7px;
+  }
+  .game-ui-collect-card-pips i {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--game-ui-collect-card-ink);
+    border-radius: 50%;
+    background: var(--game-ui-collect-card-pip-off);
+  }
+  .game-ui-collect-card-pips i[data-on] {
+    background: var(--card-band);
+  }
+  .game-ui-collect-card-sticker {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    z-index: 3;
+    padding: 4px 7px;
+    border: 2px solid var(--game-ui-collect-card-ink);
+    border-radius: 8px;
+    background: var(--game-ui-collect-card-sticker);
+    color: var(--game-ui-collect-card-sticker-ink);
+    font-size: var(--game-ui-font-xs);
+    font-weight: var(--game-ui-weight-strong);
+    line-height: 1;
+    transform: rotate(8deg);
+  }
+  .game-ui-collect-card-inlay {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    z-index: 3;
+    width: 22px;
+    height: 22px;
+    transform: translateX(-50%);
+    stroke: var(--game-ui-collect-card-ink);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+  .game-ui-collect-card--legendary .game-ui-collect-card-inlay {
+    width: 34px;
+  }
+  .game-ui-collect-card-crown {
+    fill: var(--game-ui-collect-card-crown);
+  }
+  .game-ui-collect-card-jewel {
+    fill: var(--game-ui-collect-card-jewel);
+    stroke: none;
+  }
+  .game-ui-collect-card-gem {
+    fill: var(--game-ui-collect-card-gem);
+  }
+  .game-ui-collect-card-gem-light {
+    fill: var(--game-ui-collect-card-gem-light);
+    stroke: none;
+  }
+  .game-ui-collect-card-glare {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 14px;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at var(--card-mx) var(--card-my),
+      var(--game-ui-collect-card-glare),
+      transparent 45%
+    );
+    mix-blend-mode: soft-light;
+  }
+  .game-ui-collect-card-foil {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: color-dodge;
+    background: repeating-linear-gradient(
+      115deg,
+      var(--game-ui-collect-card-foil-1) 0%,
+      var(--game-ui-collect-card-foil-2) 7%,
+      var(--game-ui-collect-card-foil-3) 14%,
+      var(--game-ui-collect-card-foil-4) 21%,
+      var(--game-ui-collect-card-foil-5) 28%,
+      var(--game-ui-collect-card-foil-1) 35%
+    );
+    background-position: var(--card-mx) var(--card-my);
+    background-size: 220% 220%;
+  }
+  .game-ui-collect-card-back {
+    display: grid;
+    place-items: center;
+    transform: rotateY(180deg);
+    background: radial-gradient(
+      circle at 50% 50%,
+      var(--game-ui-collect-card-back),
+      var(--game-ui-collect-card-back-deep) 70%
+    );
+  }
+  .game-ui-collect-card-back > svg {
+    width: 58%;
+    height: auto;
+  }
+  .game-ui-collect-card-back-ring,
+  .game-ui-collect-card-back-dash {
+    fill: none;
+    stroke: var(--game-ui-collect-card-back-ring);
+    stroke-width: 3;
+  }
+  .game-ui-collect-card-back-dash {
+    stroke: var(--game-ui-collect-card-back-dash);
+    stroke-width: 2;
+    stroke-dasharray: 4 5;
+  }
+  .game-ui-collect-card-back-star {
+    fill: var(--game-ui-collect-card-star);
+    stroke: var(--game-ui-collect-card-ink);
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+  .game-ui-collect-card-back-core {
+    fill: var(--game-ui-collect-card-paper);
+    stroke: var(--game-ui-collect-card-ink);
+    stroke-width: 2.5;
+  }
+  .game-ui-collect-card--spotlight::before {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    z-index: -1;
+    border-radius: 30px;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--game-ui-collect-card-spotlight),
+      transparent 25%,
+      var(--game-ui-collect-card-spotlight) 50%,
+      transparent 75%,
+      var(--game-ui-collect-card-spotlight)
+    );
+    filter: blur(8px);
+    animation: game-ui-collect-card-turn 6s linear infinite;
+  }
+  @keyframes game-ui-collect-card-turn {
+    to {
+      rotate: 360deg;
+    }
+  }
+  .game-ui-collect-card-slot {
+    box-sizing: border-box;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+    aspect-ratio: 5 / 7;
+    padding: 12px;
+    border: 2px dashed color-mix(in srgb, var(--game-ui-text-muted) 60%, transparent);
+    border-radius: 16px;
+    background: repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--game-ui-text-muted) 8%, transparent) 0 6px,
+      color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent) 6px 12px
+    );
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    text-align: center;
+  }
+  .game-ui-collect-card-slot > span:first-child {
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-xl);
+    font-weight: var(--game-ui-weight-strong);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-collect-card {
+      transform: none;
+      transition: none;
+    }
+    .game-ui-collect-card--down {
+      transform: rotateY(180deg);
+    }
+    .game-ui-collect-card-glare,
+    .game-ui-collect-card-foil {
+      display: none;
+    }
+    .game-ui-collect-card--spotlight::before {
+      animation: none;
+    }
+  }
 }

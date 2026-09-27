@@ -365,6 +365,58 @@
   --game-ui-liquid-gooey-dissolve-strength: 1;
   --game-ui-liquid-gooey-dissolve-sink: 0.8;
   --game-ui-liquid-gooey-dissolve-seam-blur: 12.8;
+
+  /*
+    Collectible cards are printed objects: like the liquid-metal face they keep
+    their own inks on both themes, the way a trading card looks the same under
+    any lamp. Each rarity has a frame (light and deep), a band with its ink,
+    and the two tints of its art ground. Band inks were chosen for 4.5:1.
+  */
+  --game-ui-collect-card-ink: #1a1033;
+  --game-ui-collect-card-paper: #fffaf0;
+  --game-ui-collect-card-caption: #4e4660;
+  --game-ui-collect-card-pip-off: #e8e2f3;
+  --game-ui-collect-card-shadow: rgba(26, 16, 51, 0.25);
+  --game-ui-collect-card-drop: rgba(0, 0, 0, 0.2);
+  --game-ui-collect-card-glare: rgba(255, 255, 255, 0.4);
+  --game-ui-collect-card-sticker: #d61f6f;
+  --game-ui-collect-card-sticker-ink: #ffffff;
+  --game-ui-collect-card-common-frame: #eef3fb;
+  --game-ui-collect-card-common-frame-deep: #9fb0c8;
+  --game-ui-collect-card-common-band: #3b63d6;
+  --game-ui-collect-card-common-band-ink: #ffffff;
+  --game-ui-collect-card-common-art: #e8f1ff;
+  --game-ui-collect-card-common-art-deep: #cfe0ff;
+  --game-ui-collect-card-common-dot: rgba(74, 125, 255, 0.18);
+  --game-ui-collect-card-rare-frame: #e6d6ff;
+  --game-ui-collect-card-rare-frame-deep: #7b4fd6;
+  --game-ui-collect-card-rare-band: #6c3fe0;
+  --game-ui-collect-card-rare-band-ink: #ffffff;
+  --game-ui-collect-card-rare-art: #f1e8ff;
+  --game-ui-collect-card-rare-art-deep: #dccbff;
+  --game-ui-collect-card-rare-dot: rgba(138, 92, 255, 0.2);
+  --game-ui-collect-card-legendary-frame: #fff1a8;
+  --game-ui-collect-card-legendary-frame-deep: #d99a1e;
+  --game-ui-collect-card-legendary-band: #f5b128;
+  --game-ui-collect-card-legendary-band-ink: #1a1033;
+  --game-ui-collect-card-legendary-art: #fff6d6;
+  --game-ui-collect-card-legendary-art-deep: #ffe3a0;
+  --game-ui-collect-card-legendary-dot: rgba(240, 162, 30, 0.22);
+  --game-ui-collect-card-gem: #ff7ad9;
+  --game-ui-collect-card-gem-light: #ffb3ea;
+  --game-ui-collect-card-crown: #ffd23c;
+  --game-ui-collect-card-jewel: #ff5ea5;
+  --game-ui-collect-card-foil-1: #ff6fb5;
+  --game-ui-collect-card-foil-2: #ffd84d;
+  --game-ui-collect-card-foil-3: #6fffd0;
+  --game-ui-collect-card-foil-4: #6fb8ff;
+  --game-ui-collect-card-foil-5: #c38bff;
+  --game-ui-collect-card-spotlight: rgba(255, 216, 77, 0.55);
+  --game-ui-collect-card-back: #6a4bd6;
+  --game-ui-collect-card-back-deep: #2a1a6b;
+  --game-ui-collect-card-back-ring: #b9a3ff;
+  --game-ui-collect-card-back-dash: #8f74e6;
+  --game-ui-collect-card-star: #ffe14a;
 }
 
 /*

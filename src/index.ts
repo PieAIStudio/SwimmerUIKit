@@ -12,6 +12,12 @@ export {
   type GameSplashProps,
 } from './GameSplash';
 export {
+  GameCollectibleCard,
+  GameCollectibleCardSlot,
+  type GameCollectibleCardProps,
+  type GameCollectibleCardRarity,
+} from './GameCollectibleCard';
+export {
   GameButton,
   type GameButtonProps,
   type GameButtonSurface,
@@ -308,6 +314,8 @@ export {
   type ClayIconStyle,
 } from './clay/assets';
 export {
+  playGameCardRevealSound,
+  playGameCardRevealSoundForContext,
   playGameInteractionSound,
   playGameInteractionSoundForContext,
   type GameInteractionAudioContext,
