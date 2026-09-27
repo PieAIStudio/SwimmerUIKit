@@ -4,7 +4,7 @@ This file is the project-local discovery index for external upstream and donor
 sources. `AGENTS.md` directs donor-aware work here before an agent reads or
 adapts a donor. The files listed here are provenance and review sources; the
 package runtime must use reviewed SwimmerUIKit code or released dependencies,
-never a checkout from `_donors-individual/for_SwimmerUIKit/`.
+never a checkout from `_Donors-Individual/for_SwimmerUIKit/`.
 
 ## liquid-gooey
 
@@ -13,7 +13,7 @@ never a checkout from `_donors-individual/for_SwimmerUIKit/`.
 - Public demo: `https://gooey.jakubantalik.com/`
 - Owner repository: `SwimmerUIKit`
 - Combined-workspace checkout:
-  `<portfolio-root>/_donors-individual/for_SwimmerUIKit/`
+  `<portfolio-root>/_Donors-Individual/for_SwimmerUIKit/`
 - Pinned commit: `422180dd7a5ac646c85deedc65500c4a74339127`
 - Commit date: `2026-09-09T11:04:00+02:00`
 - Upstream license: MIT
