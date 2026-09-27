@@ -2,11 +2,6 @@
   "schemaVersion": 1,
   "host": "codex",
   "scope": "project",
-  "placement": "registry",
-  "bundleIds": [
-    "base-governance",
-    "frontend-app"
-  ],
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
@@ -19,6 +14,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/frontend-design",
       "delivery": "symlink",
       "contentHash": "sha256:7e9c2af00fd5b3144f49ce6fb1b16037b392ab9c2f049423b0b6114d99381ba2",
+      "placement": "auto",
       "targetPath": ".agents/skills/frontend-design"
     },
     {
@@ -26,6 +22,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
       "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
+      "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
     },
     {
@@ -33,6 +30,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/make-interfaces-feel-better",
       "delivery": "symlink",
       "contentHash": "sha256:97d07c19a3244b452ca8a37984f4403346c4744a2efcefb0fbc85afe86c3839e",
+      "placement": "auto",
       "targetPath": ".agents/skills/make-interfaces-feel-better"
     },
     {
@@ -40,6 +38,7 @@
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
       "contentHash": "sha256:f66b17600aed03da23e2f038c5ffe4bf96c8227522339439dd5720b48d3a5824",
+      "placement": "auto",
       "targetPath": ".agents/skills/ui-ux-pro-max"
     },
     {
@@ -53,7 +52,7 @@
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
       "delivery": "symlink",
-      "contentHash": "sha256:8a973d7a40906c9d5a07d8586430603b4030e7000588e91bec11946d0d824519",
+      "contentHash": "sha256:7f4a7a9e694cda67dd184247f7a4d11cfb423937d1d52f09c5baaeec62c0183c",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
@@ -67,7 +66,7 @@
       "id": "pie-rules/document-convergence",
       "sourcePath": "rules/pie-rules/document-convergence.md",
       "delivery": "symlink",
-      "contentHash": "sha256:66e689c13711b5b80970fb11f5ffbea5628ec4d9fa6c22f404968ff8f9d0c4d2",
+      "contentHash": "sha256:5eaa98718bfa92fadf3a972fd43434e07b7baf5a47e0b9f22f397a3d2e6037e6",
       "targetPath": "docs/policy/shared-rules/document-convergence.md"
     },
     {
@@ -75,6 +74,7 @@
       "sourcePath": "skills/pie-skills/experience-capture",
       "delivery": "symlink",
       "contentHash": "sha256:7e721266aa5bb311c9e66b887046270cd29cb6125a4fa3c103471d775aa40d65",
+      "placement": "auto",
       "targetPath": ".agents/skills/experience-capture"
     },
     {
@@ -82,6 +82,7 @@
       "sourcePath": "skills/pie-skills/screenwalk",
       "delivery": "symlink",
       "contentHash": "sha256:4d2ccbffdba26191cfc1b64d4f070c351f34a729e9ffb28c7dca00759a4837f7",
+      "placement": "auto",
       "targetPath": ".agents/skills/screenwalk"
     },
     {
@@ -91,6 +92,7 @@
       "workspace": "studio",
       "delivery": "symlink",
       "contentHash": "sha256:d413b70ac760e02f004e2b143bf82a2e81d94dddb1404854174c33b8878cd191",
+      "placement": "manual",
       "targetPath": ".agents/manual-skills/studio-conductor"
     },
     {
@@ -98,6 +100,7 @@
       "sourcePath": "skills/third-party-without-npx-skills/codex-with-chatgpt",
       "delivery": "symlink",
       "contentHash": "sha256:c750d166501a90c8c4d8a9201305f87aa63cf6e388c6f4941a466b89eb079301",
+      "placement": "manual",
       "targetPath": ".agents/manual-skills/codex-with-chatgpt"
     }
   ]
