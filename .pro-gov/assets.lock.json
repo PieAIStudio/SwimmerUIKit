@@ -5,8 +5,8 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:81aca85fa8467ce80d95f441b22fe4ccd8a4152d035ae4eb672f7f30ac2e710c",
-    "assetCount": 12
+    "hash": "sha256:5f63fd65234159e390598033993f2b78dee085932bd2c670c2a7f655d22899c6",
+    "assetCount": 13
   },
   "assets": [
     {
@@ -52,7 +52,7 @@
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
       "delivery": "symlink",
-      "contentHash": "sha256:7f4a7a9e694cda67dd184247f7a4d11cfb423937d1d52f09c5baaeec62c0183c",
+      "contentHash": "sha256:734154e98947bc7743e930a8fe018a6dc2b3f058b14a85af798b0c52352b07fe",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
@@ -61,6 +61,13 @@
       "delivery": "symlink",
       "contentHash": "sha256:3642eb50666795d9bed4b835d74bae9c1c729d70ac11156a7280132b3b24efc8",
       "targetPath": "docs/policy/shared-rules/clean-image-generation-rules.md"
+    },
+    {
+      "id": "pie-rules/cloud-platform-access",
+      "sourcePath": "rules/pie-rules/cloud-platform-access.md",
+      "delivery": "symlink",
+      "contentHash": "sha256:ebdeb5a52d65df9d13f683ca5a6b905bf9833f54aa16836d472e727833fcfc2e",
+      "targetPath": "docs/policy/shared-rules/cloud-platform-access.md"
     },
     {
       "id": "pie-rules/document-convergence",

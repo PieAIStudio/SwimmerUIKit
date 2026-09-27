@@ -40,6 +40,13 @@ changing governed files.
 - Matt skills may remain available unchanged; there is no bootstrap skill or mandatory workflow owner.
 - Recall relevant learnings before non-trivial work. After verified work, use `capture-learning` only when a non-obvious reusable lesson exists.
 
+## Credentials And Local Environment
+
+For credentials, login or local environment files, first read
+`<portfolio-root>/.secrets/README.md`, then
+`docs/policy/shared-rules/cloud-platform-access.md`. Use the project's existing
+adapter and recorded central location; do not assume secrets belong in this repository.
+
 <!-- PGS-ROUTER:END -->
 
 ## Three-Stage Delivery

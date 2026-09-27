@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-27T06:45:13.700Z
-generator_version: doc-gov@0.14.1
-docs_count: 46
+generated_at: 2026-09-27T16:03:09.044Z
+generator_version: doc-gov@0.14.2
+docs_count: 47
 docs:
   - id: ARCHIVE-CLAY-EXTRACTION
     path: docs/archive/history/clay-extraction.md
@@ -157,6 +157,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-09-08
+    pinned: false
+  - id: POLICY-SHARED-CLOUD-PLATFORM-ACCESS
+    path: docs/policy/shared-rules/cloud-platform-access.md
+    type: policy
+    status: stable
+    canonical: true
+    last_reviewed: 2026-09-27
     pinned: false
   - id: POLICY-SHARED-DOCUMENT-CONVERGENCE
     path: docs/policy/shared-rules/document-convergence.md
