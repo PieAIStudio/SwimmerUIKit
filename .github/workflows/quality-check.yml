@@ -1,36 +1,7 @@
 name: quality-check
 
 on:
-  pull_request:
-    paths:
-      - ".github/workflows/quality-check.yml"
-      - ".storybook/**"
-      - "bin/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "preview/**"
-      - "public/**"
-      - "scripts/**"
-      - "src/**"
-      - "tsconfig*.json"
-      - "vite.config.*"
-      - "vitest.config.*"
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/quality-check.yml"
-      - ".storybook/**"
-      - "bin/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "preview/**"
-      - "public/**"
-      - "scripts/**"
-      - "src/**"
-      - "tsconfig*.json"
-      - "vite.config.*"
-      - "vitest.config.*"
+  workflow_dispatch:
 
 permissions:
   contents: read

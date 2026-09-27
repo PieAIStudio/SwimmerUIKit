@@ -6,9 +6,17 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "swimmer-ui-storybook.pieaistudio.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "swimmer-ui-storybook.pieaistudio.com"
+        }
+      ],
       "destination": "/storybook/",
       "permanent": false
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": false
+  }
 }
