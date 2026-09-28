@@ -25,6 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- **2.11.0 release (Owner approved 2026-09-28):** `GameSplash`,
+  `GameCollectibleCard` / `GameCollectibleCardSlot`, `playGameCardRevealSound`,
+  and the Nerve 0.6 paired liquid fix from `7b52319` (styles in `swimmer-ui`,
+  labels avoid open panels). Published from main through `npm-publish`; the
+  version bump is not a publication receipt until the registry shows it.
+
 - Nerve 0.6 paired **unpublished fix**: optional liquid CSS is in `swimmer-ui`,
   matching ordinary controls. LiquidAnchor reports its occupied rectangle to
   the same family's destination labels; labels avoid panels instead of requiring

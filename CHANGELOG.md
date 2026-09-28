@@ -5,6 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 2.11.0 — 2026-09-28
+
+Minor: University's V7 opening screen and card album, and the liquid fix
+NerveKit 0.6 pairs with.
+
 - Add `GameSplash`, the opening and scene-change screen: rotating selling
   lines with a highlighted phrase, a progress bar that tracks real readiness,
   and an enter button offered only once ready (the tap that also lets a web
@@ -21,6 +26,13 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   inks meet 4.5:1. Reduced motion drops tilt, shine and the turning light.
 - Add `playGameCardRevealSound`: a synthesized flip, with bell notes for the
   rarer cards. First consumer: University's V7 card album.
+- Fix the optional liquid styles yielding to the host: `liquid-presence.css`
+  now sits in `@layer swimmer-ui` like the main styles, so a product's
+  unlayered rules win without special selectors. `LiquidAnchor` reports the
+  area it occupies to the family's destination labels, which step around open
+  panels instead of needing a host z-index workaround. A `GameButton` with
+  `data-game-ui-control="liquid-presence"` lets its liquid body paint the
+  button and keeps native interaction. Paired with NerveKit 0.6.
 
 ## 2.10.0 — 2026-09-24
 
