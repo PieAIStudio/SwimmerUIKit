@@ -25,13 +25,16 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- **2.12.0 candidate for University V7 task 05 (2026-09-29):** optional,
+- **Published 2.12.0 for University V7 task 05 (2026-09-29):** optional,
   explicitly enabled device tilt for the existing collectible card, plus
   reduced-motion/drag cleanup. The approved task calls for publishing the
-  shared capability before product adoption. No website deployment is part of
-  this work. Source/API/browser/package gates and the existing `npm-publish`
-  receipt must succeed before calling the candidate published. The API and
-  sensor boundary live in the design guide, not a product-specific copy.
+  shared capability before product adoption. Trusted Publishing run
+  `36557905337` succeeded for source
+  `78d86dd19101b5dbf9c8a1eca7ab2209a933e0bd`; the official registry tarball was
+  read back, its SHA-512 matched, and the new public declarations were checked.
+  Exact receipt: `.devspace-reports/card-orientation/registry-receipt.json`.
+  No website deployment occurred. The API and sensor boundary live in the
+  design guide, not a product-specific copy.
 
   Local acceptance: `pnpm verify` 74 files / 464 tests; documentation, built
   Storybook/site, publint and ESM-only package types passed. Built ordinary
