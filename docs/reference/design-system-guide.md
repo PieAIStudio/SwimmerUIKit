@@ -570,7 +570,7 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 
 ## 账号界面原件
 
-WO-UI-1 的 **2.13.0 本地候选，尚未发布**。全部是可选新增；未传新属性的
+WO-UI-1 的 **2.13.0 已发布**。全部是可选新增；未传新属性的
 按钮、图标按钮、头像与横排页签保持原样。没有新增依赖或改变 React peer 范围。
 
 ### 铜牌皮肤
@@ -631,7 +631,7 @@ onSelect 对应左侧选择控件，右侧 actions 是其兄弟，不嵌套在�
 
 行为检查在 `src/AccountControls.browser.test.tsx`，主题色对由 `src/tokens.test.ts` 检查。
 可操作例子在 Storybook `Clay / Account / AccountControls`。本轮证据与发布权限见
-[WO-UI-1 活计划](../plans/active/wo-ui-1-account-controls.md)。
+[WO-UI-1 收口](../plans/completed/wo-ui-1-account-controls.md)。
 
 ## 可收集卡片与可选方向输入（2.12）
 

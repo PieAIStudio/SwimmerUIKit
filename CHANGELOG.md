@@ -5,7 +5,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-### 2.13.0 candidate — WO-UI-1
+## 2.13.0 — 2026-09-29
 
 - Add opt-in `surface="plaque"` to `GameButton`, `GameIconButton` and
   `GameAvatar`, with opaque light/night copper token pairs derived from
@@ -20,8 +20,8 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   modal-test screenshots to `.devspace-visual/`, preserving retained scratch
   evidence and all existing assertions.
 - Compatibility: additive only; no new dependency or React peer change.
-  This candidate is not published: Owner's private-publication instruction
-  needs clarification before using this repository's public npm workflow.
+  Published through the existing npm Trusted Publishing workflow after
+  Owner clarified public publication (AuthKit remains private).
 
 ## 2.12.0 — 2026-09-29
 

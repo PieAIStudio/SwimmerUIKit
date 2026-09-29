@@ -25,10 +25,10 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
-- **WO-UI-1，2.13.0 正在发布**：铜牌皮肤、验证码输入、竖排页签和独立动作列表行。
-  482 测试、三浏览器、八张验收图及包体检查的证据见
-  [活计划](../../plans/active/wo-ui-1-account-controls.md)。2026-09-29 Owner 已明确授权
-  沿用公开发布流程（AuthKit 例外，仍私有）；其他产品依赖保持原样。
+- **WO-UI-1，2.13.0 已发布**：铜牌皮肤、验证码输入、竖排页签和独立动作列表行。
+  Trusted Publishing `36571436773` 成功，源 `ad3fd30`；官方 tarball 的完整性和新 API 已回读。
+  482 测试、三浏览器、八张验收图及发布证据见
+  [收口记录](../../plans/completed/wo-ui-1-account-controls.md)。其他产品依赖保持原样。
 
 - **Published 2.12.0 for University V7 task 05 (2026-09-29):** optional,
   explicitly enabled device tilt for the existing collectible card, plus

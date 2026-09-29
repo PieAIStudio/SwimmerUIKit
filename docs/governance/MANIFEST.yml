@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-09-29T12:13:32.459Z
+generated_at: 2026-09-29T13:00:27.802Z
 generator_version: doc-gov@0.14.2
 docs_count: 48
 docs:
@@ -116,13 +116,6 @@ docs:
     canonical: true
     last_reviewed: 2026-09-10
     pinned: true
-  - id: PLAN-WO-UI-1-ACCOUNT-CONTROLS
-    path: docs/plans/active/wo-ui-1-account-controls.md
-    type: plan
-    status: active
-    canonical: true
-    last_reviewed: 2026-09-29
-    pinned: false
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
     type: plan
@@ -136,6 +129,13 @@ docs:
     status: completed
     canonical: true
     last_reviewed: 2026-09-12
+    pinned: false
+  - id: PLAN-WO-UI-1-ACCOUNT-CONTROLS
+    path: docs/plans/completed/wo-ui-1-account-controls.md
+    type: plan
+    status: completed
+    canonical: true
+    last_reviewed: 2026-09-29
     pinned: false
   - id: POLICY-PROJECT-BEST-PRACTICE
     path: docs/policy/best-practice-for-this-project.md

@@ -2,7 +2,7 @@
 id: PLAN-WO-UI-1-ACCOUNT-CONTROLS
 title: WO-UI-1 Account Controls
 type: plan
-status: active
+status: completed
 canonical: true
 owner: project
 created: 2026-09-29
@@ -44,7 +44,7 @@ main 基线为 `6eeb09e`，原有未跟踪 `.scratch/` 保留、不提交。
 - [x] 构建后三浏览器 × 深浅色 × 1280/375px 共 12 组；含合成触控、减少动效。
 - [x] 最终四张新原件与四张旧控件对照截图逐张看过，没有遮挡或横向溢出。
 - [x] 旧默认控件四张截图逐像素一致，SSR 标记也完全一致。
-- [ ] Owner 确认发布范围后发布、registry 回读。
+- [x] Owner 授权现有公开流程；发布成功、registry tarball 回读及 SHA-512 校验通过。
 
 ## 实现与兼容
 
@@ -98,8 +98,11 @@ Firefox 的合成 ClipboardEvent 构造器会丢弃传入的 clipboardData；三
 
 ## 未验证与回退
 
-本地验收收口，Owner 已授权公开发布；发布执行与 registry 回读尚待完成。
-本工单暂保持 active；回读前 Directing 不应安装本候选，AK-1 发布依赖尚未满足。
+2.13.0 已公开发布。源提交 `ad3fd30498089107a83f49f3f487e389724897d5`，
+Trusted Publishing `36571436773` 成功；官方 tarball 已下载，SHA-512 与 registry 一致，
+新增声明和 React peer 范围已复核。回执在 `.devspace-reports/wo-ui-1-release/registry-receipt.json`。
+Directing 可精确安装 2.13.0；AK-1 的 UI-1 发布依赖已满足。
+本次收口只校正候选文档为发布事实；不会重发或替换 registry 中已经验证的包。
 不声称真实短信、自动填充服务、物理手机输入法或产品线上接入已验收。
 本库不发送登录请求，测试全部使用合成值。
 

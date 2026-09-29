@@ -57,7 +57,7 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 
 ## What's inside
 
-- **Account primitives (2.13.0 local candidate, not published)**:
+- **Account primitives (2.13.0)**:
   opt-in copper `surface="plaque"`, `GameOtpInput`, vertical `GameTabs`,
   and `GameListRow` with independent actions. See the
   [account-controls contract](docs/reference/design-system-guide.md#账号界面原件)
