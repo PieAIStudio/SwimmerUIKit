@@ -14,7 +14,7 @@ export type GameButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | '
  * 「this one is dangerous」, and there is no reason a destructive action cannot
  * be liquid. Two axes cost one extra prop and keep every combination sayable.
  */
-export type GameButtonSurface = 'flat' | 'liquid';
+export type GameButtonSurface = 'flat' | 'liquid' | 'plaque';
 
 export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -50,6 +50,7 @@ export function GameButton({
   const classes = [
     'game-ui-button',
     `game-ui-button--${variant}`,
+    surface === 'plaque' && 'game-ui-button--plaque',
     fullWidth && 'game-ui-button--full-width',
     isStatic && 'game-ui-button--static',
     className,
@@ -62,7 +63,13 @@ export function GameButton({
   };
 
   const button = (
-    <button className={classes} onClick={handleClick} type={type} {...props}>
+    <button
+      className={classes}
+      data-game-ui-surface={surface === 'plaque' ? 'plaque' : undefined}
+      onClick={handleClick}
+      type={type}
+      {...props}
+    >
       {children}
     </button>
   );

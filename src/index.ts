@@ -8,6 +8,8 @@ export {
 // CSS here would leak `import './styles.css'` into dist/index.d.ts and
 // break type resolution (arethetypeswrong: internal resolution error).
 export { type LiquidFinish } from './liquidGooeyFinish';
+export { GameOtpInput, type GameOtpInputProps } from './GameOtpInput';
+export { GameListRow, type GameListRowProps } from './GameListRow';
 export { GameSelect, type GameSelectProps } from './GameSelect';
 export { GameHelpTip, type GameHelpTipProps } from './GameHelpTip';
 export {

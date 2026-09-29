@@ -25,6 +25,11 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- **WO-UI-1，2.13.0 本地验收完成，发布等 Owner**：铜牌皮肤、验证码输入、竖排页签和
+  独立动作列表行。482 测试、三浏览器、八张验收图及包体检查的证据与发布权限见
+  [活计划](../../plans/active/wo-ui-1-account-controls.md)。Owner 要求私有发布与本仓
+  当前公开 npm 流程不一致，澄清前不推送或发布；其他产品依赖保持原样。
+
 - **Published 2.12.0 for University V7 task 05 (2026-09-29):** optional,
   explicitly enabled device tilt for the existing collectible card, plus
   reduced-motion/drag cleanup. The approved task calls for publishing the

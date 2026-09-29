@@ -2,8 +2,9 @@
 
 Self-contained clay game UI kit for PieAI web, game, and wrapped
 (mobile/desktop WebView) surfaces. React 19 + TypeScript strict.
-**Zero runtime dependencies, 100% standard CSS** — consumers need no
-Tailwind, no PostCSS, no CSS processor of any kind.
+**100% standard CSS** — consumers need no Tailwind, no PostCSS, no CSS
+processor of any kind. The optional `GameHelpTip` uses the existing Floating UI
+dependency; ordinary controls remain native.
 
 Source is publicly readable. Use is governed by the
 [PieAI Limited Use License](./LICENSE), not an open-source license. The visual
@@ -55,6 +56,13 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
 ```
 
 ## What's inside
+
+- **Account primitives (2.13.0 local candidate, not published)**:
+  opt-in copper `surface="plaque"`, `GameOtpInput`, vertical `GameTabs`,
+  and `GameListRow` with independent actions. See the
+  [account-controls contract](docs/reference/design-system-guide.md#账号界面原件)
+  and Storybook `Clay / Account / AccountControls`. Account requests and
+  business state stay in the host.
 
 - **Ready-to-use components** across: core controls (`GameButton`,
   `LiquidMetalButton`, `GameTabs`,

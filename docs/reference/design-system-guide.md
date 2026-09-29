@@ -568,6 +568,71 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 高级组合详见 [液体原语参考](liquid-primitives.md)；donor 采纳与拒绝的事实唯一
 来源仍为根目录 `donors-individual.md` 与其 lock。
 
+## 账号界面原件
+
+WO-UI-1 的 **2.13.0 本地候选，尚未发布**。全部是可选新增；未传新属性的
+按钮、图标按钮、头像与横排页签保持原样。没有新增依赖或改变 React peer 范围。
+
+### 铜牌皮肤
+
+`GameButton`、`GameIconButton` 和 `GameAvatar` 显式传 `surface="plaque"`。
+前两者为 2px 小方角，头像仍为圆片；不创建 WebGL 或液体动画。
+
+```tsx
+<GameButton surface="plaque" onClick={createWork}>新建作品</GameButton>
+<GameIconButton surface="plaque" label="账号与设置" onClick={openAccount}>☰</GameIconButton>
+<GameAvatar surface="plaque" name="River" />
+```
+
+`--game-ui-plaque-surface/hover/ink/border/highlight/radius` 定义皮肤，
+`--game-ui-plaque-brass` 记录基色。基色取自本轮指定的 Directing D1-03 柜子
+`Champagne brass · brushed` 材质，其线性 baseColorFactor 转成 sRGB 是 `#c9a267`。
+两套主题的可用控件使用不透明底色；静止及悬停/按下的文字对比度均须达到 4.5:1。
+禁用态保留原生 disabled，使用虚线边框及轻微透明变化，不触发动作。
+选择框、开关、进度条和分段控件不新增此皮肤。
+
+### 验证码输入
+
+```tsx
+<GameOtpInput
+  aria-label="验证码"
+  aria-describedby="code-hint"
+  value={code}
+  onChange={setCode}
+  onComplete={verifyCode}
+  invalid={invalid}
+  getSlotLabel={(index, length) => `第 ${index + 1} 位，共 ${length} 位`}
+/>
+```
+
+`length` 默认 6，允许 1–32 的整数；每格触控宽度至少 44px。`value/onChange`
+为受控接口，只接受数字（全角数字规范化）。支持整串粘贴/自动填充、逐位输入、
+方向键/Home/End、退格及删除。`getSlotDescription(index, length)` 提供可选逐格描述，
+整体 aria-describedby 同时关联到每格。第一格使用 autocomplete one-time-code，
+每格均为 inputmode numeric。
+
+输入法组合期间不回调 onChange/onComplete，组合态 Enter 不冒泡提交；组合结束再处理。
+初始值或宿主更新 value 不自动提交，相同完整值的重复粘贴也不重复回调。
+宿主负责发送、真正验证、错误消息、倒计时、重试和限流；填满不等于验证成功。
+含字母的恢复码使用普通文本输入，不使用本组件。
+
+### 竖排页签与列表行
+
+`GameTabs orientation="vertical"` 使用固定 200px 宽度
+（`--game-ui-side-tabs-width`），Up/Down 循环切换、Home/End 跳首尾；
+横排继续只处理 Left/Right。通过 aria-label 或 aria-labelledby 命名页签组。
+宿主仍用 id 和 tab.panelId 连接对应 panel，手机切换顶部分段布局也归宿主负责。
+
+`GameListRow` 接收 thumbnail/title/description/current/selected/onSelect/actions。
+onSelect 对应左侧选择控件，右侧 actions 是其兄弟，不嵌套在按钮内。
+没有 onSelect 时左侧为普通展示，current 仍有圆点和 aria-current。
+左侧槽位只放展示内容，交互放 actions；危险操作的确认、当前作品和选中项由宿主控制。
+行圆角为 `--game-ui-list-row-radius`（默认 6px），不复用按钮外形或按压位移。
+
+行为检查在 `src/AccountControls.browser.test.tsx`，主题色对由 `src/tokens.test.ts` 检查。
+可操作例子在 Storybook `Clay / Account / AccountControls`。本轮证据与发布权限见
+[WO-UI-1 活计划](../plans/active/wo-ui-1-account-controls.md)。
+
 ## 可收集卡片与可选方向输入（2.12）
 
 `GameCollectibleCard` 负责翻面、指针倾斜、边框、高光和减少动态；产品只传

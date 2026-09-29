@@ -4441,3 +4441,215 @@
     }
   }
 }
+
+/* Account primitives are opt-in. No selector below changes omitted defaults. */
+@layer swimmer-ui {
+  .game-ui-button[data-game-ui-surface='plaque'],
+  .game-ui-icon-button[data-game-ui-surface='plaque'],
+  .game-ui-avatar[data-game-ui-surface='plaque'] {
+    background: var(--game-ui-plaque-surface);
+    color: var(--game-ui-plaque-ink);
+    border: 1px solid var(--game-ui-plaque-border);
+    border-radius: var(--game-ui-plaque-radius);
+    box-shadow: inset 0 1px 0 var(--game-ui-plaque-highlight);
+    text-shadow: none;
+  }
+  .game-ui-avatar[data-game-ui-surface='plaque'] {
+    border-radius: var(--game-ui-radius-bead);
+  }
+  .game-ui-button[data-game-ui-surface='plaque'],
+  .game-ui-icon-button[data-game-ui-surface='plaque'] {
+    min-height: var(--game-ui-otp-target);
+    min-width: var(--game-ui-otp-target);
+    font-weight: var(--game-ui-weight-strong);
+    transition: background-color var(--game-ui-motion-fast) var(--game-ui-ease-soft);
+  }
+  .game-ui-button[data-game-ui-surface='plaque']:is(:hover, :active),
+  .game-ui-icon-button[data-game-ui-surface='plaque']:is(:hover, :active) {
+    scale: initial;
+    translate: initial;
+    transform: none;
+  }
+  @media (hover: hover) {
+    .game-ui-button[data-game-ui-surface='plaque']:hover:not(:disabled),
+    .game-ui-icon-button[data-game-ui-surface='plaque']:hover:not(:disabled) {
+      background: var(--game-ui-plaque-hover);
+    }
+  }
+  .game-ui-button[data-game-ui-surface='plaque']:disabled,
+  .game-ui-icon-button[data-game-ui-surface='plaque']:disabled {
+    opacity: 0.9;
+    border-style: dashed;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .game-ui-button[data-game-ui-surface='plaque']:active:not(:disabled),
+  .game-ui-icon-button[data-game-ui-surface='plaque']:active:not(:disabled) {
+    background: var(--game-ui-plaque-hover);
+    box-shadow: inset 0 0 0 1px var(--game-ui-plaque-border);
+  }
+
+  .game-ui-otp {
+    display: flex;
+    align-items: center;
+    gap: var(--game-ui-space-4);
+    max-width: 100%;
+    overflow-x: auto;
+    padding: var(--game-ui-space-4);
+    box-sizing: border-box;
+  }
+  .game-ui-otp-slot {
+    flex: 0 0 var(--game-ui-otp-target);
+  }
+  .game-ui-otp-input {
+    box-sizing: border-box;
+    width: var(--game-ui-otp-target);
+    min-width: var(--game-ui-otp-target);
+    min-height: 48px;
+    padding: var(--game-ui-space-4);
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: var(--game-ui-list-row-radius);
+    background: var(--game-ui-panel-strong);
+    color: var(--game-ui-text);
+    font: inherit;
+    font-family: var(--game-ui-font-mono);
+    font-size: var(--game-ui-font-lg);
+    text-align: center;
+    caret-color: var(--game-ui-text);
+  }
+  .game-ui-otp-input[aria-invalid='true'] {
+    border-color: var(--game-ui-danger-ink);
+    border-width: 2px;
+  }
+  .game-ui-otp-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .game-ui-otp-input:focus-visible,
+  .game-ui-list-row-main:focus-visible {
+    outline: 2px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-tabs[aria-orientation='vertical'] {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: var(--game-ui-side-tabs-width);
+    flex: 0 0 var(--game-ui-side-tabs-width);
+  }
+  .game-ui-tabs[aria-orientation='vertical'] .game-ui-tab {
+    text-align: start;
+    padding: var(--game-ui-space-8) var(--game-ui-space-12);
+  }
+
+  .game-ui-list-row {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--game-ui-space-12);
+    min-width: 0;
+    width: 100%;
+    padding: var(--game-ui-space-8);
+    border: 1px solid transparent;
+    border-radius: var(--game-ui-list-row-radius);
+    background: var(--game-ui-panel-strong);
+    color: var(--game-ui-text);
+  }
+  .game-ui-list-row[data-selected='true'] {
+    border-color: var(--game-ui-border-strong);
+    background: color-mix(in srgb, var(--game-ui-secondary) 8%, var(--game-ui-panel-strong));
+  }
+  .game-ui-list-row-main {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    gap: var(--game-ui-space-12);
+    min-width: 0;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--game-ui-list-row-radius);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    box-shadow: none;
+  }
+  button.game-ui-list-row-main {
+    cursor: pointer;
+  }
+  button.game-ui-list-row-main:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .game-ui-list-row-thumbnail {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: var(--game-ui-list-row-radius);
+  }
+  .game-ui-list-row-thumbnail > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .game-ui-list-row-copy {
+    display: grid;
+    gap: var(--game-ui-space-4);
+    min-width: 0;
+  }
+  .game-ui-list-row-title {
+    font-weight: var(--game-ui-weight-strong);
+    overflow-wrap: anywhere;
+  }
+  .game-ui-list-row-description {
+    font-size: var(--game-ui-font-sm);
+    color: var(--game-ui-text-muted);
+    overflow-wrap: anywhere;
+  }
+  .game-ui-list-row-current {
+    width: var(--game-ui-space-8);
+    height: var(--game-ui-space-8);
+    flex: 0 0 var(--game-ui-space-8);
+    border-radius: var(--game-ui-radius-bead);
+    background: var(--game-ui-secondary);
+  }
+  .game-ui-list-row-actions {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: var(--game-ui-space-8);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-button[data-game-ui-surface='plaque'],
+    .game-ui-icon-button[data-game-ui-surface='plaque'] {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .game-ui-button[data-game-ui-surface='plaque'],
+    .game-ui-icon-button[data-game-ui-surface='plaque'],
+    .game-ui-avatar[data-game-ui-surface='plaque'],
+    .game-ui-otp-input {
+      background: Canvas;
+      color: CanvasText;
+      border-color: ButtonText;
+    }
+    .game-ui-list-row[data-selected='true'] {
+      border-color: Highlight;
+    }
+    .game-ui-list-row-current {
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+    .game-ui-otp-input[aria-invalid='true'] {
+      border-style: dashed;
+    }
+    .game-ui-otp-input:focus-visible,
+    .game-ui-list-row-main:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

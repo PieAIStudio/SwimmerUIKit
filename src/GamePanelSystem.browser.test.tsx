@@ -80,7 +80,8 @@ describe('GameModal keepMounted lifecycle', () => {
     });
     expect(input.value).toBe('unfinished answer');
     await page.screenshot({
-      path: '../.scratch/university-modal-preservation/keep-mounted-open.png',
+      // Keep fresh test output away from retained, non-test-owned scratch evidence.
+      path: '../.devspace-visual/modal-preservation/keep-mounted-open.png',
     });
 
     await act(async () => {

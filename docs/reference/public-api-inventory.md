@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **290 named exports: 130 values and 160 types**.
+Compiler inventory: **294 named exports: 132 values and 162 types**.
 
 ## GameButton — Controls
 
@@ -90,6 +90,24 @@ Native labelled form controls
 | `GameFieldProps` | type | [source](../../src/GameForms.tsx) |
 | `GameInputProps` | type | [source](../../src/GameForms.tsx) |
 | `GameTextAreaProps` | type | [source](../../src/GameForms.tsx) |
+
+## GameOtpInput — Forms
+
+Controlled numeric code entry; host owns verification
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameOtpInput` | value | [source](../../src/GameOtpInput.tsx) |
+| `GameOtpInputProps` | type | [source](../../src/GameOtpInput.tsx) |
+
+## GameListRow — Display
+
+List selection with independent sibling actions
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `GameListRow` | value | [source](../../src/GameListRow.tsx) |
+| `GameListRowProps` | type | [source](../../src/GameListRow.tsx) |
 
 ## GameSelect — Forms
 

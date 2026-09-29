@@ -54,6 +54,20 @@
   --game-ui-weight-title: 930;
 
   /* Semantic colors */
+  /* Opt-in plaque: Champagne brass from Directing's reviewed D1-03 GLB,
+   * linear baseColorFactor converted to sRGB (#c9a267). Opaque pairs keep
+   * text contrast independent of the scene behind a control. */
+  --game-ui-plaque-brass: #c9a267;
+  --game-ui-plaque-surface: #c9a267;
+  --game-ui-plaque-hover: #d8b883;
+  --game-ui-plaque-ink: #382517;
+  --game-ui-plaque-border: #382517;
+  --game-ui-plaque-highlight: #f2dfbb;
+  --game-ui-plaque-radius: 2px;
+  --game-ui-otp-target: 44px;
+  --game-ui-list-row-radius: 6px;
+  --game-ui-side-tabs-width: 200px;
+
   --game-ui-bg: #f3e8d8;
   --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
   --game-ui-surface: rgba(255, 248, 236, 0.78);
@@ -426,6 +440,12 @@
  * semantic tokens (plus derivation bases for full fidelity).
  */
 [data-game-ui-theme='night'] {
+  --game-ui-plaque-surface: #382517;
+  --game-ui-plaque-hover: #4b3421;
+  --game-ui-plaque-ink: #c9a267;
+  --game-ui-plaque-border: #c9a267;
+  --game-ui-plaque-highlight: #8e7047;
+
   /* Dark chip, cream ink — the same intent as light, not the same tokens. */
   --game-ui-tooltip-surface: #241a12;
   --game-ui-tooltip-ink: #f6e7d3;

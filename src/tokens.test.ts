@@ -261,6 +261,8 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
   const MIN_AA = 4.5;
 
   const pairs: Array<[string, string, string]> = [
+    ['plaque text at rest', '--game-ui-plaque-ink', '--game-ui-plaque-surface'],
+    ['plaque text on hover and press', '--game-ui-plaque-ink', '--game-ui-plaque-hover'],
     ['body text on page background', '--game-ui-text', '--game-ui-bg'],
     ['muted text on page background', '--game-ui-text-muted', '--game-ui-bg'],
     ['muted text on strong panel', '--game-ui-text-muted', '--game-ui-panel-strong'],

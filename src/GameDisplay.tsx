@@ -15,6 +15,8 @@ function initialsFromName(name: string): string {
 }
 
 export interface GameAvatarProps {
+  /** Optional copper frame; omitted keeps the existing avatar surface. */
+  surface?: 'flat' | 'plaque';
   /** Display name — used as image alt text and for the initials fallback. */
   name: string;
   /** Optional image URL; when missing, initials are shown instead. */
@@ -31,10 +33,16 @@ export function GameAvatar({
   size = 'md',
   src,
   status = 'none',
+  surface = 'flat',
 }: GameAvatarProps): ReactNode {
   const classes = ['game-ui-avatar', className].filter(Boolean).join(' ');
   return (
-    <span className={classes} data-avatar-size={size} data-avatar-status={status}>
+    <span
+      className={classes}
+      data-avatar-size={size}
+      data-avatar-status={status}
+      data-game-ui-surface={surface === 'plaque' ? 'plaque' : undefined}
+    >
       {src ? (
         <img alt={name} src={src} />
       ) : (
@@ -52,7 +60,7 @@ export function GameAvatar({
 
 export interface GameProgressProps {
   /** Defaults to the existing liquid leading edge. Flat adds no SVG filter. */
-  surface?: GameButtonSurface;
+  surface?: Exclude<GameButtonSurface, 'plaque'>;
   liquidFinish?: LiquidFinish;
   /** Current value, between 0 and `max`. */
   value: number;

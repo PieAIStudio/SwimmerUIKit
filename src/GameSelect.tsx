@@ -5,7 +5,7 @@ import { LiquidSurface } from './LiquidSurface';
 
 export interface GameSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   invalid?: boolean;
-  surface?: GameButtonSurface;
+  surface?: Exclude<GameButtonSurface, 'plaque'>;
   liquidFinish?: LiquidFinish;
 }
 

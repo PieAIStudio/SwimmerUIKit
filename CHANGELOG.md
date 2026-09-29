@@ -5,6 +5,24 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+### 2.13.0 candidate — WO-UI-1
+
+- Add opt-in `surface="plaque"` to `GameButton`, `GameIconButton` and
+  `GameAvatar`, with opaque light/night copper token pairs derived from
+  Directing's reviewed D1-03 cabinet material. Default controls stay unchanged.
+- Add controlled `GameOtpInput`: numeric slots, paste/autofill, keyboard and
+  backspace, localized descriptions and input-method composition handling.
+  Only changed user input completes a code; verification stays in the host.
+- Add vertical `GameTabs` with Up/Down navigation and an accessible name.
+- Add `GameListRow` with thumbnail, text, current indicator and independent
+  selection/actions; no nested buttons.
+- Add browser regressions, six stories and contrast guards. Redirect fresh
+  modal-test screenshots to `.devspace-visual/`, preserving retained scratch
+  evidence and all existing assertions.
+- Compatibility: additive only; no new dependency or React peer change.
+  This candidate is not published: Owner's private-publication instruction
+  needs clarification before using this repository's public npm workflow.
+
 ## 2.12.0 — 2026-09-29
 
 - Add optional `useGameCardOrientation` and the bounded `GameCardTilt` input

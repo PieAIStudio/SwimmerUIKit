@@ -60,7 +60,13 @@ export function GameIconButton({
 }: GameIconButtonProps): ReactNode {
   const classes = ['game-ui-icon-button', className].filter(Boolean).join(' ');
   const button = (
-    <button aria-label={label} className={classes} type={type} {...props}>
+    <button
+      aria-label={label}
+      className={classes}
+      data-game-ui-surface={surface === 'plaque' ? 'plaque' : undefined}
+      type={type}
+      {...props}
+    >
       {children}
     </button>
   );
@@ -110,6 +116,10 @@ export interface GameTabItem {
 }
 
 export interface GameTabsProps {
+  orientation?: 'horizontal' | 'vertical';
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+
   activeId: string;
   /**
    * Base id for this tabs instance (defaults to a generated one). Each tab
@@ -122,7 +132,15 @@ export interface GameTabsProps {
   tabs: readonly GameTabItem[];
 }
 
-export function GameTabs({ activeId, id, onSelect, tabs }: GameTabsProps): ReactNode {
+export function GameTabs({
+  activeId,
+  id,
+  onSelect,
+  tabs,
+  orientation = 'horizontal',
+  'aria-label': label,
+  'aria-labelledby': labelledBy,
+}: GameTabsProps): ReactNode {
   const generatedId = useId();
   const baseId = id ?? generatedId;
   // Roving tabindex per the ARIA tabs pattern: the active tab is the only
@@ -134,7 +152,14 @@ export function GameTabs({ activeId, id, onSelect, tabs }: GameTabsProps): React
       tabs.findIndex((tab) => tab.id === activeId),
     );
     let nextIndex: number;
-    switch (event.key) {
+    const verticalKeys: Record<string, string> = {
+      ArrowUp: 'ArrowLeft',
+      ArrowDown: 'ArrowRight',
+      ArrowLeft: '',
+      ArrowRight: '',
+    };
+    const key = orientation === 'vertical' ? (verticalKeys[event.key] ?? event.key) : event.key;
+    switch (key) {
       case 'ArrowLeft':
         nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
         break;
@@ -159,7 +184,14 @@ export function GameTabs({ activeId, id, onSelect, tabs }: GameTabsProps): React
   };
 
   return (
-    <div className="game-ui-tabs" onKeyDown={handleKeyDown} role="tablist">
+    <div
+      className="game-ui-tabs"
+      onKeyDown={handleKeyDown}
+      role="tablist"
+      aria-orientation={orientation === 'vertical' ? 'vertical' : undefined}
+      aria-label={label}
+      aria-labelledby={labelledBy}
+    >
       {tabs.map((tab) => (
         <button
           aria-controls={tab.panelId}
@@ -190,7 +222,7 @@ export interface GameSegmentedControlProps {
   onSelect?: (id: string) => void;
   options: readonly GameSegmentedOption[];
   /** Existing default is liquid. Flat provides a quiet, filter-free option. */
-  surface?: GameButtonSurface;
+  surface?: Exclude<GameButtonSurface, 'plaque'>;
   liquidFinish?: LiquidFinish;
   disabled?: boolean;
 }
@@ -378,7 +410,7 @@ export interface GameToggleProps extends Pick<
 > {
   checked: boolean;
   label: string;
-  surface?: GameButtonSurface;
+  surface?: Exclude<GameButtonSurface, 'plaque'>;
   liquidFinish?: LiquidFinish;
 }
 

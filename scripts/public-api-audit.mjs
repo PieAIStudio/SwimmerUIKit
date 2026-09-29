@@ -18,6 +18,8 @@ const families = {
   './GameSurfaces': ['Controls', 'Controls, feedback and simple containers'],
   './GameHelpTip': ['Controls', 'Optional help accessible by hover, focus and touch'],
   './GameForms': ['Forms', 'Native labelled form controls'],
+  './GameOtpInput': ['Forms', 'Controlled numeric code entry; host owns verification'],
+  './GameListRow': ['Display', 'List selection with independent sibling actions'],
   './GameSelect': ['Forms', 'Native single/multiple selection; optional liquid closed field'],
   './liquidGooeyFinish': [
     'Liquid vocabulary',

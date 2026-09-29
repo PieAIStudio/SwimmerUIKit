@@ -71,6 +71,13 @@ export function StartAction({ onStart }: { onStart: () => void }) {
 没有列出的名字不是私有，也不是废弃。完整的 [公开 API 分组索引](public-api-inventory.md)
 由 TypeScript 生成，列出每个值、类型和定义文件；`pnpm api:check` 防止遗漏。
 
+## 账号界面的新原件（2.13 本地候选，尚未发布）
+
+小铜牌用 `GameButton` / `GameIconButton surface="plaque"`，头像框用
+`GameAvatar surface="plaque"`；六位验证码用 `GameOtpInput`；左侧导航用
+`GameTabs orientation="vertical"`；带独立右侧动作的条目用 `GameListRow`。
+接口、键盘与宿主边界见 [账号界面原件](design-system-guide.md#账号界面原件)。
+
 ## 液体：先选控件，再选动作
 
 一个新人用液体按钮只需知道 `GameButton` 和 `surface="liquid"`。
