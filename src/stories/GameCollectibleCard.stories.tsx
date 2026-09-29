@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { GameCollectibleCard, GameCollectibleCardSlot } from '../index';
+import {
+  GameButton,
+  GameCollectibleCard,
+  GameCollectibleCardSlot,
+  useGameCardOrientation,
+} from '../index';
 
 const meta = {
   title: 'Clay/Display/GameCollectibleCard',
@@ -60,3 +65,31 @@ export const FaceDown: Story = { args: { defaultFaceDown: true } };
 export const Uncollected: Story = {
   render: () => <GameCollectibleCardSlot label="Unlocks at lesson 9" />,
 };
+
+function OptionalOrientationCard() {
+  const orientation = useGameCardOrientation();
+  return (
+    <>
+      <GameCollectibleCard
+        rarity="legendary"
+        title="Optional tilt"
+        label="Optional tilt: tap to turn"
+        tilt={orientation.tilt}
+      />
+      <p role="status">{orientation.status}</p>
+      <GameButton
+        disabled={
+          orientation.reducedMotion ||
+          orientation.status === 'unavailable' ||
+          orientation.status === 'requesting'
+        }
+        onClick={() =>
+          orientation.status === 'enabled' ? orientation.disable() : void orientation.enable()
+        }
+      >
+        {orientation.status === 'enabled' ? 'Turn off device tilt' : 'Enable device tilt'}
+      </GameButton>
+    </>
+  );
+}
+export const OptionalDeviceTilt: Story = { render: () => <OptionalOrientationCard /> };

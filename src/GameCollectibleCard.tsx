@@ -1,7 +1,15 @@
-import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+  type ReactNode,
+} from 'react';
 
 import { playGameCardRevealSound } from './interactionSound';
 import { useSystemReducedMotion } from './reducedMotion';
+import type { GameCardTilt } from './gameCardOrientation';
 
 /**
  * How rare the card is, which is how it is framed: `common` a plain silver
@@ -40,6 +48,9 @@ export interface GameCollectibleCardProps {
   readonly spotlight?: boolean;
   /** Play a synthesized flip sound; browsers allow it only after the page has been tapped. */
   readonly sound?: boolean;
+  /** Optional normalized tilt from one explicitly enabled sensor owner. A
+   * pointer on this card takes precedence; reduced motion always wins. */
+  readonly tilt?: GameCardTilt | null;
   readonly className?: string;
 }
 
@@ -117,6 +128,7 @@ export function GameCollectibleCard({
   onFlip,
   spotlight = false,
   sound = false,
+  tilt: externalTilt,
   className,
 }: GameCollectibleCardProps): ReactNode {
   const reducedMotion = useSystemReducedMotion();
@@ -124,17 +136,20 @@ export function GameCollectibleCard({
   const down = faceDown ?? ownFaceDown;
   const [tilt, setTilt] = useState({ x: 50, y: 50, active: false });
   const press = useRef<{ x: number; y: number; moved: boolean } | null>(null);
+  useEffect(() => {
+    if (reducedMotion) setTilt({ x: 50, y: 50, active: false });
+  }, [reducedMotion]);
 
   const follow = (event: PointerEvent<HTMLButtonElement>) => {
+    const start = press.current;
+    if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > DRAG_SLOP)
+      start.moved = true;
     if (reducedMotion) return;
     const box = event.currentTarget.getBoundingClientRect();
     if (box.width === 0 || box.height === 0) return;
     const x = Math.min(100, Math.max(0, ((event.clientX - box.left) / box.width) * 100));
     const y = Math.min(100, Math.max(0, ((event.clientY - box.top) / box.height) * 100));
     setTilt({ x, y, active: true });
-    const start = press.current;
-    if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > DRAG_SLOP)
-      start.moved = true;
   };
 
   const flip = () => {
@@ -144,11 +159,24 @@ export function GameCollectibleCard({
     if (sound) playGameCardRevealSound(next ? 'common' : rarity);
   };
 
+  const sensor =
+    externalTilt && Number.isFinite(externalTilt.x) && Number.isFinite(externalTilt.y)
+      ? {
+          x: 50 + Math.min(1, Math.max(-1, externalTilt.x)) * 50,
+          y: 50 + Math.min(1, Math.max(-1, externalTilt.y)) * 50,
+          active: true,
+        }
+      : null;
+  const drawn = reducedMotion
+    ? { x: 50, y: 50, active: false }
+    : tilt.active
+      ? tilt
+      : (sensor ?? tilt);
   const style = {
-    '--card-mx': `${tilt.x}%`,
-    '--card-my': `${tilt.y}%`,
-    '--card-rx': `${tilt.active ? ((50 - tilt.y) / 50) * TILT : 0}deg`,
-    '--card-ry': `${tilt.active ? ((tilt.x - 50) / 50) * TILT : 0}deg`,
+    '--card-mx': `${drawn.x}%`,
+    '--card-my': `${drawn.y}%`,
+    '--card-rx': `${drawn.active ? ((50 - drawn.y) / 50) * TILT : 0}deg`,
+    '--card-ry': `${drawn.active ? ((drawn.x - 50) / 50) * TILT : 0}deg`,
   } as CSSProperties;
   const classes = [
     'game-ui-collect-card',
@@ -172,10 +200,14 @@ export function GameCollectibleCard({
         press.current = { x: event.clientX, y: event.clientY, moved: false };
       }}
       onPointerMove={follow}
+      onPointerCancel={() => {
+        press.current = null;
+        setTilt((current) => ({ ...current, active: false }));
+      }}
       onPointerLeave={() => setTilt((current) => ({ ...current, active: false }))}
-      onClick={() => {
+      onClick={(event) => {
         // A drag that tilted the card is not a tap on it.
-        const moved = press.current?.moved ?? false;
+        const moved = event.detail !== 0 && (press.current?.moved ?? false);
         press.current = null;
         if (!moved) flip();
       }}

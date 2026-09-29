@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-09-23
+last_reviewed: 2026-09-29
 domain: meta
 tags:
   - current-work
@@ -25,19 +25,36 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- **2.12.0 candidate for University V7 task 05 (2026-09-29):** optional,
+  explicitly enabled device tilt for the existing collectible card, plus
+  reduced-motion/drag cleanup. The approved task calls for publishing the
+  shared capability before product adoption. No website deployment is part of
+  this work. Source/API/browser/package gates and the existing `npm-publish`
+  receipt must succeed before calling the candidate published. The API and
+  sensor boundary live in the design guide, not a product-specific copy.
+
+  Local acceptance: `pnpm verify` 74 files / 464 tests; documentation, built
+  Storybook/site, publint and ESM-only package types passed. Built ordinary
+  catalogue checks passed Chromium (31 scenarios), Firefox (31) and WebKit
+  (29, with its existing capability exclusions). The new built card passed
+  pointer tilt, keyboard flip and reduced motion at 1280 and 390px; screenshots
+  and the exact source-gate log are under
+  `.devspace-reports/card-orientation/`. Sensor/permission results are explicitly
+  synthetic browser contracts, not physical-device acceptance.
+
 - **2.11.0 release (Owner approved 2026-09-28):** `GameSplash`,
   `GameCollectibleCard` / `GameCollectibleCardSlot`, `playGameCardRevealSound`,
   and the Nerve 0.6 paired liquid fix from `7b52319` (styles in `swimmer-ui`,
   labels avoid open panels). Published from main through `npm-publish`; the
-  version bump is not a publication receipt until the registry shows it.
+  official registry read on 2026-09-29 includes 2.11.0.
 
-- Nerve 0.6 paired **unpublished fix**: optional liquid CSS is in `swimmer-ui`,
+- Nerve 0.6 paired **fix, included in 2.11.0**: optional liquid CSS is in `swimmer-ui`,
   matching ordinary controls. LiquidAnchor reports its occupied rectangle to
   the same family's destination labels; labels avoid panels instead of requiring
   host z-index workarounds. One bounded layout registry, no task/model state.
   A Kit GameButton with `data-game-ui-control="liquid-presence"` delegates paint
-  to its contained liquid body, retaining native interaction. Owner must approve
-  publication before a Nerve release pins this candidate. No product is changed.
+  to its contained liquid body, retaining native interaction. This is the
+  historical paired change, not another pending release.
 
 **Published 2.10.0:** the optional liquid leaf now supplies interactive guide
 content, expanded selection comparison, companion motion, `LiquidAnchor` and

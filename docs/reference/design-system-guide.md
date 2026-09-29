@@ -568,6 +568,36 @@ GameButton static 也约束液体按压。这些是明确的交互边缘修复�
 高级组合详见 [液体原语参考](liquid-primitives.md)；donor 采纳与拒绝的事实唯一
 来源仍为根目录 `donors-individual.md` 与其 lock。
 
+## 可收集卡片与可选方向输入（2.12）
+
+`GameCollectibleCard` 负责翻面、指针倾斜、边框、高光和减少动态；产品只传
+稀有度、标题、插画、说明及可访问名字。`GameCollectibleCardSlot` 表示未收集
+的位置，不伪装成可点击卡片。`playGameCardRevealSound` 沿用已有手势解锁，
+不加载音频文件、不在首次交互前播放。
+
+需要跟随设备方向时，一本卡册只创建一个 `useGameCardOrientation()`，由
+用户点按调用 `enable()`，把返回的 `tilt` 传给当前关注的那一张卡。关闭调用
+`disable()`；换账号或离开该卡册时卸载宿主。`status` 区分 unavailable、off、
+requesting、enabled、denied；enabled 不保证该设备已经发来有效样本，`tilt`
+仍可能是 null，产品要保留手指/键盘操作。没有传 tilt 的既有消费方不变。
+
+```tsx
+const motion = useGameCardOrientation();
+<GameButton onClick={() => void motion.enable()}>Enable device tilt</GameButton>
+<GameCollectibleCard {...card} tilt={motion.tilt} />
+```
+
+方向输入需要安全上下文，平台要求权限时必须从直接交互里申请；依据是
+[W3C Device Orientation and Motion](https://www.w3.org/TR/orientation-event/)
+（2026-09-29 核对）。仅采用浏览器原生相对方向事件，不请求绝对罗盘、定位、
+麦克风或网络服务；不增加第三方传感器引擎。现有 Kit 指针/翻面实现已经足够，
+无需移植整套外部卡片库。设备/屏幕坐标做有界相对投影，不作为姿态测量工具。
+
+页面隐藏暂停输入，返回重新校准；减少动态会清掉倾斜并取消在途权限结果。
+每次 enable 有生命周期编号，关闭/卸载/隐藏请求期间的迟到结果不能重新启动。
+浏览器测试证明这些状态与实际 DOM 效果；实体设备的系统权限面板仍由消费产品
+另行验收，不能用模拟样本冒充。
+
 ## 面板系统选型
 
 | 需求                                                                     | 用                                            |

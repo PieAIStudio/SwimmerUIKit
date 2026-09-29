@@ -62,8 +62,66 @@ it('tilts toward the pointer, and a drag that tilted it is not a tap', async () 
   });
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduced) expect(card.style.getPropertyValue('--card-ry')).not.toBe('0deg');
+  await act(async () => card.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 })));
+  expect(onFlip).not.toHaveBeenCalled();
+  // A keyboard/assistive click is not a stale pointer drag.
   await act(async () => card.click());
-  if (!reduced) expect(onFlip).not.toHaveBeenCalled();
+  expect(onFlip).toHaveBeenCalledOnce();
+});
+
+it('accepts bounded host tilt without subscribing each card to a sensor', async () => {
+  const add = vi.spyOn(window, 'addEventListener');
+  const card = await mount(
+    <GameCollectibleCard rarity="rare" title="Tilt" label="Tilt" tilt={{ x: 5, y: -5 }} />,
+  );
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    expect(card.style.getPropertyValue('--card-ry')).toBe('10deg');
+    expect(card.style.getPropertyValue('--card-rx')).toBe('10deg');
+  }
+  expect(add.mock.calls.filter(([type]) => type === 'deviceorientation')).toHaveLength(0);
+  await act(async () =>
+    root!.render(
+      <GameCollectibleCard rarity="rare" title="Tilt" label="Tilt" tilt={{ x: NaN, y: 1 }} />,
+    ),
+  );
+  expect(card.style.getPropertyValue('--card-ry')).toBe('0deg');
+  add.mockRestore();
+});
+
+it('zeroes existing tilt when reduced motion changes, while keeping drag distinct from a tap', async () => {
+  const media = Object.assign(new EventTarget(), { matches: false });
+  const query = vi
+    .spyOn(window, 'matchMedia')
+    .mockImplementation(() => media as unknown as MediaQueryList);
+  const flip = vi.fn();
+  try {
+    const card = await mount(
+      <GameCollectibleCard
+        rarity="legendary"
+        title="Motion"
+        label="Motion"
+        tilt={{ x: 0.5, y: 0.5 }}
+        onFlip={flip}
+      />,
+    );
+    expect(card.style.getPropertyValue('--card-ry')).toBe('5deg');
+    media.matches = true;
+    await act(async () =>
+      media.dispatchEvent(Object.assign(new Event('change'), { matches: true })),
+    );
+    expect(card.style.getPropertyValue('--card-rx')).toBe('0deg');
+    expect(card.style.getPropertyValue('--card-ry')).toBe('0deg');
+    await act(async () => {
+      card.dispatchEvent(pointer('pointerdown', 10, 10));
+      card.dispatchEvent(pointer('pointermove', 100, 10));
+      card.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+    });
+    expect(flip).not.toHaveBeenCalled();
+    await act(async () => card.click());
+    expect(flip).toHaveBeenCalledOnce();
+  } finally {
+    query.mockRestore();
+  }
 });
 
 it('keeps the band legible: its ink meets 4.5:1 on every rarity', async () => {

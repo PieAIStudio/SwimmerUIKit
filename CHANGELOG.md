@@ -5,6 +5,20 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 2.12.0 — 2026-09-29
+
+- Add optional `useGameCardOrientation` and the bounded `GameCardTilt` input
+  on `GameCollectibleCard`. One explicitly enabled hook serves the active card
+  in an album. Mounting does not request permission or subscribe to a sensor.
+  Secure context, denial, late permission, page visibility and reduced motion
+  have explicit state and cleanup; no sensor samples or consent are stored.
+- Preserve pointer/keyboard flipping and all omitted-prop behavior. A pointer
+  on the card wins over device tilt; reduced motion zeros both immediately.
+  Drag classification still applies under reduced motion, and a keyboard or
+  assistive click is not suppressed by a stale pointer gesture.
+- Add an opt-in Storybook example and isolated browser sensor-contract tests.
+  Synthetic sensor/permission cases are not physical-device permission evidence.
+
 ## 2.11.0 — 2026-09-28
 
 Minor: University's V7 opening screen and card album, and the liquid fix

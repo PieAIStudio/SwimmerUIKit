@@ -29,6 +29,7 @@ const families = {
   './GameCallout': ['Display', 'Inline feedback'],
   './GameSplash': ['Display', 'Opening and scene-change screen with real progress'],
   './GameCollectibleCard': ['Display', 'Tilting, flipping collectible card framed by rarity'],
+  './gameCardOrientation': ['Host integration', 'One opt-in device-tilt owner for the active card'],
   './ClayComponents': ['Assets and display', 'Icons, badges, HUD and display compositions'],
   './GameHistoryPanel': ['Compositions', 'History view; product owns the entries'],
   './GameHudActions': ['Compositions', 'HUD action composition'],

@@ -1,3 +1,8 @@
+export {
+  useGameCardOrientation,
+  type GameCardTilt,
+  type GameCardOrientationStatus,
+} from './gameCardOrientation';
 // Styles are shipped separately on purpose: consumers import
 // '@pieai/swimmer-ui-kit/styles.css' once at their entry. Importing
 // CSS here would leak `import './styles.css'` into dist/index.d.ts and

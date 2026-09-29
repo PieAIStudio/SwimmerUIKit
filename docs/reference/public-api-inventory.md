@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **287 named exports: 129 values and 158 types**.
+Compiler inventory: **290 named exports: 130 values and 160 types**.
 
 ## GameButton — Controls
 
@@ -177,6 +177,16 @@ Tilting, flipping collectible card framed by rarity
 | `GameCollectibleCardSlot` | value | [source](../../src/GameCollectibleCard.tsx) |
 | `GameCollectibleCardProps` | type | [source](../../src/GameCollectibleCard.tsx) |
 | `GameCollectibleCardRarity` | type | [source](../../src/GameCollectibleCard.tsx) |
+
+## gameCardOrientation — Host integration
+
+One opt-in device-tilt owner for the active card
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `useGameCardOrientation` | value | [source](../../src/gameCardOrientation.ts) |
+| `GameCardTilt` | type | [source](../../src/gameCardOrientation.ts) |
+| `GameCardOrientationStatus` | type | [source](../../src/gameCardOrientation.ts) |
 
 ## ClayComponents — Assets and display
 
