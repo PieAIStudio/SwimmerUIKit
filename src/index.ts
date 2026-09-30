@@ -56,6 +56,7 @@ export {
   LiquidGroup,
   LiquidItem,
   type BendTuning,
+  type LiquidFill,
   type LiquidGroupProps,
   type LiquidItemProps,
   type MorphTuning,

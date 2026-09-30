@@ -75,6 +75,47 @@ import {
  * idle, or decorative liquid; keep the filter-area budget visible when more
  * than one group is on a screen.
  */
+/**
+ * A liquid body's paint.
+ *
+ * A colour paints the body flat. `{ top, bottom }` is the light the coloured
+ * liquid theme settled on (University, 2026-09-30): a narrow brighter band at
+ * the top, the colour falling from `top` to `bottom`, and the foot a touch
+ * deeper, so a body reads as having thickness without a white rim. `sheen` is
+ * how far the top band leans to white (0–1, default 0.3). Colours may be tokens:
+ * the bands are mixed with CSS `color-mix`, not computed here.
+ */
+export type LiquidFill =
+  | string
+  | { readonly top: string; readonly bottom?: string; readonly sheen?: number };
+
+/** One gradient per group; each item's own box maps it, so every body gets the whole fall. */
+function LiquidFillGradient({
+  id,
+  fill,
+}: {
+  id: string;
+  fill: Exclude<LiquidFill, string>;
+}): ReactNode {
+  const bottom = fill.bottom ?? fill.top;
+  const sheen = Math.round(Math.min(1, Math.max(0, fill.sheen ?? 0.3)) * 100);
+  const stops: [number, string][] = [
+    [0, `color-mix(in srgb, ${fill.top}, white ${sheen}%)`],
+    [0.16, `color-mix(in srgb, ${fill.top}, white ${Math.round(sheen / 2)}%)`],
+    [0.5, `color-mix(in srgb, ${fill.top}, ${bottom})`],
+    [1, `color-mix(in srgb, ${bottom}, black 5%)`],
+  ];
+  return (
+    <defs>
+      <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+        {stops.map(([offset, color]) => (
+          <stop key={offset} offset={offset} style={{ stopColor: color }} />
+        ))}
+      </linearGradient>
+    </defs>
+  );
+}
+
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   children: ReactNode;
   /** Goo blur sigma in px. Larger values bridge larger gaps. */
@@ -88,8 +129,11 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
   gloss?: number;
   /** Optional named finish. An explicit raw gloss wins; omitted preserves the old rendering. */
   liquidFinish?: LiquidFinish;
-  /** Surface fill. Defaults to the kit's theme surface token. */
-  fill?: string;
+  /**
+   * Surface fill. Defaults to the kit's theme surface token. A colour paints
+   * the body flat; `{ top, bottom }` gives it light (see `LiquidFill`).
+   */
+  fill?: LiquidFill;
   /** Extra filter-region slack in px for the silhouette's painted edges. */
   filterPadding?: number;
   /** Optional token-based box-shadow syntax rebuilt on the merged silhouette. */
@@ -471,7 +515,14 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
             />
           </filter>
         </defs>
-        <g ref={setPortalRef} fill={fill} filter={`url(#${filterId})`} />
+        {typeof fill === 'string' ? null : (
+          <LiquidFillGradient id={`${filterId}-fill`} fill={fill} />
+        )}
+        <g
+          ref={setPortalRef}
+          fill={typeof fill === 'string' ? fill : `url(#${filterId}-fill)`}
+          filter={`url(#${filterId})`}
+        />
       </svg>
       <ImageMeltLayer registry={imageMelt} getGroup={() => groupRef.current} />
       <LiquidGroupContext.Provider

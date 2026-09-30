@@ -5,6 +5,22 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+- Fix the stair-stepped top edge on every glossy liquid body: the gloss pass
+  added its light's alpha to the body's, so a half-covered edge pixel turned
+  opaque wherever the highlight was bright. The light is now clipped to the
+  body eroded by a pixel and feathered; the highlight itself is unchanged.
+- Add `LiquidFill`: `LiquidGroup` and `LiquidSurface` take `fill={{ top,
+  bottom?, sheen? }}` for the coloured-liquid light (a narrow brighter band at
+  the top, a deeper foot). Colours may be tokens; bands are CSS `color-mix`.
+- `LiquidSurface` takes `gloss` and `outline={{ amplitude, lobes? }}` to
+  override its form's light and rest lobing.
+- 涟 (`LiquidPresence`, `LiquidReveal` material surface): the face carries its
+  light in the fill (top to foot) and casts a soft contact shadow along its
+  own outline through the new `--game-ui-liquid-presence-shadow` token; the
+  material panel drops its raised rim and stroke. The dark surface is unchanged.
+- Compatibility: additive API; visual change to glossy edges and to 涟's
+  material face.
+
 ## 2.13.0 — 2026-09-29
 
 - Add opt-in `surface="plaque"` to `GameButton`, `GameIconButton` and

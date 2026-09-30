@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 There are no new package subpaths or experimental tiers in this release.
 
-Compiler inventory: **294 named exports: 132 values and 162 types**.
+Compiler inventory: **295 named exports: 132 values and 163 types**.
 
 ## GameButton — Controls
 
@@ -421,6 +421,7 @@ Advanced sibling relationships and effects
 | `LiquidGroup` | value | [source](../../src/LiquidGroup.tsx) |
 | `LiquidItem` | value | [source](../../src/LiquidGroup.tsx) |
 | `BendTuning` | type | [source](../../src/liquidGooeyMove.ts) |
+| `LiquidFill` | type | [source](../../src/LiquidGroup.tsx) |
 | `LiquidGroupProps` | type | [source](../../src/LiquidGroup.tsx) |
 | `LiquidItemProps` | type | [source](../../src/LiquidGroup.tsx) |
 | `MorphTuning` | type | [source](../../src/liquidGooeyEvolve.ts) |

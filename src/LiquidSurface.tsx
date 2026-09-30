@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties, type ReactNode } from 'react';
 
-import { LiquidGroup } from './LiquidGroup';
+import { LiquidGroup, type LiquidFill } from './LiquidGroup';
 import { liquidFinishGloss, type LiquidFinish } from './liquidGooeyFinish';
 import { useSystemReducedMotion } from './reducedMotion';
 import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from './liquidGooeyForms';
@@ -117,7 +117,17 @@ export interface LiquidSurfaceProps {
    */
   active?: boolean;
   /** Silhouette paint. Defaults to the kit's raised surface token. */
-  fill?: string;
+  fill?: LiquidFill;
+  /**
+   * The body's light, overriding the form's own. The coloured liquid theme
+   * uses a low value; with `liquidFinish="matte"` omitted, 0 means flat.
+   */
+  gloss?: number;
+  /**
+   * The rest outline's lobing, overriding the form's own: `amplitude` in px
+   * swells outward, `lobes` is how many go round (2 lazy, 5 busy).
+   */
+  outline?: { readonly amplitude: number; readonly lobes?: number };
   stroke?: string;
   /** Overrides the form's own cast shadow. `none` removes it. */
   shadow?: string;
@@ -135,6 +145,8 @@ export function LiquidSurface({
   fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
   stroke,
   shadow: shadowOverride,
+  gloss: glossOverride,
+  outline,
   radius = 999,
   className,
   style,
@@ -166,6 +178,9 @@ export function LiquidSurface({
    */
   const formShadow = engaged ? (group.shadowEngaged ?? group.shadow) : group.shadow;
   const shadow = shadowOverride ?? formShadow;
+  const blob = outline
+    ? { amplitude: outline.amplitude, lobes: outline.lobes ?? group.lobes }
+    : { amplitude: group.blob, lobes: group.lobes };
 
   return (
     <span
@@ -180,15 +195,15 @@ export function LiquidSurface({
         blur={group.blur}
         className="game-ui-liquid-surface__body"
         contrast={group.contrast}
-        gloss={liquidFinishGloss(liquidFinish, group.gloss)}
+        gloss={glossOverride ?? liquidFinishGloss(liquidFinish, group.gloss)}
         fill={fill}
-        filterPadding={Math.max(group.filterPadding, Math.ceil(group.blob) + 8)}
+        filterPadding={Math.max(group.filterPadding, Math.ceil(blob.amplitude) + 8)}
         motion={reducedMotion ? 'reduced' : 'auto'}
         {...(shadow === undefined ? {} : { shadow })}
         {...(stroke === undefined ? {} : { stroke })}
       >
         <LiquidGroup.Item
-          {...(group.blob > 0 ? { blob: { amplitude: group.blob, lobes: group.lobes } } : {})}
+          {...(blob.amplitude > 0 ? { blob } : {})}
           className="game-ui-liquid-surface__shape"
           {...(item.effect === undefined ? {} : { effect: item.effect })}
           {...(item.morph === undefined ? {} : { morph: item.morph })}

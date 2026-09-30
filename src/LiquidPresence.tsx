@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { LiquidGooeyFilter } from './liquidGooeyFilter';
+import { PRESENCE_MATERIAL_LIGHT } from './liquidMaterialLight';
 import { useSystemReducedMotion } from './reducedMotion';
 import { presenceBody, presenceSeat, clampPresence } from './liquidPresenceGeometry';
 import { useLiquidPresenceMotion } from './useLiquidPresenceMotion';
@@ -88,16 +89,18 @@ export function LiquidPresence(props: LiquidPresenceProps) {
     region: { x: number; y: number; width: number; height: number },
   ) => (
     <defs>
+      {/* Top to foot, the same fall of light as the reveal panel. */}
       <linearGradient
         id={`${id}-${suffix}-fill`}
         gradientUnits="userSpaceOnUse"
-        x1={suffix === 'core' ? 24 : -24}
+        x1={0}
         y1={suffix === 'core' ? 16 : -18}
-        x2={suffix === 'core' ? 136 : 24}
+        x2={0}
         y2={suffix === 'core' ? 146 : 18}
       >
-        <stop offset="0" stopColor="var(--liquid-presence-from, var(--game-ui-secondary))" />
-        <stop offset="1" stopColor="var(--liquid-presence-to, var(--game-ui-secondary))" />
+        {PRESENCE_MATERIAL_LIGHT.map(([offset, color]) => (
+          <stop key={offset} offset={offset} style={{ stopColor: color }} />
+        ))}
       </linearGradient>
       <filter
         id={`${id}-${suffix}-goo`}

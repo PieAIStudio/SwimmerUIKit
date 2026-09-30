@@ -327,8 +327,20 @@ export function LiquidGooeyFilter({
             */}
             <feDistantLight azimuth={235} elevation={22} />
           </feSpecularLighting>
-          {/* Keep the sheen inside the body; a specular pass paints past it. */}
-          <feComposite in="gloss-light" in2="shape" operator="in" result="gloss-clip" />
+          {/*
+            Keep the sheen inside the body, and off its edge.
+
+            The sheen is added to the body below (k2 = k3 = 1), so on an
+            anti-aliased edge pixel the body's partial alpha and the light's
+            partial alpha sum to opaque wherever the highlight is bright: the
+            edge lost its anti-aliasing and stepped along every lit top edge,
+            while the unlit bottom stayed smooth (seen on University's lesson
+            beads, 2026-09-30). Clipping to the body eroded by a pixel and
+            feathered keeps the light off the edge pixels altogether.
+          */}
+          <feMorphology in="shape" operator="erode" radius={1.2} result="gloss-inset" />
+          <feGaussianBlur in="gloss-inset" stdDeviation={0.8} result="gloss-mask" />
+          <feComposite in="gloss-light" in2="gloss-mask" operator="in" result="gloss-clip" />
           <feComposite
             in="shape"
             in2="gloss-clip"
