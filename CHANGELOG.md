@@ -5,6 +5,8 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 2.14.0 — 2026-10-01
+
 - Fix the stair-stepped top edge on every glossy liquid body: the gloss pass
   added its light's alpha to the body's, so a half-covered edge pixel turned
   opaque wherever the highlight was bright. The light is now clipped to the
@@ -19,7 +21,8 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   own outline through the new `--game-ui-liquid-presence-shadow` token; the
   material panel drops its raised rim and stroke. The dark surface is unchanged.
 - Compatibility: additive API; visual change to glossy edges and to 涟's
-  material face.
+  material face. Owner approved publication on 2026-10-01 (University
+  session, "品牌UI包要发布成新版"), with the repository kept to one main line.
 
 ## 2.13.0 — 2026-09-29
 

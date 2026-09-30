@@ -25,6 +25,12 @@ This file is the current project work index. It is not the agents-routing algori
 
 ## Current Focus
 
+- **2.14.0 液体光感（待发布）**：所有带光泽的液体上边缘去锯齿（高光收进边缘一个像素）；
+  新增 `LiquidFill`（上浅下深的彩色液体光）和 `LiquidSurface` 的 `gloss`、`outline`；
+  「涟」的水滴和 material 面板改成上浅下深加贴着轮廓的淡影子，面板去掉凸起的边。
+  Owner 2026-10-01 批准发布，并要求仓库只留一条主线：旧分支 `feat/liquid-reveal-review`
+  已存为标签 `archive/liquid-reveal-review` 后删除。
+
 - **WO-UI-1，2.13.0 已发布**：铜牌皮肤、验证码输入、竖排页签和独立动作列表行。
   Trusted Publishing `36571436773` 成功，源 `ad3fd30`；官方 tarball 的完整性和新 API 已回读。
   482 测试、三浏览器、八张验收图及发布证据见
