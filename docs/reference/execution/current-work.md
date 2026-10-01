@@ -26,9 +26,11 @@ This file is the current project work index. It is not the agents-routing algori
 ## Current Focus
 
 - **3.0 大手术（进行中，Codex 执行）**：按 [PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)
-  分阶段做：目录与拆分、样式拆分、删除与收窄、彩色液体主题、文档与治理、发布候选。
+  分阶段做：目录与拆分、样式拆分、删除与收窄、主题、文档与治理、发布候选。
   Owner 2026-10-01 批准，干净断代不留兼容层；D1 移出 OwnMySpace 专用工具、D2 删零使用件、D3 融化弯曲另设子入口。
-  配色档位：待 Owner 在配色对比页选 A/B/C/D，未选前用 C。执行期间 Claude 不改本仓库代码，只做阶段评审。
+  主题（Owner 2026-10-01）：配色定 C 档；全液体太花，改成普通控件平面马卡龙、没有厚度，液体只给 CTA（一屏最多一个）。
+  普通控件按下的手感：待 Owner 在 Claude 的第二版对比页选「液体一挤」或「轻轻一沉」，选定后记在这一行；未选前 S4 往后放，先做 S5。
+  执行期间 Claude 不改本仓库代码，只做阶段评审。
 
 - **2.14.0 液体光感，已发布**：所有带光泽的液体上边缘去锯齿（高光收进边缘一个像素）；
   新增 `LiquidFill`（上浅下深的彩色液体光）和 `LiquidSurface` 的 `gloss`、`outline`；

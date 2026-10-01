@@ -109,29 +109,36 @@ src/
 - 内部表、默认值常量、只给预览用的名字一律不导出。
 - `docs/reference/migration-3.0.md`：用 `pnpm api:inventory` 的前后差异生成，每个改名或删除的名字一行，写明「换成什么」或「删了，原因」。
 
-### 一套主题：彩色液体
+### 一套主题：平面马卡龙，液体只给 CTA
 
-- **涟的重量成为所有液体的唯一外观**：
-  - blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣；
-  - 贴地软影 `0 6px 14px` 约 13% 的暖墨色；
-  - `LiquidFill` 渐变，sheen 0.3。
-- **形态（press、swell、settle、drain …）只保留动作差异**：姿态、回弹、过渡，以及 `set` 的变硬。多物体形态（merge、split、bead、follow）为了桥接间隙保留自己的 blur，亮光用同一材质。
-- **厚重量删除，不留开关。**
-- **配色 token**：`--game-ui-liquid-coral|sun|leaf|sky|grape|pink`，外加未选中用的 `--game-ui-liquid-cream`（sheen 0.7）。Owner 在配色对比页里选档，选了哪档以 `docs/reference/execution/current-work.md` 为准；没选之前用 C。四档色值如下：
+Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太花。改成两层：
 
-  | 档 | 珊瑚 | 向日葵 | 嫩叶 | 晴空 | 葡萄 | 泡泡糖 |
-  | --- | --- | --- | --- | --- | --- | --- |
-  | A 马卡龙 | #fab29d | #f8dda1 | #b0d5bd | #b3d3f7 | #e1c8f2 | #fdbfdf |
-  | B 柔一点 | #f1a18c | #fbda88 | #94cea6 | #8ec0e8 | #bfafec | #f5b2ce |
-  | C 饱和 | #f4876b | #f7c948 | #72c58f | #6bb3ea | #b39bf0 | #f59ac2 |
-  | D 更鲜 | #fd7756 | #f7c203 | #59c483 | #52aff2 | #b091f9 | #fb8dbf |
+- **普通控件是平面马卡龙，没有厚度。**
+  - 范围：除 CTA 以外的按钮（secondary、ghost、success、danger）、`GameIconButton`、选项行、标签页、分段、开关、列表行、输入框。
+  - 没有底边（`--game-ui-button-lip-depth` 恒为 0，删掉这个变量）、没有投影、没有渐变、没有高光、没有亮边。层次只靠色块和留白。
+  - 底色是不透明的纸色或配色 token 的颜色，字一律深墨色 `#2a2320`，对比度不低于 4.5:1。
+  - 选中：填上配色、加对勾，**不鼓起来、不变大**，一列选项左右两端保持对齐。
+  - 按下的手感：Owner 在第二版对比页里选「液体一挤」或「轻轻一沉」，结果记在 `docs/reference/execution/current-work.md`。
+    - 「液体一挤」：平面的身体按下时像果冻一样横向摊开再弹回，用 `LiquidSurface` 的 press 动作，`liquidFinish="matte"`、`shadow="none"`、轮廓起伏 0、纯色填充。看着仍是平的，只有动作是液体。
+    - 「轻轻一沉」：只缩到 0.97，不变形。
+    - 两种都没有厚度；减少动态时都不动。
+- **CTA 是唯一的液体按钮。**
+  - CTA 就是 `GameButton variant="primary"`：推动主线往前的那一步（开始、确定、下一步、收下、付款）。primary 默认画成液体，不用再传 `surface`。
+  - 一屏最多一个 CTA。这条写进组件选择指南，并在 storybook 的示例里做对。
+  - CTA 的样子用涟的重量：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影 `0 6px 14px` 约 13% 的暖墨色、`LiquidFill` 渐变 sheen 0.3，颜色珊瑚。
+  - 涟本身、`LiquidReveal` 面板、`LiquidFill` 也用这一套重量。
+- **厚重量删除，不留开关。** 形态（press、swell、settle、drain …）只保留动作差异：姿态、回弹、过渡，以及 `set` 的变硬。多物体形态（merge、split、bead、follow）为了桥接间隙保留自己的 blur，亮光用同一材质。
+- **`surface` 参数**：primary 固定液体、其余固定平面以后，按 S3 的使用清点决定 `surface` 和 `plaque` 是删还是留；删了就写进迁移表。
+- **配色 token：C 档（Owner 2026-10-01 选定）**，`--game-ui-liquid-*` 改名为不带 liquid 的 `--game-ui-tint-*`，因为平面控件也用它：
 
-  深色字 `#2a2320` 在四档上的对比度都不低于 5.8:1。深色主题下液体颜色不变暗。
-- **`GameButton` 的液体语气**：
-  - primary → coral；
-  - secondary → cream；
-  - success → leaf；
-  - danger → 现有 danger token，同样走渐变光。
+  | 珊瑚 | 向日葵 | 嫩叶 | 晴空 | 葡萄 | 泡泡糖 |
+  | --- | --- | --- | --- | --- | --- |
+  | #f4876b | #f7c948 | #72c58f | #6bb3ea | #b39bf0 | #f59ac2 |
+
+  - 另加一个未选中用的奶油色 `--game-ui-tint-cream`。
+  - 深色字在六色上的对比度都不低于 5.8:1。
+  - 深色主题：配色不变暗，纸色和大块的底换深色。
+- **语气对应**：primary → 珊瑚液体；secondary → 纸色平面；success → 嫩叶平面；danger → 现有 danger token 平面。
 - **涟的引导文字**（`LiquidPresence` 的 `guideContent`）装进涟的 material 面板，和 `LiquidReveal` 同一个样子，不再是平的卡片。
 
 ### 文档与治理
@@ -180,7 +187,8 @@ src/
    - D1、D2、D3；把零使用和内部名字移出公开接口；`./preview`、`./liquid-effects` 子入口。
    - 生成迁移表。截图除被删组件外无差异。
 5. **S4 主题。**
-   - 涟的重量成为唯一液体外观、配色 token、按钮语气、涟的引导面板。
+   - 平面马卡龙的普通控件、液体 CTA、C 档配色 token、按钮语气、涟的引导面板。
+   - **开始前**看 current-work 里 Owner 对「按下的手感」的选择；还没选就先做 S5，回头再做 S4。
    - 这是唯一允许改样子的阶段：新截图和基线并排放进一页对比，交 Claude 评审后再提交。
 6. **S5 文档与治理。**
    - 按上节重组文档、清根目录、改 `AGENTS.md`。
@@ -195,6 +203,8 @@ src/
 - [ ] `src/` 根目录只剩 `index.ts` 和各子入口文件。
 - [ ] 公开接口约 120 个名字；迁移表覆盖每一个改名和删除。
 - [ ] 只有一套液体外观（涟），厚重量和它的开关都不存在了。
+- [ ] 液体只出现在 CTA、涟、`LiquidReveal` 和 `LiquidFill` 上；普通控件的计算样式里没有 box-shadow、渐变和底边（浏览器测试验证）。
+- [ ] 组件选择指南写明「一屏最多一个 CTA」，storybook 示例守这条。
 - [ ] 配色由 token 决定；换一档只改 token 块。
 - [ ] 文档没有重复、没有过时的现行文档，`docs:check` 全过。
 - [ ] 根目录没有提交进来的测量截图和临时目录。
