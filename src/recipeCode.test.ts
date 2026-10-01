@@ -16,6 +16,13 @@ describe('copyable catalog examples', () => {
             recipeCode({ recipe: recipe.id, material, state }),
           );
         }
+    files.set(
+      path.resolve('src/__recipe_contract_negative.tsx'),
+      `import { GameButton } from '@pieai/swimmer-ui-kit';
+// @ts-expect-error Unknown props must fail; an unchecked/any API is not evidence.
+export const invalid = <GameButton unknownSwimmerProp="not-allowed">Start</GameButton>;
+`,
+    );
     const options = {
       ...parsed.options,
       noEmit: true,
@@ -39,8 +46,16 @@ describe('copyable catalog examples', () => {
       options,
       host,
     );
-    const diagnostics = ts
-      .getPreEmitDiagnostics(program)
+    // The assertion has always covered generated examples and global errors,
+    // not implementation diagnostics (those are checked by pnpm typecheck).
+    // Ask the compiler for precisely those files instead of rechecking every
+    // imported implementation body and discarding its diagnostics afterward.
+    const diagnostics = [...files.keys()]
+      .flatMap((file) => {
+        const source = program.getSourceFile(file);
+        if (!source) throw new Error(`Recipe was not loaded by TypeScript: ${file}`);
+        return ts.getPreEmitDiagnostics(program, source);
+      })
       .filter((item) => !item.file || files.has(item.file.fileName));
     expect(
       diagnostics.map((item) => ts.flattenDiagnosticMessageText(item.messageText, '\n')),

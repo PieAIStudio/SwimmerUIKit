@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-09-29
+last_reviewed: 2026-10-01
 domain: meta
 tags:
   - current-work
@@ -31,6 +31,7 @@ This file is the current project work index. It is not the agents-routing algori
   主题（Owner 2026-10-01 定稿）：普通控件是二维水滴（平、没有厚度、水滴边「一点点」、按下像水一样摊开，用路径画）；CTA 是唯一的液体，颜色潮汐。
   六套风格（彩色、淡彩、雾色、灰阶、包边、黑白包边）全部保留，存成一个原件加 `data-game-ui-style` 的六个 token 块；默认 pastel。University 孩子用淡彩、大人用灰阶。
   执行期间 Claude 不改本仓库代码，只做阶段评审。
+  - **S0 完成（2026-10-01）**：基线 `9d6f2d3`；源码 66 文件 / 20,069 行，公开 295 名字（132 值、163 类型），482 测试全过，dist 4,315,930 bytes。`verify`、`docs:check`、`build-storybook` 通过；144 个故事的浅色 / night、DPR 1 共 288 张截图及原始构建保存在 `.scratch/baseline/`（不提交），图集入口 `.scratch/baseline/index.html`。未改变组件外观；检查只去掉重复编译工作，未放宽断言或超时。
 
 - **2.14.0 液体光感，已发布**：所有带光泽的液体上边缘去锯齿（高光收进边缘一个像素）；
   新增 `LiquidFill`（上浅下深的彩色液体光）和 `LiquidSurface` 的 `gloss`、`outline`；

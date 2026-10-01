@@ -108,7 +108,10 @@ const skipReference = (node, symbol) => {
   }
   return false;
 };
-for (const source of program.getSourceFiles()) {
+// The inventory/check contract depends on declarations, not internal usage.
+// Resolve every use site only for the explicit evidence report; doing this on
+// every verify needlessly type-checks the entire preview implementation again.
+for (const source of process.argv.includes('--evidence') ? program.getSourceFiles() : []) {
   const file = path.relative(root, source.fileName);
   if (source.isDeclarationFile || source === entry || !/^(src|preview)\//.test(file)) continue;
   const visit = (node) => {
