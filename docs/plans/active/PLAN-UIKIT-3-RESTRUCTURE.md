@@ -109,36 +109,54 @@ src/
 - 内部表、默认值常量、只给预览用的名字一律不导出。
 - `docs/reference/migration-3.0.md`：用 `pnpm api:inventory` 的前后差异生成，每个改名或删除的名字一行，写明「换成什么」或「删了，原因」。
 
-### 一套主题：平面马卡龙，液体只给 CTA
+### 主题：二维水滴，液体只给 CTA
 
-Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太花。改成两层：
+Owner 2026-10-01 定稿（对比页第三版，选择原文：`UI 第二版：Q1=淡彩，Q2=灰阶，Q3=液体·潮汐，Q4=一点点`，并要求六套风格全部保留进品牌 UI）。
 
-- **普通控件是平面马卡龙，没有厚度。**
-  - 范围：除 CTA 以外的按钮（secondary、ghost、success、danger）、`GameIconButton`、选项行、标签页、分段、开关、列表行、输入框。
-  - 没有底边（`--game-ui-button-lip-depth` 恒为 0，删掉这个变量）、没有投影、没有渐变、没有高光、没有亮边。层次只靠色块和留白。
-  - 底色是不透明的纸色或配色 token 的颜色，字一律深墨色 `#2a2320`，对比度不低于 4.5:1。
-  - 选中：填上配色、加对勾，**不鼓起来、不变大**，一列选项左右两端保持对齐。
-  - **二维水滴**（Owner 2026-10-01 补充）：普通控件也是水滴形状，但是平的。边是水滴的边，有一点不规整，不是规整的胶囊；按下时像水一样横向摊开、边晃一下再弹回。减少动态时不动。
-    - **用路径画，不用液体滤镜。** 第一版用 `LiquidSurface` 的 matte 加 `stroke` 画包边，滤镜的硬阈值让细边出现台阶锯齿，Owner 一眼看出。新做一个平面水滴原件：按控件尺寸生成一条平滑的闭合曲线（圆角矩形沿法线加两组整数频率的缓波，Catmull-Rom 转三次贝塞尔），SVG `path` 填色加描边（`vector-effect: non-scaling-stroke`）；按下是一组欠阻尼弹簧，驱动横纵缩放和波幅。浏览器给路径抗锯齿，DPR 1 下放大看边缘是平滑过渡的。参考实现：本机 `.scratch/flat-droplet-reference.jsx`（Claude 对比页里用的那份，未提交），按 UIKit 的结构重写，不要照抄。
-    - 液体滤镜只留给 CTA、涟、`LiquidReveal`。
-  - **风格可能不止一套**：Claude 的第二版对比页给了六套二维风格（彩色、淡彩、雾色、灰阶、包边、黑白包边），Owner 分别给「年纪小的」和「大人」各选一套，另选边的不规整程度和 CTA 的颜色（涟的四套：潮汐、苔藓、暮色、夕阳，或跟风格变平）。选两套不同的，就做成两个主题，由 token 块切换。选择结果记在 `docs/reference/execution/current-work.md`。
-- **CTA 是唯一的液体按钮。**
-  - CTA 就是 `GameButton variant="primary"`：推动主线往前的那一步（开始、确定、下一步、收下、付款）。primary 默认画成液体，不用再传 `surface`。
-  - 一屏最多一个 CTA。这条写进组件选择指南，并在 storybook 的示例里做对。
-  - CTA 的样子用涟的重量：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影 `0 6px 14px`、`LiquidFill` 渐变 sheen 0.3。颜色不用珊瑚（Owner 2026-10-01：太丑），用 SwimmerNerveKit 涟的配色，默认潮汐 `#22d3ee → #22bb91`，字用深墨色（中段对比度 7.3）；最终选哪套以 current-work 为准。
-  - 涟本身、`LiquidReveal` 面板、`LiquidFill` 也用这一套重量。
+**两层，各管一件事：**
+
+- **普通控件：二维水滴。** 平的，没有厚度；边是水滴的边，有一点不规整；按下时像水一样横向摊开、边晃一下再弹回。
+  - 范围：除 CTA 以外的按钮（secondary、ghost、success、danger）、`GameIconButton`、选项行、标签页、分段、开关、列表行。输入框只换边和底色，不做按压形变。
+  - 没有底边（删掉 `--game-ui-button-lip-depth`）、没有投影、没有渐变、没有高光、没有亮边。层次只靠色块、边和留白。
+  - 选中：换成该风格的「选中」样子并加对勾，**不鼓起来、不变大**，一列选项左右两端保持对齐。
+  - **用路径画，不用液体滤镜。** 液体滤镜的硬阈值会让细边出现台阶锯齿（Owner 一眼看出）。新做一个平面水滴原件：按控件尺寸生成一条平滑的闭合曲线（圆角矩形沿法线加两组整数频率的缓波，Catmull-Rom 转三次贝塞尔），SVG `path` 填色加描边（`vector-effect: non-scaling-stroke`）；按下是一组欠阻尼弹簧，驱动横纵缩放和波幅。参考实现：本机 `.scratch/flat-droplet-reference.jsx`，对比页成品：本机 `.scratch/ui-second-version.html`（浏览器直接打开）。按 UIKit 的结构重写，不要照抄。
+  - 边的不规整程度：Owner 选「一点点」，全部风格一样。做成 token `--game-ui-droplet-wobble`（对比页里是 1.4 px；长条行的上限同值），原件在测量尺寸时读它。减少动态时不动。
+- **CTA：唯一的液体按钮。**
+  - CTA 就是 `GameButton variant="primary"`：推动主线往前的那一步（开始、确定、下一步、收下、付款）。primary 默认画成液体，不用再传 `surface`。一屏最多一个，这条写进组件选择指南，storybook 示例做对。
+  - 样子用涟的重量：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影 `0 6px 14px`、`LiquidFill` 上下渐变 sheen 0.3。
+  - 颜色：涟的「潮汐」，`--game-ui-cta-from: #22d3ee`、`--game-ui-cta-to: #22bb91`，六套风格都一样；字用深墨色（渐变中段对比度 7.3）。不再用珊瑚（Owner：太丑）。
+  - 涟本身、`LiquidReveal` 面板、`LiquidFill` 用同一套液体重量。液体滤镜只留给它们。
 - **厚重量删除，不留开关。** 形态（press、swell、settle、drain …）只保留动作差异：姿态、回弹、过渡，以及 `set` 的变硬。多物体形态（merge、split、bead、follow）为了桥接间隙保留自己的 blur，亮光用同一材质。
-- **`surface` 参数**：primary 固定液体、其余固定平面以后，按 S3 的使用清点决定 `surface` 和 `plaque` 是删还是留；删了就写进迁移表。
-- **配色 token：C 档（Owner 2026-10-01 选定）**，`--game-ui-liquid-*` 改名为不带 liquid 的 `--game-ui-tint-*`，因为平面控件也用它：
+- **`surface` 参数**：primary 固定液体、其余固定水滴以后，按 S3 的使用清点决定 `surface` 和 `plaque` 删还是留；删了写进迁移表。
 
-  | 珊瑚 | 向日葵 | 嫩叶 | 晴空 | 葡萄 | 泡泡糖 |
-  | --- | --- | --- | --- | --- | --- |
-  | #f4876b | #f7c948 | #72c58f | #6bb3ea | #b39bf0 | #f59ac2 |
+**六套风格全部进品牌 UI，存法是「一个原件 + 六个 token 块」，不是六套组件：**
 
-  - 另加一个未选中用的奶油色 `--game-ui-tint-cream`。
-  - 深色字在六色上的对比度都不低于 5.8:1。
-  - 深色主题：配色不变暗，纸色和大块的底换深色。
-- **语气对应**：primary → 涟配色的液体；secondary → 纸色平面；success → 嫩叶平面；danger → 现有 danger token 平面。
+- 风格和明暗是两条独立的轴：已有的 `data-game-ui-theme="light|dark"` 不动，新增 `data-game-ui-style`，取值 `candy`（彩色）、`pastel`（淡彩）、`mist`（雾色）、`grey`（灰阶）、`outline`（包边）、`ink`（黑白包边）。不写时的默认值是 `pastel`。六套 × 两种明暗 = 十二个 token 块，组件代码里不出现风格名。
+- 每个 token 块只定义语义变量，组件只读语义变量，例如：
+  - 平时：`--game-ui-control-fill`、`--game-ui-control-edge`、`--game-ui-control-edge-width`、`--game-ui-control-text`；
+  - 选中：`--game-ui-control-on-fill`、`--game-ui-control-on-edge`、`--game-ui-control-on-text`；
+  - 有含义的控件（分类篮子这种「颜色就是它是谁」的）：`--game-ui-control-meaning-fill`、`-text`。
+- 颜色来源：控件可带 `hue`（coral、sun、leaf、sky、grape、pink），组件把它映射成局部变量 `--hue`，各风格用它算出自己的颜色。彩色、淡彩用 C 档 `--game-ui-tint-*`；雾色用同六色加灰的 `--game-ui-mist-*`；灰阶、包边、黑白包边不用色相。淡彩的「平时」用 `color-mix(in srgb, var(--hue) 38%, var(--game-ui-paper))` 这类公式写在 token 里，不在组件里分支。
+- 每套风格的颜色以对比页为准（源码 `.scratch/ui-second-version-source.jsx` 里的 STYLES 表；成品 `.scratch/ui-second-version.html`），下面是摘要：
+
+  | 风格 | 给谁 | 平时 | 选中 | 有含义的控件 |
+  | --- | --- | --- | --- | --- |
+  | 彩色 candy | 年纪小的 | 纸色 + 细边 | C 档色 | C 档色 |
+  | 淡彩 pastel | 年纪小的 | 色相 38% 混纸色，无边 | C 档色 | C 档色 |
+  | 雾色 mist | 大人 | 纸色 + 细边 | 雾色 | 雾色 |
+  | 灰阶 grey | 大人 | 浅灰块，无边 | 墨色底、纸色字 | 深一档的灰 |
+  | 包边 outline | 大人 | 和背景同色，只有一道淡边 | 边变墨色 2 px、底略深 | 同「平时」 |
+  | 黑白包边 ink | 大人 | 和背景同色，墨色实边 | 墨色底、纸色字 | 同「平时」 |
+
+  C 档：珊瑚 `#f4876b`、向日葵 `#f7c948`、嫩叶 `#72c58f`、晴空 `#6bb3ea`、葡萄 `#b39bf0`、泡泡糖 `#f59ac2`；雾色：`#c99a86`、`#d6c39a`、`#a7bba3`、`#9fb3c6`、`#b4a8c4`、`#cfa8ae`。深色字 `#2a2320` 在 C 档上不低于 5.8:1，在雾色上不低于 6.2:1。深色主题：彩色和雾色不变暗，纸色和大块的底换深色。
+- 选中一律加对勾，所以颜色少的几套（灰阶、包边、黑白包边）不只靠颜色区分选中。
+- 加一个检查：十二个 token 块都定义了全部语义变量；每个块里「文字 / 底色」的组合对比度不低于 4.5:1（可点的控件）。
+- **University 的用法**（产品侧，不在本仓库做）：年纪小的学习者用 `pastel`，大人用 `grey`。
+
+**其余：**
+
+- **配色 token 改名**：`--game-ui-liquid-*` 改为 `--game-ui-tint-*`（平面控件也用它），另加 `--game-ui-mist-*` 和未选中用的 `--game-ui-tint-cream`。
+- **语气对应**：primary → 潮汐液体 CTA；secondary → 风格的「平时」；success → 嫩叶（有含义）；danger → 现有 danger token（有含义）。
 - **涟的引导文字**（`LiquidPresence` 的 `guideContent`）装进涟的 material 面板，和 `LiquidReveal` 同一个样子，不再是平的卡片。
 
 ### 文档与治理
@@ -187,8 +205,7 @@ Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太
    - D1、D2、D3；把零使用和内部名字移出公开接口；`./preview`、`./liquid-effects` 子入口。
    - 生成迁移表。截图除被删组件外无差异。
 5. **S4 主题。**
-   - 平面马卡龙的普通控件、液体 CTA、C 档配色 token、按钮语气、涟的引导面板。
-   - **开始前**看 current-work 里 Owner 选的二维风格；还没选就先做 S5，回头再做 S4。
+   - 平面水滴原件、六套风格 token、潮汐液体 CTA、按钮语气、涟的引导面板。Owner 的选择已经定稿，见上面「主题」一节。
    - 这是唯一允许改样子的阶段：新截图和基线并排放进一页对比，交 Claude 评审后再提交。
 6. **S5 文档与治理。**
    - 按上节重组文档、清根目录、改 `AGENTS.md`。
@@ -204,6 +221,7 @@ Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太
 - [ ] 公开接口约 120 个名字；迁移表覆盖每一个改名和删除。
 - [ ] 只有一套液体外观（涟），厚重量和它的开关都不存在了。
 - [ ] 液体只出现在 CTA、涟、`LiquidReveal` 和 `LiquidFill` 上；普通控件的计算样式里没有 box-shadow、渐变和底边（浏览器测试验证）。
+- [ ] 六套风格 × 明暗都能切换，十二个 token 块齐全、对比度达标（自动检查）；平面水滴的边在 DPR 1 下放大看没有台阶。
 - [ ] 组件选择指南写明「一屏最多一个 CTA」，storybook 示例守这条。
 - [ ] 配色由 token 决定；换一档只改 token 块。
 - [ ] 文档没有重复、没有过时的现行文档，`docs:check` 全过。

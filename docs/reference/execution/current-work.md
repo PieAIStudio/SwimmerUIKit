@@ -28,8 +28,8 @@ This file is the current project work index. It is not the agents-routing algori
 - **3.0 大手术（进行中，Codex 执行）**：按 [PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)
   分阶段做：目录与拆分、样式拆分、删除与收窄、主题、文档与治理、发布候选。
   Owner 2026-10-01 批准，干净断代不留兼容层；D1 移出 OwnMySpace 专用工具、D2 删零使用件、D3 融化弯曲另设子入口。
-  主题（Owner 2026-10-01）：配色定 C 档；全液体太花，改成普通控件二维水滴（平、没有厚度、水滴边、按下像水一样摊开），一屏最多一个 CTA。
-  二维风格待 Owner 在 Claude 的第二版对比页（六套）给孩子和大人各选一套，选定后记在这一行；未选前 S4 往后放，先做 S5。
+  主题（Owner 2026-10-01 定稿）：普通控件是二维水滴（平、没有厚度、水滴边「一点点」、按下像水一样摊开，用路径画）；CTA 是唯一的液体，颜色潮汐。
+  六套风格（彩色、淡彩、雾色、灰阶、包边、黑白包边）全部保留，存成一个原件加 `data-game-ui-style` 的六个 token 块；默认 pastel。University 孩子用淡彩、大人用灰阶。
   执行期间 Claude 不改本仓库代码，只做阶段评审。
 
 - **2.14.0 液体光感，已发布**：所有带光泽的液体上边缘去锯齿（高光收进边缘一个像素）；
