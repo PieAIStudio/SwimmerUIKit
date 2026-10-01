@@ -118,12 +118,14 @@ Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太
   - 没有底边（`--game-ui-button-lip-depth` 恒为 0，删掉这个变量）、没有投影、没有渐变、没有高光、没有亮边。层次只靠色块和留白。
   - 底色是不透明的纸色或配色 token 的颜色，字一律深墨色 `#2a2320`，对比度不低于 4.5:1。
   - 选中：填上配色、加对勾，**不鼓起来、不变大**，一列选项左右两端保持对齐。
-  - **二维水滴**（Owner 2026-10-01 补充）：普通控件也画在液体轮廓上，但是平的。边是水滴的边，有一点不规整，不是规整的胶囊；按下时像水一样横向摊开再弹回（`LiquidSurface` 的 press 动作，`liquidFinish="matte"`、`shadow="none"`、纯色填充、需要时用 `stroke` 画边）。减少动态时不动。
-  - **风格可能不止一套**：Claude 的第二版对比页给了六套二维风格（彩色、淡彩、雾色、灰阶、包边、黑白包边），Owner 分别给「年纪小的」和「大人」各选一套，另选边的不规整程度和 CTA 是彩色液体还是跟风格变平。选两套不同的，就做成两个主题，由 token 块切换。选择结果记在 `docs/reference/execution/current-work.md`。
+  - **二维水滴**（Owner 2026-10-01 补充）：普通控件也是水滴形状，但是平的。边是水滴的边，有一点不规整，不是规整的胶囊；按下时像水一样横向摊开、边晃一下再弹回。减少动态时不动。
+    - **用路径画，不用液体滤镜。** 第一版用 `LiquidSurface` 的 matte 加 `stroke` 画包边，滤镜的硬阈值让细边出现台阶锯齿，Owner 一眼看出。新做一个平面水滴原件：按控件尺寸生成一条平滑的闭合曲线（圆角矩形沿法线加两组整数频率的缓波，Catmull-Rom 转三次贝塞尔），SVG `path` 填色加描边（`vector-effect: non-scaling-stroke`）；按下是一组欠阻尼弹簧，驱动横纵缩放和波幅。浏览器给路径抗锯齿，DPR 1 下放大看边缘是平滑过渡的。参考实现在 Claude 的对比页源码里（University 会话 scratchpad `uiv2/droplet.jsx`），按 UIKit 的结构重写，不要照抄。
+    - 液体滤镜只留给 CTA、涟、`LiquidReveal`。
+  - **风格可能不止一套**：Claude 的第二版对比页给了六套二维风格（彩色、淡彩、雾色、灰阶、包边、黑白包边），Owner 分别给「年纪小的」和「大人」各选一套，另选边的不规整程度和 CTA 的颜色（涟的四套：潮汐、苔藓、暮色、夕阳，或跟风格变平）。选两套不同的，就做成两个主题，由 token 块切换。选择结果记在 `docs/reference/execution/current-work.md`。
 - **CTA 是唯一的液体按钮。**
   - CTA 就是 `GameButton variant="primary"`：推动主线往前的那一步（开始、确定、下一步、收下、付款）。primary 默认画成液体，不用再传 `surface`。
   - 一屏最多一个 CTA。这条写进组件选择指南，并在 storybook 的示例里做对。
-  - CTA 的样子用涟的重量：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影 `0 6px 14px` 约 13% 的暖墨色、`LiquidFill` 渐变 sheen 0.3，颜色珊瑚。
+  - CTA 的样子用涟的重量：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影 `0 6px 14px`、`LiquidFill` 渐变 sheen 0.3。颜色不用珊瑚（Owner 2026-10-01：太丑），用 SwimmerNerveKit 涟的配色，默认潮汐 `#22d3ee → #22bb91`，字用深墨色（中段对比度 7.3）；最终选哪套以 current-work 为准。
   - 涟本身、`LiquidReveal` 面板、`LiquidFill` 也用这一套重量。
 - **厚重量删除，不留开关。** 形态（press、swell、settle、drain …）只保留动作差异：姿态、回弹、过渡，以及 `set` 的变硬。多物体形态（merge、split、bead、follow）为了桥接间隙保留自己的 blur，亮光用同一材质。
 - **`surface` 参数**：primary 固定液体、其余固定平面以后，按 S3 的使用清点决定 `surface` 和 `plaque` 是删还是留；删了就写进迁移表。
@@ -136,7 +138,7 @@ Owner 2026-10-01 定的方向：第一版「所有控件都是彩色液体」太
   - 另加一个未选中用的奶油色 `--game-ui-tint-cream`。
   - 深色字在六色上的对比度都不低于 5.8:1。
   - 深色主题：配色不变暗，纸色和大块的底换深色。
-- **语气对应**：primary → 珊瑚液体；secondary → 纸色平面；success → 嫩叶平面；danger → 现有 danger token 平面。
+- **语气对应**：primary → 涟配色的液体；secondary → 纸色平面；success → 嫩叶平面；danger → 现有 danger token 平面。
 - **涟的引导文字**（`LiquidPresence` 的 `guideContent`）装进涟的 material 面板，和 `LiquidReveal` 同一个样子，不再是平的卡片。
 
 ### 文档与治理
