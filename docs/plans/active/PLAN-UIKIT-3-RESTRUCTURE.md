@@ -1,0 +1,205 @@
+---
+id: PLAN-UIKIT-3-RESTRUCTURE
+title: UIKit 3.0 Restructure
+type: plan
+status: active
+canonical: true
+owner: project
+created: 2026-10-01
+last_reviewed: 2026-10-01
+domain: ui-components
+tags:
+  - restructure
+  - liquid
+  - release
+pinned: false
+related:
+  - REF-CURRENT-WORK
+  - REF-PUBLIC-API-INVENTORY
+  - REF-DESIGN-SYSTEM-GUIDE
+supersedes: []
+superseded_by: null
+---
+
+# UIKit 3.0 大手术
+
+给执行的 AI（Codex）读。一次只做一个阶段，每个阶段结束时仓库是绿的、可以停下来；
+阶段的验收条件没有全部满足之前，不进入下一阶段。
+
+## 授权与边界
+
+- **Owner 2026-10-01 批准**：完全同意方案，接受更激进的做法。原则按重要性排：
+  1. 健康、清晰，AI 读得懂；
+  2. 解耦、模块化，人看得懂；
+  3. 简洁高效。为此不惜代价。
+- **三件拍板**：
+  - **D1**：只给 OwnMySpace 用的盖房子、施工队工具移出品牌包，直接删；OwnMySpace 锁在 1.3.0，不受影响，它的改版另行处理。
+  - **D2**：零使用的金属质感按钮（WebGL）和黏土配色变量删除。
+  - **D3**：融化、弯曲两种液体特效保留，移到单独的子入口，不进默认包。
+- **兼容策略：干净断代，不留兼容层。** 14 个产品都锁了精确版本，3.0 不会让任何一个被动坏掉；谁升级谁迁移。兼容层会让「健康的包」里同时有两套说法，违背原则 1。2.14.x 只在线上产品确有急需时打补丁。
+- **单主线**：直接在 `main` 上做，不开长期分支。每个阶段至少一个提交，每个提交都过 `pnpm verify` 和 `pnpm docs:check`。npm 上的版本不变，所以 main 上的中间状态不会影响任何产品。
+- **不在本计划内**：
+  - 各产品接入 3.0。每个产品另有提示词，University 和 SwimmerNerveKit 先接。
+  - 发布到 npm。最后一个阶段停在发布候选，等 Owner 点头。
+- **并行约束**：本计划执行期间，Claude 不在 SwimmerUIKit 里改代码，只做阶段评审。遇到本计划没写到、又会影响产品的取舍，停下来写清选项，交 Owner。
+
+## 现状（2026-10-01 实测）
+
+- `src/` 平铺 121 个文件：65 个源文件约 1.94 万行，47 个测试文件（其中 14 个浏览器测试）。最大的是 `GameUiPreview.tsx`（1963 行）、`liquidGooeyImageMelt.tsx`（1751 行）、`liquidGooeyEngine.ts`（1072 行）、`liquidMetalWebGL.ts`（1052 行）。
+- `styles.css` 4655 行，所有组件的样式都在里面；`theme.css` 562 行。
+- `index.ts` 导出 295 个名字（132 个值、163 个类型）。扫描 14 个产品加 University 的源码，实际被引用的只有 89 个。
+- **零使用的值**：
+  - `LiquidMetalButton` 及其 WebGL 与预算（约 1270 行）；
+  - `CLAY_*_TOKENS`；
+  - 液体内部表 `LIQUID_FORMS`、`LIQUID_FORM_NAMES`、`liquidFormGroup`、`liquidFormSummary`；
+  - 预算的默认值与 getter；
+  - `GameCardFan`、`GameHud`、`GameOrientationGate`、`GameWindowPanel`、`FirstSessionHud`、`useGameSplashDelay` 等。
+- **只有 OwnMySpace 用的**：`GameTerrainBuildTools.tsx`（998 行）、`GameContractorTools.tsx`（914 行），以及 `GameSurfacePack` 里的资产库部分。
+- **注意保留的**：
+  - `GameOtpInput` 是 2.13 为 University 账号流程新加的，还没接入，保留；
+  - `setLiquidGooeyBudget` 被 SwimmerNerveKit 使用，保留。
+- **两套液体重量**：
+  - 「厚」：各形态的 gloss 4–6、blob 2–7、两层投影，是现在的默认；
+  - 「涟」：blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣、贴地软影、上浅下深的渐变，只在涟和 `LiquidFill` 里用。
+- 仓库里提交了的杂物：
+  - `artifacts/`（269 个文件，21 MB，测量截图）；
+  - `SCRATCH/`（7 个）；
+  - `liquid.html`、`index.html`（站点入口，要核对还用不用）；
+  - `public/` 351 个黏土素材（图标经 `getClayIconPath` 对外，属于公开契约）。
+- 文档 79 篇 Markdown，其中 `docs/archive/legacy-doc` 等历史材料、多篇 OwnMySpace 报告、两篇 active 的 spec（SPEC-0001 stable、SPEC-0002 v1 release readiness）需要清点。
+
+## 目标形状
+
+### 目录
+
+```
+src/
+  tokens/          颜色、字体、尺寸、圆角、动效、液体配色：唯一来源，含 theme.css
+  liquid/          液体引擎：group、item、filter、geometry、spring、move、evolve、
+                   waviness、shadow、budget、finish、material（涟的重量）、
+                   forms（只管动作）、surface、press-surface
+  liquid-effects/  融化与弯曲（D3），子入口 `./liquid-effects`
+  presence/        涟：水滴、面板（reveal）、anchor、跟随、几何、动作、绘制、hooks；
+                   子入口 `./liquid-presence` 保持
+  controls/        Button、IconButton、Input、Field、TextArea、Select、Checkbox、
+                   Toggle、Slider、SegmentedControl、Tabs、OtpInput、ListRow …
+  feedback/        Toast、Callout、Progress、LoadingState、EmptyState、HelpTip、
+                   Badge、Tooltip …
+  containers/      Panel、Modal、Dialog、CollapsiblePanel、PanelSystem、Shell、
+                   HudActions …
+  game/            CollectibleCard（含朝向）、Splash、交互音效、Avatar、StageTile …
+  icons/           黏土图标与素材解析（公开路径不变）
+  preview/         GameUiPreview、LiquidPreview：子入口 `./preview`，不进主包
+  index.ts         只列公开接口，按上面的分组写短注释
+```
+
+- **一个组件一个文件夹**：`Component.tsx`、`component.css`、`Component.test.tsx`、需要时加 `Component.browser.test.tsx` 和 `Component.stories.tsx`，再加一篇几行的 `README.md`（做什么、主要参数、什么时候不该用）。
+- 一个文件里塞多个组件的（`ClayComponents.tsx`、`GameSurfaces.tsx`、`GameSurfacePack.tsx`、`GamePanelSystem.tsx` 等）按组件拆开。
+- **组件名保留 `Game*` 前缀**：这是品牌词，14 个产品都在用，改名只增加迁移成本、不增加健康度。只修正不一致的个例，并写进迁移表。
+- 文件搬家一律用 `git mv`，保留历史。
+
+### 样式
+
+- 每个组件的样式和组件放在一起，由 `scripts/build-css.mjs` 按「tokens → 引擎 → 组件」的顺序拼成 `dist/styles.css`。输出路径和 `./styles.css` 子入口不变，产品不用改引入方式。
+- 继续守 `bin/swimmer-ui-check.mjs`：token 块以外不许写裸颜色。
+
+### 公开接口
+
+- 目标约 120 个名字：被产品用到的值和它们的参数类型，加上真正给二次开发用的少数原件（`LiquidGroup`、`LiquidSurface`、`liquidFormItem`、`setLiquidGooeyBudget`）。
+- 内部表、默认值常量、只给预览用的名字一律不导出。
+- `docs/reference/migration-3.0.md`：用 `pnpm api:inventory` 的前后差异生成，每个改名或删除的名字一行，写明「换成什么」或「删了，原因」。
+
+### 一套主题：彩色液体
+
+- **涟的重量成为所有液体的唯一外观**：
+  - blur 5、contrast 18、gloss 1.5（亮光收进边缘 1 像素）、轮廓 3.5 px 三瓣；
+  - 贴地软影 `0 6px 14px` 约 13% 的暖墨色；
+  - `LiquidFill` 渐变，sheen 0.3。
+- **形态（press、swell、settle、drain …）只保留动作差异**：姿态、回弹、过渡，以及 `set` 的变硬。多物体形态（merge、split、bead、follow）为了桥接间隙保留自己的 blur，亮光用同一材质。
+- **厚重量删除，不留开关。**
+- **配色 token**：`--game-ui-liquid-coral|sun|leaf|sky|grape|pink`，外加未选中用的 `--game-ui-liquid-cream`（sheen 0.7）。Owner 在配色对比页里选档，选了哪档以 `docs/reference/execution/current-work.md` 为准；没选之前用 C。四档色值如下：
+
+  | 档 | 珊瑚 | 向日葵 | 嫩叶 | 晴空 | 葡萄 | 泡泡糖 |
+  | --- | --- | --- | --- | --- | --- | --- |
+  | A 马卡龙 | #fab29d | #f8dda1 | #b0d5bd | #b3d3f7 | #e1c8f2 | #fdbfdf |
+  | B 柔一点 | #f1a18c | #fbda88 | #94cea6 | #8ec0e8 | #bfafec | #f5b2ce |
+  | C 饱和 | #f4876b | #f7c948 | #72c58f | #6bb3ea | #b39bf0 | #f59ac2 |
+  | D 更鲜 | #fd7756 | #f7c203 | #59c483 | #52aff2 | #b091f9 | #fb8dbf |
+
+  深色字 `#2a2320` 在四档上的对比度都不低于 5.8:1。深色主题下液体颜色不变暗。
+- **`GameButton` 的液体语气**：
+  - primary → coral；
+  - secondary → cream；
+  - success → leaf；
+  - danger → 现有 danger token，同样走渐变光。
+- **涟的引导文字**（`LiquidPresence` 的 `guideContent`）装进涟的 material 面板，和 `LiquidReveal` 同一个样子，不再是平的卡片。
+
+### 文档与治理
+
+- **文档按「人和 AI 都能一次读懂」重组**：
+  - `README.md`：是什么、怎么装、去哪看；
+  - `docs/reference/`：只留现行的
+    - 组件选择指南（含自动生成的接口清单）；
+    - 液体与主题；
+    - 设计 token；
+    - 迁移指南；
+    - 当前工作索引；
+    - 文档地图。
+  - `design-system-guide`、`liquid-primitives`、`game-surface-pack`、`usage-and-upgrade-playbook`、`liquid-next-stage-research` 等合并或归档，不保留两份说同一件事的文档。
+- **删、归档、浓缩**：
+  - 已经被代码或新文档取代的计划报告和历史设计稿：移到 `docs/archive/`，或删除（git 历史在）；
+  - 只关 OwnMySpace 的报告随 D1 归档；
+  - `docs/reference/learnings/` 保留仍然适用的，过时的删掉；
+  - SPEC-0001、SPEC-0002 核对后关闭或改写。
+- **PGS**：
+  - `AGENTS.md` 路由按新目录改写；
+  - `docs:check` 全过；
+  - 改动 pinned 的 current-work 时，提交信息带 `Pinned-Override: REF-CURRENT-WORK`；
+  - 共享规则仍然是 symlink，不改成实体文件。
+- **根目录**：
+  - `artifacts/`：删除，或只留被现行文档引用的（引用的随文档一起归档）；
+  - `SCRATCH/`：删除；
+  - `liquid.html`、`index.html`：站点和 storybook 还用就留，不用就删；
+  - `.gitignore` 补上 `SCRATCH/`、`artifacts/`、`debug-*.log`；
+  - `public/` 只保留公开图标路径实际用到的素材，删除前列出被删路径并确认没有产品引用。
+
+## 阶段
+
+每个阶段的通用验收：`pnpm verify`、`pnpm docs:check` 全过；`pnpm build-storybook` 能构建；在 current-work 里记一行进度。
+
+1. **S0 基线。**
+   - 记录现状数字：文件数、行数、导出数、测试数、`dist` 体积、storybook 能否构建。
+   - 用 Playwright 给 storybook 每个 story 在浅色和深色下各截一张图（DPR 1），放在 `.scratch/baseline/`，不提交。S1–S3 的「不改样子」靠它对比。
+2. **S1 目录与拆分。**
+   - 按目标目录搬家、拆多组件文件。
+   - 行为和样子都不变，截图逐张对比无差异，导出名字不变。
+3. **S2 样式拆分。**
+   - `styles.css` 拆到组件旁，构建产物的规则集合与拆分前等价（排序可以不同）。
+   - 截图无差异，`check:styles` 过。
+4. **S3 删除与收窄。**
+   - D1、D2、D3；把零使用和内部名字移出公开接口；`./preview`、`./liquid-effects` 子入口。
+   - 生成迁移表。截图除被删组件外无差异。
+5. **S4 主题。**
+   - 涟的重量成为唯一液体外观、配色 token、按钮语气、涟的引导面板。
+   - 这是唯一允许改样子的阶段：新截图和基线并排放进一页对比，交 Claude 评审后再提交。
+6. **S5 文档与治理。**
+   - 按上节重组文档、清根目录、改 `AGENTS.md`。
+   - `docs:check` 全过，文档里不再出现已删的名字（`rg` 验证）。
+7. **S6 发布候选。**
+   - `package.json` 版本 3.0.0，CHANGELOG 写清断代、删除和迁移入口；`verify`、`docs:check`、`build-storybook`、`publint`、ESM 类型检查全过；报告体积变化。
+   - **停在这里**，在 current-work 记「3.0.0 候选，待 Owner 批准发布」，交报告。
+
+## 验收（整体）
+
+- [ ] `src/` 按目标目录组织，一个组件一个文件夹，没有一个文件夹装着不相关的东西。
+- [ ] `src/` 根目录只剩 `index.ts` 和各子入口文件。
+- [ ] 公开接口约 120 个名字；迁移表覆盖每一个改名和删除。
+- [ ] 只有一套液体外观（涟），厚重量和它的开关都不存在了。
+- [ ] 配色由 token 决定；换一档只改 token 块。
+- [ ] 文档没有重复、没有过时的现行文档，`docs:check` 全过。
+- [ ] 根目录没有提交进来的测量截图和临时目录。
+- [ ] 每个阶段一个可回滚的提交，每个提交都是绿的。
+
+## 收尾
+
+Owner 批准后发布 3.0.0（`gh workflow run npm-publish.yml --ref main`），用 `npm view` 回读版本和 latest。然后把本计划移到 `docs/plans/completed/`，`status: completed`。各产品的接入另起任务。
