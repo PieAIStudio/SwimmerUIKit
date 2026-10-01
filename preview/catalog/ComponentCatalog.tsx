@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { GameButton } from '../../src/GameButton';
-import { useSystemReducedMotion } from '../../src/reducedMotion';
+import { GameButton } from '../../src/controls/GameButton/GameButton';
+import { useSystemReducedMotion } from '../../src/tokens/reducedMotion';
 import {
   CONTROL_RECIPES,
   ControlRecipe,
@@ -9,7 +9,7 @@ import {
   type RecipeMaterial,
   type RecipeState,
 } from './recipes';
-import type { GameButtonVariant } from '../../src/GameButton';
+import type { GameButtonVariant } from '../../src/controls/GameButton/GameButton';
 import './catalog.css';
 
 function initial(key: string): string | null {

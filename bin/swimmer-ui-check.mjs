@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Scans consumer CSS for raw color literals living in component rules
 // instead of flowing through SwimmerUIKit tokens. Mirrors the guard check
-// the kit runs on its own styles.css in src/tokens.test.ts, packaged so
+// the kit runs on its own styles.css in tests/tokens.test.ts, packaged so
 // downstream products can hold their own component CSS to the same
 // "token-only" bar the design-system-guide asks for.
 //
@@ -151,12 +151,17 @@ function contrastRatio(a, b) {
  */
 function themeTokens() {
   const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-  // dist/ is what a consumer installs. src/theme.css is what exists in this
+  // dist/ is what a consumer installs. src/tokens/theme.css exists in this
   // repository before a build — and `pnpm test` runs before `pnpm build`, so
   // reading only dist made the check a silent no-op in its own CI while
   // passing locally off a stale dist. Silence is the failure mode this whole
   // check exists to remove, so it must not be the failure mode of the check.
-  const sources = [join(packageRoot, 'dist', 'styles.css'), join(packageRoot, 'src', 'theme.css')];
+  // Prefer live source in a checkout: a previous build must not hide a new
+  // missing or unreadable token. Installed packages have only the dist path.
+  const sources = [
+    join(packageRoot, 'src', 'tokens', 'theme.css'),
+    join(packageRoot, 'dist', 'styles.css'),
+  ];
   let css = null;
   for (const candidate of sources) {
     try {
@@ -190,7 +195,10 @@ function themeTokens() {
  */
 function definedTokenNames() {
   const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-  const sources = [join(packageRoot, 'dist', 'styles.css'), join(packageRoot, 'src', 'theme.css')];
+  const sources = [
+    join(packageRoot, 'src', 'tokens', 'theme.css'),
+    join(packageRoot, 'dist', 'styles.css'),
+  ];
   for (const candidate of sources) {
     try {
       const css = readFileSync(candidate, 'utf8');
@@ -312,8 +320,16 @@ for (const file of files) {
 const codeFiles = [];
 walk(target, new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']), codeFiles);
 for (const file of codeFiles) {
-  for (const match of readFileSync(file, 'utf8').matchAll(/['"`](--game-ui-[\w-]+)['"`]/g)) {
-    ownTokens.add(match[1]);
+  if (/\.(?:test|spec|stories)\.[cm]?[jt]sx?$/.test(file)) continue;
+  const code = readFileSync(file, 'utf8');
+  // A quoted name is not a definition: tests and read-only token lookups
+  // previously hid undefined CSS hooks. Accept actual inline style writes or
+  // native setProperty writes, not arbitrary strings containing token names.
+  for (const pattern of [
+    /['"`](--game-ui-[\w-]+)['"`]\s*\]?\s*:/g,
+    /\.setProperty\(\s*['"`](--game-ui-[\w-]+)['"`]/g,
+  ]) {
+    for (const match of code.matchAll(pattern)) ownTokens.add(match[1]);
   }
 }
 if (!themes || themes.size === 0) {

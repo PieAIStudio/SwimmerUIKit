@@ -17,5 +17,14 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true
   },
-  "include": ["src", "preview", ".storybook", "vite.config.ts", "vitest.config.ts"]
+  "include": [
+    "src",
+    "preview",
+    "tests",
+    "types",
+    "scripts/lib",
+    ".storybook",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ]
 }

@@ -1,4 +1,4 @@
-@import './theme.css';
+@import './tokens/theme.css';
 
 /*
  * Registered so the liquid-metal rim can spin its conic-gradient without

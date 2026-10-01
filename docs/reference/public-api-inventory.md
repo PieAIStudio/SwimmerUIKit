@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-12
+last_reviewed: 2026-10-01
 domain: product
 tags:
   - api
@@ -28,542 +28,388 @@ There are no new package subpaths or experimental tiers in this release.
 
 Compiler inventory: **295 named exports: 132 values and 163 types**.
 
-## GameButton — Controls
+## controls/LiquidMetalButton/ — Decision-only effect
 
-Start here: ordinary actions and liquid CTAs
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameButton` | value | [source](../../src/GameButton.tsx) |
-| `GameButtonProps` | type | [source](../../src/GameButton.tsx) |
-| `GameButtonSurface` | type | [source](../../src/GameButton.tsx) |
-| `GameButtonVariant` | type | [source](../../src/GameButton.tsx) |
-
-## GameSurfaces — Controls
-
-Controls, feedback and simple containers
+Separate metal CTA and WebGL budget
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `GameIconButton` | value | [source](../../src/GameSurfaces.tsx) |
-| `GamePanel` | value | [source](../../src/GameSurfaces.tsx) |
-| `GamePrompt` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameRadialMenu` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameSegmentedControl` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameSlider` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameTabs` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameToast` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameToggle` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameTooltip` | value | [source](../../src/GameSurfaces.tsx) |
-| `GameIconButtonProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GamePanelProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GamePromptProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameRadialMenuProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameSegmentedControlProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameSliderProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameTabItem` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameTabsProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameToastProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameToggleProps` | type | [source](../../src/GameSurfaces.tsx) |
-| `GameTooltipProps` | type | [source](../../src/GameSurfaces.tsx) |
+| `DEFAULT_LIQUID_METAL_CONTEXT_BUDGET` | value | [source](../../src/controls/LiquidMetalButton/budget.ts) |
+| `getLiquidMetalContextBudget` | value | [source](../../src/controls/LiquidMetalButton/budget.ts) |
+| `setLiquidMetalContextBudget` | value | [source](../../src/controls/LiquidMetalButton/budget.ts) |
+| `LiquidMetalButton` | value | [source](../../src/controls/LiquidMetalButton/LiquidMetalButton.tsx) |
+| `LiquidMetalButtonProps` | type | [source](../../src/controls/LiquidMetalButton/LiquidMetalButton.tsx) |
+| `LiquidMetalRendererMode` | type | [source](../../src/controls/LiquidMetalButton/budget.ts) |
 
-## GameHelpTip — Controls
+## controls/ — Controls
 
-Optional help accessible by hover, focus and touch
+Native actions, selection and labelled form controls
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `GameHelpTip` | value | [source](../../src/GameHelpTip.tsx) |
-| `GameHelpTipProps` | type | [source](../../src/GameHelpTip.tsx) |
+| `GameActionGrid` | value | [source](../../src/controls/GameActionGrid/GameActionGrid.tsx) |
+| `GameActionGridProps` | type | [source](../../src/controls/GameActionGrid/GameActionGrid.tsx) |
+| `GameActionIconLabelMode` | type | [source](../../src/controls/GameActionGrid/GameActionGrid.tsx) |
+| `GameActionStyle` | type | [source](../../src/controls/GameActionGrid/GameActionGrid.tsx) |
+| `GameUiAction` | type | [source](../../src/controls/GameActionGrid/GameActionGrid.tsx) |
+| `GameButton` | value | [source](../../src/controls/GameButton/GameButton.tsx) |
+| `GameButtonProps` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
+| `GameButtonSurface` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
+| `GameButtonVariant` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
+| `GameCheckbox` | value | [source](../../src/controls/GameCheckbox/GameCheckbox.tsx) |
+| `GameCheckboxProps` | type | [source](../../src/controls/GameCheckbox/GameCheckbox.tsx) |
+| `GameField` | value | [source](../../src/controls/GameField/GameField.tsx) |
+| `GameFieldProps` | type | [source](../../src/controls/GameField/GameField.tsx) |
+| `GameIconButton` | value | [source](../../src/controls/GameIconButton/GameIconButton.tsx) |
+| `GameIconButtonProps` | type | [source](../../src/controls/GameIconButton/GameIconButton.tsx) |
+| `GameInput` | value | [source](../../src/controls/GameInput/GameInput.tsx) |
+| `GameInputProps` | type | [source](../../src/controls/GameInput/GameInput.tsx) |
+| `GameLanguageMenu` | value | [source](../../src/controls/GameLanguageMenu/GameLanguageMenu.tsx) |
+| `GameLanguageMenuProps` | type | [source](../../src/controls/GameLanguageMenu/GameLanguageMenu.tsx) |
+| `GameListRow` | value | [source](../../src/controls/GameListRow/GameListRow.tsx) |
+| `GameListRowProps` | type | [source](../../src/controls/GameListRow/GameListRow.tsx) |
+| `GameOtpInput` | value | [source](../../src/controls/GameOtpInput/GameOtpInput.tsx) |
+| `GameOtpInputProps` | type | [source](../../src/controls/GameOtpInput/GameOtpInput.tsx) |
+| `GameSegmentedControl` | value | [source](../../src/controls/GameSegmentedControl/GameSegmentedControl.tsx) |
+| `GameSegmentedControlProps` | type | [source](../../src/controls/GameSegmentedControl/GameSegmentedControl.tsx) |
+| `GameSelect` | value | [source](../../src/controls/GameSelect/GameSelect.tsx) |
+| `GameSelectProps` | type | [source](../../src/controls/GameSelect/GameSelect.tsx) |
+| `GameSlider` | value | [source](../../src/controls/GameSlider/GameSlider.tsx) |
+| `GameSliderProps` | type | [source](../../src/controls/GameSlider/GameSlider.tsx) |
+| `GameTabs` | value | [source](../../src/controls/GameTabs/GameTabs.tsx) |
+| `GameTabItem` | type | [source](../../src/controls/GameTabs/GameTabs.tsx) |
+| `GameTabsProps` | type | [source](../../src/controls/GameTabs/GameTabs.tsx) |
+| `GameTextArea` | value | [source](../../src/controls/GameTextArea/GameTextArea.tsx) |
+| `GameTextAreaProps` | type | [source](../../src/controls/GameTextArea/GameTextArea.tsx) |
+| `GameToggle` | value | [source](../../src/controls/GameToggle/GameToggle.tsx) |
+| `GameToggleProps` | type | [source](../../src/controls/GameToggle/GameToggle.tsx) |
 
-## GameForms — Forms
+## feedback/ — Feedback
 
-Native labelled form controls
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameCheckbox` | value | [source](../../src/GameForms.tsx) |
-| `GameField` | value | [source](../../src/GameForms.tsx) |
-| `GameInput` | value | [source](../../src/GameForms.tsx) |
-| `GameTextArea` | value | [source](../../src/GameForms.tsx) |
-| `GameCheckboxProps` | type | [source](../../src/GameForms.tsx) |
-| `GameFieldProps` | type | [source](../../src/GameForms.tsx) |
-| `GameInputProps` | type | [source](../../src/GameForms.tsx) |
-| `GameTextAreaProps` | type | [source](../../src/GameForms.tsx) |
-
-## GameOtpInput — Forms
-
-Controlled numeric code entry; host owns verification
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameOtpInput` | value | [source](../../src/GameOtpInput.tsx) |
-| `GameOtpInputProps` | type | [source](../../src/GameOtpInput.tsx) |
-
-## GameListRow — Display
-
-List selection with independent sibling actions
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameListRow` | value | [source](../../src/GameListRow.tsx) |
-| `GameListRowProps` | type | [source](../../src/GameListRow.tsx) |
-
-## GameSelect — Forms
-
-Native single/multiple selection; optional liquid closed field
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameSelect` | value | [source](../../src/GameSelect.tsx) |
-| `GameSelectProps` | type | [source](../../src/GameSelect.tsx) |
-
-## liquidGooeyFinish — Liquid vocabulary
-
-Shared matte/glossy material, independent of motion
+Status, progress, help and non-modal notices
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `LiquidFinish` | type | [source](../../src/liquidGooeyFinish.ts) |
+| `GameBadge` | value | [source](../../src/feedback/GameBadge/GameBadge.tsx) |
+| `GameBadgeProps` | type | [source](../../src/feedback/GameBadge/GameBadge.tsx) |
+| `GameBadgeTone` | type | [source](../../src/feedback/GameBadge/GameBadge.tsx) |
+| `GameCallout` | value | [source](../../src/feedback/GameCallout/GameCallout.tsx) |
+| `GameCalloutProps` | type | [source](../../src/feedback/GameCallout/GameCallout.tsx) |
+| `GameCalloutTone` | type | [source](../../src/feedback/GameCallout/GameCallout.tsx) |
+| `GameEmptyState` | value | [source](../../src/feedback/GameEmptyState/GameEmptyState.tsx) |
+| `GameEmptyStateProps` | type | [source](../../src/feedback/GameEmptyState/GameEmptyState.tsx) |
+| `GameHelpTip` | value | [source](../../src/feedback/GameHelpTip/GameHelpTip.tsx) |
+| `GameHelpTipProps` | type | [source](../../src/feedback/GameHelpTip/GameHelpTip.tsx) |
+| `GameLoadingState` | value | [source](../../src/feedback/GameLoadingState/GameLoadingState.tsx) |
+| `GameLoadingStateProps` | type | [source](../../src/feedback/GameLoadingState/GameLoadingState.tsx) |
+| `GameProgress` | value | [source](../../src/feedback/GameProgress/GameProgress.tsx) |
+| `GameProgressProps` | type | [source](../../src/feedback/GameProgress/GameProgress.tsx) |
+| `GamePrompt` | value | [source](../../src/feedback/GamePrompt/GamePrompt.tsx) |
+| `GamePromptProps` | type | [source](../../src/feedback/GamePrompt/GamePrompt.tsx) |
+| `GameToast` | value | [source](../../src/feedback/GameToast/GameToast.tsx) |
+| `GameToastProps` | type | [source](../../src/feedback/GameToast/GameToast.tsx) |
+| `GameTooltip` | value | [source](../../src/feedback/GameTooltip/GameTooltip.tsx) |
+| `GameTooltipProps` | type | [source](../../src/feedback/GameTooltip/GameTooltip.tsx) |
+| `playGameCardRevealSound` | value | [source](../../src/feedback/sound/interactionSound.ts) |
+| `playGameCardRevealSoundForContext` | value | [source](../../src/feedback/sound/interactionSound.ts) |
+| `playGameInteractionSound` | value | [source](../../src/feedback/sound/interactionSound.ts) |
+| `playGameInteractionSoundForContext` | value | [source](../../src/feedback/sound/interactionSound.ts) |
+| `GameInteractionAudioContext` | type | [source](../../src/feedback/sound/interactionSound.ts) |
+| `GameInteractionAudioParam` | type | [source](../../src/feedback/sound/interactionSound.ts) |
+| `GameInteractionGainNode` | type | [source](../../src/feedback/sound/interactionSound.ts) |
+| `GameInteractionOscillatorNode` | type | [source](../../src/feedback/sound/interactionSound.ts) |
+| `GameInteractionSoundOptions` | type | [source](../../src/feedback/sound/interactionSound.ts) |
 
-## GameDisplay — Display
+## containers/ — Containers
 
-Progress, empty states and avatars
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameAvatar` | value | [source](../../src/GameDisplay.tsx) |
-| `GameEmptyState` | value | [source](../../src/GameDisplay.tsx) |
-| `GameProgress` | value | [source](../../src/GameDisplay.tsx) |
-| `GameAvatarProps` | type | [source](../../src/GameDisplay.tsx) |
-| `GameEmptyStateProps` | type | [source](../../src/GameDisplay.tsx) |
-| `GameProgressProps` | type | [source](../../src/GameDisplay.tsx) |
-
-## GameDialog — Panels
-
-Inline dialogue, not a modal
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameDialog` | value | [source](../../src/GameDialog.tsx) |
-| `GameDialogProps` | type | [source](../../src/GameDialog.tsx) |
-
-## GamePanelSystem — Panels
-
-Collapsible/window panels and native dialog
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameCollapsiblePanel` | value | [source](../../src/GamePanelSystem.tsx) |
-| `GameModal` | value | [source](../../src/GamePanelSystem.tsx) |
-| `GameWindowPanel` | value | [source](../../src/GamePanelSystem.tsx) |
-| `GameCollapsiblePanelLabels` | type | [source](../../src/GamePanelSystem.tsx) |
-| `GameCollapsiblePanelProps` | type | [source](../../src/GamePanelSystem.tsx) |
-| `GameModalProps` | type | [source](../../src/GamePanelSystem.tsx) |
-| `GameWindowPanelLabels` | type | [source](../../src/GamePanelSystem.tsx) |
-| `GameWindowPanelProps` | type | [source](../../src/GamePanelSystem.tsx) |
-| `GameWindowState` | type | [source](../../src/GamePanelSystem.tsx) |
-
-## GameCallout — Display
-
-Inline feedback
+Panels, dialogs, shells and action compositions
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `GameCallout` | value | [source](../../src/GameCallout.tsx) |
-| `GameCalloutProps` | type | [source](../../src/GameCallout.tsx) |
-| `GameCalloutTone` | type | [source](../../src/GameCallout.tsx) |
+| `GameCollapsiblePanel` | value | [source](../../src/containers/GameCollapsiblePanel/GameCollapsiblePanel.tsx) |
+| `GameCollapsiblePanelLabels` | type | [source](../../src/containers/GameCollapsiblePanel/GameCollapsiblePanel.tsx) |
+| `GameCollapsiblePanelProps` | type | [source](../../src/containers/GameCollapsiblePanel/GameCollapsiblePanel.tsx) |
+| `GameDialog` | value | [source](../../src/containers/GameDialog/GameDialog.tsx) |
+| `GameDialogProps` | type | [source](../../src/containers/GameDialog/GameDialog.tsx) |
+| `GameHistoryPanel` | value | [source](../../src/containers/GameHistoryPanel/GameHistoryPanel.tsx) |
+| `GameHistoryPanelProps` | type | [source](../../src/containers/GameHistoryPanel/GameHistoryPanel.tsx) |
+| `GameUiHistoryEntry` | type | [source](../../src/containers/GameHistoryPanel/GameHistoryPanel.tsx) |
+| `GameUiHistoryKind` | type | [source](../../src/containers/GameHistoryPanel/GameHistoryPanel.tsx) |
+| `GameHudActions` | value | [source](../../src/containers/GameHudActions/GameHudActions.tsx) |
+| `GameHudActionsProps` | type | [source](../../src/containers/GameHudActions/GameHudActions.tsx) |
+| `GameModal` | value | [source](../../src/containers/GameModal/GameModal.tsx) |
+| `GameModalProps` | type | [source](../../src/containers/GameModal/GameModal.tsx) |
+| `GamePanel` | value | [source](../../src/containers/GamePanel/GamePanel.tsx) |
+| `GamePanelProps` | type | [source](../../src/containers/GamePanel/GamePanel.tsx) |
+| `GameSceneHudLayout` | value | [source](../../src/containers/GameShell/GameShell.tsx) |
+| `GameShell` | value | [source](../../src/containers/GameShell/GameShell.tsx) |
+| `GameSceneHudLayoutProps` | type | [source](../../src/containers/GameShell/GameShell.tsx) |
+| `GameShellProps` | type | [source](../../src/containers/GameShell/GameShell.tsx) |
+| `GameWindowPanel` | value | [source](../../src/containers/GameWindowPanel/GameWindowPanel.tsx) |
+| `GameWindowPanelLabels` | type | [source](../../src/containers/GameWindowPanel/GameWindowPanel.tsx) |
+| `GameWindowPanelProps` | type | [source](../../src/containers/GameWindowPanel/GameWindowPanel.tsx) |
+| `GameWindowState` | type | [source](../../src/containers/GameWindowPanel/GameWindowPanel.tsx) |
+| `GameAssetCardLayout` | type | [source](../../src/containers/shared/surfaceTypes.ts) |
+| `GameSurfaceDensity` | type | [source](../../src/containers/shared/surfaceTypes.ts) |
+| `GameSurfaceLayout` | type | [source](../../src/containers/shared/surfaceTypes.ts) |
 
-## GameSplash — Display
-
-Opening and scene-change screen with real progress
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameSplash` | value | [source](../../src/GameSplash.tsx) |
-| `useGameSplashDelay` | value | [source](../../src/GameSplash.tsx) |
-| `GameSplashLine` | type | [source](../../src/GameSplash.tsx) |
-| `GameSplashProps` | type | [source](../../src/GameSplash.tsx) |
-
-## GameCollectibleCard — Display
-
-Tilting, flipping collectible card framed by rarity
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameCollectibleCard` | value | [source](../../src/GameCollectibleCard.tsx) |
-| `GameCollectibleCardSlot` | value | [source](../../src/GameCollectibleCard.tsx) |
-| `GameCollectibleCardProps` | type | [source](../../src/GameCollectibleCard.tsx) |
-| `GameCollectibleCardRarity` | type | [source](../../src/GameCollectibleCard.tsx) |
-
-## gameCardOrientation — Host integration
-
-One opt-in device-tilt owner for the active card
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `useGameCardOrientation` | value | [source](../../src/gameCardOrientation.ts) |
-| `GameCardTilt` | type | [source](../../src/gameCardOrientation.ts) |
-| `GameCardOrientationStatus` | type | [source](../../src/gameCardOrientation.ts) |
-
-## ClayComponents — Assets and display
-
-Icons, badges, HUD and display compositions
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameAssetIcon` | value | [source](../../src/ClayComponents.tsx) |
-| `GameBadge` | value | [source](../../src/ClayComponents.tsx) |
-| `GameCardFan` | value | [source](../../src/ClayComponents.tsx) |
-| `GameHud` | value | [source](../../src/ClayComponents.tsx) |
-| `GameLanguageMenu` | value | [source](../../src/ClayComponents.tsx) |
-| `GameLoadingState` | value | [source](../../src/ClayComponents.tsx) |
-| `GameOrientationGate` | value | [source](../../src/ClayComponents.tsx) |
-| `GameStageTile` | value | [source](../../src/ClayComponents.tsx) |
-| `getClayCatalogPaths` | value | [source](../../src/ClayComponents.tsx) |
-| `GameAssetIconProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameBadgeProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameBadgeTone` | type | [source](../../src/ClayComponents.tsx) |
-| `GameCardFanCard` | type | [source](../../src/ClayComponents.tsx) |
-| `GameCardFanProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameHudItem` | type | [source](../../src/ClayComponents.tsx) |
-| `GameHudProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameLanguageMenuProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameLoadingStateProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameOrientationGateProps` | type | [source](../../src/ClayComponents.tsx) |
-| `GameStageTileProps` | type | [source](../../src/ClayComponents.tsx) |
-
-## GameHistoryPanel — Compositions
-
-History view; product owns the entries
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameHistoryPanel` | value | [source](../../src/GameHistoryPanel.tsx) |
-| `GameHistoryPanelProps` | type | [source](../../src/GameHistoryPanel.tsx) |
-| `GameUiHistoryEntry` | type | [source](../../src/GameHistoryPanel.tsx) |
-| `GameUiHistoryKind` | type | [source](../../src/GameHistoryPanel.tsx) |
-
-## GameHudActions — Compositions
-
-HUD action composition
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameHudActions` | value | [source](../../src/GameHudActions.tsx) |
-| `GameHudActionsProps` | type | [source](../../src/GameHudActions.tsx) |
-
-## FirstSessionGameShell — Compositions
-
-First-session HUD and onboarding
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `FirstSessionHud` | value | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionOnboarding` | value | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionHudIconSlots` | type | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionHudLabels` | type | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionHudProps` | type | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionOnboardingLabels` | type | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionOnboardingProps` | type | [source](../../src/FirstSessionGameShell.tsx) |
-| `FirstSessionOnboardingStep` | type | [source](../../src/FirstSessionGameShell.tsx) |
-
-## GameSurfacePack — Compositions
-
-Scene shell and asset/action compositions
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameActionGrid` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetCard` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetLibrary` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameFactList` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameMovementPad` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameObjectToolbar` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GamePlacementToolbar` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameSceneHudLayout` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameShell` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameStatList` | value | [source](../../src/GameSurfacePack.tsx) |
-| `GameActionGridProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameActionIconLabelMode` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameActionStyle` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetBadge` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetCardLayout` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetCardProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetFact` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetGroup` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetLibraryProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetSource` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameAssetStatus` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameFactItem` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameFactListProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameMovementAction` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameMovementDirection` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameMovementPadProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameObjectToolbarProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GamePlacementToolbarProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameSceneHudLayoutProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameShellProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameStatListProps` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameSurfaceDensity` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameSurfaceLayout` | type | [source](../../src/GameSurfacePack.tsx) |
-| `GameUiAction` | type | [source](../../src/GameSurfacePack.tsx) |
-
-## GameTerrainBuildTools — Specialized compositions
-
-Terrain/build UI; no terrain runtime
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GameBrushControls` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildLibrary` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameCompactGameDrawer` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameMaterialSwatches` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainBuildToolbox` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainModeControl` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainToolStrip` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameUndoRedoActions` | value | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBrushControlLabels` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBrushControlState` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBrushControlsProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildCategory` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildCategoryId` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildItem` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildItemStatus` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameBuildLibraryProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameCompactGameDrawerProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainMaterialPattern` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainMaterialSwatch` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameMaterialSwatchesProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainBuildModeId` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainBuildModeOption` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainBuildToolboxProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainBuildVariant` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainToolCompactLabelMode` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainModeControlProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainStatusState` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainStatusTone` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainToolId` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainToolOption` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameTerrainToolStripProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameUndoRedoActionsProps` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-| `GameUndoRedoState` | type | [source](../../src/GameTerrainBuildTools.tsx) |
-
-## GameContractorTools — Specialized compositions
+## game/construction/ — Specialized compositions
 
 Construction-job UI; no job execution
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `GameBeforeAfterToggle` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameCompactJobDrawer` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionApprovalBar` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionJobCard` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionProgress` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameContractorPanel` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameRobotCrewStatus` | value | [source](../../src/GameContractorTools.tsx) |
-| `GameBeforeAfterToggleProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameBeforeAfterView` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameCompactJobDrawerProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionAction` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionActionId` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionApprovalBarProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionBadge` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionFact` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionJob` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionJobCardProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionJobStatus` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionPreviewPane` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionProgressProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionProgressStep` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionProgressStepStatus` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionProviderMode` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionValidationTone` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionValidationWarning` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameConstructionVariant` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameContractorPanelProps` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameRobotCrewMember` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameRobotCrewMemberStatus` | type | [source](../../src/GameContractorTools.tsx) |
-| `GameRobotCrewStatusProps` | type | [source](../../src/GameContractorTools.tsx) |
+| `GameBeforeAfterToggle` | value | [source](../../src/game/construction/GameBeforeAfterToggle/GameBeforeAfterToggle.tsx) |
+| `GameBeforeAfterToggleProps` | type | [source](../../src/game/construction/GameBeforeAfterToggle/GameBeforeAfterToggle.tsx) |
+| `GameCompactJobDrawer` | value | [source](../../src/game/construction/GameCompactJobDrawer/GameCompactJobDrawer.tsx) |
+| `GameCompactJobDrawerProps` | type | [source](../../src/game/construction/GameCompactJobDrawer/GameCompactJobDrawer.tsx) |
+| `GameConstructionApprovalBar` | value | [source](../../src/game/construction/GameConstructionApprovalBar/GameConstructionApprovalBar.tsx) |
+| `GameConstructionApprovalBarProps` | type | [source](../../src/game/construction/GameConstructionApprovalBar/GameConstructionApprovalBar.tsx) |
+| `GameConstructionJobCard` | value | [source](../../src/game/construction/GameConstructionJobCard/GameConstructionJobCard.tsx) |
+| `GameConstructionJobCardProps` | type | [source](../../src/game/construction/GameConstructionJobCard/GameConstructionJobCard.tsx) |
+| `GameConstructionProgress` | value | [source](../../src/game/construction/GameConstructionProgress/GameConstructionProgress.tsx) |
+| `GameConstructionProgressProps` | type | [source](../../src/game/construction/GameConstructionProgress/GameConstructionProgress.tsx) |
+| `GameContractorPanel` | value | [source](../../src/game/construction/GameContractorPanel/GameContractorPanel.tsx) |
+| `GameContractorPanelProps` | type | [source](../../src/game/construction/GameContractorPanel/GameContractorPanel.tsx) |
+| `GameRobotCrewStatus` | value | [source](../../src/game/construction/GameRobotCrewStatus/GameRobotCrewStatus.tsx) |
+| `GameRobotCrewStatusProps` | type | [source](../../src/game/construction/GameRobotCrewStatus/GameRobotCrewStatus.tsx) |
+| `GameBeforeAfterView` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionAction` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionActionId` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionBadge` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionFact` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionJob` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionJobStatus` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionPreviewPane` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionProgressStep` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionProgressStepStatus` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionProviderMode` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionValidationTone` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionValidationWarning` | type | [source](../../src/game/construction/model.ts) |
+| `GameConstructionVariant` | type | [source](../../src/game/construction/model.ts) |
+| `GameRobotCrewMember` | type | [source](../../src/game/construction/model.ts) |
+| `GameRobotCrewMemberStatus` | type | [source](../../src/game/construction/model.ts) |
 
-## LiquidSurface — Liquid primitives
+## game/terrain/ — Specialized compositions
 
-One decorative body behind real DOM
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `LiquidSurface` | value | [source](../../src/LiquidSurface.tsx) |
-| `liquidFormSummary` | value | [source](../../src/LiquidSurface.tsx) |
-| `LiquidSurfaceProps` | type | [source](../../src/LiquidSurface.tsx) |
-
-## liquidGooeyForms — Liquid vocabulary
-
-Named behavior presets; not widget types
+Terrain/build UI; no terrain runtime
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `LIQUID_FORM_NAMES` | value | [source](../../src/liquidGooeyForms.ts) |
-| `LIQUID_FORMS` | value | [source](../../src/liquidGooeyForms.ts) |
-| `liquidFormGroup` | value | [source](../../src/liquidGooeyForms.ts) |
-| `liquidFormItem` | value | [source](../../src/liquidGooeyForms.ts) |
-| `LiquidForm` | type | [source](../../src/liquidGooeyForms.ts) |
-| `LiquidFormGroup` | type | [source](../../src/liquidGooeyForms.ts) |
-| `LiquidFormItem` | type | [source](../../src/liquidGooeyForms.ts) |
-| `LiquidFormKind` | type | [source](../../src/liquidGooeyForms.ts) |
-| `LiquidFormSpec` | type | [source](../../src/liquidGooeyForms.ts) |
+| `GameBrushControls` | value | [source](../../src/game/terrain/GameBrushControls/GameBrushControls.tsx) |
+| `GameBrushControlsProps` | type | [source](../../src/game/terrain/GameBrushControls/GameBrushControls.tsx) |
+| `GameBuildLibrary` | value | [source](../../src/game/terrain/GameBuildLibrary/GameBuildLibrary.tsx) |
+| `GameBuildLibraryProps` | type | [source](../../src/game/terrain/GameBuildLibrary/GameBuildLibrary.tsx) |
+| `GameCompactGameDrawer` | value | [source](../../src/game/terrain/GameCompactGameDrawer/GameCompactGameDrawer.tsx) |
+| `GameCompactGameDrawerProps` | type | [source](../../src/game/terrain/GameCompactGameDrawer/GameCompactGameDrawer.tsx) |
+| `GameMaterialSwatches` | value | [source](../../src/game/terrain/GameMaterialSwatches/GameMaterialSwatches.tsx) |
+| `GameMaterialSwatchesProps` | type | [source](../../src/game/terrain/GameMaterialSwatches/GameMaterialSwatches.tsx) |
+| `GameTerrainBuildToolbox` | value | [source](../../src/game/terrain/GameTerrainBuildToolbox/GameTerrainBuildToolbox.tsx) |
+| `GameTerrainBuildToolboxProps` | type | [source](../../src/game/terrain/GameTerrainBuildToolbox/GameTerrainBuildToolbox.tsx) |
+| `GameTerrainModeControl` | value | [source](../../src/game/terrain/GameTerrainModeControl/GameTerrainModeControl.tsx) |
+| `GameTerrainModeControlProps` | type | [source](../../src/game/terrain/GameTerrainModeControl/GameTerrainModeControl.tsx) |
+| `GameTerrainToolStrip` | value | [source](../../src/game/terrain/GameTerrainToolStrip/GameTerrainToolStrip.tsx) |
+| `GameTerrainToolStripProps` | type | [source](../../src/game/terrain/GameTerrainToolStrip/GameTerrainToolStrip.tsx) |
+| `GameUndoRedoActions` | value | [source](../../src/game/terrain/GameUndoRedoActions/GameUndoRedoActions.tsx) |
+| `GameUndoRedoActionsProps` | type | [source](../../src/game/terrain/GameUndoRedoActions/GameUndoRedoActions.tsx) |
+| `GameBrushControlLabels` | type | [source](../../src/game/terrain/model.ts) |
+| `GameBrushControlState` | type | [source](../../src/game/terrain/model.ts) |
+| `GameBuildCategory` | type | [source](../../src/game/terrain/model.ts) |
+| `GameBuildCategoryId` | type | [source](../../src/game/terrain/model.ts) |
+| `GameBuildItem` | type | [source](../../src/game/terrain/model.ts) |
+| `GameBuildItemStatus` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainMaterialPattern` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainMaterialSwatch` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainBuildModeId` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainBuildModeOption` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainBuildVariant` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainToolCompactLabelMode` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainStatusState` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainStatusTone` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainToolId` | type | [source](../../src/game/terrain/model.ts) |
+| `GameTerrainToolOption` | type | [source](../../src/game/terrain/model.ts) |
+| `GameUndoRedoState` | type | [source](../../src/game/terrain/model.ts) |
 
-## LiquidGroup — Liquid primitives
+## game/assets/ — Specialized compositions
 
-Advanced sibling relationships and effects
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `LiquidGroup` | value | [source](../../src/LiquidGroup.tsx) |
-| `LiquidItem` | value | [source](../../src/LiquidGroup.tsx) |
-| `BendTuning` | type | [source](../../src/liquidGooeyMove.ts) |
-| `LiquidFill` | type | [source](../../src/LiquidGroup.tsx) |
-| `LiquidGroupProps` | type | [source](../../src/LiquidGroup.tsx) |
-| `LiquidItemProps` | type | [source](../../src/LiquidGroup.tsx) |
-| `MorphTuning` | type | [source](../../src/liquidGooeyEvolve.ts) |
-
-## liquidGooeyImageMelt — Advanced liquid support
-
-Image effect options and resolution helpers
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `DISSOLVE_DEFAULTS` | value | [source](../../src/liquidGooeyImageMelt.tsx) |
-| `IMAGE_MELT_DEFAULTS` | value | [source](../../src/liquidGooeyImageMelt.tsx) |
-| `DissolveOptions` | type | [source](../../src/liquidGooeyImageMelt.tsx) |
-| `DissolveValue` | type | [source](../../src/liquidGooeyImageMelt.tsx) |
-| `ImageMeltOptions` | type | [source](../../src/liquidGooeyImageMelt.tsx) |
-| `resolveDissolveOptions` | value | [source](../../src/liquidGooeyImageMelt.tsx) |
-
-## liquidGooeyWaviness — Advanced liquid support
-
-Filter safety bound, not a control recipe
+Asset library presentation; no asset service
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `LIQUID_GOOEY_WAVINESS_MAX_FRACTION` | value | [source](../../src/liquidGooeyWaviness.ts) |
+| `GameAssetCard` | value | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetBadge` | type | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetCardProps` | type | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetFact` | type | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetSource` | type | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetStatus` | type | [source](../../src/game/assets/GameAssetCard/GameAssetCard.tsx) |
+| `GameAssetLibrary` | value | [source](../../src/game/assets/GameAssetLibrary/GameAssetLibrary.tsx) |
+| `GameAssetGroup` | type | [source](../../src/game/assets/GameAssetLibrary/GameAssetLibrary.tsx) |
+| `GameAssetLibraryProps` | type | [source](../../src/game/assets/GameAssetLibrary/GameAssetLibrary.tsx) |
 
-## liquidGooeyBudget — Host integration
+## game/ — Game display
 
-Process-wide animation and filter-area limits
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET` | value | [source](../../src/liquidGooeyBudget.ts) |
-| `DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET` | value | [source](../../src/liquidGooeyBudget.ts) |
-| `getLiquidGooeyBudget` | value | [source](../../src/liquidGooeyBudget.ts) |
-| `setLiquidGooeyBudget` | value | [source](../../src/liquidGooeyBudget.ts) |
-
-## LiquidMetalButton — Decision-only effect
-
-Separate metal CTA, not glossy gooey
+Cards, avatars, opening screens and game compositions
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `LiquidMetalButton` | value | [source](../../src/LiquidMetalButton.tsx) |
-| `LiquidMetalButtonProps` | type | [source](../../src/LiquidMetalButton.tsx) |
-| `LiquidMetalRendererMode` | type | [source](../../src/liquidMetalBudget.ts) |
+| `FirstSessionHud` | value | [source](../../src/game/FirstSessionHud/FirstSessionHud.tsx) |
+| `FirstSessionHudIconSlots` | type | [source](../../src/game/FirstSessionHud/FirstSessionHud.tsx) |
+| `FirstSessionHudLabels` | type | [source](../../src/game/FirstSessionHud/FirstSessionHud.tsx) |
+| `FirstSessionHudProps` | type | [source](../../src/game/FirstSessionHud/FirstSessionHud.tsx) |
+| `FirstSessionOnboarding` | value | [source](../../src/game/FirstSessionOnboarding/FirstSessionOnboarding.tsx) |
+| `FirstSessionOnboardingLabels` | type | [source](../../src/game/FirstSessionOnboarding/FirstSessionOnboarding.tsx) |
+| `FirstSessionOnboardingProps` | type | [source](../../src/game/FirstSessionOnboarding/FirstSessionOnboarding.tsx) |
+| `FirstSessionOnboardingStep` | type | [source](../../src/game/FirstSessionOnboarding/FirstSessionOnboarding.tsx) |
+| `GameAvatar` | value | [source](../../src/game/GameAvatar/GameAvatar.tsx) |
+| `GameAvatarProps` | type | [source](../../src/game/GameAvatar/GameAvatar.tsx) |
+| `GameCardFan` | value | [source](../../src/game/GameCardFan/GameCardFan.tsx) |
+| `GameCardFanCard` | type | [source](../../src/game/GameCardFan/GameCardFan.tsx) |
+| `GameCardFanProps` | type | [source](../../src/game/GameCardFan/GameCardFan.tsx) |
+| `GameCollectibleCard` | value | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |
+| `GameCollectibleCardProps` | type | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |
+| `GameCollectibleCardRarity` | type | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |
+| `useGameCardOrientation` | value | [source](../../src/game/GameCollectibleCard/orientation.ts) |
+| `GameCardTilt` | type | [source](../../src/game/GameCollectibleCard/orientation.ts) |
+| `GameCardOrientationStatus` | type | [source](../../src/game/GameCollectibleCard/orientation.ts) |
+| `GameCollectibleCardSlot` | value | [source](../../src/game/GameCollectibleCardSlot/GameCollectibleCardSlot.tsx) |
+| `GameFactList` | value | [source](../../src/game/GameFactList/GameFactList.tsx) |
+| `GameStatList` | value | [source](../../src/game/GameFactList/GameFactList.tsx) |
+| `GameFactItem` | type | [source](../../src/game/GameFactList/GameFactList.tsx) |
+| `GameFactListProps` | type | [source](../../src/game/GameFactList/GameFactList.tsx) |
+| `GameStatListProps` | type | [source](../../src/game/GameFactList/GameFactList.tsx) |
+| `GameHud` | value | [source](../../src/game/GameHud/GameHud.tsx) |
+| `GameHudItem` | type | [source](../../src/game/GameHud/GameHud.tsx) |
+| `GameHudProps` | type | [source](../../src/game/GameHud/GameHud.tsx) |
+| `GameMovementPad` | value | [source](../../src/game/GameMovementPad/GameMovementPad.tsx) |
+| `GameMovementAction` | type | [source](../../src/game/GameMovementPad/GameMovementPad.tsx) |
+| `GameMovementDirection` | type | [source](../../src/game/GameMovementPad/GameMovementPad.tsx) |
+| `GameMovementPadProps` | type | [source](../../src/game/GameMovementPad/GameMovementPad.tsx) |
+| `GameOrientationGate` | value | [source](../../src/game/GameOrientationGate/GameOrientationGate.tsx) |
+| `GameOrientationGateProps` | type | [source](../../src/game/GameOrientationGate/GameOrientationGate.tsx) |
+| `GameRadialMenu` | value | [source](../../src/game/GameRadialMenu/GameRadialMenu.tsx) |
+| `GameRadialMenuProps` | type | [source](../../src/game/GameRadialMenu/GameRadialMenu.tsx) |
+| `GameSplash` | value | [source](../../src/game/GameSplash/GameSplash.tsx) |
+| `useGameSplashDelay` | value | [source](../../src/game/GameSplash/GameSplash.tsx) |
+| `GameSplashLine` | type | [source](../../src/game/GameSplash/GameSplash.tsx) |
+| `GameSplashProps` | type | [source](../../src/game/GameSplash/GameSplash.tsx) |
+| `GameStageTile` | value | [source](../../src/game/GameStageTile/GameStageTile.tsx) |
+| `GameStageTileProps` | type | [source](../../src/game/GameStageTile/GameStageTile.tsx) |
+| `GameObjectToolbar` | value | [source](../../src/game/placement/GamePlacementToolbar/GamePlacementToolbar.tsx) |
+| `GamePlacementToolbar` | value | [source](../../src/game/placement/GamePlacementToolbar/GamePlacementToolbar.tsx) |
+| `GameObjectToolbarProps` | type | [source](../../src/game/placement/GamePlacementToolbar/GamePlacementToolbar.tsx) |
+| `GamePlacementToolbarProps` | type | [source](../../src/game/placement/GamePlacementToolbar/GamePlacementToolbar.tsx) |
 
-## liquidMetalBudget — Host integration
+## liquid-effects/ — Advanced liquid support
 
-WebGL context limits for the metal CTA
+Optional effects and their supporting types
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `DEFAULT_LIQUID_METAL_CONTEXT_BUDGET` | value | [source](../../src/liquidMetalBudget.ts) |
-| `getLiquidMetalContextBudget` | value | [source](../../src/liquidMetalBudget.ts) |
-| `setLiquidMetalContextBudget` | value | [source](../../src/liquidMetalBudget.ts) |
+| `DISSOLVE_DEFAULTS` | value | [source](../../src/liquid-effects/melt/options.ts) |
+| `IMAGE_MELT_DEFAULTS` | value | [source](../../src/liquid-effects/melt/options.ts) |
+| `DissolveOptions` | type | [source](../../src/liquid-effects/melt/options.ts) |
+| `DissolveValue` | type | [source](../../src/liquid-effects/melt/options.ts) |
+| `ImageMeltOptions` | type | [source](../../src/liquid-effects/melt/options.ts) |
+| `resolveDissolveOptions` | value | [source](../../src/liquid-effects/melt/options.ts) |
 
-## tokens — Theme integration
+## liquid/ — Liquid primitives
+
+Decorative bodies, motion, material and resource limits
+
+| Export | Kind | Definition |
+| --- | --- | --- |
+| `DEFAULT_LIQUID_GOOEY_ANIMATION_BUDGET` | value | [source](../../src/liquid/budget.ts) |
+| `DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET` | value | [source](../../src/liquid/budget.ts) |
+| `getLiquidGooeyBudget` | value | [source](../../src/liquid/budget.ts) |
+| `setLiquidGooeyBudget` | value | [source](../../src/liquid/budget.ts) |
+| `LiquidFinish` | type | [source](../../src/liquid/finish.ts) |
+| `LIQUID_FORM_NAMES` | value | [source](../../src/liquid/forms.ts) |
+| `LIQUID_FORMS` | value | [source](../../src/liquid/forms.ts) |
+| `liquidFormGroup` | value | [source](../../src/liquid/forms.ts) |
+| `liquidFormItem` | value | [source](../../src/liquid/forms.ts) |
+| `LiquidForm` | type | [source](../../src/liquid/forms.ts) |
+| `LiquidFormGroup` | type | [source](../../src/liquid/forms.ts) |
+| `LiquidFormItem` | type | [source](../../src/liquid/forms.ts) |
+| `LiquidFormKind` | type | [source](../../src/liquid/forms.ts) |
+| `LiquidFormSpec` | type | [source](../../src/liquid/forms.ts) |
+| `LiquidFill` | type | [source](../../src/liquid/LiquidGroup/fill.tsx) |
+| `LiquidGroup` | value | [source](../../src/liquid/LiquidGroup/LiquidGroup.tsx) |
+| `LiquidItem` | value | [source](../../src/liquid/LiquidGroup/LiquidItem.tsx) |
+| `BendTuning` | type | [source](../../src/liquid/move.ts) |
+| `LiquidGroupProps` | type | [source](../../src/liquid/LiquidGroup/types.ts) |
+| `LiquidItemProps` | type | [source](../../src/liquid/LiquidGroup/types.ts) |
+| `MorphTuning` | type | [source](../../src/liquid/evolve.ts) |
+| `LiquidSurface` | value | [source](../../src/liquid/LiquidSurface/LiquidSurface.tsx) |
+| `liquidFormSummary` | value | [source](../../src/liquid/LiquidSurface/LiquidSurface.tsx) |
+| `LiquidSurfaceProps` | type | [source](../../src/liquid/LiquidSurface/LiquidSurface.tsx) |
+| `LIQUID_GOOEY_WAVINESS_MAX_FRACTION` | value | [source](../../src/liquid/waviness.ts) |
+
+## tokens/ — Theme integration
 
 Token mirrors and theme contract
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `CLAY_ASSET_SIZE_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_COLOR_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_ELEVATION_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_LAYER_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_LIQUID_GOOEY_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_LIQUID_METAL_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_MOTION_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_OVERLAY_GLASS_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_RADIUS_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_SCROLLBAR_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_SEMANTIC_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_SPACE_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_TARGET_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_TYPE_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `CLAY_UI_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `GAME_UI_LIQUID_METAL_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `GAME_UI_LIQUID_GOOEY_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `GAME_UI_OVERLAY` | value | [source](../../src/tokens.ts) |
-| `GAME_UI_OVERLAY_GLASS_TOKENS` | value | [source](../../src/clay/tokens.ts) |
-| `GAME_UI_TARGETS` | value | [source](../../src/tokens.ts) |
-| `GAME_UI_THEME_CONTRACT` | value | [source](../../src/tokens.ts) |
-| `GAME_UI_TOKENS` | value | [source](../../src/tokens.ts) |
-| `ClayTokenCategory` | type | [source](../../src/clay/tokens.ts) |
+| `CLAY_ASSET_SIZE_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_COLOR_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_ELEVATION_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_LAYER_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_LIQUID_GOOEY_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_LIQUID_METAL_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_MOTION_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_OVERLAY_GLASS_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_RADIUS_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_SCROLLBAR_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_SEMANTIC_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_SPACE_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_TARGET_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_TYPE_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `CLAY_UI_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `GAME_UI_LIQUID_METAL_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `GAME_UI_LIQUID_GOOEY_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `GAME_UI_OVERLAY` | value | [source](../../src/tokens/index.ts) |
+| `GAME_UI_OVERLAY_GLASS_TOKENS` | value | [source](../../src/tokens/legacy.ts) |
+| `GAME_UI_TARGETS` | value | [source](../../src/tokens/index.ts) |
+| `GAME_UI_THEME_CONTRACT` | value | [source](../../src/tokens/index.ts) |
+| `GAME_UI_TOKENS` | value | [source](../../src/tokens/index.ts) |
+| `ClayTokenCategory` | type | [source](../../src/tokens/legacy.ts) |
 
-## clay/assets — Asset integration
+## icons/ — Asset integration
 
 Asset setup, catalogs and resolution
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `CLAY_ASSETS` | value | [source](../../src/clay/assets.ts) |
-| `CLAY_ASSET_BASE_PATH` | value | [source](../../src/clay/assets.ts) |
-| `CLAY_GAME_SPRITES` | value | [source](../../src/clay/assets.ts) |
-| `CLAY_GAME_SPRITE_NAMES` | value | [source](../../src/clay/assets.ts) |
-| `CLAY_ICON_NAMES` | value | [source](../../src/clay/assets.ts) |
-| `CLAY_ICON_VARIANTS` | value | [source](../../src/clay/assets.ts) |
-| `acknowledgeClayPlaceholders` | value | [source](../../src/clay/assets.ts) |
-| `getClayAssetBasePath` | value | [source](../../src/clay/assets.ts) |
-| `getClayIconPath` | value | [source](../../src/clay/assets.ts) |
-| `getClayIconStyles` | value | [source](../../src/clay/assets.ts) |
-| `getClaySourceAssetPath` | value | [source](../../src/clay/assets.ts) |
-| `setClayAssetBasePath` | value | [source](../../src/clay/assets.ts) |
-| `setClayAssetMode` | value | [source](../../src/clay/assets.ts) |
-| `getClayAssetMode` | value | [source](../../src/clay/assets.ts) |
-| `ClayAssetGroup` | type | [source](../../src/clay/assets.ts) |
-| `ClayAssetMode` | type | [source](../../src/clay/assets.ts) |
-| `ClayGameSpriteName` | type | [source](../../src/clay/assets.ts) |
-| `ClayIconName` | type | [source](../../src/clay/assets.ts) |
-| `ClayIconResolveOptions` | type | [source](../../src/clay/assets.ts) |
-| `ClayIconStyle` | type | [source](../../src/clay/assets.ts) |
+| `CLAY_ASSETS` | value | [source](../../src/icons/assets.ts) |
+| `CLAY_ASSET_BASE_PATH` | value | [source](../../src/icons/assets.ts) |
+| `CLAY_GAME_SPRITES` | value | [source](../../src/icons/assets.ts) |
+| `CLAY_GAME_SPRITE_NAMES` | value | [source](../../src/icons/assets.ts) |
+| `CLAY_ICON_NAMES` | value | [source](../../src/icons/assets.ts) |
+| `CLAY_ICON_VARIANTS` | value | [source](../../src/icons/assets.ts) |
+| `acknowledgeClayPlaceholders` | value | [source](../../src/icons/assets.ts) |
+| `getClayAssetBasePath` | value | [source](../../src/icons/assets.ts) |
+| `getClayIconPath` | value | [source](../../src/icons/assets.ts) |
+| `getClayIconStyles` | value | [source](../../src/icons/assets.ts) |
+| `getClaySourceAssetPath` | value | [source](../../src/icons/assets.ts) |
+| `setClayAssetBasePath` | value | [source](../../src/icons/assets.ts) |
+| `setClayAssetMode` | value | [source](../../src/icons/assets.ts) |
+| `getClayAssetMode` | value | [source](../../src/icons/assets.ts) |
+| `ClayAssetGroup` | type | [source](../../src/icons/assets.ts) |
+| `ClayAssetMode` | type | [source](../../src/icons/assets.ts) |
+| `ClayGameSpriteName` | type | [source](../../src/icons/assets.ts) |
+| `ClayIconName` | type | [source](../../src/icons/assets.ts) |
+| `ClayIconResolveOptions` | type | [source](../../src/icons/assets.ts) |
+| `ClayIconStyle` | type | [source](../../src/icons/assets.ts) |
+| `getClayCatalogPaths` | value | [source](../../src/icons/catalog.ts) |
+| `GameAssetIcon` | value | [source](../../src/icons/GameAssetIcon/GameAssetIcon.tsx) |
+| `GameAssetIconProps` | type | [source](../../src/icons/GameAssetIcon/GameAssetIcon.tsx) |
 
-## interactionSound — Host integration
+## preview/ — Showcase support
 
-Opt-in sound; host owns settings
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `playGameCardRevealSound` | value | [source](../../src/interactionSound.ts) |
-| `playGameCardRevealSoundForContext` | value | [source](../../src/interactionSound.ts) |
-| `playGameInteractionSound` | value | [source](../../src/interactionSound.ts) |
-| `playGameInteractionSoundForContext` | value | [source](../../src/interactionSound.ts) |
-| `GameInteractionAudioContext` | type | [source](../../src/interactionSound.ts) |
-| `GameInteractionAudioParam` | type | [source](../../src/interactionSound.ts) |
-| `GameInteractionGainNode` | type | [source](../../src/interactionSound.ts) |
-| `GameInteractionOscillatorNode` | type | [source](../../src/interactionSound.ts) |
-| `GameInteractionSoundOptions` | type | [source](../../src/interactionSound.ts) |
-
-## GameUiPreview — Showcase support
-
-Optional catalog, requires preview.css
+Optional catalog and preview data; not product state
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `GameUiPreview` | value | [source](../../src/GameUiPreview.tsx) |
-| `GameUiPreviewProps` | type | [source](../../src/GameUiPreview.tsx) |
-
-## previewStates — Showcase support
-
-Preview data, not product state
-
-| Export | Kind | Definition |
-| --- | --- | --- |
-| `GAME_UI_PREVIEW_MESSAGES` | value | [source](../../src/previewStates.ts) |
+| `GameUiPreview` | value | [source](../../src/preview/GameUiPreview/GameUiPreview.tsx) |
+| `GameUiPreviewProps` | type | [source](../../src/preview/GameUiPreview/GameUiPreview.tsx) |
+| `GAME_UI_PREVIEW_MESSAGES` | value | [source](../../src/preview/GameUiPreview/previewStates.ts) |

@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-01T13:09:17.869Z
+generated_at: 2026-10-01T14:21:46.127Z
 generator_version: doc-gov@0.14.2
 docs_count: 49
 docs:
@@ -324,7 +324,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-12
+    last_reviewed: 2026-10-01
     pinned: false
   - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
     path: docs/reference/usage-and-upgrade-playbook.md

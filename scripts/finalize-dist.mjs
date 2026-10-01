@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 const distDir = 'dist';
 
-copyFileSync('src/tailwind-bridge.css', join(distDir, 'tailwind.css'));
+copyFileSync('src/tokens/tailwind.css', join(distDir, 'tailwind.css'));
 
 function removeMacMetadata(dir) {
   if (!existsSync(dir)) return;

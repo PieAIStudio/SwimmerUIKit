@@ -14,48 +14,22 @@ const inventoryPath = 'docs/reference/public-api-inventory.md';
 // Ownership follows the exporting module and its implementation, not the name
 // of an individual symbol. Types inherit their API's audience, not a new tier.
 const families = {
-  './GameButton': ['Controls', 'Start here: ordinary actions and liquid CTAs'],
-  './GameSurfaces': ['Controls', 'Controls, feedback and simple containers'],
-  './GameHelpTip': ['Controls', 'Optional help accessible by hover, focus and touch'],
-  './GameForms': ['Forms', 'Native labelled form controls'],
-  './GameOtpInput': ['Forms', 'Controlled numeric code entry; host owns verification'],
-  './GameListRow': ['Display', 'List selection with independent sibling actions'],
-  './GameSelect': ['Forms', 'Native single/multiple selection; optional liquid closed field'],
-  './liquidGooeyFinish': [
-    'Liquid vocabulary',
-    'Shared matte/glossy material, independent of motion',
-  ],
-  './GameDisplay': ['Display', 'Progress, empty states and avatars'],
-  './GameDialog': ['Panels', 'Inline dialogue, not a modal'],
-  './GamePanelSystem': ['Panels', 'Collapsible/window panels and native dialog'],
-  './GameCallout': ['Display', 'Inline feedback'],
-  './GameSplash': ['Display', 'Opening and scene-change screen with real progress'],
-  './GameCollectibleCard': ['Display', 'Tilting, flipping collectible card framed by rarity'],
-  './gameCardOrientation': ['Host integration', 'One opt-in device-tilt owner for the active card'],
-  './ClayComponents': ['Assets and display', 'Icons, badges, HUD and display compositions'],
-  './GameHistoryPanel': ['Compositions', 'History view; product owns the entries'],
-  './GameHudActions': ['Compositions', 'HUD action composition'],
-  './FirstSessionGameShell': ['Compositions', 'First-session HUD and onboarding'],
-  './GameSurfacePack': ['Compositions', 'Scene shell and asset/action compositions'],
-  './GameTerrainBuildTools': ['Specialized compositions', 'Terrain/build UI; no terrain runtime'],
-  './GameContractorTools': ['Specialized compositions', 'Construction-job UI; no job execution'],
-  './LiquidSurface': ['Liquid primitives', 'One decorative body behind real DOM'],
-  './liquidGooeyForms': ['Liquid vocabulary', 'Named behavior presets; not widget types'],
-  './LiquidGroup': ['Liquid primitives', 'Advanced sibling relationships and effects'],
-  './liquidGooeyImageMelt': [
-    'Advanced liquid support',
-    'Image effect options and resolution helpers',
-  ],
-  './liquidGooeyWaviness': ['Advanced liquid support', 'Filter safety bound, not a control recipe'],
-  './liquidGooeyBudget': ['Host integration', 'Process-wide animation and filter-area limits'],
-  './LiquidMetalButton': ['Decision-only effect', 'Separate metal CTA, not glossy gooey'],
-  './liquidMetalBudget': ['Host integration', 'WebGL context limits for the metal CTA'],
-  './tokens': ['Theme integration', 'Token mirrors and theme contract'],
-  './clay/assets': ['Asset integration', 'Asset setup, catalogs and resolution'],
-  './interactionSound': ['Host integration', 'Opt-in sound; host owns settings'],
-  './GameUiPreview': ['Showcase support', 'Optional catalog, requires preview.css'],
-  './previewStates': ['Showcase support', 'Preview data, not product state'],
+  './controls/LiquidMetalButton/': ['Decision-only effect', 'Separate metal CTA and WebGL budget'],
+  './controls/': ['Controls', 'Native actions, selection and labelled form controls'],
+  './feedback/': ['Feedback', 'Status, progress, help and non-modal notices'],
+  './containers/': ['Containers', 'Panels, dialogs, shells and action compositions'],
+  './game/construction/': ['Specialized compositions', 'Construction-job UI; no job execution'],
+  './game/terrain/': ['Specialized compositions', 'Terrain/build UI; no terrain runtime'],
+  './game/assets/': ['Specialized compositions', 'Asset library presentation; no asset service'],
+  './game/audio/': ['Host integration', 'Opt-in sound; host owns settings'],
+  './game/': ['Game display', 'Cards, avatars, opening screens and game compositions'],
+  './liquid-effects/': ['Advanced liquid support', 'Optional effects and their supporting types'],
+  './liquid/': ['Liquid primitives', 'Decorative bodies, motion, material and resource limits'],
+  './tokens/': ['Theme integration', 'Token mirrors and theme contract'],
+  './icons/': ['Asset integration', 'Asset setup, catalogs and resolution'],
+  './preview/': ['Showcase support', 'Optional catalog and preview data; not product state'],
 };
+const familyOwners = Object.entries(families).sort(([a], [b]) => b.length - a.length);
 
 const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile);
 if (config.error) throw new Error(ts.flattenDiagnosticMessageText(config.error.messageText, '\n'));
@@ -73,7 +47,9 @@ for (const statement of entry.statements) {
   if (!ts.isExportDeclaration(statement) || !statement.exportClause) continue;
   if (!ts.isNamedExports(statement.exportClause)) throw new Error('Review new export shape');
   const module = statement.moduleSpecifier.text;
-  if (!families[module]) throw new Error(`Classify the new public owner: ${module}`);
+  const familyOwner = familyOwners.find(([prefix]) => module.startsWith(prefix));
+  const family = familyOwner?.[1];
+  if (!family) throw new Error(`Classify the new public owner: ${module}`);
   for (const element of statement.exportClause.elements) {
     const symbol = dereference(checker.getSymbolAtLocation(element.name));
     if (!symbol?.declarations?.length) throw new Error(`Unresolved export: ${element.name.text}`);
@@ -83,8 +59,9 @@ for (const statement of entry.statements) {
       name: element.name.text,
       kind: element.isTypeOnly || statement.isTypeOnly ? 'type' : 'value',
       module,
-      family: families[module][0],
-      audience: families[module][1],
+      owner: familyOwner[0],
+      family: family[0],
+      audience: family[1],
       declaration: `${path.relative(root, source.fileName)}:${source.getLineAndCharacterOfPosition(declaration.getStart()).line + 1}`,
       references: [],
       consumerImports: [],
@@ -201,7 +178,7 @@ const lines = [
   'canonical: true',
   'owner: project',
   'created: 2026-09-11',
-  'last_reviewed: 2026-09-12',
+  'last_reviewed: 2026-10-01',
   'domain: product',
   'tags:',
   '  - api',
@@ -224,7 +201,10 @@ const lines = [
   `Compiler inventory: **${rows.length} named exports: ${rows.filter((row) => row.kind === 'value').length} values and ${rows.filter((row) => row.kind === 'type').length} types**.`,
   '',
 ];
+const documentedNames = new Set();
 for (const [module, [family, audience]] of Object.entries(families)) {
+  const members = rows.filter((item) => item.owner === module);
+  if (members.length === 0) continue;
   lines.push(
     `## ${module.slice(2)} — ${family}`,
     '',
@@ -233,12 +213,16 @@ for (const [module, [family, audience]] of Object.entries(families)) {
     '| Export | Kind | Definition |',
     '| --- | --- | --- |',
   );
-  for (const row of rows.filter((item) => item.module === module)) {
+  for (const row of members) {
+    if (documentedNames.has(row.name)) throw new Error(`Duplicate inventory row: ${row.name}`);
+    documentedNames.add(row.name);
     const file = row.declaration.replace(/:\d+$/, '');
     lines.push(`| \`${row.name}\` | ${row.kind} | [source](../../${file}) |`);
   }
   lines.push('');
 }
+if (documentedNames.size !== rows.length)
+  throw new Error('Rendered inventory does not document every compiler export exactly once');
 const inventory = lines.join('\n');
 if (args.includes('--check')) {
   if (readFileSync(inventoryPath, 'utf8') !== inventory)

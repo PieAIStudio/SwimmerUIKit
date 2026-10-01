@@ -1,8 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
-import { setClayAssetMode } from '../src/clay/assets';
+import { setClayAssetMode } from '../src/icons/assets';
 import '../src/styles.css';
-import '../src/fonts.css';
+import '../src/tokens/fonts.css';
 
 // Stories render with the real clay game-icon PNGs (served from public/ via
 // staticDirs), matching the showcase instead of the inline SVG placeholders.

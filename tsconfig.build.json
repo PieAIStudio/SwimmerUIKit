@@ -6,6 +6,6 @@
     "emitDeclarationOnly": true,
     "outDir": "dist"
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.test.*", "src/**/*.stories.*", "src/stories"]
+  "include": ["src", "types"],
+  "exclude": ["src/**/*.test.*", "src/**/*.stories.*"]
 }

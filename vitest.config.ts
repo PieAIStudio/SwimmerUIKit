@@ -18,13 +18,18 @@ export default defineConfig({
     global: 'globalThis',
   },
   test: {
+    // This checkout shares its Mac with other repositories. A worker limit
+    // alone does not serialize the Node, Storybook and browser projects.
+    // Keep the original assertions/timeouts and avoid competing browsers.
+    fileParallelism: false,
     projects: [
       {
         extends: true,
         test: {
+          sequence: { groupOrder: 0 },
           environment: 'node',
-          include: ['src/**/*.test.{ts,tsx}'],
-          exclude: ['src/**/*.browser.test.{ts,tsx}'],
+          include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.{ts,tsx}'],
+          exclude: ['src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
         },
       },
       {
@@ -38,6 +43,7 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
+          sequence: { groupOrder: 1 },
           browser: {
             enabled: true,
             headless: true,
@@ -54,7 +60,8 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'browser',
-          include: ['src/**/*.browser.test.{ts,tsx}'],
+          sequence: { groupOrder: 2 },
+          include: ['src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
           browser: {
             enabled: true,
             api: { port: 0 },

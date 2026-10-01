@@ -1,5 +1,5 @@
 // Builds dist/styles.css from src/styles.css (bundling the theme.css
-// @import) and dist/fonts.css from src/fonts.css with lightningcss — the
+// @import) and dist/fonts.css from src/tokens/fonts.css with lightningcss — the
 // same engine Vite 8 consumers run — and FAILS the build on any warning.
 // "Consumers see zero CSS warnings" is a 1.0 contract (SPEC-0002), so it is
 // enforced here, not just documented.
@@ -22,7 +22,7 @@ function bundleOrExit(filename) {
 
 mkdirSync('dist', { recursive: true });
 
-const presenceCode = bundleOrExit('src/liquid-presence.css');
+const presenceCode = bundleOrExit('src/presence/presence.css');
 writeFileSync('dist/liquid-presence.css', presenceCode);
 console.log(
   `[build-css] dist/liquid-presence.css written (${presenceCode.length} bytes, 0 warnings)`,
@@ -32,13 +32,13 @@ const stylesCode = bundleOrExit('src/styles.css');
 writeFileSync('dist/styles.css', stylesCode);
 console.log(`[build-css] dist/styles.css written (${stylesCode.length} bytes, 0 warnings)`);
 
-const previewCode = bundleOrExit('src/preview.css');
+const previewCode = bundleOrExit('src/preview/preview.css');
 writeFileSync('dist/preview.css', previewCode);
 console.log(`[build-css] dist/preview.css written (${previewCode.length} bytes, 0 warnings)`);
 
-const fontsCode = bundleOrExit('src/fonts.css');
+const fontsCode = bundleOrExit('src/tokens/fonts.css');
 writeFileSync('dist/fonts.css', fontsCode);
 // Binaries + OFL license text referenced by relative url() in fonts.css;
-// mirrors src/fonts/ so the ./fonts/*.woff2 paths keep resolving in dist.
-cpSync('src/fonts', 'dist/fonts', { recursive: true });
+// mirrors src/tokens/fonts/ so the ./fonts/*.woff2 paths keep resolving in dist.
+cpSync('src/tokens/fonts', 'dist/fonts', { recursive: true });
 console.log(`[build-css] dist/fonts.css written (${fontsCode.length} bytes, 0 warnings)`);
