@@ -32,7 +32,7 @@ changing governed files.
 - Product artifacts outside `docs/**` are not governed docs unless this project explicitly opts them in.
 - Before creating docs: `pnpm doc-gov find <topic>`.
 - For component choice, start at `docs/reference/component-selection-guide.md`.
-- `CONCEPTS.md` is the retained vocabulary-tool entry; it points to the design guide and upgrade playbook rather than defining their facts again.
+- `CONCEPTS.md` is the retained vocabulary-tool entry; it points to the theme, token, selection and migration references rather than defining their facts again.
 
 ## Routing
 
@@ -119,3 +119,11 @@ Only after an explicit website release request and the relevant local gates:
    Promote that artifact; do not rebuild, guess a URL, or promote after failure.
 
 Existing package publishing or backend migration gates remain separate.
+
+## 3.0 Source And Task Routing
+
+- Components own folders under src/controls, feedback, containers, game and icons; implementation, CSS, tests, optional story and short README stay together.
+- Tokens live only in src/tokens; flat path drawing is controls/DropletSurface. Liquid geometry/budget is src/liquid, optional melt/Bend is src/liquid-effects, presence/anchor/reveal is src/presence, preview is separate.
+- src/index.ts and the named package leaves are the public membership authority. Do not add compatibility barrels, product stores or a second theme engine.
+- For component choice read docs/reference/component-selection-guide.md. For visual/interaction work read docs/reference/theme-and-liquid.md; token changes also read docs/reference/design-tokens.md. Breaking changes update the generator-backed docs/reference/migration-3.0.md, not a second hand-written table.
+- The current 3.0 plan stays active until an explicitly approved publication. S6 is a local, packaged release candidate, not permission to run npm-publish or a product rollout. University candidate acceptance belongs to Claude in that repository; this task never edits it.

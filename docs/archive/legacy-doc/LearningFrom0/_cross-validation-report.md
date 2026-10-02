@@ -63,11 +63,11 @@ tags:
 
 ### ❌ 错误 3：00-index 和 04篇的第 05 篇悬空链接
 
-- **文档原文**：`00-index.md` 目录表 `[05](./05-mental-model-overview.md)` 带有超链接；`04-use-in-new-app.md` 末尾 `**下一篇：** [05 - 中级总览...](./05-mental-model-overview.md)`
+- **文档原文**：`00-index.md` 目录表 `[05](05-mental-model-overview.md)` 带有超链接；`04-use-in-new-app.md` 末尾 `**下一篇：** [05 - 中级总览...](05-mental-model-overview.md)`
 - **实际情况**：`/doc/LearningFrom0/` 目录下不存在 `05-mental-model-overview.md`
 - **真相来源**：文件系统 `ls /doc/LearningFrom0/`（只有 00~04）
 - **修正内容**：
-  - `00-index.md`：`[05](./05-mental-model-overview.md)` 改为 `05（待撰写）`（去掉悬空链接）
+  - `00-index.md`：`[05](05-mental-model-overview.md)` 改为 `05（待撰写）`（去掉悬空链接）
   - `04-use-in-new-app.md`：去掉末尾的 markdown 链接，改为纯文字"05 - 中级总览：这套库的内部设计逻辑（待撰写）"
 
 ---

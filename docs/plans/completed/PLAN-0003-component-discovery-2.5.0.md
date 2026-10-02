@@ -64,7 +64,7 @@ Vercel 的 Production deployment `6408067709` 对应同一源码 SHA，状态 su
 CTA 选 `GameButton surface="liquid"`，只加可选 `fullWidth`。拒绝再建 `cta` 形态、
 重复按钮组件、为入口分类强拆物理引擎、把 University 路由过渡搬入 kit。
 University 目的地注册和 `LiquidCtaTransition` 仍属产品；可执行迁移与回滚只在
-[升级手册](../../reference/usage-and-upgrade-playbook.md)维护。
+[升级手册](../../reference/migration-3.0.md)维护。
 
 保住的合同：原具名导出/包路径/类名/token 名、默认非全宽按钮的 DOM 和布局、
 十二形态、液体引擎与预算/休眠、ESM-only、零运行时依赖、原素材与 donor 归属。
@@ -142,4 +142,4 @@ PRODUCT/CONCEPTS 保留工具入口，改为权威来源指针；AGENTS/CLAUDE �
 MDX glob 和大 chunk 提示仍存在；通过闸门不等于整个工具链零警告。
 
 复用学习：本轮的导出、材质和清理结论归入现有指南与本记录；没有另建重复的
-learning 文档。下一阶段候选及一手来源在 [调查](../../reference/liquid-next-stage-research.md)。
+learning 文档。下一阶段候选及一手来源在 [调查](../../reference/theme-and-liquid.md)。

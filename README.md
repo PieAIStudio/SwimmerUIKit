@@ -1,183 +1,57 @@
 # @pieai/swimmer-ui-kit
 
-Self-contained clay game UI kit for PieAI web, game, and wrapped
-(mobile/desktop WebView) surfaces. React 19 + TypeScript strict.
-**100% standard CSS** — consumers need no Tailwind, no PostCSS, no CSS
-processor of any kind. The optional `GameHelpTip` uses the existing Floating UI
-dependency; ordinary controls remain native.
+Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-Source is publicly readable. Use is governed by the
-[PieAI Limited Use License](./LICENSE), not an open-source license. The visual
-assets may not be extracted, modified, or redistributed as a standalone pack.
+**当前 main 是 3.0 发布前工作线，不是 npm 已发布公告。** 现有产品继续锁定自己的精确版本；新接入和升级先读[迁移表](docs/reference/migration-3.0.md)。本轮不会自动升级任何产品。
 
-- **Start here / 我该用哪个组件？**
-  [Primary button, liquid CTA, forms, panels and other tasks](docs/reference/component-selection-guide.md)
-- Design system truth (tokens, theming, motion, a11y):
-  [Design system guide](docs/reference/design-system-guide.md)
-- Consumer onboarding / upgrade SOP / release checklist:
-  [Usage and upgrade playbook](docs/reference/usage-and-upgrade-playbook.md)
-- Exhaustive reference (not the starting point):
-  [Generated public API inventory](docs/reference/public-api-inventory.md)
-- [Interactive catalog](https://swimmer-ui-kit.pieaistudio.com/): real controls,
-  matte/glossy comparison, theme/state selectors and copyable React examples.
-- [Full reference](https://swimmer-ui-kit.pieaistudio.com/?view=reference) and
-  [liquid form laboratory](https://swimmer-ui-kit.pieaistudio.com/liquid.html).
-  Local: `pnpm dev` and `pnpm storybook`.
+## 安装与最小使用
 
-## Install
+React / React DOM 需要 19 或以上。候选评审时安装交付回执里的本地 tarball，先核对 SHA-256；发布后再改用 Owner 批准的精确 npm 版本。不要把相邻仓库源码当生产依赖。
 
-```json
-{
-  "dependencies": {
-    "@pieai/swimmer-ui-kit": "2.6.1"
-  }
+```sh
+pnpm add --save-exact /path/to/swimmer-ui-kit-3.0.0.tgz
+```
+
+```tsx
+import { GameButton } from '@pieai/swimmer-ui-kit';
+import '@pieai/swimmer-ui-kit/styles.css';
+
+export function Actions() {
+  return (
+    <section data-game-ui-theme="light" data-game-ui-style="pastel">
+      <GameButton>看看详情</GameButton>
+      <GameButton variant="primary">继续下一步</GameButton>
+    </section>
+  );
 }
 ```
 
-Peer dependencies: `react >=19` and `react-dom >=19` — nothing else.
-Pin the exact version (no `^`) — upgrades are explicit, reviewed actions.
-The package is ESM-only and published publicly on npmjs. It uses the default
-npm registry, so consumers need no scope-specific `.npmrc` and no package-read
-token.
+一屏最多一个 primary。危险操作用 danger：红字、普通底色；不会变成另一个液体 CTA。安装包是 ESM-only；主样式是标准 CSS，不要求 Tailwind 或产品的 CSS 预处理器。
 
-Import the stylesheet once in the app shell:
+使用真实图标前，运行 `pnpm exec swimmer-ui-assets public`，再在入口调用 `setClayAssetMode('source')`；默认 inline 只是占位图。字体可选加载 fonts.css，中文字体由产品选择。
 
-```ts
-import '@pieai/swimmer-ui-kit/styles.css';
+## 去哪里看
+
+| 需要 | 入口 |
+| --- | --- |
+| 选组件、正确使用 | [组件选择指南](docs/reference/component-selection-guide.md) |
+| 主题、液体、可选特效 | [主题与液体](docs/reference/theme-and-liquid.md) |
+| 改配色、字体和样式 | [设计 token](docs/reference/design-tokens.md) |
+| 全部公开名字 | [生成的 API 清单](docs/reference/public-api-inventory.md) |
+| 迁移与候选验收 | [3.0 迁移表](docs/reference/migration-3.0.md) |
+| 工作状态与证据 | [当前工作](docs/reference/execution/current-work.md) |
+
+本机 `pnpm dev` 打开组件目录，`pnpm storybook` 打开故事；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 3.0 候选的证明。
+
+## 开发与交付
+
+```sh
+pnpm install --frozen-lockfile
+pnpm verify
+pnpm docs:check
+pnpm build-storybook
 ```
 
-**Optional** — only if the host app uses Tailwind v4 and wants Tailwind
-theme names (`bg-primary`, `text-foreground`, `rounded-md`…) to resolve to
-kit tokens, additionally import the bridge (requires the host's Tailwind
-build; never import it without Tailwind):
+公共 API 变更后运行 pnpm api:inventory。提交/推送只保存代码，不发 npm，也不部署网站。候选需先通过本机门禁与产品验收，再由 Owner 明确批准第 3 段发布；不要自行触发发布工作流。
 
-```ts
-import '@pieai/swimmer-ui-kit/tailwind.css';
-```
-
-## What's inside
-
-- **Account primitives (2.13.0)**:
-  opt-in copper `surface="plaque"`, `GameOtpInput`, vertical `GameTabs`,
-  and `GameListRow` with independent actions. See the
-  [account-controls contract](docs/reference/design-system-guide.md#账号界面原件)
-  and Storybook `Clay / Account / AccountControls`. Account requests and
-  business state stay in the host.
-
-- **Ready-to-use components** across: core controls (`GameButton`,
-  `GameTabs`,
-  `GameSlider`, `GameToggle`, `GameForms` inputs…), panels and windows
-  (`GamePanel`, `GameCollapsiblePanel`, `GameWindowPanel`, `GameModal` on
-  native `<dialog>`), HUD/shell surfaces (`GameShell`, `GameHud`,
-  `GameSceneHudLayout`, `GameMovementPad`…), the OwnMySpace surface pack,
-  terrain/build tooling (`GameTerrainBuildToolbox`…), and the AI
-  contractor queue (`GameContractorPanel`…). `src/index.ts` is the
-  authoritative export list; Storybook is the visual catalog.
-- **Design tokens** as CSS variables (`--game-ui-*`) with TypeScript
-  references (`GAME_UI_TOKENS`). The CSS variables are the
-  cross-stack contract and work outside React:
-
-  ```css
-  .my-game-panel {
-    background: var(--game-ui-panel);
-    color: var(--game-ui-text);
-    border-radius: var(--game-ui-radius-panel);
-  }
-  ```
-
-  Product-owned overflow containers can opt into the kit's cross-browser clay
-  scrollbar treatment with `class="game-ui-scroll-surface"`; tune its size,
-  track, thumb, and hover colors through the `--game-ui-scrollbar-*` tokens.
-
-- **Type**: a HUD scale (`--game-ui-font-xs` … `-xxl`) plus the three things a
-  HUD scale does not cover — `--game-ui-font-mono` for code, and
-  `--game-ui-font-reading` / `--game-ui-line-reading` /
-  `--game-ui-measure-reading` for a screen someone reads for minutes rather
-  than glances at. Reach for the reading trio whenever the text is prose, not
-  a label.
-- **Official themes on the 3.0 development line**: light (default) and `dark`
-  (`<html data-game-ui-theme="dark">`). Downstream theming = overriding
-  semantic tokens; see the design system guide.
-- **`swimmer-ui-check`**: lints your CSS for raw colour literals in component
-  rules *and* for token pairs that cannot be read. Two tokens are not
-  automatically safe together — `--game-ui-accent-ink` is accent-COLOURED ink
-  for a surface, `--game-ui-accent-contrast` is the ink meant to sit **on**
-  `--game-ui-accent`. Pairing the first with the accent measures 1.48:1.
-
-  ```bash
-  npx swimmer-ui-check src
-  ```
-
-- **Clay assets**: two lines of setup, and **skipping them is not a no-op**.
-  Out of the box the kit draws *placeholders* — one rounded square per icon
-  with a letter in it — not the icon set. They exist so a fresh install
-  renders something instead of a broken image, and they are not shippable.
-  The real sculpted PNGs travel inside the package and need serving:
-
-  ```bash
-  npx swimmer-ui-assets public      # copies dist/assets into your static root
-  ```
-  ```ts
-  import { setClayAssetMode } from '@pieai/swimmer-ui-kit';
-  setClayAssetMode('source');       // once, at your entry
-  ```
-
-  Serving them somewhere else — a CDN, a sub-path deploy — is
-  `setClayAssetBasePath('/my/path')`, and `swimmer-ui-assets public --base=/my/path`
-  mirrors the layout to match. If you *want* placeholders, say so with
-  `acknowledgeClayPlaceholders()` and the console notice goes quiet.
-
-  Note on sizing: the sculpted family is 96px art. Below roughly 24px it turns
-  to mud, and being PNG it cannot take a `currentColor` tint, so it is the
-  wrong family for a dense navigation rail or toolbar. Use the `line` style
-  there, or your own glyphs.
-- **Audio helper**: `playGameInteractionSound` (SSR-safe, opt-in via the
-  `sound` prop on `GameButton`).
-
-## Wrapped-app (Capacitor/Tauri) readiness
-
-The kit treats WebView shells as first-class: interactive controls ship
-`touch-action: manipulation` and transparent tap highlights, hover-only
-affordances sit behind `@media (hover: hover)`, and every safe-area read
-flows through the `--game-ui-safe-*` tokens so hosts (e.g. Capacitor
-Android edge-to-edge, where raw `env(safe-area-inset-*)` can read 0) can
-override the source values in one place.
-
-## Compatibility contract (1.0)
-
-- Exported components and props, `.game-ui-*` class names, and
-  `--game-ui-*` token names are public API: additive-only within a major.
-- `dist/styles.css` stays 100% standard CSS (guard-tested; the CSS build
-  fails on any lightningcss warning).
-- Packaging is machine-checked: `publint` and `arethetypeswrong` run clean
-  (ESM-only by design — CJS consumers on Node ≥22 can `require(esm)` or
-  dynamic-import).
-
-See `CHANGELOG.md` for release history and migration notes.
-
-## Development
-
-```bash
-pnpm install
-pnpm dev              # preview page (token ledger + all surfaces)
-pnpm storybook        # component catalog
-pnpm verify && pnpm docs:check
-pnpm api:inventory    # regenerate the public API index after a reviewed API change
-```
-
-Releases use GitHub Actions Trusted Publishing: bump `package.json`, commit and
-push `main`, then run `gh workflow run npm-publish.yml --ref main`. The manual
-workflow is the release safety switch; it publishes to npmjs with short-lived
-OIDC credentials and provenance, without a local login or stored npm token.
-
-The former `doc/` tutorials and one-off root reports are catalogued in the
-[documentation and evidence relocation record](docs/archive/relocations-2.5.0.json). Historical
-material is retained, but installation and component selection follow the guides above.
-
-<!-- UIKIT-3-THEME:BEGIN -->
-## 3.0 development line
-
-The current main is an unpublished 3.0 restructure. Ordinary controls share a flat SVG droplet; only GameButton variant="primary" is a tide-coloured liquid CTA, at most one per screen.
-Choose appearance independently with data-game-ui-style (candy, pastel, mist, grey, outline, ink; default pastel) and data-game-ui-theme (light, dark).
-Migration is explicit: [3.0 migration](docs/reference/migration-3.0.md). Existing exact-version consumers are not upgraded by this repository.
-<!-- UIKIT-3-THEME:END -->
+源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。素材不允许抽取成独立素材包；第三方归属看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。

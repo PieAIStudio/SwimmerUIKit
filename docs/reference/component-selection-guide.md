@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-09-21
+last_reviewed: 2026-10-02
 domain: product
 tags:
   - components
@@ -15,7 +15,7 @@ tags:
 pinned: true
 related:
   - REF-DESIGN-SYSTEM-GUIDE
-  - REF-USAGE-AND-UPGRADE-PLAYBOOK
+  - REF-MIGRATION-3-0
   - REF-PUBLIC-API-INVENTORY
 ---
 
@@ -60,4 +60,24 @@ related:
 风格与明暗独立：data-game-ui-style 可为 candy、pastel、mist、grey、outline、ink，省略默认 pastel；data-game-ui-theme 为 light 或 dark。支持 hue 的控件接受 coral、sun、leaf、sky、grape、pink，组件不按风格分支。输入框只换边与底色，不做按压形变。产品源码与样式可运行 swimmer-ui-check 发现旧取值；检查报错不会提供兼容渲染。
 拆分、删除和改名逐条见 [迁移表](migration-3.0.md)。完整的当前名字与源码链接在 [公开接口清单](public-api-inventory.md)，以它为准，不从旧示例猜哪些内部名字仍然公开。
 
-常规布局、原生语义和工程边界在 [设计系统指南](design-system-guide.md)；详细的材质、按压和主题边界只在设计指南维护，不在产品仓库复制一套控件。
+常规布局、原生语义和工程边界在 [设计系统指南](theme-and-liquid.md)；详细的材质、按压和主题边界只在设计指南维护，不在产品仓库复制一套控件。
+
+## 使用时最容易弄错的边界
+
+GameOtpInput 只接受数字验证码，全角数字会规范化；受控 value / onChange，填满后 onComplete 不代表验证成功。初始值、宿主重置、重复完整粘贴不重复提交，输入法组合期间不触发完成。宿主负责发送、验证、限流与错误信息；字母恢复码用普通输入。详细参数看 [OtpInput](../../src/controls/GameOtpInput/README.md)。
+
+GameTabs 用 id 与每项 panelId 关联真实 tabpanel。横向处理左右键，vertical 只处理上下键，Home/End 跳首尾；产品负责窄屏切换布局。GameListRow 左侧只放展示内容，交互放 actions，选择与右侧操作是兄弟按钮；危险确认仍归宿主。
+
+GameModal 是原生 dialog，可用 position="bottom" 做底部面板；GameDialog 只是内联内容，不提供模态阻断。GameHelpTip 用于可省略的短解释，支持触摸、焦点与 Escape，不把必须知道的错误/费用藏进去，也不放交互表单。GameTooltip 的直接孩子须可聚焦，重要信息不能只靠悬停看到。
+
+GameCollectibleCard 处理翻面、指针倾斜与减少动态；GameCollectibleCardSlot 是空位。一个卡册只创建一个 useGameCardOrientation，用户直接交互后调用 enable，tilt 只传给当前卡；关闭/卸载停止输入。enabled 不证明硬件已经给出样本，保留键盘与触摸后备操作。权限面板与实机表现由产品验证，不用模拟样本冒充。
+
+GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮。GameMaterialSwatches 保留为头像/通用配色选择，不拥有地形数据。GameShell 的 hud、sidePanel、movementPad、bottomBar、overlay、assetLibrary 都是宿主提供的槽，不是资源服务。
+
+声音默认关闭。GameButton 的 sound 是显式选择；playGameInteractionSound、playGameCardRevealSound 只在已允许的用户交互里发声，音量、暂停和偏好由宿主负责。共享上下文适配用 playGameInteractionSoundForContext，不复制音频引擎。
+
+## 无障碍基线
+
+保留可访问名字、原生焦点环、禁用语义与表单重置。默认触控目标至少 44px；compact 是显式密度选择，产品仍需验收其触达性。选中不仅靠颜色，强制配色使用系统边和状态；减少动态不取消正常操作。换语言/风格不重新挂载编辑内容。
+
+Storybook 的无障碍测试直接报错；只有明确的示例结构例外才做最小范围说明，不能关闭整套测试。视觉和真实交互还需看运行结果；测试通过不等于产品接入或发布完成。

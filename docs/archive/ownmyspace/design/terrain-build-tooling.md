@@ -1,8 +1,8 @@
 ---
 id: REF-DOCS-DESIGN-TERRAIN-BUILD-TOOLING
 title: "Terrain/build tooling design notes"
-type: reference
-status: active
+type: archive
+status: archived
 canonical: false
 owner: project
 created: 2026-07-02
@@ -13,6 +13,9 @@ tags:
 pinned: false
 related: []
 ---
+
+> 2026-10-02 归档：以下是 2.x 的设计/执行原文，不是 3.0 接入说明。新的边界见[迁移表](../../../reference/migration-3.0.md)；原路径 docs/reference/design/terrain-build-tooling.md，来源提交 8442b1a。归档不把未完成提案改写成已交付。
+
 # Terrain/build tooling design notes
 
 ## Scope

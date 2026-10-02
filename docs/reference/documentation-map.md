@@ -6,62 +6,38 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-07-12
-domain: meta
+last_reviewed: 2026-10-02
+domain: ui-components
 tags:
-  - navigation
+  - uikit
+  - reference
 pinned: false
 related: []
 ---
 
-# Documentation Map
+# 文档地图
 
-This is a human and AI map of the governed document shelves. It is not the AI startup entrypoint; `AGENTS.md` is.
+AI 从根 AGENTS.md 进入；本文只帮人和 AI 找事实，不另设一份工作流。
 
-## AI Startup Source
-
-Use `AGENTS.md` for startup reading. It should point agents to:
-
-- `docs/policy/*.md`
-- `docs/governance/boundary.md`
-- `docs/governance/ssot-v1.1.md`
-- `docs/governance/doc-agent-rules.md`
-- `docs/governance/doc-types.md`
-- `docs/governance/agents-routing/<selected-profile>-v1.1.md`
-- `docs/reference/execution/current-work.md`
-
-## Areas
-
-| Area | Purpose |
+| 要找什么 | 唯一当前入口 |
 | --- | --- |
-| `docs/policy/` | Project policy and AI development rules |
-| `docs/adr/` | The single durable decision surface; Matt-compatible and outside the Doc Gov lifecycle |
-| `docs/specs/active/` | Active requirements |
-| `docs/specs/completed/` | Completed specs |
-| `docs/plans/active/` | Active implementation plans |
-| `docs/plans/completed/` | Completed execution records |
-| `docs/reference/learnings/` | Governed, reusable PGS learning records recalled only when relevant |
-| `docs/canon/` | Durable project truth |
-| `docs/reference/` | Guides and references |
-| `docs/archive/` | Retired history |
-| `docs/governance/` | Governance core rules, SSOT, agents routing, doc types, templates, and manifest |
+| 选择组件、原生语义、安装资源 | [组件选择](component-selection-guide.md) |
+| 外观、风格、液体、涟与高级特效边界 | [主题与液体](theme-and-liquid.md) |
+| 变量来源、覆写、字体与样式构建 | [设计 token](design-tokens.md) |
+| 当前公开名字、实现链接 | [生成的接口清单](public-api-inventory.md) |
+| 断代、产品迁移、University 候选验收 | [3.0 迁移](migration-3.0.md) |
+| 现在做到哪、提交与证据 | [当前工作](execution/current-work.md) |
 
-## Key Current Documents
+## 执行与历史
 
-- Design system truth (tokens, theming, motion, a11y):
-  `docs/reference/design-system-guide.md`
-- Consumer usage and upgrade SOP:
-  `docs/reference/usage-and-upgrade-playbook.md`
-- Active spec: `docs/specs/active/SPEC-0002-v1-release-readiness.md`
-  (SPEC-0001 is stable/shipped)
-- Release history: `CHANGELOG.md` (root, ungoverned)
-- Current state index: `docs/reference/execution/current-work.md`
+当前唯一重构任务是 [3.0 计划](../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)。候选通过不等于发布批准，计划发布后才转 completed。
 
-Markdown outside `docs/**` is not governed by default. Product prompts, assets,
-project-package canon, generated media notes, and source-package files stay in
-their product/workbench structure unless this project explicitly opts them into
-doc-gov.
+docs/plans/completed 保留完成记录；docs/specs/completed 保留历史需求。OwnMySpace 专用设计/报告在 docs/archive/ownmyspace；2.x 研究与手册在 docs/archive/reference-2.x。它们不再决定 3.0 产品如何接入。
 
-Optional task-specific tools may keep temporary artifacts outside Doc Gov.
-Reusable project learning belongs only in governed
-`docs/reference/learnings/**` records.
+原始图片和测量文件移到 docs/archive/evidence/2.x，非 Markdown 工件逐一保留原字节；旧路径对应在 [3.0 迁移记录](../archive/relocations-3.0.json)。2.5 当时的迁移记录仍作为历史保留。先前发布回执在 [2.14.0 及以前](../archive/releases/through-2.14.0.md)；不根据旧流水账声称本轮已发版。
+
+docs/reference/learnings 只按任务 recall，保留可复用失败原因，不作为每次启动必读。决策属于受治理的 docs/adr；治理规则在 docs/governance；共享规则仍是指向 PGS 的符号链接。本轮不更改它们的来源。
+
+PRODUCT.md / CONCEPTS.md 是工具适配入口，只指向上述文档。donors-individual.md、锁文件与 NOTICE 保留来源及许可权威；CHANGELOG.md 保留版本变更。index.html / liquid.html 是实际网站入口，不是可删临时报告。
+
+新截图和验证日志只放忽略的 .scratch/ 或 .devspace-visual/；不在根目录再次创建受版本控制的测量垃圾。现行文档变更后运行 pnpm docs:check；生成接口和迁移表修改生成来源，再运行 pnpm api:inventory。

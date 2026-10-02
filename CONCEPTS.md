@@ -1,16 +1,10 @@
 # Concepts
 
-Tool-facing vocabulary adapter. Definitions have one authoritative home:
+Tool-facing vocabulary adapter. Current definitions have one home:
 
-- [Brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语):
-  clay, components, design tokens, forms, guard tests and wrapped apps.
-- [Token layers](docs/reference/design-system-guide.md#token-架构三层):
-  semantic, derivation and scenery layers; optional Tailwind bridge below.
-- [Central kitchen model](docs/reference/usage-and-upgrade-playbook.md#中央厨房模型):
-  pinned consumers and explicit upgrades, not automatic fleet changes.
-- [Account primitives](docs/reference/design-system-guide.md#账号界面原件):
-  plaque skin, numeric code entry, vertical tabs and list rows; account
-  requests and business state stay in the host.
+- [Brand and liquid boundaries](docs/reference/theme-and-liquid.md#品牌与边界): flat droplets, CTA, liquid presence and product-owned state.
+- [Tokens](docs/reference/design-tokens.md): named semantic values, style recipes and optional font/Tailwind resources.
+- [Component choice and native semantics](docs/reference/component-selection-guide.md): form controls, account primitives, cards and containers.
+- [Explicit upgrades](docs/reference/migration-3.0.md): pinned consumers, clean major migration and candidate acceptance.
 
-New domain terms belong in those guides; update these pointers rather than
-maintaining a second glossary here. This file stays for vocabulary-aware tools.
+This filename remains a tool entry, not another glossary or release ledger.

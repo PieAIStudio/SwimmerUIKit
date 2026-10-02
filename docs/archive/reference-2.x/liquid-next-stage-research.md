@@ -1,9 +1,9 @@
 ---
 id: REF-LIQUID-NEXT-STAGE-RESEARCH
 title: Liquid Catalog and Finish Research
-type: reference
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: project
 created: 2026-09-11
 last_reviewed: 2026-09-12
@@ -20,12 +20,15 @@ related:
   - REF-USAGE-AND-UPGRADE-PLAYBOOK
 ---
 
+> 2026-10-02 归档：以下是 2.x 的设计/执行原文，不是 3.0 接入说明。新的边界见[迁移表](../../reference/migration-3.0.md)；原路径 docs/reference/liquid-next-stage-research.md，来源提交 8442b1a。归档不把未完成提案改写成已交付。
+
+
 # 下一阶段：液体分类、可见目录与美学升级调查
 
 **生命周期说明（2.6实施阶段补记）：** 下文保留2.5研究时的判断与候选，不是当前
 功能清单。用户随后授权实现：统一liquidFinish、六类液体控件、原生GameSelect、
 按用途的展厅和共享Storybook示例已进入2.6实现；现行契约只在
-[设计指南](design-system-guide.md#两种液体材质与成品控件26)维护。
+[设计指南](../../reference/theme-and-liquid.md)维护。
 原生select代替复杂自绘listbox；图像预降采样/接缝优化、通用combobox和Toast队列
 仍未实施，不把候选表当作已交付能力。University未修改。
 

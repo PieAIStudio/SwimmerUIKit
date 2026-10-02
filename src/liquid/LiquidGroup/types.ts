@@ -19,7 +19,6 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
    * curved surface so it reads as a material rather than as a silhouette.
    */
   gloss?: number;
-  /** Optional named finish. An explicit raw gloss wins; omitted preserves the old rendering. */
   /**
    * Surface fill. Defaults to the kit's theme surface token. A colour paints
    * the body flat; `{ top, bottom }` gives it light (see `LiquidFill`).
@@ -78,13 +77,13 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
    */
   blob?: BlobShape;
   /**
-   * Select the adopted item surface behavior. Bend follows child geometry.
+   * Select the core Morph behavior. Optional deformation belongs to liquid-effects.
    * Move is a group gesture (`motion="follow"`), not an item effect.
    */
   effect?: 'morph';
   /** Morph shape, tempo, bounce, and content cross-blur tuning. */
   morph?: MorphTuning;
-  /** Follow a child moved by external code; Bend implies this automatically. */
+  /** Follow a child moved by external code. */
   observe?: boolean;
 }
 

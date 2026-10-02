@@ -1,9 +1,9 @@
 ---
 id: REF-LIQUID-PRIMITIVES
 title: Liquid Primitives
-type: reference
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: project
 created: 2026-09-11
 last_reviewed: 2026-09-11
@@ -17,13 +17,16 @@ related:
   - REF-COMPONENT-SELECTION-GUIDE
 ---
 
+> 2026-10-02 归档：以下是 2.x 的设计/执行原文，不是 3.0 接入说明。新的边界见[迁移表](../../reference/migration-3.0.md)；原路径 docs/reference/liquid-primitives.md，来源提交 8442b1a。归档不把未完成提案改写成已交付。
+
+
 # LiquidGroup
 
-3.0：下文的 Bend、Image Melt 和 Contact dissolve 属于可选的 `./liquid-effects`。使用这些能力时，从该入口导入 `LiquidEffectsGroup` 并使用它的 Item；根入口 LiquidGroup 不再接受 bend/melt/dissolve 参数。几何与资源约束仍适用，完整断代清单见 [迁移表](migration-3.0.md)。
+3.0：下文的 Bend、Image Melt 和 Contact dissolve 属于可选的 `./liquid-effects`。使用这些能力时，从该入口导入 `LiquidEffectsGroup` 并使用它的 Item；根入口 LiquidGroup 不再接受 bend/melt/dissolve 参数。几何与资源约束仍适用，完整断代清单见 [迁移表](../../reference/migration-3.0.md)。
 
 Advanced reference, not the route to an ordinary button. Start with the
-[component selection guide](component-selection-guide.md). Design policy and
-named-form defaults belong to the [design system guide](design-system-guide.md)
+[component selection guide](../../reference/component-selection-guide.md). Design policy and
+named-form defaults belong to the [design system guide](../../reference/theme-and-liquid.md)
 and `LIQUID_FORMS`; this document owns low-level composition explanations.
 
 `LiquidGroup` is the SwimmerUIKit liquid primitive for short, user-caused

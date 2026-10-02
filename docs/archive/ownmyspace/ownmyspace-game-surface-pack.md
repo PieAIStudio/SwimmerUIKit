@@ -1,8 +1,8 @@
 ---
 id: PLAN-DOCS-PLANS-REPORTS-PLAN-0002-OWNMYSPACE-GAME-SURFACE-PACK
 title: "PLAN-0002 OwnMySpace Game Surface Pack Report"
-type: plan
-status: completed
+type: archive
+status: archived
 canonical: false
 owner: project
 created: 2026-07-02
@@ -13,6 +13,9 @@ tags:
 pinned: false
 related: []
 ---
+
+> 2026-10-02 归档：以下是 2.x 的设计/执行原文，不是 3.0 接入说明。新的边界见[迁移表](../../reference/migration-3.0.md)；原路径 docs/plans/reports/PLAN-0002/ownmyspace-game-surface-pack.md，来源提交 8442b1a。归档不把未完成提案改写成已交付。
+
 # PLAN-0002 OwnMySpace Game Surface Pack Report
 
 ## Scope Ledger

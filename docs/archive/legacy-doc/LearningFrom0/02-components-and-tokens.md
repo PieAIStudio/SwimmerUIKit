@@ -250,7 +250,7 @@ SwimmerUIKit 还内置了一个**音效助手**：
 
 ---
 
-**下一篇：** [03 - 餐具不挑哪家店：组件为什么不能依赖具体 App](./03-why-no-app-dependency.md)
+**下一篇：** [03 - 餐具不挑哪家店：组件为什么不能依赖具体 App](03-why-no-app-dependency.md)
 
 小邱说："等等，你刚才说'你通过 props 传入配置'——这意味着组件本身不知道在哪个 App 里？它不会自己去读 TuringPact 的设置？"
 

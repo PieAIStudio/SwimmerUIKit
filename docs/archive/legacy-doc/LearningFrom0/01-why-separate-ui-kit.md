@@ -11,7 +11,7 @@ tags:
   - historical-tutorial
 ---
 
-> 历史原文。钉版消费者不会自动升级；当前合同见 [升级手册](../../../reference/usage-and-upgrade-playbook.md)。
+> 历史原文。钉版消费者不会自动升级；当前合同见 [升级手册](../../reference-2.x/usage-and-upgrade-playbook.md)。
 
 # 第 01 篇：为什么要把 UI 单独抽成"装修包"？
 
@@ -138,7 +138,7 @@ PieAI 的几个项目都带"Swimmer"前缀：SwimmerCore、SwimmerAIKit、Swimme
 
 ---
 
-**下一篇：** [02 - 组件 vs 设计令牌：两种"餐具"的区别](./02-components-and-tokens.md)
+**下一篇：** [02 - 组件 vs 设计令牌：两种"餐具"的区别](02-components-and-tokens.md)
 
 小邱听完第一篇，说："好，我明白了'为什么要抽包'。但你说的'设计令牌'是什么意思？按钮我懂，令牌是什么？"
 

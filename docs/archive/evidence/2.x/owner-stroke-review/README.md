@@ -1,3 +1,21 @@
+---
+id: ARCHIVE-OWNER-STROKE-REVIEW
+title: Archived 2.x Visual Evidence
+type: archive
+status: archived
+canonical: false
+owner: project
+created: 2026-10-02
+last_reviewed: 2026-10-02
+domain: evidence
+tags:
+  - history
+pinned: false
+related: []
+---
+
+> S5 按 Owner 批准的 3.0 计划移出根目录。下文是旧保存政策；本次仅改位置，非 Markdown 工件的 SHA-256 逐一一致。不要在这里运行历史脚本覆盖原始截图；旧路径对应见 docs/archive/relocations-3.0.json。
+
 # Historical liquid review captures — retained, not scratch space
 
 These six PNGs were committed by the SwimmerUIKit owner in `4d4b90d`

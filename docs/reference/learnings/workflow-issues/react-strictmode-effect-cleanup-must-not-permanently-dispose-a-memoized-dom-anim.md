@@ -22,7 +22,7 @@ capture_mode: pgs-native
 
 ## Guidance
 
-When a React component owns a memoized imperative DOM or SVG animation engine, React StrictMode's development mount, effect cleanup, and effect setup can reuse the same engine instance. If cleanup sets a permanent disposed flag, the second setup can register DOM nodes but wake and paint return early; a later update may still acquire a process-wide budget slot and leak it, leaving SVG path d empty with no error. Verified fix: allow registration to revive the disposed engine and reset disconnected observers/listeners, add a browser regression that wraps the component in StrictMode and asserts every liquid blob path d is non-empty, and warn once in development only when a real budget acquisition fails. Apply this pattern to imperative DOM or SVG engines with shared budgets.
+When a React component owns a memoized imperative DOM or SVG animation engine, React StrictMode's development mount, effect cleanup, and effect setup can reuse the same engine instance. If cleanup sets a permanent disposed flag, the second setup can register DOM nodes but wake and paint return early; a later update may still acquire a process-wide budget slot and leak it, leaving SVG path d empty with no error. Verified fix: allow registration to revive the disposed engine and reset disconnected observers/listeners, add a browser regression that wraps the component in StrictMode and asserts every liquid blob path d is non-empty, and warn once when a real budget acquisition fails, preserving that warning in the published build. Apply this pattern to imperative DOM or SVG engines with shared budgets.
 
 ## Applies When
 

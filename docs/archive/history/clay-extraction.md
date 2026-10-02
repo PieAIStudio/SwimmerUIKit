@@ -11,7 +11,7 @@ tags:
   - historical-evidence
 ---
 
-> 原始抽取证据，非当前安装指南。private/CJS/Tailwind 及资产状态均是当时记录；正文与原始判断完整保留。当前合同见 [设计系统](../../reference/design-system-guide.md)。
+> 原始抽取证据，非当前安装指南。private/CJS/Tailwind 及资产状态均是当时记录；正文与原始判断完整保留。当前合同见 [设计系统](../../reference/theme-and-liquid.md)。
 
 # SwimmerUIKit Clay UI Extraction Report
 

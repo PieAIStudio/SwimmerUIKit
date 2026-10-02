@@ -1,9 +1,30 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-02T10:40:44.861Z
+generated_at: 2026-10-02T10:56:39.566Z
 generator_version: doc-gov@0.14.2
-docs_count: 50
+docs_count: 62
 docs:
+  - id: ARCHIVE-LIQUID-MERGE-OWNER-REVIEW
+    path: docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-10-02
+    pinned: false
+  - id: ARCHIVE-EVIDENCE-2X
+    path: docs/archive/evidence/2.x/artifacts/README.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-10-02
+    pinned: false
+  - id: ARCHIVE-OWNER-STROKE-REVIEW
+    path: docs/archive/evidence/2.x/owner-stroke-review/README.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-10-02
+    pinned: false
   - id: ARCHIVE-CLAY-EXTRACTION
     path: docs/archive/history/clay-extraction.md
     type: archive
@@ -81,6 +102,90 @@ docs:
     canonical: false
     last_reviewed: 2026-09-11
     pinned: false
+  - id: PLAN-DOCS-PLANS-REPORTS-PLAN-0012-CONTRACTOR-UI-PACK
+    path: docs/archive/ownmyspace/contractor-ui-pack.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
+    path: docs/archive/ownmyspace/design/contractor-ui-pack.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: REF-DOCS-DESIGN-TERRAIN-BUILD-TOOLING
+    path: docs/archive/ownmyspace/design/terrain-build-tooling.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: PLAN-DOCS-PLANS-REPORTS-PLAN-0002-OWNMYSPACE-GAME-SURFACE-PACK
+    path: docs/archive/ownmyspace/ownmyspace-game-surface-pack.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: PLAN-DOCS-PLANS-REPORTS-PLAN-0002-OWNMYSPACE-UI-READINESS-AUDIT
+    path: docs/archive/ownmyspace/ownmyspace-ui-readiness-audit.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: PLAN-DOCS-PLANS-REPORTS-PLAN-0011-TERRAIN-BUILD-TOOL-PACK
+    path: docs/archive/ownmyspace/terrain-build-tool-pack.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: PLAN-DOCS-PLANS-REPORTS-PLAN-0011-TERRAIN-TOOLS-HARDENING
+    path: docs/archive/ownmyspace/terrain-tools-hardening.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-07-02
+    pinned: false
+  - id: REF-GAME-SURFACE-PACK
+    path: docs/archive/reference-2.x/game-surface-pack.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: REF-LIQUID-NEXT-STAGE-RESEARCH
+    path: docs/archive/reference-2.x/liquid-next-stage-research.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-12
+    pinned: false
+  - id: REF-LIQUID-PRIMITIVES
+    path: docs/archive/reference-2.x/liquid-primitives.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-11
+    pinned: false
+  - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
+    path: docs/archive/reference-2.x/usage-and-upgrade-playbook.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-09-12
+    pinned: true
+  - id: ARCHIVE-RELEASES-THROUGH-2-14
+    path: docs/archive/releases/through-2.14.0.md
+    type: archive
+    status: archived
+    canonical: false
+    last_reviewed: 2026-10-02
+    pinned: false
   - id: GOV-AGENTS-ROUTING-ENGINEERING-RUNTIME-V1-1
     path: docs/governance/agents-routing/engineering-runtime-v1.1.md
     type: policy
@@ -122,6 +227,20 @@ docs:
     status: active
     canonical: true
     last_reviewed: 2026-10-02
+    pinned: false
+  - id: PLAN-0004-GAME-ICON-SURFACE-FIX
+    path: docs/plans/completed/game-icon-surface-fix.md
+    type: plan
+    status: completed
+    canonical: false
+    last_reviewed: 2026-06-28
+    pinned: false
+  - id: PLAN-0005-GAME-UI-ICON-SYSTEM
+    path: docs/plans/completed/game-ui-icon-system.md
+    type: plan
+    status: completed
+    canonical: false
+    last_reviewed: 2026-06-28
     pinned: false
   - id: PLAN-0003
     path: docs/plans/completed/PLAN-0003-component-discovery-2.5.0.md
@@ -198,35 +317,21 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-21
+    last_reviewed: 2026-10-02
     pinned: true
-  - id: REF-DESIGN-SYSTEM-GUIDE
-    path: docs/reference/design-system-guide.md
+  - id: REF-DESIGN-TOKENS
+    path: docs/reference/design-tokens.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-23
-    pinned: true
-  - id: REF-DOCS-DESIGN-CONTRACTOR-UI-PACK
-    path: docs/reference/design/contractor-ui-pack.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-02
-    pinned: false
-  - id: REF-DOCS-DESIGN-TERRAIN-BUILD-TOOLING
-    path: docs/reference/design/terrain-build-tooling.md
-    type: reference
-    status: active
-    canonical: false
-    last_reviewed: 2026-07-02
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-DOCUMENTATION-MAP
     path: docs/reference/documentation-map.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-07-12
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-CURRENT-WORK
     path: docs/reference/execution/current-work.md
@@ -235,26 +340,19 @@ docs:
     canonical: true
     last_reviewed: 2026-10-02
     pinned: true
-  - id: REF-GAME-SURFACE-PACK
-    path: docs/reference/game-surface-pack.md
-    type: reference
-    status: active
-    canonical: true
-    last_reviewed: 2026-09-11
-    pinned: false
   - id: REF-LEARNING-TOKEN-DERIVATION-COLOR-MIX-GUARD-TESTS
     path: docs/reference/learnings/design-patterns/token-derivation-color-mix-guard-tests.md
     type: reference
     status: stable
     canonical: true
-    last_reviewed: 2026-07-12
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-LEARNING-ESM-ONLY-BUNDLED-TYPES-CSS-BUILD-GATE
     path: docs/reference/learnings/tooling-decisions/esm-only-bundled-types-css-build-gate.md
     type: reference
     status: stable
     canonical: true
-    last_reviewed: 2026-09-12
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-LEARNING-TOOLING-DECISIONS-VITEST-INCLUDE-GLOB-SILENTLY-EXCLUDED-ALL-TEST-TSX-FILES
     path: docs/reference/learnings/tooling-decisions/vitest-include-glob-silently-excluded-all-test-tsx-files.md
@@ -282,7 +380,7 @@ docs:
     type: reference
     status: stable
     canonical: true
-    last_reviewed: 2026-08-29
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-LEARNING-MULTI-REPO-PUSH-PNPM-HOOK-SHIM-DRIFT
     path: docs/reference/learnings/workflow-issues/multi-repo-push-with-pnpm-hook-shim-drift.md
@@ -305,20 +403,6 @@ docs:
     canonical: true
     last_reviewed: 2026-08-29
     pinned: false
-  - id: REF-LIQUID-NEXT-STAGE-RESEARCH
-    path: docs/reference/liquid-next-stage-research.md
-    type: reference
-    status: active
-    canonical: true
-    last_reviewed: 2026-09-12
-    pinned: false
-  - id: REF-LIQUID-PRIMITIVES
-    path: docs/reference/liquid-primitives.md
-    type: reference
-    status: active
-    canonical: true
-    last_reviewed: 2026-09-11
-    pinned: false
   - id: REF-MIGRATION-3-0
     path: docs/reference/migration-3.0.md
     type: reference
@@ -333,24 +417,24 @@ docs:
     canonical: true
     last_reviewed: 2026-10-01
     pinned: false
-  - id: REF-USAGE-AND-UPGRADE-PLAYBOOK
-    path: docs/reference/usage-and-upgrade-playbook.md
+  - id: REF-DESIGN-SYSTEM-GUIDE
+    path: docs/reference/theme-and-liquid.md
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-09-12
+    last_reviewed: 2026-10-02
     pinned: true
   - id: SPEC-0001
-    path: docs/specs/active/SPEC-0001-design-system-hardening.md
+    path: docs/specs/completed/SPEC-0001-design-system-hardening.md
     type: spec
-    status: stable
+    status: completed
     canonical: true
-    last_reviewed: 2026-07-03
+    last_reviewed: 2026-10-02
     pinned: false
   - id: SPEC-0002
-    path: docs/specs/active/SPEC-0002-v1-release-readiness.md
+    path: docs/specs/completed/SPEC-0002-v1-release-readiness.md
     type: spec
-    status: active
+    status: completed
     canonical: true
-    last_reviewed: 2026-07-03
+    last_reviewed: 2026-10-02
     pinned: false

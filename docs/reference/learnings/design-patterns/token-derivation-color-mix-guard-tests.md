@@ -6,7 +6,7 @@ status: stable
 canonical: true
 owner: ai-assisted
 created: 2026-07-03
-last_reviewed: 2026-07-12
+last_reviewed: 2026-10-02
 domain: learning
 tags:
   - design-tokens
@@ -28,80 +28,41 @@ applies_when:
   - "Adding modal/collapse behaviors without adding runtime dependencies (2026 baseline)"
 ---
 
-# Full tokenization via color-mix derivation, enforced by guard tests
+# Semantic token derivation must be tested after inheritance and compilation
 
 ## Context
 
-SwimmerUIKit 0.8.0 had a token system (`--game-ui-*` CSS vars) but 166 raw
-color literals in `styles.css` bypassed it. Downstream theme overrides
-(e.g. TuringPact's dark tavern) only half-applied: overriding
-`--game-ui-accent` left hardcoded gradient stops and alpha tints unchanged,
-forcing a 651-line override file in the consumer.
+The original hardening audit found raw component colours that ignored host
+theme overrides. Tokenization fixed that class of drift, but a variable name
+alone does not prove the right value reaches the rendered surface.
 
 ## Guidance
 
-1. **One raw-color home.** All raw values live in `theme.css`. Component
-   rules reference tokens only.
-2. **Derive alpha variants instead of hardcoding them.** Replace
-   `rgba(29,154,139,.42)` with
-   `color-mix(in srgb, var(--game-ui-secondary) 42%, transparent)` — the
-   tint now follows any theme override automatically. (color-mix is
-   Baseline since 2023.)
-3. **Context matters for shared literals.** The same `#fff8ec` meant
-   "light text on dark HUD glass" in some rules and "paper surface" in
-   others. Split into `--game-ui-text-on-dark` (stays light in dark themes)
-   vs `--game-ui-panel-strong` (follows theme) before blanket-replacing —
-   a pure string replacement would break dark themes.
-4. **Make the rule machine-enforced, or it will regress.** Vitest guards:
-   regex assert zero raw colors in styles.css; parse theme.css and compare
-   against the TS token mirror; assert the dark theme overrides a named
-   list of semantic vars (missing-token drift); assert every referenced
-   `var(--game-ui-*)` is defined.
-5. **Wrap library CSS in `@layer`** (`@layer swimmer-ui`) so unlayered
-   consumer CSS always wins overrides — no import-order or specificity
-   fights.
-6. **Prefer 2026 browser natives over dependencies** for behavior:
-   `<dialog>`+`showModal()` gives focus trap/Esc/top-layer/backdrop free;
-   grid-template-rows 0fr↔1fr animates collapse everywhere;
-   `interpolate-size: allow-keywords` is progressive enhancement for
-   width-to-fit-content.
+Keep primitive colours in src/tokens/theme.css, full style recipes in
+src/tokens/control-styles.css and components on semantic variables. TypeScript
+exports reference the CSS vocabulary; do not create another literal palette.
 
-## Why This Matters
+CSS resolves custom-property expressions before inheritance. A colour-mix that
+uses a child-specific hue must be bound on the painted element, not precomputed
+on its ancestor. Test both nesting orders of style and illumination, nested
+light resets and the omitted-style default against real browser computed paint.
 
-Theming became a one-variable operation for consumers, the 651-line
-downstream override file can shrink to pure token overrides, an official
-dark theme shipped as proof, and the guard tests convert a style-review
-rule into CI enforcement. Zero runtime deps were added despite gaining a
-modal, window, and collapsible system — which matters because consumers
-are games with hard JS bundle budgets.
+For SVG-decorated controls, the button background may correctly be transparent.
+Read the actual path fill/stroke and the real text colour, then calculate
+contrast. Do not mistake transparent hit-box CSS for the painted background.
 
-## When to Apply
+A selector containing :has(input:checked) carries the type specificity of input.
+That can unexpectedly beat a later semantic danger rule. Zero only that type
+specificity with :where(input), retain the state predicate, and test selected,
+ordinary and disabled states together. Do not fix it with blanket !important.
 
-- Any shared CSS/component library consumed by multiple theming products.
-- Before writing a "dark mode": if literals bypass tokens, fix derivation
-  first or the theme will be a whack-a-mole of patches.
-- When tempted to add a headless-UI dependency for dialog/tooltip/collapse:
-  check the 2026 baseline natives first.
+Check source token definitions before stale dist. A quoted variable name in a
+test is not a CSS definition. The checker needs negative fixtures for undefined
+names and unreadable colour pairs, plus compiled paint tests that fail below
+4.5:1 without rounding a bad pair up to a pass.
 
-## Examples
+## Applies When
 
-Before:
-
-```css
-.game-ui-button--primary { background: linear-gradient(180deg, #f28d50, #e8743b); }
-.game-ui-badge[data-badge-tone='ai'] { background: rgba(29,154,139,.16); }
-```
-
-After:
-
-```css
-.game-ui-button--primary { background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent)); }
-.game-ui-badge[data-badge-tone='ai'] { background: color-mix(in srgb, var(--game-ui-secondary) 16%, transparent); }
-```
-
-Guard test core:
-
-```ts
-const literals = stylesWithoutComments.match(/#[0-9a-fA-F]{3,8}\b|\brgba?\(/g) ?? [];
-expect(literals).toEqual([]);
-```
+Adding a style, changing hue inheritance, colour contracts, selector ordering,
+SVG paint or the shipped token checker. The current theme and token references
+own the colour values; this record owns the failure mechanisms.

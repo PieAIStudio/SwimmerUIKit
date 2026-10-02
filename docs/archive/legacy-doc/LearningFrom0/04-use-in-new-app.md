@@ -11,7 +11,7 @@ tags:
   - historical-tutorial
 ---
 
-> 历史原文，非可直接执行的当前安装指南。请用 [升级手册](../../../reference/usage-and-upgrade-playbook.md)；未撰写的第 05 篇并未在本轮被假装补齐。
+> 历史原文，非可直接执行的当前安装指南。请用 [升级手册](../../reference-2.x/usage-and-upgrade-playbook.md)；未撰写的第 05 篇并未在本轮被假装补齐。
 
 # 第 04 篇：跟着走一遍——在新 App 里用上这套 UI
 

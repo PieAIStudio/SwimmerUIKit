@@ -1,9 +1,9 @@
 ---
 id: REF-USAGE-AND-UPGRADE-PLAYBOOK
 title: Usage and Upgrade Playbook
-type: reference
-status: active
-canonical: true
+type: archive
+status: archived
+canonical: false
 owner: h
 created: 2026-07-03
 last_reviewed: 2026-09-12
@@ -19,9 +19,12 @@ related:
   - SPEC-0002
 ---
 
+> 2026-10-02 归档：以下是 2.x 的设计/执行原文，不是 3.0 接入说明。新的边界见[迁移表](../../reference/migration-3.0.md)；原路径 docs/reference/usage-and-upgrade-playbook.md，来源提交 8442b1a。归档不把未完成提案改写成已交付。
+
+
 # REF-USAGE-AND-UPGRADE-PLAYBOOK: Usage and Upgrade Playbook
 
-> 3.0 是 Owner 批准的干净断代，不能按下面的 2.x 小版本示例直接升级。先读 [migration-3.0](migration-3.0.md)，迁移源码和样式后再升级；本仓库目前不发布 npm。
+> 3.0 是 Owner 批准的干净断代，不能按下面的 2.x 小版本示例直接升级。先读 [migration-3.0](../../reference/migration-3.0.md)，迁移源码和样式后再升级；本仓库目前不发布 npm。
 
 ## Purpose
 
@@ -95,7 +98,7 @@ pnpm verify
 ```
 
 完整可复制示例在新版站点目录与 Storybook 的 Start Here。可选材质和控件边界见
-[设计指南](design-system-guide.md#两种液体材质与成品控件26)，这里不重复参数表。
+[设计指南](../../reference/theme-and-liquid.md)，这里不重复参数表。
 新 GameSelect 是原生 select：用 label 或 GameField 命名，用 option/optgroup 定义项；
 value 配 onChange 或使用 defaultValue，不混用受控/非受控模式。
 multiple/size>1、disabled 使用普通表面；系统弹出菜单不是可定制的液体 listbox。

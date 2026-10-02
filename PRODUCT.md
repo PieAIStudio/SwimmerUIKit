@@ -9,24 +9,24 @@ product
 web
 
 ## Users
-Pie product developers and designers; see [design context](docs/reference/design-system-guide.md#品牌与术语).
+Pie product developers and designers; see [design context](docs/reference/theme-and-liquid.md).
 
 ## Product Purpose
-See [design-system purpose](docs/reference/design-system-guide.md#purpose).
+See [design-system purpose](docs/reference/theme-and-liquid.md).
 
 ## Positioning
-See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
+See [brand and vocabulary](docs/reference/theme-and-liquid.md).
 
 ## Brand Personality
-See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
+See [brand and vocabulary](docs/reference/theme-and-liquid.md).
 
 ## Anti-references
-See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
+See [brand and vocabulary](docs/reference/theme-and-liquid.md).
 
 ## Design Principles
-See [brand and vocabulary](docs/reference/design-system-guide.md#品牌与术语).
+See [brand and vocabulary](docs/reference/theme-and-liquid.md).
 
 ## Accessibility & Inclusion
-See [accessibility baseline](docs/reference/design-system-guide.md#无障碍基线).
+See [accessibility baseline](docs/reference/component-selection-guide.md#无障碍基线).
 
 Start implementation with the [component selection guide](docs/reference/component-selection-guide.md).

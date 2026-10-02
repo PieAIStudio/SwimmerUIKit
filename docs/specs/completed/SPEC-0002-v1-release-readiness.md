@@ -2,11 +2,11 @@
 id: SPEC-0002
 title: 1.0 Release Readiness
 type: spec
-status: active
+status: completed
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-07-03
+last_reviewed: 2026-10-02
 domain: product
 tags:
   - release
@@ -18,6 +18,9 @@ related:
   - SPEC-0001
   - REF-USAGE-AND-UPGRADE-PLAYBOOK
 ---
+
+> 2026-10-02 收口：这是已经交付的 0.9/1.0 历史需求，1.0 打包交付记录为 `1f87863`，当前 2.x 发布记录已到 2.14.0。原验收清单保留当时状态，不冒充重新执行的结果。3.0 的断代和候选验收由 [当前计划](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md) 接管；旧主题名、依赖数量和外观不再作为现行规范。
+
 
 # SPEC-0002: 1.0 Release Readiness
 

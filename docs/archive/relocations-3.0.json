@@ -1,0 +1,1455 @@
+{
+  "sourceCommit": "8442b1a94382b8da6de5b143c339a51a2cdff656",
+  "authorizedPlan": "PLAN-UIKIT-3-RESTRUCTURE S5",
+  "movedDocs": [
+    {
+      "from": "docs/reference/design-system-guide.md",
+      "to": "docs/reference/theme-and-liquid.md"
+    },
+    {
+      "from": "docs/reference/liquid-primitives.md",
+      "to": "docs/archive/reference-2.x/liquid-primitives.md"
+    },
+    {
+      "from": "docs/reference/usage-and-upgrade-playbook.md",
+      "to": "docs/archive/reference-2.x/usage-and-upgrade-playbook.md"
+    },
+    {
+      "from": "docs/reference/liquid-next-stage-research.md",
+      "to": "docs/archive/reference-2.x/liquid-next-stage-research.md"
+    },
+    {
+      "from": "docs/reference/game-surface-pack.md",
+      "to": "docs/archive/reference-2.x/game-surface-pack.md"
+    },
+    {
+      "from": "docs/reference/design/contractor-ui-pack.md",
+      "to": "docs/archive/ownmyspace/design/contractor-ui-pack.md"
+    },
+    {
+      "from": "docs/reference/design/terrain-build-tooling.md",
+      "to": "docs/archive/ownmyspace/design/terrain-build-tooling.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0002/ownmyspace-game-surface-pack.md",
+      "to": "docs/archive/ownmyspace/ownmyspace-game-surface-pack.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0002/ownmyspace-ui-readiness-audit.md",
+      "to": "docs/archive/ownmyspace/ownmyspace-ui-readiness-audit.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0011/terrain-build-tool-pack.md",
+      "to": "docs/archive/ownmyspace/terrain-build-tool-pack.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0011/terrain-tools-hardening.md",
+      "to": "docs/archive/ownmyspace/terrain-tools-hardening.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0012/contractor-ui-pack.md",
+      "to": "docs/archive/ownmyspace/contractor-ui-pack.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0004/game-icon-surface-fix.md",
+      "to": "docs/plans/completed/game-icon-surface-fix.md"
+    },
+    {
+      "from": "docs/plans/reports/PLAN-0005/game-ui-icon-system.md",
+      "to": "docs/plans/completed/game-ui-icon-system.md"
+    },
+    {
+      "from": "docs/specs/active/SPEC-0001-design-system-hardening.md",
+      "to": "docs/specs/completed/SPEC-0001-design-system-hardening.md"
+    },
+    {
+      "from": "docs/specs/active/SPEC-0002-v1-release-readiness.md",
+      "to": "docs/specs/completed/SPEC-0002-v1-release-readiness.md"
+    }
+  ],
+  "evidence": [
+    {
+      "from": "SCRATCH/README.md",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/README.md",
+      "sha256": "22a262c272eaaa1036c6093e9e282cd504086f853b9f8ce82a3edc9c45138fd7"
+    },
+    {
+      "from": "SCRATCH/liquid-group-merging-desktop.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-merging-desktop.png",
+      "sha256": "fe645e5f9eee06bfd11422e87613fc96028971ce7373c91bbb36fd7d292ce77b"
+    },
+    {
+      "from": "SCRATCH/liquid-group-merging-mobile.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-merging-mobile.png",
+      "sha256": "c47fba28113b7ddeba02317f99574e111f5cbad35c9cd8ed1a17f9927d7f433d"
+    },
+    {
+      "from": "SCRATCH/liquid-group-reduced-desktop.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-reduced-desktop.png",
+      "sha256": "3b7ba14fb4d7fa9e199e2cdbc4608f3995dc28f79f7c65264824245c47db44d5"
+    },
+    {
+      "from": "SCRATCH/liquid-group-reduced-mobile.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-reduced-mobile.png",
+      "sha256": "8a886d1c701ecd71d367def45ee5f69441783cc7a55928f20469ac2eb19117c7"
+    },
+    {
+      "from": "SCRATCH/liquid-group-separated-desktop.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-separated-desktop.png",
+      "sha256": "b25e6dae954e98f0b1587cb265c9174953e16c25bb1951ce3958048eb1152d86"
+    },
+    {
+      "from": "SCRATCH/liquid-group-separated-mobile.png",
+      "to": "docs/archive/evidence/2.x/owner-stroke-review/liquid-group-separated-mobile.png",
+      "sha256": "28ea0f020192b00bf41d75a9eb699cf9088e04c63397288b4ddf60a6ccc9471c"
+    },
+    {
+      "from": "artifacts/README.md",
+      "to": "docs/archive/evidence/2.x/artifacts/README.md",
+      "sha256": "1c3b4383e22f8b01bdec3eec277f02cd9f4038f850df9bd67501f0c18b06c4d6"
+    },
+    {
+      "from": "artifacts/api-audit/2.4.0.json",
+      "to": "docs/archive/evidence/2.x/artifacts/api-audit/2.4.0.json",
+      "sha256": "c91cf752bb27a8ef3475a25ee019e452276a90786c26643af5671cfd8ac2e302"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/baseline-2x.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/baseline-2x.png",
+      "sha256": "5342f9283462b86da6023ee215519f77c72e07c42c78ca39d5143be50709608f"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/baseline-4x-down.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/baseline-4x-down.png",
+      "sha256": "9177a971d61a496314cb770cf5055ca62ee16e976d7d7972feb86954814b1bd4"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/baseline-4x.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/baseline-4x.png",
+      "sha256": "c580796aa2995bf15de6750c0628ae388c317e3c1a0a2cae6023c3ccc031c3c1"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/baseline.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/baseline.png",
+      "sha256": "17cfc704f464f3532984e6399777b5ac7845f42e4626b5907a1b03f1e907ebb2"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/blur-noise-1.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/blur-noise-1.png",
+      "sha256": "38485519962d7da17aa88d364f038ec9c3f18d033c02884d232b21d7021daad7"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/blur-noise-2.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/blur-noise-2.png",
+      "sha256": "028ab85afc427bad5c53e96bc0594010c70d33351c880a5b1e4d56546d869428"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/blur-noise-3.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/blur-noise-3.png",
+      "sha256": "61d4f5c7bd0dab9609f9e846949d2f33acc805302dffddfc3951d715f99aabc8"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-circle.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-circle.png",
+      "sha256": "a9da2264fc486e9ac45b1fcc36b6085feb3913aae7da8b889ba7ea059d211bc0"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-css-inset.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-css-inset.png",
+      "sha256": "60da7bb65715da115087133473ac312498590ce17bf7f0d248f6fd5dcabcdbaf"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-inset-bin.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-inset-bin.png",
+      "sha256": "be33febd526672ae3b4ebc2e409ca5af1131a935da29a57a24dcb888a2cd8fbd"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-rim-dashed.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-rim-dashed.png",
+      "sha256": "0a87d11a83fe21436a58318348c855b3e1f1269682e401f1a156d61489417c03"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-rim-hairline.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-rim-hairline.png",
+      "sha256": "86c2cd1999dd35b4f689058b58b302a1dcb3b6a180f5667b4101795e2122c37c"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-rim-ring.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-rim-ring.png",
+      "sha256": "051f56f5f99fc1e6ac009bfd56437e0c59240392b512d76cf98696842d08c5c1"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-stairs.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-stairs.png",
+      "sha256": "c436c6bc3a44dd72ac85605edc37d9fbf2e1c104c7f71f13ba89d1eb3d295afc"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/cal-wobble.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/cal-wobble.png",
+      "sha256": "96d6d11d060e76047fd613f76e351e0cc0511eb8a82b2c307d1b8dfa4e6a3cf9"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/calm.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/calm.png",
+      "sha256": "58c13c4d8655c283caeea4e0e2bb4a5d6b96cef380af99659e04c3be4ecaa658"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/edge-blur-1-5.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/edge-blur-1-5.png",
+      "sha256": "77d509691dc81355fcf7958fde337d0aea69295ce2660052b3bdb546512b702e"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/edge-blur-1.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/edge-blur-1.png",
+      "sha256": "c743e9e29a4d935822a7181e41ecb4bcc72cde67ea004010426a87828e2cb549"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/freq-high.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/freq-high.png",
+      "sha256": "9d3d9124ac738f59cd26da90fb7c03f01cc98e09f70f60d33acb614eca7a8985"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/freq-low.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/freq-low.png",
+      "sha256": "e38075fb87895bddf1723075efe314b5d9e8da3747add95be2e43995cb1934d0"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/no-edge-blur.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/no-edge-blur.png",
+      "sha256": "c68bba65fb3dedba473c17d0bc5dc755b0c070e54e94ad4a8ddd45099126f459"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-baseline.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-baseline.png",
+      "sha256": "de39f8693a1d838532f24add1ea964957ed2784a1d3c242159596676e75653c5"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-blur-2.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-blur-2.png",
+      "sha256": "dd2c03bc5fd3c219f9f23b087b2736ad60f1f57cca7764303f43c73786054c86"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-freq-high.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-freq-high.png",
+      "sha256": "457515b13bc1097364ccb24592aac66763c2f8a76ae874073f0c6b3d7c145518"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-freq-low.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-freq-low.png",
+      "sha256": "d0507b10be8ef5805a7f8d7fe1cc9b92ff36de87e72fa8d4859be70134779970"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-octaves-1.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-octaves-1.png",
+      "sha256": "94a857e99190ad82df41eff78cfa699dee5991d15eb493da9752eaac70f648d7"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/noise-posterize.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/noise-posterize.png",
+      "sha256": "8685536e6a62118993cec07e48ffb61a70528994928a213e39f42e0a3889e2db"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/octaves-1.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/octaves-1.png",
+      "sha256": "2c24424e8c54e0f1aea54acfff33c2cb930314fc0d49188c601fd2681dbc332a"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/octaves-4.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/octaves-4.png",
+      "sha256": "c52308dead40e54d9c4c15bab0108cbfa5709d9140b091facb1e34be474cc38d"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/pill-baseline.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/pill-baseline.png",
+      "sha256": "b301d47a038e62004965f4d6874ed52005e4ca494ccb182d5e227cbd628dc7fc"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/pill-calm.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/pill-calm.png",
+      "sha256": "6558d30f9ae0d81750f66d646c4539fae52b2fa22358a54eb944ae888220299d"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/pill-inset-aa.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/pill-inset-aa.png",
+      "sha256": "753f38949796857d886f5e400bad60452e6227f65ed6a8b3d092d7208b21a549"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/pill-inset.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/pill-inset.png",
+      "sha256": "f4b8368c5f77fd7dab1f4d896a089750cbe8c55e973f0a23d88e83fd5864601b"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/posterize-noise.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/posterize-noise.png",
+      "sha256": "ef444a2b7745046e479f7880a1446a8e0a9a5895447eb0a475f261c8dd58e4da"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/preblur-075.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/preblur-075.png",
+      "sha256": "e913c0c279db9296781910989380065ffd843baf89e0e4b26e94224734ad35ec"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/preblur-1-post-05.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/preblur-1-post-05.png",
+      "sha256": "b4820548f65c630819967d988fed6c53fe0f4ff667c3a1f518d3abeb301bf85f"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/preblur-1.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/preblur-1.png",
+      "sha256": "095ee833ea1df3422182318fb650a86e92aec3ddf393154f2c602185afa843d2"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/reconstruct-08-8.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/reconstruct-08-8.png",
+      "sha256": "378efdbc453e4424639b330b5ae5d688cabd1b9fd5ef3abcde4bf29e5daf03b0"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/reconstruct-12-10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/reconstruct-12-10.png",
+      "sha256": "60a3d71d0d687d2ae6acf968a008d8af61963cd6192f2939d63d8a8792a74534"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/smooth-field.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/smooth-field.png",
+      "sha256": "79521b3879be106ccb8ba440ce698eabfbf3402634891eb57d22300e16880c74"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-segmented-on-clay-after.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-segmented-on-clay-after.png",
+      "sha256": "6e2cae8b011baf272926ceff53b431bcaa849571c905fe6ea81a58b896682259"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-segmented-on-clay.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-segmented-on-clay.png",
+      "sha256": "c54379581c2a92cbb431dc7c47aa8acaa7349571c521b3342e76602b63847c72"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-segmented-teal-after.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-segmented-teal-after.png",
+      "sha256": "3c7c1b9b6689dfd5db0e40023a3059e25a5270b34fea24c4c683442dd0886214"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-segmented-teal.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-segmented-teal.png",
+      "sha256": "67a4fd9659f9f717058cc46fd6c2e56c919d35d551b2ce1fc7a22ca1d5343a11"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-waviness-blob.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-waviness-blob.png",
+      "sha256": "b46a9ddc4bb27017d64d6eb71025b48f116161b5fbe59a7f7ea4b56f89281b6d"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/story-waviness-default.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/story-waviness-default.png",
+      "sha256": "15e1353ad71b74abeb9642bc429871f21acb20e7da1f982de718145db694d46d"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/type-turbulence.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/type-turbulence.png",
+      "sha256": "a1bf3f988f080f83afa67611bff8e8bdb3dbc1fc95a2971cb73ab9f3a5de6a87"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-inset-2x.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-inset-2x.png",
+      "sha256": "dfba5eb915c87d2699158e90b445cbda000c119df6e0c6c18c7d05b978aa304c"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-inset-4x-down.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-inset-4x-down.png",
+      "sha256": "4dec9f4cd47a559469edae2922013130378ac21b8f4634fa579cc51898b4601d"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-inset-4x.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-inset-4x.png",
+      "sha256": "f8937fe6520717374c85d7c034bd91ef7c7f07dcac1ec28c91d67bf8b39d8002"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-inset-aa.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-inset-aa.png",
+      "sha256": "6a5d86b5e486049886d4cd2ddbb396700250549c520f2b42721ecf2e8cef2801"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-inset.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-inset.png",
+      "sha256": "205436d37de03654c724875ea2094d820f1e33c459f568b68393c8ac3dc9d380"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-shadow-full.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-shadow-full.png",
+      "sha256": "ae1d802dd958e60e036965a9ce49020b453f36455e85d4920683e00b490cf6ac"
+    },
+    {
+      "from": "artifacts/edge-quality/captures/wavy-stroke.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/captures/wavy-stroke.png",
+      "sha256": "f9dc147da714493007162d5c9fd363dc56a140e3bb8413a47512d7f718a914ff"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-2x-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-2x-east-nn10.png",
+      "sha256": "da53264d3b39504baca282f67f145b1b718403b7a7d2e21e24eb61dff4c6d957"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-4x-down-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-4x-down-east-nn10.png",
+      "sha256": "6d6b6bbf31bbf956a4fc3ecba4330920ffc5360366805b6bb54e353e66ae58f3"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-4x-down-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-4x-down-nn10.png",
+      "sha256": "1c58410fabc6b92bb20d025cd23084d9a6a6a6cb7790f8f6a5efd44d57c1b6a8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-4x-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-4x-east-nn10.png",
+      "sha256": "f8e03dee28f789404574bfac242108976fc2e7e22b8336656b6a68e74555802c"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-4x-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-4x-nn10.png",
+      "sha256": "16a4096a65b7bbdf9b66aa4aa01d9ed2f371dad69f2f0d1956ba72e3b6d9001b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-east-nn10.png",
+      "sha256": "da53264d3b39504baca282f67f145b1b718403b7a7d2e21e24eb61dff4c6d957"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/baseline-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/baseline-nn10.png",
+      "sha256": "a57ed1740e0dd99ed19ba75455d2722ce7a1870e94e75b7c9a8a7cfff6d67e30"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-1-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-1-east-nn10.png",
+      "sha256": "e282be145d4248a94bce2dcf373f6188a9d082516bb76b9821f30fc1e52898f8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-1-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-1-nn10.png",
+      "sha256": "a57ed1740e0dd99ed19ba75455d2722ce7a1870e94e75b7c9a8a7cfff6d67e30"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-2-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-2-east-nn10.png",
+      "sha256": "5f57c89c8b3c60be4b27ab1b9b07b4427b9f23da5498e29d60c32abb4dae53a4"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-2-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-2-nn10.png",
+      "sha256": "8e39cc73b33a4a2cb010f6c62e1367475feb61eeab7434ad8ea6baf2b1ad6ff5"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-3-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-3-east-nn10.png",
+      "sha256": "74e3f67ce764002af961401271b6807a55d892ee7121843a0130cf6d60cfaa3b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/blur-noise-3-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/blur-noise-3-nn10.png",
+      "sha256": "d1375a4c99dfc824efb27a962bc44583fd067829ad01f9f90c0104f5299d30ea"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-circle-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-circle-east-nn10.png",
+      "sha256": "e19e348f9b49e1572b774d22fd93a669d1cf90c8a59f4d231d63e64bbf3d4bab"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-circle-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-circle-nn10.png",
+      "sha256": "55af18a4e9462b50780e0c8481bdf9c0283b4b583a8325a479239526ba6610f9"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-css-inset-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-css-inset-east-nn10.png",
+      "sha256": "6c1c5dc199dfd97c9bf53daec5dadc5cb7877dafb32f39298e19dab0f32048a4"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-css-inset-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-css-inset-nn10.png",
+      "sha256": "55af18a4e9462b50780e0c8481bdf9c0283b4b583a8325a479239526ba6610f9"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-css-inset-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-css-inset-north-nn10.png",
+      "sha256": "f01eed620d6cdfb95f79d20befe526ff0424410a440b84e9d1d5f2f028ef9a7b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-inset-aa-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-inset-aa-east-nn10.png",
+      "sha256": "e7c3b7a3afe9a6134238e80a5029ff0dd9991f933b3cd03f478b343c2c739ca7"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-inset-bin-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-inset-bin-east-nn10.png",
+      "sha256": "2211982f2eef9dbb2f11db50916d2106b60c887769b4eae9bd8a81c178f22b0f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-inset-bin-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-inset-bin-nn10.png",
+      "sha256": "a17c89d335219c67eb4e4dca8b524e0c0e752e18fe9c7fdc2e7ee1e73846c110"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-inset-bin-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-inset-bin-north-nn10.png",
+      "sha256": "90267837a18594c2c311c847678b38b113fc5a20eb49dc0619d4def4fd021324"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-dashed-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-dashed-east-nn10.png",
+      "sha256": "4779fdee6b2d1bc63333d39ebaf6835893a0ad225c6ae87af6c493ed45ade7a3"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-dashed-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-dashed-nn10.png",
+      "sha256": "9fa6899d5a5dcc76aa8807c444e893369f26c37f7266ae1d52a056b45e3190e8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-dashed-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-dashed-north-nn10.png",
+      "sha256": "5f3e894abe013f82e86bc000efffe2467c6932e86c43ebd504451f2d13681217"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-hairline-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-hairline-east-nn10.png",
+      "sha256": "647ea557df161189b63517610a8e81d56f10973e079fdc37821d3346972f20c6"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-hairline-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-hairline-nn10.png",
+      "sha256": "8b0c56edce881cb3b58f52b8d1108d6bc8785699cd0a181688c7b0d185ce9faa"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-hairline-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-hairline-north-nn10.png",
+      "sha256": "31e369b6871e2d1630ab3a3c6b92c95a70ecbc932a8f347de446b8e7cbb60d27"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-ring-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-ring-east-nn10.png",
+      "sha256": "a93aa5d19b35a4fce9f9576bdedcfd9b78ca1ee9bfd071c33295e9debbfc0416"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-ring-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-ring-nn10.png",
+      "sha256": "4b3afa9824f75aa3deee8ced8663f755d9e8e87168887189ec0311b0bb443167"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-rim-ring-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-rim-ring-north-nn10.png",
+      "sha256": "6b20e8f52d535864eb582b25f1c6002d2cd31e9a17d4666ea06d62a208f220e6"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-stairs-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-stairs-east-nn10.png",
+      "sha256": "9a3876266a1d64e7407025ed17cf9fc8adb8c8a51735fc57937116cc3976bbe2"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-stairs-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-stairs-nn10.png",
+      "sha256": "7d96a354263240dd8435b166595e72fb1bd895b44bc642297bdff48adfe9bef4"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-wobble-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-wobble-east-nn10.png",
+      "sha256": "fd9d380bbe6c255dd544a01a9a3bc241948ac39dfb83c74cbdc4c3ffe8f10d7e"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/cal-wobble-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/cal-wobble-nn10.png",
+      "sha256": "f8630080cd3509ebadc7c7f58816ba2cd4b0bae4658ac7993254ab850fe14f44"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/calm-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/calm-east-nn10.png",
+      "sha256": "26ad947a531f76e0c54dcaaf9d0a9540d16c5904e772eb618a9c855156049b31"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/calm-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/calm-nn10.png",
+      "sha256": "a17c89d335219c67eb4e4dca8b524e0c0e752e18fe9c7fdc2e7ee1e73846c110"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/edge-blur-1-5-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/edge-blur-1-5-east-nn10.png",
+      "sha256": "9dc95b3dc0550228390dbd971cc43f0831f1996512c558fcda222da8a7bf6ac8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/edge-blur-1-5-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/edge-blur-1-5-nn10.png",
+      "sha256": "463c9003ce161073ab411b2f9ab2413965111cc2455c6939310fe02a2f579387"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/edge-blur-1-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/edge-blur-1-east-nn10.png",
+      "sha256": "05840417bc24fcb9a4641f9dfb21623410dda15387ae70c656d2f1aefe75e33c"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/edge-blur-1-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/edge-blur-1-nn10.png",
+      "sha256": "94fd5fc096dac43aa608bd2b83dfd6257058aa62a3408aef68d4b7ad03b1263b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/freq-high-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/freq-high-east-nn10.png",
+      "sha256": "808efbaed057d7cd075eff521d0771464e74b74faf844296aca08c6fea5c091e"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/freq-high-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/freq-high-nn10.png",
+      "sha256": "b9ff6c9ec0f26087040c0d5ae454dde424eb8b5479c457330dc66cb9ad88f459"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/freq-low-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/freq-low-east-nn10.png",
+      "sha256": "1ea387a267c4d64efad3b23338ae8723f490193a6ff50e13b5ef416e13267669"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/freq-low-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/freq-low-nn10.png",
+      "sha256": "87e924c749d66b7a3521e06e20f319e2042b331ee6a61fd42daea9d4cace783e"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/no-edge-blur-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/no-edge-blur-east-nn10.png",
+      "sha256": "2bcf9fd627701d09c0fdd76bd4cc48c46babb642e2fea6bb8c0ac58ee87bf4fa"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/no-edge-blur-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/no-edge-blur-nn10.png",
+      "sha256": "73db1ebe99d4215a6897cb63226b44474895186a24320056c8e48ab508a9cdc2"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-baseline-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-baseline-nn10.png",
+      "sha256": "1a22ebfd60c8efe72e81c0604e5ebad5315bf377ad38f7aef73da66fd99fd3bd"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-blur-2-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-blur-2-nn10.png",
+      "sha256": "e39cb94a35c31248a28219b07ed8c81b5f4883ce67608a37df7168f04a0972e8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-freq-high-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-freq-high-nn10.png",
+      "sha256": "62958e1c3e80fa83d783d2fc3da9a85d1797640a0c8bf28c1ef33fbda6175350"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-freq-low-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-freq-low-nn10.png",
+      "sha256": "59f2109c2362a6b09abbc7b3ca3e65353cb5ba05dcc6933e06d3aaab709e4726"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-octaves-1-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-octaves-1-nn10.png",
+      "sha256": "c841e9b08141eb85156a5eced9983a493812a25a70b8d8e2474947a680924926"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/noise-posterize-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/noise-posterize-nn10.png",
+      "sha256": "cb07d66f6d4ea75265f38bf52670768771d550fc245d635c7c360faf2b1bc8cf"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/octaves-1-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/octaves-1-east-nn10.png",
+      "sha256": "ee2c96cc675f520ef417c52811ba56920ab322556771d3fa9a576768825b2736"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/octaves-1-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/octaves-1-nn10.png",
+      "sha256": "83a3189bdbd9bd4ca483e3f551b73437a1713a0d17c947af7a28c45f590a6e2f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/octaves-4-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/octaves-4-east-nn10.png",
+      "sha256": "a19fd7c4b068f1b054c377c3dcd31c27de41eb8b5469cc971fc1684667a35b4e"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/octaves-4-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/octaves-4-nn10.png",
+      "sha256": "ddb3bd3379a4b46ed01d17f6d2e352d290a76057c4c04bfd107299c4333d83ce"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-baseline-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-baseline-east-nn10.png",
+      "sha256": "55c429bc0257498d82c8429819aa353b7c4c52b723395fee1239e872a8055731"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-baseline-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-baseline-nn10.png",
+      "sha256": "f9b0e17cd4dd4243b22e1d60128466d5997f9245912f2c97b4a3f71b1a38bc19"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-calm-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-calm-east-nn10.png",
+      "sha256": "87d2a39a065aa0d6929a264ffbccdeea3afd33daf09c671f34e13fc7f3d24c53"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-calm-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-calm-nn10.png",
+      "sha256": "8e4fc1c13f678f682e11703ef8ee825888aa8a0b94bfa847465f14af013de1dd"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-aa-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-aa-clay-east-nn10.png",
+      "sha256": "35a61af552c643e06719a842ff83b43b4ce8a31788ba6b2aceea63d671990b3b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-aa-clay-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-aa-clay-north-nn10.png",
+      "sha256": "4d33c887ad83e9316361a70afce0fcc712824ecf883a275ccaac1c583453ca9c"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-aa-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-aa-east-nn10.png",
+      "sha256": "21074a526f2df590c736f7b66d74c0d7356f7dbc84ec4b32d7cc8d1f29085a7c"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-aa-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-aa-nn10.png",
+      "sha256": "f0b083acd05fa5f8d1b7e24cf7f79a8de25a299cc526ad1308ab94423646c2cc"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-aa-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-aa-north-nn10.png",
+      "sha256": "6069fb915e5f6919c238a4be6a9926aaf7cacf35ceb38aa243ef76905156bf09"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-clay-east-nn10.png",
+      "sha256": "c9e63c05a86b2556a62252ceaed26ffe4cb5732449d2c8ace61ac5a34df84565"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-east-nn10.png",
+      "sha256": "dc6792ac47edefb327691a19bf12ad6c8b74d5536f70edf88dda42a771a384c2"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-nn10.png",
+      "sha256": "f9b0e17cd4dd4243b22e1d60128466d5997f9245912f2c97b4a3f71b1a38bc19"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-inset-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-inset-north-nn10.png",
+      "sha256": "17e895a70cbe52024b16186625eba76d23930eabc651e3dfcfd14ca09a36d979"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/pill-shadow-full-aa-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/pill-shadow-full-aa-clay-east-nn10.png",
+      "sha256": "f4e96b52c54044526ce5165d686e137be30171bb4feca5f78b79ea73268c9e88"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/posterize-noise-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/posterize-noise-east-nn10.png",
+      "sha256": "4ea91c45a9e799c4cfd8b27ba7d89fe396e7aa04a663db5d64799a5bcbc36e05"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/posterize-noise-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/posterize-noise-nn10.png",
+      "sha256": "f88b1a08b2a08deab66a4b6a53ece5a6a692790cfc72764a7fbfb913780d19ba"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-075-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-075-east-nn10.png",
+      "sha256": "71cd4b0716c1624a4cb3fbe2525b391ed6d5b84fb8384b3870a051803d173d5f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-075-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-075-nn10.png",
+      "sha256": "4617d3158fb4ccc5283f161606e3e4ff3560395fdb4e93bfd022fe2d11a5440f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-1-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-1-east-nn10.png",
+      "sha256": "2a449380bb7cdc654f01ca34168a27ba705743234a35703ca626f96e9baa4fec"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-1-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-1-nn10.png",
+      "sha256": "84291e274f85c622a2a3643737beeb9c543ab29c4e6c260500e197c455e6913a"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-1-post-05-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-1-post-05-east-nn10.png",
+      "sha256": "d00400852d50d117b9f44c3d28bf633ca83d8f989772b1befda720fcc55d404c"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/preblur-1-post-05-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/preblur-1-post-05-nn10.png",
+      "sha256": "fdeaddcfe3a091a9f2930f09ad0cea9848d9e0808b635a37a5584cd0c6cc534f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/reconstruct-08-8-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/reconstruct-08-8-east-nn10.png",
+      "sha256": "7769e6802852ee16a8a10c2adc113f0333f8a96cdbe33de0361345e47a741541"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/reconstruct-08-8-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/reconstruct-08-8-nn10.png",
+      "sha256": "afe75bb915f9056276fb12cfbc5f6b607cc14cd922eef8388a7b5d5fffa22ba8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/reconstruct-12-10-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/reconstruct-12-10-east-nn10.png",
+      "sha256": "090396cc5ad06bfe4fbfc45a4b508dc88e133831d40a2d912dd2fb8c9a42e2e0"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/reconstruct-12-10-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/reconstruct-12-10-nn10.png",
+      "sha256": "d8619803d6f782c7e4b78a6acc333e001975ef90f8ccbf2f35b257e39fb4eab4"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/smooth-field-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/smooth-field-east-nn10.png",
+      "sha256": "4a3ddd96bf910498b73382ef7b25b2fdcc89f2ae4107b0a3173a06f3b8ca3a12"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/smooth-field-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/smooth-field-nn10.png",
+      "sha256": "4f1f50168665277f2792b045ef9bf21a0245dbab6a72bf5bee8bd6616c979444"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-on-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-on-clay-east-nn10.png",
+      "sha256": "32f518187000a693043215cea0ce6f2bb1829b6ba9a8b7c98a9bd19188ec58ff"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-on-clay-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-on-clay-north-nn10.png",
+      "sha256": "459044fe2b8215fe2605000a4209d98f7ade2829530f8d2b9ef8f21fa338613b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-after-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-after-clay-east-nn10.png",
+      "sha256": "ad25228d0075aaeec7ba8935c2df655eb3ab07774a8c3e7368b1557c03e21e8b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-after-clay-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-after-clay-north-nn10.png",
+      "sha256": "f41833d4912c55c473a6d55fd0206fb6b27b1e35d49d38031c9beaeaa309b9c7"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-after-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-after-east-nn10.png",
+      "sha256": "99511691dbbbeb4590f60319d51dd2f8ad86aa08b922bcb4df49edfecb2b1c0a"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-after-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-after-north-nn10.png",
+      "sha256": "069b96637640aa644ac0790ea906912a13cf5cf17a7ac04a30ac6ce4ebd4a9c8"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-east-nn10.png",
+      "sha256": "0c0fe355f82265d4888be0a2682daa999a5d063e9788a704e100c70469e435aa"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-nn10.png",
+      "sha256": "7b78e3989bbe30b9280779fc1a9c0ed9736b85804117b123d613b91e59ad37d7"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-segmented-teal-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-segmented-teal-north-nn10.png",
+      "sha256": "3c313de027a7c3e3fe96919389049f6decbcdd7a4c99022f16e0430bc36fd566"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-waviness-blob-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-waviness-blob-east-nn10.png",
+      "sha256": "16db5210b53968edff62d256e73ced336040e1b8b4773ff7fe88cee755821c3b"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-waviness-blob-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-waviness-blob-nn10.png",
+      "sha256": "279ad28fb81535a4c3f4cb4086051204f295fe139325bd0202eae31f60da9b3f"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-waviness-default-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-waviness-default-east-nn10.png",
+      "sha256": "33c46317250a402b9cb61086db07188648e8987c3eeafea1841f9e3522b41370"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/story-waviness-default-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/story-waviness-default-nn10.png",
+      "sha256": "78e2aaa05e057b036a097343ad0ef9b5b5014926ff02cd3a4a54ff802952e7f7"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/type-turbulence-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/type-turbulence-east-nn10.png",
+      "sha256": "2c5be44848f30b46f4e5b9c70e133ee5f442b7eb1e942f6ffda181a996d52c35"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/type-turbulence-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/type-turbulence-nn10.png",
+      "sha256": "12c9264d95440d4b3949e98f82278ff2fff68a34403ae175ad548fe4e74d7290"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-2x-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-2x-east-nn10.png",
+      "sha256": "9b3d73d57ee2e91208f6ca89fe1e5b3d3f34c51f70e391c13266ebb782cc8d31"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-4x-down-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-4x-down-east-nn10.png",
+      "sha256": "3dc75352b2edc75ea43b81202a5a8ecd9d0fbf66d7186eafc865b70d6cac68e5"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-4x-down-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-4x-down-north-nn10.png",
+      "sha256": "c80d7adcd685db4e6a790b3b75e01e6c5989a563690ed01f2504892cad56b0eb"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-aa-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-aa-clay-east-nn10.png",
+      "sha256": "cb631cf88a78301da6fe97a06b0d465f1d906fb5e16032d05fa9fffaebbda684"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-aa-clay-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-aa-clay-north-nn10.png",
+      "sha256": "c5f46407debf442c45fb27f124998c20c65d8f4cb08629b4e74fd85491a70971"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-aa-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-aa-east-nn10.png",
+      "sha256": "ef8c7a9b98fc86c4a8ff64137f05895e9633a7bb3e30056257e7c0afebd4bcfe"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-aa-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-aa-nn10.png",
+      "sha256": "a5bda27683aaa29cc090b05872e419973b077082dfa9af39f1d6ed2641497f21"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-aa-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-aa-north-nn10.png",
+      "sha256": "f849c591c047d70458f4305a5efff43cfb9a8cc6689210b62e44ef030a36ff62"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-clay-east-nn10.png",
+      "sha256": "a0bf29d44edb9e5a96d5fb8b3225272c4a0548616707ad96e841b5e227b6eedb"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-clay-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-clay-north-nn10.png",
+      "sha256": "aa12920c62f05033615b3f67ec1ef848a5aec96cfeec2595f4741e9c08d72d25"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-east-nn10.png",
+      "sha256": "9b3d73d57ee2e91208f6ca89fe1e5b3d3f34c51f70e391c13266ebb782cc8d31"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-nn10.png",
+      "sha256": "bdf3cf30e543609b812e0d07fc3a2baf611d1cd90559144440e310462eb6d20e"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-inset-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-inset-north-nn10.png",
+      "sha256": "1d168a5f8032eba5c42c68e3162efcd11fd023ee2ca34f125d299ae235b339a9"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-shadow-full-aa-clay-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-shadow-full-aa-clay-east-nn10.png",
+      "sha256": "4271af6e57c4d68d018524e9d1c754af13b97f4ab83f45b961b5463448ee4141"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-shadow-full-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-shadow-full-east-nn10.png",
+      "sha256": "9432217f61696b7213e47f2c3c9a85d00c925485600c543204690c48f665fe55"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-shadow-full-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-shadow-full-nn10.png",
+      "sha256": "ce23f41e59287a75976f5ba615bdb9c8a08f7a74148ab0705b3684ac57387767"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-shadow-full-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-shadow-full-north-nn10.png",
+      "sha256": "12199fb5a308d31fe5d8e869d1469a2f543c1879c73d3a3c7fa15134a5d7942d"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-stroke-east-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-stroke-east-nn10.png",
+      "sha256": "47b557edd7aba05efead1960a3516d8d4623b282367035b1c074b4323a7bcebc"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-stroke-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-stroke-nn10.png",
+      "sha256": "24b4fe15d71f8994920fe83e37494b055fc34d64270ac5d707ee23dc96a69592"
+    },
+    {
+      "from": "artifacts/edge-quality/crops/wavy-stroke-north-nn10.png",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/crops/wavy-stroke-north-nn10.png",
+      "sha256": "f50b1d8c59749aee7c57925400567ae38f8290f27f2417aef8dd93ff64ae7160"
+    },
+    {
+      "from": "artifacts/edge-quality/measure-liquid-edge.mjs",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/measure-liquid-edge.mjs",
+      "sha256": "c17990ccac0311d4542a08d6407123f366b3763ad60dd80c5ec7e3a4d8b9f19c"
+    },
+    {
+      "from": "artifacts/edge-quality/metrics.json",
+      "to": "docs/archive/evidence/2.x/artifacts/edge-quality/metrics.json",
+      "sha256": "33e95e41e1c08e7ab4cccb7643a42f191a2fedd810fddad3ede1a89832a91362"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/01-waviness-stroke-shadow-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/01-waviness-stroke-shadow-rest.png",
+      "sha256": "3f35cc6d8b2577c1999637242b2ddf4059bc9c7793914a45ee175103f0012109"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/02-waviness-stroke-shadow-mid-split.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/02-waviness-stroke-shadow-mid-split.png",
+      "sha256": "619728bbaa6b4ef14d5e2e53705cb95ded098e1e8cba42cdc3a5a8edd1465398"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/03-waviness-stroke-shadow-separated.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/03-waviness-stroke-shadow-separated.png",
+      "sha256": "7f0f2b6be71b373bf6a26897d7383a4dbd0d4e662c88c96bba4fb4616b056910"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/04-morph-merge-contact.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/04-morph-merge-contact.png",
+      "sha256": "952183cb596b0af96e7d5d1416fb371aa3c21728a612a0a4aca6b78b27777d2d"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/05-morph-merge-mid-split.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/05-morph-merge-mid-split.png",
+      "sha256": "81fe785c0809405e8aa6c5aa77d0ef1017abd59a892aaf3a3016e42fab9d53b0"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/06-morph-merge-separated.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/06-morph-merge-separated.png",
+      "sha256": "81fe785c0809405e8aa6c5aa77d0ef1017abd59a892aaf3a3016e42fab9d53b0"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/07-morph-merge-mid-reconnect-neck.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/07-morph-merge-mid-reconnect-neck.png",
+      "sha256": "bc7dd89933bb15b1361bbfac467a250e092079486232e681270f4b613f283b6b"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/08-morph-shape-narrow.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/08-morph-shape-narrow.png",
+      "sha256": "92411d1c8bec46f463660c4b3f5ed0c17a14a4c7d5b3d797ba02691d07e11f53"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/09-morph-shape-early.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/09-morph-shape-early.png",
+      "sha256": "ed4bb24fe74db4a24aa2c2876fb6a9e5dbb2d9e199608a935a9bddcb8dd13750"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/10-morph-shape-mid.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/10-morph-shape-mid.png",
+      "sha256": "4f7ae5d3bc34438266c402da14df7b54dfd5067da660abea313fae5cd0bf1589"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/11-morph-shape-wide.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/11-morph-shape-wide.png",
+      "sha256": "7d2d5fb39d7bd0191f98ad0611f14b338b99ac5e4f605783c64ec64f3e381cfd"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/12-morph-shape-reverse-early.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/12-morph-shape-reverse-early.png",
+      "sha256": "3f0d0a298230848fb16c4d57c36e0959040bece2ba1af300fec95d3ea2695426"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/13-morph-shape-reverse-mid.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/13-morph-shape-reverse-mid.png",
+      "sha256": "fcf98c49ff56f9ea178d0b7437c349fa43e846e9154998423ab9f63d5eb0c57d"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/14-morph-shape-reverse-late.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/14-morph-shape-reverse-late.png",
+      "sha256": "a0dffae535450ab991e9d82abaa0d3c9981d530c72d3518d22889842225e81c8"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/15-morph-shape-reverse-settled.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/15-morph-shape-reverse-settled.png",
+      "sha256": "974f54983c52340d0a15314363822bdde942fe6a8e6d4a67612690b84e818ac0"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/16-content-blur-on-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/16-content-blur-on-rest.png",
+      "sha256": "92411d1c8bec46f463660c4b3f5ed0c17a14a4c7d5b3d797ba02691d07e11f53"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/17-content-blur-on-motion.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/17-content-blur-on-motion.png",
+      "sha256": "924cfa269c617b7f984b5eb3d6704450ec0f3c42464adb0c113612633fe5a5ab"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/18-content-blur-on-settled.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/18-content-blur-on-settled.png",
+      "sha256": "3055d0510b0c85f4837fd0aa699c7e3893d69d7fdedd200fad87eb252d2d34f6"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/19-content-blur-off-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/19-content-blur-off-rest.png",
+      "sha256": "8fc1a639e5e72ab83eddad1fa3dc68af39a54409ca4404a8414d78284159cbc2"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/20-content-blur-off-motion.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/20-content-blur-off-motion.png",
+      "sha256": "149465d08a8dc9560c18fe99614b47d1b83559ae2601d5c8e69e5711343ed232"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/21-content-blur-off-settled.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/21-content-blur-off-settled.png",
+      "sha256": "b51903fcf21c572d1b6fecc54c1385c04a80d9de42cb6d195fbb24d77856877f"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/22-bend-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/22-bend-rest.png",
+      "sha256": "3b09c310369234ed58c2469cace4b63e6d8166bfb439dae9f08fd5657ce4e74d"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/23-bend-motion.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/23-bend-motion.png",
+      "sha256": "9efd21d68a459e63938298e37ec25adc07d516fea915bfe4a196e39729c3f74a"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/24-bend-late.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/24-bend-late.png",
+      "sha256": "3f890d56ac9e4e022bd6fcd2a1782ae5d630b0330ab55704667a691f586197a5"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/25-bend-settled.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/25-bend-settled.png",
+      "sha256": "3f890d56ac9e4e022bd6fcd2a1782ae5d630b0330ab55704667a691f586197a5"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/26-bend-early-deformation.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/26-bend-early-deformation.png",
+      "sha256": "c37e5c28349b9e63c5ba2a10f398a923c79c2de3c2d7822021746abb2ba3cbc6"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/27-image-melt-contact-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/27-image-melt-contact-rest.png",
+      "sha256": "792bb22333f61c77a4a55b3de5b751cd979aeaded480b0cd3d45bdeaf520efc7"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/28-image-melt-separating.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/28-image-melt-separating.png",
+      "sha256": "687a41139343450fa69133d50826bcf8c658e475f49f891ecf8f4f1c383c4f10"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/29-image-melt-separated.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/29-image-melt-separated.png",
+      "sha256": "e6831963a4c572c6e8c264425da101b13281cfe287a6abda27831d87fe9965db"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/30-contact-dissolve-rest.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/30-contact-dissolve-rest.png",
+      "sha256": "9fd3d54a989dea154af9150540f60dab63bf9f1c1f69054ff4311094b4fe50eb"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/31-contact-dissolve-release-motion.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/31-contact-dissolve-release-motion.png",
+      "sha256": "e9edf13960c6a1d2e91fd1c7aca4cbba4d367fcfe591df08ac50b98bb6adc4ba"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/32-contact-dissolve-released.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/32-contact-dissolve-released.png",
+      "sha256": "6933bd8a207aa2b7c4ca50156851776920600c3b60c7ec708df40a340c875eb3"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/33-contact-dissolve-early-release.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/33-contact-dissolve-early-release.png",
+      "sha256": "e85147d9d6c0088a0f22c46424087280bb609741c88c44a8c94acae8219a1d9a"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/34-contact-dissolve-rest-layer-fixed.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/34-contact-dissolve-rest-layer-fixed.png",
+      "sha256": "9fd3d54a989dea154af9150540f60dab63bf9f1c1f69054ff4311094b4fe50eb"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/35-contact-dissolve-release-layer-fixed.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/35-contact-dissolve-release-layer-fixed.png",
+      "sha256": "b1b087c5b61b914e4a1722f19172efc1c3921dbd2bcd4c241e09e76382313f19"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/36-contact-dissolve-released-layer-fixed.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/36-contact-dissolve-released-layer-fixed.png",
+      "sha256": "06af08470f98c584177c2a96da571fe0ef53c2599f78b67dcccf828ce99b5e84"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/37-contact-dissolve-release-zcheck.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/37-contact-dissolve-release-zcheck.png",
+      "sha256": "1467881e5ae1e8370a8238594bc45d25a07c0e67884dd081f752b65e7f4c6544"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/38-contact-dissolve-content-forced-top.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/38-contact-dissolve-content-forced-top.png",
+      "sha256": "ef4ae6ec77af7ace19f9b6ac89cd1a9c0052c6fad10112199381734fc878a2cb"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/39-contact-dissolve-release-crisp.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/39-contact-dissolve-release-crisp.png",
+      "sha256": "a10bf53538e5487efb1c28cbf041c32d924973e1a7abc9a7c97e5b9e156ebd0e"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/40-contact-dissolve-released-crisp.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/40-contact-dissolve-released-crisp.png",
+      "sha256": "404e1b6740a3741704881e4917c50315b4425c3ec9f5d5fb5aa9703f6e348513"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/41-contact-dissolve-reconnected-crisp.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/41-contact-dissolve-reconnected-crisp.png",
+      "sha256": "3063e72a161521f1fae476a8a4c51fe9a4c2dfc56b625856ac95cbd8807eecf7"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/42-image-melt-final-contact.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/42-image-melt-final-contact.png",
+      "sha256": "792bb22333f61c77a4a55b3de5b751cd979aeaded480b0cd3d45bdeaf520efc7"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/43-image-melt-final-separating.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/43-image-melt-final-separating.png",
+      "sha256": "6b7b125fddd54402444779051528b3334e067568ff13a7d02e8a77f33b034db1"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/44-image-melt-final-separated.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/44-image-melt-final-separated.png",
+      "sha256": "3d678316b85f70b594a006c5099f7cd4fd6b5240b02e53fdb31b11a383294e52"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/45-dissolve-final-contact.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/45-dissolve-final-contact.png",
+      "sha256": "0810161c47edbbb3b89d6146e9f288083d0c47def3411268723a49e8b813128f"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/46-dissolve-final-release-motion.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/46-dissolve-final-release-motion.png",
+      "sha256": "9306ad9d77ac4e72e27fa6ea947c80df4a5f88d96f691b9ff4950991938fddaf"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/47-dissolve-final-released.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/47-dissolve-final-released.png",
+      "sha256": "5e6fbde10dd5d5aa813f846d987a684c7858d836f6e7562854c3f3c9d5b1ab15"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/48-dissolve-final-contact-recheck.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/48-dissolve-final-contact-recheck.png",
+      "sha256": "d6ad6d1644f624cd325f2aabeb458f819a7fdcd50ed2c789005467ac70242b51"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/49-dissolve-final-release-early.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/49-dissolve-final-release-early.png",
+      "sha256": "9acdb6ec2a29c492c3d5bcada6323dc3e4c797ee387a8a2e8fcda86bec777c45"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/50-dissolve-final-release-mid.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/50-dissolve-final-release-mid.png",
+      "sha256": "27b243de00e623d44325ccaee5f889bf83cecadc0721bec76682e1c3e32be1a9"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/51-dissolve-final-release-settled.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/51-dissolve-final-release-settled.png",
+      "sha256": "dac220899b7a751f46d05eeba030e86ab7c3867ed345dfbc1bd13753325e719a"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/52-dissolve-final-contact-visible.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/52-dissolve-final-contact-visible.png",
+      "sha256": "5d2e3a60bece2313225ad73b562c0686af10a0b0f5e7f480441edc4699b0b7e4"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/53-dissolve-final-release-visible.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/53-dissolve-final-release-visible.png",
+      "sha256": "1107997aa9d13972a715416c4eb5a0bbba56831df4a05d3bbbb96b2905cb055f"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/54-dissolve-final-released-visible.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/54-dissolve-final-released-visible.png",
+      "sha256": "90bd4182eb87dc971aa73a51abaeef485fcb6d947e2c2246dcc97843f47ebdf3"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/experience-packets.json",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/experience-packets.json",
+      "sha256": "dd503d73ab8c88384f74b999f17d789e39cf7c52cf2729f7d69b17f1100332da"
+    },
+    {
+      "from": "artifacts/experience-capture/liquid-merge/owner-review-brief.md",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md",
+      "sha256": "94d0db7053409dbbda985ca66b897a896c05e3ca15e07e2d3f3d1633427c7efe"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/storybook-final.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/storybook-final.png",
+      "sha256": "a697e876c34e8590e52865b5ec8739b38b55b47d74a993ac57fe3f0397ace53e"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-after-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-after-01.png",
+      "sha256": "e42da16ff44d634822f813fafc7cbf9be4e03ffe0d86433f85c7c2abbd61bcb6"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-after-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-after-02.png",
+      "sha256": "e42da16ff44d634822f813fafc7cbf9be4e03ffe0d86433f85c7c2abbd61bcb6"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-after-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-after-03.png",
+      "sha256": "e42da16ff44d634822f813fafc7cbf9be4e03ffe0d86433f85c7c2abbd61bcb6"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-before-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-before-01.png",
+      "sha256": "b1ac82cd001f441332838ff4820ad1594104161e72557c0095fbc85eebb3014a"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-before-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-before-02.png",
+      "sha256": "f3a8607c25695592fb19bdac5df705729a50a866bac6fc2d7252dac77993318d"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-bar-before-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-bar-before-03.png",
+      "sha256": "f3a8607c25695592fb19bdac5df705729a50a866bac6fc2d7252dac77993318d"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-after-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-after-01.png",
+      "sha256": "f3587f9373240c796f862b3aba5252370b456b44739144d9a4123b3c22f7d2bd"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-after-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-after-02.png",
+      "sha256": "f3587f9373240c796f862b3aba5252370b456b44739144d9a4123b3c22f7d2bd"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-after-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-after-03.png",
+      "sha256": "cd3addf2a9a30e43ee521b7d4241270dfd4d159125afd732588cc5565740f8e6"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-before-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-before-01.png",
+      "sha256": "404d034d96ab423efd6f4d7152bb79b2059039a5fe35d74ddc9e15dba5dd6556"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-before-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-before-02.png",
+      "sha256": "e882d3cffc6001a1cc86e3eb89d57a60a553a911b86b2609ce6b85fc2fc24b6a"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-blob-before-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-blob-before-03.png",
+      "sha256": "404d034d96ab423efd6f4d7152bb79b2059039a5fe35d74ddc9e15dba5dd6556"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-after-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-after-01.png",
+      "sha256": "1ca539508b9890f65b0f4ed301b0475c997551efdc2c6963ea4e30623b5b1750"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-after-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-after-02.png",
+      "sha256": "1ca539508b9890f65b0f4ed301b0475c997551efdc2c6963ea4e30623b5b1750"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-after-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-after-03.png",
+      "sha256": "1ca539508b9890f65b0f4ed301b0475c997551efdc2c6963ea4e30623b5b1750"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-before-01.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-before-01.png",
+      "sha256": "a0a439e99c69d0f58baea369dd345741ee031ceaef12af997936e2658afa998d"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-before-02.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-before-02.png",
+      "sha256": "a0a439e99c69d0f58baea369dd345741ee031ceaef12af997936e2658afa998d"
+    },
+    {
+      "from": "artifacts/experience-capture/waviness-clamp/waviness-control-before-03.png",
+      "to": "docs/archive/evidence/2.x/artifacts/experience-capture/waviness-clamp/waviness-control-before-03.png",
+      "sha256": "d747dabed258746ee24e96083c17b1c2b2512d50ce4673fcccee122de9028adc"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-merging-pieces.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-merging-pieces.png",
+      "sha256": "bba6418fa635d183a0ec31ae06895df3c18e535fca075f44f2456824997ca6a9"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-progress-default.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-progress-default.png",
+      "sha256": "7865aa84cbc3de2861d7bb568908f00cd517bcc11e57060f0d14be76f98ecf6d"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-segmented-daily.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-segmented-daily.png",
+      "sha256": "9aa20b8a236e702b99e98ba41d921ed4b9692027322756bd03d8afd3699d3194"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-segmented-default.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-segmented-default.png",
+      "sha256": "852824b72112c9364edc145622abf49dad5722c3b7f19ff34dc586b59ef72e38"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-stroke-and-shadow-remerged.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-stroke-and-shadow-remerged.png",
+      "sha256": "ab6b1af4291a0b54f1986d676f43de17c2a0c4234df690bf4d7f0604ca9978cb"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-stroke-and-shadow-split.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-stroke-and-shadow-split.png",
+      "sha256": "2b51a41ca3680bcc6bcc0cb77ae51e89e0f31648bf79103430a6cdf9aa7a67dd"
+    },
+    {
+      "from": "artifacts/shadow-cost/after-stroke-and-shadow.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/after-stroke-and-shadow.png",
+      "sha256": "ccb840873aee8e783627d80a34f43be7671fb5228ff6efaad2fd28f5ccb59e75"
+    },
+    {
+      "from": "artifacts/shadow-cost/before-merging-pieces.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/before-merging-pieces.png",
+      "sha256": "952183cb596b0af96e7d5d1416fb371aa3c21728a612a0a4aca6b78b27777d2d"
+    },
+    {
+      "from": "artifacts/shadow-cost/before-progress-count-label.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/before-progress-count-label.png",
+      "sha256": "83f396f9df241f50e7ed3f550939428ed4257efe28232c166b887db4723f6b42"
+    },
+    {
+      "from": "artifacts/shadow-cost/before-progress-default.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/before-progress-default.png",
+      "sha256": "64caabfe3a8bd82a11166b4bb874963669c7a98ad87806fa3e8af9b36c56f619"
+    },
+    {
+      "from": "artifacts/shadow-cost/before-segmented-default.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/before-segmented-default.png",
+      "sha256": "a86c3f6f359386799eb90bdb8622fbc35c3d53e4ef10554cf7918d8590842179"
+    },
+    {
+      "from": "artifacts/shadow-cost/before-stroke-and-shadow.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/before-stroke-and-shadow.png",
+      "sha256": "1885bdaf37fe162f10a63551a1e9ec9b4f89343a4a22a02c94903300b21b77fb"
+    },
+    {
+      "from": "artifacts/shadow-cost/product-catalog.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/product-catalog.png",
+      "sha256": "c9df10d03a616fd0874035c6253f28ec0985ef751e59454b8fd0db49db3dbe70"
+    },
+    {
+      "from": "artifacts/shadow-cost/product-library-1440.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/product-library-1440.png",
+      "sha256": "d70317862735b67810592d43e7fa22e4c0b0d3ae72528c31e4f6eb419c64967a"
+    },
+    {
+      "from": "artifacts/shadow-cost/product-library.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/product-library.png",
+      "sha256": "68626ec3a0b22aafd801fc72e626836d2ab9b6ec484b708054eb1860c05999ae"
+    },
+    {
+      "from": "artifacts/shadow-cost/product-planet.png",
+      "to": "docs/archive/evidence/2.x/artifacts/shadow-cost/product-planet.png",
+      "sha256": "5a8d6f2ef765124e3013319e995b469d839540beb39c222703b75a32c213f4e8"
+    }
+  ],
+  "binaryBytesUnchanged": true,
+  "publicAssetsDeleted": [],
+  "publicAssetReason": "The package exports assets/* and the copy CLI copies the full tree. No product-wide zero-usage proof authorizes deleting a public path."
+}
