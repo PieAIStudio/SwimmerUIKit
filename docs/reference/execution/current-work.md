@@ -30,10 +30,14 @@ related:
 | S2 | 完成，38ca91c；组件样式归位，496 测试 | .scratch/s2/：993 条编译后原子规则等价、288 张截图一致 |
 | S3 | 完成，6cde281、f18fe32；移除专用业务、分离特效和展厅，dark 断代，460 测试 | .scratch/s3/visuals-final/：保留 238 图一致；删除故事有清单 |
 | S4 | 完成，8442b1a；Claude 通过，危险红字、普通底色、两套红边，开关语义色；489 测试 | 原评审 .scratch/s4/review/；补充 .scratch/s4/claude-amendment/，三引擎各 360 色对最低 5.036:1 |
-| S5 | 完成：现行说明收敛为七个入口，旧业务/研究/发布回执归档；493 测试及文档、Storybook 门禁通过 | .scratch/s5/；276 个历史工件归档，非 Markdown 字节逐一一致；351 个公开素材路径与内容不变 |
-| S6 | 待执行：3.0.0 本地候选与包体验收 | 到候选就停，发布需 Owner 明确批准 |
+| S5 | 完成，47d2cef：现行说明收敛为七个入口，旧业务/研究/发布回执归档；493 测试及文档、Storybook 门禁通过 | .scratch/s5/；276 个历史工件归档，非 Markdown 字节逐一一致；351 个公开素材路径与内容不变 |
+| S6 | **3.0.0 候选，待 Owner 批准发布**；493 测试、文档、Storybook、实际 tarball、publint 严格检查和四入口 ESM 类型消费通过 | .scratch/s6/final/；package-check/receipt.json 记录源提交、包体校验值、351 个素材、四入口和共享块体积 |
 
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
+
+候选文件：`.scratch/s6/final/swimmer-ui-kit-3.0.0.tgz`。同目录 `SHA256SUMS` 与 `package-check/receipt.json` 用于交接校验；`packed-browser/` 是真实 tarball 导入后的十二组合、原生交互和 390px 检查，依赖来自本仓库的隔离夹具，不是 University 的安装验收。`negative-gates/` 记录缺文件或改字节的四个坏包都被拒绝，不能用旧的通过回执掩盖失败。
+
+下一步由 Claude 在 University 安装该候选、按迁移表跑完整门禁，再由 Owner 决定 npm 发布。本仓库已停止在候选阶段；未修改任何产品仓库、未运行发布或部署工作流。3.0 计划发布后才归入 completed。
 
 ## 历史与边界
 

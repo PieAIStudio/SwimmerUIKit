@@ -5,6 +5,37 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 3.0.0 — 发布候选，尚未发布（2026-10-02）
+
+这是干净断代，不提供旧接口或旧主题兼容层。现有产品保持各自的精确版本；
+本轮只交付本地候选，需 Claude 在 University 验收并由 Owner 明确批准后才发布 npm。
+完整逐项说明见 [3.0 迁移表](docs/reference/migration-3.0.md)。
+
+### 外观与交互
+
+- 普通控件统一为路径绘制的二维水滴：无底唇、投影、渐变或液体阈值滤镜。
+  装饰背景按下横向摊开、回弹后休眠，文字和原生点击区域不缩放；缓波封顶 1.4px。
+- 六套风格 candy / pastel / mist / grey / outline / ink 全部保留，默认 pastel。
+  风格轴 data-game-ui-style 与 light / dark 明暗轴独立，十二套语义块自动检查完整性和对比度。
+- GameButton primary 是唯一的潮汐液体 CTA，一屏最多一个；涟、引导和 LiquidReveal 共用薄液体材质。
+  旧 surface / liquidFinish 轴、普通控件的液体外观与按钮铜牌皮肤移除；静态头像铜牌相框保留。
+- 按 Owner 委托 Claude 的评审决定：危险按钮保留风格普通底色、只用红字；outline / ink 同时用红边。
+  success 等含义色在灰阶与两套包边仍去色。开关轨道和圆点使用语义色，不另画黑色描边。
+- 换风格/明暗保留原生输入、选区、焦点与状态；减少动态、强制配色、禁用、取消事件和卸载都有回归覆盖。
+
+### 断代与组织
+
+- 深色值 night 改为 dark，包括选择器、dataset 和 closest 判断；包内 CLI 报告旧值，不提供渲染兼容。
+  已知迁移对象包括 University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit 的 auth-captcha。
+- 删除 OwnMySpace 专用建造、施工、资产库及放置工具，删除零使用金属按钮及其 WebGL 预算。
+  University 已在用的 GameMaterialSwatches 保留为通用配色控件，相关类型去掉地形命名。
+- 融化、弯曲与图像接触溶解移到 ./liquid-effects；展厅移到 ./preview。
+  默认入口和 ./liquid-presence 不含这两个可选实现，所有入口共用一份液体资源预算。
+- 根入口由 295 个名字收窄到 135 个，逐项迁移表覆盖删除、改名、子入口、参数与样式。
+  组件按职责归位，样式就近维护；styles.css 的公开引入路径与全部公开图标路径保持。
+- 当前说明收敛为七个入口；旧规格、业务报告、发布回执和原始视觉证据归档，原图不重新生成替代。
+  包检查针对实际 tarball 执行；本机候选、npm 发布与消费产品验收分开记录。
+
 ## 2.14.0 — 2026-10-01
 
 - Fix the stair-stepped top edge on every glossy liquid body: the gloss pass
@@ -295,7 +326,7 @@ registration, routing and `LiquidCtaTransition`. Its old uniform `scale=0.95`
 / `bouncy` motion deliberately changes to the kit's existing `press` behavior
 only when that custom wrapper is migrated. Preserve transition source geometry,
 callback ordering and tests; do not discard the 823-line transition as if the
-kit had absorbed it. See the [upgrade playbook](docs/reference/usage-and-upgrade-playbook.md)
+kit had absorbed it. See the [archived 2.x upgrade playbook](docs/archive/reference-2.x/usage-and-upgrade-playbook.md)
 for exact commands, CSS ownership, acceptance cases and rollback.
 
 This is a **minor**: additive opt-in layout and discovery, not a public-export

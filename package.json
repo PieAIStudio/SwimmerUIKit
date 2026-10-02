@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "2.14.0",
+  "version": "3.0.0",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -76,6 +76,7 @@
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
     "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm test && pnpm check:styles && pnpm check:themes && pnpm build",
     "check:themes": "node scripts/check-control-styles.mjs",
+    "check:packed": "node scripts/verify-packed-candidate.mjs",
     "api:inventory": "node scripts/public-api-audit.mjs --write",
     "api:check": "node scripts/public-api-audit.mjs --check",
     "build": "vite build && node scripts/build-css.mjs && node scripts/finalize-dist.mjs && node scripts/check-warnings-survive-build.mjs",

@@ -43,14 +43,18 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec lefthook install
-      - run: pnpm typecheck
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test
-      - run: pnpm build
+      - run: pnpm verify
       - run: pnpm build-storybook
       - run: pnpm docs:check
-      - run: npx publint
-      - run: npx @arethetypeswrong/cli --pack . --entrypoints . ./liquid-presence ./package.json --profile esm-only
+
+      # This workflow is manual release work. Publishing below reuses this exact
+      # locally inspected artifact; package validation must not silently repack it.
+      - name: Pack verified candidate
+        run: pnpm pack --out .scratch/release-candidate.tgz
+      - run: pnpm check:packed .scratch/release-candidate.tgz
+      - run: npm exec --yes --registry=https://registry.npmjs.org --package=publint@0.3.24 -- publint run .scratch/release-candidate.tgz --strict
+      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./liquid-presence ./liquid-effects ./preview ./package.json --profile esm-only
 
       - name: Resolve package version
         id: package
@@ -70,12 +74,9 @@ jobs:
             echo "$PACKAGE is not published yet"
           fi
 
-      - name: Pack package
-        run: pnpm pack --out "$RUNNER_TEMP/swimmer-ui-kit.tgz"
-
       - name: Publish package
         if: steps.registry.outputs.exists != 'true'
-        run: npm publish "$RUNNER_TEMP/swimmer-ui-kit.tgz" --provenance --access public --registry https://registry.npmjs.org/
+        run: npm publish .scratch/release-candidate.tgz --provenance --access public --registry https://registry.npmjs.org/
 
       - name: Verify package
         run: |

@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**当前 main 是 3.0 发布前工作线，不是 npm 已发布公告。** 现有产品继续锁定自己的精确版本；新接入和升级先读[迁移表](docs/reference/migration-3.0.md)。本轮不会自动升级任何产品。
+**当前 main 的版本是 3.0.0 发布候选，尚未发布 npm。** 现有产品继续锁定自己的精确版本；新接入和升级先读[迁移表](docs/reference/migration-3.0.md)。本轮不会自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -53,5 +53,7 @@ pnpm build-storybook
 ```
 
 公共 API 变更后运行 pnpm api:inventory。提交/推送只保存代码，不发 npm，也不部署网站。候选需先通过本机门禁与产品验收，再由 Owner 明确批准第 3 段发布；不要自行触发发布工作流。
+
+维护者检查真实包体使用 `pnpm check:packed .scratch/<candidate>.tgz`：四个 JS 入口、严格类型消费、资源原字节和迁移检查器都从 tarball 验证。该命令只创建仓库内隔离夹具，不安装到产品、不发布。
 
 源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。素材不允许抽取成独立素材包；第三方归属看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。
