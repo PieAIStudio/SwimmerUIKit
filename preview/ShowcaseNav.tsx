@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 const THEME_STORAGE_KEY = 'swimmer-ui-preview-theme';
 
-function readStoredTheme(): 'light' | 'night' {
+function readStoredTheme(): 'light' | 'dark' {
   try {
     const shared = new URLSearchParams(window.location.search).get('theme');
-    if (shared === 'night' || shared === 'light') return shared;
-    return localStorage.getItem(THEME_STORAGE_KEY) === 'night' ? 'night' : 'light';
+    if (shared === 'dark' || shared === 'light') return shared;
+    return localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
   } catch {
     return 'light';
   }
@@ -16,12 +16,12 @@ function readStoredTheme(): 'light' | 'night' {
 // attribute) had no way to demo itself — you had to know to poke devtools.
 // This flips the same data-game-ui-theme the design-system-guide documents,
 // on the same element (<html>) a real host app would use.
-function useThemeToggle(): [theme: 'light' | 'night', toggle: () => void] {
-  const [theme, setTheme] = useState<'light' | 'night'>(() => readStoredTheme());
+function useThemeToggle(): [theme: 'light' | 'dark', toggle: () => void] {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => readStoredTheme());
 
   useEffect(() => {
-    if (theme === 'night') {
-      document.documentElement.setAttribute('data-game-ui-theme', 'night');
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-game-ui-theme', 'dark');
     } else {
       document.documentElement.removeAttribute('data-game-ui-theme');
     }
@@ -36,7 +36,7 @@ function useThemeToggle(): [theme: 'light' | 'night', toggle: () => void] {
     window.history.replaceState(null, '', url);
   }, [theme]);
 
-  return [theme, () => setTheme((current) => (current === 'night' ? 'light' : 'night'))];
+  return [theme, () => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))];
 }
 
 const baseLinkStyle = {
@@ -93,7 +93,7 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
         🟤 Swimmer UI Kit
       </span>
       <button
-        aria-pressed={theme === 'night'}
+        aria-pressed={theme === 'dark'}
         onClick={toggleTheme}
         type="button"
         style={{
@@ -109,7 +109,7 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
           color: '#fff',
         }}
       >
-        {theme === 'night' ? '🌙 Night' : '☀️ Light'}
+        {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
       </button>
       <a
         aria-current={current === 'components' ? 'page' : undefined}
