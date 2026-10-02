@@ -485,9 +485,6 @@
     gap: 20px 16px;
     align-items: start;
   }
-  /* Generous vertical room on purpose: the silhouette is drawn outside the
-   * control's own box, so a tight row would clip the very thing this section
-   * exists to show. */
   .game-ui-liquid-showcase__pair {
     display: grid;
     justify-items: center;
@@ -739,7 +736,7 @@
   }
   .game-ui-liquid-demo-kicker,
   .game-ui-liquid-demo-status {
-    color: var(--game-ui-secondary);
+    color: var(--game-ui-text-muted);
     font-size: var(--game-ui-font-xs);
     font-weight: 850;
     letter-spacing: 0.08em;
@@ -946,8 +943,6 @@
   /* destination now; these rules are that page's layout and nothing     */
   /* else. Generous vertical room everywhere on purpose — a silhouette   */
   /* is painted outside its control's box and a drop-shadow outside that */
-  /* again, so a tight row clips the exact thing the page exists to      */
-  /* show, and it clips it silently.                                     */
   /* ------------------------------------------------------------------ */
   .game-ui-liquid-page__rule {
     max-width: 62ch;
@@ -1153,10 +1148,6 @@
    * to follow, and a showcase that lied about the reference control would be
    * worse than no showcase.
    */
-  .game-ui-liquid-page__pinned-press .game-ui-button {
-    --game-ui-button-lip-depth: 1px;
-    translate: 0 3px;
-  }
 
   .game-ui-liquid-page__glossary {
     display: grid;

@@ -22,5 +22,41 @@
   {
     "before": "建造、施工、资产库及放置工具的 `game-ui-*` 类",
     "after": "随 D1 删除的组件移除；产品继续锁定旧版直到完成自身业务界面迁移。通用 GameShell 的槽位和 GameMaterialSwatches 保留。"
+  },
+  {
+    "before": "`GameButton surface / liquidFinish`、`GameIconButton surface / liquidFinish`",
+    "after": "删除这些参数：primary 是唯一潮汐液体 CTA，其他按钮和图标按钮固定二维水滴。删除按钮铜牌皮肤；GameAvatar 的静态铜牌相框不属于普通控件，仍然保留。"
+  },
+  {
+    "before": "`GameToggle / GameSegmentedControl / GameSelect / GameProgress` 的 `surface`、`liquidFinish`",
+    "after": "删除可选液体皮肤。这些组件固定平面，不再让普通选择或进度条抢占主操作的液体信号。值、原生表单、焦点、禁用和回调语义保持。"
+  },
+  {
+    "before": "`LiquidGroup / LiquidSurface liquidFinish`",
+    "after": "删除 matte / glossy 开关；命名动作共享同一套涟的薄重量。高级数值原件 gloss 仍可显式使用，set 的硬化和多体桥接 blur 保留。"
+  },
+  {
+    "before": "`LiquidReveal surface=\"dark\" / \"material\"`",
+    "after": "删除表面开关，统一材质面板；涟的 guideContent 使用同一原件。源锚点、焦点保护、减少动态和卸载清理不变。"
+  },
+  {
+    "before": "`--game-ui-button-lip-depth`、`--game-ui-button-lip-ink`",
+    "after": "删除按钮底边及底边颜色。普通控件没有投影、渐变或高光；原生点击框不缩小，背景 SVG 路径负责按压形变。"
+  },
+  {
+    "before": "只设置明暗、不设置风格的普通控件",
+    "after": "默认为 pastel。风格用独立的 data-game-ui-style（candy / pastel / mist / grey / outline / ink），明暗继续使用 light / dark；两条轴可以分别嵌套。"
+  },
+  {
+    "before": "控件复用旧液体/语义背景配色",
+    "after": "平面控件的色相使用 --game-ui-tint-*、--game-ui-mist-* 与语义 control-* 变量；支持 hue 的控件可指定 coral / sun / leaf / sky / grape / pink。液体引擎数值 --game-ui-liquid-gooey-* 不改名。"
+  },
+  {
+    "before": "danger 红底，或在灰阶/包边中与 secondary 无法区分",
+    "after": "六套 danger 都保留该风格的平时底色，用对应明暗的 --game-ui-danger-ink 写红字；outline / ink 的边也用同色。背景不使用危险红。彩色、淡彩、雾色的风格配色不变；success 等含义色在 grey / outline / ink 仍去色，只有 danger 红字例外。文字对比度至少 4.5:1。"
+  },
+  {
+    "before": "把 variant=\"primary\" 用于多个同级选择或普通强调",
+    "after": "primary 专指推动主线的 CTA，一屏最多一个。选择使用对应选项组件或 aria-pressed 的普通按钮，选中带对勾且不扩大点击区域。"
   }
 ]

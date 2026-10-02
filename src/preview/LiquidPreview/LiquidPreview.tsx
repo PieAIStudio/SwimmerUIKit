@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
 
-import { type LiquidFinish } from '../../liquid/finish';
-
 import { GameBadge } from '../../feedback/GameBadge/GameBadge';
 
 import { GameLanguageMenu } from '../../controls/GameLanguageMenu/GameLanguageMenu';
@@ -9,7 +7,6 @@ import { GameLanguageMenu } from '../../controls/GameLanguageMenu/GameLanguageMe
 import { GameButton, type GameButtonVariant } from '../../controls/GameButton/GameButton';
 import { type Lang } from './copyTypes';
 import { COPY } from './copy';
-import { FinishContext } from './context';
 import { TONES } from './constants';
 import { Shelf } from './Shelf';
 import { Sizes } from './Sizes';
@@ -18,7 +15,6 @@ import { States } from './States';
 
 export function LiquidPreview(): ReactNode {
   const [lang, setLang] = useState<Lang>('zh-CN');
-  const [finish, setFinish] = useState<LiquidFinish>('glossy');
   const [view, setView] = useState(() => {
     if (typeof window === 'undefined') return 'shelf';
     return /liquid-(sizes|tones|states|knobs)-title/.exec(window.location.hash)?.[1] ?? 'shelf';
@@ -34,7 +30,7 @@ export function LiquidPreview(): ReactNode {
   }, []);
 
   return (
-    <FinishContext.Provider value={finish}>
+    <>
       <main
         aria-label="Swimmer UI Kit liquid surface"
         className="game-ui-preview game-ui-clay-preview game-ui-liquid-page"
@@ -63,16 +59,7 @@ export function LiquidPreview(): ReactNode {
           <p>
             这里展示的是动作形态，不是成品控件。只挂载当前实验，保留两组共享动效预算，不把其余示例静默降级。
           </p>
-          <label>
-            液体材质{' '}
-            <select
-              value={finish}
-              onChange={(event) => setFinish(event.currentTarget.value as LiquidFinish)}
-            >
-              <option value="matte">哑光 · Matte</option>
-              <option value="glossy">高光 · Glossy</option>
-            </select>
-          </label>
+          <p>同一套涟的薄液体材质；这里只比较动作，不再选择不同厚度或高光皮肤。</p>
           <div className="game-ui-liquid-demo-controls" role="group" aria-label="材料实验类别">
             {(['shelf', 'sizes', 'tones', 'states', 'knobs'] as const).map((key) => (
               <GameButton
@@ -104,7 +91,7 @@ export function LiquidPreview(): ReactNode {
                   aria-pressed={tone === option}
                   key={option}
                   onClick={() => setTone(option)}
-                  variant={tone === option ? option : 'ghost'}
+                  variant="secondary"
                 >
                   {option}
                 </GameButton>
@@ -160,6 +147,6 @@ export function LiquidPreview(): ReactNode {
           </section>
         )}
       </main>
-    </FinishContext.Provider>
+    </>
   );
 }

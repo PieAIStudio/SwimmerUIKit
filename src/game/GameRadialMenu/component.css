@@ -8,40 +8,30 @@
 @layer swimmer-ui {
   .game-ui-radial-item {
     min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
     border-radius: var(--game-ui-radius-control);
     font: inherit;
     font-family: var(--game-ui-font-body);
     font-weight: 860;
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     min-width: fit-content;
     padding: 0 16px;
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
     --radial-lift: 0px;
     position: absolute;
-    transform: rotate(calc(360deg / var(--radial-count, 1) * var(--radial-index, 0)))
-      translateY(calc(-1 * var(--game-ui-radial-radius) + var(--radial-lift)))
-      rotate(calc(-360deg / var(--radial-count, 1) * var(--radial-index, 0)));
+    left: calc(
+      50% + sin(calc(var(--radial-index) * 360deg / var(--radial-count))) *
+        var(--game-ui-radial-radius)
+    );
+    top: calc(
+      50% - cos(calc(var(--radial-index) * 360deg / var(--radial-count))) *
+        var(--game-ui-radial-radius)
+    );
+    translate: -50% -50%;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-  }
-  @media (hover: hover) {
-    .game-ui-radial-item:hover {
-      --radial-lift: -6px;
-    }
-  }
-  .game-ui-radial-item:active {
-    scale: 0.96;
   }
 
   /* GameRadialMenu: emote-wheel layout. Items sit at clock positions via
@@ -63,29 +53,7 @@
    * cover shapes that pure token swap cannot express (translucent primary
    * fill, warm hover, backdrop blur, clay-icon plate on dark).
    */
-  [data-game-ui-tone='glass'] .game-ui-radial-item {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-radial-item {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
   @media (hover: hover) {
-    [data-game-ui-tone='glass'] .game-ui-radial-item:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-    .game-ui-overlay-scope .game-ui-radial-item:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
   }
 
   /*
@@ -109,9 +77,6 @@
  * pressed/selected state needs a border (not just a background tint) to stay
  * legible, and focus rings need an explicit system-color outline. */
   @media (forced-colors: active) {
-    .game-ui-radial-item {
-      border: 1px solid ButtonText;
-    }
     .game-ui-radial-item:focus-visible {
       outline-color: Highlight;
     }

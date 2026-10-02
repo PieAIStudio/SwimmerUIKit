@@ -179,17 +179,26 @@ describe('token single source of truth', () => {
     }
   });
 
-  it('every var(--game-ui-*) referenced by styles.css is defined in theme.css', () => {
+  it('every referenced token has a real global, style-block or component-local declaration', () => {
     // Only real runtime channels are exempt. Tunable layout defaults belong
     // in theme.css, not in this test's strings as an accidental linter allowlist.
-    const componentOwned = new Set(['--game-ui-card-offset', '--game-ui-liquid-metal-turn']);
+    const componentOwned = new Set(['--game-ui-card-offset']);
+    // Read definitions, not mentions in comments/test strings. Style blocks
+    // additionally undergo the exact twelve-block completeness/contrast gates.
+    const localDefinitions = new Set(
+      [
+        ...stylesCss
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .matchAll(/(?:^|[;{\s])(--game-ui-[\w-]+)\s*:/g),
+      ].map((match) => match[1]),
+    );
     const referenced = new Set<string>();
     for (const match of stylesCss.matchAll(/var\((--game-ui-[\w-]+)[,)]/g)) {
       const name = match[1];
       if (name) referenced.add(name);
     }
     const missing = [...referenced].filter(
-      (name) => !rootVars.has(name) && !componentOwned.has(name),
+      (name) => !rootVars.has(name) && !localDefinitions.has(name) && !componentOwned.has(name),
     );
     expect(missing).toEqual([]);
   });
@@ -237,7 +246,7 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     expect(placeholder).toContain('color: var(--game-ui-text-muted)');
     expect(placeholder).toContain('opacity: 1');
     expect(blockOf(stylesCss, '.game-ui-input:disabled::placeholder')).toContain(
-      'var(--game-ui-disabled)',
+      'var(--game-ui-control-disabled-text)',
     );
   });
   // Every pair below is normal-or-bold small UI text (not WCAG "large

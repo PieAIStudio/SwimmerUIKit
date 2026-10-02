@@ -877,8 +877,8 @@ describe('LiquidGooeyEngine idle clock', () => {
   });
 });
 
-describe('Move target component content layers', () => {
-  it('mounts both target components without the painted-child warning', async () => {
+describe('ordinary components no longer spend a liquid layer', () => {
+  it('mounts segmented selection and progress without a filter or painted-child warning', async () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const container = await mount(
       <div>
@@ -893,7 +893,11 @@ describe('Move target component content layers', () => {
         <GameProgress label="Progress" value={48} />
       </div>,
     );
-    expect(container.querySelectorAll('[data-liquid-gooey-blob]').length).toBeGreaterThan(0);
+    expect(container.querySelectorAll('[data-liquid-gooey-blob]')).toHaveLength(0);
+    expect(container.querySelector('[aria-pressed="true"] .game-ui-droplet path')).not.toBeNull();
+    expect(container.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe(
+      '48',
+    );
     expect(warning).not.toHaveBeenCalledWith(
       expect.stringContaining('LiquidGroup.Item children should not have their own border'),
     );

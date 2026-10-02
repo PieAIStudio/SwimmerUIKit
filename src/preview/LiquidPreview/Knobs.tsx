@@ -1,6 +1,4 @@
-import { useContext, type ReactNode } from 'react';
-
-import { liquidFinishGloss } from '../../liquid/finish';
+import { type ReactNode } from 'react';
 
 import { LIQUID_FORMS, type LiquidForm } from '../../liquid/forms';
 
@@ -8,7 +6,6 @@ import { LIQUID_GOOEY_MIN_EDGE_RAMP, liquidGooeyEdgeContrast } from '../../liqui
 
 import { parseShadow } from '../../liquid/shadow';
 import { type Copy } from './copyTypes';
-import { FinishContext } from './context';
 
 /*
  * The knobs, next to the thing they made.
@@ -39,12 +36,11 @@ function readShadow(value: string | undefined): string | null {
 }
 
 export function Knobs({ form, copy }: { form: LiquidForm; copy: Copy }): ReactNode {
-  const finish = useContext(FinishContext);
-  const { blur, contrast, blob, lobes, gloss, shadow, shadowEngaged } = LIQUID_FORMS[form].group;
+  const { blur, contrast, blob, lobes, gloss, shadow } = LIQUID_FORMS[form].group;
   const effective = liquidGooeyEdgeContrast(blur, contrast);
   const edge = (2.5628 * blur) / effective;
   const rest = readShadow(shadow);
-  const engagedShadow = readShadow(shadowEngaged);
+  const engagedShadow = readShadow(shadow);
   return (
     <dl className="game-ui-liquid-page__knobs">
       <dt>blur</dt>
@@ -69,9 +65,7 @@ export function Knobs({ form, copy }: { form: LiquidForm; copy: Copy }): ReactNo
         ) : null}
       </dd>
       <dt>gloss</dt>
-      <dd>
-        {liquidFinishGloss(finish, gloss)} · {finish}
-      </dd>
+      <dd>{gloss}</dd>
       <dt>shadow</dt>
       <dd>
         {rest ?? copy.noShadow}

@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useCallback, useState, type ReactNode } from 'react';
 import {
   autoUpdate,
@@ -89,7 +90,9 @@ export function GameHelpTip({ label, children }: GameHelpTipProps): ReactNode {
             }
           },
         })}
+        data-game-ui-paint=""
       >
+        <DropletSurface />
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
           <path

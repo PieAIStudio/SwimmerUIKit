@@ -110,7 +110,7 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
               </pre>
             </GamePanel>
             <GamePanel title={lang === 'zh-CN' ? '全宽液体主按钮' : 'Full-width liquid CTA'}>
-              <GameButton fullWidth surface="liquid" variant="primary">
+              <GameButton fullWidth variant="primary">
                 {lang === 'zh-CN' ? '进入课程' : 'Enter course'}
               </GameButton>
               <pre>

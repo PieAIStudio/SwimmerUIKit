@@ -1,6 +1,10 @@
 import { readFileSync } from 'node:fs';
 
 const mappedNames = {
+  GameButtonSurface:
+    '删除独立皮肤轴。GameButton 的 primary 固定为潮汐液体 CTA，其余变为二维水滴；GameIconButton 固定二维水滴。不保留 flat/liquid/plaque 按钮兼容开关。GameAvatar 的独立静态铜牌相框仍保留。',
+  LiquidFinish:
+    '删除 matte/glossy 材质开关；CTA、涟与面板共享同一套薄液体重量。高级 LiquidGroup / LiquidSurface 数值原件仍可显式调整 gloss，不保留旧厚配方。',
   GameStatList: '改用 GameFactList；删除重复别名。',
   GameStatListProps: '改用 GameFactListProps；删除重复别名。',
   GameSceneHudLayout: '改用 GameShell；删除重复别名。',
@@ -123,5 +127,14 @@ University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit。
 预览从 ./preview 导入，并显式加载 preview.css。默认入口和 ./liquid-presence 均不包含这两个可选部分的实现。
 
 GameMaterialSwatches 已被 University 的 AvatarLab 用于头像配色，不是 OwnMySpace 独占功能；保留为通用控件，类型去掉地形命名。其余建造、施工和资产业务组件按 D1 删除。
+
+## University 接入清单（由 Claude 在产品仓库实施）
+
+1. 在隔离环境安装本仓库提供的 3.0.0 候选 tarball，先核对 SHA-256；不要把候选当成 npm 已发布版，也不要直接改生产版本。
+2. 明暗只用 light / dark。替换旧属性、CSS 选择器、dataset 和 closest 深色判断；同时核对 AuthKit 的 auth-captcha，不能只改页面的属性。
+3. 学习者风格由产品选择：孩子用 pastel，大人用 grey；通过独立的 data-game-ui-style 设置，不把换风格做成重建编辑器或清空学习进度。
+4. 主线下一步使用 GameButton variant="primary"，一屏最多一个潮汐 CTA；删除旧 surface / liquidFinish 参数，普通操作保持平面水滴。危险操作使用 danger，不用产品自绘红底覆盖。
+5. 对照上面两张迁移表处理全部现有调用和类型，包括 AvatarLab 配色色块类型；按需加载液体存在、特效和展厅子入口，不再从主入口获取内部配方。
+6. 跑产品完整门禁和实际课程/账号/编辑流程：主题与风格切换不丢输入、焦点、选区、选择和学习状态；检查验证码、375/390 窄屏、禁用、键盘与减少动态。记录候选文件及校验值、安装结果和失败项，交 Owner 决定是否发布 npm。
 `;
 }

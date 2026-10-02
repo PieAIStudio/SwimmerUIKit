@@ -1,438 +1,88 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
+  .game-ui-button-frame {
+    display: contents;
+  }
+  .game-ui-button-frame[data-liquid='true'] {
+    display: inline-flex;
+    position: relative;
+    isolation: isolate;
+    align-items: stretch;
+    vertical-align: middle;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .game-ui-button-frame[data-liquid='true'][data-full-width='true'] {
+    display: flex;
+    width: 100%;
+  }
   .game-ui-button {
-    min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
-    border-radius: var(--game-ui-radius-control);
-    font: inherit;
-    font-family: var(--game-ui-font-body);
-    font-weight: 860;
-    cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
-    box-shadow:
-      0 var(--game-ui-button-lip-depth) 0 var(--game-ui-button-lip-ink),
-      var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      translate var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-width: fit-content;
-    padding: 0 16px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    min-height: max(2.4rem, 40px);
+    gap: var(--game-ui-control-gap);
+    min-height: 44px;
+    min-width: 0;
+    max-width: 100%;
+    padding: var(--game-ui-control-padding-block) var(--game-ui-control-padding-inline);
+    font: inherit;
+    font-family: var(--game-ui-font-body);
+    font-weight: 750;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    cursor: pointer;
   }
-  /*
-   * The lip is on `.game-ui-button` alone, not on every control that shares
-   * the row above. A tab, a toggle and a segmented option all live inside
-   * something else and read as part of a surface; a button is the thing you
-   * hit, and it is the only one that should look like it has height.
-   */
-  /* Pressing travels the lip's own height, so the button lands on the surface
-   * instead of shrinking in place. */
-  .game-ui-button:active:not(:disabled) {
-    --game-ui-button-lip-depth: 1px;
-    translate: 0 3px;
-  }
-  .game-ui-button--static:active:not(:disabled) {
-    --game-ui-button-lip-depth: 0px;
-    translate: none;
-  }
-  .game-ui-button:disabled {
-    --game-ui-button-lip-depth: 0px;
-    translate: none;
-  }
-  /* A shallower lip where buttons crowd. Height reads as height because there
-   * is room around it; at 34px in a dense row, four solid bands stacked close
-   * together stop reading as four keys and start reading as ruled lines. */
-  [data-game-ui-density='compact'] .game-ui-button {
-    --game-ui-button-lip-depth: 2px;
-  }
-  [data-game-ui-density='compact'] .game-ui-button:active:not(:disabled) {
-    --game-ui-button-lip-depth: 0px;
-    translate: 0 2px;
-  }
-  @media (hover: hover) {
-    .game-ui-button:hover {
-      transform: translateY(-1px);
-    }
-  }
-  .game-ui-button:active {
-    scale: 0.96;
-  }
-  .game-ui-button--primary {
-    background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent));
-    color: var(--game-ui-accent-contrast);
-  }
-  .game-ui-button--secondary {
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
-  }
-  .game-ui-button--ghost {
-    border-color: var(--game-ui-border-subtle);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 18%, transparent);
-    color: var(--game-ui-text-muted);
-    box-shadow: none;
-  }
-  .game-ui-button--success {
-    background: linear-gradient(180deg, var(--game-ui-success-bright), var(--game-ui-success));
-    color: var(--game-ui-accent-contrast);
-  }
-  .game-ui-button--danger {
-    background: linear-gradient(180deg, var(--game-ui-danger-bright), var(--game-ui-danger));
-    color: var(--game-ui-accent-contrast);
-  }
-  .game-ui-button:disabled {
-    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
-    color: var(--game-ui-disabled);
-    cursor: not-allowed;
-    transform: none;
-  }
-  /* Polish · P2 optical alignment: trim 2px on whichever side carries an icon */
-  .game-ui-button:has(> .game-ui-asset-icon:last-child) {
-    padding-right: 14px;
-  }
-  .game-ui-button:has(> svg:last-child) {
-    padding-right: 14px;
-  }
-  .game-ui-button:has(> .game-ui-asset-icon:first-child) {
-    padding-left: 14px;
-  }
-  .game-ui-button:has(> svg:first-child) {
-    padding-left: 14px;
-  }
-  /* Polish · P12 opt-out: <GameButton static> disables the press scale */
-  .game-ui-button--static:active {
-    scale: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .game-ui-button:hover {
-      transform: none;
-    }
-  }
-
-  /*
-   * Overlay glass tone — semantic tokens are re-scoped in theme.css under
-   * [data-game-ui-tone='glass'] / .game-ui-overlay-scope. Rules below only
-   * cover shapes that pure token swap cannot express (translucent primary
-   * fill, warm hover, backdrop blur, clay-icon plate on dark).
-   */
-  [data-game-ui-tone='glass'] .game-ui-button {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-button {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  @media (hover: hover) {
-    [data-game-ui-tone='glass'] .game-ui-button:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-    .game-ui-overlay-scope .game-ui-button:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-  }
-  [data-game-ui-tone='glass'] .game-ui-button--primary {
-    border-color: var(--game-ui-overlay-glass-border-hover);
-    background: var(--game-ui-overlay-glass-primary-fill);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-  }
-  .game-ui-overlay-scope .game-ui-button--primary {
-    border-color: var(--game-ui-overlay-glass-border-hover);
-    background: var(--game-ui-overlay-glass-primary-fill);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-  }
-  [data-game-ui-tone='glass'] .game-ui-button--ghost {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
-    color: var(--game-ui-overlay-glass-text-muted);
-    box-shadow: none;
-  }
-  .game-ui-overlay-scope .game-ui-button--ghost {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
-    color: var(--game-ui-overlay-glass-text-muted);
-    box-shadow: none;
-  }
-  [data-game-ui-tone='glass'] .game-ui-button--success {
-    border-color: color-mix(in srgb, var(--game-ui-success) 48%, transparent);
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--game-ui-success) 32%, transparent),
-        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
-      ),
-      var(--game-ui-overlay-glass-bg-strong);
-    color: var(--game-ui-overlay-glass-text);
-  }
-  .game-ui-overlay-scope .game-ui-button--success {
-    border-color: color-mix(in srgb, var(--game-ui-success) 48%, transparent);
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--game-ui-success) 32%, transparent),
-        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
-      ),
-      var(--game-ui-overlay-glass-bg-strong);
-    color: var(--game-ui-overlay-glass-text);
-  }
-  [data-game-ui-tone='glass'] .game-ui-button--danger {
-    border-color: color-mix(in srgb, var(--game-ui-danger) 48%, transparent);
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--game-ui-danger) 32%, transparent),
-        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
-      ),
-      var(--game-ui-overlay-glass-bg-strong);
-    color: var(--game-ui-overlay-glass-text);
-  }
-  .game-ui-overlay-scope .game-ui-button--danger {
-    border-color: color-mix(in srgb, var(--game-ui-danger) 48%, transparent);
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--game-ui-danger) 32%, transparent),
-        color-mix(in srgb, var(--game-ui-text-on-dark) 4%, transparent)
-      ),
-      var(--game-ui-overlay-glass-bg-strong);
-    color: var(--game-ui-overlay-glass-text);
-  }
-  [data-game-ui-tone='glass'] .game-ui-button:disabled {
-    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 50%, transparent);
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
-    color: var(--game-ui-disabled);
-  }
-  .game-ui-overlay-scope .game-ui-button:disabled {
-    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 50%, transparent);
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 55%, transparent);
-    color: var(--game-ui-disabled);
-  }
-
-  /*
-   * Compact density — reduced min-height / padding for scene-overlay HUDs.
-   * Orthogonal to tone: use alone or with glass.
-   *   <div data-game-ui-density="compact"> … </div>
-   */
-  [data-game-ui-density='compact'] .game-ui-button {
-    min-height: 34px;
-    padding: 0 12px;
-  }
-
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
-  .game-ui-button:focus-visible {
-    outline: 3px solid var(--game-ui-focus-ring);
-    outline-offset: 2px;
-  }
-
-  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
-  @media (forced-colors: active) {
-    .game-ui-button {
-      border: 1px solid ButtonText;
-    }
-    .game-ui-button:focus-visible {
-      outline-color: Highlight;
-    }
-  }
-
-  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
- * delay and the grey iOS tap flash on every interactive control; keep game
- * control surfaces from turning into text selections or image callouts
- * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
- * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
- * raw env(safe-area-inset-*) can read 0 — can override the source values. */
-
-  /* Touch-friendlier primary controls (44px floor) without breaking dense HUD. */
-  @media (pointer: coarse) {
-    .game-ui-button {
-      min-height: max(2.75rem, 44px);
-    }
-  }
-  /*
-   * On a liquid button, the liquid IS the button.
-   *
-   * The first attempt left the control opaque and put the shaped body behind
-   * it, outset by a few pixels. That produced a regular pill with a blob
-   * peeking out around it — and worse, the shaped edge was mostly hidden,
-   * because a 7px displacement on a 7px sliver of visible pad has nowhere to
-   * show. It read as decoration stuck behind a button rather than as a button
-   * made of liquid, which is the opposite of the point.
-   *
-   * `LiquidCtaButton` had already solved this in the product and the answer
-   * was one line: make the real control transparent. The `<button>` keeps
-   * everything that has to stay rectangular and reliable — hit target, focus
-   * ring, crisp text, every event — and the silhouette underneath becomes the
-   * only thing painting a shape. So the shape a reader sees is the liquid one.
-   */
-  .game-ui-button-liquid .game-ui-button {
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    /* The liquid body already carries the press. Letting the flat lip travel
-     * as well would slide the label off the silhouette holding it. */
-    /* Keep explicit independent resets through CSS minification. Lightning CSS
-     * folds literal identity scale/translate + transform:none into transform
-     * alone, which cannot override another rule's independent scale/translate.
-     * Global initial values retain those resets without !important or new tokens. */
-    translate: initial;
-    scale: initial;
-    transform: none;
-  }
-  .game-ui-button-liquid .game-ui-button:active {
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    /* The liquid body already carries the press. Letting the flat lip travel
-     * as well would slide the label off the silhouette holding it. */
-    /* Keep explicit independent resets through CSS minification. Lightning CSS
-     * folds literal identity scale/translate + transform:none into transform
-     * alone, which cannot override another rule's independent scale/translate.
-     * Global initial values retain those resets without !important or new tokens. */
-    translate: initial;
-    scale: initial;
-    transform: none;
-  }
-  /*
-   * The default liquid button is tinted, not the raised near-white.
-   *
-   * `surface-raised` is the right fill for a flat secondary button, and the
-   * wrong one for a liquid body: the whole point of this surface is a shape you
-   * can see, and a near-white shape on a cream panel has no shape at all — it
-   * measured as invisible next to its own flat twin while every coloured tone
-   * read clearly. The pale accent is the least loud tint that gives the
-   * silhouette an edge to be, and it adapts across themes on its own.
-   */
-  .game-ui-button-liquid {
-    --game-ui-liquid-surface-fill: var(--game-ui-accent-pale);
-  }
-  .game-ui-button-liquid--primary {
-    --game-ui-liquid-surface-fill: var(--game-ui-accent);
-  }
-  .game-ui-button-liquid--danger {
-    --game-ui-liquid-surface-fill: var(--game-ui-danger);
-  }
-  .game-ui-button-liquid--success {
-    --game-ui-liquid-surface-fill: var(--game-ui-success);
-  }
-
-  /* Opt-in layout only. The native button, content and decorative body share
-   * one box; putting width:100% on the button alone leaves its wrapper narrow. */
   .game-ui-button--full-width {
     width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
   }
-  .game-ui-button-liquid--full-width {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  .game-ui-button[data-game-ui-cta='true'] {
+    background: var(--game-ui-cta-from);
+    color: var(--game-ui-cta-text);
+    z-index: 1;
   }
-  .game-ui-button-liquid--full-width > .game-ui-liquid-surface__content {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  .game-ui-cta-decoration {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
   }
-  .game-ui-button-liquid--full-width > .game-ui-liquid-surface__content > span {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  .game-ui-button-frame:has(.game-ui-cta-decoration [data-liquid-gooey-blob][d]:not([d='']))
+    > .game-ui-button[data-game-ui-cta='true']:not(:disabled) {
+    background: transparent;
   }
-  /* A disabled fieldset is browser-owned state, even when a React disabled
-   * prop was not set on each descendant. Keep that native path quiet too. */
-  .game-ui-button-liquid:has(.game-ui-button:disabled) .game-ui-liquid-surface__body {
-    display: none;
-  }
-  .game-ui-button-liquid .game-ui-button:disabled {
-    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
-    color: var(--game-ui-disabled);
-  }
-  @media (forced-colors: active) {
-    .game-ui-button-liquid .game-ui-liquid-surface__body {
-      display: none;
-    }
-    .game-ui-button-liquid .game-ui-button {
-      border: 1px solid ButtonText;
-      color: ButtonText;
-      background: ButtonFace;
-    }
-  }
-}
-/* Account primitives are opt-in. No selector below changes omitted defaults. */
-@layer swimmer-ui {
-  .game-ui-button[data-game-ui-surface='plaque'] {
-    background: var(--game-ui-plaque-surface);
-    color: var(--game-ui-plaque-ink);
-    border: 1px solid var(--game-ui-plaque-border);
-    border-radius: var(--game-ui-plaque-radius);
-    box-shadow: inset 0 1px 0 var(--game-ui-plaque-highlight);
-    text-shadow: none;
-  }
-  .game-ui-button[data-game-ui-surface='plaque'] {
-    min-height: var(--game-ui-otp-target);
-    min-width: var(--game-ui-otp-target);
-    font-weight: var(--game-ui-weight-strong);
-    transition: background-color var(--game-ui-motion-fast) var(--game-ui-ease-soft);
-  }
-  .game-ui-button[data-game-ui-surface='plaque']:is(:hover, :active) {
-    scale: initial;
-    translate: initial;
-    transform: none;
-  }
-  @media (hover: hover) {
-    .game-ui-button[data-game-ui-surface='plaque']:hover:not(:disabled) {
-      background: var(--game-ui-plaque-hover);
-    }
-  }
-  .game-ui-button[data-game-ui-surface='plaque']:disabled {
-    opacity: 0.9;
-    border-style: dashed;
-    box-shadow: none;
+  .game-ui-button:disabled {
+    background: var(--game-ui-control-disabled-fill);
+    color: var(--game-ui-control-disabled-text);
     cursor: not-allowed;
   }
-  .game-ui-button[data-game-ui-surface='plaque']:active:not(:disabled) {
-    background: var(--game-ui-plaque-hover);
-    box-shadow: inset 0 0 0 1px var(--game-ui-plaque-border);
+  .game-ui-button:disabled:has(> .game-ui-droplet[data-ready='true']) {
+    background: transparent;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .game-ui-button[data-game-ui-surface='plaque'] {
-      transition: none;
-    }
+  .game-ui-button-frame:has(> .game-ui-button:disabled) > .game-ui-cta-decoration {
+    display: none;
+  }
+  .game-ui-button-frame:has(> .game-ui-button:disabled) .game-ui-liquid-surface__body {
+    display: none;
+  }
+  .game-ui-button[data-game-ui-control='liquid-presence'] {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  [data-game-ui-density='compact'] .game-ui-button {
+    min-height: 36px;
+    padding: 7px 12px;
   }
   @media (forced-colors: active) {
-    .game-ui-button[data-game-ui-surface='plaque'] {
-      background: Canvas;
-      color: CanvasText;
-      border-color: ButtonText;
+    .game-ui-cta-decoration {
+      display: none;
+    }
+    .game-ui-button-frame:has(.game-ui-cta-decoration [data-liquid-gooey-blob][d]:not([d='']))
+      > .game-ui-button[data-game-ui-cta='true']:not(:disabled),
+    .game-ui-button[data-game-ui-cta='true'],
+    .game-ui-button:disabled {
+      background: ButtonFace;
+      color: ButtonText;
+      border: 1px solid ButtonText;
     }
   }
 }

@@ -33,7 +33,7 @@ async function mount(node: ReactNode): Promise<HTMLDivElement> {
 describe('liquid CTA keeps layout and native interaction', () => {
   it('fills the parent with both the real hit target and the decorative surface', async () => {
     const container = await mount(
-      <GameButton fullWidth surface="liquid">
+      <GameButton variant="primary" fullWidth>
         开始学习
       </GameButton>,
     );
@@ -59,7 +59,7 @@ describe('liquid CTA keeps layout and native interaction', () => {
     const onKeyDown = vi.fn();
     const onClick = vi.fn();
     const container = await mount(
-      <GameButton fullWidth surface="liquid" onClick={onClick} onKeyDown={onKeyDown}>
+      <GameButton variant="primary" fullWidth onClick={onClick} onKeyDown={onKeyDown}>
         Go
       </GameButton>,
     );
@@ -83,7 +83,7 @@ describe('liquid CTA keeps layout and native interaction', () => {
   it('does not activate a disabled CTA', async () => {
     const onClick = vi.fn();
     const container = await mount(
-      <GameButton disabled fullWidth surface="liquid" onClick={onClick}>
+      <GameButton variant="primary" disabled fullWidth onClick={onClick}>
         Wait
       </GameButton>,
     );
@@ -104,7 +104,7 @@ describe('liquid CTA keeps layout and native interaction', () => {
     }));
     const onClick = vi.fn();
     const container = await mount(
-      <GameButton surface="liquid" onClick={onClick}>
+      <GameButton variant="primary" onClick={onClick}>
         Go
       </GameButton>,
     );

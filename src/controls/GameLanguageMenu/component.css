@@ -20,19 +20,11 @@
   }
   .game-ui-language-trigger {
     min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
     border-radius: var(--game-ui-radius-control);
     font: inherit;
     font-family: var(--game-ui-font-body);
     font-weight: 860;
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -42,35 +34,13 @@
   }
   .game-ui-language-popover button {
     min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
     border-radius: var(--game-ui-radius-control);
     font: inherit;
     font-family: var(--game-ui-font-body);
     font-weight: 860;
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
   }
   @media (hover: hover) {
-    .game-ui-language-trigger:hover {
-      transform: translateY(-1px);
-    }
-    .game-ui-language-popover button:hover {
-      transform: translateY(-1px);
-    }
-  }
-  .game-ui-language-trigger:active {
-    scale: 0.96;
-  }
-  .game-ui-language-popover button:active {
-    scale: 0.96;
-  }
-  .game-ui-language-popover button {
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
   }
   .game-ui-language-menu {
     position: relative;
@@ -117,12 +87,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-language-trigger:hover {
-      transform: none;
-    }
-    .game-ui-language-popover button:hover {
-      transform: none;
-    }
   }
 
   /*
@@ -131,51 +95,7 @@
    * cover shapes that pure token swap cannot express (translucent primary
    * fill, warm hover, backdrop blur, clay-icon plate on dark).
    */
-  [data-game-ui-tone='glass'] .game-ui-language-trigger {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  [data-game-ui-tone='glass'] .game-ui-language-popover button {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-language-trigger {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-language-popover button {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
   @media (hover: hover) {
-    [data-game-ui-tone='glass'] .game-ui-language-trigger:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-    [data-game-ui-tone='glass'] .game-ui-language-popover button:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-    .game-ui-overlay-scope .game-ui-language-trigger:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
-    .game-ui-overlay-scope .game-ui-language-popover button:hover {
-      border-color: var(--game-ui-overlay-glass-border-hover);
-      background: var(--game-ui-overlay-glass-bg-hover);
-    }
   }
 
   /*

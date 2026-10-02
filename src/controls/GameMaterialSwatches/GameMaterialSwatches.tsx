@@ -1,3 +1,4 @@
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
 import type { CSSProperties, ReactNode } from 'react';
 import { type GameMaterialSwatch, type GameMaterialLayout } from './types';
 
@@ -57,7 +58,9 @@ export function GameMaterialSwatches({
               }
               role="option"
               type="button"
+              data-game-ui-paint=""
             >
+              <DropletSurface />
               <span
                 aria-hidden="true"
                 className="game-ui-material-swatch-chip"
@@ -70,6 +73,7 @@ export function GameMaterialSwatches({
                   <small id={`${material.id}-material-meta`}>{material.meta}</small>
                 ) : null}
               </span>
+              <SelectionMark />
             </button>
           );
         })}

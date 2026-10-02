@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useEffect, useState, type ReactNode } from 'react';
 import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
 import { GameBadge } from '../../feedback/GameBadge/GameBadge';
@@ -72,7 +73,8 @@ export function GameOrientationGate({
         <GameBadge tone="warning">{badgeLabel}</GameBadge>
         <h2>{title}</h2>
         <p>{body}</p>
-        <button onClick={() => void attemptLandscape()} type="button">
+        <button onClick={() => void attemptLandscape()} type="button" data-game-ui-paint="">
+          <DropletSurface />
           {cta}
         </button>
         {message ? <small>{message}</small> : null}

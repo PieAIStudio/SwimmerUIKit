@@ -44,14 +44,14 @@ function nativeInput(input: HTMLInputElement, value: string, composing = false) 
 }
 
 describe('WO-UI-1 account controls', () => {
-  it('retains visible and native disabled plaque states', async () => {
+  it('retains native disabled states with legible flat paint instead of opacity fading', async () => {
     const click = vi.fn();
     const node = await mount(
       <>
-        <Kit.GameButton surface="plaque" disabled onClick={click}>
+        <Kit.GameButton disabled onClick={click}>
           Unavailable
         </Kit.GameButton>
-        <Kit.GameIconButton surface="plaque" label="Unavailable account" disabled onClick={click}>
+        <Kit.GameIconButton label="Unavailable account" disabled onClick={click}>
           A
         </Kit.GameIconButton>
       </>,
@@ -59,7 +59,13 @@ describe('WO-UI-1 account controls', () => {
     for (const button of node.querySelectorAll('button')) {
       expect(button.disabled).toBe(true);
       button.click();
-      expect(Number(getComputedStyle(button).opacity)).toBeLessThan(1);
+      const css = getComputedStyle(button);
+      expect(css.opacity).toBe('1');
+      expect(css.cursor).toBe('not-allowed');
+      expect(css.getPropertyValue('--game-ui-paint-text').trim()).toBe(
+        css.getPropertyValue('--game-ui-control-disabled-text').trim(),
+      );
+      expect(button.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
     }
     expect(click).not.toHaveBeenCalled();
   });
@@ -308,24 +314,28 @@ describe('WO-UI-1 account controls', () => {
       await userEvent.click(node.querySelector('.game-ui-list-row-main')!);
     });
     expect(select).toHaveBeenCalledOnce();
-    expect(getComputedStyle(node.querySelector('.game-ui-list-row')!).borderRadius).toBe('6px');
+    const row = node.querySelector('.game-ui-list-row')!;
+    expect(getComputedStyle(row).borderRadius).toBe('16px');
+    expect(row.querySelector(':scope > .game-ui-droplet path')?.getAttribute('vector-effect')).toBe(
+      'non-scaling-stroke',
+    );
   });
 
-  it('makes plaque an explicit skin on buttons, icon buttons and circular avatar frames only', async () => {
+  it('retains the static circular avatar frame while ordinary buttons have no plaque skin', async () => {
     const node = await mount(
       <>
-        <Kit.GameButton surface="plaque">作品</Kit.GameButton>
-        <Kit.GameIconButton surface="plaque" label="Account">
-          A
-        </Kit.GameIconButton>
+        <Kit.GameButton>作品</Kit.GameButton>
+        <Kit.GameIconButton label="Account">A</Kit.GameIconButton>
         <Kit.GameAvatar surface="plaque" name="River" />
         <Kit.GameButton>Default</Kit.GameButton>
       </>,
     );
     const plaques = node.querySelectorAll('[data-game-ui-surface="plaque"]');
-    expect(plaques).toHaveLength(3);
-    expect(getComputedStyle(plaques[0]!).borderRadius).toBe('2px');
-    expect(getComputedStyle(plaques[2]!).borderRadius).toBe('999px');
+    expect(plaques).toHaveLength(1);
+    expect(plaques[0]!.classList.contains('game-ui-avatar')).toBe(true);
+    expect(getComputedStyle(plaques[0]!).borderRadius).toBe('999px');
+    for (const button of node.querySelectorAll('button'))
+      expect(button.querySelector('.game-ui-droplet')).not.toBeNull();
     expect(node.querySelectorAll('button')[2]!.hasAttribute('data-game-ui-surface')).toBe(false);
     expect(node.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
   });

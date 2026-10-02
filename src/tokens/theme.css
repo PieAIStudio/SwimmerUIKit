@@ -74,15 +74,15 @@
   --game-ui-asset-rail-card-size: 52px;
   --game-ui-asset-rail-preview-size: 42px;
 
-  --game-ui-bg: #f3e8d8;
+  --game-ui-bg: #fffdf8;
   --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
-  --game-ui-surface: rgba(255, 248, 236, 0.78);
-  --game-ui-surface-raised: rgba(255, 250, 240, 0.94);
-  --game-ui-panel: rgba(255, 248, 236, 0.9);
-  --game-ui-panel-strong: #fff8ec;
-  --game-ui-panel-deep: #efd1a3;
-  --game-ui-text: #3b2d23;
-  --game-ui-text-muted: #786250;
+  --game-ui-surface: #fffdf8;
+  --game-ui-surface-raised: #fffdf8;
+  --game-ui-panel: #fffdf8;
+  --game-ui-panel-strong: #fffdf8;
+  --game-ui-panel-deep: #f4eee3;
+  --game-ui-text: #2a2320;
+  --game-ui-text-muted: #625b56;
   --game-ui-accent: #e8743b;
   --game-ui-accent-bright: #f28d50;
   --game-ui-accent-pale: #ffd4a2;
@@ -99,22 +99,22 @@
   /* Text-safe variants: --game-ui-danger/--game-ui-accent are tuned for use
    * as backgrounds (buttons, badges); using them directly as text on a
    * light panel misses WCAG 4.5:1. Guarded by the contrast test below. */
-  --game-ui-danger-ink: #b3402f;
+  --game-ui-danger-ink: #9b3024;
   --game-ui-accent-ink: #a34e17;
   --game-ui-warning: #f2b35c;
   --game-ui-berry: #9b6dd6;
   --game-ui-berry-pale: #d9c6ff;
   --game-ui-focus-ring: rgba(29, 154, 139, 0.72);
-  --game-ui-border-subtle: rgba(108, 79, 56, 0.22);
-  --game-ui-border-strong: rgba(108, 79, 56, 0.42);
+  --game-ui-border-subtle: #d3c9ba;
+  --game-ui-border-strong: #2a2320;
   --game-ui-disabled: rgba(123, 102, 82, 0.48);
 
   /* Derivation bases: alpha washes and hairlines are color-mixed from these */
   --game-ui-ink-deep: #3a2518;
   --game-ui-border-ink: #5c3c27;
   --game-ui-wood: #6c4f38;
-  --game-ui-ink-title: #4a2f1f;
-  --game-ui-ink-heading: #5a3924;
+  --game-ui-ink-title: #2a2320;
+  --game-ui-ink-heading: #625b56;
   --game-ui-text-on-dark: #fff8ec;
 
   /*
@@ -193,15 +193,12 @@
    * shadow side. It is what separates a game control from a card — a key has
    * a height you can see, and pressing it has somewhere to go. Depth is a
    * token so a press can collapse it without restating the colour. */
-  --game-ui-button-lip-ink: rgba(94, 58, 30, 0.32);
-  --game-ui-button-lip-depth: 4px;
-  --game-ui-shadow-button:
-    0 13px 26px rgba(76, 52, 28, 0.22), inset 0 2px 0 rgba(255, 255, 255, 0.42);
+  --game-ui-shadow-button: none;
   --game-ui-shadow-panel:
     0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   --game-ui-shadow-modal:
     0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-inset: inset 0 2px 8px rgba(76, 52, 28, 0.12);
+  --game-ui-shadow-inset: none;
   /* The ink a liquid body casts on the ground under it.
    * Only the colour is a token: how far a body sits off the surface is what
    * each liquid form *means* — a pressed control is nearly touching, a falling
@@ -430,6 +427,72 @@
   --game-ui-collect-card-back-ring: #b9a3ff;
   --game-ui-collect-card-back-dash: #8f74e6;
   --game-ui-collect-card-star: #ffe14a;
+  --game-ui-paper-paper-light: #fffdf8;
+  --game-ui-paper-soft-light: #f4eee3;
+  --game-ui-paper-line-light: #d3c9ba;
+  --game-ui-paper-ink-light: #2a2320;
+  --game-ui-paper-muted-light: #625b56;
+  --game-ui-paper-grey-light: #eeeae3;
+  --game-ui-paper-grey2-light: #e1dcd2;
+  --game-ui-color-scheme: light;
+  --game-ui-paper-paper-dark: #1f2326;
+  --game-ui-paper-soft-dark: #2a2e31;
+  --game-ui-paper-line-dark: #3d4347;
+  --game-ui-paper-ink-dark: #e8e6e1;
+  --game-ui-paper-muted-dark: #b4b8b4;
+  --game-ui-paper-grey-dark: #2c3134;
+  --game-ui-paper-grey2-dark: #383d41;
+  --game-ui-tint-coral: #f4876b;
+  --game-ui-tint-sun: #f7c948;
+  --game-ui-tint-leaf: #72c58f;
+  --game-ui-tint-sky: #6bb3ea;
+  --game-ui-tint-grape: #b39bf0;
+  --game-ui-tint-pink: #f59ac2;
+  --game-ui-mist-coral: #c99a86;
+  --game-ui-mist-sun: #d6c39a;
+  --game-ui-mist-leaf: #a7bba3;
+  --game-ui-mist-sky: #9fb3c6;
+  --game-ui-mist-grape: #b4a8c4;
+  --game-ui-mist-pink: #cfa8ae;
+  --game-ui-tint-cream: #fff3da;
+  --game-ui-control-chroma-ink: #2a2320;
+  --game-ui-control-danger-ink: #241609;
+  --game-ui-cta-from: #22d3ee;
+  --game-ui-cta-to: #22bb91;
+  --game-ui-cta-text: #2a2320;
+  --game-ui-droplet-wobble: 1.4px;
+  --game-ui-droplet-radius: 999px;
+  --game-ui-control-padding-inline: 18px;
+  --game-ui-control-padding-block: 10px;
+  --game-ui-control-gap: 10px;
+  --game-ui-control-row-radius: 16px;
+  --game-ui-liquid-material-shadow: 0 6px 14px rgba(20, 60, 55, 0.16);
+  --game-ui-liquid-material-blur: 5;
+  --game-ui-liquid-material-contrast: 18;
+  --game-ui-liquid-material-gloss: 1.5;
+  --game-ui-liquid-material-outline: 3.5px;
+  --game-ui-liquid-material-lobes: 3;
+  --game-ui-liquid-material-sheen: 0.3;
+  --game-ui-liquid-gooey-blur: 5;
+  --game-ui-liquid-gooey-contrast: 18;
+  --game-ui-assistance-z: 96;
+  --game-ui-liquid-reveal-bg: rgb(5 12 13 / 94%);
+  --game-ui-liquid-reveal-solid: #101718;
+  --game-ui-liquid-reveal-text: #f2f7f4;
+  --game-ui-liquid-reveal-muted: #b6c7c0;
+  --game-ui-liquid-reveal-shadow: 0 22px 70px rgb(0 0 0 / 22%);
+  --game-ui-liquid-reveal-backdrop: rgb(0 0 0 / 24%);
+  /* CSS drop-shadow uses sigma; 7px equals the shared 14px box-shadow blur. */
+  --game-ui-liquid-presence-shadow: drop-shadow(0 6px 7px rgba(20, 60, 55, 0.16));
+  --game-ui-liquid-action-face: #fff8ec;
+  --game-ui-liquid-action-ink: #403127;
+  --game-ui-liquid-action-lip: #ae9e87;
+  --game-ui-liquid-action-border: #dccdb9;
+  --game-ui-liquid-field-face: rgb(0 0 0 / 24%);
+  --game-ui-liquid-material-ink: #020a08;
+  --game-ui-liquid-material-muted: #020a08;
+  --game-ui-liquid-material-field: #104a41;
+  --game-ui-liquid-field-ink: #f2f7f4;
 }
 
 /*
@@ -451,15 +514,15 @@
 
   color-scheme: dark;
 
-  --game-ui-bg: #221812;
+  --game-ui-bg: #1f2326;
   --game-ui-playfield-scrim: rgba(10, 6, 4, 0.5);
-  --game-ui-surface: rgba(52, 38, 28, 0.72);
-  --game-ui-surface-raised: rgba(64, 47, 34, 0.94);
-  --game-ui-panel: rgba(46, 33, 24, 0.92);
-  --game-ui-panel-strong: #3a2a1e;
-  --game-ui-panel-deep: #2c1f16;
-  --game-ui-text: #f6e7d3;
-  --game-ui-text-muted: #c9ac8d;
+  --game-ui-surface: #1f2326;
+  --game-ui-surface-raised: #1f2326;
+  --game-ui-panel: #1f2326;
+  --game-ui-panel-strong: #1f2326;
+  --game-ui-panel-deep: #2a2e31;
+  --game-ui-text: #e8e6e1;
+  --game-ui-text-muted: #b4b8b4;
   --game-ui-accent: #ef8148;
   --game-ui-accent-bright: #ffa06b;
   --game-ui-accent-pale: #8a4f28;
@@ -469,30 +532,28 @@
   --game-ui-success-bright: #3d7c58;
   --game-ui-danger: #e26a55;
   --game-ui-danger-bright: #8a3a2c;
-  --game-ui-danger-ink: #ff9a80;
+  --game-ui-danger-ink: #ffc0b0;
   --game-ui-accent-ink: #ffb072;
   --game-ui-warning: #f2b35c;
   --game-ui-berry: #b58ae0;
   --game-ui-berry-pale: #55407a;
   --game-ui-focus-ring: rgba(47, 179, 162, 0.75);
-  --game-ui-border-subtle: rgba(246, 231, 211, 0.16);
-  --game-ui-border-strong: rgba(246, 231, 211, 0.32);
+  --game-ui-border-subtle: #3d4347;
+  --game-ui-border-strong: #e8e6e1;
   --game-ui-disabled: rgba(201, 172, 141, 0.45);
 
   --game-ui-ink-deep: #f6e7d3;
   --game-ui-border-ink: #e8d3b8;
   --game-ui-wood: #d8b892;
-  --game-ui-ink-title: #f6e2c8;
-  --game-ui-ink-heading: #ecd6b8;
+  --game-ui-ink-title: #e8e6e1;
+  --game-ui-ink-heading: #b4b8b4;
   --game-ui-text-on-dark: #fff8ec;
 
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.62);
-
-  --game-ui-button-lip-ink: rgba(0, 0, 0, 0.52);
-  --game-ui-shadow-button: 0 13px 26px rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.08);
+  --game-ui-shadow-button: none;
   --game-ui-shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --game-ui-shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --game-ui-shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+  --game-ui-shadow-inset: none;
   --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
 
   --game-ui-preview-glow-warm: rgba(120, 88, 42, 0.35);
@@ -500,6 +561,7 @@
   --game-ui-preview-canvas-1: #2a1d13;
   --game-ui-preview-canvas-2: #201510;
   --game-ui-preview-canvas-3: #150d08;
+  --game-ui-color-scheme: dark;
 }
 
 /*
@@ -526,7 +588,7 @@
   --game-ui-text-on-dark: var(--game-ui-overlay-glass-text);
   --game-ui-accent-pale: rgba(240, 164, 106, 0.28);
   --game-ui-secondary-pale: rgba(47, 179, 162, 0.22);
-  --game-ui-danger-ink: #ff9a80;
+  --game-ui-danger-ink: #ffc0b0;
   --game-ui-accent-ink: #ffb072;
   --game-ui-berry-pale: rgba(181, 138, 224, 0.28);
   --game-ui-focus-ring: var(--game-ui-overlay-glass-focus-ring);
@@ -545,7 +607,6 @@
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
 
   /* Flat glass: no clay cast shadows; panels keep a soft lift for dialogue strips */
-  --game-ui-button-lip-ink: transparent;
   --game-ui-shadow-button: none;
   --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
   --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);
@@ -553,4 +614,62 @@
   --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
   --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.28);
   --game-ui-stroke: 1px solid var(--game-ui-overlay-glass-border);
+}
+[data-game-ui-theme='light'] {
+  color-scheme: light;
+  --game-ui-plaque-surface: #c9a267;
+  --game-ui-plaque-hover: #d8b883;
+  --game-ui-plaque-ink: #382517;
+  --game-ui-plaque-border: #382517;
+  --game-ui-plaque-highlight: #f2dfbb;
+  --game-ui-tooltip-surface: #3b2d23;
+  --game-ui-tooltip-ink: #fff8ec;
+
+  --game-ui-bg: #fffdf8;
+  --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
+  --game-ui-surface: #fffdf8;
+  --game-ui-surface-raised: #fffdf8;
+  --game-ui-panel: #fffdf8;
+  --game-ui-panel-strong: #fffdf8;
+  --game-ui-panel-deep: #f4eee3;
+  --game-ui-text: #2a2320;
+  --game-ui-text-muted: #625b56;
+  --game-ui-accent: #e8743b;
+  --game-ui-accent-bright: #f28d50;
+  --game-ui-accent-pale: #ffd4a2;
+  --game-ui-secondary: #1d9a8b;
+  --game-ui-secondary-pale: #baf5df;
+  --game-ui-success: #4f9d6b;
+  --game-ui-success-bright: #7ee0b6;
+  --game-ui-danger: #d85a45;
+  --game-ui-danger-bright: #ef8a72;
+  --game-ui-danger-ink: #9b3024;
+  --game-ui-accent-ink: #a34e17;
+  --game-ui-warning: #f2b35c;
+  --game-ui-berry: #9b6dd6;
+  --game-ui-berry-pale: #d9c6ff;
+  --game-ui-focus-ring: rgba(29, 154, 139, 0.72);
+  --game-ui-border-subtle: #d3c9ba;
+  --game-ui-border-strong: #2a2320;
+  --game-ui-disabled: rgba(123, 102, 82, 0.48);
+  --game-ui-ink-deep: #3a2518;
+  --game-ui-border-ink: #5c3c27;
+  --game-ui-wood: #6c4f38;
+  --game-ui-ink-title: #2a2320;
+  --game-ui-ink-heading: #625b56;
+  --game-ui-text-on-dark: #fff8ec;
+  --game-ui-scrim-strong: rgba(30, 20, 14, 0.58);
+  --game-ui-shadow-button: none;
+  --game-ui-shadow-panel:
+    0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --game-ui-shadow-modal:
+    0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --game-ui-shadow-inset: none;
+  --game-ui-shadow-liquid-ink: rgb(76, 52, 28);
+  --game-ui-preview-glow-warm: rgba(255, 246, 202, 0.9);
+  --game-ui-preview-glow-mint: rgba(126, 224, 182, 0.24);
+  --game-ui-preview-canvas-1: #f6e8d2;
+  --game-ui-preview-canvas-2: #e4cda8;
+  --game-ui-preview-canvas-3: #b98d5d;
+  --game-ui-color-scheme: light;
 }

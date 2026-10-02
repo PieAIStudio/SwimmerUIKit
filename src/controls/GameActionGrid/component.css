@@ -39,15 +39,7 @@
   }
   .game-ui-action-grid[data-icon-label-mode='caption'] .game-ui-icon-button .game-ui-asset-icon {
     border-radius: 999px;
-    background: color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
     padding: 2px;
-  }
-  .game-ui-action-grid[data-icon-label-mode='caption']
-    .game-ui-icon-button[aria-pressed='true']
-    .game-ui-asset-icon {
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 32%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--game-ui-ink-deep) 12%, transparent);
   }
   .game-ui-action-grid-caption {
     display: block;
@@ -61,8 +53,5 @@
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .game-ui-action-grid .game-ui-icon-button[aria-pressed='true'] .game-ui-action-grid-caption {
-    color: var(--game-ui-text);
   }
 }

@@ -1,8 +1,10 @@
 /* Public CSS entry: tokens → rendering primitives → components. */
 @import './tokens/theme.css';
+@import './tokens/control-styles.css';
 @import './tokens/motion.css';
 @import './liquid/LiquidGroup/component.css';
 @import './liquid/LiquidSurface/component.css';
+@import './controls/DropletSurface/component.css';
 @import './controls/shared/accessibility.css';
 @import './feedback/GameHelpTip/component.css';
 @import './containers/GameDialog/component.css';

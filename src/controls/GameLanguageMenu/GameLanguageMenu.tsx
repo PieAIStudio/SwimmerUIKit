@@ -1,3 +1,4 @@
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
 import { useId, useState, type ReactNode } from 'react';
 import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
 
@@ -47,7 +48,9 @@ export function GameLanguageMenu({
         className="game-ui-language-trigger"
         onClick={() => setOpen((current) => !current)}
         type="button"
+        data-game-ui-paint=""
       >
+        <DropletSurface />
         <GameAssetIcon icon="globe" size="sm" />
         <span>{triggerLabel}</span>
       </button>
@@ -61,11 +64,14 @@ export function GameLanguageMenu({
               onClick={() => handleSelect(option.id)}
               role="menuitemradio"
               type="button"
+              data-game-ui-paint=""
             >
+              <DropletSurface />
               <span>
                 <strong>{option.label}</strong>
                 <small>{option.meta}</small>
               </span>
+              <SelectionMark />
             </button>
           ))}
         </div>

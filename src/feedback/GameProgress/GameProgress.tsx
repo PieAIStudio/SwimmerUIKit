@@ -1,100 +1,54 @@
 import type { ReactNode } from 'react';
-
-import { LiquidGroup } from '../../liquid/LiquidGroup/LiquidGroup';
-
-import type { LiquidFinish } from '../../liquid/finish';
-
-import type { GameButtonSurface } from '../../controls/GameButton/GameButton';
+import { controlHue } from '../../tokens/hue';
 
 export interface GameProgressProps {
-  /** Defaults to the existing liquid leading edge. Flat adds no SVG filter. */
-  surface?: Exclude<GameButtonSurface, 'plaque'>;
-  liquidFinish?: LiquidFinish;
-  /** Current value, between 0 and `max`. */
   value: number;
   max?: number;
-  /** Accessible label for the progress bar. */
   label: string;
   tone?: 'accent' | 'success' | 'danger' | 'warning';
-  /** Show the rounded percentage next to the bar. */
   showValue?: boolean;
-  /**
-   * Text shown next to the bar in place of the percentage, for progress that
-   * is more meaningful as a count than a ratio (e.g. "3 / 21").
-   */
   valueLabel?: string;
   className?: string;
 }
-
+/** A progressbar reports real progress. It is not a CTA or a liquid effect. */
 export function GameProgress({
-  className,
-  label,
-  max = 100,
-  showValue = false,
-  tone = 'accent',
   value,
+  max = 100,
+  label,
+  tone = 'accent',
+  showValue = false,
   valueLabel,
-  surface = 'liquid',
-  liquidFinish,
+  className,
 }: GameProgressProps): ReactNode {
   const safeMax = !Number.isFinite(max) || max <= 0 ? 100 : max;
   const safeValue = Math.max(0, Math.min(safeMax, Number.isFinite(value) ? value : 0));
-  const pct = (safeValue / safeMax) * 100;
-  const classes = ['game-ui-progress', className].filter(Boolean).join(' ');
-  const hasValueLabel = Boolean(valueLabel);
-  const fill = {
-    accent: 'var(--game-ui-accent)',
-    danger: 'var(--game-ui-danger)',
-    success: 'var(--game-ui-success)',
-    warning: 'var(--game-ui-warning)',
-  }[tone];
+  const percentage = (safeValue / safeMax) * 100;
+  const hasLabel = Boolean(valueLabel);
   return (
-    <div className={classes} data-progress-tone={tone}>
+    <div
+      className={['game-ui-progress', className].filter(Boolean).join(' ')}
+      data-progress-tone={tone}
+      data-game-ui-paint=""
+      style={controlHue(
+        tone === 'success' ? 'leaf' : tone === 'warning' ? 'sun' : 'sky',
+        tone === 'danger',
+      )}
+    >
       <div
-        aria-label={label}
-        aria-valuemax={safeMax}
-        aria-valuemin={0}
-        aria-valuenow={safeValue}
-        aria-valuetext={hasValueLabel ? valueLabel : undefined}
-        className="game-ui-progress-track"
         role="progressbar"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={safeMax}
+        aria-valuenow={safeValue}
+        aria-valuetext={hasLabel ? valueLabel : undefined}
+        className="game-ui-progress-track"
       >
-        {surface === 'flat' ? (
-          <span
-            className="game-ui-progress-flat-fill"
-            style={{ width: `${pct}%`, background: fill }}
-          />
-        ) : (
-          <LiquidGroup
-            {...(liquidFinish === undefined ? {} : { liquidFinish })}
-            aria-hidden="true"
-            className="game-ui-progress-liquid"
-            fill={fill}
-            motion="follow"
-            shadow="var(--game-ui-shadow-button)"
-            style={{ inset: 0, pointerEvents: 'none', position: 'absolute' }}
-          >
-            <LiquidGroup.Item
-              aria-hidden="true"
-              className="game-ui-progress-fill"
-              style={{
-                borderRadius: 'var(--game-ui-radius-control)',
-                height: '100%',
-                left: 0,
-                position: 'absolute',
-                top: 0,
-                width: `${pct}%`,
-              }}
-            >
-              {null}
-            </LiquidGroup.Item>
-          </LiquidGroup>
-        )}
+        <span className="game-ui-progress-flat-fill" style={{ width: `${percentage}%` }} />
       </div>
-      {hasValueLabel ? (
-        <span className="game-ui-progress-value">{valueLabel}</span>
-      ) : showValue ? (
-        <span className="game-ui-progress-value">{Math.round(pct)}%</span>
+      {hasLabel || showValue ? (
+        <span className="game-ui-progress-value">
+          {hasLabel ? valueLabel : `${Math.round(percentage)}%`}
+        </span>
       ) : null}
     </div>
   );

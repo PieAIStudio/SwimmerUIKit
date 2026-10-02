@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { setClayAssetMode } from '../src/icons/assets';
+import { GAME_UI_STYLES } from '../src/tokens/styles';
 import '../src/styles.css';
 import '../src/tokens/fonts.css';
 
@@ -11,6 +12,15 @@ setClayAssetMode('source');
 // Every story renders on the warm clay backdrop the kit is designed for, so the
 // components look the way they do inside the game instead of on bare white.
 const preview: Preview = {
+  afterEach: ({ canvasElement }) => {
+    const ctas = [
+      ...canvasElement.querySelectorAll<HTMLButtonElement>('button[data-game-ui-cta="true"]'),
+    ].filter((button) => !button.disabled && button.getClientRects().length > 0);
+    if (ctas.length > 1)
+      throw new Error(
+        `One screen may contain at most one liquid CTA; this story rendered ${ctas.length}: ${ctas.map((button) => button.textContent?.trim()).join(', ')}`,
+      );
+  },
   parameters: {
     layout: 'fullscreen',
     controls: {
@@ -25,6 +35,16 @@ const preview: Preview = {
   // attribute reskins everything) — previously the only way to see dark
   // mode was the one hand-built "DarkTheme" story in GamePanelSystem.
   globalTypes: {
+    uiStyle: {
+      description: 'Independent visual style',
+      defaultValue: 'pastel',
+      toolbar: {
+        title: 'Style',
+        icon: 'paintbrush',
+        items: GAME_UI_STYLES.map((value) => ({ value, title: value })),
+        dynamicTitle: true,
+      },
+    },
     theme: {
       description: 'Game UI theme',
       defaultValue: 'light',
@@ -44,7 +64,15 @@ const preview: Preview = {
       <div
         className="game-ui-clay-preview"
         data-game-ui-theme={context.globals.theme === 'dark' ? 'dark' : undefined}
-        style={{ minHeight: '220px', padding: '40px' }}
+        data-game-ui-style={context.globals.uiStyle ?? 'pastel'}
+        style={{
+          minHeight: '100dvh',
+          padding: '40px',
+          boxSizing: 'border-box',
+          background: 'var(--game-ui-bg)',
+          color: 'var(--game-ui-text)',
+          fontFamily: 'var(--game-ui-font-body)',
+        }}
       >
         <Story />
       </div>

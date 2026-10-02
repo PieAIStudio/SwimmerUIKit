@@ -1,7 +1,5 @@
 import { type HTMLAttributes, type ReactNode } from 'react';
 
-import { type LiquidFinish } from '../finish';
-
 import type { BlobShape, CornerRadii } from '../geometry';
 
 import type { MorphTuning } from '../evolve';
@@ -22,7 +20,6 @@ export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
    */
   gloss?: number;
   /** Optional named finish. An explicit raw gloss wins; omitted preserves the old rendering. */
-  liquidFinish?: LiquidFinish;
   /**
    * Surface fill. Defaults to the kit's theme surface token. A colour paints
    * the body flat; `{ top, bottom }` gives it light (see `LiquidFill`).

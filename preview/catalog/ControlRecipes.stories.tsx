@@ -12,10 +12,10 @@ const meta = {
   title: 'Start Here/Controls and Materials',
   component: ControlRecipe,
   tags: ['autodocs', 'recommended'],
-  args: { recipe: 'button', material: 'glossy', state: 'ready', tone: 'primary' },
+  args: { recipe: 'button', uiStyle: 'pastel', state: 'ready', tone: 'primary' },
   argTypes: {
     recipe: { control: 'select', options: CONTROL_RECIPES.map((entry) => entry.id) },
-    material: { control: 'select', options: ['flat', 'matte', 'glossy'] },
+    uiStyle: { control: 'select', options: ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink'] },
     state: { control: 'select', options: ['ready', 'disabled', 'invalid'] },
     tone: { control: 'select', options: ['primary', 'secondary', 'success', 'danger', 'ghost'] },
   },
@@ -56,7 +56,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Primary: Story = {};
-export const Matte: Story = { args: { material: 'matte' } };
+export const Mist: Story = { args: { uiStyle: 'mist' } };
 export const Disabled: Story = { args: { state: 'disabled' } };
 export const Icon: Story = { args: { recipe: 'icon' } };
 export const Toggle: Story = { args: { recipe: 'toggle' } };
@@ -64,23 +64,23 @@ export const Segmented: Story = { args: { recipe: 'segmented' } };
 export const Progress: Story = { args: { recipe: 'progress' } };
 export const Select: Story = { args: { recipe: 'select' } };
 export const SelectInvalid: Story = { args: { recipe: 'select', state: 'invalid' } };
-export const MatteIcon: Story = { args: { recipe: 'icon', material: 'matte' } };
-export const MatteToggle: Story = { args: { recipe: 'toggle', material: 'matte' } };
-export const MatteSegmented: Story = { args: { recipe: 'segmented', material: 'matte' } };
-export const MatteProgress: Story = { args: { recipe: 'progress', material: 'matte' } };
-export const MatteSelect: Story = { args: { recipe: 'select', material: 'matte' } };
+export const MistIcon: Story = { args: { recipe: 'icon', uiStyle: 'mist' } };
+export const MistToggle: Story = { args: { recipe: 'toggle', uiStyle: 'mist' } };
+export const MistSegmented: Story = { args: { recipe: 'segmented', uiStyle: 'mist' } };
+export const MistProgress: Story = { args: { recipe: 'progress', uiStyle: 'mist' } };
+export const MistSelect: Story = { args: { recipe: 'select', uiStyle: 'mist' } };
 export const DisabledIcon: Story = { args: { recipe: 'icon', state: 'disabled' } };
 export const DisabledToggle: Story = { args: { recipe: 'toggle', state: 'disabled' } };
 export const DisabledSegmented: Story = { args: { recipe: 'segmented', state: 'disabled' } };
 export const DisabledSelect: Story = { args: { recipe: 'select', state: 'disabled' } };
-export const FlatProgress: Story = { args: { recipe: 'progress', material: 'flat' } };
-export const FlatSegmented: Story = { args: { recipe: 'segmented', material: 'flat' } };
-export const Input: Story = { args: { recipe: 'input', material: 'flat' } };
+export const GreyProgress: Story = { args: { recipe: 'progress', uiStyle: 'grey' } };
+export const GreySegmented: Story = { args: { recipe: 'segmented', uiStyle: 'grey' } };
+export const Input: Story = { args: { recipe: 'input', uiStyle: 'grey' } };
 export const InvalidInput: Story = {
-  args: { recipe: 'input', material: 'flat', state: 'invalid' },
+  args: { recipe: 'input', uiStyle: 'grey', state: 'invalid' },
 };
-export const Textarea: Story = { args: { recipe: 'textarea', material: 'flat' } };
-export const Checkbox: Story = { args: { recipe: 'checkbox', material: 'flat' } };
-export const Slider: Story = { args: { recipe: 'slider', material: 'flat' } };
-export const Feedback: Story = { args: { recipe: 'feedback', material: 'flat' } };
-export const Modal: Story = { args: { recipe: 'modal', material: 'flat' } };
+export const Textarea: Story = { args: { recipe: 'textarea', uiStyle: 'grey' } };
+export const Checkbox: Story = { args: { recipe: 'checkbox', uiStyle: 'grey' } };
+export const Slider: Story = { args: { recipe: 'slider', uiStyle: 'grey' } };
+export const Feedback: Story = { args: { recipe: 'feedback', uiStyle: 'grey' } };
+export const Modal: Story = { args: { recipe: 'modal', uiStyle: 'grey' } };

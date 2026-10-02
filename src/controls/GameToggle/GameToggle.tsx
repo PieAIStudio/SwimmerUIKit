@@ -1,10 +1,6 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react';
-
-import { LiquidGroup } from '../../liquid/LiquidGroup/LiquidGroup';
-
-import type { GameButtonSurface } from '../GameButton/GameButton';
-
-import type { LiquidFinish } from '../../liquid/finish';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export interface GameToggleProps extends Pick<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -12,52 +8,26 @@ export interface GameToggleProps extends Pick<
 > {
   checked: boolean;
   label: string;
-  surface?: Exclude<GameButtonSurface, 'plaque'>;
-  liquidFinish?: LiquidFinish;
+  hue?: GameUiHue;
 }
-
-export function GameToggle({
-  checked,
-  disabled,
-  label,
-  onClick,
-  surface = 'flat',
-  liquidFinish,
-}: GameToggleProps): ReactNode {
+export function GameToggle({ checked, disabled, label, onClick, hue }: GameToggleProps): ReactNode {
   return (
     <button
-      aria-checked={checked}
+      type="button"
       className="game-ui-toggle"
+      role="switch"
+      aria-checked={checked}
       disabled={disabled}
       onClick={onClick}
-      role="switch"
-      type="button"
-      data-toggle-surface={surface === 'liquid' && !disabled ? 'liquid' : undefined}
+      data-game-ui-paint=""
+      style={controlHue(hue)}
     >
+      <DropletSurface />
       <span>{label}</span>
-      {surface === 'liquid' && !disabled ? (
-        <span aria-hidden="true" className="game-ui-toggle-liquid-track">
-          <LiquidGroup
-            className="game-ui-toggle-liquid-body"
-            blur={3}
-            contrast={18}
-            liquidFinish={liquidFinish ?? 'glossy'}
-            fill="var(--game-ui-text)"
-            filterPadding={10}
-          >
-            <LiquidGroup.Item
-              className="game-ui-toggle-liquid-thumb"
-              radius={999}
-              x={checked ? 24 : 0}
-              transition="wobbly"
-            >
-              <span />
-            </LiquidGroup.Item>
-          </LiquidGroup>
-        </span>
-      ) : (
-        <span aria-hidden="true" className="game-ui-toggle-track" />
-      )}
+      <SelectionMark />
+      <span className="game-ui-toggle-track" aria-hidden="true">
+        <span className="game-ui-toggle-thumb" />
+      </span>
     </button>
   );
 }

@@ -1,111 +1,90 @@
-import { type ButtonHTMLAttributes, type MouseEventHandler, type ReactNode } from 'react';
-
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  type ButtonHTMLAttributes,
+  type MouseEventHandler,
+  type ReactNode,
+} from 'react';
 import {
   playGameInteractionSound,
   type GameInteractionSoundOptions,
 } from '../../feedback/sound/interactionSound';
 import { LiquidPressSurface } from '../../liquid/LiquidPressSurface/LiquidPressSurface';
-import type { LiquidFinish } from '../../liquid/finish';
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export type GameButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success';
-
-/*
- * How the button is drawn, kept separate from `variant` on purpose.
- *
- * `variant` is a tone — what the button means. Folding 'liquid' into that union
- * would have made the brand's signature surface mutually exclusive with saying
- * 「this one is dangerous」, and there is no reason a destructive action cannot
- * be liquid. Two axes cost one extra prop and keep every combination sayable.
- */
-export type GameButtonSurface = 'flat' | 'liquid' | 'plaque';
-
 export interface GameButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  /** Fill the available row, including the liquid silhouette and hit target. */
   fullWidth?: boolean;
-  /** Named liquid material. Only used with surface="liquid"; omitted keeps the current look. */
-  liquidFinish?: LiquidFinish;
+  hue?: GameUiHue;
   sound?: GameInteractionSoundOptions | false;
-  /** Disable the scale-on-press feedback where the motion would distract. */
+  /** Opt out of press deformation without changing native semantics. */
   static?: boolean;
-  /**
-   * Draw the button on a liquid body. The button itself is unchanged — same
-   * element, same classes, same hit target; a silhouette behind it does the
-   * deforming, so text stays crisp and the tap target never shrinks.
-   */
-  surface?: GameButtonSurface;
+  /** Primary is the one liquid CTA; every other action is a flat droplet. */
   variant?: GameButtonVariant;
 }
 
-export function GameButton({
-  children,
-  className,
-  fullWidth = false,
-  liquidFinish,
-  onClick,
-  sound = false,
-  static: isStatic = false,
-  surface = 'flat',
-  type = 'button',
-  variant = 'secondary',
-  ...props
-}: GameButtonProps): ReactNode {
+export const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(function GameButton(
+  {
+    children,
+    className,
+    fullWidth = false,
+    hue,
+    onClick,
+    sound = false,
+    static: isStatic = false,
+    type = 'button',
+    variant = 'secondary',
+    style,
+    ...props
+  },
+  ref,
+): ReactNode {
+  const control = useRef<HTMLButtonElement>(null);
+  useImperativeHandle(ref, () => control.current!);
+  // Nerve owns the contained body's paint; adding another silhouette behind it
+  // would render two liquid bodies and spend two independent filter budgets.
+  const delegated =
+    (props as Record<string, unknown>)['data-game-ui-control'] === 'liquid-presence';
+  const cta = variant === 'primary' && !props.disabled && !delegated;
+  const meaningful = variant === 'danger' || variant === 'success';
   const classes = [
     'game-ui-button',
     `game-ui-button--${variant}`,
-    surface === 'plaque' && 'game-ui-button--plaque',
     fullWidth && 'game-ui-button--full-width',
     isStatic && 'game-ui-button--static',
     className,
   ]
     .filter(Boolean)
     .join(' ');
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const click: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (sound) playGameInteractionSound(sound);
     onClick?.(event);
   };
-
-  const button = (
-    <button
-      className={classes}
-      data-game-ui-surface={surface === 'plaque' ? 'plaque' : undefined}
-      onClick={handleClick}
-      type={type}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-  /*
-   * A disabled control does not get the liquid surface at all.
-   *
-   * The first attempt muted the body's fill to the disabled token, which
-   * produced the worst of both: a pale grey blob, large and glossy enough to
-   * draw the eye, carrying text at roughly 1.2:1 against it. But the real
-   * problem was upstream of the colour. Liquid is the brand's way of saying
-   * 「press me」 — a wet, deformable surface is an invitation — and putting
-   * that invitation on a control that cannot be pressed is a lie told loudly.
-   * Falling back to the flat button says the true thing quietly.
-   */
-  if (surface !== 'liquid' || props.disabled === true) return button;
-
-  /*
-   * The shared press assembly listens to the native control's events, never
-   * the pointer-transparent silhouette. Icon buttons reuse that boundary.
-   */
   return (
-    <LiquidPressSurface
-      {...(liquidFinish === undefined ? {} : { liquidFinish })}
-      static={isStatic}
-      className={[
-        'game-ui-button-liquid',
-        `game-ui-button-liquid--${variant}`,
-        fullWidth && 'game-ui-button-liquid--full-width',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      {button}
+    <LiquidPressSurface control={control} enabled={cta} static={isStatic} fullWidth={fullWidth}>
+      <button
+        {...props}
+        key="control"
+        ref={control}
+        className={classes}
+        type={type}
+        onClick={click}
+        data-game-ui-paint=""
+        data-game-ui-cta={cta ? 'true' : undefined}
+        data-game-ui-meaning={meaningful ? 'true' : undefined}
+        data-game-ui-danger={variant === 'danger' ? 'true' : undefined}
+        style={{
+          ...controlHue(hue ?? (variant === 'success' ? 'leaf' : 'sky')),
+          ...style,
+        }}
+      >
+        {!cta && !delegated ? <DropletSurface static={isStatic} /> : null}
+        {children}
+        {props['aria-pressed'] !== undefined ? <SelectionMark /> : null}
+      </button>
     </LiquidPressSurface>
   );
-}
+});

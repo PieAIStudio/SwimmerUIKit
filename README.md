@@ -173,3 +173,11 @@ OIDC credentials and provenance, without a local login or stored npm token.
 The former `doc/` tutorials and one-off root reports are catalogued in the
 [documentation and evidence relocation record](docs/archive/relocations-2.5.0.json). Historical
 material is retained, but installation and component selection follow the guides above.
+
+<!-- UIKIT-3-THEME:BEGIN -->
+## 3.0 development line
+
+The current main is an unpublished 3.0 restructure. Ordinary controls share a flat SVG droplet; only GameButton variant="primary" is a tide-coloured liquid CTA, at most one per screen.
+Choose appearance independently with data-game-ui-style (candy, pastel, mist, grey, outline, ink; default pastel) and data-game-ui-theme (light, dark).
+Migration is explicit: [3.0 migration](docs/reference/migration-3.0.md). Existing exact-version consumers are not upgraded by this repository.
+<!-- UIKIT-3-THEME:END -->

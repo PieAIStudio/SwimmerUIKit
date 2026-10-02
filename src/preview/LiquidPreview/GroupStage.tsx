@@ -1,11 +1,8 @@
-import { useContext, type CSSProperties, type ReactNode } from 'react';
-
-import { liquidFinishGloss } from '../../liquid/finish';
+import { type CSSProperties, type ReactNode } from 'react';
 
 import { LiquidGroup } from '../../liquid/LiquidGroup/LiquidGroup';
 
 import { liquidFormGroup, liquidFormItem, type LiquidForm } from '../../liquid/forms';
-import { FinishContext } from './context';
 import { SLOT } from './constants';
 
 /*
@@ -24,7 +21,6 @@ export function GroupStage({
   engaged: boolean;
   fill: string;
 }): ReactNode {
-  const finish = useContext(FinishContext);
   const group = liquidFormGroup(form);
   const item = liquidFormItem(form);
   const shared = {
@@ -32,7 +28,7 @@ export function GroupStage({
     contrast: group.contrast,
     filterPadding: group.filterPadding,
     fill,
-    gloss: liquidFinishGloss(finish, group.gloss),
+    gloss: group.gloss,
   };
   const itemProps = {
     ...(item.effect === undefined ? {} : { effect: item.effect }),

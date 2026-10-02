@@ -13,42 +13,31 @@
     flex: 0 0 var(--game-ui-otp-target);
   }
   .game-ui-otp-input {
+    --game-ui-droplet-radius: 14px;
     box-sizing: border-box;
     width: var(--game-ui-otp-target);
     min-width: var(--game-ui-otp-target);
     min-height: 48px;
     padding: var(--game-ui-space-4);
-    border: 1px solid var(--game-ui-border-strong);
     border-radius: var(--game-ui-list-row-radius);
-    background: var(--game-ui-panel-strong);
-    color: var(--game-ui-text);
     font: inherit;
     font-family: var(--game-ui-font-mono);
     font-size: var(--game-ui-font-lg);
     text-align: center;
     caret-color: var(--game-ui-text);
+    border: var(--game-ui-control-edge-width) solid var(--game-ui-control-edge);
   }
   .game-ui-otp-input[aria-invalid='true'] {
-    border-color: var(--game-ui-danger-ink);
-    border-width: 2px;
+    border: 2px solid var(--game-ui-danger-ink);
   }
   .game-ui-otp-input:disabled {
     cursor: not-allowed;
-    opacity: 0.6;
   }
   .game-ui-otp-input:focus-visible {
     outline: 2px solid var(--game-ui-focus-ring);
     outline-offset: 2px;
   }
   @media (forced-colors: active) {
-    .game-ui-otp-input {
-      background: Canvas;
-      color: CanvasText;
-      border-color: ButtonText;
-    }
-    .game-ui-otp-input[aria-invalid='true'] {
-      border-style: dashed;
-    }
     .game-ui-otp-input:focus-visible {
       outline-color: Highlight;
     }

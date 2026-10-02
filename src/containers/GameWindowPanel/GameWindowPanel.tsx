@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useState, type HTMLAttributes, type ReactNode } from 'react';
 import { joinClasses } from '../shared/classes';
 
@@ -108,7 +109,9 @@ export function GameWindowPanel({
               className="game-ui-icon-button game-ui-window-button"
               onClick={() => setWindowState(isMinimized ? 'normal' : 'minimized')}
               type="button"
+              data-game-ui-paint=""
             >
+              <DropletSurface />
               <WindowGlyph kind={isMinimized ? 'restore' : 'minimize'} />
             </button>
           ) : null}
@@ -118,7 +121,9 @@ export function GameWindowPanel({
               className="game-ui-icon-button game-ui-window-button"
               onClick={() => setWindowState(isMaximized ? 'normal' : 'maximized')}
               type="button"
+              data-game-ui-paint=""
             >
+              <DropletSurface />
               <WindowGlyph kind={isMaximized ? 'restore' : 'maximize'} />
             </button>
           ) : null}
@@ -128,7 +133,9 @@ export function GameWindowPanel({
               className="game-ui-icon-button game-ui-window-button"
               onClick={onClose}
               type="button"
+              data-game-ui-paint=""
             >
+              <DropletSurface />
               <WindowGlyph kind="close" />
             </button>
           ) : null}

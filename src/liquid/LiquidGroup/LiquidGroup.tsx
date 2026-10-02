@@ -13,7 +13,7 @@ import {
 
 import { liquidTokens } from '../../tokens/references';
 
-import { liquidFinishGloss } from '../finish';
+import { LIQUID_MATERIAL } from '../material/weight';
 
 import { DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET } from '../budget';
 
@@ -53,7 +53,6 @@ export const LiquidGroupRoot = forwardRef<
     blur = 6,
     contrast = 18,
     gloss,
-    liquidFinish,
     fill = 'var(--game-ui-surface, var(--game-ui-panel-strong))',
     filterPadding = 24,
     shadow,
@@ -247,7 +246,6 @@ export const LiquidGroupRoot = forwardRef<
       data-liquid-filter-budget={DEFAULT_LIQUID_GOOEY_FILTER_AREA_BUDGET}
       data-liquid-feature-padding={Math.round(featurePadding * 10) / 10}
       data-liquid-motion={motionMode}
-      data-liquid-finish={liquidFinish}
       data-liquid-waviness={Math.round(wavinessValue * 100) / 100}
       style={style}
     >
@@ -272,7 +270,7 @@ export const LiquidGroupRoot = forwardRef<
             <LiquidGooeyFilter
               blur={blurValue}
               contrast={contrastValue}
-              gloss={gloss ?? liquidFinishGloss(liquidFinish, 0)}
+              gloss={gloss ?? LIQUID_MATERIAL.gloss}
               shadows={svgShadows}
               stroke={parsedStroke}
               waviness={wavinessValue}

@@ -1,3 +1,4 @@
+import { LIQUID_MATERIAL, TIDE_FILL } from './material/weight';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LiquidGroup } from './LiquidGroup/LiquidGroup';
@@ -13,63 +14,56 @@ import { GameIconButton } from '../controls/GameIconButton/GameIconButton';
 import { GameToggle } from '../controls/GameToggle/GameToggle';
 
 import { GameSegmentedControl } from '../controls/GameSegmentedControl/GameSegmentedControl';
-import { liquidFinishGloss } from './finish';
-
-describe('liquid finish is an opt-in material, not another engine', () => {
-  it('keeps historical lighting when omitted, including engaged form lighting', () => {
-    for (const value of [0, 2, 5]) expect(liquidFinishGloss(undefined, value)).toBe(value);
-    expect(liquidFinishGloss('matte', 5)).toBe(0);
-    expect(liquidFinishGloss('glossy', 0)).toBe(5);
-    expect(liquidFinishGloss('glossy', 2)).toBe(2);
+describe('one shared thin material', () => {
+  it('keeps the named material exact and independent of a skin switch', () => {
+    expect(LIQUID_MATERIAL).toMatchObject({
+      blur: 5,
+      contrast: 18,
+      gloss: 1.5,
+      blob: 3.5,
+      lobes: 3,
+    });
+    expect(TIDE_FILL).toEqual({
+      top: 'var(--game-ui-cta-from)',
+      bottom: 'var(--game-ui-cta-to)',
+      sheen: 0.3,
+    });
   });
-  it('removes only the specular pass for matte and keeps explicit raw gloss authoritative', () => {
-    const matte = renderToStaticMarkup(
-      <LiquidGroup liquidFinish="matte">
-        <span />
-      </LiquidGroup>,
-    );
-    const glossy = renderToStaticMarkup(
-      <LiquidGroup liquidFinish="glossy">
+  it('gives the primitive thin default light while preserving explicit raw geometry controls', () => {
+    const thin = renderToStaticMarkup(
+      <LiquidGroup>
         <span />
       </LiquidGroup>,
     );
     const explicit = renderToStaticMarkup(
-      <LiquidGroup liquidFinish="glossy" gloss={0}>
+      <LiquidGroup gloss={0}>
         <span />
       </LiquidGroup>,
     );
-    expect(matte).not.toContain('feSpecularLighting');
-    expect(glossy).toContain('feSpecularLighting');
+    expect(thin).toContain('surfaceScale="1.5"');
+    expect(thin).toContain('feGaussianBlur');
     expect(explicit).not.toContain('feSpecularLighting');
-    expect(matte).toContain('feGaussianBlur');
   });
-  it('keeps the press form on both materials and never forwards finish to native controls', () => {
-    for (const liquidFinish of ['matte', 'glossy'] as const) {
-      const html = renderToStaticMarkup(
-        <GameButton surface="liquid" liquidFinish={liquidFinish}>
-          Go
-        </GameButton>,
-      );
-      expect(html).toContain('data-liquid-form="press"');
-      expect(html).not.toMatch(/<button[^>]*(liquidFinish|liquid-finish|surface=)/);
-      const body = renderToStaticMarkup(
-        <LiquidSurface form="set" active liquidFinish={liquidFinish}>
-          Set
-        </LiquidSurface>,
-      );
-      if (liquidFinish === 'glossy') expect(body).toContain('surfaceScale="2"');
-      else expect(body).not.toContain('feSpecularLighting');
-    }
+  it('keeps the press action and allows set to harden without another finish', () => {
+    const html = renderToStaticMarkup(<GameButton variant="primary">Go</GameButton>);
+    expect(html).toContain('data-liquid-form="press"');
+    expect(html).not.toMatch(/<button[^>]*(liquidFinish|liquid-finish|surface=)/);
+    const set = renderToStaticMarkup(
+      <LiquidSurface form="set" active>
+        Set
+      </LiquidSurface>,
+    );
+    expect(set).not.toContain('feSpecularLighting');
   });
   it('does not draw an inviting liquid surface on disabled controls', () => {
     for (const node of [
-      <GameButton key="button" disabled surface="liquid">
+      <GameButton key="button" disabled>
         Wait
       </GameButton>,
-      <GameIconButton key="icon" disabled surface="liquid" label="Wait">
+      <GameIconButton key="icon" disabled label="Wait">
         ★
       </GameIconButton>,
-      <GameToggle key="toggle" checked disabled surface="liquid" label="Wait" />,
+      <GameToggle key="toggle" checked disabled label="Wait" />,
       <GameSegmentedControl
         key="segmented"
         disabled
@@ -77,7 +71,7 @@ describe('liquid finish is an opt-in material, not another engine', () => {
         label="Wait"
         options={[{ id: 'one', label: 'One' }]}
       />,
-      <GameSelect key="select" disabled surface="liquid">
+      <GameSelect key="select" disabled>
         <option>Wait</option>
       </GameSelect>,
     ])
@@ -95,7 +89,7 @@ describe('native selection and quiet variants', () => {
   });
   it('preserves native form attributes, groups, invalid semantics and multi-select fallback', () => {
     const html = renderToStaticMarkup(
-      <GameSelect surface="liquid" name="course" defaultValue="one" required invalid>
+      <GameSelect name="course" defaultValue="one" required invalid>
         <optgroup label="Courses">
           <option value="one">One</option>
           <option disabled value="two">
@@ -108,10 +102,10 @@ describe('native selection and quiet variants', () => {
     expect(html).toContain('name="course"');
     expect(html).toContain('<optgroup label="Courses">');
     expect(html).toContain('selected=""');
-    expect(html).toContain('data-liquid-gooey-silhouette');
+    expect(html).not.toContain('data-liquid-gooey-silhouette');
     for (const props of [{ multiple: true }, { size: 4 }]) {
       const list = renderToStaticMarkup(
-        <GameSelect {...props} surface="liquid">
+        <GameSelect {...props}>
           <option>One</option>
         </GameSelect>,
       );
@@ -125,13 +119,12 @@ describe('native selection and quiet variants', () => {
           activeId="one"
           label="Pick"
           options={[{ id: 'one', label: 'One' }]}
-          surface="flat"
         />,
       ),
     ).not.toContain('data-liquid-gooey-silhouette');
-    expect(
-      renderToStaticMarkup(<GameProgress label="Progress" value={50} surface="flat" />),
-    ).not.toContain('data-liquid-gooey-silhouette');
+    expect(renderToStaticMarkup(<GameProgress label="Progress" value={50} />)).not.toContain(
+      'data-liquid-gooey-silhouette',
+    );
   });
   it('makes visual and accessible progress agree for invalid numeric inputs', () => {
     for (const [value, max, expected] of [

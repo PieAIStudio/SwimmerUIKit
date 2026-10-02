@@ -1,67 +1,33 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
-  .game-ui-progress {
+  .game-ui-progress[data-game-ui-paint] {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    min-width: 0;
+    background: transparent;
+    /* The emphasis edge is chromatic in colour styles and ink in neutral
+     * styles. A progress bar must not leak a blue tint into a grey surface. */
+    --game-ui-progress-color: var(--game-ui-control-on-edge);
   }
   .game-ui-progress-track {
-    position: relative;
+    display: block;
     flex: 1;
-    height: 14px;
-    border-radius: var(--game-ui-radius-control);
-    background: var(--game-ui-surface);
-    box-shadow: var(--game-ui-shadow-inset);
+    min-width: 0;
+    height: 10px;
     overflow: hidden;
-  }
-  .game-ui-progress-fill {
-    height: 100%;
-    border-radius: inherit;
-  }
-  .game-ui-progress-value {
-    /* 3ch fits "100%"; count labels ("12 / 210 节") are longer. min-width:3ch
-     * overrides the flex min-content floor, so without nowrap + flex-shrink:0
-     * the label can squeeze and wrap mid-token next to a growing track. */
-    min-width: 3ch;
-    flex-shrink: 0;
-    white-space: nowrap;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-sm);
-    font-weight: var(--game-ui-weight-strong);
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .game-ui-progress-fill {
-      transition: none;
-    }
-  }
-  [data-game-ui-tone='glass'] .game-ui-progress-track {
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 70%, transparent);
-    box-shadow: none;
-  }
-  .game-ui-overlay-scope .game-ui-progress-track {
-    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg) 70%, transparent);
-    box-shadow: none;
-  }
-  .game-ui-progress-liquid .game-ui-liquid-content {
-    position: absolute;
-    inset: 0;
+    border-radius: 999px;
+    background: var(--game-ui-panel-deep);
   }
   .game-ui-progress-flat-fill {
     display: block;
     height: 100%;
     border-radius: inherit;
+    background: var(--game-ui-progress-color);
   }
-  @media (forced-colors: active) {
-    .game-ui-progress-flat-fill {
-      background: Highlight !important;
-    }
+  .game-ui-progress-value {
+    flex: 0 1 auto;
+    min-width: 3ch;
+    font-variant-numeric: tabular-nums;
+    color: var(--game-ui-text);
   }
 }

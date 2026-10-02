@@ -1,7 +1,7 @@
 # GameToggle
 
-展示并切换明确的开关状态。
+原生按钮承接开关语义，状态由 checked 和 onClick 控制。
 
-主要参数：`checked`、`label`、`surface`、`liquidFinish`；[完整参数](GameToggle.tsx)以源码为准。
+主要参数：checked、label、onClick、disabled、hue。
 
-边界：产品负责状态来源；独立表单选项可用 GameCheckbox。
+边界：只表达开关，不是提交操作；选中带对勾，背景不鼓起。

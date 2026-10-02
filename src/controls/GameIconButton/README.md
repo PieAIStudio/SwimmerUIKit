@@ -1,7 +1,7 @@
 # GameIconButton
 
-只有图标或紧凑内容的原生动作按钮。
+带可访问名称的图标操作，使用与普通按钮同一个二维水滴原件。
 
-主要参数：`label`、`surface`、`liquidFinish`；[完整参数](GameIconButton.tsx)以源码为准。
+主要参数：label、hue 以及原生 button 参数；aria-pressed 显示选中对勾。
 
-边界：必须提供清楚的 label，不能让用户只靠猜图标。
+边界：label 不能由 tooltip 代替；不使用液体滤镜，不提供额外皮肤开关。

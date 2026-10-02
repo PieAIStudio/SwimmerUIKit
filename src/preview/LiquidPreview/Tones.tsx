@@ -1,14 +1,12 @@
-import { useContext, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import { GameButton, type GameButtonVariant } from '../../controls/GameButton/GameButton';
 
 import { GamePanel } from '../../containers/GamePanel/GamePanel';
 import { type Copy } from './copyTypes';
-import { FinishContext } from './context';
 import { TONES } from './constants';
 
 export function Tones({ copy }: { copy: Copy }): ReactNode {
-  const liquidFinish = useContext(FinishContext);
   const [selected, setSelected] = useState<GameButtonVariant>('primary');
   const [pressed, setPressed] = useState<GameButtonVariant | null>(null);
   return (
@@ -31,9 +29,7 @@ export function Tones({ copy }: { copy: Copy }): ReactNode {
               onPointerLeave={() => setPressed(null)}
               onPointerUp={() => setPressed(null)}
             >
-              <GameButton surface="liquid" liquidFinish={liquidFinish} variant={tone}>
-                {copy.liquid}
-              </GameButton>
+              <GameButton variant={tone}>{copy.liquid}</GameButton>
             </span>
             <small>{pressed === tone ? copy.engaged : copy.rest}</small>
           </GamePanel>

@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import { LiquidGooeyFilter } from '../../liquid/filter';
 import { PRESENCE_MATERIAL_LIGHT } from '../../liquid/material/light';
+import { LIQUID_MATERIAL } from '../../liquid/material/weight';
+import { LiquidReveal } from '../LiquidReveal/LiquidReveal';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 import { presenceBody, presenceSeat, clampPresence } from '../geometry';
 import { useLiquidPresenceMotion } from './useMotion';
@@ -28,30 +30,23 @@ export function LiquidPresence(props: LiquidPresenceProps) {
     // A body/native-dialog portal leaves the component's theme subtree. Copy
     // only the material and label tokens this leaf uses, including local host
     // overrides. Never move the page theme just to fix one floating element.
-    const tokens = [
-      '--liquid-presence-from',
-      '--liquid-presence-to',
-      '--game-ui-secondary',
-      '--game-ui-warning',
-      '--game-ui-panel-strong',
-      '--game-ui-text',
-      '--game-ui-font-body',
-      '--game-ui-radius-control',
-      '--game-ui-shadow-button',
-      // Interactive explanations reuse brand controls, not a second control
-      // theme. Carry their semantic paint tokens across the same portal.
-      '--game-ui-surface-raised',
-      '--game-ui-text-muted',
-      '--game-ui-border-subtle',
-      '--game-ui-border-ink',
-      '--game-ui-disabled',
-      '--game-ui-button-lip-ink',
-      '--game-ui-accent',
-      '--game-ui-accent-bright',
-      '--game-ui-accent-contrast',
-    ];
     const sync = () => {
       const computed = getComputedStyle(anchor);
+      const inheritedStyle = anchor
+        .closest('[data-game-ui-style]')
+        ?.getAttribute('data-game-ui-style');
+      const inheritedTheme = anchor
+        .closest('[data-game-ui-theme]')
+        ?.getAttribute('data-game-ui-theme');
+      if (inheritedStyle) layer.setAttribute('data-game-ui-style', inheritedStyle);
+      else layer.removeAttribute('data-game-ui-style');
+      if (inheritedTheme) layer.setAttribute('data-game-ui-theme', inheritedTheme);
+      else layer.removeAttribute('data-game-ui-theme');
+      // Portals leave the source's CSS ancestry. Carry actual theme/hue values
+      // without maintaining a second, incomplete list of the kit's tokens.
+      const tokens = [...computed].filter(
+        (name) => name.startsWith('--game-ui-') || name.startsWith('--liquid-presence-'),
+      );
       for (const token of tokens) {
         const value = computed.getPropertyValue(token).trim();
         if (layer.style.getPropertyValue(token) !== value) layer.style.setProperty(token, value);
@@ -61,7 +56,13 @@ export function LiquidPresence(props: LiquidPresenceProps) {
     for (let node: Element | null = anchor; node; node = node.parentElement) {
       observer.observe(node, {
         attributes: true,
-        attributeFilter: ['class', 'style', 'data-game-ui-theme', 'data-activity'],
+        attributeFilter: [
+          'class',
+          'style',
+          'data-game-ui-theme',
+          'data-game-ui-style',
+          'data-activity',
+        ],
       });
     }
     sync();
@@ -109,9 +110,9 @@ export function LiquidPresence(props: LiquidPresenceProps) {
         colorInterpolationFilters="sRGB"
       >
         <LiquidGooeyFilter
-          blur={suffix === 'core' ? 5 : 2}
-          contrast={18}
-          gloss={3.5}
+          blur={LIQUID_MATERIAL.blur}
+          contrast={LIQUID_MATERIAL.contrast}
+          gloss={LIQUID_MATERIAL.gloss}
           shadows={[]}
           stroke={null}
           waviness={0}
@@ -204,7 +205,11 @@ export function LiquidPresence(props: LiquidPresenceProps) {
               }
               hidden
             >
-              {props.guideContent ?? props.target?.label.slice(0, 240)}
+              {props.guideContent ? (
+                <LiquidReveal reducedMotion={reduced}>{props.guideContent}</LiquidReveal>
+              ) : (
+                props.target?.label.slice(0, 240)
+              )}
             </div>
           </div>,
           portalRoot,

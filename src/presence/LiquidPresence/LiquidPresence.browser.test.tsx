@@ -2,6 +2,8 @@ import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it, vi } from 'vitest';
 import { LiquidPresence } from './LiquidPresence';
+import { GameButton } from '../../controls/GameButton/GameButton';
+import { GameInput } from '../../controls/GameInput/GameInput';
 import type { LiquidPresenceProps } from '../types';
 import {
   getLiquidGooeyBudget,
@@ -115,6 +117,49 @@ it('a human-paced explanation does not expire while being read', async () => {
   expect(dismiss).toHaveBeenCalledExactlyOnceWith('dismissed');
   expect(label().hidden).toBe(true);
 }, 20_000);
+
+it('puts the guide in the same thin material and inherits live source style across its portal without remounting focused content', async () => {
+  const guide = await mount();
+  host!.setAttribute('data-game-ui-style', 'pastel');
+  host!.setAttribute('data-game-ui-theme', 'light');
+  await render({
+    target: guide,
+    reducedMotion: true,
+    guideContent: (
+      <>
+        <GameInput defaultValue="Draft" />
+        <GameButton aria-pressed={true}>Selected</GameButton>
+      </>
+    ),
+  });
+  await expect.poll(() => label()?.hidden).toBe(false);
+  const input = label().querySelector('input')!;
+  const button = label().querySelector('button')!;
+  const original = label().querySelector('.game-ui-liquid-reveal')!;
+  input.value = '保留这段文字';
+  input.focus();
+  input.setSelectionRange(1, 3);
+  const before = getComputedStyle(button).color;
+  await act(async () => {
+    host!.setAttribute('data-game-ui-style', 'grey');
+    host!.setAttribute('data-game-ui-theme', 'dark');
+    await Promise.resolve();
+  });
+  await expect.poll(() => getComputedStyle(button).color).not.toBe(before);
+  expect(label().querySelector('.game-ui-liquid-reveal')).toBe(original);
+  expect(label().querySelector('input')).toBe(input);
+  expect(document.activeElement).toBe(input);
+  expect(input.value).toBe('保留这段文字');
+  expect(input.selectionStart).toBe(1);
+  expect(input.selectionEnd).toBe(3);
+  expect(getComputedStyle(button).color).toBe('rgb(31, 35, 38)');
+  expect(
+    document.querySelector('[data-presence-overlay]')?.getAttribute('data-game-ui-style'),
+  ).toBe('grey');
+  for (const light of document.querySelectorAll('feSpecularLighting'))
+    expect(light.getAttribute('surfaceScale')).toBe('1.5');
+  expect(getLiquidGooeyBudget().activeGroups).toBe(0);
+});
 
 it('a tall explanation and its liquid marker use the same final flipped side', async () => {
   const guide = await mount();

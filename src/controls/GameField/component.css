@@ -6,12 +6,6 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
-  .game-ui-field[data-invalid='true'] .game-ui-input {
-    border-color: var(--game-ui-danger);
-    box-shadow:
-      var(--game-ui-shadow-inset),
-      0 0 0 3px color-mix(in srgb, var(--game-ui-danger) 26%, transparent);
-  }
   .game-ui-field {
     display: grid;
     gap: 6px;

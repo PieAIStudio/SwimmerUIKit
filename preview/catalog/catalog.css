@@ -250,7 +250,7 @@
   .kit-catalog-code > p {
     font-size: 13px;
   }
-  .kit-catalog-code pre {
+  pre.kit-catalog-code {
     font-family: var(--game-ui-font-mono);
     font-size: 12px;
     line-height: 1.8;

@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '主操作按钮。黏土质感,通过 `variant` 切换强弱;`sound` prop 可选地接入交互音效(由宿主 App 注入音量设置,组件本身不依赖任何业务 store)。',
+          '主操作按钮。水滴轮廓,通过 `variant` 切换强弱;`sound` prop 可选地接入交互音效(由宿主 App 注入音量设置,组件本身不依赖任何业务 store)。',
       },
     },
   },
@@ -29,7 +29,7 @@ export const Secondary: Story = {
 export const LiquidCta: Story = {
   name: 'Liquid CTA / 液体主按钮',
   tags: ['recommended', 'liquid'],
-  args: { variant: 'primary', surface: 'liquid', children: '开始学习' },
+  args: { variant: 'primary', children: '开始学习' },
   parameters: {
     docs: {
       description: {
@@ -45,7 +45,6 @@ export const FullWidthLiquidCta: Story = {
   tags: ['recommended', 'liquid'],
   args: {
     variant: 'primary',
-    surface: 'liquid',
     fullWidth: true,
     children: '进入课程 · Start learning',
   },
@@ -59,11 +58,10 @@ export const FullWidthLiquidCta: Story = {
 };
 
 export const DisabledLiquidCta: Story = {
-  name: 'Disabled CTA / 禁用后回到普通表面',
+  name: 'Disabled CTA / 禁用后的平面控件',
   tags: ['liquid'],
   args: {
     variant: 'primary',
-    surface: 'liquid',
     fullWidth: true,
     disabled: true,
     children: '暂不可进入',

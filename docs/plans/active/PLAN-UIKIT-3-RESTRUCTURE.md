@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-10-01
-last_reviewed: 2026-10-01
+last_reviewed: 2026-10-02
 domain: ui-components
 tags:
   - restructure
@@ -156,7 +156,9 @@ Owner 2026-10-01 定稿（对比页第三版，选择原文：`UI 第二版：Q1
 **其余：**
 
 - **配色 token 改名**：`--game-ui-liquid-*` 改为 `--game-ui-tint-*`（平面控件也用它），另加 `--game-ui-mist-*` 和未选中用的 `--game-ui-tint-cream`。
-- **语气对应**：primary → 潮汐液体 CTA；secondary → 风格的「平时」；success → 嫩叶（有含义）；danger → 现有 danger token（有含义）。
+- **语气对应**：primary → 潮汐液体 CTA；secondary → 风格的「平时」；success → 嫩叶（有含义，灰阶和两套包边仍去色）；danger 按下面的评审补充执行。
+- **S4 评审补充（Owner 委托 Claude 决定，2026-10-02；Owner 再次确认照此执行）**：危险操作在六套风格里都必须认得出来，只用红字、不用红底。danger 的底色保留各风格的「平时」，字使用对应明暗的 `--game-ui-danger-ink`；包边、黑白包边的边也使用同色。彩色、淡彩、雾色的原有风格配色和其他控件不变，不再把危险色当按钮底色。success 和其他有含义的颜色在灰阶、包边、黑白包边仍按表去色，只有 danger 的红字例外。十二组合及各色相的文字/底色对比度不低于 4.5:1；浏览器同时检查 danger 与 secondary 的实际文字颜色不同、实际 SVG 背景为该风格普通底色而不是危险红底。开关的轨道和圆点使用现有语义变量，不另造黑色描边配方。
+- **评审状态**：Claude 已看过十二组合、8 倍边缘、375/390 窄屏和水滴几何/控制器，结论通过。上述补充实施并复验后可提交 S4、继续 S5/S6；npm 发布仍须另获 Owner 明确批准。候选版由 Claude 在 University 安装并跑完整门禁，本仓库不代做产品迁移。
 - **涟的引导文字**（`LiquidPresence` 的 `guideContent`）装进涟的 material 面板，和 `LiquidReveal` 同一个样子，不再是平的卡片。
 
 ### 文档与治理

@@ -2,8 +2,20 @@
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { chromium, firefox, webkit } from 'playwright';
+import { preview } from 'vite';
+import { STYLE_NAMES } from './lib/control-style-contract.mjs';
 
-const origin = process.argv[2] ?? 'http://127.0.0.1:5176';
+// No URL means isolated local acceptance of the built site, never a shared
+// server or deployment. An explicit URL remains usable for authorized release.
+const server =
+  process.argv[2] && process.argv[2] !== '--local'
+    ? null
+    : await preview({
+        configFile: false,
+        build: { outDir: 'site-dist' },
+        preview: { host: '127.0.0.1', port: 0 },
+      });
+const origin = server ? `http://127.0.0.1:${server.httpServer.address().port}` : process.argv[2];
 const browserName = process.argv[3] ?? 'chromium';
 const browserType = { chromium, firefox, webkit }[browserName];
 assert.ok(browserType, 'Browser must be chromium, firefox or webkit');
@@ -65,7 +77,7 @@ try {
       'feedback',
       'modal',
     ]) {
-      await page.goto(`${origin}/?component=${recipe}&material=glossy&theme=${theme}`, {
+      await page.goto(`${origin}/?component=${recipe}&style=pastel&theme=${theme}`, {
         waitUntil: 'networkidle',
       });
       const stage = page.locator('.kit-catalog-stage');
@@ -88,13 +100,35 @@ try {
         assert.equal(before.width, down.width);
         assert.equal(before.height, down.height);
         await page.mouse.up();
-        await page.locator('.kit-catalog-controls select').first().selectOption('matte');
-        assert.equal(await stage.locator('feSpecularLighting').count(), 0);
-        await page.locator('.kit-catalog-controls select').first().selectOption('glossy');
-        assert.equal(await stage.locator('feSpecularLighting').count(), 1);
-        await page.getByLabel('并排比较两种液体').check();
-        assert.equal(await stage.locator('[data-liquid-gooey-silhouette]').count(), 2);
-        assert.equal(await stage.locator('feSpecularLighting').count(), 1);
+        const native = await control.elementHandle();
+        for (const style of STYLE_NAMES) {
+          await page.locator('.kit-catalog-controls select').first().selectOption(style);
+          assert.equal(await native.evaluate((element) => element.isConnected), true);
+          assert.equal(await stage.locator('feSpecularLighting').count(), 1);
+          assert.equal(
+            await stage.locator('feSpecularLighting').getAttribute('surfaceScale'),
+            '1.5',
+          );
+          assert.equal(await stage.locator('[data-liquid-gooey-silhouette]').count(), 1);
+        }
+        await page.locator('.kit-catalog-controls select').nth(2).selectOption('secondary');
+        assert.equal(await native.evaluate((element) => element.isConnected), true);
+        assert.equal(await stage.locator('filter').count(), 0);
+        await page.waitForFunction(
+          () =>
+            document.querySelector('.kit-catalog-stage .game-ui-droplet')?.dataset.ready === 'true',
+        );
+        const flat = await control.boundingBox();
+        const path = await control.locator('path').getAttribute('d');
+        await control.hover();
+        await page.mouse.down();
+        await page.waitForTimeout(170);
+        assert.notEqual(await control.locator('path').getAttribute('d'), path);
+        const pressed = await control.boundingBox();
+        assert.equal(pressed.width, flat.width);
+        assert.equal(pressed.height, flat.height);
+        await page.mouse.up();
+        await native.dispose();
       } else if (recipe === 'icon') {
         await stage.getByRole('button', { name: '收藏这个示例' }).click();
         assert.match(await stage.innerText(), /已收藏 1 次/);
@@ -104,13 +138,14 @@ try {
         await page.keyboard.press('Space');
         assert.equal(await control.getAttribute('aria-checked'), 'true');
         await page.waitForFunction(() => {
-          const track = document.querySelector('.kit-catalog-stage .game-ui-toggle-liquid-track');
-          const thumb = document.querySelector('.kit-catalog-stage .game-ui-toggle-liquid-thumb');
+          const track = document.querySelector('.kit-catalog-stage .game-ui-toggle-track');
+          const thumb = document.querySelector('.kit-catalog-stage .game-ui-toggle-thumb');
           return (
             track &&
             thumb &&
-            Math.abs(thumb.getBoundingClientRect().left - track.getBoundingClientRect().left - 26) <
-              1
+            Math.abs(
+              thumb.getBoundingClientRect().left - track.getBoundingClientRect().left - 19.5,
+            ) < 1
           );
         });
       } else if (recipe === 'segmented') {
@@ -143,8 +178,8 @@ try {
         assert.equal(await select.isDisabled(), true);
         assert.equal(await originalSelect.evaluate((element) => element.isConnected), true);
         await page.locator('.kit-catalog-controls select').nth(1).selectOption('ready');
-        for (const material of ['matte', 'flat', 'glossy']) {
-          await page.locator('.kit-catalog-controls select').first().selectOption(material);
+        for (const style of STYLE_NAMES) {
+          await page.locator('.kit-catalog-controls select').first().selectOption(style);
           assert.equal(await originalSelect.evaluate((element) => element.isConnected), true);
           assert.equal(await select.inputValue(), 'thinking');
         }
@@ -209,7 +244,7 @@ try {
     }
     assert.deepEqual(errors, []);
     assert.deepEqual(budgetWarnings, []);
-    await page.goto(`${origin}/?component=select&material=matte&state=invalid&theme=${theme}`, {
+    await page.goto(`${origin}/?component=select&style=mist&state=invalid&theme=${theme}`, {
       waitUntil: 'networkidle',
     });
     assert.equal(
@@ -217,7 +252,7 @@ try {
       'true',
     );
     await page.reload({ waitUntil: 'networkidle' });
-    assert.equal(await page.locator('.kit-catalog-controls select').first().inputValue(), 'matte');
+    assert.equal(await page.locator('.kit-catalog-controls select').first().inputValue(), 'mist');
     await page.locator('.kit-catalog-search input').fill('不存在的组件');
     assert.match(await page.locator('.kit-catalog-sidebar').innerText(), /没有匹配/);
     await page.locator('.kit-catalog-search input').fill('');
@@ -227,7 +262,7 @@ try {
       await page.getByRole('button', { name: '复制代码', exact: true }).click();
       assert.equal(
         await page.evaluate(() => navigator.clipboard.readText()),
-        await page.locator('.kit-catalog-code pre').innerText(),
+        await page.locator('.kit-catalog-code code').innerText(),
       );
       results.push({ name, systemClipboardRoundtrip: true });
     }
@@ -240,12 +275,16 @@ try {
       }),
     );
     await page.getByRole('button', { name: '复制代码', exact: true }).click();
-    await page.getByText('浏览器不允许自动复制。', { exact: false }).waitFor();
+    await page
+      .getByText('浏览器未允许自动复制；下方代码可手动选择复制。', { exact: true })
+      .waitFor();
     assert.ok(
-      (await page.locator('.kit-catalog-code pre').innerText()).includes('export function Example'),
+      (await page.locator('.kit-catalog-code code').innerText()).includes(
+        'export function Example',
+      ),
     );
     results.push({ name, clipboardDeniedFallback: true });
-    await page.goto(`${origin}/?component=button&material=matte&theme=${theme}`, {
+    await page.goto(`${origin}/?component=button&style=mist&theme=${theme}`, {
       waitUntil: 'networkidle',
     });
     await page.evaluate(() => {
@@ -266,7 +305,7 @@ try {
       viewport: { width: 375, height: 812 },
       ...(mode === 'reduced' ? { reducedMotion: 'reduce' } : { forcedColors: 'active' }),
     });
-    await page.goto(`${origin}/?component=button&material=glossy`, { waitUntil: 'networkidle' });
+    await page.goto(`${origin}/?component=button&style=pastel`, { waitUntil: 'networkidle' });
     const button = page.locator('.kit-catalog-stage').getByRole('button');
     await button.focus();
     await page.keyboard.down('Space');
@@ -282,12 +321,17 @@ try {
     await page.screenshot({ path: `${output}/${mode}.png` });
     results.push({ mode, nativeAction: true });
     if (mode === 'forced') {
-      await page.goto(`${origin}/?component=toggle&material=glossy`, { waitUntil: 'networkidle' });
+      await page.goto(`${origin}/?component=toggle&style=pastel`, { waitUntil: 'networkidle' });
       const toggle = page.locator('.kit-catalog-stage').getByRole('switch');
-      const track = page.locator('.kit-catalog-stage .game-ui-toggle-liquid-track');
-      const off = await track.evaluate((element) => getComputedStyle(element, '::after').left);
+      const track = page.locator('.kit-catalog-stage .game-ui-toggle-thumb');
+      const off = await track.evaluate((element) => getComputedStyle(element).translate);
       await toggle.click();
-      const on = await track.evaluate((element) => getComputedStyle(element, '::after').left);
+      await page.waitForFunction(
+        () =>
+          getComputedStyle(document.querySelector('.kit-catalog-stage .game-ui-toggle-thumb'))
+            .translate === '16px',
+      );
+      const on = await track.evaluate((element) => getComputedStyle(element).translate);
       assert.notEqual(off, on);
       assert.equal(await toggle.getAttribute('aria-checked'), 'true');
       await page.screenshot({ path: `${output}/forced-switch.png` });
@@ -302,8 +346,9 @@ try {
   });
   await page.goto(`${origin}/liquid.html`, { waitUntil: 'networkidle' });
   assert.ok((await page.locator('[data-liquid-gooey-silhouette]').count()) <= 2);
-  await page.locator('select').selectOption('matte');
-  assert.equal(await page.locator('feSpecularLighting').count(), 0);
+  assert.equal(await page.locator('select option:is([value="matte"],[value="glossy"])').count(), 0);
+  for (const light of await page.locator('feSpecularLighting').all())
+    assert.equal(await light.getAttribute('surfaceScale'), '1.5');
   for (const kind of ['单体形态', '多体形态']) {
     const group = page.getByRole('group', { name: kind, exact: true });
     for (const button of await group.getByRole('button').all()) {
@@ -327,6 +372,7 @@ try {
 } finally {
   writeFileSync(`${output}/results.json`, JSON.stringify(results, null, 2) + '\n');
   await browser.close();
+  if (server) await new Promise((resolve) => server.httpServer.close(resolve));
 }
 console.log(
   JSON.stringify(

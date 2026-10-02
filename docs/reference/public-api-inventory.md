@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.
 
-Compiler inventory: **132 named exports: 57 values and 75 types**.
+Compiler inventory: **135 named exports: 59 values and 76 types**.
 
 ## controls/ — Controls
 
@@ -36,7 +36,6 @@ Native actions, selection and labelled form controls
 | --- | --- | --- |
 | `GameButton` | value | [source](../../src/controls/GameButton/GameButton.tsx) |
 | `GameButtonProps` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
-| `GameButtonSurface` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
 | `GameButtonVariant` | type | [source](../../src/controls/GameButton/GameButton.tsx) |
 | `GameCheckbox` | value | [source](../../src/controls/GameCheckbox/GameCheckbox.tsx) |
 | `GameCheckboxProps` | type | [source](../../src/controls/GameCheckbox/GameCheckbox.tsx) |
@@ -170,7 +169,6 @@ Decorative bodies, motion, material and resource limits
 | Export | Kind | Definition |
 | --- | --- | --- |
 | `setLiquidGooeyBudget` | value | [source](../../src/liquid/budget.ts) |
-| `LiquidFinish` | type | [source](../../src/liquid/finish.ts) |
 | `liquidFormItem` | value | [source](../../src/liquid/forms.ts) |
 | `LiquidForm` | type | [source](../../src/liquid/forms.ts) |
 | `LiquidFill` | type | [source](../../src/liquid/LiquidGroup/fill.tsx) |
@@ -190,6 +188,11 @@ Token mirrors and theme contract
 | `GAME_UI_TARGETS` | value | [source](../../src/tokens/index.ts) |
 | `GAME_UI_THEME_CONTRACT` | value | [source](../../src/tokens/index.ts) |
 | `GAME_UI_TOKENS` | value | [source](../../src/tokens/index.ts) |
+| `GameUiHue` | type | [source](../../src/tokens/hue.ts) |
+| `GAME_UI_STYLES` | value | [source](../../src/tokens/styles.ts) |
+| `GAME_UI_DEFAULT_STYLE` | value | [source](../../src/tokens/styles.ts) |
+| `GameUiStyle` | type | [source](../../src/tokens/styles.ts) |
+| `GameUiTheme` | type | [source](../../src/tokens/styles.ts) |
 
 ## icons/ — Asset integration
 

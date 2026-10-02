@@ -22,8 +22,8 @@ function trackRules(css: string): { base: string; checked: string | undefined } 
   const body = (selector: string): string | undefined =>
     css.match(new RegExp(`${selector}\\s*\\{([^}]*)\\}`))?.[1];
   return {
-    base: body('\\.game-ui-toggle-track') ?? '',
-    checked: body("\\.game-ui-toggle\\[aria-checked='true'\\] \\.game-ui-toggle-track"),
+    base: body('\\.game-ui-toggle-thumb') ?? '',
+    checked: body("\\.game-ui-toggle\\[aria-checked='true'\\] \\.game-ui-toggle-thumb"),
   };
 }
 
@@ -109,10 +109,17 @@ describe('GameToggle', () => {
     expect(track.checked).toBeDefined();
     // The bead sits left when off and right when on. Position is the half of
     // the state that survives both palettes and both kinds of colour vision.
-    expect(track.base).toMatch(/inset 8px 0 0 var\(--game-ui-text\)/);
-    expect(track.checked).toMatch(/inset -8px 0 0 var\(--game-ui-text\)/);
-    // Colour reinforces it: the accent belongs to the on state alone.
-    expect(track.checked).toMatch(/background:\s*var\(--game-ui-secondary\)/);
-    expect(track.base).not.toMatch(/var\(--game-ui-secondary\)/);
+    expect(track.base).toMatch(/left:\s*2px/);
+    expect(track.checked).toMatch(/translate:\s*16px 0/);
+    // A reserved visible check and the semantic selected fill reinforce state,
+    // without using an inset shadow as a fake second bead in 3.0.
+    // Claude's S4 amendment: the thumb reads its style token, not black text ink.
+    expect(track.base).toContain('background: var(--game-ui-control-on-edge)');
+    expect(stylesCss).toContain('background: var(--game-ui-control-disabled-fill)');
+    expect(track.base).not.toContain('box-shadow');
+    expect(stylesCss).toContain('--game-ui-paint-fill: var(--game-ui-control-on-fill)');
+    expect(stylesCss).toMatch(
+      /aria-checked='true'[\s\S]*?game-ui-selection-mark\s*\{\s*visibility:\s*visible/,
+    );
   });
 });

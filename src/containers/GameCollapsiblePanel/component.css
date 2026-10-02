@@ -40,10 +40,7 @@
     gap: 10px;
     min-width: 0;
     min-height: 44px;
-    border: 0;
     border-radius: var(--game-ui-radius-card);
-    background: transparent;
-    color: var(--game-ui-text);
     padding: 4px 10px;
     font: inherit;
     font-family: var(--game-ui-font-display);
@@ -77,9 +74,6 @@
     margin: 0;
   }
   @media (hover: hover) {
-    .game-ui-collapsible-toggle:hover {
-      background: color-mix(in srgb, var(--game-ui-ink-deep) 6%, transparent);
-    }
   }
   .game-ui-collapsible-title {
     min-width: 0;

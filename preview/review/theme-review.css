@@ -1,0 +1,99 @@
+.theme-review {
+  box-sizing: border-box;
+  max-width: 1160px;
+  margin: auto;
+  padding: 32px 40px;
+  background: var(--game-ui-bg);
+  color: var(--game-ui-text);
+  font: 15px/1.5 var(--game-ui-font-body);
+}
+.theme-review-heading {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.theme-review-heading h1 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 780;
+}
+.theme-review-heading p {
+  margin: 0;
+}
+.theme-review-heading > p:first-child {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 750;
+}
+.theme-review-heading code {
+  font-size: 12px;
+  color: var(--game-ui-text-muted);
+}
+.theme-review-section {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
+  margin-bottom: 24px;
+}
+.theme-review-section h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 750;
+}
+.theme-review-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.theme-review-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+}
+.theme-review-material {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.theme-review-material > .game-ui-liquid-reveal {
+  width: min(620px, 100%);
+}
+.theme-review-material .game-ui-liquid-reveal-content {
+  padding: 26px;
+}
+.theme-review-switches {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+}
+.theme-review-switches label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (max-width: 700px) {
+  .theme-review {
+    padding: 24px 20px;
+  }
+  .theme-review-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .theme-review-material {
+    gap: 12px;
+    align-items: start;
+  }
+  .theme-review-material > .game-ui-liquid-presence {
+    flex-shrink: 0;
+  }
+  .theme-review-material .game-ui-liquid-reveal-content {
+    padding: 20px;
+  }
+  .theme-review-heading h1 {
+    font-size: 22px;
+  }
+}

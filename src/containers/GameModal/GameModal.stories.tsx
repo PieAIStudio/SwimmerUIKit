@@ -167,12 +167,12 @@ export const DarkTheme: Story = {
     >
       {/* Human-facing fixture copy stays unchanged for S3 pixel comparison.
           The actual theme attribute and toolbar value above are dark. */}
-      <GameCollapsiblePanel title="Inventory (night)">
+      <GameCollapsiblePanel title="Inventory (dark)">
         <p style={{ margin: 0, color: 'var(--game-ui-text)' }}>
-          The same components under the official night theme — only tokens changed.
+          The same components under the official dark theme — only tokens changed.
         </p>
       </GameCollapsiblePanel>
-      <GameWindowPanel title="Map (night)">
+      <GameWindowPanel title="Map (dark)">
         <p style={{ margin: 0, color: 'var(--game-ui-text)' }}>World map placeholder.</p>
       </GameWindowPanel>
     </div>

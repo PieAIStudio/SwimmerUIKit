@@ -1,27 +1,6 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
   .game-ui-textarea {
-    min-height: 92px;
-    line-height: var(--game-ui-line-body);
+    min-height: 96px;
     resize: vertical;
-  }
-  [data-game-ui-density='compact'] .game-ui-textarea {
-    min-height: 72px;
-  }
-
-  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
-  @media (forced-colors: active) {
-    .game-ui-textarea {
-      border: 1px solid ButtonText;
-    }
   }
 }

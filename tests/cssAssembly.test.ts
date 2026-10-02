@@ -37,8 +37,17 @@ describe('CSS assembly ownership', () => {
   it('loads tokens and drawing primitives before component customizations', () => {
     const entry = readFileSync(path.join(source, 'styles.css'), 'utf8');
     const names = [...entry.matchAll(/@import\s+['"]([^'"]+)['"]/g)].map((match) => match[1]!);
-    expect(names.slice(0, 2)).toEqual(['./tokens/theme.css', './tokens/motion.css']);
-    const firstComponent = names.findIndex((file) => !/^\.\/(tokens|liquid)\//.test(file));
+    expect(names.slice(0, 3)).toEqual([
+      './tokens/theme.css',
+      './tokens/control-styles.css',
+      './tokens/motion.css',
+    ]);
+    const firstComponent = names.findIndex(
+      (file) => !/^\.\/(tokens|liquid)\/|DropletSurface\//.test(file),
+    );
+    expect(names.findIndex((file) => file.includes('DropletSurface/component.css'))).toBeLessThan(
+      firstComponent,
+    );
     expect(names.findIndex((file) => file.includes('LiquidGroup/component.css'))).toBeLessThan(
       firstComponent,
     );

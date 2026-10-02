@@ -5,6 +5,7 @@ import { GameUiPreview } from '../src/preview/GameUiPreview/GameUiPreview';
 import { setClayAssetMode } from '../src/icons/assets';
 import { ShowcaseNav } from './ShowcaseNav';
 import { ComponentCatalog } from './catalog/ComponentCatalog';
+import { ThemeReviewPage } from './review/ThemeReview';
 import '../src/styles.css';
 import '../src/preview/preview.css';
 import '../src/tokens/fonts.css';
@@ -22,12 +23,18 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <ShowcaseNav current="components" />
-    {new URLSearchParams(window.location.search).get('view') === 'reference' ||
-    window.location.hash.startsWith('#game-ui-preview-') ? (
-      <GameUiPreview />
+    {new URLSearchParams(window.location.search).get('view') === 'theme-review' ? (
+      <ThemeReviewPage />
     ) : (
-      <ComponentCatalog />
+      <>
+        <ShowcaseNav current="components" />
+        {new URLSearchParams(window.location.search).get('view') === 'reference' ||
+        window.location.hash.startsWith('#game-ui-preview-') ? (
+          <GameUiPreview />
+        ) : (
+          <ComponentCatalog />
+        )}
+      </>
     )}
   </StrictMode>,
 );

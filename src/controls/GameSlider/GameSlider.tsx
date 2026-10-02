@@ -34,6 +34,7 @@ export function GameSlider({
         readOnly={!onChange}
         type="range"
         value={value}
+        data-game-ui-paint=""
       />
     </label>
   );

@@ -3,7 +3,6 @@ import { useMemo, type CSSProperties, type ReactNode } from 'react';
 import { LiquidGroup } from '../LiquidGroup/LiquidGroup';
 
 import { type LiquidFill } from '../LiquidGroup/fill';
-import { liquidFinishGloss, type LiquidFinish } from '../finish';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from '../forms';
 
@@ -103,15 +102,13 @@ function warnGroupForm(form: LiquidForm): void {
   console.warn(
     `LiquidSurface cannot express the '${form}' form: it describes a relationship ` +
       'between sibling items, not one body. Arrange the items in a <LiquidGroup> ' +
-      'with liquidFormGroup() instead; LiquidSurface will render a body that never moves.',
+      'with explicit group props instead; LiquidSurface will render a body that never moves.',
   );
 }
 
 export interface LiquidSurfaceProps {
   children: ReactNode;
-  /** Omitted keeps the form's existing lighting; matte and glossy share the same motion. */
-  liquidFinish?: LiquidFinish;
-  /** Which named look. Defaults to the press form, the one a control wants. */
+  /** Which motion. All forms share one thin liquid material. */
   form?: LiquidForm;
   /**
    * Whether the form is engaged: pressed for `press`, landed for `settle`,
@@ -121,8 +118,8 @@ export interface LiquidSurfaceProps {
   /** Silhouette paint. Defaults to the kit's raised surface token. */
   fill?: LiquidFill;
   /**
-   * The body's light, overriding the form's own. The coloured liquid theme
-   * uses a low value; with `liquidFinish="matte"` omitted, 0 means flat.
+   * Advanced primitive override. Defaults to the shared thin material;
+   * ordinary controls do not expose a second material selector.
    */
   gloss?: number;
   /**
@@ -141,7 +138,6 @@ export interface LiquidSurfaceProps {
 
 export function LiquidSurface({
   children,
-  liquidFinish,
   form = 'press',
   active = false,
   fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
@@ -168,18 +164,7 @@ export function LiquidSurface({
   const item = useMemo(() => liquidFormItem(form), [form]);
   if (LIQUID_FORMS[form].kind === 'group') warnGroupForm(form);
   const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
-  /*
-   * The ground under the body.
-   *
-   * The form is the default and an explicit `shadow` wins, including
-   * `shadow="none"` for a caller that genuinely wants a floating body. The
-   * engaged variant is what makes it a cast shadow rather than a decoration:
-   * these forms move vertically, and a shadow that does not answer that move
-   * is a sticker of a shadow. It transitions with the body because it is a
-   * CSS `filter` on the silhouette and that is an animatable property.
-   */
-  const formShadow = engaged ? (group.shadowEngaged ?? group.shadow) : group.shadow;
-  const shadow = shadowOverride ?? formShadow;
+  const shadow = shadowOverride ?? group.shadow;
   const blob = outline
     ? { amplitude: outline.amplitude, lobes: outline.lobes ?? group.lobes }
     : { amplitude: group.blob, lobes: group.lobes };
@@ -188,7 +173,6 @@ export function LiquidSurface({
     <span
       className={['game-ui-liquid-surface', className].filter(Boolean).join(' ')}
       data-liquid-form={form}
-      data-liquid-finish={liquidFinish}
       data-liquid-active={engaged ? 'true' : 'false'}
       style={style}
     >
@@ -197,7 +181,7 @@ export function LiquidSurface({
         blur={group.blur}
         className="game-ui-liquid-surface__body"
         contrast={group.contrast}
-        gloss={glossOverride ?? liquidFinishGloss(liquidFinish, group.gloss)}
+        gloss={glossOverride ?? group.gloss}
         fill={fill}
         filterPadding={Math.max(group.filterPadding, Math.ceil(blob.amplitude) + 8)}
         motion={reducedMotion ? 'reduced' : 'auto'}

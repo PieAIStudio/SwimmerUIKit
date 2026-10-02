@@ -169,6 +169,7 @@ export function GameOtpInput({
                 setDraft(null);
                 insert(index, text);
               }}
+              data-game-ui-paint=""
             />
             {description ? (
               <span id={descriptionId} className="game-ui-sr-only">

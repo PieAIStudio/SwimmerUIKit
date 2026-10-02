@@ -33,14 +33,10 @@ afterEach(async () => {
   vi.restoreAllMocks();
 });
 
-describe('native selection remains real underneath the liquid', () => {
+describe('native selection remains real under flat styling', () => {
   it('preserves the native node and an uncontrolled selection when decoration or disabled state changes', async () => {
     const ref = createRef<HTMLSelectElement>();
-    const render = (
-      disabled = false,
-      surface: 'flat' | 'liquid' = 'liquid',
-      size = 1,
-    ): ReactNode => (
+    const render = (disabled = false, hue: 'sky' | 'grape' = 'sky', size = 1): ReactNode => (
       <form>
         <GameSelect
           ref={ref}
@@ -48,8 +44,8 @@ describe('native selection remains real underneath the liquid', () => {
           name="course"
           defaultValue="one"
           disabled={disabled}
-          surface={surface}
           size={size}
+          hue={hue}
         >
           <option value="one">One</option>
           <option value="two">Two</option>
@@ -62,22 +58,21 @@ describe('native selection remains real underneath the liquid', () => {
       select.value = 'two';
       select.dispatchEvent(new Event('change', { bubbles: true }));
     });
-    for (const [disabled, surface, size] of [
-      [true, 'liquid', 1],
-      [false, 'liquid', 1],
-      [false, 'flat', 1],
-      [false, 'liquid', 1],
-      [false, 'liquid', 4],
-      [false, 'liquid', 1],
+    for (const [disabled, hue, size] of [
+      [true, 'sky', 1],
+      [false, 'sky', 1],
+      [false, 'grape', 1],
+      [false, 'sky', 1],
+      [false, 'sky', 4],
+      [false, 'sky', 1],
     ] as const) {
-      await act(async () => root?.render(render(disabled, surface, size)));
+      await act(async () => root?.render(render(disabled, hue, size)));
       expect(ref.current).toBe(select);
       expect(select.value).toBe('two');
       expect(new FormData(container.querySelector('form')!).get('course')).toBe(
         disabled ? null : 'two',
       );
-      if (disabled || surface === 'flat' || size > 1)
-        expect(container.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
+      expect(container.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
     }
     container.querySelector('form')!.reset();
     expect(select.value).toBe('one');
@@ -90,15 +85,7 @@ describe('native selection remains real underneath the liquid', () => {
       <form>
         <label>
           Course
-          <GameSelect
-            ref={ref}
-            name="course"
-            defaultValue=""
-            required
-            surface="liquid"
-            liquidFinish="matte"
-            onChange={change}
-          >
+          <GameSelect ref={ref} name="course" defaultValue="" required onChange={change}>
             <option value="">Choose</option>
             <option value="one">One</option>
           </GameSelect>
@@ -126,17 +113,11 @@ describe('native selection remains real underneath the liquid', () => {
     const container = await mount(
       <form>
         <fieldset disabled>
-          <GameSelect name="disabled" surface="liquid">
+          <GameSelect name="disabled">
             <option>A</option>
           </GameSelect>
         </fieldset>
-        <GameSelect
-          aria-label="Many"
-          multiple
-          name="many"
-          defaultValue={['a', 'b']}
-          surface="liquid"
-        >
+        <GameSelect aria-label="Many" multiple name="many" defaultValue={['a', 'b']}>
           <option value="a">A</option>
           <option value="b">B</option>
         </GameSelect>
@@ -147,25 +128,21 @@ describe('native selection remains real underneath the liquid', () => {
     expect(new FormData(form).getAll('many')).toEqual(['a', 'b']);
     expect(container.querySelector('select')!.matches(':disabled')).toBe(true);
   });
-  it('keeps controlled switch state and liquid position coupled without transforming text', async () => {
+  it('keeps controlled switch state and the visible checkmark coupled without transforming text', async () => {
     function Demo() {
       const [checked, setChecked] = useState(false);
-      return (
-        <GameToggle
-          surface="liquid"
-          liquidFinish="matte"
-          checked={checked}
-          label="Notify"
-          onClick={() => setChecked(!checked)}
-        />
-      );
+      return <GameToggle checked={checked} label="Notify" onClick={() => setChecked(!checked)} />;
     }
     const container = await mount(<Demo />);
     const button = container.querySelector('button')!;
     expect(button.getAttribute('aria-checked')).toBe('false');
     await act(async () => button.click());
     expect(button.getAttribute('aria-checked')).toBe('true');
-    expect(container.querySelector('.game-ui-toggle-liquid-thumb')).not.toBeNull();
+    expect(container.querySelector('.game-ui-toggle-thumb')).not.toBeNull();
+    expect(getComputedStyle(container.querySelector('.game-ui-selection-mark')!).visibility).toBe(
+      'visible',
+    );
+    expect(container.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
     expect(getComputedStyle(button).transform).toBe('none');
   });
 });
@@ -175,13 +152,13 @@ describe('press cancellation edge cases', () => {
     const click = vi.fn();
     const container = await mount(
       <fieldset disabled>
-        <GameButton surface="liquid" onClick={click}>
+        <GameButton variant="primary" onClick={click}>
           Go
         </GameButton>
-        <GameIconButton label="Save" surface="liquid" onClick={click}>
+        <GameIconButton label="Save" onClick={click}>
           ★
         </GameIconButton>
-        <GameToggle label="Notify" surface="liquid" checked onClick={click} />
+        <GameToggle label="Notify" checked onClick={click} />
       </fieldset>,
     );
     for (const control of container.querySelectorAll('button')) {
@@ -194,11 +171,12 @@ describe('press cancellation edge cases', () => {
     ))
       expect(getComputedStyle(body).display).toBe('none');
     expect(
-      getComputedStyle(container.querySelector('.game-ui-toggle-liquid-track')!, '::after').left,
-    ).toBe('27px');
+      getComputedStyle(container.querySelector('.game-ui-toggle .game-ui-selection-mark')!)
+        .visibility,
+    ).toBe('visible');
   });
   it('survives WebKit pointerdown-then-blur but cancels on keyboard blur and window deactivation', async () => {
-    const container = await mount(<GameButton surface="liquid">Go</GameButton>);
+    const container = await mount(<GameButton variant="primary">Go</GameButton>);
     const button = container.querySelector('button')!;
     const surface = container.querySelector('.game-ui-liquid-surface')!;
     button.focus();
@@ -221,10 +199,10 @@ describe('press cancellation edge cases', () => {
     const onClick = vi.fn();
     const container = await mount(
       <>
-        <GameIconButton label="Save" disabled surface="liquid" onClick={onClick}>
+        <GameIconButton label="Save" disabled onClick={onClick}>
           ★
         </GameIconButton>
-        <GameToggle label="Notify" checked disabled surface="liquid" onClick={onClick} />
+        <GameToggle label="Notify" checked disabled onClick={onClick} />
         <GameSegmentedControl
           label="Choice"
           activeId="one"
@@ -245,11 +223,18 @@ describe('press cancellation edge cases', () => {
     }
     expect(onClick).not.toHaveBeenCalled();
     expect(container.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
-    expect(container.querySelector('[aria-pressed="true"]')?.textContent).toBe('One');
+    expect(
+      container.querySelector('[aria-pressed="true"] > span:not(.game-ui-selection-mark)')
+        ?.textContent,
+    ).toBe('One');
+    expect(
+      getComputedStyle(container.querySelector('[aria-pressed="true"] > .game-ui-selection-mark')!)
+        .visibility,
+    ).toBe('visible');
     expect(container.querySelector('input')?.disabled).toBe(true);
   });
   it('does not press on right click and resets after lost capture', async () => {
-    const container = await mount(<GameButton surface="liquid">Go</GameButton>);
+    const container = await mount(<GameButton variant="primary">Go</GameButton>);
     const button = container.querySelector('button')!;
     const surface = container.querySelector('.game-ui-liquid-surface')!;
     await act(async () =>
@@ -267,7 +252,7 @@ describe('press cancellation edge cases', () => {
   });
   it('honors static and clears a press when the control becomes disabled', async () => {
     const container = await mount(
-      <GameButton static surface="liquid">
+      <GameButton variant="primary" static>
         Go
       </GameButton>,
     );
@@ -279,7 +264,7 @@ describe('press cancellation edge cases', () => {
     expect(
       container.querySelector('.game-ui-liquid-surface')!.getAttribute('data-liquid-active'),
     ).toBe('false');
-    await act(async () => root?.render(<GameButton surface="liquid">Go</GameButton>));
+    await act(async () => root?.render(<GameButton variant="primary">Go</GameButton>));
     await act(async () =>
       container
         .querySelector('button')!
@@ -287,12 +272,12 @@ describe('press cancellation edge cases', () => {
     );
     await act(async () =>
       root?.render(
-        <GameButton disabled surface="liquid">
+        <GameButton variant="primary" disabled>
           Go
         </GameButton>,
       ),
     );
-    await act(async () => root?.render(<GameButton surface="liquid">Go</GameButton>));
+    await act(async () => root?.render(<GameButton variant="primary">Go</GameButton>));
     expect(
       container.querySelector('.game-ui-liquid-surface')!.getAttribute('data-liquid-active'),
     ).toBe('false');

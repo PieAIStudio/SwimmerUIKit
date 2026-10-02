@@ -30,7 +30,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '可选铜牌皮肤、验证码输入、竖排页签与安静的列表行。账号请求、验证结果和危险操作确认仍由宿主负责。',
+          '平面水滴按钮、可选铜牌头像框、验证码输入、竖排页签与安静的列表行。账号请求、验证结果和危险操作确认仍由宿主负责。',
       },
     },
   },
@@ -44,15 +44,11 @@ function PlaqueDemo(): ReactNode {
       data-account-plaque
       style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}
     >
-      <GameButton surface="plaque">新建作品</GameButton>
-      <GameButton surface="plaque">中文</GameButton>
-      <GameIconButton surface="plaque" label="账号与设置">
-        ☰
-      </GameIconButton>
+      <GameButton>新建作品</GameButton>
+      <GameButton>中文</GameButton>
+      <GameIconButton label="账号与设置">☰</GameIconButton>
       <GameAvatar surface="plaque" name="River" size="md" />
-      <GameButton surface="plaque" disabled>
-        尚不可用
-      </GameButton>
+      <GameButton disabled>尚不可用</GameButton>
     </div>
   );
 }
@@ -176,8 +172,8 @@ function OverviewDemo(): ReactNode {
       }}
     >
       <h1 style={{ margin: 0, fontSize: 'var(--game-ui-font-xl)' }}>账号界面原件</h1>
-      <section aria-label="铜牌皮肤">
-        <h2>铜牌皮肤</h2>
+      <section aria-label="水滴操作与铜牌头像">
+        <h2>水滴操作与铜牌头像</h2>
         <PlaqueDemo />
       </section>
       <section aria-label="验证码输入">

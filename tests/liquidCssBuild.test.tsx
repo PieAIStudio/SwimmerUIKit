@@ -41,16 +41,12 @@ async function renderFixture(node: ReactNode) {
 
 describe('published CSS preserves native hit targets', () => {
   const cases = [
-    { name: 'liquid button', node: <GameButton surface="liquid">Start</GameButton> },
+    { name: 'liquid CTA', node: <GameButton variant="primary">Start</GameButton> },
     {
-      name: 'liquid icon',
-      node: (
-        <GameIconButton label="Save" surface="liquid">
-          ★
-        </GameIconButton>
-      ),
+      name: 'flat icon',
+      node: <GameIconButton label="Save">★</GameIconButton>,
     },
-    { name: 'liquid switch', node: <GameToggle surface="liquid" label="Notify" checked /> },
+    { name: 'flat switch', node: <GameToggle label="Notify" checked /> },
     { name: 'static button', node: <GameButton static>Start</GameButton> },
   ];
   it.each(cases)(
@@ -74,7 +70,7 @@ describe('published CSS preserves native hit targets', () => {
     },
   );
 
-  it('retains the intentional ordinary-button press instead of globally removing motion', async () => {
+  it('keeps the flat button native hit target fixed after minification; its SVG alone owns the press', async () => {
     try {
       await renderFixture(<GameButton>Start</GameButton>);
       const button = page.locator('button');
@@ -83,7 +79,12 @@ describe('published CSS preserves native hit targets', () => {
       const before = (await button.boundingBox())!;
       await page.mouse.down();
       await page.waitForTimeout(250);
-      expect((await button.boundingBox())!.width).toBeLessThan(before.width);
+      const after = (await button.boundingBox())!;
+      for (const key of ['x', 'y', 'width', 'height'] as const)
+        expect(after[key], key).toBeCloseTo(before[key], 2);
+      expect(await button.locator('svg.game-ui-droplet path').getAttribute('vector-effect')).toBe(
+        'non-scaling-stroke',
+      );
       await page.mouse.up();
     } finally {
       await page.mouse.up();

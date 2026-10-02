@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useEffect, useId, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { joinClasses } from '../shared/classes';
 import { WindowGlyph } from '../GameWindowPanel/GameWindowPanel';
@@ -99,7 +100,9 @@ export function GameModal({
             className="game-ui-icon-button game-ui-window-button"
             onClick={onClose}
             type="button"
+            data-game-ui-paint=""
           >
+            <DropletSurface />
             <WindowGlyph kind="close" />
           </button>
         </header>

@@ -125,27 +125,23 @@ export const Merge: Story = {
   parameters: { docs: { description: { story: LIQUID_FORMS.merge.summary } } },
 };
 
-/*
- * Tone and surface are separate axes. Folding 'liquid' into `variant` would
- * have made 「a destructive action that is also liquid」 unsayable.
- */
+/** Exactly one liquid CTA; semantic ordinary actions stay flat. */
 export const ButtonSurfaces: Story = {
   args: { children: null },
   render: () => (
     <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'danger', 'success'] as const).map((variant) => (
         <div key={variant} style={{ display: 'grid', gap: 8, justifyItems: 'center' }}>
-          <GameButton surface="liquid" variant={variant}>
-            {variant}
-          </GameButton>
-          <GameButton variant={variant}>flat</GameButton>
+          <GameButton variant={variant}>{variant}</GameButton>
         </div>
       ))}
     </div>
   ),
   parameters: {
     docs: {
-      description: { story: '同一个 `variant` 色调,`surface="liquid"` 换外观,两个轴互不吃掉。' },
+      description: {
+        story: '一屏最多一个 primary。主操作固定潮汐液体，其余操作共用平面水滴；不再选择 surface。',
+      },
     },
   },
 };

@@ -1,19 +1,20 @@
+import { GAME_UI_STYLES } from '../src/tokens/styles';
 import path from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 import { CONTROL_RECIPES, recipeCode } from '../preview/catalog/recipes';
 
 describe('copyable catalog examples', () => {
-  it('typechecks every recipe, finish, and advertised state against the actual package API', () => {
+  it('typechecks every recipe, six styles, and advertised state against the actual package API', () => {
     const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile);
     const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, process.cwd());
     const files = new Map<string, string>();
     for (const recipe of CONTROL_RECIPES)
-      for (const material of ['flat', 'matte', 'glossy'] as const)
+      for (const uiStyle of GAME_UI_STYLES)
         for (const state of ['ready', 'disabled', 'invalid'] as const) {
           files.set(
-            path.resolve(`src/__recipe_${recipe.id}_${material}_${state}.tsx`),
-            recipeCode({ recipe: recipe.id, material, state }),
+            path.resolve(`src/__recipe_${recipe.id}_${uiStyle}_${state}.tsx`),
+            recipeCode({ recipe: recipe.id, uiStyle, state }),
           );
         }
     files.set(

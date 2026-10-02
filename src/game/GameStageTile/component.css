@@ -11,7 +11,6 @@
     gap: 2px;
   }
   .game-ui-stage-tile small {
-    color: var(--game-ui-text-muted);
     font-size: var(--game-ui-font-xs);
     font-style: normal;
     font-weight: 820;
@@ -20,17 +19,11 @@
   }
   .game-ui-stage-tile {
     min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
     border-radius: var(--game-ui-radius-control);
     font: inherit;
     font-family: var(--game-ui-font-body);
     font-weight: 860;
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
@@ -38,38 +31,17 @@
     min-height: var(--game-ui-stage-tile-min-height);
     width: 100%;
     border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 92%, transparent);
-    color: var(--game-ui-text);
     padding: 12px;
     text-align: left;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .game-ui-stage-tile:hover {
-      transform: translateY(-1px);
-    }
-  }
-  .game-ui-stage-tile:active {
-    scale: 0.96;
-  }
-  .game-ui-stage-tile[data-stage-tone='portal'] {
-    border-color: color-mix(in srgb, var(--game-ui-secondary) 42%, transparent);
-  }
-  .game-ui-stage-tile[data-stage-tone='host'] {
-    border-color: color-mix(in srgb, var(--game-ui-accent) 42%, transparent);
-  }
-  .game-ui-stage-tile[data-stage-tone='danger'] {
-    border-color: color-mix(in srgb, var(--game-ui-danger) 42%, transparent);
   }
   .game-ui-stage-tile:disabled {
     cursor: not-allowed;
-    opacity: 0.76;
-    filter: saturate(0.72);
-    transform: none;
   }
   .game-ui-stage-tile-copy > span {
-    color: var(--game-ui-text-muted);
     font-size: var(--game-ui-font-sm);
     line-height: 1.35;
   }
@@ -83,9 +55,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-stage-tile:hover {
-      transform: none;
-    }
   }
 
   /* Accessibility & finish: unified focus ring, clay scrollbars, selection */

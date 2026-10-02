@@ -66,6 +66,7 @@ function HudCluster({
   density,
   className,
   toolsLabel = 'Tools',
+  primaryAction = true,
 }: {
   title: string;
   tone?: 'glass';
@@ -73,6 +74,8 @@ function HudCluster({
   className?: string;
   /** Unique accessible name when multiple clusters share a page. */
   toolsLabel?: string;
+  /** A comparison of containers is not two competing next steps. */
+  primaryAction?: boolean;
 }): ReactNode {
   const attrs: Record<string, string> = {};
   if (tone) attrs[GAME_UI_OVERLAY.toneAttr] = tone;
@@ -125,7 +128,7 @@ function HudCluster({
           playfield.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <GameButton variant="primary">Continue</GameButton>
+          <GameButton variant={primaryAction ? 'primary' : 'secondary'}>Continue</GameButton>
           <GameButton variant="secondary">Emote</GameButton>
           <GameButton variant="ghost">Skip</GameButton>
           <GameButton variant="danger">Leave</GameButton>
@@ -150,7 +153,7 @@ export const OverlayGlassOnDarkTheme: Story = {
   render: () => (
     <div data-game-ui-theme="dark" style={{ padding: 16, background: '#221812' }}>
       {/* Preserve fixture display copy, not the removed theme value, until S4. */}
-      <HudCluster title="Glass over night" tone="glass" density="compact" />
+      <HudCluster title="Glass over dark" tone="glass" density="compact" />
     </div>
   ),
 };
@@ -169,13 +172,19 @@ export const SideBySide: Story = {
     >
       <div>
         <p style={{ margin: '0 0 8px', fontWeight: 800 }}>Default clay</p>
-        <HudCluster title="Clay control HUD" toolsLabel="Clay tools" />
+        <HudCluster title="Clay control HUD" toolsLabel="Clay tools" primaryAction={false} />
       </div>
       <div>
         <p style={{ margin: '0 0 8px', fontWeight: 800 }}>
           data-game-ui-tone=&quot;glass&quot; + compact
         </p>
-        <HudCluster title="Glass HUD" tone="glass" density="compact" toolsLabel="Glass tools" />
+        <HudCluster
+          title="Glass HUD"
+          tone="glass"
+          density="compact"
+          toolsLabel="Glass tools"
+          primaryAction={false}
+        />
       </div>
     </div>
   ),

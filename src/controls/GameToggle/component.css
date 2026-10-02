@@ -1,220 +1,53 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
   .game-ui-toggle {
-    min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
-    border-radius: var(--game-ui-radius-control);
-    font: inherit;
-    font-family: var(--game-ui-font-body);
-    font-weight: 860;
-    cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
-    padding: 0 10px 0 14px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
   }
-  .game-ui-toggle:active {
-    scale: 0.96;
-  }
-  /*
-    Off. The track carried exactly one unconditional rule — an always-on
-    `--game-ui-secondary` fill with the bead parked right — and nothing
-    anywhere keyed on `aria-checked`, so a switch rendered identically whether
-    it was on or off, in every theme, for every consumer. A switch that cannot
-    show its own state is not a switch.
-
-    State is carried by the bead's *position*, not by hue: off recesses into an
-    inset well with the bead left, on fills with the accent and the bead moves
-    right. A spatial difference survives both palettes and both kinds of colour
-    vision, which a track colour cannot — `--game-ui-secondary` sits mid-range
-    in luminance, so nothing clears 3:1 against both it and a surface.
-
-    The bead is `--game-ui-text` because that is the one token guaranteed to
-    read against every surface its own theme defines. Measured on dark:
-    13.1:1 against the off track, 6.1:1 between the two track colours.
-  */
   .game-ui-toggle-track {
-    width: 42px;
-    height: 24px;
-    border: 2px solid var(--game-ui-panel-strong);
-    border-radius: var(--game-ui-radius-bead);
-    background: var(--game-ui-surface);
-    box-shadow:
-      var(--game-ui-shadow-inset),
-      inset 8px 0 0 var(--game-ui-text);
-    transition:
-      background var(--game-ui-motion-fast) var(--game-ui-ease-soft),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-pop);
-  }
-  /* On: the accent fills the track and the bead moves to the far side. Colour
-     alone would leave the state unreadable to anyone who cannot separate these
-     two hues, so the bead's position carries it too. */
-  .game-ui-toggle[aria-checked='true'] .game-ui-toggle-track {
-    background: var(--game-ui-secondary);
-    box-shadow: inset -8px 0 0 var(--game-ui-text);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .game-ui-toggle-track {
-      transition: none;
-    }
-  }
-
-  /*
-   * Overlay glass tone — semantic tokens are re-scoped in theme.css under
-   * [data-game-ui-tone='glass'] / .game-ui-overlay-scope. Rules below only
-   * cover shapes that pure token swap cannot express (translucent primary
-   * fill, warm hover, backdrop blur, clay-icon plate on dark).
-   */
-  [data-game-ui-tone='glass'] .game-ui-toggle {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-toggle {
-    border-color: var(--game-ui-overlay-glass-border);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-
-  /*
-   * Compact density — reduced min-height / padding for scene-overlay HUDs.
-   * Orthogonal to tone: use alone or with glass.
-   *   <div data-game-ui-density="compact"> … </div>
-   */
-  [data-game-ui-density='compact'] .game-ui-toggle {
-    min-height: 34px;
-    padding: 0 12px;
-  }
-
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
-  .game-ui-toggle:focus-visible {
-    outline: 3px solid var(--game-ui-focus-ring);
-    outline-offset: 2px;
-  }
-
-  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
-  @media (forced-colors: active) {
-    .game-ui-toggle {
-      border: 1px solid ButtonText;
-    }
-    .game-ui-toggle:focus-visible {
-      outline-color: Highlight;
-    }
-  }
-
-  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
- * delay and the grey iOS tap flash on every interactive control; keep game
- * control surfaces from turning into text selections or image callouts
- * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
- * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
- * raw env(safe-area-inset-*) can read 0 — can override the source values. */
-  .game-ui-toggle-liquid-track {
+    display: inline-block;
     position: relative;
-    display: block;
-    flex-shrink: 0;
-    width: 52px;
-    height: 28px;
-    border-radius: var(--game-ui-radius-control);
-    background: var(--game-ui-surface);
-    box-shadow: var(--game-ui-shadow-inset);
+    flex: none;
+    width: 36px;
+    height: 20px;
+    border: 1.5px solid var(--game-ui-control-edge);
+    background: var(--game-ui-control-disabled-fill);
+    border-radius: 999px;
+    box-sizing: border-box;
   }
-  .game-ui-toggle[aria-checked='true'] .game-ui-toggle-liquid-track {
-    background: var(--game-ui-secondary);
-  }
-  .game-ui-toggle[data-toggle-surface='liquid']:active {
-    scale: 1;
-  }
-  .game-ui-toggle-liquid-body {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  .game-ui-toggle-liquid-thumb {
+  .game-ui-toggle-thumb {
     position: absolute;
     left: 2px;
     top: 2px;
-    width: 24px;
-    height: 24px;
-  }
-  .game-ui-toggle-liquid-thumb > span {
-    display: block;
-    width: 24px;
-    height: 24px;
-  }
-  /* Disabled is a real state, not merely a dropped click handler. Keep the
-   * selected option legible while removing the invitation to press or hover. */
-  .game-ui-toggle:disabled {
-    color: var(--game-ui-disabled);
-    cursor: not-allowed;
-    transform: none;
-    scale: 1;
-    box-shadow: none;
-  }
-  .game-ui-toggle:disabled {
-    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
-  }
-  /* A disabled fieldset is browser-owned state, even when a React disabled
-   * prop was not set on each descendant. Keep that native path quiet too. */
-  .game-ui-toggle:disabled .game-ui-toggle-liquid-body {
-    display: none;
-  }
-  .game-ui-toggle:disabled .game-ui-toggle-liquid-track::after {
-    content: '';
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
-    background: var(--game-ui-disabled);
+    background: var(--game-ui-control-on-edge);
+    transition: translate 140ms ease-out;
   }
-  .game-ui-toggle:disabled[aria-checked='true'] .game-ui-toggle-liquid-track::after {
-    left: 27px;
+  .game-ui-toggle[aria-checked='true'] .game-ui-toggle-thumb {
+    translate: 16px 0;
+  }
+  .game-ui-toggle:disabled .game-ui-toggle-thumb {
+    background: var(--game-ui-control-disabled-text);
   }
   @media (forced-colors: active) {
-    .game-ui-toggle-liquid-body {
-      display: none;
+    .game-ui-toggle-track {
+      background: ButtonFace;
+      border-color: ButtonText;
     }
-    .game-ui-toggle-liquid-track {
-      border: 1px solid ButtonText;
-      background: Canvas;
-      box-shadow: none;
+    .game-ui-toggle-thumb {
+      background: Highlight;
     }
-    .game-ui-toggle-liquid-track::after {
-      content: '';
-      position: absolute;
-      left: 3px;
-      top: 3px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: ButtonText;
-    }
-    .game-ui-toggle[aria-checked='true'] .game-ui-toggle-liquid-track::after {
-      left: 27px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-toggle-thumb {
+      transition: none;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useContext, type CSSProperties, type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 
 import { type GameButtonVariant } from '../../controls/GameButton/GameButton';
 
@@ -6,7 +6,6 @@ import { LiquidSurface } from '../../liquid/LiquidSurface/LiquidSurface';
 
 import { type LiquidForm } from '../../liquid/forms';
 import { STAGE } from './constants';
-import { FinishContext } from './context';
 
 /*
  * Tone is a control on the shelf, not a section of its own.
@@ -44,15 +43,8 @@ export function BodyStage({
   style?: CSSProperties;
   radius?: number;
 }): ReactNode {
-  const liquidFinish = useContext(FinishContext);
   return (
-    <LiquidSurface
-      liquidFinish={liquidFinish}
-      active={engaged}
-      fill={fill}
-      form={form}
-      radius={radius}
-    >
+    <LiquidSurface active={engaged} fill={fill} form={form} radius={radius}>
       <span className="game-ui-liquid-page__body" style={style} />
     </LiquidSurface>
   );

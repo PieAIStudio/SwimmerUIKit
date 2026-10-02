@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useId, useState, type HTMLAttributes, type ReactNode } from 'react';
 import { joinClasses } from '../shared/classes';
 
@@ -69,7 +70,9 @@ export function GameCollapsiblePanel({
             onClick={toggle}
             title={isOpen ? text.collapse : text.expand}
             type="button"
+            data-game-ui-paint=""
           >
+            <DropletSurface />
             <span aria-hidden="true" className="game-ui-collapsible-chevron" />
             <span className="game-ui-collapsible-title">{title}</span>
           </button>

@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 /**
  * Clay form primitives. These are intentionally thin wrappers over the native
@@ -8,12 +9,13 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
  */
 
 export interface GameInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  hue?: GameUiHue;
   /** Paints the field in the danger tone for invalid values. */
   invalid?: boolean;
 }
 
 export const GameInput = forwardRef<HTMLInputElement, GameInputProps>(function GameInput(
-  { className, invalid, type = 'text', ...props },
+  { className, invalid, hue, type = 'text', ...props },
   ref,
 ): ReactNode {
   const classes = ['game-ui-input', className].filter(Boolean).join(' ');
@@ -24,7 +26,9 @@ export const GameInput = forwardRef<HTMLInputElement, GameInputProps>(function G
       ref={ref}
       type={type}
       {...props}
+      style={{ ...controlHue(hue), ...props.style }}
       aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
+      data-game-ui-paint=""
     />
   );
 });

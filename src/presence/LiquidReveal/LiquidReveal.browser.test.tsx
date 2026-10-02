@@ -118,12 +118,7 @@ it('a directly focused input is visible immediately and resizing never hides it 
   await act(async () => {
     root!.render(
       <StrictMode>
-        <LiquidReveal
-          source={{ current: origin! }}
-          surface="material"
-          variant="input"
-          revealKey="text"
-        >
+        <LiquidReveal source={{ current: origin! }} variant="input" revealKey="text">
           <textarea key="direct-text" autoFocus aria-label="draft" defaultValue="keep me" />
         </LiquidReveal>
       </StrictMode>,
@@ -150,11 +145,7 @@ it('focused text never becomes transparent when a new measurement arrives', asyn
   await act(async () =>
     root!.render(
       <StrictMode>
-        <LiquidReveal
-          source={{ current: origin! }}
-          surface="material"
-          revealKey="focused-new-layout"
-        >
+        <LiquidReveal source={{ current: origin! }} revealKey="focused-new-layout">
           <textarea aria-label="draft" defaultValue="keep me" />
         </LiquidReveal>
       </StrictMode>,
@@ -172,7 +163,9 @@ it('focused text never becomes transparent when a new measurement arrives', asyn
 it('pause and rerender retain the current material rather than flashing phase zero', async () => {
   await mount(false, 'breathe');
   const outline = () => host!.querySelector('[data-reveal-outline]')!.getAttribute('d');
-  const ribbon = () => host!.querySelector('[data-reveal-ribbon]')!.getAttribute('d');
+  // The thin material owns one cached unfiltered body and a filtered outline;
+  // the old secondary dark ribbon does not exist in 3.0.
+  const ribbon = () => host!.querySelector('[data-reveal-body]')!.getAttribute('d');
   await expect
     .poll(() => host!.querySelector<HTMLElement>('.game-ui-liquid-reveal')!.dataset.revealAmbient, {
       timeout: 4000,
@@ -223,7 +216,7 @@ it('material grows from the positioned source, not a fully visible panel at fram
     root!.render(
       <StrictMode>
         <LiquidAnchor source={source}>
-          <LiquidReveal source={source} surface="material">
+          <LiquidReveal source={source}>
             <div style={{ width: 300, height: 200 }}>
               <button>Original action</button>
             </div>

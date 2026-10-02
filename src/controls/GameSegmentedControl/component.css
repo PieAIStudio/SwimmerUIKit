@@ -1,123 +1,23 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
   .game-ui-segmented {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    flex-wrap: nowrap;
-    gap: 0;
+    align-items: stretch;
+    gap: 8px;
     width: fit-content;
     max-width: 100%;
-    padding: 4px;
-    border-radius: var(--game-ui-radius-control);
-  }
-  .game-ui-segmented-option:active {
-    scale: 0.96;
-  }
-  .game-ui-segmented-surface {
-    z-index: 0;
-  }
-  .game-ui-segmented-follow {
-    z-index: 0;
-    z-index: 1;
   }
   .game-ui-segmented-option {
-    position: relative;
-    z-index: 2;
-    min-height: 44px;
+    display: inline-flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     min-width: 0;
-    flex: 1 1 auto;
-    padding: 0 16px;
-    border: 0;
-    border-radius: var(--game-ui-radius-control);
-    appearance: none;
-    background: transparent;
-    color: var(--game-ui-text);
-    box-shadow: none;
+    min-height: 44px;
+    padding: 10px 16px;
     font: inherit;
-    font-family: var(--game-ui-font-body);
-    font-weight: 860;
+    font-weight: 750;
     cursor: pointer;
-    transition:
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      color var(--game-ui-motion-fast) var(--game-ui-ease-soft);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .game-ui-segmented-option[aria-pressed='true'] {
-    color: var(--game-ui-accent-contrast);
-  }
-
-  /*
-   * Compact density — reduced min-height / padding for scene-overlay HUDs.
-   * Orthogonal to tone: use alone or with glass.
-   *   <div data-game-ui-density="compact"> … </div>
-   */
-  [data-game-ui-density='compact'] .game-ui-segmented-option {
-    min-height: 34px;
-    padding: 0 12px;
-  }
-  [data-game-ui-density='compact'] .game-ui-segmented {
-    gap: 6px;
-  }
-
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
-  .game-ui-segmented-option:focus-visible {
-    outline: 3px solid var(--game-ui-focus-ring);
-    outline-offset: 2px;
-  }
-
-  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
-  @media (forced-colors: active) {
-    .game-ui-segmented-option:focus-visible {
-      outline-color: Highlight;
-    }
-  }
-
-  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
- * delay and the grey iOS tap flash on every interactive control; keep game
- * control surfaces from turning into text selections or image callouts
- * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
- * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
- * raw env(safe-area-inset-*) can read 0 — can override the source values. */
-  .game-ui-segmented-surface .game-ui-liquid-content {
-    position: absolute;
-    inset: 0;
-  }
-  .game-ui-segmented-follow .game-ui-liquid-content {
-    position: absolute;
-    inset: 0;
-  }
-  .game-ui-segmented[data-segmented-surface='flat'] {
-    background: var(--game-ui-surface-raised);
-    border-radius: var(--game-ui-radius-control);
-  }
-  .game-ui-segmented[data-segmented-surface='flat'] .game-ui-segmented-option[aria-pressed='true'] {
-    background: var(--game-ui-secondary);
-  }
-  /* Disabled is a real state, not merely a dropped click handler. Keep the
-   * selected option legible while removing the invitation to press or hover. */
-  .game-ui-segmented-option:disabled {
-    color: var(--game-ui-disabled);
-    cursor: not-allowed;
-    transform: none;
-    scale: 1;
-    box-shadow: none;
-  }
-  .game-ui-segmented[data-segmented-disabled='true']
-    .game-ui-segmented-option[aria-pressed='true'] {
-    background: color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent);
-    box-shadow: inset 0 0 0 1px var(--game-ui-border-strong);
   }
 }

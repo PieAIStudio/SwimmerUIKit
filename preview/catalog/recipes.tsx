@@ -14,7 +14,7 @@ import {
   GameCallout,
   GameEmptyState,
   GameModal,
-  type LiquidFinish,
+  type GameUiStyle,
   type GameButtonVariant,
 } from '../../src/index';
 
@@ -31,36 +31,36 @@ export const CONTROL_RECIPES = [
     id: 'icon',
     title: '图标按钮',
     api: 'GameIconButton',
-    liquid: true,
-    hint: '紧凑操作也有可访问名称；按压反馈与主按钮共用同一实现。',
+    liquid: false,
+    hint: '紧凑操作也有可访问名称；二维水滴背景变形，原生点击区域保持稳定。',
   },
   {
     id: 'toggle',
     title: '开关',
     api: 'GameToggle',
-    liquid: true,
+    liquid: false,
     hint: '开与关由滑块位置表达，不只靠颜色。点击或按空格切换。',
   },
   {
     id: 'segmented',
     title: '分段选择',
     api: 'GameSegmentedControl',
-    liquid: true,
-    hint: '少量并列选项。液体只跟随选中项，不改变文字位置。',
+    liquid: false,
+    hint: '少量并列选项；选中增加对勾，不放大、不推动相邻选项。',
   },
   {
     id: 'progress',
     title: '进度条',
     api: 'GameProgress',
-    liquid: true,
-    hint: '拖动下方原生滑杆，观察液体前沿。进度数值有真实可访问语义。',
+    liquid: false,
+    hint: '拖动下方原生滑杆，查看真实完成比例；进度不是液体主操作。',
   },
   {
     id: 'select',
     title: '下拉选择',
     api: 'GameSelect',
-    liquid: true,
-    hint: '液体绘制关闭时的选择框；展开选项由系统原生菜单承接，不是自绘弹层。',
+    liquid: false,
+    hint: '平面输入框只换边和底色；选项由系统菜单承接，不做自绘弹层。',
   },
   {
     id: 'input',
@@ -107,18 +107,25 @@ export const CONTROL_RECIPES = [
 ] as const;
 
 export type RecipeId = (typeof CONTROL_RECIPES)[number]['id'];
-export type RecipeMaterial = 'flat' | LiquidFinish;
+export type RecipeStyle = GameUiStyle;
 export type RecipeState = 'ready' | 'disabled' | 'invalid';
 export interface ControlRecipeProps {
   recipe: RecipeId;
-  material?: RecipeMaterial;
+  uiStyle?: RecipeStyle;
   state?: RecipeState;
   tone?: GameButtonVariant;
 }
 
-export function ControlRecipe({
+export function ControlRecipe({ uiStyle = 'pastel', ...props }: ControlRecipeProps): ReactNode {
+  return (
+    <div data-game-ui-style={uiStyle}>
+      <RecipeContent {...props} />
+    </div>
+  );
+}
+
+function RecipeContent({
   recipe,
-  material = 'glossy',
   state = 'ready',
   tone = 'primary',
 }: ControlRecipeProps): ReactNode {
@@ -131,16 +138,11 @@ export function ControlRecipe({
   const [open, setOpen] = useState(false);
   const disabled = state === 'disabled';
   const invalid = state === 'invalid';
-  const paint =
-    material === 'flat'
-      ? { surface: 'flat' as const }
-      : { surface: 'liquid' as const, liquidFinish: material };
   switch (recipe) {
     case 'button':
       return (
         <div className="kit-recipe-stack">
           <GameButton
-            {...paint}
             fullWidth
             variant={tone}
             disabled={disabled}
@@ -155,7 +157,6 @@ export function ControlRecipe({
       return (
         <div className="kit-recipe-stack">
           <GameIconButton
-            {...paint}
             label="收藏这个示例"
             disabled={disabled}
             onClick={() => setCount(count + 1)}
@@ -169,7 +170,6 @@ export function ControlRecipe({
       return (
         <div className="kit-recipe-stack">
           <GameToggle
-            {...paint}
             checked={checked}
             label="学习提醒"
             disabled={disabled}
@@ -182,7 +182,6 @@ export function ControlRecipe({
       return (
         <div className="kit-recipe-stack">
           <GameSegmentedControl
-            {...paint}
             disabled={disabled}
             activeId={selected}
             label="学习内容"
@@ -199,7 +198,7 @@ export function ControlRecipe({
     case 'progress':
       return (
         <div className="kit-recipe-stack">
-          <GameProgress {...paint} value={value} label="课程完成进度" showValue />
+          <GameProgress value={value} label="课程完成进度" showValue />
           <GameSlider
             label="调整进度"
             min={0}
@@ -232,7 +231,6 @@ export function ControlRecipe({
               : { hint: '展开后是系统菜单，支持键盘选择。' })}
           >
             <GameSelect
-              {...paint}
               name="course"
               value={course}
               onChange={(event) => setCourse(event.currentTarget.value)}
@@ -345,21 +343,19 @@ export function ControlRecipe({
 /** Complete copyable examples, compiled by recipeCode.test.ts before release. */
 export function recipeCode({
   recipe,
-  material = 'glossy',
+  uiStyle = 'pastel',
   state = 'ready',
   tone = 'primary',
 }: ControlRecipeProps): string {
-  const paint =
-    material === 'flat' ? 'surface="flat"' : `surface="liquid" liquidFinish="${material}"`;
   const disabled = state === 'disabled' ? ' disabled' : '';
   const invalid = state === 'invalid' ? ' invalid aria-invalid="true"' : '';
   const bodies: Record<RecipeId, string> = {
-    button: `const [count, setCount] = useState(0);\n  return <><GameButton ${paint} fullWidth variant="${tone}"${disabled} onClick={() => setCount(count + 1)}>开始学习</GameButton><output>{count}</output></>;`,
-    icon: `const [count, setCount] = useState(0);\n  return <><GameIconButton ${paint} label="收藏"${disabled} onClick={() => setCount(count + 1)}><span aria-hidden="true">★</span></GameIconButton><output>{count}</output></>;`,
-    toggle: `const [checked, setChecked] = useState(false);\n  return <GameToggle ${paint} label="学习提醒" checked={checked}${disabled} onClick={() => setChecked(!checked)} />;`,
-    segmented: `const [activeId, setActiveId] = useState('notes');\n  return <GameSegmentedControl ${paint} label="学习内容" activeId={activeId}${disabled} onSelect={setActiveId} options={[{ id: 'lesson', label: '章节' }, { id: 'notes', label: '笔记' }, { id: 'practice', label: '练习' }]} />;`,
-    progress: `const [value, setValue] = useState(40);\n  return <><GameProgress ${paint} label="课程完成进度" value={value} showValue /><GameSlider label="调整进度" min={0} max={100} step={5} value={value}${disabled} onChange={setValue} /></>;`,
-    select: `const [course, setCourse] = useState('');\n  return <form onSubmit={(event) => { event.preventDefault(); console.log(course); }} onReset={() => setCourse('')}><GameField label="选择课程" required><GameSelect ${paint} name="course" value={course} onChange={(event) => setCourse(event.currentTarget.value)} required${disabled}${invalid}><option value="">请选择</option><optgroup label="基础课程"><option value="thinking">思考与表达</option><option value="code">编程入门</option></optgroup><option value="later" disabled>尚未开放</option></GameSelect></GameField><GameButton type="submit"${disabled}>提交选择</GameButton><GameButton type="reset"${disabled}>重置</GameButton></form>;`,
+    button: `const [count, setCount] = useState(0);\n  return <><GameButton fullWidth variant="${tone}"${disabled} onClick={() => setCount(count + 1)}>开始学习</GameButton><output>{count}</output></>;`,
+    icon: `const [count, setCount] = useState(0);\n  return <><GameIconButton label="收藏"${disabled} onClick={() => setCount(count + 1)}><span aria-hidden="true">★</span></GameIconButton><output>{count}</output></>;`,
+    toggle: `const [checked, setChecked] = useState(false);\n  return <GameToggle label="学习提醒" checked={checked}${disabled} onClick={() => setChecked(!checked)} />;`,
+    segmented: `const [activeId, setActiveId] = useState('notes');\n  return <GameSegmentedControl label="学习内容" activeId={activeId}${disabled} onSelect={setActiveId} options={[{ id: 'lesson', label: '章节' }, { id: 'notes', label: '笔记' }, { id: 'practice', label: '练习' }]} />;`,
+    progress: `const [value, setValue] = useState(40);\n  return <><GameProgress label="课程完成进度" value={value} showValue /><GameSlider label="调整进度" min={0} max={100} step={5} value={value}${disabled} onChange={setValue} /></>;`,
+    select: `const [course, setCourse] = useState('');\n  return <form onSubmit={(event) => { event.preventDefault(); console.log(course); }} onReset={() => setCourse('')}><GameField label="选择课程" required><GameSelect name="course" value={course} onChange={(event) => setCourse(event.currentTarget.value)} required${disabled}${invalid}><option value="">请选择</option><optgroup label="基础课程"><option value="thinking">思考与表达</option><option value="code">编程入门</option></optgroup><option value="later" disabled>尚未开放</option></GameSelect></GameField><GameButton type="submit"${disabled}>提交选择</GameButton><GameButton type="reset"${disabled}>重置</GameButton></form>;`,
     input: `return <GameField label="联系邮箱" hint="用于接收学习报告。"><GameInput type="email" name="email" placeholder="name@example.com"${disabled}${invalid} /></GameField>;`,
     textarea: `return <GameField label="学习笔记"><GameTextArea rows={4} placeholder="写下新的发现……"${disabled} /></GameField>;`,
     checkbox: `const [checked, setChecked] = useState(false);\n  return <GameCheckbox label="保存阅读位置" checked={checked}${disabled} onChange={(event) => setChecked(event.currentTarget.checked)} />;`,
@@ -368,8 +364,8 @@ export function recipeCode({
     modal: `const [open, setOpen] = useState(false);\n  return <><GameButton onClick={() => setOpen(true)}${disabled}>打开对话框</GameButton><GameModal title="继续之前" closeLabel="关闭" open={open} onClose={() => setOpen(false)}><p>Tab 切换焦点，Escape 关闭。</p><GameButton onClick={() => setOpen(false)}>确认并返回</GameButton></GameModal></>;`,
   };
   const body = bodies[recipe]
-    .replace('return ', 'return (\n    ')
-    .replace(/;$/, '\n  );')
+    .replace('return ', `return (\n    <div data-game-ui-style="${uiStyle}">`)
+    .replace(/;$/, '</div>\n  );')
     .replace(/></g, '>\n    <');
   const names = [...new Set(body.match(/\bGame\w+/g))].sort();
   return `${body.includes('useState(') ? "import { useState } from 'react';\n" : ''}import { ${names.join(', ')} } from '@pieai/swimmer-ui-kit';\nimport '@pieai/swimmer-ui-kit/styles.css';\n\nexport function Example() {\n  ${body}\n}\n`;

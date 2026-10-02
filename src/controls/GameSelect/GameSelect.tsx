@@ -1,58 +1,28 @@
-import { forwardRef, type ReactNode, type SelectHTMLAttributes } from 'react';
-import type { GameButtonSurface } from '../GameButton/GameButton';
-import type { LiquidFinish } from '../../liquid/finish';
-import { LiquidSurface } from '../../liquid/LiquidSurface/LiquidSurface';
+import { forwardRef, type SelectHTMLAttributes } from 'react';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export interface GameSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   invalid?: boolean;
-  surface?: Exclude<GameButtonSurface, 'plaque'>;
-  liquidFinish?: LiquidFinish;
+  hue?: GameUiHue;
 }
-
-/**
- * Native select, not a custom listbox state machine. Options/optgroups, form
- * submission, reset, keyboard and the mobile picker remain browser-owned.
- * Liquid paints only the closed single-select field. Disabled/multiple/list
- * modes use the ordinary surface; we do not pretend to animate an OS popup.
- */
+/** Native options, form reset, focus, mobile popup and multiple-selection stay
+ * browser-owned. A field changes only its flat edge/fill, never its geometry. */
 export const GameSelect = forwardRef<HTMLSelectElement, GameSelectProps>(function GameSelect(
-  { className, invalid, surface = 'flat', liquidFinish, ...props },
+  { className, invalid, hue, style, ...props },
   ref,
-): ReactNode {
-  const liquid =
-    surface === 'liquid' && !props.disabled && !props.multiple && (props.size ?? 1) <= 1;
-  const select = (
-    <select
-      {...props}
-      key="control"
-      aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
-      className={['game-ui-input', 'game-ui-select', className].filter(Boolean).join(' ')}
-      data-invalid={invalid ? 'true' : undefined}
-      ref={ref}
-    />
-  );
-  // Keep the native element at one React position. Replacing a select with a
-  // LiquidSurface wrapper on disabled/material/size changes remounts it and
-  // silently resets uncontrolled values, validity, focus and the forwarded ref.
-  // Only the decoration may come and go; the browser continues owning the field.
+) {
   return (
-    <span
-      className={['game-ui-select-frame', liquid && 'game-ui-select-liquid']
-        .filter(Boolean)
-        .join(' ')}
-    >
-      {liquid ? (
-        <LiquidSurface
-          key="decoration"
-          className="game-ui-select-decoration"
-          form="press"
-          radius={16}
-          {...(liquidFinish === undefined ? {} : { liquidFinish })}
-        >
-          {null}
-        </LiquidSurface>
-      ) : null}
-      {select}
+    <span className="game-ui-select-frame">
+      <select
+        {...props}
+        ref={ref}
+        key="control"
+        aria-invalid={props['aria-invalid'] ?? (invalid || undefined)}
+        data-invalid={invalid ? 'true' : undefined}
+        data-game-ui-paint=""
+        style={{ ...controlHue(hue), ...style }}
+        className={['game-ui-input', 'game-ui-select', className].filter(Boolean).join(' ')}
+      />
     </span>
   );
 });

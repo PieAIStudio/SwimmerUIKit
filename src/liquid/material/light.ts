@@ -9,12 +9,12 @@
  * a status colour (warning) or a host palette flows through unchanged. The
  * matching contact shadow lives in liquid-presence.css.
  */
-const FROM = 'var(--liquid-presence-from, var(--game-ui-secondary))';
-const TO = 'var(--liquid-presence-to, var(--game-ui-secondary))';
+const FROM = 'var(--liquid-presence-from, var(--game-ui-cta-from))';
+const TO = 'var(--liquid-presence-to, var(--game-ui-cta-to))';
 
 export const PRESENCE_MATERIAL_LIGHT: readonly (readonly [number, string])[] = [
-  [0, `color-mix(in srgb, ${FROM}, white 18%)`],
-  [0.16, `color-mix(in srgb, ${FROM}, white 9%)`],
-  [0.55, `color-mix(in srgb, ${FROM}, ${TO})`],
+  [0, `color-mix(in srgb, ${FROM}, white 30%)`],
+  [0.16, `color-mix(in srgb, ${FROM}, white 15%)`],
+  [0.5, `color-mix(in srgb, ${FROM}, ${TO})`],
   [1, `color-mix(in srgb, ${TO}, black 5%)`],
 ];

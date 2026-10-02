@@ -14,6 +14,7 @@ import { LiquidGooeyFilter } from '../../liquid/filter';
 import { useLiquidRevealEntrance } from './useEntrance';
 import { getLiquidGooeyBudget } from '../../liquid/budget';
 import { PRESENCE_MATERIAL_LIGHT } from '../../liquid/material/light';
+import { LIQUID_MATERIAL } from '../../liquid/material/weight';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 
 export interface LiquidRevealProps {
@@ -23,8 +24,6 @@ export interface LiquidRevealProps {
   /** A new explicitly requested presentation, never a token/stream revision. */
   revealKey?: string;
   variant?: 'content' | 'input';
-  /** Same liquid colour through the whole face. Dark retains the earlier style. */
-  surface?: 'material' | 'dark';
   reducedMotion?: boolean;
   /** Optional slow perimeter flow. Caller must offer a persistent pause control. */
   idleMotion?: 'still' | 'breathe';
@@ -44,7 +43,6 @@ export function LiquidReveal({
   source,
   revealKey = 'initial',
   variant = 'content',
-  surface = 'dark',
   reducedMotion,
   idleMotion = 'still',
   colorFrom,
@@ -81,7 +79,7 @@ export function LiquidReveal({
     size.width,
     size.height,
     reduced,
-    surface === 'material',
+    true,
     variant === 'input',
     intensity,
   );
@@ -110,7 +108,7 @@ export function LiquidReveal({
         } as CSSProperties
       }
       data-reveal-variant={variant}
-      data-reveal-surface={surface}
+      data-reveal-surface="material"
       data-reveal-filter={filterOK ? 'volume' : 'flat'}
     >
       <div className="game-ui-liquid-reveal-content">{children}</div>
@@ -124,27 +122,11 @@ export function LiquidReveal({
           focusable="false"
         >
           <defs>
-            {surface === 'material' ? (
-              /*
-               * The material face carries its light in the fill (University,
-               * 2026-10-01): a narrow brighter band along the top, from falling
-               * to to, a touch deeper at the foot. The old raised rim and its
-               * stroke read as a second edge around the panel.
-               */
-              <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
-                {PRESENCE_MATERIAL_LIGHT.map(([offset, color]) => (
-                  <stop key={offset} offset={offset} style={{ stopColor: color }} />
-                ))}
-              </linearGradient>
-            ) : (
-              <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="1" y2="1">
-                <stop
-                  offset="0"
-                  stopColor="var(--liquid-presence-from, var(--game-ui-secondary))"
-                />
-                <stop offset="1" stopColor="var(--liquid-presence-to, var(--game-ui-secondary))" />
-              </linearGradient>
-            )}
+            <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
+              {PRESENCE_MATERIAL_LIGHT.map(([offset, color]) => (
+                <stop key={offset} offset={offset} style={{ stopColor: color }} />
+              ))}
+            </linearGradient>
             <filter
               id={`${id}-finish`}
               x="-12"
@@ -155,41 +137,18 @@ export function LiquidReveal({
               colorInterpolationFilters="sRGB"
             >
               <LiquidGooeyFilter
-                blur={1.2}
-                contrast={18}
-                gloss={3.5}
+                blur={LIQUID_MATERIAL.blur}
+                contrast={LIQUID_MATERIAL.contrast}
+                gloss={LIQUID_MATERIAL.gloss}
                 shadows={[]}
                 stroke={null}
                 waviness={0}
               />
             </filter>
           </defs>
-          {surface === 'material' && (
-            <path data-reveal-body="" d={shape.outline} fill={`url(#${id}-fill)`} />
-          )}
+          <path data-reveal-body="" d={shape.outline} fill={`url(#${id}-fill)`} />
           <g data-reveal-material="" filter={filterOK ? `url(#${id}-finish)` : undefined}>
-            {surface === 'material' ? (
-              // The lit body itself: its gloss sits inside the edge, no rim.
-              <path data-reveal-outline="" d={shape.outline} fill={`url(#${id}-fill)`} />
-            ) : (
-              <>
-                <path
-                  data-reveal-ribbon=""
-                  d={shape.ribbon}
-                  fillRule="evenodd"
-                  fill={`url(#${id}-fill)`}
-                />
-                <path
-                  data-reveal-outline=""
-                  d={shape.outline}
-                  pathLength="1"
-                  fill="none"
-                  stroke={`url(#${id}-fill)`}
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                />
-              </>
-            )}
+            <path data-reveal-outline="" d={shape.outline} fill={`url(#${id}-fill)`} />
           </g>
         </svg>
       )}

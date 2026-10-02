@@ -22,7 +22,7 @@ related:
 
 # REF-DESIGN-SYSTEM-GUIDE: Design System Guide
 
-> 3.0 main 进行中：公开接口与深色取值已经断代，当前以 [迁移表](migration-3.0.md) 和 [接口清单](public-api-inventory.md) 为准；S4 主题尚未验收。本文保留的 2.x 材质说明将在 S4/S5 随对应实现收敛。
+> 3.0 main 是尚未发布的断代工作区。当前控件、主题和材质合同如下；升级必须同时读 [迁移表](migration-3.0.md) 和 [接口清单](public-api-inventory.md)。S4 评审后才允许提交本阶段，不发布 npm。
 
 ## Purpose
 
@@ -282,21 +282,17 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 产品仍负责真实可见性、页面导航、作品权限、编辑和保存。
 
 `LiquidReveal` 只承载原生 DOM：`source` 是真实启动按钮的 ref，`variant="input"`
-是输入形状，默认 `content` 是阅览形状。`surface="material"` 把内部与边缘画成
-同一份实色液体，Nerve 当前组合显式采用它；默认 `surface="dark"` 保留前阶段
-黑色面板供旧消费者选择。`revealKey` 只在新的人类请求时更换，不能用 token 或
+是输入形状，默认 `content` 是阅览形状。`LiquidReveal` 固定使用同一份薄液体材质，没有 surface 开关或旧深色皮肤。`revealKey` 只在新的人类请求时更换，不能用 token 或
 时间戳重播。出场等真实锚点完成定位，再经蓄力、拉长飞行、汇聚、分轴舒展和
 定型，约720ms完成；
 用现有同拓扑 blobPath 的浏览器原生关键帧，不引入任意路径插值器。内容稳定，
 在展开过程中淡入，聚焦/点选立即结束装饰。缩放/滚动打断后不重飞。
 减少动态、不可见页面、预算不足直接呈现；路径动画不支持时短淡入。超滤镜面积时不启用
 体积滤镜或局部背景模糊。没有全屏滤镜、额外 Canvas 或媒体连接；默认没有常驻动效。
-`--game-ui-liquid-reveal-*` 是承载面的语义 token；深色模式用浅字，同材质模式
-使用 `--game-ui-liquid-material-ink/muted/field` 和 `--game-ui-liquid-field-ink`。
-内部和外缘沿用 `--liquid-presence-from/to` 或 `--game-ui-secondary`，不是玻璃。
+`--game-ui-liquid-reveal-*` 只保留布局和动效语义；材质默认使用潮汐 from/to 与深色文字，不是玻璃。
 `LiquidReveal` 与 `LiquidPresence` 可接同一 `colorFrom/colorTo`、
 `motionIntensity/motionSpeed`。Nerve 从原 Companion 设置投影这组属性，默认
-潮汐渐变，但不覆盖已保存配色；Kit 低层默认仍沿用宿主 secondary。
+潮汐渐变，但不覆盖已保存配色；Kit 默认也使用潮汐 token。
 自选颜色须同时核对文字对比；品牌日夜色与 Companion 预置色已实测，不能
 推断任意色都可读。
 来源、正文、按钮与窗口焦点由宿主/Nerve 提供，关闭内容不等于停止任务。
@@ -310,10 +306,7 @@ Nerve 的 `nervePresenceTarget` 可把已有目标登记转换为 `target`；
 Kit 不推断学习或语音状态。内容和按钮矩形始终不参加这个形变。直接文字入口
 已聚焦时跳过出场；已静态展示的面不因后来恢复动画而重新飞入或隐藏文字。
 
-阅览面内的 `GameButton variant="secondary"` 保留明确的浅色底面、深色文字和
-原生按压厚度，而不是被覆盖为裸文字。`--game-ui-liquid-action-*` 统一声明这组
-跨日夜主题的动作配色；`--game-ui-liquid-field-face` 为输入提供较安静的凹入底面。
-以上仅作用于可选 LiquidReveal 内的控件，普通 GameButton 不改变。
+阅览面内的普通控件使用同一平面水滴与语义配色，不再设另一套带厚度的按钮/凹入输入皮肤。guideContent 直接放入同一个 LiquidReveal 原件，继承源位置的风格、明暗和实际品牌 token。
 
 同一可选入口另导出 `LiquidAnchor`：接 `source` ref，用已有 Floating UI
 安置临时内容，不给主体设屏幕位置。`placement` 默认 `top-end`，会避让视口，
@@ -357,7 +350,7 @@ export function AssistantEntry({ guide, busy, open, clearGuide }: {
 
 默认待命静止，交流或实际工作状态才激活动态；`levelRef` 只接收已有媒体连接的
 真实归一化音量，没有读数就留空。声音活动和任务进度是两类事实，不能用
-动画推断已经录音、生成完成或保存成功。颜色默认取品牌 secondary；
+动画推断已经录音、生成完成或保存成功。颜色默认取潮汐 token；
 可用 `colorFrom` / `colorTo` 指定经产品选择的色板，错误与待核对仍采用
 warning 色，并由宿主保留文字说明。消费 Nerve 时优先使用它的
 `nervePresenceActivity` 投影真实状态，别在每个项目复制语音/任务优先级判断。
@@ -388,7 +381,7 @@ React 内容，复用同一液滴、同一定位订阅；不为讲解再造一�
 
 内容在跨目标运动期间保留 DOM 与键盘焦点，首次定位前不在屏幕左上角闪现。
 该区域单独接受指针事件，并隔断 portal 沿 React 树冒泡到本体启动按钮；原目标
-依然正常点击。组件会复制说明与品牌按钮需要的语义色值，不变更整页主题。
+依然正常点击。组件跨 portal 继承来源处的实际品牌 token 与风格/明暗；祖先属性改变时更新，不逐帧复制，不重建原生内容或更改整页主题。
 减少动效保留相同内容；模态优先、实际目标遮挡、原对象失效仍按已有边界处理。
 消费方负责安排可读尺寸、结束后的合理焦点和失效时的非阻挡备用位置；按真实
 页面检查说明、本体和目标都清楚可见，不声称浮层自动避让所有业务控件。
@@ -431,157 +424,86 @@ DOM 的虚拟目标、投影或当前正在 CSS 运动的目标才开启位置�
 位置订阅；`useLiquidPresenceMotion.ts` 协调同一手势与资源释放。公开入口仍然
 只有原 `./liquid-presence` 叶子，不要求消费者 deep-import 这些内部模块。
 
-### 普通液体控件
+### 二维水滴与唯一主操作
 
-### 先用成品，再学形态
+普通按钮（secondary、ghost、success、danger）、图标、选项行、页签、分段、开关和列表共用一个平面水滴原件。
+没有底边、投影、渐变、高光或滤镜。选中换语义颜色并显示对勾，不扩大；一列的两端保持对齐。
+按下时只有 SVG 背景横向展开、纵向压扁和缓波回弹，原生文字、焦点、点击区域保持固定。
+输入框只更换静态边和底色；不包会重建字段的条件树，不做按压形变。
 
-主 CTA 用 `GameButton variant="primary" surface="liquid"`，需要整行布局加
-`fullWidth`。它已经选好 `press` 形态；没有必要另建一个名为 `cta` 的形态。
-按压是非均匀形变和回弹，真实按钮、文字和点击区域不跟着缩小。
-升级消费方自建 CTA 的具体边界见升级手册，而不是把页面过渡搬进 kit。
+**一屏最多一个 CTA。** 它就是 GameButton variant="primary"，用于推动主线的开始、确定、下一步、收下或付款。
+固定使用潮汐渐变（cta-from / cta-to）与深色文字，不再传 surface 或 liquidFinish。
+fullWidth 只负责占满一行；type="submit" 必须显式指定。禁用态、原生 fieldset 禁用和强制颜色模式不保留邀请点击的液体装饰。
 
-单个自定义物体用 `LiquidSurface`；两个或多个物体相互作用才用 `LiquidGroup`。
-新人顺序是「我要做的控件 → 状态变化 → 看例子」，不是先读 Spring/Filter/Budget。
+### 风格与明暗是两条独立的轴
 
-### 两种液体材质与成品控件（2.6）
+data-game-ui-style：candy（彩色）、pastel（淡彩，默认）、mist（雾色）、grey（灰阶）、outline（包边）、ink（黑白包边）。
+data-game-ui-theme：light / dark。两条轴可以放在同一元素，也可以分别嵌套；换风格或明暗不重建正在编辑的原生控件。
+六套风格不是六套组件，而是 src/tokens/control-styles.css 中的十二个完整配色块；颜色常量只在 theme.css。
 
-同一套几何、动作和预算，通过可选 `liquidFinish="matte" | "glossy"` 选择材质。
-`matte` 去掉现有 specular 高光 pass；`glossy` 复用现有受控灯光，不引入 WebGL。
-轮廓、阴影、命名形态和动作不因为材质切换而换一套实现。
+支持 hue 的控件接受 coral / sun / leaf / sky / grape / pink；它只表达色相或含义，不决定风格。
+控件把 hue 映射为局部变量，token 块给出平时、选中、有含义和禁用时的填色、边和文字。
+灰阶、包边、黑白包边不依赖色相。文字/背景不是任意两种 token 的拼接；默认每种组合都必须通过 4.5:1。
+University 如何按年龄选择风格由产品自己决定，本仓库不改变用户、课程或账号状态。
 
-**省略时保留旧外观**：普通按钮、图标按钮和开关默认仍是普通表面；分段选择与
-进度默认仍是原有液体实现。它们不因升级自动全部加高光。
-LiquidSurface 省略 finish 时保留形态自己的 gloss；LiquidGroup 显式 raw `gloss`
-优先于 finish，用于高级配方；`set` 的 engaged 灯光仍可降至自身定义的强度。
+CSS 自定义属性在声明元素计算后才继承；因此依赖局部 hue 的公式在实际绘制元素上计算，不能提前在祖先算成默认色。
+style scope 防止嵌套风格串色，light-dark 根据实际色彩方案解析当前明暗。
+pnpm check:themes 从真实 CSS 中检查十二个块，并在真实浏览器中检查压缩后的配色，不维护另一份用于测试的配色真相。
 
-| 成品控件             | 选择方式                                                | 边界                                                |
-| -------------------- | ------------------------------------------------------- | --------------------------------------------------- |
-| GameButton           | `surface="liquid" liquidFinish="matte"`，可加 fullWidth | 原生按钮，不承包路由过渡                            |
-| GameIconButton       | 同上，必须提供 label                                    | 按压复用同一内部装配，不缩小图标/目标               |
-| GameToggle           | 同上                                                    | 位置表示开关状态，只有滑块变形，标签保持稳定        |
-| GameSegmentedControl | `liquidFinish`；可选 `surface="flat"`                   | 底座/选中指示器合计两组，勿外包第二层液体           |
-| GameProgress         | `liquidFinish`；可选 `surface="flat"`                   | 有限数值进度，ARIA 与可见值同步限制在有效范围       |
-| GameSelect           | `surface="liquid" liquidFinish="glossy"`                | 真实 select；关闭的单选框液体化，展开菜单由系统绘制 |
+### 平面轮廓与资源边界
 
-GameSelect 透传 name、required、disabled、value/defaultValue、onChange、ref、
-options/optgroup 与原生 form/reset；multiple 或 size>1 回到普通列表，不模拟自绘多选。
-真实 select 保持同一个 DOM 节点，液体只作为可移除的兄弟装饰。切换 disabled、
-材质或 size 不重建字段，不丢掉非受控选择、原生校验状态或 ref；只有显式表单 reset
-才回到初始选项。不要为了改变装饰，条件切换包裹原生字段的 React 树层级。
-`invalid` 同时给出错误样式与 `aria-invalid`（显式 ARIA 值优先）。用 GameField 或
-原生 label 关联名称；错误文字由产品提供。键盘与手机菜单交给原生 select，
-不复制第三方的复杂状态机。参考
-[React select](https://react.dev/reference/react-dom/components/select) 和
-[MDN select](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select)。
+src/controls/DropletSurface/geometry.ts 对圆角矩形沿法线加两组整数频率的缓波，再转为闭合三次贝塞尔路径；描边使用 non-scaling-stroke。
+--game-ui-droplet-wobble 默认 1.4px，长行也不增大波幅；没有阈值液体滤镜，不让细边落入位移滤镜的整数像素台阶。
+尺寸变化时用 ResizeObserver 测量，按压只更新缓存路径与姿态。欠阻尼弹簧有界积分，释放后回到精确静止值，静止不留帧循环。
 
-按钮/图标/开关/分段选择/选择框禁用后采用普通表面，保留可辨的选中位置；
-原生 fieldset 禁用按钮/图标/开关/选择框时，也隐藏其液体装饰。
-forced-colors 使用系统边框、文字和状态。
-GameInput / GameTextArea 的 invalid 也同步到 aria-invalid，显式 ARIA 值仍优先。
-减少动效沿用系统设置。press 装配排除右键、重复按键，丢失指针捕获/取消/键盘失焦会复位；
-macOS WebKit 在鼠标按下后产生的原生按钮失焦不等同于放开鼠标，窗口真正失活仍取消手势。
-GameButton static 也约束液体按压。这些是明确的交互边缘修复，而非“所有行为原封不动”。
+同一个内部 native press observer 供水滴与 CTA 使用：不模拟点击，不截获指针，不阻止默认行为。
+拒绝右键、重复键和被调用方 preventDefault 的事件；取消、丢失捕获、窗口失活、继承禁用会复位。
+macOS WebKit 的按钮指针按下后焦点变化不等于释放指针。减少动态和 static 不变形；清理后不会残留观察器或帧回调。
+列表在整行绘制，但只监听左侧选择按钮，右侧动作是独立兄弟节点，不能带动行选择或整行按压。
 
-发布 CSS 也是交互合同：独立 `scale` / `translate` 的重置采用 `initial`，不能因
-静止画面相同就改成会被压缩器折叠掉的字面值。`transform: none` 不替代这两个
-独立属性。`src/liquidCssBuild.test.tsx` 对真实压缩结果做浏览器按压验证，并保留
-普通按钮的正向动效对照；过程与负面知识见
-[打包合同的压缩行为补充](learnings/tooling-decisions/esm-only-bundled-types-css-build-gate.md)。
+### 唯一液体重量与动作词汇
 
-### 展厅与状态的权威来源
+CTA、涟、LiquidReveal 与 LiquidFill 共用 src/liquid/material/weight.ts 的薄重量：blur 5、contrast 18、gloss 1.5、3.5px 三瓣轮廓、0 6px 14px 贴地软影，渐变 sheen 0.3。
+高光收进轮廓一像素；outer shadow 使用 CSS compositor，SVG 仍只过滤装饰层，不过滤文字。
+CSS drop-shadow 的模糊参数是 sigma，因此涟的 7px sigma 与 14px box-shadow blur 对齐，不再多出一层厚重阴影。
 
-站点首页按任务选组件，`/?view=reference` 是原完整总览；旧
-`#game-ui-preview-*` 入口仍打开原参考视图。`/liquid.html` 是动作实验，不是控件仓库。
-十二个形态仍来自 LIQUID_FORMS；一次只挂载当前实验，最多两组液体，不提高共享预算。
-同一份 `preview/catalog/recipes.tsx` 被目录和 Storybook `Start Here/Controls and Materials`
-复用；复制代码有真实 TypeScript 编译检查，不向新人展示不存在的属性。
-首页先显示可操作的材质对照，再显示参数。Storybook 本组 Docs 也只挂载一个受控示例，
-不使用默认的全 Stories 画布同时消耗预算，左侧每个命名故事仍保留。
+命名形态只描述姿态、回弹、过渡；set 可硬化，多物体 merge/split/bead/follow 为桥接间隙保留各自 blur。
+内部配方表不是根入口；自定义单体用 LiquidSurface，多个物体用 LiquidGroup + liquidFormItem。
+根入口不接受融化、弯曲或图像溶解；这些能力从 ./liquid-effects 的 LiquidEffectsGroup 显式导入，仍共享测量、时钟和预算。
+高级原件的数值 gloss 仍可显式调整，但没有 matte/glossy/厚重量的命名开关。
 
-目录提供12组高频示例，其中6类支持液体。普通输入、长文、复选、滑杆、反馈、模态
-保持普通材质；阅读/输入意图不应被材料抢走。用户可切材质、主题、正常/禁用/错误，
-直接操作焦点与按压，并复制带配置的链接。金属仍是独立的受限决策面效果。
-在同一个示例内调材质或禁用状态，保留刚才输入的内容、选择与计数；切换组件类别
-或进入/退出双实例对照才建立新示例，避免把“比较外观”误当成“重置表单”。
+### 展厅、代码和验收
 
-参考 [Storybook Controls](https://storybook.js.org/docs/essentials/controls) 的 args/共享示例
-边界。复杂搜索、多选标签、虚拟列表、Toast队列、大图融合优化未被这些示例隐含实现。
+站点首页按任务选组件，/?view=reference 为完整参考，/liquid.html 比较动作，不是另一套组件。
+目录与 Storybook 共用 preview/catalog/recipes.tsx；复制代码对六套风格和正常/禁用/错误状态逐一编译。
+风格切换不清空已输入内容或计数；切换组件类别才建立新示例。目录不再提供旧材质开关或双 CTA 对照。
+Storybook 的每个故事结束时检查最多一个可见液体 CTA，不能把多重主操作当成正确范例。
 
-### 形态、分类、投影的原有合同
+验证依据：几何/弹簧单元测试；原生控件与焦点浏览器测试；真实压缩 CSS 的点击区域测试；十二块完整性与对比度；实际运行的 DPR 1 截图和放大边缘。
+截图不是性能与可访问性测试的替代，也不替代 Owner/Claude 的 S4 审美评审。
 
-品牌的签名表面。挑的是**形态**（form）——一个已经调好的 blur / contrast /
-外形 / 弹簧 / 阴影的组合，外面套一个说得清它是什么意思的名字——而不是一组
-物理参数。整份词汇表、每个形态的活例子和它的旋钮，都在展示站的
-`/liquid.html`（`swimmer-ui-kit.pieaistudio.com/liquid.html`）。
+### 实现地图
 
-**产品一屏只突出一个液体意图。** 展厅可并排对照，不能据此照搬成产品的常驻动效。
-液体只出现在用户造成的状态变化
-上；普通控件没有环境液体、待机液体或装饰性液体。仅独立 AI 伙伴可按上文明确
-选择极轻 `idleMotion`，不扩散到按钮或整页。把胶质效果放在一块不动的实心方块
-上，读出来是「坏了」，不是「材质」——这是产品侧实测过的结论。
+| 职责 | 源码家 | 边界 |
+| --- | --- | --- |
+| 颜色与语义配方 | src/tokens/ | 唯一 token 来源；风格分支不进入组件 |
+| 平面轮廓与按压 | src/controls/DropletSurface/ | 无液体滤镜；没有业务状态 |
+| 原生动作与输入 | src/controls/ | 焦点、值、ARIA 和原生事件 |
+| 单体/多体液体 | src/liquid/ | 几何、测量、预算、滤镜和受控动作 |
+| 可选图像与弯曲 | src/liquid-effects/ | 默认包不引入；不复制时钟和预算 |
+| 涟、锚点与面板 | src/presence/ | 同一视觉身体；不运行模型/任务 |
+| 展示与复制例子 | src/preview/、preview/ | 独立 ./preview 入口 |
 
-形态分两类，`LIQUID_FORMS[form].kind` 说明是哪一类：
-
-- `body` —— 一个身体。直接交给 `<LiquidSurface form="…">`。
-  `set` / `press` / `swell` / `settle` / `fill` / `reach` / `ripple` / `drain`。
-- `group` —— 兄弟元素之间的关系。`LiquidSurface` 画不出来（给错会在控制台
-  说一次），要自己用 `<LiquidGroup>` 排布元素，旋钮从 `liquidFormGroup(form)`
-  取。`follow` / `merge` / `split` / `bead`。
-
-阴影是形态自带的，不在调用点写：身体离地多远是这个形态**本身**的意思。
-唯一需要主题给值的是 `--game-ui-shadow-liquid-ink`——它是一个纯色，不是一条
-写好的 shadow，这样形态只说强度和偏移，不用重复说这个房间的光。它**不在**
-`GAME_UI_THEME_CONTRACT` 里：那份清单是给下游自检用的，加一项会让消费方为
-一个它没听过的 token 变红。下游自定义主题建议补上，不补就会拿到浅色主题的
-暖棕色。
-
-`contrast` 不是一种「样子」：alpha 跨越点钉死在斜坡 5/12 处，所以它只决定
-边缘宽度，单位是像素，等于 `2.5628 × blur ÷ contrast`；低于约 1.3px 时 kit
-会自动把它压下来。`blob` 是路径数据不是滤镜，向外倒且夹在短边的
-内部常量 `LIQUID_BLOB_MAX_FRACTION`（0.18，不是包根公开导出）以内，所以同一个值可以同时给 44px 的按钮
-和 14px 的进度条。
-
-### 实现地图：不要为“好找”拆坏引擎
-
-| 边界                 | 源码家                                        | 下一次正确改动                               |
-| -------------------- | --------------------------------------------- | -------------------------------------------- |
-| 成品控件语义与事件   | `GameButton`、`GameSurfaces`、`GameDisplay`   | CTA、分段、进度的交互入口                    |
-| 单体内容 / 装饰分层  | `LiquidSurface.tsx`                           | 一团液体背后承载真实 DOM 的装配              |
-| 命名词汇与物性       | `liquidGooeyForms.ts`                         | 形态的分类、默认参数、投影；preview 直接读它 |
-| React 注册与宿主属性 | `LiquidGroup.tsx`                             | 参与者和 JSX API，不承包所有物理             |
-| 生命周期、测量、时钟 | `liquidGooeyEngine.ts`                        | 注册/卸载、唤醒/休眠、预算租约               |
-| 形状 / 运动          | `Geometry`、`Spring`、`Move`、`Evolve` 模块   | 路径几何与弹簧数学，不是消费入口             |
-| 渲染与成本           | `Filter`、`Shadow`、`Waviness`、`Budget` 模块 | SVG/CSS 分工、面积限额和降级                 |
-| 图像相互作用         | `liquidGooeyImageMelt.tsx`                    | 图像接触、融合、清理和专用测试               |
-| 展示与证据           | `LiquidPreview.tsx`、stories、browser tests   | 相同运行时的可见例子，不另写一套效果         |
-
-这里的短模块名均有 `liquidGooey` 前缀。当前切分主要服务实现者，这是合理的；
-使用者不需要把这些文件学完。本版不合并物理文件、不改 preset，不以行数为目标。
-高级组合详见 [液体原语参考](liquid-primitives.md)；donor 采纳与拒绝的事实唯一
-来源仍为根目录 `donors-individual.md` 与其 lock。
+donor 的采纳、拒绝和固定版本只在根目录 donors-individual.md 及 lock 维护。
 
 ## 账号界面原件
 
-WO-UI-1 的 **2.13.0 已发布**。全部是可选新增；未传新属性的
-按钮、图标按钮、头像与横排页签保持原样。没有新增依赖或改变 React peer 范围。
+WO-UI-1 的行为能力保留：验证码、竖排页签和独立列表动作。3.0 改变外观，不改变账号验证职责；以下为当前合同。
 
-### 铜牌皮肤
+### 铜牌相框（只给静态头像）
 
-`GameButton`、`GameIconButton` 和 `GameAvatar` 显式传 `surface="plaque"`。
-前两者为 2px 小方角，头像仍为圆片；不创建 WebGL 或液体动画。
-
-```tsx
-<GameButton surface="plaque" onClick={createWork}>新建作品</GameButton>
-<GameIconButton surface="plaque" label="账号与设置" onClick={openAccount}>☰</GameIconButton>
-<GameAvatar surface="plaque" name="River" />
-```
-
-`--game-ui-plaque-surface/hover/ink/border/highlight/radius` 定义皮肤，
-`--game-ui-plaque-brass` 记录基色。基色取自本轮指定的 Directing D1-03 柜子
-`Champagne brass · brushed` 材质，其线性 baseColorFactor 转成 sRGB 是 `#c9a267`。
-两套主题的可用控件使用不透明底色；静止及悬停/按下的文字对比度均须达到 4.5:1。
-禁用态保留原生 disabled，使用虚线边框及轻微透明变化，不触发动作。
-选择框、开关、进度条和分段控件不新增此皮肤。
+GameAvatar surface="plaque" 保留静态圆形铜牌相框。GameButton 与 GameIconButton 不再支持 plaque，使用统一水滴；不会为了头像相框保留旧按钮皮肤。
+相框的 brass/surface/ink/border/highlight token 保持自身用途，不作为主操作的颜色或重量。
 
 ### 验证码输入
 
@@ -619,9 +541,9 @@ WO-UI-1 的 **2.13.0 已发布**。全部是可选新增；未传新属性的
 onSelect 对应左侧选择控件，右侧 actions 是其兄弟，不嵌套在按钮内。
 没有 onSelect 时左侧为普通展示，current 仍有圆点和 aria-current。
 左侧槽位只放展示内容，交互放 actions；危险操作的确认、当前作品和选中项由宿主控制。
-行圆角为 `--game-ui-list-row-radius`（默认 6px），不复用按钮外形或按压位移。
+整行使用 --game-ui-control-row-radius（默认 16px）和同一个水滴原件。背景对齐到整行，不随右侧动作数量缩短；原生选择按钮和文字不位移。
 
-行为检查在 `src/AccountControls.browser.test.tsx`，主题色对由 `tests/tokens.test.ts` 检查。
+行为检查在 `tests/AccountControls.browser.test.tsx`，主题色对由 `tests/tokens.test.ts` 检查。
 可操作例子在 Storybook `Clay / Account / AccountControls`。本轮证据与发布权限见
 [WO-UI-1 收口](../plans/completed/wo-ui-1-account-controls.md)。
 

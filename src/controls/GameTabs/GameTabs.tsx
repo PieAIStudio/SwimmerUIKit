@@ -1,13 +1,17 @@
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
 import { useId, type KeyboardEvent, type ReactNode } from 'react';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export interface GameTabItem {
   id: string;
   label: string;
   /** id of the tabpanel this tab controls; wires aria-controls when set. */
   panelId?: string;
+  hue?: GameUiHue;
 }
 
 export interface GameTabsProps {
+  hue?: GameUiHue;
   orientation?: 'horizontal' | 'vertical';
   'aria-label'?: string;
   'aria-labelledby'?: string;
@@ -29,6 +33,7 @@ export function GameTabs({
   id,
   onSelect,
   tabs,
+  hue,
   orientation = 'horizontal',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -89,14 +94,18 @@ export function GameTabs({
           aria-controls={tab.panelId}
           aria-selected={tab.id === activeId}
           className="game-ui-tab"
+          style={controlHue(tab.hue ?? hue)}
           id={`${baseId}-${tab.id}`}
           key={tab.id}
           onClick={onSelect ? () => onSelect(tab.id) : undefined}
           role="tab"
           tabIndex={tab.id === activeId ? 0 : -1}
           type="button"
+          data-game-ui-paint=""
         >
+          <DropletSurface />
           {tab.label}
+          <SelectionMark />
         </button>
       ))}
     </div>

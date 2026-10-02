@@ -1,7 +1,7 @@
 # GameProgress
 
-展示真实数值进度，也可显示数量标签。
+显示真实完成进度，使用安静的平面色块。
 
-主要参数：`surface`、`liquidFinish`、`value`、`max`、`label`、`tone`、`showValue`、`valueLabel`；[完整参数](GameProgress.tsx)以源码为准。
+主要参数：value、max、label、tone、showValue、valueLabel。
 
-边界：不计算或驱动任务，value 和 max 由产品提供。
+边界：不编造进度，也不使用液体前沿或材质开关；不是可点击 CTA。

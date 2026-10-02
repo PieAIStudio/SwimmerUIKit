@@ -11,16 +11,12 @@
   }
   .game-ui-material-swatch {
     min-width: 0;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 16%, transparent);
     border-radius: var(--game-ui-radius-control);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 82%, transparent);
-    color: var(--game-ui-text);
     font: inherit;
     font-weight: var(--game-ui-weight-strong);
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
     display: grid;
-    grid-template-columns: var(--game-ui-terrain-swatch-size) minmax(0, 1fr);
+    grid-template-columns: var(--game-ui-terrain-swatch-size) minmax(0, 1fr) 1em;
     align-items: center;
     gap: 8px;
     min-height: 48px;
@@ -30,28 +26,15 @@
     -webkit-tap-highlight-color: transparent;
   }
   .game-ui-material-swatch-copy small {
-    color: var(--game-ui-text-muted);
     font-size: var(--game-ui-font-xs);
     font-weight: 760;
     line-height: 1.2;
   }
-  .game-ui-material-swatch[aria-selected='true'] {
-    border-color: var(--game-ui-secondary);
-    background: color-mix(in srgb, var(--game-ui-secondary) 18%, transparent);
-    box-shadow:
-      var(--game-ui-shadow-button),
-      0 0 0 3px color-mix(in srgb, var(--game-ui-secondary) 20%, transparent);
-  }
   /* The 18%-secondary wash above is light enough that --game-ui-text-muted's
  * small/meta text drops under 4.5:1 once selected; darken it specifically
  * in that state instead of touching the token's normal-case contrast. */
-  .game-ui-material-swatch[aria-selected='true'] .game-ui-material-swatch-copy small {
-    color: var(--game-ui-ink-heading);
-  }
   .game-ui-material-swatch:disabled {
     cursor: not-allowed;
-    opacity: 0.58;
-    transform: none;
   }
   .game-ui-material-swatch:focus-visible {
     outline: 3px solid var(--game-ui-focus-ring);
@@ -65,25 +48,18 @@
   .game-ui-material-swatch-chip {
     width: var(--game-ui-terrain-swatch-size);
     height: var(--game-ui-terrain-swatch-size);
-    border: 2px solid color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent);
     border-radius: 13px;
     background: var(--swatch-color);
-    box-shadow:
-      var(--game-ui-shadow-inset),
-      0 2px 8px color-mix(in srgb, var(--game-ui-ink-deep) 16%, transparent);
+    border: 1px solid currentColor;
   }
+  /* These are previews of the user's material, not a gradient skin on the
+   * control. Preserve its palette/pattern while keeping the button flat. */
   .game-ui-material-swatch-chip[data-swatch-pattern='speckled'] {
     background:
       radial-gradient(circle at 24% 28%, var(--swatch-secondary-color) 0 3px, transparent 3.5px),
-      radial-gradient(
-        circle at 70% 64%,
-        color-mix(in srgb, var(--game-ui-panel-strong) 72%, transparent) 0 2px,
-        transparent 2.5px
-      ),
       var(--swatch-color);
     background-size:
       18px 18px,
-      16px 16px,
       auto;
   }
   .game-ui-material-swatch-chip[data-swatch-pattern='hatched'] {
@@ -93,17 +69,8 @@
   }
   .game-ui-material-swatch-chip[data-swatch-pattern='grid'] {
     background:
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--game-ui-panel-strong) 50%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        0deg,
-        color-mix(in srgb, var(--game-ui-panel-strong) 42%, transparent) 1px,
-        transparent 1px
-      ),
-      var(--swatch-color);
+      linear-gradient(90deg, var(--swatch-secondary-color) 1px, transparent 1px),
+      linear-gradient(0deg, var(--swatch-secondary-color) 1px, transparent 1px), var(--swatch-color);
     background-size: 10px 10px;
   }
   .game-ui-material-swatch-copy {
@@ -121,7 +88,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .game-ui-material-swatches[data-variant='small-mobile'] .game-ui-material-swatch {
-    grid-template-columns: 30px minmax(0, 1fr);
+    grid-template-columns: 30px minmax(0, 1fr) 1em;
     min-height: 44px;
   }
   .game-ui-material-swatches[data-variant='small-mobile'] .game-ui-material-swatch-chip {
@@ -129,9 +96,6 @@
     height: 30px;
   }
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-material-swatch {
-      transition: none;
-    }
   }
 
   /* Windows High Contrast / forced-colors: color-mix() washes and gradients
@@ -139,12 +103,6 @@
  * pressed/selected state needs a border (not just a background tint) to stay
  * legible, and focus rings need an explicit system-color outline. */
   @media (forced-colors: active) {
-    .game-ui-material-swatch {
-      border: 1px solid ButtonText;
-    }
-    .game-ui-material-swatch[aria-selected='true'] {
-      border-color: Highlight;
-    }
   }
 
   /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom

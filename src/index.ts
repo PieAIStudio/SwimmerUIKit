@@ -1,7 +1,6 @@
 // Public package membership, grouped by implementation owner. CSS is a separate leaf.
 export { GAME_UI_TARGETS, GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from './tokens/index';
 export { setLiquidGooeyBudget } from './liquid/budget';
-export { type LiquidFinish } from './liquid/finish';
 export { liquidFormItem, type LiquidForm } from './liquid/forms';
 export { type LiquidFill } from './liquid/LiquidGroup/fill';
 export { LiquidGroup } from './liquid/LiquidGroup/LiquidGroup';
@@ -14,7 +13,6 @@ export { LiquidSurface, type LiquidSurfaceProps } from './liquid/LiquidSurface/L
 export {
   GameButton,
   type GameButtonProps,
-  type GameButtonSurface,
   type GameButtonVariant,
 } from './controls/GameButton/GameButton';
 export { GameCheckbox, type GameCheckboxProps } from './controls/GameCheckbox/GameCheckbox';
@@ -136,3 +134,11 @@ export type {
   GameMaterialPattern,
   GameMaterialLayout,
 } from './controls/GameMaterialSwatches/types';
+
+export type { GameUiHue } from './tokens/hue';
+export {
+  GAME_UI_STYLES,
+  GAME_UI_DEFAULT_STYLE,
+  type GameUiStyle,
+  type GameUiTheme,
+} from './tokens/styles';

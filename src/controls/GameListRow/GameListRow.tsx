@@ -1,4 +1,6 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { useRef, type HTMLAttributes, type ReactNode } from 'react';
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export interface GameListRowProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -14,6 +16,7 @@ export interface GameListRowProps extends Omit<
   /** Optional name for the row's selection control, independent of its actions. */
   selectLabel?: string;
   actions?: ReactNode;
+  hue?: GameUiHue;
 }
 
 /** A quiet list surface, with sibling controls rather than buttons inside a button. */
@@ -28,8 +31,10 @@ export function GameListRow({
   selectLabel,
   actions,
   className,
+  hue,
   ...props
 }: GameListRowProps): ReactNode {
+  const selection = useRef<HTMLButtonElement>(null);
   const content = (
     <>
       {thumbnail ? <span className="game-ui-list-row-thumbnail">{thumbnail}</span> : null}
@@ -45,11 +50,16 @@ export function GameListRow({
       {...props}
       className={['game-ui-list-row', className].filter(Boolean).join(' ')}
       data-selected={selected || undefined}
+      data-game-ui-disabled={disabled || undefined}
+      data-game-ui-paint=""
+      style={{ ...controlHue(hue), ...props.style }}
     >
+      <DropletSurface static={!onSelect} pressTarget={selection} />
       {onSelect ? (
         <button
           type="button"
           className="game-ui-list-row-main"
+          ref={selection}
           onClick={onSelect}
           disabled={disabled}
           aria-label={selectLabel}
@@ -57,10 +67,12 @@ export function GameListRow({
           aria-pressed={selected}
         >
           {content}
+          <SelectionMark />
         </button>
       ) : (
         <div className="game-ui-list-row-main" aria-current={current ? 'true' : undefined}>
           {content}
+          <SelectionMark />
         </div>
       )}
       {actions ? <div className="game-ui-list-row-actions">{actions}</div> : null}

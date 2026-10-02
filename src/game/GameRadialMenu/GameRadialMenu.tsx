@@ -1,3 +1,4 @@
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { type CSSProperties, type ReactNode } from 'react';
 
 export interface GameRadialMenuItem {
@@ -31,7 +32,9 @@ export function GameRadialMenu({ items, label, onSelect }: GameRadialMenuProps):
           onClick={onSelect ? () => onSelect(item.id) : undefined}
           style={{ '--radial-index': index } as CSSProperties}
           type="button"
+          data-game-ui-paint=""
         >
+          <DropletSurface />
           {item.label}
         </button>
       ))}

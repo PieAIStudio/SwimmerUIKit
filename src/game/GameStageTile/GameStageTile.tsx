@@ -1,3 +1,4 @@
+import { DropletSurface, SelectionMark } from '../../controls/DropletSurface/DropletSurface';
 import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import { type ClayIconName } from '../../icons/assets';
@@ -34,7 +35,9 @@ export function GameStageTile({
       data-stage-tone={tone}
       type={type}
       {...props}
+      data-game-ui-paint=""
     >
+      <DropletSurface />
       {icon ? <GameAssetIcon icon={icon} size="xl" /> : null}
       <span className="game-ui-stage-tile-copy">
         <small>{kicker}</small>
@@ -42,6 +45,7 @@ export function GameStageTile({
         <span>{summary}</span>
       </span>
       {badge ? <GameBadge tone={selected ? 'success' : 'neutral'}>{badge}</GameBadge> : null}
+      <SelectionMark />
     </button>
   );
 }

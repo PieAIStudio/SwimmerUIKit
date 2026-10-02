@@ -1,4 +1,6 @@
-import { type InputHTMLAttributes, type ReactNode } from 'react';
+import type { InputHTMLAttributes, ReactNode } from 'react';
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
+import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 export interface GameCheckboxProps extends Pick<
   InputHTMLAttributes<HTMLInputElement>,
@@ -6,14 +8,18 @@ export interface GameCheckboxProps extends Pick<
 > {
   label: string;
   className?: string;
+  hue?: GameUiHue;
 }
-
-export function GameCheckbox({ className, label, ...props }: GameCheckboxProps): ReactNode {
-  const classes = ['game-ui-checkbox', className].filter(Boolean).join(' ');
+export function GameCheckbox({ className, label, hue, ...props }: GameCheckboxProps): ReactNode {
   return (
-    <label className={classes}>
+    <label
+      className={['game-ui-checkbox', className].filter(Boolean).join(' ')}
+      data-game-ui-paint=""
+      style={controlHue(hue)}
+    >
+      <DropletSurface />
       <input className="game-ui-checkbox-input" type="checkbox" {...props} />
-      <span aria-hidden="true" className="game-ui-checkbox-box" />
+      <SelectionMark />
       <span className="game-ui-checkbox-label">{label}</span>
     </label>
   );

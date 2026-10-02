@@ -1,7 +1,7 @@
 # GameSegmentedControl
 
-在一小组相关选项之间切换。
+在少量并列选项之间选择，背景与选中对勾都不改变布局宽度。
 
-主要参数：`activeId`、`label`、`onSelect`、`options`、`surface`、`liquidFinish`、`disabled`；[完整参数](GameSegmentedControl.tsx)以源码为准。
+主要参数：options、activeId、onSelect、label、disabled、hue；选项可单独指定 hue。
 
-边界：内容面板切换用 GameTabs；长集合用 GameSelect。
+边界：产品拥有值；不要再包 LiquidGroup，不再支持材质开关。

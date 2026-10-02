@@ -1,0 +1,125 @@
+/* Geometry, content and native hit target stay separate. There is no theme
+ * branch here: tokens/control-styles.css is the sole owner of paint recipes. */
+@layer swimmer-ui {
+  [data-game-ui-paint] {
+    --game-ui-paint-fill: var(--game-ui-control-fill);
+    --game-ui-paint-edge: var(--game-ui-control-edge);
+    --game-ui-paint-edge-width: var(--game-ui-control-edge-width);
+    --game-ui-paint-text: var(--game-ui-control-text);
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: var(--game-ui-droplet-radius);
+    background: var(--game-ui-paint-fill);
+    color: var(--game-ui-paint-text);
+    box-shadow: none;
+    text-shadow: none;
+    filter: none;
+    backdrop-filter: none;
+    transform: none;
+    /* Explicit initial resets survive minification without being rewritten
+     * into an identity transform (which would still create a containing block). */
+    scale: initial;
+    translate: initial;
+    appearance: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-game-ui-paint][data-game-ui-meaning='true'] {
+    --game-ui-paint-fill: var(--game-ui-control-meaning-fill);
+    --game-ui-paint-edge: var(--game-ui-control-meaning-edge);
+    --game-ui-paint-edge-width: var(--game-ui-control-meaning-edge-width);
+    --game-ui-paint-text: var(--game-ui-control-meaning-text);
+  }
+  [data-game-ui-paint]:is(
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [aria-checked='true'],
+    [data-selected='true'],
+    :has(> :where(input):checked)
+  ) {
+    --game-ui-paint-fill: var(--game-ui-control-on-fill);
+    --game-ui-paint-edge: var(--game-ui-control-on-edge);
+    --game-ui-paint-edge-width: var(--game-ui-control-on-edge-width);
+    --game-ui-paint-text: var(--game-ui-control-on-text);
+  }
+  /* Danger changes ink, never the normal face. Selection must not restore
+   * a coloured destructive background; disabled state below still wins. */
+  [data-game-ui-paint][data-game-ui-danger='true'] {
+    --game-ui-paint-fill: var(--game-ui-control-fill);
+    --game-ui-paint-text: var(--game-ui-danger-ink);
+    --game-ui-paint-edge: var(--game-ui-control-danger-edge);
+    --game-ui-paint-edge-width: var(--game-ui-control-edge-width);
+  }
+  [data-game-ui-paint]:is(
+    :disabled,
+    [aria-disabled='true'],
+    [data-game-ui-disabled='true'],
+    :has(> input:disabled)
+  ) {
+    --game-ui-paint-fill: var(--game-ui-control-disabled-fill);
+    --game-ui-paint-edge: var(--game-ui-control-disabled-edge);
+    --game-ui-paint-text: var(--game-ui-control-disabled-text);
+    cursor: not-allowed;
+  }
+  [data-game-ui-paint]:has(> .game-ui-droplet[data-ready='true']) {
+    background: transparent;
+  }
+  .game-ui-droplet {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .game-ui-droplet path {
+    fill: var(--game-ui-paint-fill);
+    stroke: var(--game-ui-paint-edge);
+    stroke-width: var(--game-ui-paint-edge-width);
+    stroke-linejoin: round;
+  }
+  .game-ui-selection-mark {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 1em;
+    line-height: 1;
+    font-weight: 800;
+    visibility: hidden;
+  }
+  [data-game-ui-paint]:is(
+      [aria-pressed='true'],
+      [aria-selected='true'],
+      [aria-checked='true'],
+      [data-selected='true'],
+      :has(> input:checked)
+    )
+    > .game-ui-selection-mark {
+    visibility: visible;
+  }
+  [data-game-ui-paint]:focus-visible,
+  [data-game-ui-paint]:has(> input:focus-visible) {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 3px;
+  }
+  @media (forced-colors: active) {
+    [data-game-ui-paint],
+    [data-game-ui-paint]:has(> .game-ui-droplet[data-ready='true']) {
+      background: ButtonFace;
+      color: ButtonText;
+      border: 1px solid ButtonText;
+    }
+    .game-ui-droplet {
+      display: none;
+    }
+    [data-game-ui-paint]:is(
+      [aria-pressed='true'],
+      [aria-selected='true'],
+      [aria-checked='true'],
+      :has(> input:checked)
+    ) {
+      border-color: Highlight;
+    }
+  }
+}

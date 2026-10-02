@@ -8,29 +8,13 @@
 @layer swimmer-ui {
   .game-ui-orientation-card button {
     min-height: 44px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
     border-radius: var(--game-ui-radius-control);
     font: inherit;
     font-family: var(--game-ui-font-body);
     font-weight: 860;
     cursor: pointer;
-    box-shadow: var(--game-ui-shadow-button);
-    transition:
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      scale var(--game-ui-motion-fast) var(--game-ui-ease-pop),
-      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
   }
   @media (hover: hover) {
-    .game-ui-orientation-card button:hover {
-      transform: translateY(-1px);
-    }
-  }
-  .game-ui-orientation-card button:active {
-    scale: 0.96;
-  }
-  .game-ui-orientation-card button {
-    background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent));
-    color: var(--game-ui-accent-contrast);
   }
   .game-ui-orientation-gate {
     display: grid;
@@ -65,21 +49,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-orientation-card button:hover {
-      transform: none;
-    }
-  }
-  [data-game-ui-tone='glass'] .game-ui-orientation-card button {
-    border-color: var(--game-ui-overlay-glass-border-hover);
-    background: var(--game-ui-overlay-glass-primary-fill);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
-  }
-  .game-ui-overlay-scope .game-ui-orientation-card button {
-    border-color: var(--game-ui-overlay-glass-border-hover);
-    background: var(--game-ui-overlay-glass-primary-fill);
-    color: var(--game-ui-overlay-glass-text);
-    box-shadow: none;
   }
 
   /* Accessibility & finish: unified focus ring, clay scrollbars, selection */

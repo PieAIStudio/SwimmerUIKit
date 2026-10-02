@@ -41,7 +41,7 @@ related:
 ## 液体、可选特效和预览的入口
 
 普通界面从 @pieai/swimmer-ui-kit 导入成品控件，样式在应用入口只引一次 styles.css。
-S3 保持现有控件表面；S4 才切换到 Owner 定稿的二维水滴和专属 CTA，不能把中间阶段截图当最终主题。
+3.0 的普通控件共用二维水滴，只有 GameButton variant="primary" 是潮汐液体 CTA。**一屏最多一个 CTA**：它只用于开始、确定、下一步、收下或付款。不要把 primary 当成选中态；选中用对应选择控件或 aria-pressed，显示对勾且不扩大。
 
 单体装饰用 LiquidSurface，多体关系用 LiquidGroup + liquidFormItem。它们不替代真实 DOM 控件。
 宿主预算只通过 setLiquidGooeyBudget 设置，不依赖内部计数器、默认常量或整张配方表。
@@ -57,7 +57,7 @@ S3 保持现有控件表面；S4 才切换到 Owner 定稿的二维水滴和专�
 
 ## 深色主题与迁移
 
-3.0 使用 data-game-ui-theme="light" 或 "dark"。产品源码与样式可运行 swimmer-ui-check 发现旧取值；检查报错不会提供兼容渲染。
+风格与明暗独立：data-game-ui-style 可为 candy、pastel、mist、grey、outline、ink，省略默认 pastel；data-game-ui-theme 为 light 或 dark。支持 hue 的控件接受 coral、sun、leaf、sky、grape、pink，组件不按风格分支。输入框只换边与底色，不做按压形变。产品源码与样式可运行 swimmer-ui-check 发现旧取值；检查报错不会提供兼容渲染。
 拆分、删除和改名逐条见 [迁移表](migration-3.0.md)。完整的当前名字与源码链接在 [公开接口清单](public-api-inventory.md)，以它为准，不从旧示例猜哪些内部名字仍然公开。
 
-常规布局、原生语义和工程边界在 [设计系统指南](design-system-guide.md)；S5 会继续收敛旧文档，不在产品仓库复制一套控件。
+常规布局、原生语义和工程边界在 [设计系统指南](design-system-guide.md)；详细的材质、按压和主题边界只在设计指南维护，不在产品仓库复制一套控件。

@@ -43,10 +43,27 @@ function contrast(foreground, background) {
 async function readContrast(locator) {
   const colors = await locator.evaluate((element) => {
     const style = getComputedStyle(element);
-    return { foreground: style.color, background: style.backgroundColor };
+    // 3.0 ordinary buttons are transparent native targets over their own SVG.
+    // Measure that actual path, not an unrelated ancestor or a zero-alpha box.
+    const path = element.querySelector(':scope > svg path');
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext('2d');
+    const opaque = (value) => {
+      context.clearRect(0, 0, 1, 1);
+      context.fillStyle = value;
+      context.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = context.getImageData(0, 0, 1, 1).data;
+      if (a !== 255) throw new Error(`Account control paint must be opaque: ${value}`);
+      return `rgb(${r},${g},${b})`;
+    };
+    return {
+      foreground: opaque(style.color),
+      background: opaque(path ? getComputedStyle(path).fill : style.backgroundColor),
+    };
   });
   const ratio = contrast(colors.foreground, colors.background);
-  assert.ok(ratio >= 4.5, `Plaque text contrast ${ratio}:1`);
+  assert.ok(ratio >= 4.5, `Account control text contrast ${ratio}:1`);
   return ratio;
 }
 async function paste(locator, code) {
@@ -197,6 +214,7 @@ try {
 
             const plaque = page.locator('[data-account-plaque] button').first();
             await plaque.scrollIntoViewIfNeeded();
+            await plaque.locator('svg[data-ready="true"] path').waitFor();
             const restContrast = await readContrast(plaque);
             const boxBefore = await plaque.boundingBox();
             if (touch) await plaque.tap();

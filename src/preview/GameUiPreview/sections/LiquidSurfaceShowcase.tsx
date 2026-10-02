@@ -32,9 +32,7 @@ export function LiquidSurfaceShowcase(): ReactNode {
           {tones.map((tone) => (
             <div className="game-ui-liquid-showcase__pair" key={tone}>
               <GameButton variant={tone}>{tone}</GameButton>
-              <GameButton surface="liquid" variant={tone}>
-                {tone}
-              </GameButton>
+              <GameButton variant={tone}>{tone}</GameButton>
               <small>{liquid.press}</small>
             </div>
           ))}
@@ -48,7 +46,7 @@ export function LiquidSurfaceShowcase(): ReactNode {
             <GameButton disabled variant="primary">
               flat
             </GameButton>
-            <GameButton disabled surface="liquid" variant="primary">
+            <GameButton disabled variant="primary">
               liquid
             </GameButton>
           </div>

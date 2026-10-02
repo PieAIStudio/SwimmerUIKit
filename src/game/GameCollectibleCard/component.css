@@ -6,11 +6,6 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
-  /*
-   * GameCollectibleCard: a printed card that tilts toward the pointer, shines
-   * where the light would catch it and flips on a tap. Frame by rarity; the
-   * legendary card adds a foil and, when spotlit, a turning light behind it.
-   */
   .game-ui-collect-card {
     all: unset;
     box-sizing: border-box;

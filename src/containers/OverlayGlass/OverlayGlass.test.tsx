@@ -114,16 +114,18 @@ describe('overlay glass tokens', () => {
 });
 
 describe('overlay glass component rules', () => {
-  it('styles glass buttons/panels without clay shadows and with warm primary fill', () => {
-    expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-button");
-    expect(stylesCss).toContain('.game-ui-overlay-scope .game-ui-button');
-    expect(stylesCss).toContain('var(--game-ui-overlay-glass-primary-fill)');
-    expect(stylesCss).toContain('var(--game-ui-overlay-glass-border-hover)');
-    expect(stylesCss).toContain('var(--game-ui-overlay-glass-bg-hover)');
+  it('keeps glass on containers without overriding the flat controls or tide CTA', () => {
+    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-primary-fill)');
+    expect(stylesCss).toContain('background: var(--game-ui-cta-from)');
+    expect(stylesCss).toContain('color: var(--game-ui-cta-text)');
+    expect(stylesCss).toContain('--game-ui-paint-fill: var(--game-ui-control-fill)');
+    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-border-hover)');
+    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-bg-hover)');
     expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-badge");
     expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-panel");
-    expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-input");
-    expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-progress-track");
+    expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-input");
+    expect(stylesCss).toContain('.game-ui-progress-flat-fill');
+    expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-progress-track");
     expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-asset-icon");
   });
 
@@ -132,7 +134,7 @@ describe('overlay glass component rules', () => {
     expect(stylesCss).toContain("[data-game-ui-density='compact'] .game-ui-hud-chip");
     expect(stylesCss).toContain("[data-game-ui-density='compact'] .game-ui-input");
     expect(stylesCss).toMatch(
-      /\[data-game-ui-density='compact'\] \.game-ui-button[\s\S]*?min-height:\s*34px/,
+      /\[data-game-ui-density='compact'\] \.game-ui-button[\s\S]*?min-height:\s*36px/,
     );
   });
 
