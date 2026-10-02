@@ -1,0 +1,35 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-undo-redo-actions {
+    min-width: 0;
+  }
+  .game-ui-undo-redo-actions .game-ui-action-grid {
+    gap: 6px;
+  }
+  .game-ui-undo-redo-actions .game-ui-action-grid .game-ui-icon-button {
+    width: var(--game-ui-terrain-tool-hit-size);
+    min-height: var(--game-ui-terrain-tool-hit-size);
+  }
+  .game-ui-undo-redo-actions .game-ui-action-grid kbd {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    white-space: nowrap;
+  }
+  @container game-terrain-build (max-width: 560px) {
+    .game-ui-undo-redo-actions {
+      justify-self: start;
+    }
+  }
+}

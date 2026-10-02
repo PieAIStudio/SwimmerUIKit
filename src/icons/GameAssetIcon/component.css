@@ -1,0 +1,41 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-asset-icon {
+    display: inline-grid;
+    width: var(--game-ui-asset-icon-md);
+    height: var(--game-ui-asset-icon-md);
+    flex: none;
+    place-items: center;
+  }
+  .game-ui-asset-icon[data-icon-size='sm'] {
+    width: var(--game-ui-asset-icon-sm);
+    height: var(--game-ui-asset-icon-sm);
+  }
+  .game-ui-asset-icon[data-icon-size='lg'] {
+    width: var(--game-ui-asset-icon-lg);
+    height: var(--game-ui-asset-icon-lg);
+  }
+  .game-ui-asset-icon[data-icon-size='xl'] {
+    width: var(--game-ui-asset-icon-xl);
+    height: var(--game-ui-asset-icon-xl);
+  }
+  .game-ui-asset-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  /* Clay icons keep their painted plate; a soft dark rim keeps them readable
+   * on translucent glass without inventing a second icon family. */
+  [data-game-ui-tone='glass'] .game-ui-asset-icon {
+    filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--game-ui-scenery-soil) 55%, transparent));
+  }
+  .game-ui-overlay-scope .game-ui-asset-icon {
+    filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--game-ui-scenery-soil) 55%, transparent));
+  }
+}

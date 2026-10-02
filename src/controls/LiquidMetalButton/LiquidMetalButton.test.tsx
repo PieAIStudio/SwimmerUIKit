@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { readComponentStyles } from '../../../tests/helpers/styles';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -103,7 +104,7 @@ describe('LiquidMetalButton markup', () => {
 
 describe('liquid metal tokens and clip', () => {
   const themeCss = readFileSync(join(SRC, 'tokens', 'theme.css'), 'utf8');
-  const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
+  const stylesCss = readComponentStyles();
 
   it('defines face and ink on both light and night, because inheriting ink-deep would invert on night', () => {
     expect(themeCss).toMatch(/:root\s*\{[\s\S]*--game-ui-liquid-metal-face:/);

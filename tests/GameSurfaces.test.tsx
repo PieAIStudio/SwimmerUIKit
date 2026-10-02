@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readComponentStyles } from './helpers/styles';
 
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -11,7 +11,7 @@ import { GameToggle } from '../src/controls/GameToggle/GameToggle';
 
 import { GameTooltip } from '../src/feedback/GameTooltip/GameTooltip';
 
-const stylesCss = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+const stylesCss = readComponentStyles();
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');

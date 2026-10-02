@@ -75,6 +75,9 @@ importers:
       playwright:
         specifier: 1.61.1
         version: 1.61.1
+      postcss:
+        specifier: 8.5.18
+        version: 8.5.18
       react:
         specifier: 19.2.7
         version: 19.2.7

@@ -1,0 +1,79 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-compact-game-drawer {
+    display: grid;
+    gap: 8px;
+    width: min(100%, 360px);
+    min-width: 0;
+  }
+  .game-ui-compact-game-drawer[data-variant='small-mobile'] {
+    width: min(100%, 320px);
+  }
+  .game-ui-compact-game-drawer-trigger {
+    justify-self: start;
+    max-width: 100%;
+  }
+  .game-ui-compact-game-drawer-panel {
+    display: none;
+    max-height: min(72dvh, 520px);
+    min-width: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+  }
+  .game-ui-compact-game-drawer[data-open='true'] .game-ui-compact-game-drawer-panel {
+    display: grid;
+  }
+  .game-ui-compact-game-drawer .game-ui-panel {
+    max-width: 100%;
+  }
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-track {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-compact-game-drawer-panel {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-track {
+      background: Canvas;
+    }
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-compact-game-drawer-panel::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
+  }
+}

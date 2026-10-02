@@ -1,0 +1,63 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-robot-crew-copy {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+  }
+  .game-ui-robot-crew-copy strong {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--game-ui-text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-robot-crew-copy small {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    line-height: 1.25;
+  }
+  .game-ui-robot-crew-copy em {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    line-height: 1.25;
+  }
+
+  .game-ui-robot-crew-status {
+    display: grid;
+    min-width: 0;
+    gap: 8px;
+  }
+  .game-ui-robot-crew-status > header strong {
+    color: var(--game-ui-text);
+    font-family: var(--game-ui-font-display);
+    font-weight: var(--game-ui-weight-title);
+  }
+  .game-ui-robot-crew-list {
+    display: grid;
+    gap: 7px;
+  }
+  .game-ui-robot-crew-member {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--game-ui-ink-deep) 7%, transparent);
+    padding: 8px;
+  }
+  .game-ui-robot-crew-member[data-crew-status='working'] {
+    background: color-mix(in srgb, var(--game-ui-secondary) 11%, transparent);
+  }
+  .game-ui-robot-crew-member[data-crew-status='blocked'] {
+    background: color-mix(in srgb, var(--game-ui-danger) 10%, transparent);
+  }
+}

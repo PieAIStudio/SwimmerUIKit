@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
+import { readComponentStyles } from './helpers/styles';
 
 import {
   CLAY_COLOR_TOKENS,
@@ -16,7 +17,7 @@ import {
 } from '../src/tokens/index';
 
 const SRC = fileURLToPath(new URL('../src/', import.meta.url));
-const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
+const stylesCss = readComponentStyles();
 const themeCss = readFileSync(join(SRC, 'tokens', 'theme.css'), 'utf8');
 const previewCss = readFileSync(join(SRC, 'preview', 'preview.css'), 'utf8');
 

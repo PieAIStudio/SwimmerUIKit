@@ -1,0 +1,53 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-card-fan {
+    position: relative;
+    display: grid;
+    min-height: 190px;
+    place-items: center;
+  }
+  .game-ui-card-fan-card {
+    position: absolute;
+    display: grid;
+    width: var(--game-ui-asset-card-fan-width);
+    min-height: 170px;
+    place-items: center;
+    gap: 6px;
+    border: 2px solid color-mix(in srgb, var(--game-ui-border-ink) 16%, transparent);
+    border-radius: 22px;
+    background: linear-gradient(180deg, var(--game-ui-panel-strong), var(--game-ui-panel-deep));
+    padding: 12px;
+    text-align: center;
+    transform: translateX(calc(var(--game-ui-card-offset) * 54px))
+      rotate(calc(var(--game-ui-card-offset) * 8deg));
+    box-shadow: var(--game-ui-shadow-button);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-card-fan-card:nth-child(2) {
+    z-index: 2;
+    transform: translateY(-10px);
+  }
+  .game-ui-card-fan-card small {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-weight: 860;
+    text-transform: uppercase;
+  }
+  .game-ui-card-fan-card strong {
+    font-size: var(--game-ui-font-lg);
+  }
+
+  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+}

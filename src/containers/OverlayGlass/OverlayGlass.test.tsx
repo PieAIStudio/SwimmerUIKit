@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { readComponentStyles } from '../../../tests/helpers/styles';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,7 +19,7 @@ import { GamePanel } from '../GamePanel/GamePanel';
 import { CLAY_COLOR_TOKENS, CLAY_OVERLAY_GLASS_TOKENS, GAME_UI_OVERLAY } from '../../tokens/index';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
-const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
+const stylesCss = readComponentStyles();
 const themeCss = readFileSync(join(SRC, 'tokens', 'theme.css'), 'utf8');
 
 function parseVars(block: string): Map<string, string> {

@@ -1,0 +1,49 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-panel h3 {
+    margin: 0;
+    color: var(--game-ui-ink-heading);
+    font-family: var(--game-ui-font-display);
+    font-weight: 900;
+  }
+
+  .game-ui-panel {
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-panel);
+    background: var(--game-ui-panel);
+    box-shadow: var(--game-ui-shadow-panel);
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  /* Polish · P10 text wrapping: balanced headings, orphan-free body */
+  .game-ui-panel h3 {
+    text-wrap: balance;
+  }
+  [data-game-ui-tone='glass'] .game-ui-panel {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg-panel);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur)) saturate(1.1);
+  }
+  .game-ui-overlay-scope .game-ui-panel {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg-panel);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur)) saturate(1.1);
+  }
+  [data-game-ui-density='compact'] .game-ui-panel {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .game-ui-panel ::selection {
+    background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent);
+  }
+}

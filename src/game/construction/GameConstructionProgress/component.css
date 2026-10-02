@@ -1,0 +1,82 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-construction-steps small {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    line-height: 1.25;
+  }
+
+  .game-ui-construction-progress {
+    display: grid;
+    min-width: 0;
+    gap: 8px;
+  }
+  .game-ui-construction-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .game-ui-construction-progress-header > span {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+  }
+  .game-ui-construction-progress-header strong {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--game-ui-text);
+    font-size: var(--game-ui-font-sm);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-construction-steps {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .game-ui-construction-steps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--game-ui-ink-deep) 6%, transparent);
+    padding: 7px 8px;
+  }
+  .game-ui-construction-step-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--game-ui-disabled);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
+  }
+  .game-ui-construction-steps li[data-step-status='active'] .game-ui-construction-step-dot {
+    background: var(--game-ui-secondary);
+  }
+  .game-ui-construction-steps li[data-step-status='complete'] .game-ui-construction-step-dot {
+    background: var(--game-ui-success);
+  }
+  .game-ui-construction-steps li[data-step-status='blocked'] .game-ui-construction-step-dot {
+    background: var(--game-ui-danger);
+  }
+  .game-ui-construction-steps strong {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--game-ui-text);
+    font-size: var(--game-ui-font-xs);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

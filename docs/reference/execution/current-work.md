@@ -33,7 +33,8 @@ This file is the current project work index. It is not the agents-routing algori
   执行期间 Claude 不改本仓库代码，只做阶段评审。
   Owner 补充批准（2026-10-01）：S3 将深色主题取值统一为 `dark`，旧值只由迁移检查器报错、不再兼容；S1–S3 各阶段验收后直接提交推送，S4 做完并生成对比页后、提交前停下交 Claude 评审。
   - **S0 完成（2026-10-01）**：基线 `9d6f2d3`；源码 66 文件 / 20,069 行，公开 295 名字（132 值、163 类型），482 测试全过，dist 4,315,930 bytes。`verify`、`docs:check`、`build-storybook` 通过；144 个故事的浅色 / night、DPR 1 共 288 张截图及原始构建保存在 `.scratch/baseline/`（不提交），图集入口 `.scratch/baseline/index.html`。未改变组件外观；检查只去掉重复编译工作，未放宽断言或超时。
-  - **S1 完成（2026-10-01）**：14 个大模块按职责拆分、文件用 `git mv` 归位，补齐 73 份组件短说明；355 处声明核对一致，295 个公开名字及种类不变。`verify`（77 文件 / 492 测试）、`docs:check`、`build-storybook` 全过；S0 原构建与 S1 构建在同一 Firefox、DPR 1、固定动画时刻重拍的 288 张图逐字节一致，原始 Chromium 基线未覆盖。验收在 `.scratch/s1/consistent-v9/`，对照在 `.scratch/baseline/consistent-v9/`，数字在 `.scratch/s1/final/metrics.json`；未改主题取值或组件外观。
+  - **S1 完成（2026-10-01）**：14 个大模块按职责拆分、文件用 `git mv` 归位，补齐 73 份组件短说明；355 处声明核对一致，295 个公开名字及种类不变。`verify`（77 文件 / 492 测试）、`docs:check`、`build-storybook` 全过；S0 原构建与 S1 构建在同一 Firefox、DPR 1、固定动画时刻重拍的 288 张图逐字节一致，原始 Chromium 基线未覆盖。验收在 `.scratch/s1/consistent-v9/`，对照在 `.scratch/baseline/consistent-v9/`，数字在 `.scratch/s1/final/metrics.json`；未改主题取值或组件外观。提交 `1e720ba`，已推送。
+  - **S2 完成（2026-10-02）**：样式按组件归位，公开 CSS 引入路径不变；993 条编译后原子规则等价，288 张故事截图与 S0 对照逐字节相同。`verify`（78 文件 / 496 测试）、`docs:check`、`build-storybook` 通过，日志与规则对照在 `.scratch/s2/`。未改名字、主题取值或外观。
 
 - **2.14.0 液体光感，已发布**：所有带光泽的液体上边缘去锯齿（高光收进边缘一个像素）；
   新增 `LiquidFill`（上浅下深的彩色液体光）和 `LiquidSurface` 的 `gloss`、`outline`；

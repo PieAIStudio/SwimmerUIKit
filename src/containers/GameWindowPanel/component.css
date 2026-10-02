@@ -1,0 +1,181 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-window-body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 12px 14px;
+  }
+  .game-ui-window-body::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-window-body::-webkit-scrollbar-track {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-window-body::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-window-body::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .game-ui-window-body::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+  .game-ui-window ::selection {
+    background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent);
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-window-body {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-window-body::-webkit-scrollbar-track {
+      background: Canvas;
+    }
+    .game-ui-window-body::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-window-body::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
+  }
+
+  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+  .game-ui-window-button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    width: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0;
+  }
+
+  .game-ui-window {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: min(420px, 100%);
+    min-width: 0;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-panel);
+    background: var(--game-ui-panel);
+    box-shadow: var(--game-ui-shadow-panel);
+    overflow: hidden;
+    interpolate-size: allow-keywords;
+    transition:
+      width var(--game-ui-motion-base) var(--game-ui-ease-soft),
+      border-radius var(--game-ui-motion-base) var(--game-ui-ease-soft),
+      box-shadow var(--game-ui-motion-base) var(--game-ui-ease-soft);
+  }
+  .game-ui-window-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    border-bottom: var(--game-ui-stroke);
+    background: color-mix(in srgb, var(--game-ui-ink-deep) 5%, transparent);
+    padding: 6px 8px 6px 14px;
+  }
+  .game-ui-window-icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+  }
+  .game-ui-window-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--game-ui-text);
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-md);
+    font-weight: var(--game-ui-weight-title);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-window-actions {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+  }
+  .game-ui-window-region {
+    display: grid;
+    grid-template-rows: 1fr;
+    min-height: 0;
+    transition: grid-template-rows var(--game-ui-motion-base) var(--game-ui-ease-soft);
+  }
+  .game-ui-window-clip {
+    display: grid;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .game-ui-window-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: var(--game-ui-stroke);
+    padding: 10px 14px;
+  }
+  .game-ui-window[data-window-state='minimized'] {
+    width: fit-content;
+    max-width: 100%;
+    border-radius: var(--game-ui-radius-control);
+  }
+  .game-ui-window[data-window-state='minimized'] .game-ui-window-region {
+    grid-template-rows: 0fr;
+  }
+  .game-ui-window[data-window-state='minimized'] .game-ui-window-titlebar {
+    border-bottom-color: transparent;
+    background: transparent;
+  }
+  .game-ui-window[data-window-state='maximized'] {
+    position: absolute;
+    inset: var(--game-ui-safe-top) var(--game-ui-safe-right) var(--game-ui-safe-bottom)
+      var(--game-ui-safe-left);
+    z-index: var(--game-ui-z-overlay);
+    width: auto;
+    animation: game-ui-pop var(--game-ui-motion-base) var(--game-ui-ease-pop) both;
+  }
+  .game-ui-window[data-window-state='maximized'] .game-ui-window-body {
+    max-height: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-window {
+      transition: none;
+    }
+    .game-ui-window-region {
+      transition: none;
+    }
+    .game-ui-window[data-window-state='maximized'] {
+      animation: none;
+    }
+  }
+}

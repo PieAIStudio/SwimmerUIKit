@@ -1,0 +1,132 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .swimmer-first-session-control-copy {
+    display: grid;
+    gap: 2px;
+  }
+
+  .swimmer-first-session-shell {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .swimmer-first-session-hud {
+    position: absolute;
+    top: var(--game-ui-safe-top);
+    right: var(--game-ui-safe-right);
+    left: var(--game-ui-safe-left);
+    align-items: flex-start;
+  }
+  .swimmer-first-session-hud .game-ui-hud-cluster {
+    pointer-events: auto;
+  }
+  .swimmer-first-session-hud .game-ui-hud-tools {
+    pointer-events: auto;
+  }
+  .swimmer-first-session-hud-actions {
+    pointer-events: auto;
+  }
+  .swimmer-first-session-controls {
+    position: absolute;
+    right: max(18px, var(--game-ui-safe-right));
+    bottom: max(16px, var(--game-ui-safe-bottom));
+    left: max(18px, var(--game-ui-safe-left));
+    display: grid;
+    grid-template-columns: auto minmax(120px, 1fr) minmax(180px, 0.72fr) auto;
+    align-items: center;
+    gap: 12px;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-modal);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 86%, transparent);
+    padding: 10px 12px;
+    pointer-events: none;
+    box-shadow: var(--game-ui-shadow-panel);
+    backdrop-filter: blur(16px);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .swimmer-first-session-joystick {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
+    place-items: center;
+    box-shadow: var(--game-ui-shadow-inset);
+  }
+  .swimmer-first-session-joystick span {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent));
+    box-shadow: var(--game-ui-shadow-button);
+  }
+  .swimmer-first-session-control-copy strong {
+    color: var(--game-ui-text);
+    font-size: var(--game-ui-font-sm);
+  }
+  .swimmer-first-session-input {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
+    border-radius: var(--game-ui-radius-control);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 74%, transparent);
+    color: var(--game-ui-text-muted);
+    padding: 0 12px;
+    font-size: var(--game-ui-font-sm);
+    font-weight: 860;
+  }
+  .swimmer-first-session-emote {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 18%, transparent);
+    border-radius: var(--game-ui-radius-control);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 74%, transparent);
+    color: var(--game-ui-text-muted);
+    padding: 0 12px;
+    font-size: var(--game-ui-font-sm);
+    font-weight: 860;
+    color: var(--game-ui-text);
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+    .swimmer-first-session-hud .game-ui-hud-chip:nth-child(3) {
+      display: none;
+    }
+    .swimmer-first-session-hud .game-ui-hud-chip:nth-child(4) {
+      display: none;
+    }
+    .swimmer-first-session-hud .game-ui-button {
+      min-height: 34px;
+      padding: 0 10px;
+      font-size: 11px;
+    }
+    .swimmer-first-session-controls {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 8px 10px;
+    }
+    .swimmer-first-session-input {
+      display: none;
+    }
+    .swimmer-first-session-joystick {
+      width: 46px;
+      height: 46px;
+    }
+  }
+}

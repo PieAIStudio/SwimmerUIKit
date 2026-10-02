@@ -1,0 +1,33 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-collect-card-slot {
+    box-sizing: border-box;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+    aspect-ratio: 5 / 7;
+    padding: 12px;
+    border: 2px dashed color-mix(in srgb, var(--game-ui-text-muted) 60%, transparent);
+    border-radius: 16px;
+    background: repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--game-ui-text-muted) 8%, transparent) 0 6px,
+      color-mix(in srgb, var(--game-ui-text-muted) 16%, transparent) 6px 12px
+    );
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    text-align: center;
+  }
+  .game-ui-collect-card-slot > span:first-child {
+    font-family: var(--game-ui-font-display);
+    font-size: var(--game-ui-font-xl);
+    font-weight: var(--game-ui-weight-strong);
+  }
+}

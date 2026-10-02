@@ -1,0 +1,93 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  /* Form primitives: GameInput / GameTextArea / GameField / GameCheckbox */
+  .game-ui-input {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: var(--game-ui-radius-card);
+    background: var(--game-ui-surface-raised);
+    box-shadow: var(--game-ui-shadow-inset);
+    color: var(--game-ui-text);
+    font: inherit;
+    font-weight: var(--game-ui-weight-body);
+    padding: 12px 16px;
+    transition:
+      border-color var(--game-ui-motion-fast) var(--game-ui-ease-soft),
+      box-shadow var(--game-ui-motion-fast) var(--game-ui-ease-soft);
+  }
+  .game-ui-input::placeholder {
+    color: var(--game-ui-text-muted);
+    opacity: 1;
+  }
+  .game-ui-input:disabled::placeholder {
+    color: var(--game-ui-disabled);
+  }
+  .game-ui-input:focus-visible {
+    outline: none;
+    border-color: var(--game-ui-secondary);
+    box-shadow:
+      var(--game-ui-shadow-inset),
+      0 0 0 3px var(--game-ui-focus-ring);
+  }
+  .game-ui-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .game-ui-input[data-invalid='true'] {
+    border-color: var(--game-ui-danger);
+    box-shadow:
+      var(--game-ui-shadow-inset),
+      0 0 0 3px color-mix(in srgb, var(--game-ui-danger) 26%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-input {
+      transition: none;
+    }
+  }
+  [data-game-ui-tone='glass'] .game-ui-input {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg-strong) 88%, transparent);
+    color: var(--game-ui-overlay-glass-text);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  .game-ui-overlay-scope .game-ui-input {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: color-mix(in srgb, var(--game-ui-overlay-glass-bg-strong) 88%, transparent);
+    color: var(--game-ui-overlay-glass-text);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  [data-game-ui-tone='glass'] .game-ui-input:focus-visible {
+    border-color: var(--game-ui-overlay-glass-border-hover);
+    box-shadow: 0 0 0 3px var(--game-ui-focus-ring);
+  }
+  .game-ui-overlay-scope .game-ui-input:focus-visible {
+    border-color: var(--game-ui-overlay-glass-border-hover);
+    box-shadow: 0 0 0 3px var(--game-ui-focus-ring);
+  }
+  [data-game-ui-density='compact'] .game-ui-input {
+    min-height: 36px;
+    padding: 8px 12px;
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-input {
+      border: 1px solid ButtonText;
+    }
+    .game-ui-input:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

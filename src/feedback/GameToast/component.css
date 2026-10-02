@@ -1,0 +1,43 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-toast {
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-panel);
+    background: var(--game-ui-panel);
+    box-shadow: var(--game-ui-shadow-panel);
+    padding: 12px 14px;
+    font-weight: 820;
+    animation: game-ui-rise var(--game-ui-motion-base) var(--game-ui-ease-soft) both;
+  }
+  .game-ui-toast[data-toast-tone='success'] {
+    border-color: color-mix(in srgb, var(--game-ui-success) 42%, transparent);
+    background: color-mix(in srgb, var(--game-ui-success-bright) 22%, transparent);
+  }
+  .game-ui-toast[data-toast-tone='danger'] {
+    border-color: color-mix(in srgb, var(--game-ui-danger) 42%, transparent);
+    background: color-mix(in srgb, var(--game-ui-danger) 13%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-toast {
+      animation: none;
+    }
+  }
+  [data-game-ui-tone='glass'] .game-ui-toast {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg-panel);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur)) saturate(1.1);
+  }
+  .game-ui-overlay-scope .game-ui-toast {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg-panel);
+    color: var(--game-ui-overlay-glass-text);
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur)) saturate(1.1);
+  }
+}

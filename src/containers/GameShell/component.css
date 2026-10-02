@@ -1,0 +1,233 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  /* OwnMySpace game surface pack */
+  .game-ui-shell {
+    position: relative;
+    display: grid;
+    min-height: min(760px, 100dvh);
+    overflow: hidden;
+    border-radius: var(--game-ui-radius-modal);
+    background:
+      radial-gradient(
+        circle at 18% 16%,
+        color-mix(in srgb, var(--game-ui-success-bright) 24%, transparent),
+        transparent 24rem
+      ),
+      linear-gradient(150deg, var(--game-ui-scenery-pine), var(--game-ui-scenery-soil) 78%);
+    color: var(--game-ui-text);
+    isolation: isolate;
+    box-shadow: var(--game-ui-shadow-modal);
+  }
+  .game-ui-shell-scene {
+    position: relative;
+    min-width: 0;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .game-ui-shell-scene > * {
+    min-width: 0;
+  }
+  .game-ui-shell-hud {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    top: var(--game-ui-safe-top);
+    right: var(--game-ui-safe-right);
+    left: var(--game-ui-safe-left);
+  }
+  .game-ui-shell-library {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    top: calc(var(--game-ui-safe-top) + 76px);
+    right: var(--game-ui-safe-right);
+    bottom: calc(var(--game-ui-safe-bottom) + 96px);
+    width: min(360px, calc(100% - 32px));
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-side-panel {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    top: calc(var(--game-ui-safe-top) + 76px);
+    left: var(--game-ui-safe-left);
+    bottom: calc(var(--game-ui-safe-bottom) + 96px);
+    width: min(320px, calc(100% - 32px));
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-movement {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    bottom: calc(var(--game-ui-safe-bottom) + 20px);
+    left: var(--game-ui-safe-left);
+  }
+  .game-ui-shell-bottom-bar {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    right: var(--game-ui-safe-right);
+    bottom: var(--game-ui-safe-bottom);
+    left: max(172px, var(--game-ui-safe-left));
+  }
+  .game-ui-shell-overlay {
+    position: absolute;
+    z-index: var(--game-ui-z-hud);
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .game-ui-shell-overlay > * {
+    pointer-events: auto;
+  }
+  .game-ui-shell[data-density='dense'] .game-ui-panel {
+    padding: 10px;
+  }
+  .game-ui-shell[data-layout='mobile'] .game-ui-shell-library {
+    top: auto;
+    right: var(--game-ui-safe-right);
+    bottom: calc(var(--game-ui-safe-bottom) + 78px);
+    left: var(--game-ui-safe-left);
+    width: auto;
+    max-height: min(48dvh, 320px);
+  }
+  .game-ui-shell[data-layout='mobile'] .game-ui-shell-side-panel {
+    top: auto;
+    right: var(--game-ui-safe-right);
+    bottom: calc(var(--game-ui-safe-bottom) + 78px);
+    left: var(--game-ui-safe-left);
+    width: auto;
+    max-height: min(48dvh, 320px);
+  }
+  .game-ui-shell[data-layout='mobile'] .game-ui-shell-bottom-bar {
+    left: var(--game-ui-safe-left);
+  }
+  .game-ui-shell[data-layout='mobile'] .game-ui-shell-movement {
+    bottom: calc(var(--game-ui-safe-bottom) + 86px);
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-shell {
+      min-height: 640px;
+    }
+    .game-ui-shell-library {
+      top: auto;
+      right: var(--game-ui-safe-right);
+      bottom: calc(var(--game-ui-safe-bottom) + 78px);
+      left: var(--game-ui-safe-left);
+      width: auto;
+      max-height: min(48dvh, 320px);
+    }
+    .game-ui-shell-side-panel {
+      top: auto;
+      right: var(--game-ui-safe-right);
+      bottom: calc(var(--game-ui-safe-bottom) + 78px);
+      left: var(--game-ui-safe-left);
+      width: auto;
+      max-height: min(48dvh, 320px);
+    }
+    .game-ui-shell-bottom-bar {
+      left: var(--game-ui-safe-left);
+    }
+    .game-ui-shell-movement {
+      bottom: calc(var(--game-ui-safe-bottom) + 86px);
+    }
+  }
+
+  @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+    .game-ui-shell {
+      min-height: 390px;
+    }
+    .game-ui-shell-library {
+      top: calc(var(--game-ui-safe-top) + 58px);
+      right: var(--game-ui-safe-right);
+      bottom: calc(var(--game-ui-safe-bottom) + 70px);
+      left: auto;
+      width: min(300px, 46vw);
+    }
+    .game-ui-shell-bottom-bar {
+      left: max(132px, var(--game-ui-safe-left));
+    }
+  }
+  .game-ui-shell-library::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-shell-side-panel::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-shell-library::-webkit-scrollbar-track {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-side-panel::-webkit-scrollbar-track {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-library::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-side-panel::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-shell-library::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  .game-ui-shell-side-panel::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .game-ui-shell-library::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+    .game-ui-shell-side-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-shell-library {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-shell-side-panel {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-shell-library::-webkit-scrollbar-track {
+      background: Canvas;
+    }
+    .game-ui-shell-side-panel::-webkit-scrollbar-track {
+      background: Canvas;
+    }
+    .game-ui-shell-library::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-shell-side-panel::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-shell-library::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
+    .game-ui-shell-side-panel::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
+  }
+}

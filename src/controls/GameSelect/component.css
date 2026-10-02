@@ -1,0 +1,60 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-select {
+    min-height: 44px;
+    max-width: 100%;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-select option {
+    color: var(--game-ui-text);
+    background: var(--game-ui-panel-strong);
+  }
+  .game-ui-select optgroup {
+    color: var(--game-ui-text);
+    background: var(--game-ui-panel-strong);
+  }
+  .game-ui-select-frame {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+  }
+  .game-ui-select-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .game-ui-select-frame > .game-ui-select {
+    position: relative;
+    z-index: 1;
+  }
+  .game-ui-select-liquid .game-ui-select {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .game-ui-select-liquid:has(select:disabled) .game-ui-liquid-surface__body {
+    display: none;
+  }
+  .game-ui-select-liquid select:disabled {
+    background: var(--game-ui-surface-raised);
+  }
+  @media (forced-colors: active) {
+    .game-ui-select-liquid .game-ui-liquid-surface__body {
+      display: none;
+    }
+    .game-ui-select-liquid .game-ui-select {
+      border: 1px solid ButtonText;
+      color: ButtonText;
+      background: ButtonFace;
+    }
+  }
+}

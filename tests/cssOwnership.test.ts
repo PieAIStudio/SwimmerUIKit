@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
+import { readComponentStyles } from './helpers/styles';
 
 import {
   collectStructuralClaims,
@@ -11,7 +12,7 @@ import {
 } from '../scripts/lib/cssOwnership';
 
 const SRC = fileURLToPath(new URL('../src/', import.meta.url));
-const stylesCss = readFileSync(join(SRC, 'styles.css'), 'utf8');
+const stylesCss = readComponentStyles();
 const previewCss = readFileSync(join(SRC, 'preview', 'preview.css'), 'utf8');
 
 describe('structural ownership analyzer', () => {

@@ -1,0 +1,63 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-terrain-tool-strip {
+    min-width: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .game-ui-terrain-tool-strip .game-ui-action-grid-button[aria-pressed='true'] {
+    box-shadow:
+      var(--game-ui-shadow-button),
+      0 0 0 3px color-mix(in srgb, var(--game-ui-secondary) 24%, transparent);
+  }
+  .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid {
+    gap: 6px;
+  }
+  .game-ui-terrain-tool-strip[data-variant='small-mobile'] .game-ui-action-grid {
+    gap: 6px;
+  }
+  .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid .game-ui-icon-button {
+    width: var(--game-ui-terrain-tool-hit-size);
+    min-height: var(--game-ui-terrain-tool-hit-size);
+  }
+  .game-ui-terrain-tool-strip[data-variant='small-mobile']
+    .game-ui-action-grid
+    .game-ui-icon-button {
+    width: var(--game-ui-terrain-tool-hit-size);
+    min-height: var(--game-ui-terrain-tool-hit-size);
+  }
+  .game-ui-terrain-tool-strip[data-icon-label-mode='caption']
+    .game-ui-action-grid
+    .game-ui-icon-button {
+    min-height: calc(var(--game-ui-terrain-tool-hit-size) + 14px);
+  }
+  .game-ui-terrain-tool-strip[data-variant='mobile'] .game-ui-action-grid kbd {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    white-space: nowrap;
+  }
+  .game-ui-terrain-tool-strip[data-variant='small-mobile'] .game-ui-action-grid kbd {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,110 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .swimmer-first-session-onboarding-card h2 {
+    margin: 0;
+    color: var(--game-ui-ink-heading);
+    font-family: var(--game-ui-font-display);
+    font-weight: 900;
+  }
+  .swimmer-first-session-onboarding-card p {
+    max-width: 62ch;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-md);
+    line-height: var(--game-ui-line-body);
+  }
+
+  .swimmer-first-session-onboarding-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Polish · P10 text wrapping: balanced headings, orphan-free body */
+  .swimmer-first-session-onboarding-card h2 {
+    text-wrap: balance;
+  }
+  .swimmer-first-session-onboarding-card {
+    animation: game-ui-pop var(--game-ui-motion-base) var(--game-ui-ease-pop) both;
+    position: relative;
+    display: grid;
+    width: min(720px, calc(100vw - 40px));
+    max-height: min(720px, calc(100dvh - 28px));
+    gap: 12px;
+    overflow: auto;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-modal);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent);
+    color: var(--game-ui-text);
+    padding: clamp(18px, 3vw, 30px);
+    box-shadow: var(--game-ui-shadow-modal);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swimmer-first-session-onboarding-card {
+      animation: none;
+    }
+  }
+  .swimmer-first-session-onboarding {
+    position: absolute;
+    inset: 0;
+    z-index: var(--game-ui-z-modal);
+    display: grid;
+    place-items: center;
+    padding: 18px;
+  }
+  .swimmer-first-session-onboarding-scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--game-ui-scrim-strong);
+    backdrop-filter: blur(10px);
+  }
+  .swimmer-first-session-onboarding-card h2 {
+    max-width: 15ch;
+    font-size: clamp(1.8rem, 4vw, 3.4rem);
+    line-height: 0.95;
+  }
+  .swimmer-first-session-onboarding-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .swimmer-first-session-onboarding-steps li {
+    display: grid;
+    gap: 5px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 14%, transparent);
+    border-radius: var(--game-ui-radius-panel);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 56%, transparent);
+    padding: 12px;
+  }
+  .swimmer-first-session-onboarding-steps span {
+    color: var(--game-ui-accent-ink);
+    font-size: var(--game-ui-font-xs);
+    font-weight: 950;
+  }
+  .swimmer-first-session-onboarding-steps small {
+    color: var(--game-ui-text-muted);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+    .swimmer-first-session-onboarding-card {
+      grid-template-columns: minmax(0, 0.7fr) minmax(260px, 1fr);
+      gap: 12px;
+      padding: 14px;
+    }
+    .swimmer-first-session-onboarding-steps {
+      grid-row: 1 / span 5;
+      grid-column: 2;
+      grid-template-columns: 1fr;
+    }
+  }
+}

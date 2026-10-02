@@ -1,0 +1,61 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  /* PLAN-0011 terrain/build tooling pack */
+  .game-ui-terrain-build-toolbox {
+    min-width: 0;
+    container: game-terrain-build / inline-size;
+  }
+  .game-ui-terrain-build-toolbox > section {
+    display: grid;
+    min-width: 0;
+    gap: 12px;
+  }
+  .game-ui-terrain-build-toolbox-body {
+    display: grid;
+    min-width: 0;
+    gap: 12px;
+  }
+  .game-ui-terrain-status {
+    display: grid;
+    gap: 6px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 12%, transparent);
+    border-radius: var(--game-ui-radius-card);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 50%, transparent);
+    padding: 10px;
+  }
+  .game-ui-terrain-status p {
+    margin: 0;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-sm);
+    line-height: var(--game-ui-line-body);
+  }
+  .game-ui-terrain-build-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) auto minmax(240px, 0.9fr);
+    align-items: start;
+    gap: 12px;
+  }
+  .game-ui-terrain-build-toolbox[data-variant='dense'] .game-ui-terrain-build-main-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .game-ui-terrain-build-toolbox-body[data-variant='dense'] .game-ui-terrain-build-main-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .game-ui-terrain-build-toolbox[data-variant='dense'] .game-ui-brush-controls {
+    grid-column: 1 / -1;
+  }
+  .game-ui-terrain-build-toolbox-body[data-variant='dense'] .game-ui-brush-controls {
+    grid-column: 1 / -1;
+  }
+  @container game-terrain-build (max-width: 560px) {
+    .game-ui-terrain-build-main-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

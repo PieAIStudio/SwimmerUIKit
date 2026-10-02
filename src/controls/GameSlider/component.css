@@ -1,0 +1,108 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-slider {
+    display: grid;
+    gap: 6px;
+    color: var(--game-ui-text-muted);
+    font-weight: 820;
+  }
+  .game-ui-slider input {
+    accent-color: var(--game-ui-secondary);
+  }
+  /* Clay thumb/track for range inputs. -webkit-/-moz- pseudo-elements can't
+ * share a selector list (an unrecognized one drops the whole rule), so each
+ * vendor gets its own block; accent-color above stays as the very-old-browser
+ * fallback for engines that support neither. */
+  .game-ui-slider input[type='range'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    min-height: 44px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .game-ui-slider input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-surface);
+    box-shadow: var(--game-ui-shadow-inset);
+  }
+  .game-ui-slider input[type='range']::-moz-range-track {
+    height: 10px;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-surface);
+    box-shadow: var(--game-ui-shadow-inset);
+  }
+  .game-ui-slider input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -6px;
+    border: 2px solid var(--game-ui-panel-strong);
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent));
+    box-shadow: var(--game-ui-shadow-button);
+    transition: scale var(--game-ui-motion-fast) var(--game-ui-ease-pop);
+  }
+  .game-ui-slider input[type='range']::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--game-ui-panel-strong);
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--game-ui-accent-bright), var(--game-ui-accent));
+    box-shadow: var(--game-ui-shadow-button);
+    transition: scale var(--game-ui-motion-fast) var(--game-ui-ease-pop);
+  }
+  /* Every rule below stays split by vendor pseudo-element on purpose (see the
+ * note above the track rules) — do not merge the -webkit-/-moz- selectors
+ * into one comma list, that silently drops the rule in both engines. */
+  @media (hover: hover) {
+    .game-ui-slider input[type='range']:hover::-webkit-slider-thumb {
+      scale: 1.08;
+    }
+    .game-ui-slider input[type='range']:hover::-moz-range-thumb {
+      scale: 1.08;
+    }
+  }
+  .game-ui-slider input[type='range']:active::-webkit-slider-thumb {
+    scale: 0.94;
+  }
+  .game-ui-slider input[type='range']:active::-moz-range-thumb {
+    scale: 0.94;
+  }
+  .game-ui-slider input[type='range']:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-slider input[type='range']:focus-visible::-moz-range-thumb {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Kept out of the list above: mixing -webkit-/-moz- pseudo-elements with
+   * plain selectors in one comma list drops the whole rule in engines that
+   * don't recognize the other vendor's pseudo-element. */
+    .game-ui-slider input[type='range']::-webkit-slider-thumb {
+      transition: none;
+    }
+    .game-ui-slider input[type='range']::-moz-range-thumb {
+      transition: none;
+    }
+  }
+  [data-game-ui-density='compact'] .game-ui-slider input[type='range'] {
+    min-height: 34px;
+  }
+  .game-ui-slider:has(input:disabled) {
+    color: var(--game-ui-disabled);
+  }
+  .game-ui-slider input:disabled {
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,154 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-modal-frame {
+    scrollbar-width: thin;
+    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+    display: grid;
+    gap: 12px;
+    max-height: min(82dvh, 720px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-modal);
+    background: var(--game-ui-panel-strong);
+    color: var(--game-ui-text);
+    padding: clamp(16px, 2.5vw, 24px);
+    box-shadow: var(--game-ui-shadow-modal);
+  }
+  .game-ui-modal-frame::-webkit-scrollbar {
+    width: var(--game-ui-scrollbar-size);
+    height: var(--game-ui-scrollbar-size);
+  }
+  .game-ui-modal-frame::-webkit-scrollbar-track {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-modal-frame::-webkit-scrollbar-corner {
+    background: var(--game-ui-scrollbar-track);
+  }
+  .game-ui-modal-frame::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+  @media (hover: hover) {
+    .game-ui-modal-frame::-webkit-scrollbar-thumb:hover {
+      background: var(--game-ui-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+  .game-ui-modal-frame ::selection {
+    background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent);
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-modal-frame {
+      scrollbar-color: ButtonText Canvas;
+    }
+    .game-ui-modal-frame::-webkit-scrollbar-track {
+      background: Canvas;
+    }
+    .game-ui-modal-frame::-webkit-scrollbar-corner {
+      background: Canvas;
+    }
+    .game-ui-modal-frame::-webkit-scrollbar-thumb {
+      border-color: Canvas;
+      background: ButtonText;
+    }
+  }
+
+  .game-ui-modal {
+    border: 0;
+    margin: auto;
+    padding: 0;
+    background: transparent;
+    max-width: min(560px, calc(100vw - 32px));
+    overflow: visible;
+  }
+  .game-ui-modal[data-size='sm'] {
+    max-width: min(380px, calc(100vw - 32px));
+  }
+  .game-ui-modal[data-size='lg'] {
+    max-width: min(780px, calc(100vw - 32px));
+  }
+  .game-ui-modal::backdrop {
+    background: var(--game-ui-scrim-strong);
+    backdrop-filter: blur(8px);
+  }
+  .game-ui-modal[open] .game-ui-modal-frame {
+    animation: game-ui-pop var(--game-ui-motion-base) var(--game-ui-ease-pop) both;
+  }
+  .game-ui-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .game-ui-modal-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    color: var(--game-ui-ink-heading);
+    font-family: var(--game-ui-font-display);
+    font-weight: var(--game-ui-weight-title);
+  }
+  .game-ui-modal-body {
+    min-width: 0;
+    color: var(--game-ui-text);
+  }
+  .game-ui-modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* GameModal position="bottom": mobile-style action sheet, anchored flush to
+ * the viewport's bottom edge. Same native <dialog> — focus trap, Esc, and
+ * backdrop are unchanged, only the frame's placement/shape/entrance differ. */
+  .game-ui-modal[data-position='bottom'] {
+    margin: auto auto 0;
+    max-width: min(560px, 100vw);
+  }
+  .game-ui-modal[data-position='bottom'][data-size='sm'] {
+    max-width: min(380px, 100vw);
+  }
+  .game-ui-modal[data-position='bottom'][data-size='lg'] {
+    max-width: min(780px, 100vw);
+  }
+  .game-ui-modal[data-position='bottom'] .game-ui-modal-frame {
+    border-radius: var(--game-ui-radius-modal) var(--game-ui-radius-modal) 0 0;
+    padding-bottom: max(clamp(16px, 2.5vw, 24px), var(--game-ui-safe-bottom));
+  }
+  .game-ui-modal[data-position='bottom'][open] .game-ui-modal-frame {
+    animation: game-ui-rise-sheet var(--game-ui-motion-base) var(--game-ui-ease-soft) both;
+  }
+  @keyframes game-ui-rise-sheet {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-modal[open] .game-ui-modal-frame {
+      animation: none;
+    }
+    .game-ui-modal[data-position='bottom'][open] .game-ui-modal-frame {
+      animation: none;
+    }
+  }
+}

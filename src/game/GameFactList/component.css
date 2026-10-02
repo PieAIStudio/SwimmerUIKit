@@ -1,0 +1,75 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-fact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .game-ui-fact-list[data-variant='stats'] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  }
+  .game-ui-fact {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-text-on-dark) 32%, transparent);
+    border-radius: var(--game-ui-radius-control);
+    background: var(--game-ui-glass-night-soft);
+    color: var(--game-ui-text-on-dark);
+    padding: 7px 9px;
+    box-shadow: var(--game-ui-shadow-button);
+    backdrop-filter: blur(12px);
+  }
+  .game-ui-fact-list[data-density='dense'] .game-ui-fact {
+    min-height: 38px;
+    padding: 5px 7px;
+  }
+  .game-ui-fact-copy {
+    display: grid;
+    min-width: 0;
+    gap: 1px;
+  }
+  .game-ui-fact-copy small {
+    color: var(--game-ui-text-on-dark);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    font-weight: 820;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .game-ui-fact-copy em {
+    color: var(--game-ui-text-on-dark);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    font-weight: 820;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .game-ui-fact-copy strong {
+    overflow: hidden;
+    color: var(--game-ui-text-on-dark);
+    font-size: var(--game-ui-font-sm);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-game-ui-tone='glass'] .game-ui-fact {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  .game-ui-overlay-scope .game-ui-fact {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+}

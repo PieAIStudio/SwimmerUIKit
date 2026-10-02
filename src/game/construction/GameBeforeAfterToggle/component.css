@@ -1,0 +1,62 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-before-after-preview figcaption {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    line-height: 1.25;
+  }
+
+  .game-ui-before-after-toggle {
+    display: grid;
+    min-width: 0;
+    gap: 8px;
+  }
+  .game-ui-before-after-toggle .game-ui-segmented {
+    width: fit-content;
+    max-width: 100%;
+  }
+  .game-ui-before-after-preview {
+    display: grid;
+    min-width: 0;
+    gap: 7px;
+    margin: 0;
+  }
+  .game-ui-before-after-content {
+    display: grid;
+    min-height: 160px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 12%, transparent);
+    border-radius: var(--game-ui-radius-panel);
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        color-mix(in srgb, var(--game-ui-success-bright) 18%, transparent),
+        transparent 8rem
+      ),
+      color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
+  }
+  .game-ui-before-after-placeholder {
+    display: grid;
+    min-height: 160px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 12%, transparent);
+    border-radius: var(--game-ui-radius-panel);
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        color-mix(in srgb, var(--game-ui-success-bright) 18%, transparent),
+        transparent 8rem
+      ),
+      color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
+    color: var(--game-ui-text-muted);
+  }
+}

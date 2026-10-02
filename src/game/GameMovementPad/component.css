@@ -1,0 +1,92 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-movement-button kbd {
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--game-ui-ink-deep) 12%, transparent);
+    color: inherit;
+    padding: 2px 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72em;
+    font-weight: 900;
+  }
+
+  .game-ui-movement-pad {
+    display: grid;
+    width: fit-content;
+    gap: 7px;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-modal);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 82%, transparent);
+    padding: 10px;
+    box-shadow: var(--game-ui-shadow-panel);
+    backdrop-filter: blur(14px);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .game-ui-movement-pad:focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 3px;
+  }
+  .game-ui-movement-pad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 48px);
+    grid-template-areas: '. forward .' 'left reset right' '. backward .';
+    gap: 6px;
+  }
+  .game-ui-movement-pad[data-density='dense'] .game-ui-movement-pad-grid {
+    grid-template-columns: repeat(3, 40px);
+    gap: 5px;
+  }
+  .game-ui-movement-pad[data-layout='row'] .game-ui-movement-pad-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .game-ui-movement-button {
+    width: 48px;
+    min-width: 0;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-movement-pad[data-density='dense'] .game-ui-movement-button {
+    width: 40px;
+    min-height: 40px;
+  }
+  .game-ui-movement-button[data-direction='forward'] {
+    grid-area: forward;
+  }
+  .game-ui-movement-button[data-direction='left'] {
+    grid-area: left;
+  }
+  .game-ui-movement-button[data-direction='right'] {
+    grid-area: right;
+  }
+  .game-ui-movement-button[data-direction='backward'] {
+    grid-area: backward;
+  }
+  .game-ui-movement-button[data-direction='reset'] {
+    grid-area: reset;
+  }
+  .game-ui-movement-pad p {
+    max-width: 18ch;
+    margin: 0;
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-weight: 760;
+    line-height: 1.25;
+  }
+
+  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+}

@@ -1,0 +1,58 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-brush-controls {
+    min-width: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .game-ui-brush-range:focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-brush-number:focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-brush-control-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) var(--game-ui-brush-number-width);
+    align-items: center;
+    gap: 8px;
+  }
+  .game-ui-brush-range {
+    width: 100%;
+    accent-color: var(--game-ui-secondary);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-brush-number {
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid var(--game-ui-border-strong);
+    border-radius: 12px;
+    background: var(--game-ui-surface-raised);
+    color: var(--game-ui-text);
+    padding: 0 8px;
+    font: inherit;
+    font-weight: var(--game-ui-weight-strong);
+    box-shadow: var(--game-ui-shadow-inset);
+  }
+  @container game-terrain-build (max-width: 560px) {
+    .game-ui-brush-control-row {
+      grid-template-columns: minmax(0, 1fr) 70px;
+    }
+  }
+
+  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+}

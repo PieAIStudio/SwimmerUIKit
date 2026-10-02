@@ -1,0 +1,139 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
+  .game-ui-collapsible-toggle:focus-visible {
+    outline: 3px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-collapsible ::selection {
+    background: color-mix(in srgb, var(--game-ui-accent) 28%, transparent);
+  }
+
+  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
+ * are exactly the kind of authored color forced-colors mode neutralizes, so
+ * pressed/selected state needs a border (not just a background tint) to stay
+ * legible, and focus rings need an explicit system-color outline. */
+  @media (forced-colors: active) {
+    .game-ui-collapsible-toggle:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+
+  /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
+ * delay and the grey iOS tap flash on every interactive control; keep game
+ * control surfaces from turning into text selections or image callouts
+ * mid-gesture. Safe areas always flow through the --game-ui-safe-* tokens
+ * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
+ * raw env(safe-area-inset-*) can read 0 — can override the source values. */
+  .game-ui-collapsible-toggle {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    min-height: 44px;
+    border: 0;
+    border-radius: var(--game-ui-radius-card);
+    background: transparent;
+    color: var(--game-ui-text);
+    padding: 4px 10px;
+    font: inherit;
+    font-family: var(--game-ui-font-display);
+    font-weight: var(--game-ui-weight-title);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  /* Panel system: GameCollapsiblePanel / GameWindowPanel / GameModal */
+  .game-ui-collapsible {
+    display: grid;
+    min-width: 0;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-panel);
+    background: var(--game-ui-panel);
+    box-shadow: var(--game-ui-shadow-panel);
+  }
+  .game-ui-collapsible[data-panel-tone='strong'] {
+    background: var(--game-ui-panel-strong);
+  }
+  .game-ui-collapsible-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px 5px 5px;
+  }
+  .game-ui-collapsible-heading {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+  @media (hover: hover) {
+    .game-ui-collapsible-toggle:hover {
+      background: color-mix(in srgb, var(--game-ui-ink-deep) 6%, transparent);
+    }
+  }
+  .game-ui-collapsible-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-collapsible-chevron {
+    width: 9px;
+    height: 9px;
+    flex: none;
+    margin-top: -4px;
+    border-right: 3px solid var(--game-ui-accent);
+    border-bottom: 3px solid var(--game-ui-accent);
+    border-radius: 1px;
+    transform: rotate(45deg);
+    transition:
+      transform var(--game-ui-motion-base) var(--game-ui-ease-pop),
+      margin-top var(--game-ui-motion-base) var(--game-ui-ease-pop);
+  }
+  .game-ui-collapsible[data-open='false'] .game-ui-collapsible-chevron {
+    margin-top: 2px;
+    transform: rotate(-45deg);
+  }
+  .game-ui-collapsible-actions {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+  }
+  .game-ui-collapsible-region {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows var(--game-ui-motion-base) var(--game-ui-ease-soft);
+  }
+  .game-ui-collapsible[data-open='false'] .game-ui-collapsible-region {
+    grid-template-rows: 0fr;
+  }
+  .game-ui-collapsible-clip {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .game-ui-collapsible-content {
+    display: grid;
+    gap: 12px;
+    padding: 2px 14px 14px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-collapsible-region {
+      transition: none;
+    }
+    .game-ui-collapsible-chevron {
+      transition: none;
+    }
+  }
+}

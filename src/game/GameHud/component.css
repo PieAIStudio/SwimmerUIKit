@@ -1,0 +1,107 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-hud-chip span {
+    display: grid;
+    gap: 2px;
+  }
+  .game-ui-hud-chip small {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .game-ui-hud-chip em {
+    color: var(--game-ui-text-muted);
+    font-size: var(--game-ui-font-xs);
+    font-style: normal;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .game-ui-hud-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .game-ui-hud-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .game-ui-hud {
+    position: relative;
+    z-index: var(--game-ui-z-hud);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .game-ui-hud-chip {
+    display: inline-flex;
+    min-height: 54px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid color-mix(in srgb, var(--game-ui-text-on-dark) 30%, transparent);
+    border-radius: 20px;
+    background: var(--game-ui-glass-night);
+    color: var(--game-ui-text-on-dark);
+    padding: 6px 10px 6px 6px;
+    backdrop-filter: blur(10px);
+    font-variant-numeric: tabular-nums;
+  }
+  .game-ui-hud-chip strong {
+    color: var(--game-ui-text-on-dark);
+    font-size: var(--game-ui-font-sm);
+  }
+  .game-ui-hud-chip small {
+    color: var(--game-ui-text-on-dark);
+  }
+  .game-ui-hud-chip em {
+    color: var(--game-ui-text-on-dark);
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-hud {
+      display: grid;
+    }
+  }
+  [data-game-ui-tone='glass'] .game-ui-hud-chip {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  .game-ui-overlay-scope .game-ui-hud-chip {
+    border-color: var(--game-ui-overlay-glass-border);
+    background: var(--game-ui-overlay-glass-bg);
+    box-shadow: none;
+    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
+  }
+  [data-game-ui-density='compact'] .game-ui-hud-chip {
+    min-height: 40px;
+    padding: 4px 8px 4px 4px;
+    gap: 6px;
+  }
+  [data-game-ui-density='compact'] .game-ui-hud-cluster {
+    gap: 6px;
+  }
+  [data-game-ui-density='compact'] .game-ui-hud-tools {
+    gap: 6px;
+  }
+}

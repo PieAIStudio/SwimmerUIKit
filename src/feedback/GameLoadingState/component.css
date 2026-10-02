@@ -1,0 +1,30 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  .game-ui-loading-state {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 8px;
+    border: var(--game-ui-stroke);
+    border-radius: var(--game-ui-radius-control);
+    background: color-mix(in srgb, var(--game-ui-panel-strong) 72%, transparent);
+    color: var(--game-ui-text);
+    padding: 8px 12px;
+    font-weight: 820;
+  }
+  .game-ui-loading-state[data-loading-tone='error'] {
+    border-color: color-mix(in srgb, var(--game-ui-danger) 42%, transparent);
+    background: color-mix(in srgb, var(--game-ui-danger) 12%, transparent);
+  }
+  .game-ui-loading-state img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+}
