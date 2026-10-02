@@ -74,7 +74,7 @@ try {
   for (const [browserName, browserType] of Object.entries({ chromium, firefox, webkit })) {
     const browser = await browserType.launch();
     try {
-      for (const theme of ['light', 'night'])
+      for (const theme of ['light', 'dark'])
         for (const width of [1280, 375]) {
           const touch = width === 375;
           const reducedMotion = touch ? 'reduce' : 'no-preference';
@@ -116,7 +116,7 @@ try {
             );
             assert.equal(
               await page.locator('.game-ui-clay-preview').getAttribute('data-game-ui-theme'),
-              theme === 'night' ? 'night' : null,
+              theme === 'dark' ? 'dark' : null,
             );
             const inputs = page.locator('[data-account-code] input');
             assert.equal(await inputs.count(), 6);

@@ -22,8 +22,8 @@ const preview: Preview = {
     a11y: { test: 'error' },
   },
   // Toolbar switch for the kit's flagship theming feature (one data
-  // attribute reskins everything) — previously the only way to see night
-  // mode was the one hand-built "NightTheme" story in GamePanelSystem.
+  // attribute reskins everything) — previously the only way to see dark
+  // mode was the one hand-built "DarkTheme" story in GamePanelSystem.
   globalTypes: {
     theme: {
       description: 'Game UI theme',
@@ -33,7 +33,7 @@ const preview: Preview = {
         icon: 'circlehollow',
         items: [
           { value: 'light', title: 'Light', icon: 'sun' },
-          { value: 'night', title: 'Night', icon: 'moon' },
+          { value: 'dark', title: 'Dark', icon: 'moon' },
         ],
         dynamicTitle: true,
       },
@@ -43,7 +43,7 @@ const preview: Preview = {
     (Story, context): ReactNode => (
       <div
         className="game-ui-clay-preview"
-        data-game-ui-theme={context.globals.theme === 'night' ? 'night' : undefined}
+        data-game-ui-theme={context.globals.theme === 'dark' ? 'dark' : undefined}
         style={{ minHeight: '220px', padding: '40px' }}
       >
         <Story />

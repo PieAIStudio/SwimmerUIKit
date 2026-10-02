@@ -25,11 +25,6 @@ import { CardAndAssetSamples } from './sections/CardAndAssetSamples';
 import { FormsAndDisplay } from './sections/FormsAndDisplay';
 import { OverlayGlassCompare } from './sections/OverlayGlassCompare';
 import { LiquidSurfaceShowcase } from './sections/LiquidSurfaceShowcase';
-import { LiquidMetalCompare } from './sections/LiquidMetalCompare';
-import { OwnMySpaceSurfaceSamples } from './sections/OwnMySpaceSurfaceSamples';
-import { TerrainBuildToolSamples } from './sections/TerrainBuildToolSamples';
-import { ContractorPanelSamples } from './sections/ContractorPanelSamples';
-import { AssetCompressionRepro } from './sections/AssetCompressionRepro';
 import { FirstSessionSamples } from './sections/FirstSessionSamples';
 import { ResponsiveProofFrames } from './sections/ResponsiveProofFrames';
 
@@ -180,7 +175,7 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
           <p className="game-ui-small-copy">
             Official HUD-on-scene tone: dark translucent glass, thin light border, no clay cast
             shadow, compact density. Use on any container that wraps scene-overlay chrome (3D
-            tavern, cinematic stage). Nest inside light or night theme.
+            tavern, cinematic stage). Nest inside light or dark theme.
           </p>
           <OverlayGlassCompare />
         </section>
@@ -189,59 +184,6 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
           <h2 id="game-ui-preview-liquid-title">{copy.sections.liquid}</h2>
           <p className="game-ui-small-copy">{copy.liquid.body}</p>
           <LiquidSurfaceShowcase />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-liquid-metal-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-liquid-metal-title">{copy.sections.liquidMetal}</h2>
-          <p className="game-ui-small-copy">{copy.liquidMetal.body}</p>
-          <LiquidMetalCompare />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-ownmyspace-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-ownmyspace-title">OwnMySpace game surface pack</h2>
-          <OwnMySpaceSurfaceSamples />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-terrain-build-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-terrain-build-title">Terrain/build tooling</h2>
-          <p className="game-ui-small-copy">
-            Official terrain controls cover mode, brush, material, undo/redo, build library, status,
-            progress, and compact mobile drawer surfaces.
-          </p>
-          <TerrainBuildToolSamples />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-contractor-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-contractor-title">AI contractor / construction robot UI</h2>
-          <p className="game-ui-small-copy">
-            Official construction surfaces cover job queue states, before/after review, robot crew
-            status, validation warnings, approval actions, and local-only provider badges.
-          </p>
-          <ContractorPanelSamples />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-asset-compression-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-asset-compression-title">Asset card compression proof</h2>
-          <p className="game-ui-small-copy">
-            Official asset cards must stay visually complete when a game shell uses dense, narrow,
-            or rail-style inventory slots.
-          </p>
-          <AssetCompressionRepro />
         </section>
 
         <section

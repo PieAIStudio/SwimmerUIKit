@@ -8,9 +8,10 @@ import {
   useRef,
   useState,
   type Ref,
+  type ReactNode,
 } from 'react';
 
-import { CLAY_LIQUID_GOOEY_TOKENS } from '../../tokens/legacy';
+import { liquidTokens } from '../../tokens/references';
 
 import { liquidFinishGloss } from '../finish';
 
@@ -32,9 +33,6 @@ import {
   svgFilterShadows,
 } from '../shadow';
 
-import { createImageMeltRegistry } from '../../liquid-effects/melt/registry';
-
-import { ImageMeltLayer } from '../../liquid-effects/melt/ImageMeltLayer';
 import { type LiquidGroupProps } from './types';
 import {
   finite,
@@ -47,7 +45,10 @@ import { LiquidFillGradient } from './fill';
 import { LiquidGroupContext } from './context';
 import { LiquidItem } from './LiquidItem';
 
-const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function LiquidGroup(
+export const LiquidGroupRoot = forwardRef<
+  HTMLDivElement,
+  LiquidGroupProps & { auxiliary?: (getGroup: () => HTMLDivElement | null) => ReactNode }
+>(function LiquidGroup(
   {
     blur = 6,
     contrast = 18,
@@ -64,6 +65,7 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     className,
     style,
     children,
+    auxiliary,
     ...rest
   },
   forwardedRef: Ref<HTMLDivElement>,
@@ -165,18 +167,14 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
       waviness: Math.max(
         0,
         waviness === undefined
-          ? readNumericCssToken(
-              CLAY_LIQUID_GOOEY_TOKENS.waviness,
-              group,
-              LIQUID_GOOEY_FILTER_DEFAULTS.waviness,
-            )
+          ? readNumericCssToken(liquidTokens.waviness, group, LIQUID_GOOEY_FILTER_DEFAULTS.waviness)
           : finite(waviness, LIQUID_GOOEY_FILTER_DEFAULTS.waviness),
       ),
       wavinessFreq: Math.max(
         0,
         wavinessFreq === undefined
           ? readNumericCssToken(
-              CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq,
+              liquidTokens.wavinessFreq,
               group,
               LIQUID_GOOEY_FILTER_DEFAULTS.wavinessFreq,
             )
@@ -214,7 +212,6 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
     // Its live reduced-motion value is updated below.
     [motion],
   );
-  const imageMelt = useMemo(() => createImageMeltRegistry(), []);
 
   useLayoutEffect(() => {
     const group = groupRef.current;
@@ -292,10 +289,8 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
           filter={`url(#${filterId})`}
         />
       </svg>
-      <ImageMeltLayer registry={imageMelt} getGroup={() => groupRef.current} />
-      <LiquidGroupContext.Provider
-        value={{ portal, engine, follow: motion === 'follow', imageMelt }}
-      >
+      {auxiliary?.(() => groupRef.current)}
+      <LiquidGroupContext.Provider value={{ portal, engine, follow: motion === 'follow' }}>
         <div className="game-ui-liquid-content">{children}</div>
       </LiquidGroupContext.Provider>
     </div>
@@ -309,4 +304,9 @@ const LiquidGroupRoot = forwardRef<HTMLDivElement, LiquidGroupProps>(function Li
  * Do NOT add border, outline, or box-shadow to children directly; pass the
  * shared treatment to <LiquidGroup>.
  */
-export const LiquidGroup = Object.assign(LiquidGroupRoot, { Item: LiquidItem });
+export const LiquidGroup = Object.assign(
+  forwardRef<HTMLDivElement, LiquidGroupProps>(function LiquidGroup(props, ref) {
+    return <LiquidGroupRoot {...props} ref={ref} />;
+  }),
+  { Item: LiquidItem },
+);

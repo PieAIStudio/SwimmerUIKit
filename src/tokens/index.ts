@@ -1,56 +1,36 @@
-export {
-  CLAY_ASSET_SIZE_TOKENS,
-  CLAY_COLOR_TOKENS,
-  CLAY_ELEVATION_TOKENS,
-  CLAY_LAYER_TOKENS,
-  CLAY_LIQUID_GOOEY_TOKENS,
-  CLAY_LIQUID_METAL_TOKENS,
-  CLAY_MOTION_TOKENS,
-  CLAY_OVERLAY_GLASS_TOKENS,
-  CLAY_RADIUS_TOKENS,
-  CLAY_SCROLLBAR_TOKENS,
-  CLAY_SEMANTIC_TOKENS,
-  CLAY_SPACE_TOKENS,
-  CLAY_TARGET_TOKENS,
-  CLAY_TYPE_TOKENS,
-  CLAY_UI_TOKENS,
-  type ClayTokenCategory,
-} from './legacy';
-
 import {
-  CLAY_ASSET_SIZE_TOKENS,
-  CLAY_ELEVATION_TOKENS,
-  CLAY_LAYER_TOKENS,
-  CLAY_LIQUID_GOOEY_TOKENS,
-  CLAY_MOTION_TOKENS,
-  CLAY_RADIUS_TOKENS,
-  CLAY_SCROLLBAR_TOKENS,
-  CLAY_SEMANTIC_TOKENS,
-  CLAY_SPACE_TOKENS,
-  CLAY_TARGET_TOKENS,
-  CLAY_TYPE_TOKENS,
-} from './legacy';
+  assetSizeTokens,
+  elevationTokens,
+  layerTokens,
+  liquidTokens,
+  motionTokens,
+  radiusTokens,
+  scrollbarTokens,
+  semanticTokens,
+  spaceTokens,
+  targetTokens,
+  typeTokens,
+} from './references';
 
 export const GAME_UI_TOKENS = {
-  ...CLAY_SEMANTIC_TOKENS,
-  ...CLAY_TYPE_TOKENS,
-  ...CLAY_SPACE_TOKENS,
-  ...CLAY_RADIUS_TOKENS,
-  scrollbarSize: CLAY_SCROLLBAR_TOKENS.size,
-  scrollbarTrack: CLAY_SCROLLBAR_TOKENS.track,
-  scrollbarThumb: CLAY_SCROLLBAR_TOKENS.thumb,
-  scrollbarThumbHover: CLAY_SCROLLBAR_TOKENS.thumbHover,
-  ...CLAY_ELEVATION_TOKENS,
-  ...CLAY_MOTION_TOKENS,
-  ...CLAY_LAYER_TOKENS,
-  ...CLAY_ASSET_SIZE_TOKENS,
-  ...CLAY_LIQUID_GOOEY_TOKENS,
+  ...semanticTokens,
+  ...typeTokens,
+  ...spaceTokens,
+  ...radiusTokens,
+  scrollbarSize: scrollbarTokens.size,
+  scrollbarTrack: scrollbarTokens.track,
+  scrollbarThumb: scrollbarTokens.thumb,
+  scrollbarThumbHover: scrollbarTokens.thumbHover,
+  ...elevationTokens,
+  ...motionTokens,
+  ...layerTokens,
+  ...assetSizeTokens,
+  ...liquidTokens,
 } as const;
 
 // Alias for consumers that prefer the GAME_UI_* naming family.
-export { CLAY_OVERLAY_GLASS_TOKENS as GAME_UI_OVERLAY_GLASS_TOKENS } from './legacy';
-export { CLAY_LIQUID_METAL_TOKENS as GAME_UI_LIQUID_METAL_TOKENS } from './legacy';
-export { CLAY_LIQUID_GOOEY_TOKENS as GAME_UI_LIQUID_GOOEY_TOKENS } from './legacy';
+export { overlayTokens as GAME_UI_OVERLAY_GLASS_TOKENS } from './references';
+export { liquidTokens as GAME_UI_LIQUID_GOOEY_TOKENS } from './references';
 
 /** Opt-in attribute values for the official overlay-glass HUD scope. */
 export const GAME_UI_OVERLAY = {
@@ -61,12 +41,12 @@ export const GAME_UI_OVERLAY = {
   scopeClass: 'game-ui-overlay-scope',
 } as const;
 
-export const GAME_UI_TARGETS = CLAY_TARGET_TOKENS;
+export const GAME_UI_TARGETS = targetTokens;
 
 /**
  * The semantic `--game-ui-*` custom properties a *complete* theme must
  * override for full fidelity — this is the same list the official
- * `[data-game-ui-theme='night']` block in theme.css satisfies, enforced by
+ * `[data-game-ui-theme='dark']` block in theme.css satisfies, enforced by
  * a guard test in src/tokens.test.ts. A downstream product building its own
  * full theme (e.g. `[data-game-ui-theme='abyss']`) can reuse this constant
  * to check its own CSS for the same completeness instead of eyeballing it —
@@ -98,6 +78,4 @@ export const GAME_UI_THEME_CONTRACT = [
   '--game-ui-wood',
   '--game-ui-ink-title',
   '--game-ui-ink-heading',
-  '--game-ui-liquid-metal-face',
-  '--game-ui-liquid-metal-ink',
 ] as const;

@@ -57,6 +57,15 @@ const edges = files.flatMap((file) => {
 });
 
 describe('3.0 source ownership', () => {
+  it('keeps core controls and presence independent of optional effects and preview, including types', () => {
+    expect(
+      edges.filter(
+        ({ file, target }) =>
+          /^src\/(?:controls|feedback|icons|liquid|presence|tokens)\//.test(file) &&
+          /^src\/(?:liquid-effects|preview)\//.test(target),
+      ),
+    ).toEqual([]);
+  });
   it('keeps tokens independent of component and game implementations, including type imports', () => {
     expect(
       edges.filter(

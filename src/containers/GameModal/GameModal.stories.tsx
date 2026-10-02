@@ -1,13 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-import {
-  GameButton,
-  GameCollapsiblePanel,
-  GameFactList,
-  GameModal,
-  GameWindowPanel,
-} from '../../index';
+import { GameButton, GameCollapsiblePanel, GameFactList, GameModal } from '../../index';
+import { GameWindowPanel } from '../GameWindowPanel/GameWindowPanel';
 
 const meta = {
   title: 'Clay/Panel System/Overview',
@@ -20,7 +15,7 @@ const meta = {
           '游戏面板系统:可伸缩面板(GameCollapsiblePanel)、可最小化/最大化的窗口' +
           '(GameWindowPanel)、基于原生 <dialog> 的真模态(GameModal)。全部零运行时' +
           '依赖:高度动画用 CSS grid-rows,模态的焦点陷阱/Esc/顶层渲染由浏览器原生提供。' +
-          '想看暗色效果,给任意父元素加 data-game-ui-theme="night"。',
+          '想看暗色效果,给任意父元素加 data-game-ui-theme="dark"。',
       },
     },
   },
@@ -156,11 +151,11 @@ export const ModalBottomSheet: Story = {
   render: () => <ModalBottomSheetDemo />,
 };
 
-export const NightTheme: Story = {
-  args: { title: 'Night', children: null },
+export const DarkTheme: Story = {
+  args: { title: 'Dark', children: null },
   render: () => (
     <div
-      data-game-ui-theme="night"
+      data-game-ui-theme="dark"
       style={{
         display: 'grid',
         gap: 12,
@@ -170,6 +165,8 @@ export const NightTheme: Story = {
         background: 'var(--game-ui-bg)',
       }}
     >
+      {/* Human-facing fixture copy stays unchanged for S3 pixel comparison.
+          The actual theme attribute and toolbar value above are dark. */}
       <GameCollapsiblePanel title="Inventory (night)">
         <p style={{ margin: 0, color: 'var(--game-ui-text)' }}>
           The same components under the official night theme — only tokens changed.

@@ -1,3 +1,10 @@
+import {
+  liquidTokens,
+  scrollbarTokens,
+  typeTokens,
+  targetTokens,
+  semanticTokens,
+} from '../src/tokens/references';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -5,16 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { readComponentStyles } from './helpers/styles';
 
-import {
-  CLAY_COLOR_TOKENS,
-  CLAY_LIQUID_GOOEY_TOKENS,
-  CLAY_SCROLLBAR_TOKENS,
-  CLAY_TYPE_TOKENS,
-  CLAY_TARGET_TOKENS,
-  CLAY_UI_TOKENS,
-  GAME_UI_THEME_CONTRACT,
-  GAME_UI_TOKENS,
-} from '../src/tokens/index';
+import { GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from '../src/tokens/index';
 
 const SRC = fileURLToPath(new URL('../src/', import.meta.url));
 const stylesCss = readComponentStyles();
@@ -47,20 +45,20 @@ function blockOf(css: string, selectorStart: string): string {
 }
 
 const rootVars = parseVars(blockOf(themeCss, ':root'));
-const nightVars = parseVars(blockOf(themeCss, "[data-game-ui-theme='night']"));
+const nightVars = parseVars(blockOf(themeCss, "[data-game-ui-theme='dark']"));
 
 describe('clay token exports', () => {
   it('exports CSS variable tokens for cross-stack integration', () => {
-    expect(CLAY_UI_TOKENS.semantic.background).toBe('var(--game-ui-bg)');
-    expect(CLAY_UI_TOKENS.typography.familyBody).toBe('var(--game-ui-font-body)');
-    expect(CLAY_UI_TOKENS.scrollbars.thumb).toBe('var(--game-ui-scrollbar-thumb)');
+    expect(semanticTokens.background).toBe('var(--game-ui-bg)');
+    expect(typeTokens.familyBody).toBe('var(--game-ui-font-body)');
+    expect(scrollbarTokens.thumb).toBe('var(--game-ui-scrollbar-thumb)');
     expect(GAME_UI_TOKENS.surface).toBe('var(--game-ui-surface)');
     expect(GAME_UI_TOKENS.scrollbarThumb).toBe('var(--game-ui-scrollbar-thumb)');
     expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--game-ui-liquid-gooey-move-stiffness)');
   });
 
   it('defines the public scroll-surface tokens and opt-in CSS hook', () => {
-    for (const value of Object.values(CLAY_SCROLLBAR_TOKENS)) {
+    for (const value of Object.values(scrollbarTokens)) {
       const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
       expect(name, `${value} should be a bare var() reference`).toBeTruthy();
       expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
@@ -71,16 +69,16 @@ describe('clay token exports', () => {
   });
 
   it('keeps proof viewport targets in code tokens', () => {
-    expect(CLAY_TARGET_TOKENS.desktopProofWidthPx).toBe(1440);
-    expect(CLAY_TARGET_TOKENS.desktopProofHeightPx).toBe(900);
-    expect(CLAY_TARGET_TOKENS.mobileLandscapeProofWidthPx).toBe(844);
-    expect(CLAY_TARGET_TOKENS.mobileLandscapeProofHeightPx).toBe(390);
+    expect(targetTokens.desktopProofWidthPx).toBe(1440);
+    expect(targetTokens.desktopProofHeightPx).toBe(900);
+    expect(targetTokens.mobileLandscapeProofWidthPx).toBe(844);
+    expect(targetTokens.mobileLandscapeProofHeightPx).toBe(390);
   });
 });
 
 describe('liquid-gooey token mirror', () => {
   it('defines every token used by the liquid resolver in theme.css', () => {
-    for (const value of Object.values(CLAY_LIQUID_GOOEY_TOKENS)) {
+    for (const value of Object.values(liquidTokens)) {
       const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
       expect(name, `${value} should be a bare var() reference`).toBeTruthy();
       expect(rootVars.has(name as string), `theme.css must define ${name}`).toBe(true);
@@ -88,8 +86,8 @@ describe('liquid-gooey token mirror', () => {
   });
 
   it('ships the adopted visible defaults and keeps the donor frequency baseline', () => {
-    expect(CLAY_LIQUID_GOOEY_TOKENS.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
-    expect(CLAY_LIQUID_GOOEY_TOKENS.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
+    expect(liquidTokens.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
+    expect(liquidTokens.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
     /*
       0 since 2.1.0, changed deliberately rather than drifted. This assertion
       used to read '6', which was the donor's visible default and which
@@ -111,7 +109,7 @@ describe('liquid-gooey token mirror', () => {
 });
 
 /**
- * The mirror is a promise: a name in `CLAY_TYPE_TOKENS` claims a variable of
+ * The mirror is a promise: a name in `typeTokens` claims a variable of
  * that name exists. Three consumers had already written
  * `var(--game-ui-font-mono, …)` against a token this kit did not define, and
  * because `var()` takes a fallback, nothing anywhere failed — the CSS merely
@@ -120,7 +118,7 @@ describe('liquid-gooey token mirror', () => {
  */
 describe('every mirrored type token exists in theme.css', () => {
   it('defines the family, scale and reading tokens the mirror names', () => {
-    for (const value of Object.values(CLAY_TYPE_TOKENS)) {
+    for (const value of Object.values(typeTokens)) {
       const name = /^var\((--[\w-]+)\)$/.exec(value)?.[1];
       expect(name, `${value} should be a bare var() reference`).toBeTruthy();
       expect(themeCss, `theme.css must define ${name}`).toContain(`${name}:`);
@@ -143,34 +141,19 @@ describe('token single source of truth', () => {
     expect(literals).toEqual([]);
   });
 
-  it('TypeScript primitive colors match theme.css :root values', () => {
-    const pairs: Array<[keyof typeof CLAY_COLOR_TOKENS, string]> = [
-      ['ink', '--game-ui-text'],
-      ['inkMuted', '--game-ui-text-muted'],
-      ['parchment', '--game-ui-panel-strong'],
-      ['cream', '--game-ui-bg'],
-      ['orange', '--game-ui-accent'],
-      ['teal', '--game-ui-secondary'],
-      ['green', '--game-ui-success'],
-      ['mint', '--game-ui-success-bright'],
-      ['red', '--game-ui-danger'],
-      ['honey', '--game-ui-warning'],
-      ['berry', '--game-ui-berry'],
-      ['wood', '--game-ui-wood'],
-      ['woodDeep', '--game-ui-ink-deep'],
-      ['liquidMetalFace', '--game-ui-liquid-metal-face'],
-      ['liquidMetalInk', '--game-ui-liquid-metal-ink'],
-    ];
-    for (const [tsKey, cssVar] of pairs) {
-      expect(rootVars.get(cssVar), `${String(tsKey)} vs ${cssVar}`).toBe(CLAY_COLOR_TOKENS[tsKey]);
+  it('private semantic references resolve to the single CSS token owner', () => {
+    for (const reference of Object.values(semanticTokens)) {
+      const name = /^var\((--[\w-]+)\)$/.exec(reference)?.[1];
+      expect(name).toBeDefined();
+      expect(rootVars.has(name!)).toBe(true);
     }
   });
 
-  it('night theme overrides every semantic color it needs (no missing token drift)', () => {
+  it('dark theme overrides every semantic color it needs (no missing token drift)', () => {
     // GAME_UI_THEME_CONTRACT is the single source of truth for this list —
     // it's also exported so downstream full themes can self-check the same way.
     for (const cssVar of GAME_UI_THEME_CONTRACT) {
-      expect(nightVars.has(cssVar), `night theme missing ${cssVar}`).toBe(true);
+      expect(nightVars.has(cssVar), `dark theme missing ${cssVar}`).toBe(true);
     }
   });
 
@@ -182,14 +165,14 @@ describe('token single source of truth', () => {
    * consumer's own green check red for a token they have never heard of. The
    * kit's three shipped surfaces still have to define it, and this is the gate
    * that says so — a theme that forgets gets the light theme's warm brown ink
-   * on whatever ground it actually has, which is the exact drift the night
+   * on whatever ground it actually has, which is the exact drift the dark
    * check above exists to catch.
    */
   it('defines the liquid shadow ink on every surface the kit ships', () => {
     const glassVars = parseVars(blockOf(themeCss, "[data-game-ui-tone='glass']"));
     for (const [label, vars] of [
       ['light', rootVars],
-      ['night', nightVars],
+      ['dark', nightVars],
       ['glass', glassVars],
     ] as const) {
       expect(vars.get('--game-ui-shadow-liquid-ink'), `${label} missing the ink`).toBeTruthy();
@@ -293,12 +276,13 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
       '--game-ui-ink-heading',
       '--game-ui-panel-strong',
     ],
-    [
-      'liquid-metal label on liquid-metal face',
-      '--game-ui-liquid-metal-ink',
-      '--game-ui-liquid-metal-face',
-    ],
   ];
+
+  it('removes the D2 metal material instead of leaving a dormant theme or renderer', () => {
+    expect(themeCss).not.toMatch(/--game-ui-liquid-metal-/);
+    expect(stylesCss).not.toMatch(/\.game-ui-liquid-metal/);
+    expect(existsSync(join(SRC, 'controls', 'LiquidMetalButton'))).toBe(false);
+  });
 
   it.each(pairs)('light: %s meets 4.5:1', (_label, fgVar, bgVar) => {
     const fg = rootVars.get(fgVar);
@@ -308,13 +292,13 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
   });
 
-  it.each(pairs)('night: %s meets 4.5:1', (_label, fgVar, bgVar) => {
-    // Night only redeclares the tokens it needs to change; fall back to the
+  it.each(pairs)('dark: %s meets 4.5:1', (_label, fgVar, bgVar) => {
+    // Dark only redeclares the tokens it needs to change; fall back to the
     // root value for anything it inherits unchanged (e.g. accent-contrast).
     const fg = nightVars.get(fgVar) ?? rootVars.get(fgVar);
     const bg = nightVars.get(bgVar) ?? rootVars.get(bgVar);
-    expect(fg, `${fgVar} missing from :root and night`).toBeDefined();
-    expect(bg, `${bgVar} missing from :root and night`).toBeDefined();
+    expect(fg, `${fgVar} missing from :root and dark`).toBeDefined();
+    expect(bg, `${bgVar} missing from :root and dark`).toBeDefined();
     expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
   });
 });

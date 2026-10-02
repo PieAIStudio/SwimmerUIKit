@@ -1,3 +1,4 @@
+import { LiquidEffectsGroup } from '../liquid-effects/LiquidEffectsGroup/LiquidEffectsGroup';
 import { StrictMode, act, useEffect, useState, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -465,8 +466,8 @@ describe('LiquidGroup browser architecture', () => {
 
   it('keeps Bend content glued to the observed rect and publishes all four CSS variables', async () => {
     const renderBend = (shifted: boolean): ReactNode => (
-      <LiquidGroup style={{ height: '160px', width: '360px' }} waviness={0}>
-        <LiquidGroup.Item
+      <LiquidEffectsGroup style={{ height: '160px', width: '360px' }} waviness={0}>
+        <LiquidEffectsGroup.Item
           bend={{ horizontal: 0.35, vertical: 0.6 }}
           effect="bend"
           style={{ left: '24px', position: 'absolute', top: '42px' }}
@@ -485,8 +486,8 @@ describe('LiquidGroup browser architecture', () => {
           >
             Glued
           </button>
-        </LiquidGroup.Item>
-      </LiquidGroup>
+        </LiquidEffectsGroup.Item>
+      </LiquidEffectsGroup>
     );
 
     const container = await mount(renderBend(false));
@@ -519,9 +520,13 @@ describe('LiquidGroup browser architecture', () => {
 
   it('counts Morph content blur and Bend bow slack in the 480,000px² filter-area readout', async () => {
     const renderBudget = (kind: 'plain' | 'morph' | 'bend' | 'all'): ReactNode => (
-      <LiquidGroup data-testid={kind} style={{ height: '160px', width: '360px' }} waviness={0}>
+      <LiquidEffectsGroup
+        data-testid={kind}
+        style={{ height: '160px', width: '360px' }}
+        waviness={0}
+      >
         {(kind === 'plain' || kind === 'morph' || kind === 'all') && (
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             morph={kind === 'plain' ? { shape: false } : { contentBlur: 7, shape: true }}
             style={{
               height: '64px',
@@ -532,10 +537,10 @@ describe('LiquidGroup browser architecture', () => {
             }}
           >
             <span>Shape</span>
-          </LiquidGroup.Item>
+          </LiquidEffectsGroup.Item>
         )}
         {(kind === 'bend' || kind === 'all') && (
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             effect="bend"
             style={{
               height: '64px',
@@ -546,9 +551,9 @@ describe('LiquidGroup browser architecture', () => {
             }}
           >
             <span>Bend</span>
-          </LiquidGroup.Item>
+          </LiquidEffectsGroup.Item>
         )}
-      </LiquidGroup>
+      </LiquidEffectsGroup>
     );
     const container = await mount(
       <div>

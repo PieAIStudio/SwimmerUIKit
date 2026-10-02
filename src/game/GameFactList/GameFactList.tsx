@@ -52,7 +52,3 @@ export function GameFactList({
     </section>
   );
 }
-
-export const GameStatList = GameFactList;
-
-export type GameStatListProps = GameFactListProps;

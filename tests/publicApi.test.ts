@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import ts from 'typescript';
 
 const baseline = JSON.parse(
-  readFileSync(new URL('../artifacts/api-audit/2.4.0.json', import.meta.url), 'utf8'),
+  readFileSync(new URL('./fixtures/api-2.14.0.json', import.meta.url), 'utf8'),
 ) as {
   exports: { name: string; kind: string; module: string }[];
 };
@@ -26,12 +26,27 @@ const current = entry.statements.flatMap((statement) => {
   }));
 });
 
-describe('2.x public contract retained through discoverability work', () => {
-  it('retains every 2.4.0 root export and its value/type kind', () => {
-    expect(baseline.exports).toHaveLength(272);
-    // Internal owner filenames are discovery evidence, not a public promise.
-    // Moving an implementation must not require breaking this contract test.
-    for (const { name, kind } of baseline.exports) expect(current).toContainEqual({ name, kind });
+describe('3.0 public contract and complete migration', () => {
+  it('accounts for every removed or changed 2.14.0 name exactly once', () => {
+    expect(baseline.exports).toHaveLength(295);
+    const retained = new Map(current.map((item) => [item.name, item.kind]));
+    const removed = baseline.exports
+      .filter((item) => retained.get(item.name) !== item.kind)
+      .map((item) => ({ name: item.name, kind: item.kind }));
+    const migration = readFileSync(
+      new URL('../docs/reference/migration-3.0.md', import.meta.url),
+      'utf8',
+    );
+    const documented = [...migration.matchAll(/^\| `([^`]+)` \| (type|value) \| (.+) \|$/gm)].map(
+      (row) => ({ name: row[1], kind: row[2] }),
+    );
+    expect(documented.sort((a, b) => a.name!.localeCompare(b.name!))).toEqual(
+      removed.sort((a, b) => a.name.localeCompare(b.name)),
+    );
+    expect(new Set(documented.map((item) => item.name)).size).toBe(documented.length);
+    expect(current.some((item) => item.name === 'GameOtpInput')).toBe(true);
+    expect(current.some((item) => item.name === 'setLiquidGooeyBudget')).toBe(true);
+    expect(current.some((item) => item.name === 'GameMaterialSwatches')).toBe(true);
   });
 
   it('documents every current export exactly once with an existing definition link', () => {
@@ -47,7 +62,7 @@ describe('2.x public contract retained through discoverability work', () => {
     for (const row of rows) expect(existsSync(new URL(row[3]!, inventoryUrl)), row[1]).toBe(true);
   });
 
-  it('preserves existing routes and adds only the optional liquid-presence leaf', () => {
+  it('retains assets and styles while isolating presence, effects and preview leaves', () => {
     const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
     expect(pkg.exports).toEqual({
       '.': { types: './dist/index.d.ts', default: './dist/index.js' },
@@ -62,6 +77,11 @@ describe('2.x public contract retained through discoverability work', () => {
         default: './dist/liquid-presence.js',
       },
       './liquid-presence.css': './dist/liquid-presence.css',
+      './liquid-effects': {
+        types: './dist/liquid-effects.d.ts',
+        default: './dist/liquid-effects.js',
+      },
+      './preview': { types: './dist/preview.d.ts', default: './dist/preview.js' },
     });
     // The liquid body is deliberately opt-in, not a new root barrel export.
     // Keep the route allowlist exact and preserve every preexisting path above.

@@ -209,7 +209,6 @@ export function LiquidSurface({
           className="game-ui-liquid-surface__shape"
           {...(item.effect === undefined ? {} : { effect: item.effect })}
           {...(item.morph === undefined ? {} : { morph: item.morph })}
-          {...(item.dissolve === undefined ? {} : { dissolve: item.dissolve && engaged })}
           radius={radius}
           scale={target.scale}
           scaleY={target.scaleY}

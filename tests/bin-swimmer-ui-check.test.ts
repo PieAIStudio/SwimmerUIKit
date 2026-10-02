@@ -57,11 +57,11 @@ describe('bin/swimmer-ui-check.mjs', () => {
     expect(stdout).toContain('Clean');
   });
 
-  it('also treats an attribute-selector theme block (e.g. night theme) as allowed', () => {
+  it('also treats an attribute-selector theme block (e.g. dark theme) as allowed', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-ui-check-'));
     writeFileSync(
       join(dir, 'theme.css'),
-      `[data-game-ui-theme='night'] {\n  --brand-accent: #ef8148;\n}\n`,
+      `[data-game-ui-theme='dark'] {\n  --brand-accent: #ef8148;\n}\n`,
     );
 
     const { status } = run(dir);
@@ -92,7 +92,7 @@ describe('unreadable token pairs', () => {
   /**
    * The pairing that prompted this check. `--game-ui-accent-ink` reads like
    * "the ink for accent things" and means accent-COLOURED ink for a surface;
-   * on the accent itself it measured 1.48:1 on night, on a shipping product's
+   * on the accent itself it measured 1.48:1 on dark, on a shipping product's
    * primary button, with every test green.
    */
   it('fails the accent-ink-on-accent trap, and names the theme', () => {
@@ -106,7 +106,7 @@ describe('unreadable token pairs', () => {
 
     expect(status).toBe(1);
     expect(stdout).toContain('--game-ui-accent-ink on --game-ui-accent');
-    expect(stdout).toMatch(/night/);
+    expect(stdout).toMatch(/dark/);
   });
 
   it('passes the pairing the kit uses itself', () => {
@@ -179,6 +179,11 @@ describe('token ownership and clean-checkout discovery', () => {
     mkdirSync(join(kit, 'src', 'tokens'), { recursive: true });
     mkdirSync(app);
     copyFileSync(BIN, bin);
+    mkdirSync(join(kit, 'bin', 'lib'), { recursive: true });
+    copyFileSync(
+      join(dirname(BIN), 'lib', 'retired-theme.mjs'),
+      join(kit, 'bin', 'lib', 'retired-theme.mjs'),
+    );
     writeFileSync(
       join(kit, 'src', 'tokens', 'theme.css'),
       ':root { --game-ui-accent: #000000; --game-ui-accent-ink: #010101; }',

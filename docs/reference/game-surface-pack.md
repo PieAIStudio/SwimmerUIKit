@@ -17,82 +17,13 @@ related:
   - REF-USAGE-AND-UPGRADE-PLAYBOOK
 ---
 
-# OwnMySpace Game Surface Pack
+# 游戏外壳与通用组合
 
-This pack adds official SwimmerUIKit components for game/editor DOM surfaces that sit around a host app's canvas or 3D runtime. The package owns visible UI shape, tokens, accessible labels, dense/mobile hooks, and action patterns. The host app still owns runtime state, scene rendering, persistence, asset manifests, providers, routing, and business rules.
+GameShell 是围绕场景的槽位，不是建造业务包。children 放场景，hud、sidePanel、movementPad、bottomBar、overlay 和 assetLibrary 放由产品拥有的 DOM 内容。
+GameFactList 展示事实；GameMovementPad 输出带可访问名称和键盘操作的方向意图；GameHudActions 安排动作。
+产品仍负责场景、房间、持久化、模型提供者、资产清单与建造任务。
 
-## Components
+3.0 按 Owner 的 D1 决定移除 OwnMySpace 独占的建造、施工、资产库和放置工具。别名收敛到 GameShell 与 GameFactList；逐项见 [迁移表](migration-3.0.md)。
+GameMaterialSwatches 已被 University 用于头像配色，因此作为不依赖建造模型的通用控件保留。
 
-### `GameShell` / `GameSceneHudLayout`
-
-Slot-based shell for a game surface. It accepts `children` for the scene/canvas plus optional `hud`, `assetLibrary`, `sidePanel`, `movementPad`, `bottomBar`, and `overlay` slots. Use `density="dense"` and `layout="mobile"` when the host app already knows it is rendering a compact/mobile surface.
-
-### `GameFactList` / `GameStatList`
-
-Compact HUD/stat chips for facts such as object count, selected object, player position, status, or capacity. Items support optional official clay icons and badge tones.
-
-### `GameMovementPad`
-
-Accessible movement controls with official button styling, `aria-label`s, rendered keyboard shortcuts, and focusable keyboard handling for arrows/WASD. The component emits `onMove(direction)` and never imports host movement logic.
-
-### `GameAssetLibrary` and `GameAssetCard`
-
-Official asset library primitives for starter, generated, and imported assets. Cards expose `data-asset-source` and visible source/status badges so generated/imported/starter are distinguishable without host-specific styles. Selection is controlled through `selectedAssetId` and `onSelectAsset`.
-
-### `GamePlacementToolbar` / `GameObjectToolbar`
-
-Placement/object control surface for selected object, status, capacity, primary actions, and icon-only object actions. It reuses `GameFactList`, `GameProgress`, and `GameActionGrid`.
-
-### `GameActionGrid`
-
-Shared official action pattern. Actions are data objects with label, optional icon, tone, disabled, selected, shortcut, badge, and `onAction(id)`. The grid can render as full buttons or icon controls while keeping accessible labels.
-
-## Example
-
-```tsx
-<GameShell
-  title="Island editor"
-  hud={<GameFactList label="Island facts" facts={[{ id: 'objects', label: 'Objects', value: '3/12' }]} />}
-  movementPad={<GameMovementPad label="Move avatar" onMove={(direction) => moveAvatar(direction)} />}
-  assetLibrary={(
-    <GameAssetLibrary
-      label="Placeable assets"
-      title="Assets"
-      selectedAssetId={selectedAssetId}
-      onSelectAsset={selectAsset}
-      groups={[
-        { id: 'starter', label: 'Starter', source: 'starter', assets: starterAssets },
-        { id: 'generated', label: 'Generated', source: 'generated', assets: generatedAssets },
-        { id: 'imported', label: 'Imported', source: 'imported', assets: importedAssets },
-      ]}
-    />
-  )}
-  bottomBar={(
-    <GamePlacementToolbar
-      title="Placement"
-      selectedTitle={selectedObjectName}
-      statusValue={placementStatus}
-      placedObjects={placedObjects.length}
-      maxObjects={12}
-      actions={[{ id: 'place', label: 'Place', icon: 'check', tone: 'primary', onAction: placeSelected }]}
-      objectActions={[{ id: 'rotate', label: 'Rotate', icon: 'compass', shortcut: 'R', onAction: rotateSelected }]}
-    />
-  )}
->
-  <Canvas />
-</GameShell>
-```
-
-## Official distribution strategy
-
-Follow the [usage and upgrade playbook](usage-and-upgrade-playbook.md) for the authoritative distribution and release procedure.
-
-Do not use committed tarballs as the long-term bridge. A host app may temporarily use a `.tgz` bridge only before a registry version is available, and should remove `vendor/packages/*.tgz` once the matching package version is published.
-
-## Host app responsibilities
-
-- Import `@pieai/swimmer-ui-kit/styles.css` once.
-- Pass localized copy and callbacks through props.
-- Keep scene/canvas runtime, R3F/Three.js, asset loading, persistence, and provider state in the host app.
-- Keep generated/imported/starter asset data normalized before passing it into the UI kit.
-- Do not re-skin these surfaces locally unless SwimmerUIKit has a documented gap.
+先用 [组件选择指南](component-selection-guide.md) 找当前公开组件；历史 OwnMySpace 界面不能再作为 3.0 产品接入示例。

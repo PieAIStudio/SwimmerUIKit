@@ -70,7 +70,7 @@ forcing a 651-line override file in the consumer.
 
 Theming became a one-variable operation for consumers, the 651-line
 downstream override file can shrink to pure token overrides, an official
-night theme shipped as proof, and the guard tests convert a style-review
+dark theme shipped as proof, and the guard tests convert a style-review
 rule into CI enforcement. Zero runtime deps were added despite gaining a
 modal, window, and collapsible system — which matters because consumers
 are games with hard JS bundle budgets.

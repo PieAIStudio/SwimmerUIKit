@@ -26,7 +26,7 @@ never a checkout from `_Donors-Individual/for_SwimmerUIKit/`.
 The current SwimmerUIKit implementation is local code; no upstream files are
 vendored or imported at runtime. The reviewed scope is the donor
 package's `README.md`, `package.json`, `LICENSE`, and `src/**` so the kit can
-trace the retained implementation in `src/LiquidGroup.tsx` and its supporting
+trace the retained implementation in `src/liquid/LiquidGroup/LiquidGroup.tsx` and its supporting
 modules.
 
 Patterns retained in the local implementation are the SVG
@@ -48,7 +48,7 @@ blur. The silhouette also sets `will-change: filter, transform` so WebKit
 promotes the CSS-filtered layer.
 
 SwimmerUIKit also adapts the donor's pairwise image-melt engine into
-`src/liquidGooeyImageMelt.tsx`. That module carries the first two
+`src/liquid-effects/melt/`. That module carries the first two
 `effect="melt"` images, the two-palette colour/marbling pass, and the
 image-only contact `dissolve` layer. The dissolve math is a scoped adaptation
 of the donor's contact-observer behavior; it is not a transplant of the
@@ -139,6 +139,10 @@ outline moved by a constant offset. The kit's `blob` draws the outline in path
 data instead. That is a divergence from the donor, not a defect in it — the
 donor's own demos use waviness on large, merging bodies where a pixel of
 contour noise is invisible.
+
+### 3.0 package boundaries
+
+The adopted Bend math lives in `src/liquid-effects/bend/`; image melt and dissolve live in `src/liquid-effects/melt/`. Only `./liquid-effects` exposes them. The core engine supplies a typed internal deformation seam and continues to own measurement, clocks and budgets. This is a local ownership split, not an upstream pin update. The default package and presence leaf do not contain optional effect implementations.
 
 ### Update policy
 

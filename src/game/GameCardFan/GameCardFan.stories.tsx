@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { GameCardFan } from '../../index';
+import { GameCardFan } from './GameCardFan';
 
 const meta = {
   title: 'Clay/Surfaces/GameCardFan',

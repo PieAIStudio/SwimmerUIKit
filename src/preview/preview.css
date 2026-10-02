@@ -123,12 +123,6 @@
   }
   /* Desktop and phone compositions share this comparison shelf. Let their
    * title/status rows wrap in the narrow specimen without changing kit CSS. */
-  .game-ui-clay-preview .game-ui-construction-progress {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .game-ui-clay-preview .game-ui-construction-progress-header {
-    flex-wrap: wrap;
-  }
 
   .game-ui-swatch-grid,
   .game-ui-token-ledger {
@@ -647,13 +641,6 @@
     border-radius: var(--game-ui-radius-panel);
     background: color-mix(in srgb, var(--game-ui-panel-strong) 42%, transparent);
     padding: 10px;
-  }
-  .game-ui-asset-compression-repro-surface .game-ui-asset-library {
-    width: 100%;
-  }
-  .game-ui-asset-compression-repro-surface[data-repro-surface='rail'] .game-ui-asset-library {
-    max-height: 330px;
-    overflow: auto;
   }
 
   .game-ui-surface-pack-demo-scene {

@@ -49,7 +49,3 @@ export function GameShell({
     </section>
   );
 }
-
-export const GameSceneHudLayout = GameShell;
-
-export type GameSceneHudLayoutProps = GameShellProps;

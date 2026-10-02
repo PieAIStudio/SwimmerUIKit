@@ -7,7 +7,7 @@
 //
 // Raw colors are expected (and fine) inside token-defining blocks —
 // :root { ... } or an attribute-selector theme/tone block like
-// [data-game-ui-theme='night'] / [data-game-ui-tone='glass'] /
+// [data-game-ui-theme='dark'] / [data-game-ui-tone='glass'] /
 // [data-theme='dark'] — since that is how the design-system-guide tells
 // consumers to re-theme or re-scope surface tones. Only raw colors inside
 // *other* selectors (component rules) are flagged.
@@ -18,6 +18,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findRetiredThemeValues } from './lib/retired-theme.mjs';
 
 const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g;
 const TOKEN_BLOCK_SELECTOR = /:root\b|\[data-[\w-]*(?:theme|tone)[\w-]*\s*=/i;
@@ -341,6 +342,33 @@ if (!themes || themes.size === 0) {
 let contrastCount = 0;
 let undefinedCount = 0;
 let violationCount = 0;
+let retiredThemeCount = 0;
+// This migration check always reads source as well as CSS, even when the
+// default raw-colour scan is CSS-only. It never supplies a legacy fallback.
+const themeFiles = [];
+walk(
+  target,
+  new Set([
+    '.css',
+    '.ts',
+    '.tsx',
+    '.js',
+    '.jsx',
+    '.mjs',
+    '.cjs',
+    '.mts',
+    '.cts',
+    '.html',
+    '.vue',
+    '.svelte',
+  ]),
+  themeFiles,
+);
+for (const file of themeFiles)
+  for (const violation of findRetiredThemeValues(readFileSync(file, 'utf8'))) {
+    console.error(`${relative(process.cwd(), file)}:${violation.line}: ${violation.message}`);
+    retiredThemeCount++;
+  }
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
   for (const pair of findContrastViolations(text, themes)) {
@@ -381,7 +409,7 @@ if (undefinedCount > 0) {
   );
 }
 
-if (violationCount > 0 || contrastCount > 0 || undefinedCount > 0) {
+if (violationCount > 0 || contrastCount > 0 || undefinedCount > 0 || retiredThemeCount > 0) {
   console.error(
     `\nswimmer-ui-check: ${violationCount} raw color literal(s) in ${files.length} file(s) under "${target}". ` +
       'Raw colors are expected inside :root / [data-*theme*=...] / [data-*tone*=...] token blocks ' +

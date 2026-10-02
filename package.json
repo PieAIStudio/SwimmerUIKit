@@ -47,6 +47,14 @@
       "default": "./dist/liquid-presence.js"
     },
     "./liquid-presence.css": "./dist/liquid-presence.css",
+    "./liquid-effects": {
+      "types": "./dist/liquid-effects.d.ts",
+      "default": "./dist/liquid-effects.js"
+    },
+    "./preview": {
+      "types": "./dist/preview.d.ts",
+      "default": "./dist/preview.js"
+    },
     "./assets/*": "./dist/assets/*",
     "./styles.css": "./dist/styles.css",
     "./preview.css": "./dist/preview.css",

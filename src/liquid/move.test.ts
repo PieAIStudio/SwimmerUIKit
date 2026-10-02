@@ -1,14 +1,16 @@
+import {
+  advanceBend,
+  createBendState,
+  resolveBendOptions,
+  type BendState,
+} from '../liquid-effects/bend/physics';
 import { describe, expect, it } from 'vitest';
 
 import {
-  advanceBend,
   advanceMove,
-  createBendState,
   createMoveState,
   MOVE_DEFAULTS,
-  resolveBendOptions,
   resolveMoveOptions,
-  type BendState,
   type MoveTarget,
 } from './move';
 

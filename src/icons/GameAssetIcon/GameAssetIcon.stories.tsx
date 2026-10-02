@@ -1,13 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
+import { CLAY_GAME_SPRITES, CLAY_GAME_SPRITE_NAMES, getClayIconStyles } from '../assets';
 import {
-  CLAY_GAME_SPRITES,
-  CLAY_GAME_SPRITE_NAMES,
   CLAY_ICON_NAMES,
   GameAssetIcon,
   GameBadge,
-  getClayIconStyles,
   type ClayIconName,
   type ClayIconStyle,
 } from '../../index';

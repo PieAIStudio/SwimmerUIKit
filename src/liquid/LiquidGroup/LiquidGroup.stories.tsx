@@ -1,3 +1,4 @@
+import { LiquidEffectsGroup } from '../../liquid-effects/LiquidEffectsGroup/LiquidEffectsGroup';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 
@@ -410,12 +411,12 @@ function MeltScene(): ReactNode {
         <p>两张图片在接缝处平均混色，marbling 把两套色板折成条纹；旁边的文字留在清晰层。</p>
       </header>
       <div className="game-ui-liquid-demo-stage game-ui-liquid-image-stage">
-        <LiquidGroup
+        <LiquidEffectsGroup
           className="game-ui-liquid-demo-group game-ui-liquid-image-group"
           filterPadding={34}
           style={{ width: '100%', height: '250px' }}
         >
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             effect="melt"
             melt={{ mix: 1 }}
             style={{
@@ -429,8 +430,8 @@ function MeltScene(): ReactNode {
           >
             <img alt="orange palette" src={MELT_IMAGE_A} />
             <ImageLabel>EMBER · crisp text</ImageLabel>
-          </LiquidGroup.Item>
-          <LiquidGroup.Item
+          </LiquidEffectsGroup.Item>
+          <LiquidEffectsGroup.Item
             effect="melt"
             melt={{ mix: 1 }}
             style={{
@@ -444,8 +445,8 @@ function MeltScene(): ReactNode {
           >
             <img alt="teal palette" src={MELT_IMAGE_B} />
             <ImageLabel>OCEAN · crisp text</ImageLabel>
-          </LiquidGroup.Item>
-        </LiquidGroup>
+          </LiquidEffectsGroup.Item>
+        </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
         <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
@@ -479,13 +480,13 @@ function DissolveScene(): ReactNode {
         <p>dissolve 只作用于影像：接触处有液体扭曲和双液混合，DOM 文字始终保持清晰。</p>
       </header>
       <div className="game-ui-liquid-demo-stage game-ui-liquid-image-stage">
-        <LiquidGroup
+        <LiquidEffectsGroup
           className="game-ui-liquid-demo-group game-ui-liquid-image-group"
           contrast={18}
           filterPadding={34}
           style={{ width: '100%', height: '250px' }}
         >
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             dissolve={{ active, strength: 1, mix: 1, seamBlur: 6, zone: 22, warp: 32 }}
             style={{
               position: 'absolute',
@@ -501,8 +502,8 @@ function DissolveScene(): ReactNode {
               <img alt="orange palette" src={MELT_IMAGE_A} />
               <ImageLabel>EMBER · never melted</ImageLabel>
             </div>
-          </LiquidGroup.Item>
-          <LiquidGroup.Item
+          </LiquidEffectsGroup.Item>
+          <LiquidEffectsGroup.Item
             dissolve={{ active, strength: 1, mix: 1, seamBlur: 6, zone: 22, warp: 32 }}
             style={{
               position: 'absolute',
@@ -518,8 +519,8 @@ function DissolveScene(): ReactNode {
               <img alt="teal palette" src={MELT_IMAGE_B} />
               <ImageLabel>OCEAN · never melted</ImageLabel>
             </div>
-          </LiquidGroup.Item>
-        </LiquidGroup>
+          </LiquidEffectsGroup.Item>
+        </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
         <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
@@ -606,14 +607,14 @@ function BendKnobScene({ vertical, horizontal }: BendKnobProps): ReactNode {
         </p>
       </header>
       <div className="game-ui-liquid-demo-stage">
-        <LiquidGroup
+        <LiquidEffectsGroup
           className="game-ui-liquid-demo-group"
           contrast={18}
           filterPadding={28}
           style={{ height: '220px', width: '100%' }}
           waviness={0}
         >
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             bend={{ horizontal, vertical }}
             data-testid="bend-knob-item"
             effect="bend"
@@ -629,8 +630,8 @@ function BendKnobScene({ vertical, horizontal }: BendKnobProps): ReactNode {
             >
               {dragged ? 'Bend back' : 'Bend me'}
             </button>
-          </LiquidGroup.Item>
-        </LiquidGroup>
+          </LiquidEffectsGroup.Item>
+        </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
         <GameButton onClick={() => setDragged((value) => !value)} variant="primary">
@@ -675,13 +676,13 @@ export const AllEffectsBudget: Story = {
         </p>
       </header>
       <div className="game-ui-liquid-demo-stage">
-        <LiquidGroup
+        <LiquidEffectsGroup
           data-testid="all-effects-budget"
           className="game-ui-liquid-demo-group"
           style={{ height: '220px', width: '100%' }}
           waviness={0}
         >
-          <LiquidGroup.Item
+          <LiquidEffectsGroup.Item
             morph={{ bounce: 0.5, contentBlur: 7, shape: true }}
             style={{
               height: '64px',
@@ -692,8 +693,8 @@ export const AllEffectsBudget: Story = {
             }}
           >
             <span className="game-ui-liquid-demo-badge">Morph + blur</span>
-          </LiquidGroup.Item>
-          <LiquidGroup.Item
+          </LiquidEffectsGroup.Item>
+          <LiquidEffectsGroup.Item
             bend={{ horizontal: 0.35, vertical: 0.6 }}
             effect="bend"
             style={{
@@ -705,8 +706,8 @@ export const AllEffectsBudget: Story = {
             }}
           >
             <span className="game-ui-liquid-demo-badge">Bend</span>
-          </LiquidGroup.Item>
-        </LiquidGroup>
+          </LiquidEffectsGroup.Item>
+        </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
         <span className="game-ui-liquid-demo-status">

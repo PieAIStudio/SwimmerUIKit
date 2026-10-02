@@ -22,6 +22,8 @@ related:
 
 # REF-DESIGN-SYSTEM-GUIDE: Design System Guide
 
+> 3.0 main 进行中：公开接口与深色取值已经断代，当前以 [迁移表](migration-3.0.md) 和 [接口清单](public-api-inventory.md) 为准；S4 主题尚未验收。本文保留的 2.x 材质说明将在 S4/S5 随对应实现收敛。
+
 ## Purpose
 
 SwimmerUIKit 设计系统的唯一说明书：token 架构、主题化配方、动效与
@@ -56,14 +58,13 @@ SwimmerUIKit 设计系统的唯一说明书：token 架构、主题化配方、�
 | 2. 派生基准   | `--game-ui-ink-deep`（深色水洗底）、`--game-ui-border-ink`（描边底）、`--game-ui-text-on-dark` | 下游做完整主题时一起改      |
 | 3. 布景/预览  | `--game-ui-scenery-*`、`--game-ui-preview-*`                                                   | 一般不用动（demo 舞台专用） |
 
-规则（由 `src/tokens.test.ts` 强制）：
+规则（由 `tests/tokens.test.ts` 强制）：
 
 1. **raw 颜色只能住在 `theme.css`**。`styles.css` 里的组件规则只能引用
    token，半透明色一律 `color-mix(in srgb, var(--token) N%, transparent)`
    派生——这样下游改一个语义变量，所有 tint/wash/渐变自动跟随。
-2. TS 侧 `CLAY_COLOR_TOKENS` 与 `theme.css` 主色一致性由测试校验
-   （内联 SVG 图标无法读 CSS 变量，才需要 TS 常量镜像）。
-3. `night` 主题必须覆盖清单内的全部语义色，防止漏 token 漂移。
+2. 颜色值只在 CSS token 中维护。旧黏土常量镜像已删除；内联 SVG 占位图保留其既有素材颜色，不再拥有另一份主题表。TS 常用语义引用使用 GAME_UI_TOKENS。
+3. `dark` 主题必须覆盖清单内的全部语义色，防止漏 token 漂移。
 4. **`styles.css`/`theme.css` 必须是 100% 标准 CSS**：禁 `@theme`、
    `@apply` 等任何 Tailwind at-rule（1.0 起 CSS 构建用 lightningcss，
    出现任何 warning 直接构建失败）。
@@ -107,6 +108,7 @@ import '@fontsource-variable/noto-sans-sc';
 一次：
 
 ```ts
+import { GameUiPreview } from '@pieai/swimmer-ui-kit/preview';
 import '@pieai/swimmer-ui-kit/styles.css';
 import '@pieai/swimmer-ui-kit/preview.css'; // 仅渲染 GameUiPreview 时需要
 ```
@@ -119,7 +121,7 @@ Breaking（打包层面）。`--game-ui-scenery-*`/`--game-ui-preview-*` 这些
 token 本身**没有**跟着挪进 `preview.css`——`.game-ui-shell`
 （OwnMySpace game surface pack）等真实导出组件也在用 scenery 系 token，
 挪走会连带破坏它们；token 定义留在 `theme.css`，只挪组件规则本身。
-`src/tokens.test.ts` 有一条回归测试锁定"哪些类名只能出现在 preview.css、
+`tests/tokens.test.ts` 有一条回归测试锁定"哪些类名只能出现在 preview.css、
 不能再出现在 styles.css"，防止未来有人把舞台专用规则加回主包。
 
 ## 主题化配方（下游怎么改主题）
@@ -134,11 +136,11 @@ token 本身**没有**跟着挪进 `preview.css`——`.game-ui-shell`
 }
 ```
 
-完整暗色主题：参考 `theme.css` 里官方 `[data-game-ui-theme='night']`
+完整暗色主题：参考 `theme.css` 里官方 `[data-game-ui-theme='dark']`
 块——把语义层 + 派生基准一起覆盖，然后在任意父元素挂
-`data-game-ui-theme="night"`（支持局部作用域，如只让酒馆场景变暗）。
+`data-game-ui-theme="dark"`（支持局部作用域，如只让酒馆场景变暗）。
 
-自定义第三主题：复制 night 块，换成自己的属性值，如
+自定义第三主题：复制 dark 块，换成自己的属性值，如
 `[data-game-ui-theme='abyss'] { ... }`。"一个主题该覆盖哪些变量"的官方
 清单以 `GAME_UI_THEME_CONTRACT`（从包根导出）为准——下游可以直接复用它
 校验自己的主题块是否漏 token，不用对着文档肉眼核对：
@@ -152,7 +154,7 @@ const missing = GAME_UI_THEME_CONTRACT.filter((name) => !abyssVars.has(name));
 if (missing.length > 0) throw new Error(`abyss theme missing: ${missing.join(', ')}`);
 ```
 
-kit 自己的 `src/tokens.test.ts` 就是这么校验官方 night 主题的——同一份
+kit 自己的 `tests/tokens.test.ts` 就是这么校验官方 dark 主题的——同一份
 清单，两处复用。
 
 TuringPact 的 `clay-overrides.css`（1525 行）历史上是对抗裸色值的产物；
@@ -259,19 +261,9 @@ id={item.panelId} aria-labelledby={`${baseId}-${item.id}`}>` 就能补上
   `parameters.a11y.config.rules` 关掉 `landmark-unique` 单条规则并写明
   理由——不要整story或整项目地关掉 a11y 测试。
 
-## 液态金属按钮用在哪
+## 金属按钮已删除
 
-`<LiquidMetalButton>` 是决策面专用 CTA，不是换皮后的 `GameButton`。
-
-**准用：** 付款、注册、徽章解锁、落地页主按钮——人只看几秒、又要掏钱或拍板的地方。
-
-**不准用：** 正文阅读、复习队列、列表、表单、3D 地图，以及任何每天反复看二十分钟的干活面。会流动的虹边在那些面上是每一次都要付的税。美观可用性效应在第一印象最强、随使用次数衰减，所以把预算花在只出现几秒的决定上。
-
-一页里同时出现两个以上液态金属按钮，就说明用错了地方。
-
-实现是一个组件、两套渲染器、同一套 token：默认 CSS（零 WebGL 上下文），在浏览器支持 webgl2、未请求减少动效、按钮进入视口、并且模块级预算（默认 2 个，宿主可用 `setLiquidMetalContextBudget` 调整）还有余额时才升级到 WebGL。拿不到额度就安静留在 CSS 版。着色器来自 ThreeUI（MIT），没有走 iframe——iframe 过不去我们的 CSS 变量、字体和焦点管理，还会把背景写死成 `#0e0f12`。
-
-效果本身的 token：`--game-ui-liquid-metal-face` / `--ink`（日夜两套都要给值，不能继承会在 night 上反相的 ink-deep）、`--game-ui-liquid-metal-accent`（默认等于 `--game-ui-accent`）、`--game-ui-liquid-metal-dispersion`、`--game-ui-liquid-metal-sweep-speed`、`--game-ui-liquid-metal-rest`、`--game-ui-liquid-metal-bloom`。
+3.0 删除零使用的金属按钮、WebGL 预算及相关 token，不保留备用皮肤。主操作使用 GameButton；逐项见迁移表。
 
 ## 液体从使用者到实现者
 
@@ -629,7 +621,7 @@ onSelect 对应左侧选择控件，右侧 actions 是其兄弟，不嵌套在�
 左侧槽位只放展示内容，交互放 actions；危险操作的确认、当前作品和选中项由宿主控制。
 行圆角为 `--game-ui-list-row-radius`（默认 6px），不复用按钮外形或按压位移。
 
-行为检查在 `src/AccountControls.browser.test.tsx`，主题色对由 `src/tokens.test.ts` 检查。
+行为检查在 `src/AccountControls.browser.test.tsx`，主题色对由 `tests/tokens.test.ts` 检查。
 可操作例子在 Storybook `Clay / Account / AccountControls`。本轮证据与发布权限见
 [WO-UI-1 收口](../plans/completed/wo-ui-1-account-controls.md)。
 
@@ -693,10 +685,10 @@ const motion = useGameCardOrientation();
 - `scripts/build-css.mjs` — CSS 构建（lightningcss，warning 即失败）
 - `scripts/finalize-dist.mjs` — 跨平台复制 tailwind bridge，并清理构建产物
   中的 `.DS_Store`
-- `src/tokens.test.ts` — 守卫测试（token/主题/打包/套壳合同）
+- `tests/tokens.test.ts` — 守卫测试（token/主题/打包/套壳合同）
 - `bin/swimmer-ui-check.mjs` — 随包发布的消费方 token 漂移检查（`npx
 swimmer-ui-check`），用法见 usage-and-upgrade-playbook.md
-- `pnpm storybook` — 组件与 night 主题演示
+- `pnpm storybook` — 组件与 dark 主题演示
 
 ### Nerve 0.6 配套修复（尚未发布）
 

@@ -3,13 +3,12 @@ import { useState } from 'react';
 
 import {
   GameButton,
-  LIQUID_FORMS,
   LiquidGroup,
   LiquidSurface,
-  liquidFormGroup,
   liquidFormItem,
   type LiquidForm,
 } from '../../index';
+import { LIQUID_FORMS, liquidFormGroup } from '../forms';
 
 const meta = {
   title: 'Clay/Liquid/LiquidSurface',

@@ -35,6 +35,21 @@ assert.ok(output.startsWith(`${root}/.scratch/`), 'Visual evidence belongs in .s
 const baseline = baselineArgument
   ? JSON.parse(await readFile(path.join(baselineArgument, 'screenshots.json'), 'utf8'))
   : null;
+// A major-version migration may rename a story/theme or remove a component.
+// It may NOT mask changed pixels or silently ignore any other missing story.
+const migration = option('migration')
+  ? JSON.parse(await readFile(option('migration'), 'utf8'))
+  : { themes: {}, stories: {}, removedStories: [] };
+const baselineIdentity = (id, theme) =>
+  `${migration.stories[id] ?? id}--${migration.themes[theme] ?? theme}`;
+const removedStories = new Set(migration.removedStories);
+if (baseline)
+  for (const id of removedStories) {
+    assert.ok(
+      baseline.captures.some((capture) => capture.id === id),
+      `Removal is not in the baseline: ${id}`,
+    );
+  }
 if (baseline)
   assert.equal(
     baseline.captureRig,
@@ -94,7 +109,8 @@ const results = {
   motion:
     'no-preference; original HTML mounts at performance.now()=10000; JS advances by 32+1024 ms; finite CSS animations held at their end and infinite CSS animations held at time zero, without cancel/restore during capture',
   iframeSha256: createHash('sha256').update(iframeHtml).digest('hex'),
-  themes: ['light', 'night'],
+  themes: option('themes')?.split(',') ?? ['light', 'dark'],
+  migration,
   storyCount: stories.length,
   captures: [],
   errors: [],
@@ -204,7 +220,7 @@ try {
         .getAttribute('data-game-ui-theme');
       assert.equal(
         appliedTheme,
-        theme === 'night' ? 'night' : null,
+        theme === 'light' ? null : theme,
         `${currentCapture}: theme was not applied`,
       );
       await page.mouse.move(0, 0);
@@ -315,7 +331,7 @@ try {
       results.captures.push(capture);
       if (baseline) {
         const before = baseline.captures.find(
-          (item) => item.id === story.id && item.theme === theme,
+          (item) => `${item.id}--${item.theme}` === baselineIdentity(story.id, theme),
         );
         if (!before || before.sha256 !== capture.sha256) results.differences.push(filename);
       }
@@ -328,10 +344,16 @@ try {
     }
   }
   if (baseline) {
-    const actual = new Set(results.captures.map((item) => item.filename));
+    const actual = new Set(results.captures.map((item) => baselineIdentity(item.id, item.theme)));
     for (const before of baseline.captures) {
-      if (!actual.has(before.filename)) results.differences.push(`missing:${before.filename}`);
+      if (!actual.has(`${before.id}--${before.theme}`) && !removedStories.has(before.id))
+        results.differences.push(`missing:${before.filename}`);
     }
+    for (const id of removedStories)
+      assert.ok(
+        !results.captures.some((capture) => capture.id === id),
+        `Removed story unexpectedly remains: ${id}`,
+      );
   }
   await writeFile(path.join(output, 'screenshots.json'), `${JSON.stringify(results, null, 2)}\n`);
   assert.deepEqual(results.errors, [], 'Storybook raised browser errors');

@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -12,13 +13,39 @@ import dts from 'vite-plugin-dts';
 // CSS is built separately by scripts/build-css.mjs (lightningcss, fails on
 // any warning) because the JS entry deliberately imports no CSS.
 export default defineConfig({
-  plugins: [react(), dts({ bundleTypes: true, tsconfigPath: './tsconfig.build.json' })],
+  plugins: [
+    react(),
+    dts({ bundleTypes: true, tsconfigPath: './tsconfig.build.json' }),
+    {
+      name: 'swimmer-package-boundary-evidence',
+      generateBundle(_options, bundle) {
+        mkdirSync('.scratch/build', { recursive: true });
+        const graph = Object.fromEntries(
+          Object.values(bundle)
+            .filter((item) => item.type === 'chunk')
+            .map((chunk) => [
+              chunk.fileName,
+              {
+                imports: chunk.imports,
+                dynamicImports: chunk.dynamicImports,
+                modules: Object.entries(chunk.modules)
+                  .filter(([, info]) => info.renderedLength !== 0)
+                  .map(([id]) => id.replace(`${process.cwd()}/`, '')),
+              },
+            ]),
+        );
+        writeFileSync('.scratch/build/module-graph.json', JSON.stringify(graph, null, 2));
+      },
+    },
+  ],
   build: {
     cssCodeSplit: false,
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
+        'liquid-effects': resolve(__dirname, 'src/liquid-effects.ts'),
+        preview: resolve(__dirname, 'src/preview.ts'),
       },
       name: 'SwimmerUiKit',
       formats: ['es'],

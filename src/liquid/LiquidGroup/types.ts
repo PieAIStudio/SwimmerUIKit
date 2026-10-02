@@ -4,13 +4,10 @@ import { type LiquidFinish } from '../finish';
 
 import type { BlobShape, CornerRadii } from '../geometry';
 
-import type { BendTuning } from '../move';
-
 import type { MorphTuning } from '../evolve';
 
 import type { Transition } from '../spring';
 
-import { type DissolveOptions, type ImageMeltOptions } from '../../liquid-effects/melt/options';
 import { type LiquidFill } from './fill';
 
 export interface LiquidGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -87,17 +84,11 @@ export interface LiquidItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
    * Select the adopted item surface behavior. Bend follows child geometry.
    * Move is a group gesture (`motion="follow"`), not an item effect.
    */
-  effect?: 'morph' | 'melt' | 'bend';
+  effect?: 'morph';
   /** Morph shape, tempo, bounce, and content cross-blur tuning. */
   morph?: MorphTuning;
-  /** Bend strengths for vertical bow and horizontal cap deformation. */
-  bend?: BendTuning;
   /** Follow a child moved by external code; Bend implies this automatically. */
   observe?: boolean;
-  /** Numeric knobs for the pairwise image Melt surface, plus an optional source URL. */
-  melt?: ImageMeltOptions & { src?: string };
-  /** Contact image modifier. Text and other DOM content remain on the crisp layer. */
-  dissolve?: boolean | number | DissolveOptions;
 }
 
-export type { BendTuning, CornerRadii, MorphTuning, Transition };
+export type { CornerRadii, MorphTuning, Transition };

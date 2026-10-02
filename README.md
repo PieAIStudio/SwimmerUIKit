@@ -65,7 +65,7 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
   business state stay in the host.
 
 - **Ready-to-use components** across: core controls (`GameButton`,
-  `LiquidMetalButton`, `GameTabs`,
+  `GameTabs`,
   `GameSlider`, `GameToggle`, `GameForms` inputs…), panels and windows
   (`GamePanel`, `GameCollapsiblePanel`, `GameWindowPanel`, `GameModal` on
   native `<dialog>`), HUD/shell surfaces (`GameShell`, `GameHud`,
@@ -74,7 +74,7 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
   contractor queue (`GameContractorPanel`…). `src/index.ts` is the
   authoritative export list; Storybook is the visual catalog.
 - **Design tokens** as CSS variables (`--game-ui-*`) with TypeScript
-  mirrors (`CLAY_*_TOKENS`, `GAME_UI_TOKENS`). The CSS variables are the
+  references (`GAME_UI_TOKENS`). The CSS variables are the
   cross-stack contract and work outside React:
 
   ```css
@@ -95,8 +95,8 @@ import '@pieai/swimmer-ui-kit/tailwind.css';
   `--game-ui-measure-reading` for a screen someone reads for minutes rather
   than glances at. Reach for the reading trio whenever the text is prose, not
   a label.
-- **Official themes**: light (default) and `night`
-  (`<html data-game-ui-theme="night">`). Downstream theming = overriding
+- **Official themes on the 3.0 development line**: light (default) and `dark`
+  (`<html data-game-ui-theme="dark">`). Downstream theming = overriding
   semantic tokens; see the design system guide.
 - **`swimmer-ui-check`**: lints your CSS for raw colour literals in component
   rules *and* for token pairs that cannot be read. Two tokens are not

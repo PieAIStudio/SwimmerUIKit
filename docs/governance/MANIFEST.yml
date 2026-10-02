@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-01T14:21:46.127Z
+generated_at: 2026-10-02T04:25:56.229Z
 generator_version: doc-gov@0.14.2
-docs_count: 49
+docs_count: 50
 docs:
   - id: ARCHIVE-CLAY-EXTRACTION
     path: docs/archive/history/clay-extraction.md
@@ -233,7 +233,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-01
+    last_reviewed: 2026-10-02
     pinned: true
   - id: REF-GAME-SURFACE-PACK
     path: docs/reference/game-surface-pack.md
@@ -318,6 +318,13 @@ docs:
     status: active
     canonical: true
     last_reviewed: 2026-09-11
+    pinned: false
+  - id: REF-MIGRATION-3-0
+    path: docs/reference/migration-3.0.md
+    type: reference
+    status: active
+    canonical: true
+    last_reviewed: 2026-10-02
     pinned: false
   - id: REF-PUBLIC-API-INVENTORY
     path: docs/reference/public-api-inventory.md

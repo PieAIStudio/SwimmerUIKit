@@ -21,6 +21,8 @@ related:
 
 # REF-USAGE-AND-UPGRADE-PLAYBOOK: Usage and Upgrade Playbook
 
+> 3.0 是 Owner 批准的干净断代，不能按下面的 2.x 小版本示例直接升级。先读 [migration-3.0](migration-3.0.md)，迁移源码和样式后再升级；本仓库目前不发布 npm。
+
 ## Purpose
 
 给消费项目（University 及其他产品）的
@@ -176,7 +178,7 @@ LiquidGroup、视觉 pressed state、`.liquid-cta__surface` 和针对 button 的
 
 先跑原 CTA 与 transition tests，再走产品全门。按实际调用清单检查开始/继续、
 课程入口、空状态、表单 submit、禁用、Enter/Space、pointer cancel、快速重复点击、
-长中文、375px 窄屏、day/night、reduced-motion；导航还要检查目标缺失/延迟挂载、
+长中文、375px 窄屏、day/dark、reduced-motion；导航还要检查目标缺失/延迟挂载、
 同屏/跨屏、取消和卸载。观察焦点、点击矩形、文字清晰度和动画最终停稳。
 本轮只读 JSX 查询在该快照得到 17 个生产 `<LiquidCtaButton` 标签；这不是对用户
 历史“19 处”数字的覆盖，也不是完整运行时调用次数。迁移前重新枚举，不用旧数字验收。
@@ -275,7 +277,7 @@ pnpm typecheck && pnpm test && pnpm build   # 各仓库自己的门，命令可�
    `verify` 还在真实浏览器执行压缩 CSS 的按压合同。发布前启动 `pnpm preview:site`
    并对其实际 origin 跑 `pnpm check:catalog <origin> chromium`（同时覆盖 Firefox/WebKit）；
    不用 Vite 开发服务器的绿色结果冒充发布构建的操作证明。
-2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/night 完整/
+2. `src/tokens.test.ts` 守卫通过（禁裸色值/TS-CSS 一致/dark 完整/
    禁 Tailwind at-rule/ESM-only 打包合同/套壳硬化存续）。
 3. 打包体检：`npx publint` 零发现；
    `npx @arethetypeswrong/cli --pack . --entrypoints . ./package.json --profile esm-only`

@@ -46,7 +46,7 @@
     in luminance, so nothing clears 3:1 against both it and a surface.
 
     The bead is `--game-ui-text` because that is the one token guaranteed to
-    read against every surface its own theme defines. Measured on night:
+    read against every surface its own theme defines. Measured on dark:
     13.1:1 against the off track, 6.1:1 between the two track colours.
   */
   .game-ui-toggle-track {

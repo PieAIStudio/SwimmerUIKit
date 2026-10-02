@@ -15,9 +15,9 @@ try {
   for (const [name, width, theme, extras] of [
     ['desktop', 1280, 'light', {}],
     [
-      'mobile-night',
+      'mobile-dark',
       375,
-      'night',
+      'dark',
       {
         ...(browserName === 'firefox' ? {} : { isMobile: true }),
         hasTouch: true,

@@ -1,4 +1,4 @@
-import { CLAY_LIQUID_GOOEY_TOKENS } from '../../tokens/legacy';
+import { liquidTokens } from '../../tokens/references';
 
 export interface ImageMeltOptions {
   /** Goo sigma: how far the bodies reach for each other and how wide colour averaging runs. */
@@ -160,7 +160,7 @@ function readToken(
 ): number {
   const view = element?.ownerDocument.defaultView;
   if (!view) return fallback;
-  const reference = CLAY_LIQUID_GOOEY_TOKENS[key];
+  const reference = liquidTokens[key];
   const name = /^var\((--[\w-]+)\)$/.exec(reference)?.[1];
   if (!name) return fallback;
   const parsed = Number.parseFloat(view.getComputedStyle(element).getPropertyValue(name));

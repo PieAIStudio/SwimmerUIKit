@@ -1,3 +1,4 @@
+import { LiquidEffectsGroup } from '../../liquid-effects/LiquidEffectsGroup/LiquidEffectsGroup';
 import { describe, expect, it, afterEach } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -162,16 +163,16 @@ describe('LiquidGroup DOM architecture', () => {
 
   it('supports the image Melt item without leaking effect props into the DOM', () => {
     const html = renderToStaticMarkup(
-      <LiquidGroup>
-        <LiquidGroup.Item
+      <LiquidEffectsGroup>
+        <LiquidEffectsGroup.Item
           data-testid="melt-item"
           effect="melt"
           melt={{ src: 'data:image/svg+xml,test', mix: 1 }}
         >
           <img alt="palette" src="data:image/svg+xml,test" />
           <span>Keep this label crisp</span>
-        </LiquidGroup.Item>
-      </LiquidGroup>,
+        </LiquidEffectsGroup.Item>
+      </LiquidEffectsGroup>,
     );
 
     expect(html).toContain('data-testid="melt-item"');

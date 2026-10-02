@@ -5,13 +5,13 @@ import {
   GameAssetIcon,
   GameBadge,
   GameButton,
-  GameHud,
   GameHudActions,
   GameIconButton,
   GamePanel,
   GameProgress,
-  GAME_UI_OVERLAY,
 } from '../../index';
+import { GameHud } from '../../game/GameHud/GameHud';
+import { GAME_UI_OVERLAY } from '../../tokens/index';
 
 /**
  * Official overlay-glass HUD tone for controls that float over a live scene.
@@ -145,10 +145,11 @@ export const OverlayGlass: Story = {
   render: () => <HudCluster title="Glass HUD" tone="glass" density="compact" />,
 };
 
-export const OverlayGlassOnNightTheme: Story = {
-  name: 'Glass nested in night theme',
+export const OverlayGlassOnDarkTheme: Story = {
+  name: 'Glass nested in dark theme',
   render: () => (
-    <div data-game-ui-theme="night" style={{ padding: 16, background: '#221812' }}>
+    <div data-game-ui-theme="dark" style={{ padding: 16, background: '#221812' }}>
+      {/* Preserve fixture display copy, not the removed theme value, until S4. */}
       <HudCluster title="Glass over night" tone="glass" density="compact" />
     </div>
   ),

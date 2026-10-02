@@ -1,3 +1,4 @@
+import type { LiquidDeformation } from './deformation';
 import {
   measureRadius,
   normalizeRadius,
@@ -15,14 +16,8 @@ import {
 import {
   advanceMove,
   createMoveState,
-  advanceBend,
-  bendFilterPadding,
-  createBendState,
-  resolveBendOptions,
   resolveMoveOptions,
-  snapBendState,
   snapMoveState,
-  type BendState,
   type MoveState,
   type MoveTailFrame,
   type MoveTarget,
@@ -41,17 +36,12 @@ import { easingFunction, resolveTransition, type Transition } from './spring';
 
 export type LiquidGooeyMotionMode = 'static' | 'animated' | 'reduced';
 
-export type LiquidGooeyEffect = 'morph' | 'bend';
-
-export interface LiquidGooeyBendConfig {
-  vertical?: number;
-  horizontal?: number;
-}
+export type LiquidGooeyEffect = 'morph';
 
 export interface LiquidGooeyItemConfig {
   effect?: LiquidGooeyEffect;
   morph?: MorphTuning;
-  bend?: LiquidGooeyBendConfig;
+  deformation?: LiquidDeformation;
   /** Follow the child's rendered rect instead of applying the component transform. */
   observe?: boolean;
   x?: number;
@@ -80,7 +70,7 @@ export interface LiquidGooeyItemRegistration {
 interface NormalizedConfig {
   effect?: LiquidGooeyEffect;
   morph?: MorphTuning;
-  bend?: LiquidGooeyBendConfig;
+  deformation?: LiquidDeformation;
   observe: boolean;
   x: number;
   y: number;
@@ -126,11 +116,9 @@ interface Entry extends LiquidGooeyItemRegistration {
   move: MoveState | null;
   tail: TailElements | null;
   evolve: EvolveState | null;
-  bendState: BendState | null;
   baseContentFilter: string;
   contentBlurred: boolean;
   lastContentFilter: string | null;
-  lastBendVars: string | null;
 }
 
 function finite(value: number | undefined, fallback: number): number {
@@ -147,7 +135,7 @@ function normalizeConfig(config: LiquidGooeyItemConfig): NormalizedConfig {
   };
   if (config.effect !== undefined) normalized.effect = config.effect;
   if (config.morph !== undefined) normalized.morph = config.morph;
-  if (config.bend !== undefined) normalized.bend = config.bend;
+  if (config.deformation !== undefined) normalized.deformation = config.deformation;
   if (config.transition !== undefined) normalized.transition = config.transition;
   if (config.delay !== undefined) normalized.delay = Math.max(0, finite(config.delay, 0));
   if (config.radius !== undefined) normalized.radius = config.radius;
@@ -168,7 +156,7 @@ function sameBehavior(a: NormalizedConfig, b: NormalizedConfig): boolean {
     a.effect === b.effect &&
     a.observe === b.observe &&
     JSON.stringify(a.morph) === JSON.stringify(b.morph) &&
-    JSON.stringify(a.bend) === JSON.stringify(b.bend) &&
+    a.deformation === b.deformation &&
     JSON.stringify(a.transition) === JSON.stringify(b.transition) &&
     a.delay === b.delay &&
     radiusKey(a.radius) === radiusKey(b.radius)
@@ -289,14 +277,11 @@ export class LiquidGooeyEngine {
       ownTransform: '',
       resizeObserver: null,
       move: null,
-      tail:
-        this.follow && config.effect !== 'bend' ? this.createTailElements(registration.blob) : null,
+      tail: this.follow && !config.deformation ? this.createTailElements(registration.blob) : null,
       evolve: null,
-      bendState: null,
       baseContentFilter: registration.host.style.filter,
       contentBlurred: false,
       lastContentFilter: null,
-      lastBendVars: null,
     };
     entry.host.style.transformOrigin = 'center';
     this.applyHost(entry);
@@ -322,13 +307,14 @@ export class LiquidGooeyEngine {
     const target = pointFrom(config);
     const targetChanged = !samePoint(entry.target, target);
     const behaviorChanged = !sameBehavior(entry.config, config);
+    if (entry.config.deformation !== config.deformation)
+      entry.config.deformation?.reset(entry.host);
     entry.config = config;
     this.updateFeaturePadding();
     if (!targetChanged) {
       if (behaviorChanged) {
         entry.lastPaint = null;
         if (!this.isDynamic(entry)) this.resetDynamicEntry(entry);
-        if (config.effect === 'bend') this.writeBendVars(entry, 0, 0);
         if (this.isDynamic(entry) && !this.reducedMotion) {
           if (this.ensureClaim()) this.setMode('animated');
           else {
@@ -445,7 +431,7 @@ export class LiquidGooeyEngine {
       entry.resizeObserver?.disconnect();
       entry.host.style.willChange = '';
       this.clearContentBlur(entry);
-      this.clearBendVars(entry);
+      entry.config.deformation?.reset(entry.host);
       this.removeTailElements(entry);
     }
     this.items.clear();
@@ -541,20 +527,20 @@ export class LiquidGooeyEngine {
     this.claimed = false;
   }
 
-  private isBend(entry: Entry): boolean {
-    return entry.config.effect === 'bend';
+  private isDeformed(entry: Entry): boolean {
+    return entry.config.deformation !== undefined;
   }
 
   private isShape(entry: Entry): boolean {
     return (
-      !this.isBend(entry) &&
+      !this.isDeformed(entry) &&
       entry.config.morph !== undefined &&
       resolveMorphShape(this.getGroup(), entry.config.morph)
     );
   }
 
   private isDynamic(entry: Entry): boolean {
-    return this.isBend(entry) || this.isShape(entry);
+    return this.isDeformed(entry) || this.isShape(entry);
   }
 
   private featureBox(entry: Entry): BlobBox {
@@ -578,11 +564,8 @@ export class LiquidGooeyEngine {
     let next = 0;
     for (const entry of this.items.values()) {
       const box = this.featureBox(entry);
-      if (this.isBend(entry)) {
-        next = Math.max(
-          next,
-          bendFilterPadding(box, resolveBendOptions(this.getGroup(), entry.config.bend)),
-        );
+      if (this.isDeformed(entry)) {
+        next = Math.max(next, entry.config.deformation!.padding(this.getGroup(), box));
       } else if (this.isShape(entry)) {
         next = Math.max(next, evolveFilterPadding(this.getGroup(), entry.config.morph));
       }
@@ -615,31 +598,10 @@ export class LiquidGooeyEngine {
     entry.contentBlurred = true;
   }
 
-  private clearBendVars(entry: Entry): void {
-    if (entry.lastBendVars === null) return;
-    for (const name of ['--lg-bend-x', '--lg-bend-y', '--lg-bend-xn', '--lg-bend-yn']) {
-      entry.host.style.removeProperty(name);
-    }
-    entry.lastBendVars = null;
-  }
-
-  private writeBendVars(entry: Entry, bendX: number, bendY: number): void {
-    const x = Math.round((Number.isFinite(bendX) ? bendX : 0) * 10) / 10;
-    const y = Math.round((Number.isFinite(bendY) ? bendY : 0) * 10) / 10;
-    const key = `${x},${y}`;
-    if (entry.lastBendVars === key) return;
-    entry.host.style.setProperty('--lg-bend-x', `${x}px`);
-    entry.host.style.setProperty('--lg-bend-y', `${y}px`);
-    entry.host.style.setProperty('--lg-bend-xn', String(x));
-    entry.host.style.setProperty('--lg-bend-yn', String(y));
-    entry.lastBendVars = key;
-  }
-
   private resetDynamicEntry(entry: Entry): void {
     entry.evolve = null;
-    entry.bendState = null;
     this.clearContentBlur(entry);
-    this.clearBendVars(entry);
+    entry.config.deformation?.reset(entry.host);
     entry.lastPaint = null;
   }
 
@@ -840,24 +802,20 @@ export class LiquidGooeyEngine {
     };
   }
 
-  private paintBendEntry(
+  private paintDeformedEntry(
     entry: Entry,
     box: BlobBox,
     dt: number,
     isFirstBox: boolean,
   ): { changed: boolean; moving: boolean } {
-    const target = this.dynamicTarget(entry, box);
-    if (!entry.bendState) entry.bendState = createBendState(target);
-    if (this.reducedMotion || (!this.claimed && !isFirstBox))
-      snapBendState(entry.bendState, target);
-    const options = resolveBendOptions(this.getGroup(), entry.config.bend);
-    const frame = advanceBend(
-      entry.bendState,
-      target,
+    const frame = entry.config.deformation!.paint({
+      group: this.getGroup(),
+      host: entry.host,
+      target: this.dynamicTarget(entry, box),
       box,
-      this.reducedMotion || (!this.claimed && !isFirstBox) ? 0 : dt,
-      options,
-    );
+      dt,
+      snap: this.reducedMotion || (!this.claimed && !isFirstBox),
+    });
     let changed = false;
     if (entry.lastPaint !== frame.fingerprint) {
       entry.lastPaint = frame.fingerprint;
@@ -867,11 +825,7 @@ export class LiquidGooeyEngine {
     }
     this.hideTail(entry);
     this.clearContentBlur(entry);
-    this.writeBendVars(entry, frame.bendX, frame.bendY);
-    return {
-      changed,
-      moving: !this.reducedMotion && this.claimed && frame.moving,
-    };
+    return { changed, moving: !this.reducedMotion && this.claimed && frame.moving };
   }
 
   private paintFollowEntry(
@@ -981,8 +935,8 @@ export class LiquidGooeyEngine {
             this.setMode('animated');
           }
         }
-        const paint = this.isBend(entry)
-          ? this.paintBendEntry(entry, box, dt, isFirstBox)
+        const paint = this.isDeformed(entry)
+          ? this.paintDeformedEntry(entry, box, dt, isFirstBox)
           : this.isShape(entry)
             ? this.paintEvolveEntry(entry, box, dt, isFirstBox)
             : this.follow
@@ -1055,7 +1009,7 @@ export class LiquidGooeyEngine {
     entry.resizeObserver?.disconnect();
     entry.host.style.willChange = '';
     this.clearContentBlur(entry);
-    this.clearBendVars(entry);
+    entry.config.deformation?.reset(entry.host);
     this.removeTailElements(entry);
     this.items.delete(id);
     this.updateFeaturePadding();

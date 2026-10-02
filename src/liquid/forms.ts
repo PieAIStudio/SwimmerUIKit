@@ -136,10 +136,9 @@ export interface LiquidFormGroup {
 
 /** Item-level behaviour a form fixes on each participating item. */
 export interface LiquidFormItem {
-  readonly effect?: 'morph' | 'melt' | 'bend';
+  readonly effect?: 'morph';
   readonly morph?: MorphTuning;
   readonly transition?: Transition;
-  readonly dissolve?: boolean;
 }
 
 /*
@@ -147,7 +146,7 @@ export interface LiquidFormItem {
  *
  * `--game-ui-shadow-liquid-ink` is a solid colour per theme rather than a
  * finished shadow, so a form can say "a fifth of the ink at 2px" without
- * restating the room's light, and a night theme changes one value instead of
+ * restating the room's light, and a dark theme changes one value instead of
  * six. Each layer is outer with no spread on purpose — that is exactly the
  * case `compositorDropShadowFilter` lifts off the SVG filter and onto the
  * compositor, where it costs nothing and hugs the poured outline instead of a
@@ -457,7 +456,7 @@ export const LIQUID_FORMS: Readonly<Record<LiquidForm, LiquidFormSpec>> = {
       // shadow leaves when the body does without being told to.
       shadowEngaged: cast(layer(2, 7, 15), layer(6, 24, 14)),
     },
-    item: { dissolve: true, transition: 'smooth' },
+    item: { transition: 'smooth' },
   },
 
   /*

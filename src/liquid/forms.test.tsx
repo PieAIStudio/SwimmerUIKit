@@ -320,7 +320,7 @@ describe('liquid cast shadow', () => {
 
   /*
     One colour, one token, per theme. A literal here would be a light-theme
-    brown baked into a night screen, and `tokens.test.ts` cannot see TS.
+    brown baked into a dark screen, and `tokens.test.ts` cannot see TS.
   */
   it('takes its colour from the theme rather than from a literal', () => {
     for (const form of LIQUID_FORM_NAMES) {

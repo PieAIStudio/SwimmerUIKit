@@ -16,7 +16,8 @@ import { GameProgress } from '../../feedback/GameProgress/GameProgress';
 import { GameIconButton } from '../../controls/GameIconButton/GameIconButton';
 
 import { GamePanel } from '../GamePanel/GamePanel';
-import { CLAY_COLOR_TOKENS, CLAY_OVERLAY_GLASS_TOKENS, GAME_UI_OVERLAY } from '../../tokens/index';
+import { GAME_UI_OVERLAY } from '../../tokens/index';
+import { overlayTokens } from '../../tokens/references';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
 const stylesCss = readComponentStyles();
@@ -48,15 +49,15 @@ function blockOf(css: string, selectorStart: string): string {
 
 const rootVars = parseVars(blockOf(themeCss, ':root'));
 // Prefer the multi-selector block start so a prose mention of the attribute
-// alone cannot steal the parser (same class of bug as night theme comments).
+// alone cannot steal the parser (same class of bug as dark theme comments).
 const glassVars = parseVars(
   blockOf(themeCss, "[data-game-ui-tone='glass'],\n.game-ui-overlay-scope"),
 );
 
 describe('overlay glass tokens', () => {
   it('defines overlay-glass primitives on :root', () => {
-    expect(rootVars.get('--game-ui-overlay-glass-bg')).toBe(CLAY_COLOR_TOKENS.overlayGlass);
-    expect(rootVars.get('--game-ui-overlay-glass-text')).toBe(CLAY_COLOR_TOKENS.overlayGlassText);
+    expect(rootVars.get('--game-ui-overlay-glass-bg')).toBe('rgba(12, 14, 20, 0.72)');
+    expect(rootVars.get('--game-ui-overlay-glass-text')).toBe('#fff6ee');
     expect(rootVars.get('--game-ui-overlay-glass-border')).toBe('rgba(255, 255, 255, 0.18)');
     expect(rootVars.get('--game-ui-overlay-glass-blur')).toBe('12px');
     expect(rootVars.has('--game-ui-overlay-glass-primary-fill')).toBe(true);
@@ -64,9 +65,9 @@ describe('overlay glass tokens', () => {
   });
 
   it('exports TS mirrors that point at the CSS variables', () => {
-    expect(CLAY_OVERLAY_GLASS_TOKENS.bg).toBe('var(--game-ui-overlay-glass-bg)');
-    expect(CLAY_OVERLAY_GLASS_TOKENS.text).toBe('var(--game-ui-overlay-glass-text)');
-    expect(CLAY_OVERLAY_GLASS_TOKENS.border).toBe('var(--game-ui-overlay-glass-border)');
+    expect(overlayTokens.bg).toBe('var(--game-ui-overlay-glass-bg)');
+    expect(overlayTokens.text).toBe('var(--game-ui-overlay-glass-text)');
+    expect(overlayTokens.border).toBe('var(--game-ui-overlay-glass-border)');
     expect(GAME_UI_OVERLAY.toneGlass).toBe('glass');
     expect(GAME_UI_OVERLAY.densityCompact).toBe('compact');
     expect(GAME_UI_OVERLAY.scopeClass).toBe('game-ui-overlay-scope');
@@ -100,7 +101,7 @@ describe('overlay glass tokens', () => {
     expect(glassVars.get('--game-ui-text')).toBe('var(--game-ui-overlay-glass-text)');
     expect(glassVars.get('--game-ui-shadow-button')).toBe('none');
     expect(glassVars.get('--game-ui-focus-ring')).toBe('var(--game-ui-overlay-glass-focus-ring)');
-    // Warm accent stays on the inherited clay/night value — not redeclared here.
+    // Warm accent stays on the inherited clay/dark value — not redeclared here.
     expect(glassVars.has('--game-ui-accent')).toBe(false);
   });
 

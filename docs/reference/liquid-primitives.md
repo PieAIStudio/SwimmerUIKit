@@ -19,6 +19,8 @@ related:
 
 # LiquidGroup
 
+3.0：下文的 Bend、Image Melt 和 Contact dissolve 属于可选的 `./liquid-effects`。使用这些能力时，从该入口导入 `LiquidEffectsGroup` 并使用它的 Item；根入口 LiquidGroup 不再接受 bend/melt/dissolve 参数。几何与资源约束仍适用，完整断代清单见 [迁移表](migration-3.0.md)。
+
 Advanced reference, not the route to an ordinary button. Start with the
 [component selection guide](component-selection-guide.md). Design policy and
 named-form defaults belong to the [design system guide](design-system-guide.md)

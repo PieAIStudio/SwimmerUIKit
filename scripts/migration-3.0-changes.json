@@ -1,0 +1,26 @@
+[
+  {
+    "before": "`data-game-ui-theme=\"night\"`",
+    "after": "改成 `data-game-ui-theme=\"dark\"`；明暗目标值为 light / dark。选择器、dataset 赋值、主题判断、closest 查询一起改。旧值只由检查工具报错，不再支持。"
+  },
+  {
+    "before": "`--game-ui-glass-night`、`--game-ui-glass-night-soft`",
+    "after": "分别改成 `--game-ui-glass-dark`、`--game-ui-glass-dark-soft`；数值不变，统一深色命名。"
+  },
+  {
+    "before": "`LiquidGroup.Item effect=\"melt\" / effect=\"bend\" / dissolve`",
+    "after": "从 `./liquid-effects` 导入 `LiquidEffectsGroup`，将相互作用的整组及子项改用它；参数语义和资源预算不变。根入口的 LiquidGroup.Item 不再接受这些参数。"
+  },
+  {
+    "before": "`liquidFormItem('drain').dissolve`",
+    "after": "drain 只提供动作，不再自动附加图像溶解。实际需要图像接触溶解时，显式使用可选特效入口的 `LiquidEffectsGroup.Item dissolve`。"
+  },
+  {
+    "before": "`--game-ui-liquid-metal-*`",
+    "after": "随零使用的金属按钮删除；不存在替代 WebGL 皮肤，也不存在兼容 token。"
+  },
+  {
+    "before": "建造、施工、资产库及放置工具的 `game-ui-*` 类",
+    "after": "随 D1 删除的组件移除；产品继续锁定旧版直到完成自身业务界面迁移。通用 GameShell 的槽位和 GameMaterialSwatches 保留。"
+  }
+]

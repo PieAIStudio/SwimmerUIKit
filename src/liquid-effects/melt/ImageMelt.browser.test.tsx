@@ -2,7 +2,7 @@ import { act, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createRoot, type Root } from 'react-dom/client';
 
-import { LiquidGroup } from '../../liquid/LiquidGroup/LiquidGroup';
+import { LiquidEffectsGroup as LiquidGroup } from '../LiquidEffectsGroup/LiquidEffectsGroup';
 import { resetLiquidGooeyBudgetForTests, setLiquidGooeyBudget } from '../../liquid/budget';
 import '../../styles.css';
 

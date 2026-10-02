@@ -120,17 +120,17 @@
   /*
     The tooltip is the one surface that inverts. On a light theme that reads as
     a dark chip floating over the page, which is right — but --game-ui-text is
-    the *ink* token, and on the night theme it flips to cream. Using it as a
+    the *ink* token, and on the dark theme it flips to cream. Using it as a
     background there put cream text on a cream chip at 1.15:1: every tooltip in
-    the kit was invisible on night, and the light theme looked fine, which is
+    the kit was invisible on dark, and the light theme looked fine, which is
     how it survived.
   */
   --game-ui-tooltip-surface: #3b2d23;
   --game-ui-tooltip-ink: #fff8ec;
 
   /* Dark glass & scrims (HUD chips floating over the 3D scene) */
-  --game-ui-glass-night: rgba(31, 24, 18, 0.68);
-  --game-ui-glass-night-soft: rgba(31, 24, 18, 0.64);
+  --game-ui-glass-dark: rgba(31, 24, 18, 0.68);
+  --game-ui-glass-dark-soft: rgba(31, 24, 18, 0.64);
   --game-ui-scrim-strong: rgba(30, 20, 14, 0.58);
 
   /*
@@ -269,18 +269,11 @@
   /*
     Liquid-metal CTA. Face and ink are their own colours because they must
     stay dark-plate / cream-ink on both themes — inheriting --game-ui-ink-deep
-    would invert on night the same way the tooltip did. Accent aliases the
+    would invert on dark the same way the tooltip did. Accent aliases the
     brand accent so a host can retint just this button. The three numbers
     are the effect itself (dispersion, sweep speed, rest rim brightness)
     and match the ThreeUI shader defaults.
   */
-  --game-ui-liquid-metal-face: #3a2518;
-  --game-ui-liquid-metal-ink: #fff8ec;
-  --game-ui-liquid-metal-accent: var(--game-ui-accent);
-  --game-ui-liquid-metal-dispersion: 0.3;
-  --game-ui-liquid-metal-sweep-speed: 0.07;
-  --game-ui-liquid-metal-rest: 0.55;
-  --game-ui-liquid-metal-bloom: 2.6;
 
   /*
     Liquid-gooey Morph/Bend/Move. Numeric custom properties are read by the
@@ -441,11 +434,11 @@
 
 /*
  * Official dark baseline. Opt in per subtree:
- *   <html data-game-ui-theme="night"> or any container element.
+ *   <html data-game-ui-theme="dark"> or any container element.
  * Downstream products define their own themes the same way: override the
  * semantic tokens (plus derivation bases for full fidelity).
  */
-[data-game-ui-theme='night'] {
+[data-game-ui-theme='dark'] {
   --game-ui-plaque-surface: #382517;
   --game-ui-plaque-hover: #4b3421;
   --game-ui-plaque-ink: #c9a267;
@@ -507,11 +500,6 @@
   --game-ui-preview-canvas-1: #2a1d13;
   --game-ui-preview-canvas-2: #201510;
   --game-ui-preview-canvas-3: #150d08;
-
-  --game-ui-liquid-metal-face: #1a120c;
-  --game-ui-liquid-metal-ink: #f6e7d3;
-  --game-ui-liquid-metal-rest: 0.42;
-  --game-ui-liquid-metal-bloom: 2.2;
 }
 
 /*
@@ -520,7 +508,7 @@
  *   <div data-game-ui-tone="glass"> … </div>
  *   <div class="game-ui-overlay-scope"> … </div>   (class alias)
  * Pair with data-game-ui-density="compact" for dense HUD controls.
- * Does not replace data-game-ui-theme — nest glass inside light or night.
+ * Does not replace data-game-ui-theme — nest glass inside light or dark.
  */
 [data-game-ui-tone='glass'],
 .game-ui-overlay-scope {
@@ -552,8 +540,8 @@
   --game-ui-ink-title: var(--game-ui-overlay-glass-text);
   --game-ui-ink-heading: var(--game-ui-overlay-glass-text);
 
-  --game-ui-glass-night: var(--game-ui-overlay-glass-bg);
-  --game-ui-glass-night-soft: rgba(10, 12, 18, 0.72);
+  --game-ui-glass-dark: var(--game-ui-overlay-glass-bg);
+  --game-ui-glass-dark-soft: rgba(10, 12, 18, 0.72);
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
 
   /* Flat glass: no clay cast shadows; panels keep a soft lift for dialogue strips */

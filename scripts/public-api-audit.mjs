@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
+import { renderMigration } from './lib/api-migration.mjs';
 
 const root = process.cwd();
 const packageName = '@pieai/swimmer-ui-kit';
@@ -196,7 +197,7 @@ const lines = [
   'Start with the [component selection guide](component-selection-guide.md), not this exhaustive index.',
   '`src/index.ts` is the public membership authority; every name below remains supported.',
   'A supporting helper is not private just because beginners should not start there.',
-  'There are no new package subpaths or experimental tiers in this release.',
+  'Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.',
   '',
   `Compiler inventory: **${rows.length} named exports: ${rows.filter((row) => row.kind === 'value').length} values and ${rows.filter((row) => row.kind === 'type').length} types**.`,
   '',
@@ -224,17 +225,22 @@ for (const [module, [family, audience]] of Object.entries(families)) {
 if (documentedNames.size !== rows.length)
   throw new Error('Rendered inventory does not document every compiler export exactly once');
 const inventory = lines.join('\n');
+const migration = renderMigration(rows);
+const migrationPath = 'docs/reference/migration-3.0.md';
 if (args.includes('--check')) {
   if (readFileSync(inventoryPath, 'utf8') !== inventory)
     throw new Error('Public API inventory drift: run pnpm api:inventory');
+  if (readFileSync(migrationPath, 'utf8') !== migration)
+    throw new Error('Migration coverage drift: run pnpm api:inventory');
 } else if (args.includes('--write')) {
   writeFileSync(inventoryPath, inventory);
+  writeFileSync(migrationPath, migration);
 }
 const evidencePath = argument('--evidence');
 if (evidencePath) {
   const resolved = path.resolve(root, evidencePath);
-  if (!resolved.startsWith(`${root}/artifacts/`))
-    throw new Error('Evidence must stay under this repository artifacts/');
+  if (!resolved.startsWith(`${root}/.scratch/`))
+    throw new Error('Evidence must stay under this repository .scratch/');
   mkdirSync(path.dirname(resolved), { recursive: true });
   writeFileSync(
     resolved,

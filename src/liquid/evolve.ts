@@ -9,7 +9,7 @@
  * routes every tunable value through SwimmerUIKit's token layer.
  */
 
-import { CLAY_LIQUID_GOOEY_TOKENS } from '../tokens/legacy';
+import { liquidTokens } from '../tokens/references';
 import { silhouettePath, type BlobShape, type CornerRadii } from './geometry';
 
 export interface EvolveOptions {
@@ -143,7 +143,7 @@ function readNumberToken(
   fallback: number,
 ): number {
   const view = group?.ownerDocument.defaultView;
-  const name = tokenName(CLAY_LIQUID_GOOEY_TOKENS[key]);
+  const name = tokenName(liquidTokens[key]);
   if (!view || !name) return fallback;
   const value = Number.parseFloat(view.getComputedStyle(group).getPropertyValue(name));
   return Number.isFinite(value) ? value : fallback;
@@ -155,7 +155,7 @@ function readStringToken(
   fallback: string,
 ): string {
   const view = group?.ownerDocument.defaultView;
-  const name = tokenName(CLAY_LIQUID_GOOEY_TOKENS[key]);
+  const name = tokenName(liquidTokens[key]);
   if (!view || !name) return fallback;
   return view.getComputedStyle(group).getPropertyValue(name).trim() || fallback;
 }
