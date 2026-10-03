@@ -442,11 +442,6 @@
   .game-ui-proof-frame.is-mobile-landscape .game-ui-stage-world {
     min-height: 390px;
   }
-  .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-chip {
-    min-height: 44px;
-    padding: 4px 8px 4px 5px;
-  }
-  .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-chip:nth-child(3),
   .game-ui-proof-frame.is-mobile-landscape .game-ui-hud-tools {
     display: none;
   }

@@ -72,11 +72,11 @@ related:
 | `DissolveValue` | type | 使用 LiquidEffectsItemProps["dissolve"]；只在 ./liquid-effects 支持。 |
 | `ImageMeltOptions` | type | 从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型。 |
 | `resolveDissolveOptions` | value | 删除内部默认值或解析帮助函数；传入公开组件参数，由实现负责默认值和校验。 |
-| `GameActionGrid` | value | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameActionGridProps` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameActionIconLabelMode` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameActionStyle` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameUiAction` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
+| `GameActionGrid` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameActionGridProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameActionIconLabelMode` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameActionStyle` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameUiAction` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
 | `GameButtonSurface` | type | 删除独立皮肤轴。GameButton 的 primary 固定为潮汐液体 CTA，其余变为二维水滴；GameIconButton 固定二维水滴。不保留 flat/liquid/plaque 按钮兼容开关。GameAvatar 的独立静态铜牌相框仍保留。 |
 | `DEFAULT_LIQUID_METAL_CONTEXT_BUDGET` | value | 删除零使用金属按钮及 WebGL 预算；主操作使用 GameButton。 |
 | `getLiquidMetalContextBudget` | value | 删除零使用金属按钮及 WebGL 预算；主操作使用 GameButton。 |
@@ -134,20 +134,20 @@ related:
 | `GameConstructionVariant` | type | 删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。 |
 | `GameRobotCrewMember` | type | 删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。 |
 | `GameRobotCrewMemberStatus` | type | 删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。 |
-| `FirstSessionHud` | value | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `FirstSessionHudIconSlots` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `FirstSessionHudLabels` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `FirstSessionHudProps` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameCardFan` | value | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameCardFanCard` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameCardFanProps` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
+| `FirstSessionHud` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `FirstSessionHudIconSlots` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `FirstSessionHudLabels` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `FirstSessionHudProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameCardFan` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameCardFanCard` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameCardFanProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
 | `GameStatList` | value | 改用 GameFactList；删除重复别名。 |
 | `GameStatListProps` | type | 改用 GameFactListProps；删除重复别名。 |
-| `GameHud` | value | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameHudItem` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameHudProps` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameOrientationGate` | value | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
-| `GameOrientationGateProps` | type | 移出根入口：此组件、组合或支持类型没有已确认的产品调用，保留内部预览用途，不再构成公开接口。按组件选择指南使用对应基础组件。 |
+| `GameHud` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameHudItem` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameHudProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameOrientationGate` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
+| `GameOrientationGateProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
 | `useGameSplashDelay` | value | 删除未被产品使用的计时帮助函数；产品根据真实加载状态决定何时显示 GameSplash。 |
 | `GameObjectToolbar` | value | 删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。 |
 | `GamePlacementToolbar` | value | 删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。 |

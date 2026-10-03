@@ -74,7 +74,7 @@
     "lint": "oxlint src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts -c ./.oxlintrc.json",
     "format": "oxfmt package.json tsconfig.json tsconfig.build.json src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
-    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm test && pnpm check:styles && pnpm check:themes && pnpm build",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm check:guide && pnpm test && pnpm check:styles && pnpm check:themes && pnpm build",
     "check:themes": "node scripts/check-control-styles.mjs",
     "check:packed": "node scripts/verify-packed-candidate.mjs",
     "api:inventory": "node scripts/public-api-audit.mjs --write",
@@ -89,7 +89,8 @@
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
-    "check:styles": "node bin/swimmer-ui-check.mjs src"
+    "check:styles": "node bin/swimmer-ui-check.mjs src",
+    "check:guide": "node scripts/check-guide.mjs"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.20"

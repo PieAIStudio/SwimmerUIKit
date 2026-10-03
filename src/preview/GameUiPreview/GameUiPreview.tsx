@@ -4,29 +4,27 @@ import { GameBadge } from '../../feedback/GameBadge/GameBadge';
 
 import { GameLanguageMenu } from '../../controls/GameLanguageMenu/GameLanguageMenu';
 
-import { GameOrientationGate } from '../../game/GameOrientationGate/GameOrientationGate';
-
 import { GameButton } from '../../controls/GameButton/GameButton';
 
 import { GameHistoryPanel } from '../../containers/GameHistoryPanel/GameHistoryPanel';
 
 import { GamePanel } from '../../containers/GamePanel/GamePanel';
-import { type PreviewLang } from './data/copyTypes';
-import { PREVIEW_COPY } from './data/copy';
 import { CopyContext } from './context';
-import { TokenSwatches } from './sections/TokenSwatches';
-import { tokenGroups, TokenGroup } from './sections/TokenGroup';
-import { IconGallery } from './sections/IconGallery';
-import { TypographyScale } from './sections/TypographyScale';
+import { PREVIEW_COPY } from './data/copy';
+import { type PreviewLang } from './data/copyTypes';
 import { ButtonStates } from './sections/ButtonStates';
-import { HudAndStage } from './sections/HudAndStage';
-import { ModalAndStates } from './sections/ModalAndStates';
 import { CardAndAssetSamples } from './sections/CardAndAssetSamples';
-import { FormsAndDisplay } from './sections/FormsAndDisplay';
-import { OverlayGlassCompare } from './sections/OverlayGlassCompare';
-import { LiquidSurfaceShowcase } from './sections/LiquidSurfaceShowcase';
 import { FirstSessionSamples } from './sections/FirstSessionSamples';
+import { FormsAndDisplay } from './sections/FormsAndDisplay';
+import { HudAndStage } from './sections/HudAndStage';
+import { IconGallery } from './sections/IconGallery';
+import { LiquidSurfaceShowcase } from './sections/LiquidSurfaceShowcase';
+import { ModalAndStates } from './sections/ModalAndStates';
+import { OverlayGlassCompare } from './sections/OverlayGlassCompare';
 import { ResponsiveProofFrames } from './sections/ResponsiveProofFrames';
+import { TokenGroup, tokenGroups } from './sections/TokenGroup';
+import { TokenSwatches } from './sections/TokenSwatches';
+import { TypographyScale } from './sections/TypographyScale';
 
 export interface GameUiPreviewProps {
   title?: string;
@@ -192,21 +190,6 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
         >
           <h2 id="game-ui-preview-first-session-title">{copy.sections.firstSession}</h2>
           <FirstSessionSamples />
-        </section>
-
-        <section
-          aria-labelledby="game-ui-preview-orientation-title"
-          className="game-ui-preview-section"
-        >
-          <h2 id="game-ui-preview-orientation-title">{copy.sections.orientation}</h2>
-          <GameOrientationGate
-            badgeLabel={copy.orientation.badge}
-            body={copy.orientation.body}
-            cta={copy.orientation.cta}
-            manualHint={copy.orientation.hint}
-            preview
-            title={copy.orientation.title}
-          />
         </section>
 
         <section

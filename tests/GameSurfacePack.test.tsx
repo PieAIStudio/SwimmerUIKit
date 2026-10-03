@@ -1,8 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameActionGrid } from '../src/controls/GameActionGrid/GameActionGrid';
-
 import { GameFactList } from '../src/game/GameFactList/GameFactList';
 
 import { GameMovementPad } from '../src/game/GameMovementPad/GameMovementPad';
@@ -56,26 +54,5 @@ describe('OwnMySpace game surface pack', () => {
     expect(html).toContain('W / ↑');
     expect(html).toContain('S / ↓');
     expect(html).toContain('tabindex="0"');
-  });
-
-  it('renders a generic action grid using the official action pattern', () => {
-    const html = compact(
-      renderToStaticMarkup(
-        <GameActionGrid
-          label="Object actions"
-          style="icon"
-          actions={[
-            { id: 'save', label: 'Save island', icon: 'check', selected: true },
-            { id: 'delete', label: 'Delete object', icon: 'close', disabled: true },
-          ]}
-        />,
-      ),
-    );
-
-    expect(html).toContain('aria-label="Object actions"');
-    expect(html).toContain('aria-label="Save island"');
-    expect(html).toContain('aria-pressed="true"');
-    expect(html).toContain('aria-label="Delete object"');
-    expect(html).toContain('disabled=""');
   });
 });

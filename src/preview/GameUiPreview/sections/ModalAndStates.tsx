@@ -1,12 +1,11 @@
 import { type ReactNode } from 'react';
+import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GameLoadingState } from '../../../feedback/GameLoadingState/GameLoadingState';
 
 import { GameButton } from '../../../controls/GameButton/GameButton';
 
 import { GameDialog } from '../../../containers/GameDialog/GameDialog';
-
-import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GamePanel } from '../../../containers/GamePanel/GamePanel';
 

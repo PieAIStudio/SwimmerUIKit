@@ -10,7 +10,6 @@ import {
   GamePanel,
   GameProgress,
 } from '../../index';
-import { GameHud } from '../../game/GameHud/GameHud';
 import { GAME_UI_OVERLAY } from '../../tokens/index';
 
 /**
@@ -90,30 +89,14 @@ function HudCluster({
       {...attrs}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <GameHud
-          label={title}
-          items={[
-            {
-              id: 'role',
-              icon: 'lock',
-              label: 'You are',
-              value: 'Host',
-              meta: 'private',
-            },
-            { id: 'room', icon: 'copy', label: 'Room', value: '74X8VB' },
-            { id: 'timer', icon: 'timer', label: 'Reveal', value: '02:46' },
-          ]}
-          actions={
-            <GameHudActions label={toolsLabel}>
-              <GameIconButton label={`${title} history`}>
-                <GameAssetIcon icon="scroll" size="sm" />
-              </GameIconButton>
-              <GameIconButton label={`${title} settings`}>
-                <GameAssetIcon icon="settings" size="sm" />
-              </GameIconButton>
-            </GameHudActions>
-          }
-        />
+        <GameHudActions label={toolsLabel}>
+          <GameIconButton label={`${title} history`}>
+            <GameAssetIcon icon="scroll" size="sm" />
+          </GameIconButton>
+          <GameIconButton label={`${title} settings`}>
+            <GameAssetIcon icon="settings" size="sm" />
+          </GameIconButton>
+        </GameHudActions>
       </div>
 
       <GamePanel title={`${title} dialogue`}>

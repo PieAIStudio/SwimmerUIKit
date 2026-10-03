@@ -1,14 +1,11 @@
 import { type ReactNode } from 'react';
+import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GameAssetIcon } from '../../../icons/GameAssetIcon/GameAssetIcon';
-
-import { GameHud } from '../../../game/GameHud/GameHud';
 
 import { GameStageTile } from '../../../game/GameStageTile/GameStageTile';
 
 import { GameButton } from '../../../controls/GameButton/GameButton';
-
-import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GameIconButton } from '../../../controls/GameIconButton/GameIconButton';
 import { useCopy } from '../context';
@@ -18,30 +15,14 @@ export function HudAndStage(): ReactNode {
   return (
     <div className="game-ui-stage-demo">
       <div aria-label="Clay world HUD preview" className="game-ui-stage-world">
-        <GameHud
-          label={hud.label}
-          items={[
-            {
-              id: 'role',
-              icon: 'lock',
-              label: hud.youAre,
-              value: hud.roleValue,
-              meta: hud.rolePrivate,
-            },
-            { id: 'room', icon: 'copy', label: hud.room, value: '74X8VB' },
-            { id: 'timer', icon: 'timer', label: hud.reveal, value: '02:46' },
-          ]}
-          actions={
-            <GameHudActions label={hud.tools}>
-              <GameIconButton label={hud.history}>
-                <GameAssetIcon icon="scroll" size="sm" />
-              </GameIconButton>
-              <GameIconButton label={hud.settings}>
-                <GameAssetIcon icon="settings" size="sm" />
-              </GameIconButton>
-            </GameHudActions>
-          }
-        />
+        <GameHudActions label={hud.tools}>
+          <GameIconButton label={hud.history}>
+            <GameAssetIcon icon="scroll" size="sm" />
+          </GameIconButton>
+          <GameIconButton label={hud.settings}>
+            <GameAssetIcon icon="settings" size="sm" />
+          </GameIconButton>
+        </GameHudActions>
         <div aria-hidden="true" className="game-ui-table-prop">
           <span className="game-ui-seat is-host" />
           <span className="game-ui-seat is-guest-a" />

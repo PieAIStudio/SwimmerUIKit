@@ -1,16 +1,13 @@
 import { type ReactNode } from 'react';
+import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GameAssetIcon } from '../../../icons/GameAssetIcon/GameAssetIcon';
 
 import { GameBadge } from '../../../feedback/GameBadge/GameBadge';
 
-import { GameHud } from '../../../game/GameHud/GameHud';
-
 import { GameProgress } from '../../../feedback/GameProgress/GameProgress';
 
 import { GameButton } from '../../../controls/GameButton/GameButton';
-
-import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
 import { GameIconButton } from '../../../controls/GameIconButton/GameIconButton';
 
@@ -41,30 +38,14 @@ export function OverlayGlassCompare(): ReactNode {
             }
           : {})}
       >
-        <GameHud
-          label={hud.label}
-          items={[
-            {
-              id: 'role',
-              icon: 'lock',
-              label: hud.youAre,
-              value: hud.roleValue,
-              meta: hud.rolePrivate,
-            },
-            { id: 'room', icon: 'copy', label: hud.room, value: '74X8VB' },
-            { id: 'timer', icon: 'timer', label: hud.reveal, value: '02:46' },
-          ]}
-          actions={
-            <GameHudActions label={hud.tools}>
-              <GameIconButton label={hud.history}>
-                <GameAssetIcon icon="scroll" size="sm" />
-              </GameIconButton>
-              <GameIconButton label={hud.settings}>
-                <GameAssetIcon icon="settings" size="sm" />
-              </GameIconButton>
-            </GameHudActions>
-          }
-        />
+        <GameHudActions label={hud.tools}>
+          <GameIconButton label={hud.history}>
+            <GameAssetIcon icon="scroll" size="sm" />
+          </GameIconButton>
+          <GameIconButton label={hud.settings}>
+            <GameAssetIcon icon="settings" size="sm" />
+          </GameIconButton>
+        </GameHudActions>
         <GamePanel title={b.panelTitle}>
           <div className="game-ui-hud-cluster">
             <GameBadge tone="ai">{b.aiBadge}</GameBadge>

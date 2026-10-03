@@ -35,6 +35,10 @@ related:
 
 **发布前补齐（S7–S14）**：Owner 2026-10-03 决定发布前一次解决产品接入暴露的 11 个问题，不兼容旧写法；黏土图标退场、中文默认字体用资源圆体；完成后以 `3.0.0-rc.1` 发布到 npm `next` 标签（`latest` 保持 2.14.0）。任务书：[PLAN-UIKIT-3-COMPLETION](../../plans/active/PLAN-UIKIT-3-COMPLETION.md)。下文 S6 的 `3.0.0` 本地候选由该计划的 rc.1 取代。
 
+| 阶段 | 进度与证据 |
+| --- | --- |
+| S7 | 移除五个未公开组件及所有关联代码；指南逐项覆盖全部公开值，缺行反例检查接入 verify。门禁记录：.devspace-reports/uikit-3-completion/S7/。 |
+
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
 
 候选文件：`.scratch/s6/final/swimmer-ui-kit-3.0.0.tgz`。同目录 `SHA256SUMS` 与 `package-check/receipt.json` 用于交接校验；`packed-browser/` 是真实 tarball 导入后的十二组合、原生交互和 390px 检查，依赖来自本仓库的隔离夹具，不是 University 的安装验收。`negative-gates/` 记录缺文件或改字节的四个坏包都被拒绝，不能用旧的通过回执掩盖失败。

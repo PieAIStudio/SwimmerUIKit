@@ -76,6 +76,72 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 
 声音默认关闭。GameButton 的 sound 是显式选择；playGameInteractionSound、playGameCardRevealSound 只在已允许的用户交互里发声，音量、暂停和偏好由宿主负责。共享上下文适配用 playGameInteractionSoundForContext，不复制音频引擎。
 
+## 全部公开值：用途与边界
+
+这里每个名字都有一条用途说明；参数类型以生成的接口清单为准。自动检查会拒绝缺行，不用在名字表里猜用法。
+
+| 公开值 | 什么时候用，什么时候不用 |
+| --- | --- |
+| `GameButton` | 有文字的动作；primary 只给唯一下一步，表单提交明确写 type。 |
+| `GameCheckbox` | 可独立勾选的原生表单项，不冒充互斥页签。 |
+| `GameField` | 给输入组织标签、说明和错误；验证规则仍由宿主负责。 |
+| `GameIconButton` | 只有图标的动作，必须提供 label；图案不能代替名称。 |
+| `GameInput` | 单行原生输入，保留输入法、焦点与表单语义。 |
+| `GameLanguageMenu` | 展示宿主提供的语言选项，只报告选择，不安装语言引擎。 |
+| `GameListRow` | 列表选择与右侧独立动作；不要在左侧内容内嵌套按钮。 |
+| `GameOtpInput` | 数字验证码输入，不处理发送、认证和限流。 |
+| `GameSegmentedControl` | 少量互斥选项，值归宿主管理。 |
+| `GameSelect` | 原生下拉选项，不提供异步搜索。 |
+| `GameSlider` | 有边界的连续数值输入，宿主给清楚单位。 |
+| `GameTabs` | 切换内容页签，宿主连好真实 tabpanel。 |
+| `GameTextArea` | 多行原生编辑，不因换主题或语言重建。 |
+| `GameToggle` | 即时开关，同步 checked 和对应功能状态。 |
+| `GameMaterialSwatches` | 通用颜色或图案选择，不绑定地形、资产或头像数据。 |
+| `GameBadge` | 简短状态或标记，不是可点击按钮。 |
+| `GameCallout` | 正文旁的可读提醒，重要错误应持续可见。 |
+| `GameEmptyState` | 解释当前没有内容的原因，并提供宿主动作。 |
+| `GameHelpTip` | 可省略的短解释，不放必要费用或交互表单。 |
+| `GameLoadingState` | 表示真实加载中，不承诺完成时间。 |
+| `GameProgress` | 已知数值的真实进度，不伪造业务完成。 |
+| `GamePrompt` | 短操作提示，不代替实际输入控件。 |
+| `GameToast` | 单条短通知；排队、持久化和重要错误归宿主。 |
+| `GameTooltip` | 可聚焦目标的补充说明，不作为唯一可访问名称。 |
+| `playGameCardRevealSound` | 明确允许的揭卡交互音效，默认不自动发声。 |
+| `playGameInteractionSound` | 主动交互中的提示音，偏好与音量由产品决定。 |
+| `playGameInteractionSoundForContext` | 接宿主已有音频上下文，不另起音频引擎。 |
+| `GameCollapsiblePanel` | 收起一块信息；需要持久编辑时保持内容身份。 |
+| `GameDialog` | 内联对话内容，不会阻断背景或创建模态层。 |
+| `GameHistoryPanel` | 展示宿主提供的历史，不是历史存储服务。 |
+| `GameHudActions` | 排列游戏界面工具按钮，不拥有场景和快捷键逻辑。 |
+| `GameModal` | 原生模态 dialog；编辑跨关闭保留用 keepMounted。 |
+| `GamePanel` | 组织一块信息与标题，不加业务控制器。 |
+| `GameShell` | 安排场景及 HUD、侧栏、移动与底栏槽位。 |
+| `FirstSessionOnboarding` | 首次进入的有限引导；是否出现和持久记录由宿主决定。 |
+| `GameAvatar` | 展示头像；静态 plaque 相框不用于普通控件。 |
+| `GameCollectibleCard` | 收藏卡片翻面与倾斜，不决定获得规则和稀有度。 |
+| `useGameCardOrientation` | 卡册共享的显式设备倾斜输入，不把 enabled 当成已收到硬件样本。 |
+| `GameCollectibleCardSlot` | 收藏卡空位，不表示已经获得奖励。 |
+| `GameFactList` | 显示简短事实和值，数据由宿主提供。 |
+| `GameMovementPad` | 提供方向输入界面，位移和碰撞仍归游戏。 |
+| `GameRadialMenu` | 少量空间动作入口，选择不等于授权执行。 |
+| `GameSplash` | 显示真实启动阶段，关闭时机不用假计时器冒充加载完成。 |
+| `GameStageTile` | 展示关卡入口及选择，进度与解锁归产品。 |
+| `setLiquidGooeyBudget` | 配置宿主液体资源上限，不为测试通过临时抬高预算。 |
+| `liquidFormItem` | 为高级液体组合提供动作姿态，不导出整套内部配方表。 |
+| `LiquidGroup` | 多体装饰的共同几何和预算，不代替真实 DOM 控件。 |
+| `LiquidSurface` | 单体装饰，不包裹每个普通导航制造液体按钮。 |
+| `GAME_UI_TARGETS` | 引用品牌触控目标尺寸约定，实际触达仍需产品验收。 |
+| `GAME_UI_THEME_CONTRACT` | 查明主题公开属性和值，不创建第二套主题系统。 |
+| `GAME_UI_TOKENS` | 在跨栈代码引用语义 CSS 变量，不复制颜色原值。 |
+| `GAME_UI_STYLES` | 枚举官方六种风格，具体配色仍由 token 块决定。 |
+| `GAME_UI_DEFAULT_STYLE` | 引用缺省风格，不在每个产品写另一份默认值。 |
+| `CLAY_ICON_NAMES` | 当前静态图标目录；S8 将随素材换代移除。 |
+| `getClayIconPath` | 当前图标路径解析；升级到 S8 后改用内联图标。 |
+| `setClayAssetBasePath` | 当前静态资源根配置，不支持跨产品资源服务。 |
+| `setClayAssetMode` | 当前资源模式选择，S8 不再需要初始化。 |
+| `getClayAssetMode` | 读取当前资源模式，不判断业务状态。 |
+| `GameAssetIcon` | 当前素材图标，S8 将整体替换为线条图标。 |
+
 ## 无障碍基线
 
 保留可访问名字、原生焦点环、禁用语义与表单重置。默认触控目标至少 44px；compact 是显式密度选择，产品仍需验收其触达性。选中不仅靠颜色，强制配色使用系统边和状态；减少动态不取消正常操作。换语言/风格不重新挂载编辑内容。

@@ -1,23 +1,21 @@
 import { readFileSync } from 'node:fs';
-import { readComponentStyles } from '../../../tests/helpers/styles';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readComponentStyles } from '../../../tests/helpers/styles';
 
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
 
-import { GameBadge } from '../../feedback/GameBadge/GameBadge';
-
-import { GameHud } from '../../game/GameHud/GameHud';
 import { GameButton } from '../../controls/GameButton/GameButton';
-import { GameProgress } from '../../feedback/GameProgress/GameProgress';
 import { GameIconButton } from '../../controls/GameIconButton/GameIconButton';
+import { GameBadge } from '../../feedback/GameBadge/GameBadge';
+import { GameProgress } from '../../feedback/GameProgress/GameProgress';
 
-import { GamePanel } from '../GamePanel/GamePanel';
 import { GAME_UI_OVERLAY } from '../../tokens/index';
 import { overlayTokens } from '../../tokens/references';
+import { GamePanel } from '../GamePanel/GamePanel';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
 const stylesCss = readComponentStyles();
@@ -131,7 +129,6 @@ describe('overlay glass component rules', () => {
 
   it('exposes compact density rules orthogonal to glass tone', () => {
     expect(stylesCss).toContain("[data-game-ui-density='compact'] .game-ui-button");
-    expect(stylesCss).toContain("[data-game-ui-density='compact'] .game-ui-hud-chip");
     expect(stylesCss).toContain("[data-game-ui-density='compact'] .game-ui-input");
     expect(stylesCss).toMatch(
       /\[data-game-ui-density='compact'\] \.game-ui-button[\s\S]*?min-height:\s*36px/,
@@ -145,15 +142,9 @@ describe('overlay glass component rules', () => {
         {...{ [GAME_UI_OVERLAY.toneAttr]: GAME_UI_OVERLAY.toneGlass }}
         {...{ [GAME_UI_OVERLAY.densityAttr]: GAME_UI_OVERLAY.densityCompact }}
       >
-        <GameHud
-          label="HUD"
-          items={[{ id: 'room', icon: 'copy', label: 'Room', value: '74X8' }]}
-          actions={
-            <GameIconButton label="Settings">
-              <GameAssetIcon icon="settings" size="sm" />
-            </GameIconButton>
-          }
-        />
+        <GameIconButton label="Settings">
+          <GameAssetIcon icon="settings" size="sm" />
+        </GameIconButton>
         <GamePanel title="Dialogue">
           <GameBadge tone="ai">LIVE</GameBadge>
           <GameProgress label="Affinity" value={62} />
@@ -169,6 +160,5 @@ describe('overlay glass component rules', () => {
     expect(html).toContain('game-ui-button--primary');
     expect(html).toContain('game-ui-badge');
     expect(html).toContain('game-ui-progress');
-    expect(html).toContain('game-ui-hud-chip');
   });
 });

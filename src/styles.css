@@ -20,16 +20,12 @@
 @import './controls/GameToggle/component.css';
 @import './game/GameRadialMenu/component.css';
 @import './icons/GameAssetIcon/component.css';
-@import './game/GameHud/component.css';
 @import './controls/GameLanguageMenu/component.css';
 @import './feedback/GameBadge/component.css';
 @import './game/FirstSessionOnboarding/component.css';
 @import './game/GameStageTile/component.css';
-@import './game/FirstSessionHud/component.css';
-@import './game/GameOrientationGate/component.css';
 @import './controls/GameSlider/component.css';
 @import './feedback/GameTooltip/component.css';
-@import './game/GameCardFan/component.css';
 @import './feedback/GameLoadingState/component.css';
 @import './controls/GameInput/component.css';
 @import './controls/GameField/component.css';
@@ -40,7 +36,6 @@
 @import './feedback/GameEmptyState/component.css';
 @import './containers/GameShell/component.css';
 @import './game/GameFactList/component.css';
-@import './controls/GameActionGrid/component.css';
 @import './game/GameMovementPad/component.css';
 @import './controls/GameMaterialSwatches/component.css';
 @import './containers/GameCollapsiblePanel/component.css';

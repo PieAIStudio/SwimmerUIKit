@@ -45,6 +45,13 @@ export function migrationRows(current) {
     .filter((item) => retained.get(item.name) !== item.kind)
     .map((item) => {
       let action = mappedNames[item.name];
+      if (
+        /\/GameActionGrid\/|\/GameCardFan\/|\/GameHud\/|\/GameOrientationGate\/|\/FirstSessionHud\//.test(
+          item.module,
+        )
+      )
+        action =
+          'S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。';
       if (!action && /\.\/game\/(?:construction|terrain|assets|placement)\//.test(item.module))
         action =
           '删除 OwnMySpace 建造、施工或资产业务界面；产品继续锁定旧版，升级时迁移到产品自身的业务模块，不在品牌包保留兼容层。';
