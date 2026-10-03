@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
-import { GameAssetIcon } from '../../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../../icons/GameIcon/GameIcon';
 
 import { GameBadge } from '../../../feedback/GameBadge/GameBadge';
 
@@ -16,14 +16,14 @@ import { GamePanel } from '../../../containers/GamePanel/GamePanel';
 import { GAME_UI_OVERLAY } from '../../../tokens/index';
 import { useCopy } from '../context';
 
-/** Same HUD cluster in default clay vs official overlay glass, on a busy stage. */
+/** Same HUD cluster in default flat vs official overlay glass, on a busy stage. */
 export function OverlayGlassCompare(): ReactNode {
   const { hud, buttons: b } = useCopy();
-  const cluster = (scope: 'clay' | 'glass'): ReactNode => {
+  const cluster = (scope: 'flat' | 'glass'): ReactNode => {
     const glass = scope === 'glass';
     return (
       <div
-        aria-label={glass ? 'Overlay glass HUD' : 'Default clay HUD'}
+        aria-label={glass ? 'Overlay glass HUD' : 'Default flat HUD'}
         className={[
           'game-ui-stage-world',
           'game-ui-overlay-glass-proof',
@@ -40,14 +40,14 @@ export function OverlayGlassCompare(): ReactNode {
       >
         <GameHudActions label={hud.tools}>
           <GameIconButton label={hud.history}>
-            <GameAssetIcon icon="scroll" size="sm" />
+            <GameIcon icon="scroll" size="sm" />
           </GameIconButton>
           <GameIconButton label={hud.settings}>
-            <GameAssetIcon icon="settings" size="sm" />
+            <GameIcon icon="settings" size="sm" />
           </GameIconButton>
         </GameHudActions>
         <GamePanel title={b.panelTitle}>
-          <div className="game-ui-hud-cluster">
+          <div className="game-ui-preview-actions">
             <GameBadge tone="ai">{b.aiBadge}</GameBadge>
             <GameBadge tone="success">{b.readyBadge}</GameBadge>
             <GameProgress label={hud.reveal} value={68} />
@@ -66,10 +66,10 @@ export function OverlayGlassCompare(): ReactNode {
     <div className="game-ui-overlay-glass-compare">
       <article className="game-ui-overlay-glass-column">
         <header>
-          <strong>Default clay</strong>
+          <strong>Default flat</strong>
           <span className="game-ui-small-copy">parchment surfaces · 44px floor</span>
         </header>
-        {cluster('clay')}
+        {cluster('flat')}
       </article>
       <article className="game-ui-overlay-glass-column">
         <header>

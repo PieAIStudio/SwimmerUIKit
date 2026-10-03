@@ -58,5 +58,17 @@
   {
     "before": "把 variant=\"primary\" 用于多个同级选择或普通强调",
     "after": "primary 专指推动主线的 CTA，一屏最多一个。选择使用对应选项组件或 aria-pressed 的普通按钮，选中带对勾且不扩大点击区域。"
+  },
+  {
+    "before": "`./assets/*` 与 `swimmer-ui-assets`",
+    "after": "全部删除；351个旧素材不再随包提供。GameIcon 直接绘制 SVG，不请求图片。彩色插画先由产品自行保存，不能保留旧包路径作为隐式依赖。"
+  },
+  {
+    "before": "图标 `style=\"game|line\"`、`useSourceAsset`、`size=\"xl\"`",
+    "after": "删除图标族和资源选择参数；尺寸为 sm16 / md20 / lg24，原 xl 使用 lg 或由产品决定插画，不提供旧别名。"
+  },
+  {
+    "before": "`GAME_UI_TOKENS.iconXl / cardFanWidth` 及对应旧尺寸变量",
+    "after": "删除；图标只保留 iconSm16、iconMd20、iconLg24，默认尺寸由图标语义变量提供。不保留已删卡扇的尺寸出口。"
   }
 ]

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 import { GameBadge } from '../../feedback/GameBadge/GameBadge';
 
@@ -42,7 +42,7 @@ export function FirstSessionOnboarding({
     >
       <div className="swimmer-first-session-onboarding-scrim" />
       <div className="swimmer-first-session-onboarding-card">
-        <GameAssetIcon icon="trophy" size="xl" />
+        <GameIcon icon="trophy" size="lg" />
         <GameBadge tone="warning">{labels.badge}</GameBadge>
         <h2 id="swimmer-first-session-onboarding-title">{labels.title}</h2>
         <p>{labels.body}</p>

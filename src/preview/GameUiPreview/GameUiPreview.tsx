@@ -13,7 +13,6 @@ import { CopyContext } from './context';
 import { PREVIEW_COPY } from './data/copy';
 import { type PreviewLang } from './data/copyTypes';
 import { ButtonStates } from './sections/ButtonStates';
-import { CardAndAssetSamples } from './sections/CardAndAssetSamples';
 import { FirstSessionSamples } from './sections/FirstSessionSamples';
 import { FormsAndDisplay } from './sections/FormsAndDisplay';
 import { HudAndStage } from './sections/HudAndStage';
@@ -38,7 +37,7 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
   const heroBody = body && lang === 'en' ? body : copy.heroBody;
 
   useEffect(() => {
-    document.documentElement.dataset.gameUiPreview = 'clay';
+    document.documentElement.dataset.gameUiPreview = 'reference';
     return () => {
       delete document.documentElement.dataset.gameUiPreview;
     };
@@ -46,10 +45,7 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
 
   return (
     <CopyContext.Provider value={copy}>
-      <main
-        aria-label="Swimmer UI Kit clay preview"
-        className="game-ui-preview game-ui-clay-preview"
-      >
+      <main aria-label="Swimmer UI Kit preview" className="game-ui-preview game-ui-preview-canvas">
         <header className="game-ui-preview-hero">
           <GameBadge tone="ai">@pieai/swimmer-ui-kit</GameBadge>
           <GameLanguageMenu
@@ -156,7 +152,6 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
           <ButtonStates />
           <HudAndStage />
           <ModalAndStates />
-          <CardAndAssetSamples />
           <GameHistoryPanel entries={copy.history} label={copy.historyLabel} />
         </section>
 
@@ -171,7 +166,7 @@ export function GameUiPreview({ title, body }: GameUiPreviewProps): ReactNode {
         >
           <h2 id="game-ui-preview-overlay-glass-title">{copy.sections.overlayGlass}</h2>
           <p className="game-ui-small-copy">
-            Official HUD-on-scene tone: dark translucent glass, thin light border, no clay cast
+            Official HUD-on-scene tone: dark translucent glass, thin light border, no flat cast
             shadow, compact density. Use on any container that wraps scene-overlay chrome (3D
             tavern, cinematic stage). Nest inside light or dark theme.
           </p>

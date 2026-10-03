@@ -1,6 +1,6 @@
 import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
 import { useId, useState, type ReactNode } from 'react';
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 export interface GameLanguageMenuProps {
   className?: string;
@@ -51,7 +51,7 @@ export function GameLanguageMenu({
         data-game-ui-paint=""
       >
         <DropletSurface />
-        <GameAssetIcon icon="globe" size="sm" />
+        <GameIcon icon="globe" size="sm" />
         <span>{triggerLabel}</span>
       </button>
       {open ? (

@@ -2,9 +2,9 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 import { controlHue, type GameUiHue } from '../../tokens/hue';
 
 /**
- * Clay form primitives. These are intentionally thin wrappers over the native
+ * Flat form primitives. These are intentionally thin wrappers over the native
  * <input>/<textarea>/checkbox so they stay fully accessible and uncontrolled-
- * or controlled-friendly; the clay look lives entirely in CSS. Text fields use
+ * or controlled-friendly; the flat look lives entirely in CSS. Text fields use
  * forwardRef so hosts can focus them (e.g. refocus a chat composer after send).
  */
 

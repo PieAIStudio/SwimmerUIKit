@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 import { GameBadge, type GameBadgeTone } from '../../feedback/GameBadge/GameBadge';
 
-import type { ClayIconName } from '../../icons/assets';
+import type { GameIconName } from '../../icons/registry';
 import { type GameSurfaceDensity } from '../../containers/shared/surfaceTypes';
 
 export interface GameFactItem {
-  icon?: ClayIconName;
+  icon?: GameIconName;
   id: string;
   label: string;
   meta?: string;
@@ -37,7 +37,7 @@ export function GameFactList({
       {facts.map((fact) => (
         <article className="game-ui-fact" key={fact.id}>
           {fact.icon ? (
-            <GameAssetIcon icon={fact.icon} size={density === 'dense' ? 'sm' : 'md'} />
+            <GameIcon icon={fact.icon} size={density === 'dense' ? 'sm' : 'md'} />
           ) : null}
           <span className="game-ui-fact-copy">
             <small>{fact.label}</small>

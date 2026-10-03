@@ -4,7 +4,7 @@ import { useState, type ReactNode } from 'react';
 import { GameSegmentedControl } from '../../index';
 
 const meta = {
-  title: 'Clay/Controls/GameSegmentedControl',
+  title: 'Swimmer/Controls/GameSegmentedControl',
   component: GameSegmentedControl,
   tags: ['autodocs'],
   parameters: {

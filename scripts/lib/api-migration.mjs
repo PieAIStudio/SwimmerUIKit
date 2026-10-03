@@ -1,6 +1,15 @@
 import { readFileSync } from 'node:fs';
 
 const mappedNames = {
+  GameAssetIcon:
+    '改用 GameIcon；图标语义名字保留，变为 currentColor 的内联线条。size 只支持 sm16 / md20 / lg24；需要彩色插画的产品先自行保存其旧图，不依赖品牌包。',
+  GameAssetIconProps: '改用 GameIconProps，删除资源路径与 game/line 表面选择参数。',
+  ClayIconName: '改用 GameIconName；原清单的35个实际名字保留，新增13个常用名字。',
+  CLAY_ICON_NAMES: '改用 GAME_ICON_NAMES；全部48个名字对应一套内联 SVG 线条。',
+  getClayIconPath: '删除图片路径解析；用 GameIcon 或 icon-paths 子入口的独立路径数据。',
+  setClayAssetMode: '删除，无须替代；内联 SVG 没有资源模式初始化。',
+  getClayAssetMode: '删除，无须替代；不再存在资源模式。',
+  setClayAssetBasePath: '删除，无须替代；不再存在可配置图片根。',
   GameButtonSurface:
     '删除独立皮肤轴。GameButton 的 primary 固定为潮汐液体 CTA，其余变为二维水滴；GameIconButton 固定二维水滴。不保留 flat/liquid/plaque 按钮兼容开关。GameAvatar 的独立静态铜牌相框仍保留。',
   LiquidFinish:
@@ -35,7 +44,7 @@ const mappedNames = {
   GAME_UI_LIQUID_METAL_TOKENS: '删除零使用金属按钮及其 token；主操作用 GameButton。',
   useGameSplashDelay:
     '删除未被产品使用的计时帮助函数；产品根据真实加载状态决定何时显示 GameSplash。',
-  getClayCatalogPaths: '删除展厅素材表访问；图标用 getClayIconPath。',
+  getClayCatalogPaths: '删除展厅素材表访问；图标用 GameIcon。',
 };
 
 export function migrationRows(current) {
@@ -68,7 +77,7 @@ export function migrationRows(current) {
         action = '删除未使用的独立揭卡音频帮助入口；使用 playGameCardRevealSound。';
       if (!action && /^(?:CLAY_|Clay|acknowledgeClay|getClay)/.test(item.name))
         action =
-          '删除内部素材目录或解析帮助入口；图标用 CLAY_ICON_NAMES / getClayIconPath，初始化用 setClayAssetMode / setClayAssetBasePath。公开 assets 文件路径不变。';
+          '删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。';
       if (!action && /TOKENS$|GAME_UI_OVERLAY|WAVINESS/.test(item.name))
         action =
           '删除内部 token 分类或渲染安全常量；组件自行读取语义变量，宿主常用引用使用 GAME_UI_TOKENS。';
@@ -81,6 +90,7 @@ export function migrationRows(current) {
 export function renderMigration(current) {
   const rows = migrationRows(current);
   const propertyRows = JSON.parse(readFileSync('scripts/migration-3.0-changes.json', 'utf8'));
+  const icons = JSON.parse(readFileSync('scripts/game-icons-source.json', 'utf8')).icons;
   return `---
 id: REF-MIGRATION-3-0
 title: UIKit 3.0 Migration
@@ -121,6 +131,14 @@ ${rows.map((row) => `| \`${row.name}\` | ${row.kind} | ${row.action} |`).join('\
 | 旧用法 | 新用法与边界 |
 | --- | --- |
 ${propertyRows.map((row) => `| ${row.before} | ${row.after} |`).join('\n')}
+
+## 图标对应与新增名字
+
+计划中标为41的旧名字逐项清单实际为35个；完整保留该清单，加13个名字，共48个，没有增加未约定图标。全部改成内联线条；彩色插画需要由产品在升级前自行保存。独立路径通过 icon-paths 子入口具名导入，只有名称查询组件需要完整的小型名称表。
+
+| 图标名 | 新写法 | 独立数据导出 | Lucide 1.51.0 来源 |
+| --- | --- | --- | --- |
+${icons.map((icon) => '| ' + icon.name + ' | GameIcon icon="' + icon.name + '" | ' + icon.name.toUpperCase().replaceAll('-', '_') + '_ICON | ' + icon.upstream + ' |').join('\n')}
 
 ## 已知需要改深色判断的产品
 

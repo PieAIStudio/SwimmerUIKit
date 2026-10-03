@@ -159,3 +159,10 @@ runtime.
 4. If the reviewed scope or adopted patterns change, update this file,
    `donors-individual-lock.json`, and `NOTICE` in the same change, then run the normal
    package verification ladder.
+
+## Inline icon geometry
+
+The 48 semantic GameIcon shapes come from Lucide 1.51.0 (ISC and Feather-derived MIT).
+Exact archive and per-icon source hashes are owned by `scripts/game-icons-source.json`;
+`generate-game-icons.py` rejects any changed source. The temporary source download is
+not packaged. Only reviewed path data is shipped, with the complete license in NOTICE.

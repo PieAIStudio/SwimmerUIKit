@@ -71,7 +71,7 @@ export const LIQUID_GOOEY_FILTER_DEFAULTS = {
 function insetContour(shadow: ShadowLayer): 'bin' | 'shape' {
   // Spread needs a hard mask: morphology on a soft fringe paints a hairline.
   // Offset-only inset is drawn from the anti-aliased silhouette so the 2px
-  // clay highlight does not leak as a dashed rim through a binarised contour.
+  // flat highlight does not leak as a dashed rim through a binarised contour.
   return shadow.spread !== 0 ? 'bin' : 'shape';
 }
 

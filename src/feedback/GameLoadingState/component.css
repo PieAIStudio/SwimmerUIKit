@@ -8,7 +8,7 @@
 @layer swimmer-ui {
   .game-ui-loading-state {
     display: inline-flex;
-    min-height: 48px;
+    min-height: 24px;
     align-items: center;
     gap: 8px;
     border: var(--game-ui-stroke);
@@ -21,10 +21,5 @@
   .game-ui-loading-state[data-loading-tone='error'] {
     border-color: color-mix(in srgb, var(--game-ui-danger) 42%, transparent);
     background: color-mix(in srgb, var(--game-ui-danger) 12%, transparent);
-  }
-  .game-ui-loading-state img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
   }
 }

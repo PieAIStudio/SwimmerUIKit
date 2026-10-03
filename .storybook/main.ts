@@ -20,7 +20,7 @@ const config: StorybookConfig = {
       options: { viteConfigPath: './.storybook/vite.config.ts' },
     },
   },
-  staticDirs: ['../public'],
+  staticDirs: [],
   // The kit is 100% standard CSS since 1.0 (the Tailwind @theme bridge moved
   // to the optional tailwind-bridge.css export), so Storybook needs no CSS
   // plugin. staticDirs is the single owner of public assets; disabling Vite's

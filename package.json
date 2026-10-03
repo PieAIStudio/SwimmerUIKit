@@ -20,7 +20,6 @@
     "url": "git+https://github.com/PieAIStudio/SwimmerUIKit.git"
   },
   "bin": {
-    "swimmer-ui-assets": "./bin/swimmer-ui-assets.mjs",
     "swimmer-ui-check": "./bin/swimmer-ui-check.mjs"
   },
   "files": [
@@ -55,12 +54,15 @@
       "types": "./dist/preview.d.ts",
       "default": "./dist/preview.js"
     },
-    "./assets/*": "./dist/assets/*",
     "./styles.css": "./dist/styles.css",
     "./preview.css": "./dist/preview.css",
     "./fonts.css": "./dist/fonts.css",
     "./tailwind.css": "./dist/tailwind.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./icon-paths": {
+      "types": "./dist/icon-paths.d.ts",
+      "default": "./dist/icon-paths.js"
+    }
   },
   "publishConfig": {
     "access": "public",

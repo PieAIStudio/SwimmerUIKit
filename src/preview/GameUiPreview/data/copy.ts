@@ -6,12 +6,12 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
   en: {
     triggerLabel: 'EN',
     langMenuLabel: 'Preview language',
-    heroTitle: 'Clay game UI kit',
+    heroTitle: 'Flat game UI kit',
     heroBody:
-      'Self-contained React 19 + TypeScript game UI kit — zero runtime dependencies, 100% standard CSS. Tokens are CSS variables and the components do not depend on any host store or i18n.',
+      'React 19 + TypeScript UI with standard CSS. Flat droplet controls, one liquid main action, and inline line icons. Product state and language remain host-owned.',
     sections: {
       tokens: 'Tokens',
-      icons: 'Icon families',
+      icons: 'Line icons',
       typography: 'Typography scale',
       components: 'Component surface',
       forms: 'Forms, inputs and status',
@@ -19,7 +19,6 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       liquid: 'Liquid surface',
       liquidMetal: 'Liquid metal CTA',
       firstSession: 'First-session shell',
-      orientation: 'Orientation gate preview',
       responsive: 'Responsive proof targets',
     },
     tokenGroups: {
@@ -39,18 +38,7 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       assetSizing: 'asset sizing',
     },
     iconsIntro:
-      'Every icon ships in two families. Cards default to the sculpted game family; the flat line family is the utility alternate.',
-    gallery: {
-      gameLabel: 'Game · primary',
-      gameHint:
-        'Sculpted, colorful clay objects — the default, on-brand look for anything a player sees.',
-      lineLabel: 'Line · alternate',
-      lineHint:
-        'Flat white glyphs for dense toolbars or when a sculpted object would feel too heavy.',
-      spriteLabel: 'Game sprites · decorative',
-      spriteHint:
-        'Loot, weapons, currency and rewards from the same clay pack. For popups, inventories and win screens — not buttons or toolbars. Kept out of the UI icon set on purpose.',
-    },
+      '48 semantic names, one inline SVG line family. Icons inherit text colour; sizes are 16, 20 and 24 pixels. No image requests or initialization.',
     tiles: {
       daily: {
         badge: 'solo',
@@ -93,7 +81,7 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       kicker: 'Round status',
       h1: 'One of us isn’t.',
       h2: 'Read the table, vote, reveal.',
-      body: 'Clay UI text remains DOM-rendered for localization and accessibility while the game world stays visible underneath.',
+      body: 'Flat UI text remains DOM-rendered for localization and accessibility while the game world stays visible underneath.',
       small:
         'Reduced-motion keeps texture, shadow, and hierarchy but removes non-essential movement.',
     },
@@ -169,16 +157,6 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       loading: 'Opening the tavern portal…',
       loadingErr: 'The portal could not reach the tavern.',
     },
-    cards: {
-      fanTitle: 'Card fan',
-      fanLabel: 'Reveal card fan',
-      human: 'Human',
-      ai: 'AI',
-      sympathizer: 'Sympathizer',
-      assetTitle: 'Asset inventory reference',
-      assetNote:
-        'The kit exports source asset paths and inline SVG fallbacks. Source inventory includes:',
-    },
     firstSession: {
       controls: 'First session controls',
       emote: 'Emote',
@@ -208,32 +186,25 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       obStart: 'Start playing',
       obTitle: 'Learn the table in 30 seconds',
       obMoveT: 'Move',
-      obMoveB: 'Look around the clay table.',
+      obMoveB: 'Look around the flat table.',
       obReadT: 'Read',
       obReadB: 'Notice who sounds too clean.',
       obVoteT: 'Vote',
       obVoteB: 'Lock your guess before reveal.',
     },
     responsive: { desktop: 'desktop', mobileLandscape: 'mobile landscape' },
-    orientation: {
-      title: 'Please rotate your device',
-      body: 'Clay game surfaces are tuned for a landscape table. Rotate before live chat so keyboard, emotes, and vote rail do not crush the playfield.',
-      cta: 'Try landscape',
-      badge: 'Landscape only',
-      hint: 'Rotate manually if this browser blocks automatic landscape lock.',
-    },
     historyLabel: 'Round history',
     history: GAME_UI_PREVIEW_MESSAGES,
   },
   'zh-CN': {
     triggerLabel: '中',
     langMenuLabel: '预览语言',
-    heroTitle: '黏土游戏 UI 套件',
+    heroTitle: '平面水滴游戏 UI 套件',
     heroBody:
-      '自包含的 React 19 + TypeScript 游戏 UI 组件库——零运行时依赖、100% 标准 CSS。令牌即 CSS 变量,组件不依赖任何宿主状态库或 i18n。',
+      'React 19 + TypeScript 组件与标准 CSS。普通控件是平面水滴，主操作是液体，图标是内联线条；产品状态和语言仍由宿主负责。',
     sections: {
       tokens: '设计令牌',
-      icons: '图标双族',
+      icons: '线条图标',
       typography: '字号层级',
       components: '组件总览',
       forms: '表单、输入与状态',
@@ -241,7 +212,6 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       liquid: '液体表面',
       liquidMetal: '液态金属 CTA',
       firstSession: '首次会话外壳',
-      orientation: '横屏门预览',
       responsive: '响应式验证目标',
     },
     tokenGroups: {
@@ -260,16 +230,8 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       targets: '触控目标',
       assetSizing: '资源尺寸',
     },
-    iconsIntro: '每个图标都有两族。卡片默认用立体游戏风,扁平线性风是工具型备选。',
-    gallery: {
-      gameLabel: '游戏风 · 主用',
-      gameHint: '立体、彩色的黏土实物。玩家能看到的地方默认都用这一族,最贴合品牌。',
-      lineLabel: '线性 · 备选',
-      lineHint: '扁平白色线条图标,适合密集工具栏,或立体图标显得太重的场合。',
-      spriteLabel: '游戏素材 · 装饰',
-      spriteHint:
-        '同一套黏土包里的战利品、武器、货币与奖励。用于奖励弹窗、背包、胜利结算等场景,不用于按钮或工具栏。刻意不放进 UI 图标集,以免污染界面词汇。',
-    },
+    iconsIntro:
+      '48 个语义名字，一套内联 SVG 线条。颜色跟随文字，尺寸为 16、20、24 像素，不加载图片，也不需要初始化。',
     tiles: {
       daily: {
         badge: '单人',
@@ -312,7 +274,7 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       kicker: '回合状态',
       h1: '我们之中有"假"的。',
       h2: '读牌桌、投票、揭晓。',
-      body: '黏土 UI 文字始终由 DOM 渲染,方便本地化与无障碍,而游戏世界仍透在下方可见。',
+      body: '平面水滴 UI 文字始终由 DOM 渲染,方便本地化与无障碍,而游戏世界仍透在下方可见。',
       small: '降低动效会保留质感、阴影与层次,只去掉非必要的运动。',
     },
     buttons: {
@@ -387,15 +349,6 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       loading: '正在开启酒馆传送门…',
       loadingErr: '传送门无法连到酒馆。',
     },
-    cards: {
-      fanTitle: '卡牌扇',
-      fanLabel: '揭晓卡牌扇',
-      human: '真人',
-      ai: 'AI',
-      sympathizer: '同情者',
-      assetTitle: '资源清单参考',
-      assetNote: '套件导出源资源路径与内联 SVG 兜底。源清单包含:',
-    },
     firstSession: {
       controls: '首次会话控件',
       emote: '表情',
@@ -424,20 +377,13 @@ export const PREVIEW_COPY: Record<PreviewLang, PreviewCopy> = {
       obStart: '开始游戏',
       obTitle: '30 秒学会这一桌',
       obMoveT: '移动',
-      obMoveB: '环顾这张黏土牌桌。',
+      obMoveB: '环顾这张平面水滴牌桌。',
       obReadT: '研判',
       obReadB: '留意谁说得太干净。',
       obVoteT: '投票',
       obVoteB: '揭晓前锁定你的判断。',
     },
     responsive: { desktop: '桌面', mobileLandscape: '手机横屏' },
-    orientation: {
-      title: '请旋转你的设备',
-      body: '黏土游戏界面是为横屏牌桌调校的。开聊前请先横屏,以免键盘、表情与投票栏挤压牌面。',
-      cta: '试试横屏',
-      badge: '仅限横屏',
-      hint: '若浏览器拦截了自动横屏锁定,请手动旋转。',
-    },
     historyLabel: '回合历史',
     history: ZH_HISTORY_MESSAGES,
   },

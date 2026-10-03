@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameTextArea } from '../../index';
 
 const meta = {
-  title: 'Clay/Forms/GameTextArea',
+  title: 'Swimmer/Forms/GameTextArea',
   component: GameTextArea,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          '多行文本输入,与 GameInput 同款黏土描边。用于较长的输入,比如玩家写「判断」、反馈表单。',
+          '多行文本输入,与 GameInput 同款平面水滴描边。用于较长的输入,比如玩家写「判断」、反馈表单。',
       },
     },
   },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameAvatar } from '../../index';
 
 const meta = {
-  title: 'Clay/Display/GameAvatar',
+  title: 'Swimmer/Display/GameAvatar',
   component: GameAvatar,
   tags: ['autodocs'],
   parameters: {

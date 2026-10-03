@@ -207,7 +207,7 @@ try {
         10000,
         'The story must mount at the same virtual instant',
       );
-      await page.locator('#storybook-root .game-ui-clay-preview').first().waitFor();
+      await page.locator('#storybook-root .game-ui-preview-canvas').first().waitFor();
       await page.evaluate(async () => {
         await document.fonts.ready;
         await Promise.all(
@@ -215,7 +215,7 @@ try {
         );
       });
       const appliedTheme = await page
-        .locator('#storybook-root .game-ui-clay-preview')
+        .locator('#storybook-root .game-ui-preview-canvas')
         .first()
         .getAttribute('data-game-ui-theme');
       assert.equal(

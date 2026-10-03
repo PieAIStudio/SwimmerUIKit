@@ -6,7 +6,7 @@ import { readComponentStyles } from '../../../tests/helpers/styles';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 import { GameButton } from '../../controls/GameButton/GameButton';
 import { GameIconButton } from '../../controls/GameIconButton/GameIconButton';
@@ -73,7 +73,7 @@ describe('overlay glass tokens', () => {
 
   it('glass tone re-scopes surface/text/elevation tokens while keeping brand accents', () => {
     // Surface tone, not a full theme: brand accents intentionally inherit so
-    // primary/hover stay warm clay on dark glass.
+    // primary/hover stay warm flat on dark glass.
     const required = [
       '--game-ui-surface',
       '--game-ui-surface-raised',
@@ -99,7 +99,7 @@ describe('overlay glass tokens', () => {
     expect(glassVars.get('--game-ui-text')).toBe('var(--game-ui-overlay-glass-text)');
     expect(glassVars.get('--game-ui-shadow-button')).toBe('none');
     expect(glassVars.get('--game-ui-focus-ring')).toBe('var(--game-ui-overlay-glass-focus-ring)');
-    // Warm accent stays on the inherited clay/dark value — not redeclared here.
+    // Warm accent stays on the inherited flat/dark value — not redeclared here.
     expect(glassVars.has('--game-ui-accent')).toBe(false);
   });
 
@@ -124,7 +124,7 @@ describe('overlay glass component rules', () => {
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-input");
     expect(stylesCss).toContain('.game-ui-progress-flat-fill');
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-progress-track");
-    expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-asset-icon");
+    expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-icon");
   });
 
   it('exposes compact density rules orthogonal to glass tone', () => {
@@ -143,7 +143,7 @@ describe('overlay glass component rules', () => {
         {...{ [GAME_UI_OVERLAY.densityAttr]: GAME_UI_OVERLAY.densityCompact }}
       >
         <GameIconButton label="Settings">
-          <GameAssetIcon icon="settings" size="sm" />
+          <GameIcon icon="settings" size="sm" />
         </GameIconButton>
         <GamePanel title="Dialogue">
           <GameBadge tone="ai">LIVE</GameBadge>

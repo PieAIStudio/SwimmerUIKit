@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { getClayIconPath } from '../../icons/assets';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 export interface GameLoadingStateProps {
   label: string;
@@ -14,7 +14,7 @@ export function GameLoadingState({ label, tone = 'loading' }: GameLoadingStatePr
       data-loading-tone={tone}
       role={tone === 'error' ? 'alert' : 'status'}
     >
-      <img alt="" src={tone === 'error' ? getClayIconPath('alert') : getClayIconPath('timer')} />
+      <GameIcon icon={tone === 'error' ? 'alert' : 'timer'} size="lg" />
       <span>{label}</span>
     </div>
   );

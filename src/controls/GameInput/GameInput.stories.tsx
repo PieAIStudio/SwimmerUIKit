@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameInput } from '../../index';
 
 const meta = {
-  title: 'Clay/Forms/GameInput',
+  title: 'Swimmer/Forms/GameInput',
   component: GameInput,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          '黏土风格的单行文本输入框 —— 对原生 `<input>` 的薄封装(转发 ref,方便聚焦,比如发送后重新聚焦聊天框)。`invalid` 切换到危险态描边。',
+          '平面水滴风格的单行文本输入框 —— 对原生 `<input>` 的薄封装(转发 ref,方便聚焦,比如发送后重新聚焦聊天框)。`invalid` 切换到危险态描边。',
       },
     },
   },

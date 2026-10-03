@@ -47,7 +47,7 @@ function blockOf(css: string, selectorStart: string): string {
 const rootVars = parseVars(blockOf(themeCss, ':root'));
 const nightVars = parseVars(blockOf(themeCss, "[data-game-ui-theme='dark']"));
 
-describe('clay token exports', () => {
+describe('flat token exports', () => {
   it('exports CSS variable tokens for cross-stack integration', () => {
     expect(semanticTokens.background).toBe('var(--game-ui-bg)');
     expect(typeTokens.familyBody).toBe('var(--game-ui-font-body)');
@@ -398,7 +398,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     // every other src/*.tsx at split time). If one leaks back into
     // styles.css, every consumer starts paying for demo-only CSS again.
     const previewOnlyClasses = [
-      'game-ui-clay-preview',
+      'game-ui-preview-canvas',
       'game-ui-preview-hero',
       'game-ui-preview-section',
       'game-ui-swatch',

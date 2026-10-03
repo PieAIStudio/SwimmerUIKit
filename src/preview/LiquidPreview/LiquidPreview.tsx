@@ -23,7 +23,7 @@ export function LiquidPreview(): ReactNode {
   const copy = COPY[lang];
 
   useEffect(() => {
-    document.documentElement.dataset.gameUiPreview = 'clay';
+    document.documentElement.dataset.gameUiPreview = 'reference';
     return () => {
       delete document.documentElement.dataset.gameUiPreview;
     };
@@ -33,7 +33,7 @@ export function LiquidPreview(): ReactNode {
     <>
       <main
         aria-label="Swimmer UI Kit liquid surface"
-        className="game-ui-preview game-ui-clay-preview game-ui-liquid-page"
+        className="game-ui-preview game-ui-preview-canvas game-ui-liquid-page"
       >
         <header className="game-ui-preview-hero">
           <GameBadge tone="ai">@pieai/swimmer-ui-kit</GameBadge>

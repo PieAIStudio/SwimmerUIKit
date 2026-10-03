@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameDialog } from '../../index';
 
 const meta = {
-  title: 'Clay/Surfaces/GameDialog',
+  title: 'Swimmer/Surfaces/GameDialog',
   component: GameDialog,
   tags: ['autodocs'],
   parameters: {

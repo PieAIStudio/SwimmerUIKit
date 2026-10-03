@@ -36,7 +36,7 @@ related:
 | 空状态、通知、进度、简短解释 | GameEmptyState / GameToast / GameCallout / GameProgress / GameHelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 游戏外壳和 HUD 槽位 | GameShell / GameHudActions / GameFactList | 不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | GameAvatar / GameMaterialSwatches / GameCollectibleCard / GameSplash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
-| 图标 | GameAssetIcon / getClayIconPath | 先用 swimmer-ui-assets 复制包内素材，再设置 source 模式；公开 assets 路径保持。 |
+| 图标 | GameIcon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
 
 ## 液体、可选特效和预览的入口
 
@@ -135,12 +135,11 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GAME_UI_TOKENS` | 在跨栈代码引用语义 CSS 变量，不复制颜色原值。 |
 | `GAME_UI_STYLES` | 枚举官方六种风格，具体配色仍由 token 块决定。 |
 | `GAME_UI_DEFAULT_STYLE` | 引用缺省风格，不在每个产品写另一份默认值。 |
-| `CLAY_ICON_NAMES` | 当前静态图标目录；S8 将随素材换代移除。 |
-| `getClayIconPath` | 当前图标路径解析；升级到 S8 后改用内联图标。 |
-| `setClayAssetBasePath` | 当前静态资源根配置，不支持跨产品资源服务。 |
-| `setClayAssetMode` | 当前资源模式选择，S8 不再需要初始化。 |
-| `getClayAssetMode` | 读取当前资源模式，不判断业务状态。 |
-| `GameAssetIcon` | 当前素材图标，S8 将整体替换为线条图标。 |
+
+| `GameIcon` | 内联 SVG 图标；label 表示可朗读含义，省略时作为装饰。默认 md20，另有 sm16、lg24。 |
+| `GAME_ICON_NAMES` | 展厅或动态菜单需要的名称清单，不是第二套组件。 |
+
+独立的具名路径数据从 `@pieai/swimmer-ui-kit/icon-paths` 导入，例如 `CHECK_ICON`。该入口不引入 React、名称查询表或其他运行时库，可以按数据导出裁剪；用字符串名的 GameIcon 包含本包的小型名称表。图标的每条来源及对应导出见迁移表。
 
 ## 无障碍基线
 

@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { GameHudActions } from '../../../containers/GameHudActions/GameHudActions';
 
-import { GameAssetIcon } from '../../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../../icons/GameIcon/GameIcon';
 
 import { GameStageTile } from '../../../game/GameStageTile/GameStageTile';
 
@@ -14,13 +14,13 @@ export function HudAndStage(): ReactNode {
   const { hud, tiles } = useCopy();
   return (
     <div className="game-ui-stage-demo">
-      <div aria-label="Clay world HUD preview" className="game-ui-stage-world">
+      <div aria-label="Flat world HUD preview" className="game-ui-stage-world">
         <GameHudActions label={hud.tools}>
           <GameIconButton label={hud.history}>
-            <GameAssetIcon icon="scroll" size="sm" />
+            <GameIcon icon="scroll" size="sm" />
           </GameIconButton>
           <GameIconButton label={hud.settings}>
-            <GameAssetIcon icon="settings" size="sm" />
+            <GameIcon icon="settings" size="sm" />
           </GameIconButton>
         </GameHudActions>
         <div aria-hidden="true" className="game-ui-table-prop">

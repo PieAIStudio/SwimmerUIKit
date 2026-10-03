@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameCheckbox } from '../../index';
 
 const meta = {
-  title: 'Clay/Forms/GameCheckbox',
+  title: 'Swimmer/Forms/GameCheckbox',
   component: GameCheckbox,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          '原生 checkbox + 自定义黏土勾选框(隐藏原生框但保留可聚焦、可朗读)。与 GameToggle 的区别:checkbox 是表单里的「选择」,toggle 是即时生效的「开关」。',
+          '原生 checkbox + 自定义平面水滴勾选框(隐藏原生框但保留可聚焦、可朗读)。与 GameToggle 的区别:checkbox 是表单里的「选择」,toggle 是即时生效的「开关」。',
       },
     },
   },

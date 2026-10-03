@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.
 
-Compiler inventory: **135 named exports: 59 values and 76 types**.
+Compiler inventory: **129 named exports: 55 values and 74 types**.
 
 ## controls/ — Controls
 
@@ -200,14 +200,8 @@ Asset setup, catalogs and resolution
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `CLAY_ICON_NAMES` | value | [source](../../src/icons/assets.ts) |
-| `getClayIconPath` | value | [source](../../src/icons/assets.ts) |
-| `setClayAssetBasePath` | value | [source](../../src/icons/assets.ts) |
-| `setClayAssetMode` | value | [source](../../src/icons/assets.ts) |
-| `getClayAssetMode` | value | [source](../../src/icons/assets.ts) |
-| `ClayAssetMode` | type | [source](../../src/icons/assets.ts) |
-| `ClayIconName` | type | [source](../../src/icons/assets.ts) |
-| `ClayIconResolveOptions` | type | [source](../../src/icons/assets.ts) |
-| `ClayIconStyle` | type | [source](../../src/icons/assets.ts) |
-| `GameAssetIcon` | value | [source](../../src/icons/GameAssetIcon/GameAssetIcon.tsx) |
-| `GameAssetIconProps` | type | [source](../../src/icons/GameAssetIcon/GameAssetIcon.tsx) |
+| `GAME_ICON_NAMES` | value | [source](../../src/icons/registry.ts) |
+| `GameIconName` | type | [source](../../src/icons/registry.ts) |
+| `GameIconData` | type | [source](../../src/icons/types.ts) |
+| `GameIcon` | value | [source](../../src/icons/GameIcon/GameIcon.tsx) |
+| `GameIconProps` | type | [source](../../src/icons/GameIcon/GameIcon.tsx) |

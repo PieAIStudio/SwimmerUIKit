@@ -6,7 +6,7 @@ import { GameButton, LiquidGroup } from '../../index';
 import '../../preview/preview.css';
 
 const meta = {
-  title: 'Clay/Effects/LiquidGroup',
+  title: 'Swimmer/Effects/LiquidGroup',
   component: LiquidGroup,
   args: { children: null },
   tags: ['autodocs'],

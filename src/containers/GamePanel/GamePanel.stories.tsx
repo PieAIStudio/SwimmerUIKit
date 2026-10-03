@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GamePanel } from '../../index';
 
 const meta = {
-  title: 'Clay/Surfaces/GamePanel',
+  title: 'Swimmer/Surfaces/GamePanel',
   component: GamePanel,
   tags: ['autodocs'],
   parameters: {
@@ -21,6 +21,6 @@ export const Strong: Story = {
   args: {
     title: 'Buttons and controls',
     tone: 'strong',
-    children: 'Panel content goes here — group related controls or copy inside one clay surface.',
+    children: 'Panel content goes here — group related controls or copy inside one flat surface.',
   },
 };

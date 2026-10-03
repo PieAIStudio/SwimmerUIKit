@@ -5,7 +5,7 @@ import { GameButton, GameCollapsiblePanel, GameFactList, GameModal } from '../..
 import { GameWindowPanel } from '../GameWindowPanel/GameWindowPanel';
 
 const meta = {
-  title: 'Clay/Panel System/Overview',
+  title: 'Swimmer/Panel System/Overview',
   component: GameCollapsiblePanel,
   tags: ['autodocs'],
   parameters: {

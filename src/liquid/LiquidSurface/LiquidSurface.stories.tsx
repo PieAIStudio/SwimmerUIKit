@@ -11,7 +11,7 @@ import {
 import { LIQUID_FORMS, liquidFormGroup } from '../forms';
 
 const meta = {
-  title: 'Clay/Liquid/LiquidSurface',
+  title: 'Swimmer/Liquid/LiquidSurface',
   component: LiquidSurface,
   tags: ['autodocs'],
   parameters: {

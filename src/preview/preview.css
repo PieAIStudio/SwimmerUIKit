@@ -9,14 +9,14 @@
  * that's already loaded and does not redeclare any --game-ui-* tokens.
  */
 @layer swimmer-ui {
-  html[data-game-ui-preview='clay'],
-  html[data-game-ui-preview='clay'] body,
-  html[data-game-ui-preview='clay'] #root {
+  html[data-game-ui-preview='reference'],
+  html[data-game-ui-preview='reference'] body,
+  html[data-game-ui-preview='reference'] #root {
     min-height: 100%;
     margin: 0;
   }
 
-  .game-ui-clay-preview {
+  .game-ui-preview-canvas {
     min-height: 100dvh;
     padding: 24px;
     color: var(--game-ui-text);
@@ -34,21 +34,21 @@
       );
   }
 
-  .game-ui-clay-preview *,
-  .game-ui-clay-preview *::before,
-  .game-ui-clay-preview *::after {
+  .game-ui-preview-canvas *,
+  .game-ui-preview-canvas *::before,
+  .game-ui-preview-canvas *::after {
     box-sizing: border-box;
   }
-  .game-ui-clay-preview code {
+  .game-ui-preview-canvas code {
     border-radius: 8px;
     background: color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
     color: var(--game-ui-border-ink);
     padding: 1px 6px;
     font-size: 0.74em;
   }
-  .game-ui-clay-preview h1,
-  .game-ui-clay-preview h2,
-  .game-ui-clay-preview h3 {
+  .game-ui-preview-canvas h1,
+  .game-ui-preview-canvas h2,
+  .game-ui-preview-canvas h3 {
     text-wrap: balance;
   }
 
@@ -528,9 +528,9 @@
     .game-ui-preview-hero > * {
       animation: none;
     }
-    .game-ui-clay-preview *,
-    .game-ui-clay-preview *::before,
-    .game-ui-clay-preview *::after {
+    .game-ui-preview-canvas *,
+    .game-ui-preview-canvas *::before,
+    .game-ui-preview-canvas *::after {
       scroll-behavior: auto !important;
       transition-duration: 1ms !important;
       animation-duration: 1ms !important;
@@ -583,7 +583,7 @@
   }
 
   @media (max-width: 900px) {
-    .game-ui-clay-preview {
+    .game-ui-preview-canvas {
       padding: 14px;
     }
     .game-ui-preview-hero,
@@ -1166,5 +1166,14 @@
     .game-ui-liquid-page__sizes {
       grid-template-columns: 1fr;
     }
+  }
+}
+
+@layer swimmer-ui {
+  .game-ui-preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
   }
 }

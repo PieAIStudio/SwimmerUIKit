@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
 import {
-  GameAssetIcon,
+  GameIcon,
   GameBadge,
   GameButton,
   GameHudActions,
@@ -14,10 +14,10 @@ import { GAME_UI_OVERLAY } from '../../tokens/index';
 
 /**
  * Official overlay-glass HUD tone for controls that float over a live scene.
- * Compare default clay vs glass (+ compact density) on a busy stage backdrop.
+ * Compare default flat vs glass (+ compact density) on a busy stage backdrop.
  */
 const meta = {
-  title: 'Clay/Themes/OverlayGlass',
+  title: 'Swimmer/Themes/OverlayGlass',
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
@@ -91,10 +91,10 @@ function HudCluster({
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
         <GameHudActions label={toolsLabel}>
           <GameIconButton label={`${title} history`}>
-            <GameAssetIcon icon="scroll" size="sm" />
+            <GameIcon icon="scroll" size="sm" />
           </GameIconButton>
           <GameIconButton label={`${title} settings`}>
-            <GameAssetIcon icon="settings" size="sm" />
+            <GameIcon icon="settings" size="sm" />
           </GameIconButton>
         </GameHudActions>
       </div>
@@ -107,7 +107,7 @@ function HudCluster({
           <GameProgress label={`${title} affinity`} value={68} />
         </div>
         <p style={{ margin: 0, maxWidth: '52ch' }}>
-          The scene stays visible through the glass chrome — no heavy clay parchment blocking the
+          The scene stays visible through the glass chrome — no heavy flat parchment blocking the
           playfield.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -121,9 +121,9 @@ function HudCluster({
   );
 }
 
-export const ClayDefault: Story = {
-  name: 'Default clay (control)',
-  render: () => <HudCluster title="Default clay HUD" />,
+export const FlatDefault: Story = {
+  name: 'Default flat (control)',
+  render: () => <HudCluster title="Default flat HUD" />,
 };
 
 export const OverlayGlass: Story = {
@@ -142,7 +142,7 @@ export const OverlayGlassOnDarkTheme: Story = {
 };
 
 export const SideBySide: Story = {
-  name: 'Clay vs glass side-by-side',
+  name: 'Flat vs glass side-by-side',
   render: () => (
     <div
       style={{
@@ -154,8 +154,8 @@ export const SideBySide: Story = {
       }}
     >
       <div>
-        <p style={{ margin: '0 0 8px', fontWeight: 800 }}>Default clay</p>
-        <HudCluster title="Clay control HUD" toolsLabel="Clay tools" primaryAction={false} />
+        <p style={{ margin: '0 0 8px', fontWeight: 800 }}>Default flat</p>
+        <HudCluster title="Flat control HUD" toolsLabel="Flat tools" primaryAction={false} />
       </div>
       <div>
         <p style={{ margin: '0 0 8px', fontWeight: 800 }}>

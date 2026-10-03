@@ -107,7 +107,7 @@ try {
           page.on('pageerror', (error) => errors.push(error.message));
           try {
             await page.goto(
-              `${origin}/iframe.html?id=clay-account-accountcontrols--overview&viewMode=story&globals=theme:${theme}`,
+              `${origin}/iframe.html?id=swimmer-account-accountcontrols--overview&viewMode=story&globals=theme:${theme}`,
             );
             await page.locator('[data-account-overview]').waitFor();
             await page.evaluate(() => document.fonts.ready);
@@ -132,7 +132,7 @@ try {
               `Story canvas text contrast ${canvasContrast}:1 (${theme})`,
             );
             assert.equal(
-              await page.locator('.game-ui-clay-preview').getAttribute('data-game-ui-theme'),
+              await page.locator('.game-ui-preview-canvas').getAttribute('data-game-ui-theme'),
               theme === 'dark' ? 'dark' : null,
             );
             const inputs = page.locator('[data-account-code] input');

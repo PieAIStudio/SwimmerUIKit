@@ -28,7 +28,7 @@ export function Actions() {
 
 一屏最多一个 primary。危险操作用 danger：红字、普通底色；不会变成另一个液体 CTA。安装包是 ESM-only；主样式是标准 CSS，不要求 Tailwind 或产品的 CSS 预处理器。
 
-使用真实图标前，运行 `pnpm exec swimmer-ui-assets public`，再在入口调用 `setClayAssetMode('source')`；默认 inline 只是占位图。字体可选加载 fonts.css，中文字体由产品选择。
+图标直接用 `<GameIcon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。字体可选加载 fonts.css。
 
 ## 去哪里看
 
@@ -56,4 +56,4 @@ pnpm build-storybook
 
 维护者检查真实包体使用 `pnpm check:packed .scratch/<candidate>.tgz`：四个 JS 入口、严格类型消费、资源原字节和迁移检查器都从 tarball 验证。该命令只创建仓库内隔离夹具，不安装到产品、不发布。
 
-源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。素材不允许抽取成独立素材包；第三方归属看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。
+源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。字体和图标路径遵循各自第三方许可证；来源看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。

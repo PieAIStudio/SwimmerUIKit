@@ -57,7 +57,7 @@
   @media (prefers-reduced-motion: reduce) {
   }
 
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
+  /* Accessibility & finish: unified focus ring, flat scrollbars, selection */
   .game-ui-stage-tile:focus-visible {
     outline: 3px solid var(--game-ui-focus-ring);
     outline-offset: 2px;

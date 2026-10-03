@@ -6,7 +6,7 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
+  /* Accessibility & finish: unified focus ring, flat scrollbars, selection */
   .game-ui-collapsible-toggle:focus-visible {
     outline: 3px solid var(--game-ui-focus-ring);
     outline-offset: 2px;

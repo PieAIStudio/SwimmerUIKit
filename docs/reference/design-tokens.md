@@ -75,7 +75,7 @@ fonts.css 可选，加载包内 Baloo 2 / Geist Variable 的 Latin 子集；没�
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 
-图标静态路径属于公共契约，使用 swimmer-ui-assets 复制完整包内素材，并设置 setClayAssetMode('source')。不同静态根可配 setClayAssetBasePath 和 CLI --base；同源图标不需要模型或素材生成服务。资源许可见根 LICENSE/NOTICE，不作为独立素材包分发。
+GameIcon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；单个具名路径数据可从 icon-paths 子入口导入并裁剪。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
 
 ## 自动约束
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameSplash } from '../../index';
 
 const meta = {
-  title: 'Clay/Display/GameSplash',
+  title: 'Swimmer/Display/GameSplash',
   component: GameSplash,
   tags: ['autodocs'],
   parameters: {

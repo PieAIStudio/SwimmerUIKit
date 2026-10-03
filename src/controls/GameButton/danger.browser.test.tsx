@@ -39,8 +39,11 @@ const paint = (button: HTMLButtonElement) => {
   };
 };
 
-it('distinguishes danger from secondary in all six styles and both modes, with red ink, no red background and AA text', async () => {
-  for (const style of GAME_UI_STYLES)
+// Keep the full matrix and original timeout; each style is an independent case
+// so unrelated browser work on the shared machine does not consume one huge test.
+it.each(GAME_UI_STYLES)(
+  '%s danger stays distinct, red-ink-only and AA in both modes and every hue',
+  async (style) => {
     for (const theme of ['light', 'dark'] as const)
       for (const hue of ['coral', 'sun', 'leaf', 'sky', 'grape', 'pink'] as GameUiHue[]) {
         await act(async () =>
@@ -77,7 +80,8 @@ it('distinguishes danger from secondary in all six styles and both modes, with r
           if (style === 'outline' || style === 'ink') expect(result.edge, context).toEqual(ink);
         }
       }
-});
+  },
+);
 
 it('keeps disabled danger quiet and never turns it into a liquid invitation', async () => {
   await act(async () =>

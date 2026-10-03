@@ -51,7 +51,7 @@
    * Overlay glass tone — semantic tokens are re-scoped in theme.css under
    * [data-game-ui-tone='glass'] / .game-ui-overlay-scope. Rules below only
    * cover shapes that pure token swap cannot express (translucent primary
-   * fill, warm hover, backdrop blur, clay-icon plate on dark).
+   * fill, warm hover, backdrop blur, flat-icon plate on dark).
    */
   @media (hover: hover) {
   }
@@ -66,7 +66,7 @@
     padding: 0 12px;
   }
 
-  /* Accessibility & finish: unified focus ring, clay scrollbars, selection */
+  /* Accessibility & finish: unified focus ring, flat scrollbars, selection */
   .game-ui-radial-item:focus-visible {
     outline: 3px solid var(--game-ui-focus-ring);
     outline-offset: 2px;

@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
-  title: 'Clay/Utilities/ScrollSurface',
+  title: 'Swimmer/Utilities/ScrollSurface',
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'The opt-in scroll-surface hook gives a product-owned overflow container the same semantic clay scrollbar treatment as kit-owned panels.',
+          'The opt-in scroll-surface hook gives a product-owned overflow container the same semantic flat scrollbar treatment as kit-owned panels.',
       },
     },
   },

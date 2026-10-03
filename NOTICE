@@ -1,40 +1,9 @@
 Third-party notices
 ===================
 
-Liquid-metal dispersion shader
-------------------------------
-Portions of the WebGL2 renderer in `src/liquidMetalWebGL.ts` are adapted
-from ThreeUI (https://github.com/MengTo/threeui), Copyright (c) 2026
-Meng To, licensed under the MIT License.
-
-The upstream ships the shader inside a standalone HTML page and embeds
-that page in an iframe. This package inlines the shader so colours can
-follow `--game-ui-*` tokens, adds a CSS renderer as the default, and
-caps simultaneous WebGL contexts.
-
-The MIT License text for that material:
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
 Liquid-gooey Morph/Bend adaptations
 -----------------------------------
-The liquid primitive in `src/LiquidGroup.tsx` and its supporting filter,
+The liquid primitive in `src/liquid/LiquidGroup/LiquidGroup.tsx` and its supporting filter,
 geometry, shadow, spring, evolve, and Move modules includes direct local
 adaptations from the `liquid-gooey` package in the Libraries repository
 (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
@@ -51,7 +20,7 @@ envelope for `morph.shape`, its 7px-default content cross-blur for
 `morph.contentBlur`, and its Bend velocity-bowed path, horizontal cap
 deformation, surface-glued tracking, and `--lg-bend-x` / `--lg-bend-y` /
 `--lg-bend-xn` / `--lg-bend-yn` CSS variable outlet. The local implementations
-are in `src/liquidGooeyEvolve.ts` and `src/liquidGooeyMove.ts`; their file
+are in `src/liquid/evolve.ts` and `src/liquid/move.ts`; their file
 headers repeat this source URL, pinned commit, copyright, MIT license, and
 NOTICE pointer. We also adapted the donor's Move center spring, velocity-axis
 stretch, and lagging tail/mid-droplet physics for the selected segmented
@@ -64,7 +33,7 @@ element, so they are not in the SVG filter region or its pad. Inset and
 spread layers remain SVG-resident.
 
 The local implementation also adapts the donor's pairwise image-melt engine in
-`src/liquidGooeyImageMelt.tsx`, including the two-item pairing, measured image
+`src/liquid-effects/melt/ImageMelt.tsx`, including the two-item pairing, measured image
 rects, crisp-face seam masks, two-palette colour mixing, and marbling pass. Its
 contact dissolve masks only `<img>` pixels; text remains in the unfiltered DOM
 content layer. The dissolve math is a scoped adaptation of the donor's contact
@@ -107,7 +76,7 @@ SOFTWARE.
 Liquid-gooey image Melt and contact dissolve
 --------------------------------------------
 Portions of the pairwise image-melt and contact-image dissolve implementation
-in `src/liquidGooeyImageMelt.tsx` are adapted from liquid-gooey by Jakub
+in `src/liquid-effects/melt/ImageMelt.tsx` are adapted from liquid-gooey by Jakub
 Antalik (https://github.com/Jakubantalik/Libraries/tree/main/packages/liquid-gooey),
 Copyright (c) 2026 Jakub, licensed under the MIT License.
 
@@ -152,4 +121,57 @@ SOFTWARE.
 Fonts
 -----
 Baloo 2 and Geist Variable are licensed under the SIL Open Font License.
-See `src/fonts/OFL-Baloo2.txt` and `src/fonts/OFL-Geist.txt`.
+See `src/tokens/fonts/OFL-Baloo2.txt` and `src/tokens/fonts/OFL-Geist.txt`.
+
+Inline SVG icon paths
+---------------------
+48 semantic names are mapped to reviewed Lucide 1.51.0 shapes. The original
+SVG geometry is converted to path-only data by scripts/generate-game-icons.py.
+The source archive SHA-256 and per-icon hashes are in scripts/game-icons-source.json.
+Source: https://github.com/lucide-icons/lucide/tree/1.51.0/icons
+No Lucide runtime library, SVG images, or remote image URLs are distributed.
+The generated geometry retains the following upstream ISC and Feather MIT terms:
+
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

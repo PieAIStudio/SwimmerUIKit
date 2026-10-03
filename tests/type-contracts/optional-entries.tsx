@@ -3,6 +3,11 @@ import { LiquidEffectsGroup } from '../../src/liquid-effects';
 import { GameUiPreview } from '../../src/preview';
 import { GameButton, GameIconButton, GameSelect, GameToggle } from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
+import { GameIcon } from '../../src/index';
+import { CHECK_ICON } from '../../src/icon-paths';
+
+export const namedIcon = <GameIcon icon="check" label="Completed" />;
+export const pathIcon = <GameIcon icon={CHECK_ICON} />;
 
 // Checked by pnpm typecheck; these fixtures are not bundle entries.
 export const ordinary = (

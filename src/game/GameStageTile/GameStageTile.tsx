@@ -1,13 +1,13 @@
 import { DropletSurface, SelectionMark } from '../../controls/DropletSurface/DropletSurface';
 import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 
-import { type ClayIconName } from '../../icons/assets';
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { type GameIconName } from '../../icons/registry';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 import { GameBadge } from '../../feedback/GameBadge/GameBadge';
 
 export interface GameStageTileProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   badge?: string;
-  icon?: ClayIconName;
+  icon?: GameIconName;
   kicker: string;
   selected?: boolean;
   summary: string;
@@ -38,7 +38,7 @@ export function GameStageTile({
       data-game-ui-paint=""
     >
       <DropletSurface />
-      {icon ? <GameAssetIcon icon={icon} size="xl" /> : null}
+      {icon ? <GameIcon icon={icon} size="lg" /> : null}
       <span className="game-ui-stage-tile-copy">
         <small>{kicker}</small>
         <strong>{title}</strong>

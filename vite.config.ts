@@ -43,6 +43,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
+        'icon-paths': resolve(__dirname, 'src/icon-paths.ts'),
         'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
         'liquid-effects': resolve(__dirname, 'src/liquid-effects.ts'),
         preview: resolve(__dirname, 'src/preview.ts'),

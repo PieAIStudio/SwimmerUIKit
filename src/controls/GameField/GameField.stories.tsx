@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameField, GameInput } from '../../index';
 
 const meta = {
-  title: 'Clay/Forms/GameField',
+  title: 'Swimmer/Forms/GameField',
   component: GameField,
   tags: ['autodocs'],
   parameters: {

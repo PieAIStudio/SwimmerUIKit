@@ -33,8 +33,14 @@ try {
     // Historical readback only. The current kit never interprets this value.
     const oldTheme = theme === 'dark' ? baseline.themes[1] : baseline.themes[0];
     for (const [kind, story] of [
-      ['ordinary', 'clay-controls-gamebutton--secondary'],
-      ['cta', 'clay-controls-gamebutton--liquid-cta'],
+      [
+        'ordinary',
+        baseline.captures.find((item) => item.id.endsWith('-controls-gamebutton--secondary')).id,
+      ],
+      [
+        'cta',
+        baseline.captures.find((item) => item.id.endsWith('-controls-gamebutton--liquid-cta')).id,
+      ],
     ]) {
       await page.goto(
         `${origin}/iframe.html?id=${story}&viewMode=story&globals=theme:${oldTheme}`,
@@ -141,7 +147,7 @@ const cards = STYLE_NAMES.flatMap((style) =>
       `<h3>${title}</h3><div class="pair"><figure><figcaption>S0 · 原来</figcaption><div class="states"><div>${image(`baseline/${theme}-${kind}-rest.png`, 'S0 静止')}<small>静止：原始基线像素</small></div><div>${image(`baseline/${theme}-${kind}-pressed.png`, 'S0 按下')}<small>按下：原始构建补拍</small></div></div></figure><figure><figcaption>S4 · ${label}</figcaption><div class="states"><div>${image(`${id}-${kind}-rest.png`, 'S4 静止')}<small>静止</small></div><div>${image(`${id}-${kind}-pressed.png`, 'S4 按下')}<small>按住 170 毫秒</small></div></div></figure></div>`;
     const overview = baseline.captures.find(
       (item) =>
-        item.id === 'clay-account-accountcontrols--overview' &&
+        item.id.endsWith('-account-accountcontrols--overview') &&
         item.theme === (theme === 'dark' ? baseline.themes[1] : baseline.themes[0]),
     );
     const oldLink = path.relative(output, path.resolve('.scratch/baseline', overview.filename));

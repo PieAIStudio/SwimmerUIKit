@@ -1,10 +1,10 @@
 import type { KeyboardEvent, ReactNode } from 'react';
 
-import { GameAssetIcon } from '../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../icons/GameIcon/GameIcon';
 
 import { GameIconButton } from '../../controls/GameIconButton/GameIconButton';
 
-import type { ClayIconName } from '../../icons/assets';
+import type { GameIconName } from '../../icons/registry';
 import { type GameSurfaceDensity } from '../../containers/shared/surfaceTypes';
 
 export type GameMovementDirection =
@@ -19,7 +19,7 @@ export type GameMovementDirection =
 export interface GameMovementAction {
   direction: GameMovementDirection;
   disabled?: boolean;
-  icon?: ClayIconName;
+  icon?: GameIconName;
   label: string;
   shortcut?: string;
   symbol?: string;
@@ -102,11 +102,7 @@ export function GameMovementPad({
             onClick={() => triggerMove(action.direction)}
           >
             {action.icon ? (
-              <GameAssetIcon
-                icon={action.icon}
-                size={density === 'dense' ? 'sm' : 'md'}
-                style="line"
-              />
+              <GameIcon icon={action.icon} size={density === 'dense' ? 'sm' : 'md'} />
             ) : (
               <span aria-hidden="true">{action.symbol ?? action.label}</span>
             )}

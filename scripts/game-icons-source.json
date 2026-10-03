@@ -1,0 +1,248 @@
+{
+  "repository": "https://github.com/lucide-icons/lucide",
+  "version": "1.51.0",
+  "sourceArchiveSha256": "097928ba1b100a2d63b95cb65d28df134bf993f2ab6937419a814ef4d1986989",
+  "license": "ISC; Feather-derived icons MIT (see NOTICE)",
+  "icons": [
+    {
+      "name": "ai",
+      "upstream": "brain",
+      "sha256": "1eb21ec91c19634cb46b241e423bc1ddee810919fab129954c3229c513207b07"
+    },
+    {
+      "name": "alert",
+      "upstream": "triangle-alert",
+      "sha256": "4866f38b8560d410f21e3226413e0b77997b6dfbb6931fadfe0a0d5aef9ffeb4"
+    },
+    {
+      "name": "card",
+      "upstream": "credit-card",
+      "sha256": "72d2b1acd904e01c6f676b4f6d07d56550a80b5d42687d43a313b85040943a2e"
+    },
+    {
+      "name": "chat",
+      "upstream": "message-circle",
+      "sha256": "146f39740fe50844394d56ae1f8821937655bcfff3842bf6fe8ffc0bcd324076"
+    },
+    {
+      "name": "check",
+      "upstream": "check",
+      "sha256": "7f33acc9a77a61659531044525fc008edebe215bf4dcf1c789c8674ad3277db0"
+    },
+    {
+      "name": "close",
+      "upstream": "x",
+      "sha256": "4a9cdab38fbb96162e7dace28e33f4ca0e49d8963a6162abc3d4691b7d675117"
+    },
+    {
+      "name": "coin",
+      "upstream": "coins",
+      "sha256": "bcfec9236fd10d0aadbf90951f61dd31ec7cedc72dd38d2639f95c2b8437b9f1"
+    },
+    {
+      "name": "compass",
+      "upstream": "compass",
+      "sha256": "c5a4d147bf48424f48b514712dd61c1b07cb689612a7baef87c88870092c1659"
+    },
+    {
+      "name": "copy",
+      "upstream": "copy",
+      "sha256": "ea80e566c7a12628a447cb53179b19aea4f60b9143e2becd0d0f20bf260e5718"
+    },
+    {
+      "name": "crown",
+      "upstream": "crown",
+      "sha256": "544c1b6181749ae4b4c98861a5a6ed1242940239cda97cc13c74e84a03fd68c0"
+    },
+    {
+      "name": "energy",
+      "upstream": "zap",
+      "sha256": "4c395891eab4d1e5627c5d414a16db037317cb2f12453de0f3a1130964c6d444"
+    },
+    {
+      "name": "gem",
+      "upstream": "gem",
+      "sha256": "377618223555b2847b553a81f6974c76b7ce14d1207bcc0e98baa27a6a36d40e"
+    },
+    {
+      "name": "gift",
+      "upstream": "gift",
+      "sha256": "bc0651476bc7fdefa8d033f7b7572f9c8712aaca3b9196488442e6b4e76ed2a4"
+    },
+    {
+      "name": "globe",
+      "upstream": "globe",
+      "sha256": "82c6b8fa0b8e8d775ec9becd86f74a4e50bff7bee4c81f7362de45348504f14d"
+    },
+    {
+      "name": "history",
+      "upstream": "rotate-ccw-clock",
+      "sha256": "a98ff758157910b9fc9d42d5d5dc80c2f4e037afa5f8ea4dee5f5649f03d438d"
+    },
+    {
+      "name": "redo",
+      "upstream": "redo",
+      "sha256": "7695ea60aaaaf7011531228a90f521e90a8d15bd915f4a5cf4267e5a5afdfcce"
+    },
+    {
+      "name": "undo",
+      "upstream": "undo",
+      "sha256": "1c341ed27e5f5a94e15080e696af57027fc85bca7972411c850d2da44a290b77"
+    },
+    {
+      "name": "home",
+      "upstream": "house",
+      "sha256": "28216c479005731ef5e382e7d8627eda2b129b019eb1f3d9de9f5915576d448e"
+    },
+    {
+      "name": "hourglass",
+      "upstream": "hourglass",
+      "sha256": "76475d4ca3299fa243ef83de602b78621487daad45ca54fea2e3718bfba5ef2c"
+    },
+    {
+      "name": "laurel",
+      "upstream": "award",
+      "sha256": "4d9818ae68bb0776cbec9e65d26a33c7854eff600f33fcd6268e67b9d1caa06d"
+    },
+    {
+      "name": "lock",
+      "upstream": "lock",
+      "sha256": "d2cfe60cac8deaef36442b5c8218c1e61abe18222784b2a370ea090d13fca840"
+    },
+    {
+      "name": "lucky",
+      "upstream": "clover",
+      "sha256": "0c7e117548f00183d23a6d13a127b4273bec1003d77863fb5afacf38fe20442c"
+    },
+    {
+      "name": "mail",
+      "upstream": "mail",
+      "sha256": "3236a51d5b8ce9b0528cf2e6ad07e527bd636dded6f5a9d656072052b99caea8"
+    },
+    {
+      "name": "medal",
+      "upstream": "medal",
+      "sha256": "19a93f0d070d0a04283e2bee11799d3fd73de214936224c5d4141ebe3e119756"
+    },
+    {
+      "name": "mission",
+      "upstream": "flag",
+      "sha256": "e99f1de2fea87cd2e3decc28a1f021a2a8182f907b3b350f604909de2030d8b9"
+    },
+    {
+      "name": "mobile",
+      "upstream": "smartphone",
+      "sha256": "f9fdb700b50feb5fc6436f53eb9813e9eb56a9071ac4cdcba69c7f7c1c13877d"
+    },
+    {
+      "name": "portal",
+      "upstream": "orbit",
+      "sha256": "e2b8b7d7f82044181860cbc2dab9b7e8d3c4778fbbce9a62f5c4038175f4faf4"
+    },
+    {
+      "name": "scroll",
+      "upstream": "scroll",
+      "sha256": "ebc0e666566cb70e7910531d947f59be8cad186733417683823f147827b06989"
+    },
+    {
+      "name": "settings",
+      "upstream": "settings",
+      "sha256": "0ae27fd0f81999229e3127ac96c5b32edfea448e291d509e76212b917551d66b"
+    },
+    {
+      "name": "shirt",
+      "upstream": "shirt",
+      "sha256": "6e7df3e5ab01881bce6e00eebd449c950fd8535de656c7b720e6cba6b5a70602"
+    },
+    {
+      "name": "shop",
+      "upstream": "store",
+      "sha256": "ab2cb92d8cff487f5a53a06f5ee3ba0c2cf522b95281adc1de9ec8410c26e99a"
+    },
+    {
+      "name": "smile",
+      "upstream": "face-slightly-smiling",
+      "sha256": "0018f779245b089b700ad4a2ab99db4518f5c87c559af743fbbf9abc070f10d3"
+    },
+    {
+      "name": "timer",
+      "upstream": "timer",
+      "sha256": "6771297be65225d462c930865b6f9ee1617aa453885be4c8116a7512a77ac2b6"
+    },
+    {
+      "name": "trophy",
+      "upstream": "trophy",
+      "sha256": "c641553befdb899b2eb01075c0962c73b4b0e0d1835d9d407f5d5d4d70f77d03"
+    },
+    {
+      "name": "vote",
+      "upstream": "vote",
+      "sha256": "5e7d8f26cee64855123e00507e2142d23bbfbb1481ae8831489c0e39aa9c45dd"
+    },
+    {
+      "name": "arrow-left",
+      "upstream": "arrow-left",
+      "sha256": "c5f4b88076108eb1a0d95336e1aa7e7bb1419a3a92af96f6247d88cd3456f933"
+    },
+    {
+      "name": "arrow-right",
+      "upstream": "arrow-right",
+      "sha256": "288397fdb73bb4f783cf9eabb726ff47357df1d4e3f1201dd748090579f108b9"
+    },
+    {
+      "name": "chevron-down",
+      "upstream": "chevron-down",
+      "sha256": "66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87"
+    },
+    {
+      "name": "chevron-up",
+      "upstream": "chevron-up",
+      "sha256": "d09f13fcbef3c493ead7e4663b5ee91804fec38d5edb5e7cc3acfbd547641cf4"
+    },
+    {
+      "name": "download",
+      "upstream": "download",
+      "sha256": "3daeee13ded5a3afa2198b1bb4e2262d163922f97d96ac6ff9953e8ed4fe039d"
+    },
+    {
+      "name": "external",
+      "upstream": "external-link",
+      "sha256": "3891241b8c3bfc3a8a930078f26ffc5a7e9763da6d0162ace2050b28d4c1d1fe"
+    },
+    {
+      "name": "menu",
+      "upstream": "menu",
+      "sha256": "af6491988ac1ba30dc5414f485bc48713e957e1edb0fbef4a0dd8691c3c21598"
+    },
+    {
+      "name": "minus",
+      "upstream": "minus",
+      "sha256": "a0c743ab6dbf545d8a6e19ef3874f48ede686ce68d25e231bd81f540d97b1f19"
+    },
+    {
+      "name": "moon",
+      "upstream": "moon",
+      "sha256": "205b959e940d5841f0ce1d09c933153da9d9c94130a54d5cc0c68c2af1d403da"
+    },
+    {
+      "name": "plus",
+      "upstream": "plus",
+      "sha256": "7f6af73bf1ff6c4bca3f18351c8d1bdec6749c0c2530c4de5da85d520c21df17"
+    },
+    {
+      "name": "search",
+      "upstream": "search",
+      "sha256": "283d371c2e433817bb9c0c8310caa6c77fa4177c0f4f1168d9c83b97af7389dc"
+    },
+    {
+      "name": "sun",
+      "upstream": "sun",
+      "sha256": "a3955c8b0425fcc5c9ba12d2bdd77fe53b2cd5dd05e7742a56f342e996fb2ef8"
+    },
+    {
+      "name": "user",
+      "upstream": "user",
+      "sha256": "eae3b3b2400031ddd5ec869327d127a96014e5f63aa6e06658dd5d4e90661aa8"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ import {
 } from '../../index';
 
 const meta = {
-  title: 'Clay/Account/AccountControls',
+  title: 'Swimmer/Account/AccountControls',
   tags: ['autodocs'],
   decorators: [
     (Story) => (

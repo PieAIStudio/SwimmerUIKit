@@ -1,15 +1,12 @@
 import type { Preview } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
-import { setClayAssetMode } from '../src/icons/assets';
 import { GAME_UI_STYLES } from '../src/tokens/styles';
 import '../src/styles.css';
 import '../src/tokens/fonts.css';
 
-// Stories render with the real clay game-icon PNGs (served from public/ via
-// staticDirs), matching the showcase instead of the inline SVG placeholders.
-setClayAssetMode('source');
+// Icons are inline SVG; no copied public assets or initialization.
 
-// Every story renders on the warm clay backdrop the kit is designed for, so the
+// Every story renders on the warm flat backdrop the kit is designed for, so the
 // components look the way they do inside the game instead of on bare white.
 const preview: Preview = {
   afterEach: ({ canvasElement }) => {
@@ -62,7 +59,7 @@ const preview: Preview = {
   decorators: [
     (Story, context): ReactNode => (
       <div
-        className="game-ui-clay-preview"
+        className="game-ui-preview-canvas"
         data-game-ui-theme={context.globals.theme === 'dark' ? 'dark' : undefined}
         data-game-ui-style={context.globals.uiStyle ?? 'pastel'}
         style={{

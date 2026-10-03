@@ -7,7 +7,7 @@ import {
 } from '../../index';
 
 const meta = {
-  title: 'Clay/Display/GameCollectibleCard',
+  title: 'Swimmer/Display/GameCollectibleCard',
   component: GameCollectibleCard,
   tags: ['autodocs'],
   parameters: {

@@ -117,18 +117,9 @@ export {
   GameMaterialSwatches,
   type GameMaterialSwatchesProps,
 } from './controls/GameMaterialSwatches/GameMaterialSwatches';
-export {
-  CLAY_ICON_NAMES,
-  getClayIconPath,
-  setClayAssetBasePath,
-  setClayAssetMode,
-  getClayAssetMode,
-  type ClayAssetMode,
-  type ClayIconName,
-  type ClayIconResolveOptions,
-  type ClayIconStyle,
-} from './icons/assets';
-export { GameAssetIcon, type GameAssetIconProps } from './icons/GameAssetIcon/GameAssetIcon';
+export { GAME_ICON_NAMES, type GameIconName } from './icons/registry';
+export type { GameIconData } from './icons/types';
+export { GameIcon, type GameIconProps } from './icons/GameIcon/GameIcon';
 export type {
   GameMaterialSwatch,
   GameMaterialPattern,

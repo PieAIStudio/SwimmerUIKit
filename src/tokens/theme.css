@@ -228,12 +228,10 @@
   --game-ui-z-toast: 100;
 
   /* Asset sizing */
-  --game-ui-asset-icon-sm: 22px;
-  --game-ui-asset-icon-md: 34px;
-  --game-ui-asset-icon-lg: 48px;
-  --game-ui-asset-icon-xl: 64px;
+  --game-ui-icon-sm: 16px;
+  --game-ui-icon-md: 20px;
+  --game-ui-icon-lg: 24px;
   --game-ui-asset-button-min-width: 148px;
-  --game-ui-asset-card-fan-width: 132px;
   --game-ui-stage-tile-min-height: 122px;
   --game-ui-terrain-swatch-size: 34px;
   --game-ui-terrain-tool-hit-size: 44px;
@@ -606,7 +604,7 @@
   --game-ui-glass-dark-soft: rgba(10, 12, 18, 0.72);
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
 
-  /* Flat glass: no clay cast shadows; panels keep a soft lift for dialogue strips */
+  /* Flat glass: no flat cast shadows; panels keep a soft lift for dialogue strips */
   --game-ui-shadow-button: none;
   --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
   --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);

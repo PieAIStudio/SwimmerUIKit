@@ -77,6 +77,12 @@ for (const relative of shippedSourceFiles) {
 }
 const matchingDistFiles = shippedSourceFiles.filter((file) => file.startsWith('dist/')).length;
 const matchingBinFiles = shippedSourceFiles.length - matchingDistFiles;
+assert.equal(packed.exports['./assets/*'], undefined, 'Removed asset entry must stay absent');
+assert.equal(packed.bin['swimmer-ui-assets'], undefined, 'Removed asset copier must stay absent');
+assert.ok(
+  !files.some((file) => /^package\/dist\/assets\//.test(file)),
+  'Removed image assets must not ship',
+);
 const publicFiles = execFileSync('git', ['ls-files', '-z', 'public'], { encoding: 'utf8' })
   .split('\0')
   .filter(Boolean);
@@ -108,6 +114,7 @@ for (const [entry, contract] of Object.entries(packed.exports)) {
 }
 assert.deepEqual(Object.keys(runtimeEntries).sort(), [
   '.',
+  './icon-paths',
   './liquid-effects',
   './liquid-presence',
   './preview',
@@ -124,7 +131,7 @@ mkdirSync(path.join(consumer, 'node_modules/@pieai'), { recursive: true });
 symlinkSync(packedRoot, path.join(consumer, 'node_modules/@pieai/swimmer-ui-kit'), 'dir');
 writeFileSync(path.join(consumer, 'package.json'), '{"private":true,"type":"module"}\n');
 let fixture = readFileSync('tests/type-contracts/optional-entries.tsx', 'utf8');
-for (const entry of ['index', 'liquid-effects', 'liquid-presence', 'preview'])
+for (const entry of ['index', 'icon-paths', 'liquid-effects', 'liquid-presence', 'preview'])
   fixture = fixture.replaceAll(
     `'../../src/${entry}'`,
     `'@pieai/swimmer-ui-kit${entry === 'index' ? '' : `/${entry}`}'`,

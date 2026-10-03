@@ -4,7 +4,7 @@ import { useState, type ReactNode } from 'react';
 import { GameButton, GameProgress } from '../../index';
 
 const meta = {
-  title: 'Clay/Display/GameProgress',
+  title: 'Swimmer/Display/GameProgress',
   component: GameProgress,
   tags: ['autodocs'],
   parameters: {

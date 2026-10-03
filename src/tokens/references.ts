@@ -221,12 +221,10 @@ export const targetTokens = {
 } as const;
 
 export const assetSizeTokens = {
-  iconSm: 'var(--game-ui-asset-icon-sm)',
-  iconMd: 'var(--game-ui-asset-icon-md)',
-  iconLg: 'var(--game-ui-asset-icon-lg)',
-  iconXl: 'var(--game-ui-asset-icon-xl)',
+  iconSm: 'var(--game-ui-icon-sm)',
+  iconMd: 'var(--game-ui-icon-md)',
+  iconLg: 'var(--game-ui-icon-lg)',
   buttonSkinMinWidth: 'var(--game-ui-asset-button-min-width)',
-  cardFanWidth: 'var(--game-ui-asset-card-fan-width)',
   stageTileMinHeight: 'var(--game-ui-stage-tile-min-height)',
   terrainSwatchSize: 'var(--game-ui-terrain-swatch-size)',
   terrainToolHitSize: 'var(--game-ui-terrain-tool-hit-size)',

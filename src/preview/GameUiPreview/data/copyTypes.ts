@@ -25,15 +25,6 @@ interface StageTilesCopy {
   host: StageTileCopy;
 }
 
-interface IconGalleryCopy {
-  gameLabel: string;
-  gameHint: string;
-  lineLabel: string;
-  lineHint: string;
-  spriteLabel: string;
-  spriteHint: string;
-}
-
 interface FormsCopy {
   formsTitle: string;
   roomCodeLabel: string;
@@ -69,12 +60,10 @@ export interface PreviewCopy {
     liquid: string;
     liquidMetal: string;
     firstSession: string;
-    orientation: string;
     responsive: string;
   };
   tokenGroups: Record<string, string>;
   iconsIntro: string;
-  gallery: IconGalleryCopy;
   tiles: StageTilesCopy;
   forms: FormsCopy;
   type: { kicker: string; h1: string; h2: string; body: string; small: string };
@@ -148,15 +137,6 @@ export interface PreviewCopy {
     loading: string;
     loadingErr: string;
   };
-  cards: {
-    fanTitle: string;
-    fanLabel: string;
-    human: string;
-    ai: string;
-    sympathizer: string;
-    assetTitle: string;
-    assetNote: string;
-  };
   firstSession: {
     controls: string;
     emote: string;
@@ -192,7 +172,6 @@ export interface PreviewCopy {
     obVoteB: string;
   };
   responsive: { desktop: string; mobileLandscape: string };
-  orientation: { title: string; body: string; cta: string; badge: string; hint: string };
   historyLabel: string;
   history: readonly GameUiHistoryEntry[];
 }

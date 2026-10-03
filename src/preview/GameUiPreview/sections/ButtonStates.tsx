@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { GameAssetIcon } from '../../../icons/GameAssetIcon/GameAssetIcon';
+import { GameIcon } from '../../../icons/GameIcon/GameIcon';
 
 import { GameBadge } from '../../../feedback/GameBadge/GameBadge';
 
@@ -40,11 +40,11 @@ export function ButtonStates(): ReactNode {
       <div className="game-ui-component-row">
         <GameTooltip label={b.settingsTip}>
           <GameIconButton label={b.settingsTip}>
-            <GameAssetIcon icon="settings" size="sm" />
+            <GameIcon icon="settings" size="sm" />
           </GameIconButton>
         </GameTooltip>
         <GameIconButton label={b.copyInvite}>
-          <GameAssetIcon icon="copy" size="sm" />
+          <GameIcon icon="copy" size="sm" />
         </GameIconButton>
         <GameBadge tone="ai">{b.aiBadge}</GameBadge>
         <GameBadge tone="success">{b.readyBadge}</GameBadge>

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { GameButton, GameEmptyState } from '../../index';
 
 const meta = {
-  title: 'Clay/Display/GameEmptyState',
+  title: 'Swimmer/Display/GameEmptyState',
   component: GameEmptyState,
   tags: ['autodocs'],
   parameters: {
