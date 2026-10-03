@@ -23,9 +23,13 @@ jobs:
       - name: Guard main branch
         run: |
           if [ "$GITHUB_REF_NAME" != "main" ]; then
+
             echo "npm publishing is only allowed from main, got: $GITHUB_REF_NAME" >&2
             exit 1
           fi
+
+      - name: Reject reruns
+        run: test "$GITHUB_RUN_ATTEMPT" = "1"
 
       - uses: pnpm/action-setup@v6
         with:
@@ -49,47 +53,40 @@ jobs:
       - run: pnpm docs:check
 
       # This workflow is manual release work. Publishing below reuses this exact
-      # locally inspected artifact; package validation must not silently repack it.
+      # CI-inspected artifact; package validation must not silently repack it.
       - name: Pack verified candidate
         run: pnpm pack --out .scratch/release-candidate.tgz
       - run: pnpm check:packed .scratch/release-candidate.tgz
       - run: npm exec --yes --registry=https://registry.npmjs.org --package=publint@0.3.24 -- publint run .scratch/release-candidate.tgz --strict
-      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./liquid-presence ./liquid-effects ./preview ./package.json --profile esm-only
+      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./liquid-presence ./liquid-effects ./preview ./icon-paths ./package.json --profile esm-only
 
-      - name: Resolve package version
+      - run: pnpm check:next-consumer .scratch/release-candidate.tgz .scratch/next-consumer
+      - run: sha256sum .scratch/release-candidate.tgz
+
+      - name: Capture registry and guard release tag
         id: package
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Check existing npm version
-        id: registry
-        run: |
-          PACKAGE="@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }}"
-          if npm view "$PACKAGE" version --registry https://registry.npmjs.org/ >/tmp/swimmer-ui-kit-version 2>/dev/null; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "Found existing $PACKAGE"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "$PACKAGE is not published yet"
-          fi
+          npm view @pieai/swimmer-ui-kit version dist-tags versions --json --registry=https://registry.npmjs.org > .scratch/npm-before.json
+          node scripts/check-release-metadata.mjs before .scratch/npm-before.json >> "$GITHUB_OUTPUT"
 
       - name: Publish package
-        if: steps.registry.outputs.exists != 'true'
-        run: npm publish .scratch/release-candidate.tgz --provenance --access public --registry https://registry.npmjs.org/
+        env:
+          RELEASE_TAG: ${{ steps.package.outputs.tag }}
+          NPM_CONFIG_FETCH_RETRIES: "0"
+        run: npm publish .scratch/release-candidate.tgz --tag "$RELEASE_TAG" --provenance --access public --registry https://registry.npmjs.org/
 
-      - name: Verify package
+      - name: Verify exact version and distribution tags
+        env:
+          RELEASE_VERSION: ${{ steps.package.outputs.version }}
         run: |
+          # Read-only propagation checks. There is no second publishing attempt.
           for attempt in {1..90}; do
-            PUBLISHED=$(npm view "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }}" version --registry https://registry.npmjs.org/ 2>/dev/null || true)
-            if [ "$PUBLISHED" = "${{ steps.package.outputs.version }}" ]; then
-              echo "@pieai/swimmer-ui-kit@$PUBLISHED is visible on npm."
+            if npm view "@pieai/swimmer-ui-kit@$RELEASE_VERSION" version dist-tags versions --json --registry=https://registry.npmjs.org > .scratch/npm-after.json &&
+              node scripts/check-release-metadata.mjs after .scratch/npm-before.json .scratch/npm-after.json; then
               exit 0
             fi
-            echo "Waiting for @pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} to become visible on npm (attempt $attempt/90)."
+            echo "Waiting for the exact version and tags (read $attempt/90)."
             sleep 5
           done
-
-          echo "@pieai/swimmer-ui-kit@${{ steps.package.outputs.version }} did not become visible on npm within 7.5 minutes." >&2
-          echo "The publish step above succeeded, so the tarball is on npm; this step only watches the registry index." >&2
+          echo "Could not confirm the version and tags. Stop; do not repeat publication." >&2
           exit 1

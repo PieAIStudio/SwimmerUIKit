@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-10-02
+last_reviewed: 2026-10-03
 domain: product
 tags:
   - components
@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-当前 main 正在进行 3.0 断代，不是已发布公告。升级产品前先读 [逐项迁移表](migration-3.0.md)；不让现有产品自动跟随 main。
+本指南对应3.0.0-rc.1预发布契约，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择候选版本；不让现有产品自动跟随main或把next当成稳定latest。
 
 ## 先按任务选择
 

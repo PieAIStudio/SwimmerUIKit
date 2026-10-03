@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-10-02
-last_reviewed: 2026-10-02
+last_reviewed: 2026-10-03
 domain: ui-components
 tags:
   - uikit
@@ -17,6 +17,8 @@ related:
 ---
 
 # 设计 token
+
+适用版本：3.0.0-rc.1。表面、字体和展示组件按下方唯一来源取值；旧panel别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套token补缺。
 
 token 是按用途命名的视觉变量。产品选择“文字、普通底色、危险文字”，不复制一份按钮 CSS。
 

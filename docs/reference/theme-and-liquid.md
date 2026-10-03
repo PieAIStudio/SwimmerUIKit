@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-10-02
+last_reviewed: 2026-10-03
 domain: ui-components
 tags:
   - uikit
@@ -19,6 +19,8 @@ related:
 ---
 
 # 主题与液体
+
+适用版本：3.0.0-rc.1；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因npm next更新而自动完成升级。
 
 ## 品牌与边界
 
