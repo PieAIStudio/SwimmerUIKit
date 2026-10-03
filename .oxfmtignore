@@ -6,3 +6,6 @@ coverage
 playwright-report
 test-results
 *.d.ts
+# Deterministic font generator output; byte and CSS contracts are tested.
+src/tokens/fonts/zh/font-faces.css
+src/tokens/fonts/zh/manifest.json

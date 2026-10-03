@@ -1,4 +1,5 @@
 /* Public CSS entry: tokens → rendering primitives → components. */
+@import './tokens/fonts.css';
 @import './tokens/theme.css';
 @import './tokens/control-styles.css';
 @import './tokens/motion.css';

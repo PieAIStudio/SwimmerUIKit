@@ -37,7 +37,8 @@ describe('CSS assembly ownership', () => {
   it('loads tokens and drawing primitives before component customizations', () => {
     const entry = readFileSync(path.join(source, 'styles.css'), 'utf8');
     const names = [...entry.matchAll(/@import\s+['"]([^'"]+)['"]/g)].map((match) => match[1]!);
-    expect(names.slice(0, 3)).toEqual([
+    expect(names.slice(0, 4)).toEqual([
+      './tokens/fonts.css',
       './tokens/theme.css',
       './tokens/control-styles.css',
       './tokens/motion.css',

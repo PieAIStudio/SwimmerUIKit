@@ -175,3 +175,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Chinese font subsets: Swimmer Rounded CN
+---------------------------------------
+Derived from Resource Han Rounded CN v0.990 by Cyano Hao, based on Adobe Source Han.
+Copyright 2018-2019 Cyano Hao; Copyright 2014, 2015, 2018 Adobe Systems Incorporated,
+with Reserved Font Name Source. Licensed under SIL Open Font License 1.1.
+These Unicode-range WOFF2 subsets have renamed internal family/full/PostScript
+names and retain original copyright/license metadata. They are not a font-family
+compatibility alias. Exact input hashes and deterministic tools are recorded in
+scripts/zh-font-source.json. The full original OFL text is shipped at
+dist/fonts/zh/OFL.txt (source: src/tokens/fonts/zh/OFL.txt).

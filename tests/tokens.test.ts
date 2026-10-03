@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 import { readComponentStyles } from './helpers/styles';
+import { readCssSource } from '../scripts/lib/css-source.mjs';
 
 import { GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from '../src/tokens/index';
 
@@ -313,7 +314,7 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
 });
 
 const bridgeCss = readFileSync(join(SRC, 'tokens', 'tailwind.css'), 'utf8');
-const fontsCss = readFileSync(join(SRC, 'tokens', 'fonts.css'), 'utf8');
+const fontsCss = readCssSource(join(SRC, 'tokens', 'fonts.css'));
 const indexTs = readFileSync(join(SRC, 'index.ts'), 'utf8');
 const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
   name?: string;
@@ -382,7 +383,11 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(tailwindAtRules).toEqual([]);
 
     const families = [...withoutComments.matchAll(/font-family:\s*'([^']+)'/g)].map((m) => m[1]);
-    expect(families.sort()).toEqual(['Baloo 2', 'Geist Variable']);
+    expect([...new Set(families)].sort()).toEqual([
+      'Baloo 2',
+      'Geist Variable',
+      'Swimmer Rounded CN',
+    ]);
     expect(themeCss).toContain("'Baloo 2'");
     expect(themeCss).toContain("'Geist Variable'");
 
@@ -390,6 +395,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(existsSync(join(SRC, 'tokens', 'fonts', 'geist-sans-latin-variable.woff2'))).toBe(true);
     expect(existsSync(join(SRC, 'tokens', 'fonts', 'OFL-Baloo2.txt'))).toBe(true);
     expect(existsSync(join(SRC, 'tokens', 'fonts', 'OFL-Geist.txt'))).toBe(true);
+    expect(existsSync(join(SRC, 'tokens', 'fonts', 'zh', 'OFL.txt'))).toBe(true);
   });
 
   it('demo-only GameUiPreview classes stay out of styles.css and live only in preview.css', () => {

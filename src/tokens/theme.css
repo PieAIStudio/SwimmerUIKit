@@ -12,24 +12,17 @@
 :root {
   color-scheme: light;
 
-  --game-ui-font-display: 'Baloo 2', 'Geist Variable', 'Noto Sans SC', system-ui, sans-serif;
-  --game-ui-font-body: 'Geist Variable', 'Noto Sans SC', 'Noto Sans', system-ui, sans-serif;
+  --game-ui-font-display: 'Baloo 2', 'Swimmer Rounded CN', system-ui, sans-serif;
+  --game-ui-font-body: 'Geist Variable', 'Swimmer Rounded CN', system-ui, sans-serif;
   --game-ui-font-xs: 0.72rem;
   --game-ui-font-sm: 0.82rem;
   --game-ui-font-md: 0.95rem;
   --game-ui-font-lg: 1.18rem;
   --game-ui-font-xl: clamp(1.5rem, 2.4vw, 2.35rem);
   --game-ui-font-xxl: clamp(2.3rem, 5vw, 4.5rem);
-  /*
-    Code. This kit's products are about software, and three consumers were
-    already writing `var(--game-ui-font-mono, …)` against a token that did not
-    exist — the fallback was doing all the work and the CSS only looked
-    token-driven. The CJK mono is in the stack because a code block with a
-    Chinese comment in it is the normal case here, not the exotic one.
-  */
-  --game-ui-font-mono:
-    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, 'Noto Sans Mono CJK SC', 'Noto Sans Mono',
-    monospace;
+  /* Code uses the system monospace family. Every named brand face is shipped
+   * by fonts.css; do not list a font that consumers cannot actually load. */
+  --game-ui-font-mono: ui-monospace, monospace;
 
   /*
     Long-form reading, which the scale above deliberately does not cover.

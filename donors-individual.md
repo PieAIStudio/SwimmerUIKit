@@ -166,3 +166,11 @@ The 48 semantic GameIcon shapes come from Lucide 1.51.0 (ISC and Feather-derived
 Exact archive and per-icon source hashes are owned by `scripts/game-icons-source.json`;
 `generate-game-icons.py` rejects any changed source. The temporary source download is
 not packaged. Only reviewed path data is shipped, with the complete license in NOTICE.
+
+## Default Chinese font
+
+Resource Han Rounded CN v0.990 is redistributed as deterministic Unicode-range
+subsets named Swimmer Rounded CN, with original copyright and OFL1.1 intact.
+The upstream Reserved Font Name is Source. Machine-readable source and tool pins
+live only in scripts/zh-font-source.json; output hashes live with fonts/zh.
+Normal builds use committed WOFF2 files; they never fetch or recut a font.

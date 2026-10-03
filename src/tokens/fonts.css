@@ -1,20 +1,8 @@
-/*
- * Optional brand fonts for theme.css's --game-ui-font-display /
- * --game-ui-font-body stacks (Baloo 2, Geist Variable). Without this file
- * every consumer silently falls back to the system font and the 620/860/930
- * custom weight tokens collapse to the nearest static weight the fallback
- * font ships (usually 400/700) — see design-system-guide.md "字体".
- *
- * Self-hosted, Latin-only subsets (~100KB combined) under the SIL Open Font
- * License — see ./fonts/OFL-Baloo2.txt and ./fonts/OFL-Geist.txt. CJK is
- * intentionally not bundled here (Noto Sans SC alone is multiple MB); wire
- * it yourself if your product ships Chinese copy, e.g.
- * `@fontsource-variable/noto-sans-sc`.
- *
- * Import once at your app entry, after styles.css:
- *   import '@pieai/swimmer-ui-kit/styles.css';
- *   import '@pieai/swimmer-ui-kit/fonts.css';
- */
+/* Self-hosted brand faces. styles.css includes these declarations; fonts.css
+ * remains a standalone font-only entry. unicode-range downloads only the
+ * needed Chinese chunks. Modified OFL subsets use a distinct internal name.
+ * Source and deterministic tooling: scripts/zh-font-source.json. */
+@import './fonts/zh/font-faces.css';
 @font-face {
   font-family: 'Baloo 2';
   font-style: normal;

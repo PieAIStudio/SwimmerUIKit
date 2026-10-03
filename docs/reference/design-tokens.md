@@ -71,7 +71,11 @@ pnpm exec swimmer-ui-check src
 
 ## 字体、Tailwind 与资源
 
-fonts.css 可选，加载包内 Baloo 2 / Geist Variable 的 Latin 子集；没有中文字体。产品选择中文字体并负责加载，未加载时退回系统字体，不把回退误称为字体已生效。两份字体的 OFL 许可证随包保留。
+styles.css 已包含默认字体声明；fonts.css 仍可单独加载字体而不加载组件样式。英文标题使用 Baloo 2、正文使用 Geist Variable；中文标题与正文使用资源圆体 CN v0.990 的切分版，内部名称为 Swimmer Rounded CN。代码使用系统等宽字体，不列出未提供的 Noto 或其他命名字体。
+
+中文按 Unicode 固定 512 码位分桶、四个字重切为 464 个 WOFF2 块，总计 23,612,344 字节；只下载页面用到的块，纯英文页面不请求中文块。Regular 对应400、Medium500、Bold600–700、Heavy800–900，全部 font-display: swap。完整字形文件较大，分块减少的是网页实际请求，不冒称安装包变小。
+
+来源、输入文件哈希与工具版本以 scripts/zh-font-source.json 为准；scripts/build-zh-fonts.py 用 Python3.12.7、fonttools4.65.0、brotli1.2.0 重建，正常安装和构建直接使用已提交文件，不需要 Python。生成文件清单与哈希在 src/tokens/fonts/zh/manifest.json。源字体采用 OFL1.1，上游指定的保留字体名为 Source；切分后的内部名称已改为 Swimmer Rounded CN，版权和完整OFL仍在各字体与同目录OFL.txt中。两次切分逐字节相同，浏览器检查实际使用的字体，而不只读取font-family字符串。
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 

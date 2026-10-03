@@ -43,8 +43,17 @@ afterEach(async () => {
   host.remove();
   vi.restoreAllMocks();
 });
-const render = async (node: ReactNode) =>
-  act(async () => root.render(<StrictMode>{node}</StrictMode>));
+const nativeFrame = window.requestAnimationFrame.bind(window);
+const render = async (node: ReactNode) => {
+  await act(async () => root.render(<StrictMode>{node}</StrictMode>));
+  // Default webfonts may replace the initial system glyph widths. Compare
+  // press/rest only after font loading and ResizeObserver have settled; a
+  // legitimate font resize is not an ambient animation or a changed hit target.
+  await act(async () => {
+    await document.fonts.ready;
+    await new Promise<void>((resolve) => nativeFrame(() => nativeFrame(() => resolve())));
+  });
+};
 const advance = async (count: number) =>
   act(async () => {
     for (let i = 0; i < count; i++) {

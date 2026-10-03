@@ -1,0 +1,47 @@
+{
+  "family": "Swimmer Rounded CN",
+  "upstream": "Resource Han Rounded CN v0.990",
+  "sourceUrl": "https://github.com/CyanoHao/Resource-Han-Rounded/releases/tag/v0.990",
+  "archive": "RHR-CN-0.990.7z",
+  "archiveSha256": "e7005f7b4a7a0b8352d32c4a1358ff47564eb73be7fdb2db00d9f792755e9dc7",
+  "license": "OFL-1.1",
+  "reservedFontNames": ["Source"],
+  "tools": {
+    "python": "3.12.7",
+    "fonttools": "4.65.0",
+    "brotli": "1.2.0"
+  },
+  "minUnicode": 11904,
+  "blockSize": 512,
+  "timestamp": 3628362172,
+  "sources": [
+    {
+      "filename": "ResourceHanRoundedCN-Regular.ttf",
+      "style": "Regular",
+      "weight": 400,
+      "cssWeight": "400",
+      "sha256": "1c5c623f008eabef10c45135a48b01b46311f9369c28857355872cfe05f48dc0"
+    },
+    {
+      "filename": "ResourceHanRoundedCN-Medium.ttf",
+      "style": "Medium",
+      "weight": 500,
+      "cssWeight": "500",
+      "sha256": "b2ec1727fbc04b70255db6cb71be0eca3b7a7167ef11655059c5576cc920143f"
+    },
+    {
+      "filename": "ResourceHanRoundedCN-Bold.ttf",
+      "style": "Bold",
+      "weight": 700,
+      "cssWeight": "600 700",
+      "sha256": "f713907a21a10701cd68a7ce3e345ccdce46c789e1809d65ace54e095d7107c3"
+    },
+    {
+      "filename": "ResourceHanRoundedCN-Heavy.ttf",
+      "style": "Heavy",
+      "weight": 900,
+      "cssWeight": "800 900",
+      "sha256": "dfc757d9c5ae597cac15b12a51a1cee07af500cc8cf7439b243e1bb94b2b1f83"
+    }
+  ]
+}

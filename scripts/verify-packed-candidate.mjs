@@ -100,6 +100,7 @@ for (const file of [
   'donors-individual-lock.json',
   'dist/fonts/OFL-Baloo2.txt',
   'dist/fonts/OFL-Geist.txt',
+  'dist/fonts/zh/OFL.txt',
 ]) {
   assert.ok(existsSync(path.join(packedRoot, file)), `Missing license/provenance: ${file}`);
   assert.equal(sha(readFileSync(path.join(packedRoot, file))), sha(readFileSync(file)), file);

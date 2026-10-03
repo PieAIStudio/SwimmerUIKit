@@ -28,7 +28,7 @@ export function Actions() {
 
 一屏最多一个 primary。危险操作用 danger：红字、普通底色；不会变成另一个液体 CTA。安装包是 ESM-only；主样式是标准 CSS，不要求 Tailwind 或产品的 CSS 预处理器。
 
-图标直接用 `<GameIcon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。字体可选加载 fonts.css。
+图标直接用 `<GameIcon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。默认英文与中文字体声明已随 styles.css 加载；中文按字符块请求，fonts.css 也可单独使用。
 
 ## 去哪里看
 
