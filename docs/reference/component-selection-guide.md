@@ -141,6 +141,14 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 
 独立的具名路径数据从 `@pieai/swimmer-ui-kit/icon-paths` 导入，例如 `CHECK_ICON`。该入口不引入 React、名称查询表或其他运行时库，可以按数据导出裁剪；用字符串名的 GameIcon 包含本包的小型名称表。图标的每条来源及对应导出见迁移表。
 
+## 链接、小号与液体弹出面板
+
+GameButton / GameIconButton 有 href 时输出真正的链接；target、rel、download 保留原生行为。
+路由集成用 linkComponent，它接收 href、className、children 和原生 anchor ref。禁用链接没有 href，不参与聚焦或激活；不渲染路由组件，不用假地址代替禁用。
+链接型 primary 仍受“一屏最多一个 CTA”约束，只用于开始、收下类主操作，不把全部导航变成液体。默认 md 至少44px；显式 sm 高32px、文字14px、横向12px；图标sm是32×32，产品需为触屏保留足够可点空间。
+
+LiquidPopover 从 liquid-presence 入口导入；open/onOpenChange受控、source为真实启动ref、title提供名称。默认440px/bottom-end；窄屏优先top、两侧各12px。打开聚焦标题，Esc/外点关闭后回到启动控件；它不是模态框，不阻断背景。每次打开有新revealKey，内容更新不重播；超预算静态显示。面板内使用secondary，因为面板本身已经是液体。
+
 ## 无障碍基线
 
 保留可访问名字、原生焦点环、禁用语义与表单重置。默认触控目标至少 44px；compact 是显式密度选择，产品仍需验收其触达性。选中不仅靠颜色，强制配色使用系统边和状态；减少动态不取消正常操作。换语言/风格不重新挂载编辑内容。

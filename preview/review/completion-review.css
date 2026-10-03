@@ -1,0 +1,21 @@
+.completion-review {
+  max-width: 960px;
+  margin: auto;
+  padding: 24px;
+  color: var(--game-ui-text);
+  font-family: var(--game-ui-font-body);
+}
+.completion-review > section {
+  margin: 28px 0;
+}
+.completion-review h1,
+.completion-review h2 {
+  font-family: var(--game-ui-font-display);
+}
+.completion-review-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}

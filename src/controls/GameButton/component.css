@@ -30,6 +30,7 @@
     line-height: 1.35;
     overflow-wrap: anywhere;
     cursor: pointer;
+    text-decoration: none;
   }
   .game-ui-button--full-width {
     width: 100%;
@@ -84,5 +85,11 @@
       color: ButtonText;
       border: 1px solid ButtonText;
     }
+  }
+  .game-ui-button[data-game-ui-size='sm'] {
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 20px;
   }
 }

@@ -10,6 +10,7 @@
     padding: 8px;
     font: inherit;
     cursor: pointer;
+    text-decoration: none;
   }
   .game-ui-icon-button > .game-ui-selection-mark {
     position: absolute;
@@ -21,5 +22,12 @@
     width: 36px;
     min-width: 36px;
     height: 36px;
+  }
+  .game-ui-icon-button[data-game-ui-size='sm'] {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    padding: 4px;
+    font-size: 14px;
   }
 }

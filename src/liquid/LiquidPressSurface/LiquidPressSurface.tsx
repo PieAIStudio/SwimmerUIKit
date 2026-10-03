@@ -9,12 +9,14 @@ import { TIDE_FILL } from '../material/weight';
 export function LiquidPressSurface({
   children,
   control,
+  controlIdentity,
   enabled,
   static: isStatic = false,
   fullWidth = false,
 }: {
   children: ReactNode;
-  control: RefObject<HTMLButtonElement | null>;
+  control: RefObject<HTMLElement | null>;
+  controlIdentity?: unknown;
   enabled: boolean;
   static?: boolean;
   fullWidth?: boolean;
@@ -31,7 +33,7 @@ export function LiquidPressSurface({
       mounted = false;
       dispose();
     };
-  }, [control, enabled, isStatic]);
+  }, [control, controlIdentity, enabled, isStatic]);
   return (
     <span
       className="game-ui-button-frame"

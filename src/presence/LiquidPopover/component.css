@@ -1,0 +1,24 @@
+@layer swimmer-ui {
+  .game-ui-liquid-popover {
+    width: min(var(--game-ui-popover-width, 440px), calc(100vw - 24px));
+    max-width: 100%;
+    min-width: 0;
+  }
+  .game-ui-liquid-popover-content {
+    box-sizing: border-box;
+    max-height: min(calc(100dvh - 48px), calc(var(--liquid-outlet-height, 100dvh) - 24px));
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 8px;
+  }
+  .game-ui-liquid-popover-content > h2 {
+    font: 700 20px/1.4 var(--game-ui-font-display);
+    margin: 0 0 12px;
+    outline-offset: 2px;
+  }
+  @media (max-width: 767px) {
+    .game-ui-liquid-popover {
+      width: calc(100vw - 24px);
+    }
+  }
+}

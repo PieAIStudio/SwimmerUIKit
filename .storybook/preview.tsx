@@ -11,8 +11,11 @@ import '../src/tokens/fonts.css';
 const preview: Preview = {
   afterEach: ({ canvasElement }) => {
     const ctas = [
-      ...canvasElement.querySelectorAll<HTMLButtonElement>('button[data-game-ui-cta="true"]'),
-    ].filter((button) => !button.disabled && button.getClientRects().length > 0);
+      ...canvasElement.querySelectorAll<HTMLElement>('[data-game-ui-cta="true"]'),
+    ].filter(
+      (button) =>
+        !button.matches(':disabled,[aria-disabled="true"]') && button.getClientRects().length > 0,
+    );
     if (ctas.length > 1)
       throw new Error(
         `One screen may contain at most one liquid CTA; this story rendered ${ctas.length}: ${ctas.map((button) => button.textContent?.trim()).join(', ')}`,

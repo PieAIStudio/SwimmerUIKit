@@ -1,3 +1,4 @@
+@import './LiquidPopover/component.css';
 /* Optional components obey the same host-overridable layer as the main kit. */
 @layer swimmer-ui {
   /* The button remains a real, accessible Kit control. This family delegates

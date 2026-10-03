@@ -90,5 +90,17 @@
   {
     "before": "Tailwind card、muted、popover 的相近颜色",
     "after": "桥统一为card→surface、muted→surface-sunken、popover→surface-raised；不保留旧panel变量。"
+  },
+  {
+    "before": "产品自写点击跳转按钮或按钮外包链接",
+    "after": "S11：GameButton / GameIconButton 使用 href 输出原生 a；支持 target/rel/download，路由使用 linkComponent 并传递 ref。禁用时没有 href 或聚焦能力；primary 链接仍是一屏唯一 CTA。"
+  },
+  {
+    "before": "手工缩小按钮或图标按钮",
+    "after": "S11：size=sm，文字按钮高32px、横向12px、字号14px；图标按钮32×32。默认md不变，几何随尺寸测量，按下不缩小原生点击框。"
+  },
+  {
+    "before": "产品自行组合液体弹出面板、焦点和外点关闭",
+    "after": "S11：从 ./liquid-presence 导入 LiquidPopover；open/onOpenChange/source/title 必需，默认440px/bottom-end，窄屏优先top、视口减24px；Esc/外点关闭并恢复来源焦点，超预算静态显示，面板内用secondary。"
   }
 ]

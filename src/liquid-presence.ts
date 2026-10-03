@@ -2,6 +2,8 @@
 export { LiquidPresence } from './presence/LiquidPresence/LiquidPresence';
 export { LiquidReveal } from './presence/LiquidReveal/LiquidReveal';
 export { LiquidAnchor } from './presence/LiquidAnchor/LiquidAnchor';
+export { LiquidPopover } from './presence/LiquidPopover/LiquidPopover';
+export type { LiquidPopoverProps } from './presence/LiquidPopover/LiquidPopover';
 export type { LiquidAnchorProps } from './presence/LiquidAnchor/LiquidAnchor';
 export type { LiquidRevealProps } from './presence/LiquidReveal/LiquidReveal';
 export type {

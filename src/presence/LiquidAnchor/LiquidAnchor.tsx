@@ -50,6 +50,11 @@ export function LiquidAnchor({
     let modalRemoval: MutationObserver | null = null;
     const syncTheme = () => {
       const style = getComputedStyle(anchor);
+      for (const name of ['data-game-ui-theme', 'data-game-ui-style']) {
+        const value = anchor.closest(`[${name}]`)?.getAttribute(name);
+        if (value) node.setAttribute(name, value);
+        else node.removeAttribute(name);
+      }
       // Preserve scoped brand tokens across the portal without copying host styles.
       for (const name of Array.from(style)) {
         if (name.startsWith('--game-ui-') || name.startsWith('--liquid-presence-')) {
@@ -146,7 +151,15 @@ export function LiquidAnchor({
     for (let p: Element | null = anchor; p; p = p.parentElement)
       theme.observe(p, {
         attributes: true,
-        attributeFilter: ['class', 'style', 'data-game-ui-theme', 'hidden', 'inert', 'aria-hidden'],
+        attributeFilter: [
+          'class',
+          'style',
+          'data-game-ui-theme',
+          'data-game-ui-style',
+          'hidden',
+          'inert',
+          'aria-hidden',
+        ],
       });
     const body = anchor.querySelector('.game-ui-liquid-presence');
     if (body)

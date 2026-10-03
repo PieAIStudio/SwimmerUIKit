@@ -85,6 +85,8 @@ export function observePress(target: HTMLElement, notify: (pressed: boolean) => 
     }
     if (event.repeat || (event.key !== ' ' && event.key !== 'Enter') || disabled()) return;
     if (target.tagName === 'LABEL' && event.key === 'Enter') return;
+    // A link activates on Enter; Space keeps native page-scrolling semantics.
+    if (target.tagName === 'A' && event.key === ' ') return;
     const token = ++generation;
     queueMicrotask(() => {
       if (

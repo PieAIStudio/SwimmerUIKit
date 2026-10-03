@@ -1,31 +1,30 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
 import { controlHue, type GameUiHue } from '../../tokens/hue';
+import { NativeAction, type ActionElement, type ActionProps } from '../NativeAction/NativeAction';
 
-export interface GameIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export type GameIconButtonProps = ActionProps & {
   children: ReactNode;
   label: string;
   hue?: GameUiHue;
-}
-export const GameIconButton = forwardRef<HTMLButtonElement, GameIconButtonProps>(
-  function GameIconButton(
-    { children, className, label, hue, type = 'button', style, ...props },
-    ref,
-  ) {
+  size?: 'md' | 'sm';
+};
+export const GameIconButton = forwardRef<ActionElement, GameIconButtonProps>(
+  function GameIconButton({ children, className, label, hue, size = 'md', style, ...props }, ref) {
     return (
-      <button
+      <NativeAction
         {...props}
         ref={ref}
         aria-label={label}
         className={['game-ui-icon-button', className].filter(Boolean).join(' ')}
-        type={type}
         data-game-ui-paint=""
+        data-game-ui-size={size}
         style={{ ...controlHue(hue), ...style }}
       >
         <DropletSurface />
         {children}
         {props['aria-pressed'] !== undefined ? <SelectionMark /> : null}
-      </button>
+      </NativeAction>
     );
   },
 );
