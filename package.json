@@ -79,6 +79,7 @@
     "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm check:guide && pnpm test && pnpm check:styles && pnpm check:themes && pnpm build && pnpm check:fonts",
     "check:themes": "node scripts/check-control-styles.mjs",
     "check:packed": "node scripts/verify-packed-candidate.mjs",
+    "check:next-consumer": "node scripts/check-next-consumer.mjs",
     "api:inventory": "node scripts/public-api-audit.mjs --write",
     "api:check": "node scripts/public-api-audit.mjs --check",
     "build": "vite build && node scripts/build-css.mjs && node scripts/finalize-dist.mjs && node scripts/check-warnings-survive-build.mjs",

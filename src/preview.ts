@@ -1,3 +1,5 @@
+'use client';
+
 /** Optional showroom. Never imported by the main package. */
 export { GameUiPreview, type GameUiPreviewProps } from './preview/GameUiPreview/GameUiPreview';
 export { LiquidPreview } from './preview/LiquidPreview/LiquidPreview';

@@ -1,3 +1,5 @@
+'use client';
+
 /** Optional image and velocity deformation. Core controls never import this leaf. */
 export { LiquidEffectsGroup } from './liquid-effects/LiquidEffectsGroup/LiquidEffectsGroup';
 export { LiquidEffectsItem } from './liquid-effects/LiquidEffectsGroup/LiquidEffectsItem';

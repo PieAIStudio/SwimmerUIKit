@@ -21,7 +21,7 @@ related:
 
 ## 3.0 大手术
 
-任务书：[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)。Owner 批准干净断代、main 分阶段提交；没有授权发布 npm 或修改产品仓库。版本事实只看 package.json；发布前由 Claude 在 University 安装候选并跑完整门禁，再交 Owner 决定。
+S0–S6按[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)完成。原计划停在本地候选；其等待发布状态已由下方Owner 2026-10-03的S7–S14授权覆盖。继续在main分阶段提交，仅修改UIKit；版本事实看package.json，产品接入不属于本仓库验收。
 
 | 阶段 | 进度与提交 | 证据 |
 | --- | --- | --- |
@@ -42,13 +42,14 @@ related:
 | S9 | 资源圆体OFL1.1允许切分，保留版权并改内部名称；四字重464块按需加载。确定性、实际字体和纯英文零中文请求的证据：.devspace-reports/uikit-3-completion/S9/。 |
 | S10 | 四个层级与一个浮层阴影归位，旧panel别名删除；12风格控件配方不变，首页有真实层级示例。证据：.devspace-reports/uikit-3-completion/S10/。 |
 | S11 | 原生/路由链接、32px小号与受控LiquidPopover；新10个浏览器用例覆盖真实ref、禁用、键盘、焦点与静态预算。阶段门禁与桌面/窄屏截图：.devspace-reports/uikit-3-completion/S11/。 |
-| S12 | 展示组件复用静止水滴，进度条固定潮汐液面、变值600ms后休眠、不占滤镜预算；原图与十二组合、0→100记录：.devspace-reports/uikit-3-completion/S12/。 |
+| S12 | 完成，本地提交45bdc12；展示组件静止水滴，进度条变值600ms后休眠、不占滤镜预算。十二组合与0→100记录在S12/；本次复验569测试、样式、字体与文档通过，日志在S12/resume/。 |
+| S13 | 已完成React入口及共享分块client boundary；真实tarball通过Next16.3.8构建、启动、Server直接导入、Client液体交互、Next Link、390px减少动态与零浏览器错误检查。证据：.devspace-reports/uikit-3-completion/S13/next-consumer/；完整包体检查：.scratch/uikit-3-completion/S13/packed/。 |
 
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
 
-候选文件：`.scratch/s6/final/swimmer-ui-kit-3.0.0.tgz`。同目录 `SHA256SUMS` 与 `package-check/receipt.json` 用于交接校验；`packed-browser/` 是真实 tarball 导入后的十二组合、原生交互和 390px 检查，依赖来自本仓库的隔离夹具，不是 University 的安装验收。`negative-gates/` 记录缺文件或改字节的四个坏包都被拒绝，不能用旧的通过回执掩盖失败。
+S6旧候选及负例保留在`.scratch/s6/final/`，只作历史证据，不再用于新接入。S13消费端验收包在`.scratch/uikit-3-completion/S13/candidate.tgz`，仍是中间3.0.0版本；S14会生成最终3.0.0-rc.1包并重新跑完整门禁。每个回执绑定实际tarball与SHA-256，不能用旧的绿色结果替代后续修改的验证。
 
-下一步由 Claude 在 University 安装该候选、按迁移表跑完整门禁，再由 Owner 决定 npm 发布。本仓库已停止在候选阶段；未修改任何产品仓库、未运行发布或部署工作流。3.0 计划发布后才归入 completed。
+下一步执行S14：全部门禁通过后推送main，只触发一次npm-publish，3.0.0-rc.1使用next、latest保持2.14.0；工作流失败立即停，不重试。本轮尚未推送或发布，也未修改任何产品仓库。最终结果写入.devspace-reports/uikit-3-completion/REPORT.md；3.0计划发布后才归入completed。
 
 ## 历史与边界
 

@@ -1,3 +1,5 @@
+'use client';
+
 /** Optional browser-only visual leaf; import its CSS after UIKit styles.css. */
 export { LiquidPresence } from './presence/LiquidPresence/LiquidPresence';
 export { LiquidReveal } from './presence/LiquidReveal/LiquidReveal';

@@ -1,3 +1,5 @@
+'use client';
+
 // Public package membership, grouped by implementation owner. CSS is a separate leaf.
 export { GAME_UI_TARGETS, GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from './tokens/index';
 export { setLiquidGooeyBudget } from './liquid/budget';

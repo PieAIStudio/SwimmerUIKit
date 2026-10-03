@@ -17,6 +17,18 @@ export default defineConfig({
     react(),
     dts({ bundleTypes: true, tsconfigPath: './tsconfig.build.json' }),
     {
+      name: 'swimmer-client-chunks',
+      renderChunk(code, chunk) {
+        const client =
+          ['index', 'liquid-presence', 'liquid-effects', 'preview'].includes(chunk.name) ||
+          chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
+          Object.keys(chunk.modules).some((id) => /\.[jt]sx$/.test(id));
+        if (!client || /^\s*['"]use client['"]\s*;/.test(code)) return null;
+        // Run before final content hashes. Pure icon data stays server-importable.
+        return { code: `'use client';\n${code}`, map: null };
+      },
+    },
+    {
       name: 'swimmer-package-boundary-evidence',
       generateBundle(_options, bundle) {
         mkdirSync('.scratch/build', { recursive: true });

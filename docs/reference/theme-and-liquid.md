@@ -128,6 +128,14 @@ waviness 是高级液体位移纹理，不用于平面水滴边。其实际量�
 
 完整参数看[公共接口清单](public-api-inventory.md)与其源码链接。上游版本、采纳/拒绝的原因和许可只在 [donor 索引](../../donors-individual.md)、锁文件与 NOTICE 维护，不把外部 checkout 变成运行时依赖。
 
+## Next.js 与消费端边界
+
+根入口、liquid-presence、liquid-effects、preview及其React共享分块的产物都保留use client。App Router的Server Component可以直接挂载GameButton、GameBadge，并把LiquidPopover的客户端组件引用交给宿主Client Component；事件、ref、受控状态和运行时函数仍在客户端编排，不把普通回调从服务端传过去。
+
+styles.css与按需的liquid-presence.css在应用layout导入。纯图标路径入口icon-paths不依赖React，仍可在服务端读取；类型使用import type。不要给纯CSS或声明文件添加客户端指令，也不要为了绕开边界在产品复制一份UIKit导出层。
+
+pnpm check:next-consumer <实际tgz> [证据目录] 会在临时App Router项目安装该包，执行Next构建、启动、真实浏览器水合、原生/Next Link、液体面板焦点与窄屏减少动态检查。它不进普通pnpm test，也不会修改产品仓库；失败回执不会沿用上次的绿色状态。
+
 ## 验收入口
 
 pnpm verify 检查类型、代码、格式、API、单元/浏览器/Storybook、样式、十二配色块和构建；pnpm docs:check 检查当前文档。pnpm check:themes 使用真实编译后 CSS 和浏览器计算配色，不只比较一份手写颜色表。普通控件固定点击框、危险红字、开关状态与边缘原件各有浏览器测试。

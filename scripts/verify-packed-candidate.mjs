@@ -60,6 +60,9 @@ assert.equal(packed.type, 'module');
 const walk = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const file = path.join(directory, entry.name);
+    // Finder may recreate metadata after build cleanup. It is not runtime input;
+    // the tarball loop above still rejects it rather than allowing it to ship.
+    if (entry.name === '.DS_Store') return [];
     return entry.isDirectory() ? walk(file) : entry.isFile() ? [file] : [];
   });
 const shippedSourceFiles = ['dist', 'bin'].flatMap(walk).sort();
@@ -197,6 +200,33 @@ assert.deepEqual(
     .sort(),
   'Build module graph must cover the exact emitted JavaScript files',
 );
+// Inspect the shipped bytes, including shared React chunks, not source directives.
+const clientEntries = new Set([
+  'index.js',
+  'liquid-presence.js',
+  'liquid-effects.js',
+  'preview.js',
+]);
+const clientDirective = /^\s*['"]use client['"]\s*;/;
+const clientChunks = [];
+const serverDataChunks = [];
+for (const [name, chunk] of Object.entries(graph)) {
+  const code = readFileSync(path.join(packedRoot, 'dist', name), 'utf8');
+  const hasReact =
+    clientEntries.has(name) ||
+    chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
+    chunk.modules.some((id) => /\.[jt]sx$/.test(id));
+  if (hasReact) {
+    assert.match(code, clientDirective, `Missing client boundary in packed React chunk: ${name}`);
+    clientChunks.push(name);
+  } else {
+    assert.doesNotMatch(code, clientDirective, `Pure data must remain server-importable: ${name}`);
+    serverDataChunks.push(name);
+  }
+}
+for (const file of shippedSourceFiles.filter((file) => /(?:\.d\.ts|\.css)$/.test(file))) {
+  assert.doesNotMatch(readFileSync(path.join(packedRoot, file), 'utf8'), clientDirective, file);
+}
 const rootChunks = reachableChunks(graph, 'index.js');
 const receipt = {
   status: 'local release candidate, not published or product-accepted',
@@ -213,6 +243,8 @@ const receipt = {
   preservedPublicPaths: publicFiles.length,
   runtimeEntries,
   typedConsumerModes: modes,
+  clientChunks,
+  serverDataChunks,
   rejectedLegacyContracts: true,
   packedCliMigration: true,
   rootChunks,

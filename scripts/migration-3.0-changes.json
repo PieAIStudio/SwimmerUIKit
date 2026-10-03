@@ -110,5 +110,9 @@
   {
     "before": "GameProgress tone、普通矩形填充和 game-ui-progress-flat-fill 类",
     "after": "S12：删除tone参数和旧填充类，不留别名。轨道是10px静止水滴/surface-sunken，液面固定潮汐，变值时600ms弯月缓波后静止，无滤镜预算；减少动态直接到位。progressbar数值、max、label、showValue、valueLabel保持。"
+  },
+  {
+    "before": "Next.js App Router 直接导入 UIKit 的组件遇到 hooks / RSC 边界错误",
+    "after": "S13：根入口、liquid-presence、liquid-effects、preview及含React的共享分块在构建时带use client；Server Component可直接挂载组件，不需要产品重复包装导出。事件、ref和受控状态仍由App的Client Component提供，不能把普通函数跨服务端序列化。纯类型用import type；icon-paths保持无React、可在服务端直接读取。CSS仍在应用layout显式导入。"
   }
 ]
