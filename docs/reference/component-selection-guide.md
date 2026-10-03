@@ -102,7 +102,7 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameEmptyState` | 解释当前没有内容的原因，并提供宿主动作。 |
 | `GameHelpTip` | 可省略的短解释，不放必要费用或交互表单。 |
 | `GameLoadingState` | 表示真实加载中，不承诺完成时间。 |
-| `GameProgress` | 已知数值的真实进度，不伪造业务完成。 |
+| `GameProgress` | 10px水滴轨道与潮汐液面；数值变化晃动600ms后静止，不占滤镜预算。保留原生progressbar语义，不伪造业务完成。 |
 | `GamePrompt` | 短操作提示，不代替实际输入控件。 |
 | `GameToast` | 单条短通知；排队、持久化和重要错误归宿主。 |
 | `GameTooltip` | 可聚焦目标的补充说明，不作为唯一可访问名称。 |

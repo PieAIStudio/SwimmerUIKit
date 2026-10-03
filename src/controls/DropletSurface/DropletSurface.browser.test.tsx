@@ -269,27 +269,24 @@ describe('one flat droplet primitive', () => {
       );
     }
   });
-  it('keeps progress emphasis inside the selected style instead of leaking palette hues', async () => {
+  it('uses the S12 tide exception in every style without introducing a filter', async () => {
     for (const style of GAME_UI_STYLES) {
       await render(
         <div data-game-ui-style={style}>
-          {(['accent', 'success', 'warning', 'danger'] as const).map((tone) => (
-            <GameProgress key={tone} tone={tone} value={40} label={tone} />
-          ))}
+          <GameProgress value={40} label="Completion" />
         </div>,
       );
-      const colors = [...host.querySelectorAll<HTMLElement>('.game-ui-progress')].map((bar) => {
+      for (const bar of host.querySelectorAll<HTMLElement>('.game-ui-progress')) {
         const probe = document.createElement('span');
-        probe.style.color = 'var(--game-ui-control-on-edge)';
         bar.append(probe);
-        const fill = getComputedStyle(
-          bar.querySelector('.game-ui-progress-flat-fill')!,
-        ).backgroundColor;
-        expect(fill).toBe(getComputedStyle(probe).color);
+        const stops = bar.querySelectorAll('stop');
+        for (const [i, token] of ['--game-ui-cta-from', '--game-ui-cta-to'].entries()) {
+          probe.style.color = `var(${token})`;
+          expect(getComputedStyle(stops[i]!).stopColor).toBe(getComputedStyle(probe).color);
+        }
+        expect(bar.querySelector('[data-progress-front]')?.getAttribute('d')).toMatch(/^M.*C.*Z$/);
         probe.remove();
-        return fill;
-      });
-      expect(new Set(colors).size).toBe(['grey', 'outline', 'ink'].includes(style) ? 1 : 4);
+      }
       expect(host.querySelectorAll('filter')).toHaveLength(0);
     }
   });

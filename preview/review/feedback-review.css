@@ -1,0 +1,46 @@
+.feedback-review {
+  box-sizing: border-box;
+  min-height: 100dvh;
+  max-width: 1080px;
+  margin: auto;
+  padding: 32px;
+  font-family: var(--game-ui-font-body);
+  background: var(--game-ui-bg);
+  color: var(--game-ui-text);
+}
+.feedback-review header label {
+  display: inline-flex;
+  gap: 8px;
+  margin-inline-end: 20px;
+}
+.feedback-review h1,
+.feedback-review h2 {
+  font-family: var(--game-ui-font-display);
+}
+.feedback-review section {
+  margin-top: 32px;
+}
+.feedback-review-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 24px 0;
+}
+.feedback-review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+.feedback-review-tooltip {
+  padding: 42px 110px 0;
+}
+@media (max-width: 600px) {
+  .feedback-review {
+    padding: 20px;
+  }
+  .feedback-review-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

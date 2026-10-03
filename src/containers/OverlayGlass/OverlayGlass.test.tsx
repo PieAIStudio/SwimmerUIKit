@@ -116,10 +116,13 @@ describe('overlay glass component rules', () => {
     expect(stylesCss).toContain('--game-ui-paint-fill: var(--game-ui-control-fill)');
     expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-border-hover)');
     expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-bg-hover)');
-    expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-badge");
+    // S12's static display family no longer has a second glass renderer.
+    expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-badge");
+    expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-toast");
+    expect(stylesCss).toContain('.game-ui-badge[data-game-ui-paint]');
     expect(stylesCss).toContain("[data-game-ui-tone='glass'] .game-ui-panel");
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-input");
-    expect(stylesCss).toContain('.game-ui-progress-flat-fill');
+    expect(stylesCss).toContain('[data-progress-front]');
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-progress-track");
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-icon");
   });

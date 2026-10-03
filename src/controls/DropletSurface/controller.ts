@@ -26,6 +26,7 @@ export function attachDroplet(
   seed: number,
   motion: boolean,
   pressTarget: HTMLElement = target,
+  maxWobble = DROPLET_WOBBLE_MAX,
 ): () => void {
   const path = svg.querySelector('path')!;
   const group = svg.querySelector('g')!;
@@ -85,6 +86,7 @@ export function attachDroplet(
       0,
       Math.min(
         DROPLET_WOBBLE_MAX,
+        Number.isFinite(maxWobble) ? Math.max(0, maxWobble) : DROPLET_WOBBLE_MAX,
         numeric(style.getPropertyValue('--game-ui-droplet-wobble'), DROPLET_WOBBLE_MAX),
       ),
     );

@@ -1,10 +1,3 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
   .game-ui-tooltip {
     position: relative;
@@ -14,37 +7,18 @@
     position: absolute;
     bottom: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%) translateY(3px);
+    transform: translateX(-50%);
     min-width: 150px;
-    border-radius: 12px;
-    background: var(--game-ui-tooltip-surface);
-    color: var(--game-ui-tooltip-ink);
     padding: 7px 9px;
     font-size: var(--game-ui-font-xs);
+    --game-ui-droplet-radius: 12px;
     opacity: 0;
     pointer-events: none;
-    transition:
-      opacity var(--game-ui-motion-fast) var(--game-ui-ease-soft),
-      transform var(--game-ui-motion-fast) var(--game-ui-ease-pop);
+    z-index: 2;
+    touch-action: auto;
   }
-  .game-ui-tooltip [role='tooltip']::after {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    margin-top: -5px;
-    background: var(--game-ui-text);
-    border-radius: 2px;
-    content: '';
-    transform: translateX(-50%) rotate(45deg);
-  }
-  .game-ui-tooltip:hover [role='tooltip'] {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .game-ui-tooltip:hover [role='tooltip'],
   .game-ui-tooltip:focus-within [role='tooltip'] {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
   }
 }

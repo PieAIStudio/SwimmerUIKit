@@ -1,5 +1,5 @@
 import { createRef, forwardRef, type ComponentProps } from 'react';
-import { GameButton, GameIconButton } from '../../src/index';
+import { GameButton, GameIconButton, GameProgress } from '../../src/index';
 import { LiquidPopover } from '../../src/liquid-presence';
 
 const router = forwardRef<HTMLAnchorElement, ComponentProps<'a'>>((props, ref) => (
@@ -36,3 +36,6 @@ export const wrongType = (
 );
 // @ts-expect-error An icon-only action always requires its accessible label.
 export const unnamedIcon = <GameIconButton href="/learn">→</GameIconButton>;
+
+// @ts-expect-error The S12 progress liquid has one tide recipe, no tone switch.
+export const oldProgressTone = <GameProgress value={40} label="Progress" tone="success" />;

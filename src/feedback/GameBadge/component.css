@@ -1,61 +1,18 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
-  .game-ui-badge {
+  .game-ui-badge[data-game-ui-paint] {
     display: inline-flex;
-    min-height: 28px;
     align-items: center;
     justify-content: center;
     width: fit-content;
-    /* A badge is one short token. As a flex item, min-width:auto falls back to
-     * min-content — for CJK that is one glyph — so flex-shrink wraps mid-label
-     * (e.g. "课程已发布" → "课程已发" / "布"). nowrap keeps the whole token intact. */
-    white-space: nowrap;
-    border: 1px solid var(--game-ui-border-subtle);
-    border-radius: var(--game-ui-radius-bead);
-    background: color-mix(in srgb, var(--game-ui-surface) 90%, transparent);
-    color: var(--game-ui-text);
+    height: 24px;
+    min-height: 24px;
     padding: 0 10px;
-    font-size: var(--game-ui-font-xs);
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .game-ui-badge[data-badge-tone='success'] {
-    border-color: color-mix(in srgb, var(--game-ui-success) 42%, transparent);
-    background: color-mix(in srgb, var(--game-ui-success-bright) 28%, transparent);
-  }
-  .game-ui-badge[data-badge-tone='warning'] {
-    border-color: color-mix(in srgb, var(--game-ui-accent) 42%, transparent);
-    background: color-mix(in srgb, var(--game-ui-warning) 28%, transparent);
-  }
-  .game-ui-badge[data-badge-tone='danger'] {
-    border-color: color-mix(in srgb, var(--game-ui-danger) 42%, transparent);
-    background: color-mix(in srgb, var(--game-ui-danger) 16%, transparent);
-  }
-  .game-ui-badge[data-badge-tone='ai'] {
-    border-color: color-mix(in srgb, var(--game-ui-secondary) 42%, transparent);
-    background: color-mix(in srgb, var(--game-ui-secondary) 16%, transparent);
-  }
-  [data-game-ui-tone='glass'] .game-ui-badge {
-    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 90%, transparent);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  .game-ui-overlay-scope .game-ui-badge {
-    border-color: color-mix(in srgb, var(--game-ui-overlay-glass-border) 90%, transparent);
-    background: var(--game-ui-overlay-glass-bg);
-    color: var(--game-ui-overlay-glass-text);
-    backdrop-filter: blur(var(--game-ui-overlay-glass-blur));
-  }
-  [data-game-ui-density='compact'] .game-ui-badge {
-    min-height: 22px;
-    padding: 0 8px;
+    white-space: nowrap;
+    font-family: var(--game-ui-font-body);
+    font-weight: 600;
+    line-height: 1.25;
+    font-size: 12px;
+    --game-ui-droplet-radius: 12px;
+    touch-action: auto;
   }
 }

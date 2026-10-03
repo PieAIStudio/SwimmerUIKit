@@ -1,33 +1,43 @@
 @layer swimmer-ui {
-  .game-ui-progress[data-game-ui-paint] {
+  .game-ui-progress {
     display: flex;
     align-items: center;
     gap: 12px;
     min-width: 0;
-    background: transparent;
-    /* The emphasis edge is chromatic in colour styles and ink in neutral
-     * styles. A progress bar must not leak a blue tint into a grey surface. */
-    --game-ui-progress-color: var(--game-ui-control-on-edge);
   }
   .game-ui-progress-track {
-    display: block;
+    position: relative;
     flex: 1;
     min-width: 0;
     height: 10px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: var(--game-ui-surface-sunken);
   }
-  .game-ui-progress-flat-fill {
+  .game-ui-progress-track > svg {
     display: block;
-    height: 100%;
-    border-radius: inherit;
-    background: var(--game-ui-progress-color);
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 18px;
+    top: -4px;
+    left: -4px;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .game-ui-progress [data-progress-track] {
+    fill: var(--game-ui-surface-sunken);
   }
   .game-ui-progress-value {
     flex: 0 1 auto;
-    min-width: 3ch;
+    min-width: 4ch;
     font-variant-numeric: tabular-nums;
     color: var(--game-ui-text);
+  }
+  @media (forced-colors: active) {
+    .game-ui-progress [data-progress-track] {
+      fill: Canvas;
+      stroke: CanvasText;
+      stroke-width: 1;
+    }
+    .game-ui-progress [data-progress-front] {
+      fill: Highlight;
+    }
   }
 }

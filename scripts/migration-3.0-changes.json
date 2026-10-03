@@ -29,7 +29,7 @@
   },
   {
     "before": "`GameToggle / GameSegmentedControl / GameSelect / GameProgress` 的 `surface`、`liquidFinish`",
-    "after": "删除可选液体皮肤。这些组件固定平面，不再让普通选择或进度条抢占主操作的液体信号。值、原生表单、焦点、禁用和回调语义保持。"
+    "after": "删除可选皮肤开关。开关、分段、选择框固定平面；S12的进度条统一为静止轨道与不占滤镜预算的潮汐液面，不保留旧皮肤。值、原生表单、焦点、禁用和回调语义保持。"
   },
   {
     "before": "`LiquidGroup / LiquidSurface liquidFinish`",
@@ -102,5 +102,13 @@
   {
     "before": "产品自行组合液体弹出面板、焦点和外点关闭",
     "after": "S11：从 ./liquid-presence 导入 LiquidPopover；open/onOpenChange/source/title 必需，默认440px/bottom-end，窄屏优先top、视口减24px；Esc/外点关闭并恢复来源焦点，超预算静态显示，面板内用secondary。"
+  },
+  {
+    "before": "GameBadge 的厚边/28px/大写，Toast 入场位移，Callout/Tooltip 矩形背景",
+    "after": "S12：展示背景统一静止水滴。Badge高24px、横向10px、12px/600、缓波最多1px；其他展示最多1.4px，文字布局和status/alert/tooltip语义保持。tone使用现有风格语义，灰阶/包边去色，danger红字例外。"
+  },
+  {
+    "before": "GameProgress tone、普通矩形填充和 game-ui-progress-flat-fill 类",
+    "after": "S12：删除tone参数和旧填充类，不留别名。轨道是10px静止水滴/surface-sunken，液面固定潮汐，变值时600ms弯月缓波后静止，无滤镜预算；减少动态直接到位。progressbar数值、max、label、showValue、valueLabel保持。"
   }
 ]

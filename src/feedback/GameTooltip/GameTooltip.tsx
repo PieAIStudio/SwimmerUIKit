@@ -1,4 +1,5 @@
 import { cloneElement, isValidElement, useId, type ReactNode } from 'react';
+import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 
 export interface GameTooltipProps {
   /** A single focusable trigger element (e.g. GameIconButton). */
@@ -20,7 +21,8 @@ export function GameTooltip({ children, label }: GameTooltipProps): ReactNode {
   return (
     <span className="game-ui-tooltip">
       {trigger}
-      <span id={tooltipId} role="tooltip">
+      <span id={tooltipId} role="tooltip" data-game-ui-paint="">
+        <DropletSurface static />
         {label}
       </span>
     </span>

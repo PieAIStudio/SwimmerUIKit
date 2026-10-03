@@ -47,6 +47,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 | 危险操作 | --game-ui-danger-ink、--game-ui-control-danger-edge；不会改变普通底色 |
 | 配色 | --game-ui-tint-*、--game-ui-mist-*；hue 映射为控件局部变量 |
 | CTA | --game-ui-cta-from、--game-ui-cta-to、--game-ui-cta-text |
+| 进度条液面 | 复用cta-from/to；轨道surface-sunken，高10px，无滤镜、无待机动画 |
 | 轮廓和间距 | --game-ui-droplet-wobble、--game-ui-control-row-radius、--game-ui-control-padding-* |
 | 字体和正文 | --game-ui-font-body/display/mono、--game-ui-font-reading、--game-ui-line-reading、--game-ui-measure-reading |
 | 触控、安全区与滚动 | --game-ui-safe-*、--game-ui-scrollbar-*、--game-ui-focus-ring |

@@ -43,7 +43,7 @@ export function FormsAndDisplay(): ReactNode {
           <GameAvatar name={copy.guestName} size="sm" />
         </div>
         <GameProgress label={copy.revealLabel} showValue value={64} />
-        <GameProgress label={copy.batteryLabel} max={20} showValue tone="success" value={14} />
+        <GameProgress label={copy.batteryLabel} max={20} showValue value={14} />
         <GameEmptyState
           action={<GameButton variant="primary">{copy.emptyCta}</GameButton>}
           description={copy.emptyBody}

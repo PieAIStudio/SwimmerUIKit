@@ -8,9 +8,12 @@ import { dropletSeed } from './geometry';
 export function DropletSurface({
   static: isStatic = false,
   pressTarget,
+  maxWobble = 1.4,
 }: {
   static?: boolean;
   pressTarget?: RefObject<HTMLElement | null>;
+  /** Internal static display cap; never raises the brand's 1.4px maximum. */
+  maxWobble?: number;
 }) {
   const id = useId();
   const svg = useRef<SVGSVGElement>(null);
@@ -29,6 +32,7 @@ export function DropletSurface({
         dropletSeed(id),
         !reduced && !isStatic,
         pressTarget?.current ?? parent,
+        maxWobble,
       );
     };
     // A row's native selection button is a later sibling of its decoration.
@@ -40,7 +44,7 @@ export function DropletSurface({
       disposed = true;
       disconnect?.();
     };
-  }, [id, reduced, isStatic, pressTarget]);
+  }, [id, reduced, isStatic, pressTarget, maxWobble]);
   return (
     <svg ref={svg} className="game-ui-droplet" aria-hidden="true" focusable="false">
       <g>
