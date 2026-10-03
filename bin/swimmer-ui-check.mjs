@@ -146,7 +146,10 @@ function contrastRatio(a, b) {
 /**
  * Token values per theme, read from the kit's shipped stylesheet.
  *
- * Only fully opaque hex values are kept. A token carrying alpha composites
+ * Fully opaque hex values, references and two-colour srgb token mixes are kept.
+ * Resolve expressions AFTER combining each theme's declarations; carrying a
+ * pre-resolved light colour into dark would invent a false contrast result.
+ * A token carrying alpha composites
  * against whatever is behind it, and guessing that would produce confident
  * numbers about a colour nobody can know from here.
  */
@@ -173,18 +176,46 @@ function themeTokens() {
     }
   }
   if (css === null) return null;
-  const themes = new Map();
+  const declarations = new Map();
   // The built stylesheet is minified and the attribute value loses its quotes,
   // so both forms have to match or every theme but the default is invisible.
   const blockRe = /(:root|\[data-game-ui-theme=['"]?([\w-]+)['"]?\])\s*\{([^}]*)\}/g;
-  for (const match of css.matchAll(blockRe)) {
+  for (const match of css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(blockRe)) {
     const name = match[2] ?? 'light';
-    const values = themes.get(name) ?? new Map(themes.get('light') ?? []);
-    for (const decl of match[3].matchAll(/(--game-ui-[\w-]+)\s*:\s*(#[0-9a-fA-F]{3,8})/g)) {
-      const rgb = decl[2].length === 9 || decl[2].length === 5 ? null : parseHex(decl[2]);
-      if (rgb) values.set(decl[1], rgb);
+    const values = declarations.get(name) ?? new Map();
+    for (const decl of match[3].matchAll(/(--game-ui-[\w-]+)\s*:\s*([^;}]+)/g))
+      values.set(decl[1], decl[2].trim());
+    declarations.set(name, values);
+  }
+  const themes = new Map();
+  for (const [name, own] of declarations) {
+    const values = new Map([...(declarations.get('light') ?? []), ...own]);
+    const color = (value, seen = new Set()) => {
+      if (!value) return null;
+      if (/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value)) return parseHex(value);
+      const variable = /^var\(\s*(--[\w-]+)\s*\)$/.exec(value);
+      if (variable) {
+        if (seen.has(variable[1])) return null;
+        return color(values.get(variable[1]), new Set([...seen, variable[1]]));
+      }
+      const mix =
+        /^color-mix\(in srgb,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*([\d.]+)%,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*\)$/i.exec(
+          value,
+        );
+      if (!mix) return null; // Unknown/alpha paint is not guessed or inherited.
+      const a = color(mix[1], seen),
+        b = color(mix[3], seen),
+        fraction = Number(mix[2]) / 100;
+      return a && b && fraction >= 0 && fraction <= 1
+        ? a.map((channel, i) => channel * fraction + b[i] * (1 - fraction))
+        : null;
+    };
+    const resolved = new Map();
+    for (const [variable, value] of values) {
+      const rgb = color(value);
+      if (rgb) resolved.set(variable, rgb);
     }
-    themes.set(name, values);
+    themes.set(name, resolved);
   }
   return themes;
 }

@@ -14,9 +14,9 @@
     padding: 0.65rem 0.75rem;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 88%, transparent);
+    background: color-mix(in srgb, var(--game-ui-surface) 88%, transparent);
     color: var(--game-ui-text);
-    box-shadow: var(--game-ui-shadow-panel);
+    box-shadow: none;
   }
   .game-ui-callout-title {
     margin: 0;
@@ -36,7 +36,7 @@
   }
   .game-ui-callout--warning {
     border-color: color-mix(in srgb, var(--game-ui-warning) 55%, transparent);
-    background: color-mix(in srgb, var(--game-ui-warning) 12%, var(--game-ui-panel-strong));
+    background: color-mix(in srgb, var(--game-ui-warning) 12%, var(--game-ui-surface));
   }
   .game-ui-callout--danger {
     border-color: color-mix(in srgb, var(--game-ui-danger) 55%, transparent);

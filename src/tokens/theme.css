@@ -66,14 +66,7 @@
   --game-ui-asset-card-dense-min-width: 132px;
   --game-ui-asset-rail-card-size: 52px;
   --game-ui-asset-rail-preview-size: 42px;
-
-  --game-ui-bg: #fffdf8;
   --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
-  --game-ui-surface: #fffdf8;
-  --game-ui-surface-raised: #fffdf8;
-  --game-ui-panel: #fffdf8;
-  --game-ui-panel-strong: #fffdf8;
-  --game-ui-panel-deep: #f4eee3;
   --game-ui-text: #2a2320;
   --game-ui-text-muted: #625b56;
   --game-ui-accent: #e8743b;
@@ -186,12 +179,6 @@
    * shadow side. It is what separates a game control from a card — a key has
    * a height you can see, and pressing it has somewhere to go. Depth is a
    * token so a press can collapse it without restating the colour. */
-  --game-ui-shadow-button: none;
-  --game-ui-shadow-panel:
-    0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-modal:
-    0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-inset: none;
   /* The ink a liquid body casts on the ground under it.
    * Only the colour is a token: how far a body sits off the surface is what
    * each liquid form *means* — a pressed control is nearly touching, a falling
@@ -484,6 +471,11 @@
   --game-ui-liquid-material-muted: #020a08;
   --game-ui-liquid-material-field: #104a41;
   --game-ui-liquid-field-ink: #f2f7f4;
+  --game-ui-bg: #fffdf8;
+  --game-ui-surface: color-mix(in srgb, var(--game-ui-text) 4%, var(--game-ui-bg));
+  --game-ui-surface-sunken: color-mix(in srgb, var(--game-ui-text) 8%, var(--game-ui-bg));
+  --game-ui-surface-raised: #fffdf8;
+  --game-ui-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
 /*
@@ -504,14 +496,7 @@
   --game-ui-tooltip-ink: #f6e7d3;
 
   color-scheme: dark;
-
-  --game-ui-bg: #1f2326;
   --game-ui-playfield-scrim: rgba(10, 6, 4, 0.5);
-  --game-ui-surface: #1f2326;
-  --game-ui-surface-raised: #1f2326;
-  --game-ui-panel: #1f2326;
-  --game-ui-panel-strong: #1f2326;
-  --game-ui-panel-deep: #2a2e31;
   --game-ui-text: #e8e6e1;
   --game-ui-text-muted: #b4b8b4;
   --game-ui-accent: #ef8148;
@@ -541,10 +526,6 @@
   --game-ui-text-on-dark: #fff8ec;
 
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.62);
-  --game-ui-shadow-button: none;
-  --game-ui-shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --game-ui-shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --game-ui-shadow-inset: none;
   --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
 
   --game-ui-preview-glow-warm: rgba(120, 88, 42, 0.35);
@@ -553,6 +534,11 @@
   --game-ui-preview-canvas-2: #201510;
   --game-ui-preview-canvas-3: #150d08;
   --game-ui-color-scheme: dark;
+  --game-ui-bg: #1f2326;
+  --game-ui-surface: color-mix(in srgb, var(--game-ui-text) 6%, var(--game-ui-bg));
+  --game-ui-surface-sunken: color-mix(in srgb, var(--game-ui-text) 11%, var(--game-ui-bg));
+  --game-ui-surface-raised: color-mix(in srgb, var(--game-ui-text) 9%, var(--game-ui-bg));
+  --game-ui-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
 /*
@@ -566,14 +552,7 @@
 [data-game-ui-tone='glass'],
 .game-ui-overlay-scope {
   color-scheme: dark;
-
-  --game-ui-bg: transparent;
   --game-ui-playfield-scrim: rgba(8, 10, 16, 0.35);
-  --game-ui-surface: var(--game-ui-overlay-glass-bg);
-  --game-ui-surface-raised: var(--game-ui-overlay-glass-bg);
-  --game-ui-panel: var(--game-ui-overlay-glass-bg-panel);
-  --game-ui-panel-strong: var(--game-ui-overlay-glass-bg-strong);
-  --game-ui-panel-deep: rgba(8, 10, 16, 0.92);
   --game-ui-text: var(--game-ui-overlay-glass-text);
   --game-ui-text-muted: var(--game-ui-overlay-glass-text-muted);
   --game-ui-text-on-dark: var(--game-ui-overlay-glass-text);
@@ -598,13 +577,14 @@
   --game-ui-scrim-strong: rgba(0, 0, 0, 0.55);
 
   /* Flat glass: no flat cast shadows; panels keep a soft lift for dialogue strips */
-  --game-ui-shadow-button: none;
-  --game-ui-shadow-panel: var(--game-ui-overlay-glass-shadow-lift);
-  --game-ui-shadow-modal: var(--game-ui-overlay-glass-shadow-lift);
-  --game-ui-shadow-inset: none;
   --game-ui-shadow-liquid-ink: rgb(0, 0, 0);
   --game-ui-shadow-callout: 0 8px 18px rgba(0, 0, 0, 0.28);
   --game-ui-stroke: 1px solid var(--game-ui-overlay-glass-border);
+  --game-ui-bg: transparent;
+  --game-ui-surface: var(--game-ui-overlay-glass-bg);
+  --game-ui-surface-sunken: var(--game-ui-overlay-glass-bg-panel);
+  --game-ui-surface-raised: var(--game-ui-overlay-glass-bg-strong);
+  --game-ui-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 [data-game-ui-theme='light'] {
   color-scheme: light;
@@ -615,14 +595,7 @@
   --game-ui-plaque-highlight: #f2dfbb;
   --game-ui-tooltip-surface: #3b2d23;
   --game-ui-tooltip-ink: #fff8ec;
-
-  --game-ui-bg: #fffdf8;
   --game-ui-playfield-scrim: rgba(42, 30, 20, 0.42);
-  --game-ui-surface: #fffdf8;
-  --game-ui-surface-raised: #fffdf8;
-  --game-ui-panel: #fffdf8;
-  --game-ui-panel-strong: #fffdf8;
-  --game-ui-panel-deep: #f4eee3;
   --game-ui-text: #2a2320;
   --game-ui-text-muted: #625b56;
   --game-ui-accent: #e8743b;
@@ -650,12 +623,6 @@
   --game-ui-ink-heading: #625b56;
   --game-ui-text-on-dark: #fff8ec;
   --game-ui-scrim-strong: rgba(30, 20, 14, 0.58);
-  --game-ui-shadow-button: none;
-  --game-ui-shadow-panel:
-    0 22px 60px rgba(76, 52, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-modal:
-    0 32px 90px rgba(48, 30, 18, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --game-ui-shadow-inset: none;
   --game-ui-shadow-liquid-ink: rgb(76, 52, 28);
   --game-ui-preview-glow-warm: rgba(255, 246, 202, 0.9);
   --game-ui-preview-glow-mint: rgba(126, 224, 182, 0.24);
@@ -663,4 +630,9 @@
   --game-ui-preview-canvas-2: #e4cda8;
   --game-ui-preview-canvas-3: #b98d5d;
   --game-ui-color-scheme: light;
+  --game-ui-bg: #fffdf8;
+  --game-ui-surface: color-mix(in srgb, var(--game-ui-text) 4%, var(--game-ui-bg));
+  --game-ui-surface-sunken: color-mix(in srgb, var(--game-ui-text) 8%, var(--game-ui-bg));
+  --game-ui-surface-raised: #fffdf8;
+  --game-ui-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.12);
 }

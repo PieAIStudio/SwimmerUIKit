@@ -90,8 +90,8 @@
   }
   .kit-catalog-sidebar nav button[aria-current='true'] {
     border-color: var(--game-ui-border-strong);
-    background: var(--game-ui-panel-strong);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
   }
   .kit-catalog-sidebar nav button span {
     font-weight: 800;
@@ -120,7 +120,7 @@
     padding: 8px 12px;
     font: inherit;
     color: var(--game-ui-text);
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface);
     border: 1px solid var(--game-ui-border-strong);
     border-radius: 12px;
   }
@@ -180,10 +180,10 @@
   .kit-catalog-sample {
     min-width: 0;
     padding: clamp(20px, 3vw, 32px);
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface);
     border: 1px solid var(--game-ui-border-strong);
     border-radius: 24px;
-    box-shadow: var(--game-ui-shadow-panel);
+    box-shadow: none;
   }
   .kit-catalog-sample h3 {
     margin: 0 0 24px;
@@ -227,7 +227,7 @@
     border: 1px solid var(--game-ui-border-strong);
     border-radius: 20px;
     padding: clamp(16px, 2vw, 24px);
-    background: var(--game-ui-panel);
+    background: var(--game-ui-surface);
     margin-top: 28px;
   }
   .kit-catalog-code-head {

@@ -12,12 +12,12 @@
     place-items: center;
     flex: none;
     border-radius: 50%;
-    border: 2px solid var(--game-ui-panel-strong);
+    border: 2px solid var(--game-ui-surface);
     background: linear-gradient(150deg, var(--game-ui-warning), var(--game-ui-accent));
     color: var(--game-ui-accent-contrast);
     font-family: var(--game-ui-font-display);
     font-weight: var(--game-ui-weight-title);
-    box-shadow: var(--game-ui-shadow-button);
+    box-shadow: none;
   }
   .game-ui-avatar img {
     grid-area: 1 / 1;
@@ -60,7 +60,7 @@
     min-width: 9px;
     min-height: 9px;
     border-radius: 50%;
-    border: 2px solid var(--game-ui-panel-strong);
+    border: 2px solid var(--game-ui-surface);
   }
   .game-ui-avatar[data-avatar-status='online'] .game-ui-avatar-status {
     background: var(--game-ui-success);

@@ -16,8 +16,8 @@
   .game-ui-prompt {
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-panel);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
     display: grid;
     gap: 12px;
     padding: 14px;

@@ -18,7 +18,7 @@
     white-space: nowrap;
     border: 1px solid var(--game-ui-border-subtle);
     border-radius: var(--game-ui-radius-bead);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent);
+    background: color-mix(in srgb, var(--game-ui-surface) 90%, transparent);
     color: var(--game-ui-text);
     padding: 0 10px;
     font-size: var(--game-ui-font-xs);

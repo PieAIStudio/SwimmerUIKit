@@ -78,5 +78,17 @@
   {
     "before": "只引 styles.css 时依靠系统字体回退；额外手动引 fonts.css 才有品牌字体",
     "after": "styles.css 自动包含所有默认字体声明，font-display:swap；fonts.css 仍是单独字体入口。纯英文页面不请求中文块，不保留旧Noto命名或图片字体初始化。"
+  },
+  {
+    "before": "`--game-ui-panel / panel-strong / panel-deep` 与各类普通投影变量",
+    "after": "删除不留别名。页面bg；面板/卡片surface；输入和进度轨道surface-sunken；模态/浮层surface-raised及唯一shadow-raised。普通面板无阴影；玻璃场景也覆写同一四角色。"
+  },
+  {
+    "before": "`GAME_UI_TOKENS.panel / panelStrong / button / modal / inset`",
+    "after": "删除旧重叠键。颜色明确使用surface / surfaceSunken / surfaceRaised，浮层阴影使用shadowRaised，半径使用radiusPanel / radiusModal；避免同名键在展开对象时被阴影覆盖。 原modal键曾被后展开的层级值覆盖；层级现在明确叫zModal，避免阴影、半径与层级混在一个名字里。"
+  },
+  {
+    "before": "Tailwind card、muted、popover 的相近颜色",
+    "after": "桥统一为card→surface、muted→surface-sunken、popover→surface-raised；不保留旧panel变量。"
   }
 ]

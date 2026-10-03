@@ -119,6 +119,23 @@ describe('unreadable token pairs', () => {
     expect(run(dir).status).toBe(0);
   });
 
+  it('resolves current surface mixes against each theme rather than stale light colours', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-mix-'));
+    writeFileSync(
+      join(dir, 'a.css'),
+      '.popover { background: var(--game-ui-surface-raised); color: var(--game-ui-text); }',
+    );
+    expect(run(dir).status).toBe(0);
+    writeFileSync(
+      join(dir, 'a.css'),
+      '.unreadable { background: var(--game-ui-surface-sunken); color: var(--game-ui-surface-sunken); }',
+    );
+    const result = run(dir);
+    expect(result.status).toBe(1);
+    expect(result.stdout).toContain('1.00:1');
+    expect(result.stdout).toContain('dark');
+  });
+
   /**
    * A tint of the accent behind accent-coloured text is readable. Reading the
    * first token out of the expression would score it 1.00:1 — the first draft

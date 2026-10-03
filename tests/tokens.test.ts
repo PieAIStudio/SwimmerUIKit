@@ -235,9 +235,33 @@ function parseColor(value: string): [number, number, number] {
   throw new Error(`contrast guard: unsupported color value "${value}"`);
 }
 
-function contrastRatio(fg: string, bg: string): number {
-  const l1 = relativeLuminance(parseColor(fg));
-  const l2 = relativeLuminance(parseColor(bg));
+function contrastRatio(fg: string, bg: string, variables = rootVars): number {
+  // Test-only expansion of the declared srgb surface recipes. Browser tests
+  // separately verify the actual compiled paints, including every style.
+  const resolve = (value: string): [number, number, number] => {
+    const reference = /^var\((--[\w-]+)\)$/.exec(value);
+    if (reference) {
+      const resolved = variables.get(reference[1]!);
+      if (!resolved) throw new Error(`Missing contrast token ${reference[1]}`);
+      return resolve(resolved);
+    }
+    const mix = /^color-mix\(in srgb, (var\(--[\w-]+\)) ([\d.]+)%, (var\(--[\w-]+\))\)$/.exec(
+      value,
+    );
+    if (mix) {
+      const a = resolve(mix[1]!),
+        b = resolve(mix[3]!),
+        fraction = Number(mix[2]) / 100;
+      return a.map((component, index) => component * fraction + b[index]! * (1 - fraction)) as [
+        number,
+        number,
+        number,
+      ];
+    }
+    return parseColor(value);
+  };
+  const l1 = relativeLuminance(resolve(fg));
+  const l2 = relativeLuminance(resolve(bg));
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
 
@@ -259,7 +283,7 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     ['plaque text on hover and press', '--game-ui-plaque-ink', '--game-ui-plaque-hover'],
     ['body text on page background', '--game-ui-text', '--game-ui-bg'],
     ['muted text on page background', '--game-ui-text-muted', '--game-ui-bg'],
-    ['muted text on strong panel', '--game-ui-text-muted', '--game-ui-panel-strong'],
+    ['muted text on strong panel', '--game-ui-text-muted', '--game-ui-surface'],
     // accent-contrast is the dark-ink foreground shared by primary/danger/
     // success buttons, the active tab/segmented pill, avatar initials, and
     // the checkbox checkmark — checking it against each saturated brand
@@ -270,8 +294,8 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     ['active tab/segmented text on secondary', '--game-ui-accent-contrast', '--game-ui-secondary'],
     // 1.1 preview-split verification pass also caught these: raw brand
     // colors used directly as text (not as a button/badge background).
-    ['field error/required text on panel', '--game-ui-danger-ink', '--game-ui-panel-strong'],
-    ['first-session step number on panel', '--game-ui-accent-ink', '--game-ui-panel-strong'],
+    ['field error/required text on panel', '--game-ui-danger-ink', '--game-ui-surface'],
+    ['first-session step number on panel', '--game-ui-accent-ink', '--game-ui-surface'],
     // scenery-soil (not redeclared per-theme — HUD glass always overlays the
     // same dark 3D scene regardless of UI theme) stands in for the glass's
     // real backdrop, since color-mix() over an arbitrary scene can't be
@@ -284,7 +308,7 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     [
       'selected build/terrain control meta text on panel',
       '--game-ui-ink-heading',
-      '--game-ui-panel-strong',
+      '--game-ui-surface',
     ],
   ];
 
@@ -299,7 +323,7 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     const bg = rootVars.get(bgVar);
     expect(fg, `${fgVar} missing from :root`).toBeDefined();
     expect(bg, `${bgVar} missing from :root`).toBeDefined();
-    expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
+    expect(contrastRatio(fg as string, bg as string, rootVars)).toBeGreaterThanOrEqual(MIN_AA);
   });
 
   it.each(pairs)('dark: %s meets 4.5:1', (_label, fgVar, bgVar) => {
@@ -309,7 +333,9 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
     const bg = nightVars.get(bgVar) ?? rootVars.get(bgVar);
     expect(fg, `${fgVar} missing from :root and dark`).toBeDefined();
     expect(bg, `${bgVar} missing from :root and dark`).toBeDefined();
-    expect(contrastRatio(fg as string, bg as string)).toBeGreaterThanOrEqual(MIN_AA);
+    expect(
+      contrastRatio(fg as string, bg as string, new Map([...rootVars, ...nightVars])),
+    ).toBeGreaterThanOrEqual(MIN_AA);
   });
 });
 

@@ -112,9 +112,9 @@
     width: max-content;
     padding: 9px 14px;
     border-radius: var(--game-ui-radius-control, 12px);
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface);
     color: var(--game-ui-text);
-    box-shadow: var(--game-ui-shadow-button);
+    box-shadow: none;
     font: 500 13px/1.5 var(--game-ui-font-body);
     overflow-wrap: anywhere;
     text-wrap: pretty;

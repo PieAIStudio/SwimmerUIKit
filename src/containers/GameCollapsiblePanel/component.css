@@ -55,11 +55,11 @@
     min-width: 0;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-panel);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
   }
   .game-ui-collapsible[data-panel-tone='strong'] {
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface);
   }
   .game-ui-collapsible-header {
     display: flex;

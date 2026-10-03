@@ -40,10 +40,10 @@
     overflow: auto;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-modal);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 90%, transparent);
+    background: var(--game-ui-surface-raised);
     color: var(--game-ui-text);
     padding: clamp(18px, 3vw, 30px);
-    box-shadow: var(--game-ui-shadow-modal);
+    box-shadow: var(--game-ui-shadow-raised);
   }
   @media (prefers-reduced-motion: reduce) {
     .swimmer-first-session-onboarding-card {
@@ -82,7 +82,7 @@
     gap: 5px;
     border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 14%, transparent);
     border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 56%, transparent);
+    background: color-mix(in srgb, var(--game-ui-surface) 56%, transparent);
     padding: 12px;
   }
   .swimmer-first-session-onboarding-steps span {

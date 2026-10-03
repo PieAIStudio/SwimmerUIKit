@@ -77,9 +77,7 @@ describe('overlay glass tokens', () => {
     const required = [
       '--game-ui-surface',
       '--game-ui-surface-raised',
-      '--game-ui-panel',
-      '--game-ui-panel-strong',
-      '--game-ui-panel-deep',
+      '--game-ui-surface-sunken',
       '--game-ui-text',
       '--game-ui-text-muted',
       '--game-ui-border-subtle',
@@ -89,15 +87,14 @@ describe('overlay glass tokens', () => {
       '--game-ui-border-ink',
       '--game-ui-ink-title',
       '--game-ui-ink-heading',
-      '--game-ui-shadow-button',
-      '--game-ui-shadow-panel',
+      '--game-ui-shadow-raised',
     ] as const;
     for (const cssVar of required) {
       expect(glassVars.has(cssVar), `glass tone missing ${cssVar}`).toBe(true);
     }
     expect(glassVars.get('--game-ui-surface')).toBe('var(--game-ui-overlay-glass-bg)');
     expect(glassVars.get('--game-ui-text')).toBe('var(--game-ui-overlay-glass-text)');
-    expect(glassVars.get('--game-ui-shadow-button')).toBe('none');
+    expect(glassVars.get('--game-ui-shadow-raised')).toBe('0 12px 32px rgba(0, 0, 0, 0.45)');
     expect(glassVars.get('--game-ui-focus-ring')).toBe('var(--game-ui-overlay-glass-focus-ring)');
     // Warm accent stays on the inherited flat/dark value — not redeclared here.
     expect(glassVars.has('--game-ui-accent')).toBe(false);

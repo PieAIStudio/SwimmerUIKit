@@ -9,8 +9,8 @@
   .game-ui-history {
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-panel);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
     display: grid;
     gap: 12px;
     padding: 14px;
@@ -31,7 +31,7 @@
     display: grid;
     gap: 4px;
     border-radius: var(--game-ui-radius-card);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 56%, transparent);
+    background: color-mix(in srgb, var(--game-ui-surface) 56%, transparent);
     padding: 12px;
   }
   .game-ui-history-entry[data-entry-kind='mystery'] {

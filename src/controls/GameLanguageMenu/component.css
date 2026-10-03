@@ -62,9 +62,9 @@
     gap: 6px;
     border: var(--game-ui-stroke);
     border-radius: 18px;
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface-raised);
     padding: 8px;
-    box-shadow: var(--game-ui-shadow-modal);
+    box-shadow: var(--game-ui-shadow-raised);
     animation: game-ui-pop var(--game-ui-motion-fast) var(--game-ui-ease-pop) both;
     transform-origin: top right;
   }

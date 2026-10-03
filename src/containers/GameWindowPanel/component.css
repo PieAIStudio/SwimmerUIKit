@@ -83,8 +83,8 @@
     min-width: 0;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-panel);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
     overflow: hidden;
     interpolate-size: allow-keywords;
     transition:

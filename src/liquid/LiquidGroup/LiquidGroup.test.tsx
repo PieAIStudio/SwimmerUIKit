@@ -62,7 +62,7 @@ describe('LiquidGroup DOM architecture', () => {
       </LiquidGroup>,
     );
 
-    expect(html).toContain('fill="var(--game-ui-surface, var(--game-ui-panel-strong))"');
+    expect(html).toContain('fill="var(--game-ui-surface, var(--game-ui-surface))"');
     expect(html).toContain('aria-hidden="true"');
     expect(html).toContain('data-liquid-gooey-silhouette');
     expect(html).toContain('filter="url(#liquid-gooey-');

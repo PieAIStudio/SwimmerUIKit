@@ -17,6 +17,10 @@
     background: var(--game-ui-paint-fill);
     color: var(--game-ui-paint-text);
   }
+  .game-ui-input[data-game-ui-paint]:not(:disabled) {
+    --game-ui-paint-fill: var(--game-ui-surface-sunken);
+    --game-ui-paint-text: var(--game-ui-text);
+  }
   .game-ui-input::placeholder {
     color: var(--game-ui-text-muted);
     opacity: 1;

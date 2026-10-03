@@ -53,7 +53,7 @@ export const LiquidGroupRoot = forwardRef<
     blur = 6,
     contrast = 18,
     gloss,
-    fill = 'var(--game-ui-surface, var(--game-ui-panel-strong))',
+    fill = 'var(--game-ui-surface, var(--game-ui-surface))',
     filterPadding = 24,
     shadow,
     stroke,
@@ -118,7 +118,7 @@ export const LiquidGroupRoot = forwardRef<
     ),
   );
   // `shadow`/`stroke` may be a complete CSS token such as
-  // `var(--game-ui-shadow-button)`. Resolve it after the first measured render
+  // `none`. Resolve it after the first measured render
   // so the SVG filter receives the token's actual shorthand, not a zero-width
   // placeholder. Inline token expressions remain valid as-is.
   const resolvedShadow = resolveCssVariable(shadow, groupRef.current);

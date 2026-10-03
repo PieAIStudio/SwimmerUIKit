@@ -9,8 +9,8 @@
   .game-ui-toast {
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-panel);
-    box-shadow: var(--game-ui-shadow-panel);
+    background: var(--game-ui-surface);
+    box-shadow: none;
     padding: 12px 14px;
     font-weight: 820;
     animation: game-ui-rise var(--game-ui-motion-base) var(--game-ui-ease-soft) both;

@@ -16,10 +16,10 @@
     overscroll-behavior: contain;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-modal);
-    background: var(--game-ui-panel-strong);
+    background: var(--game-ui-surface-raised);
     color: var(--game-ui-text);
     padding: clamp(16px, 2.5vw, 24px);
-    box-shadow: var(--game-ui-shadow-modal);
+    box-shadow: var(--game-ui-shadow-raised);
   }
   .game-ui-modal-frame::-webkit-scrollbar {
     width: var(--game-ui-scrollbar-size);

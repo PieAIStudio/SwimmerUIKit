@@ -25,7 +25,7 @@
     background: var(--game-ui-glass-dark-soft);
     color: var(--game-ui-text-on-dark);
     padding: 7px 9px;
-    box-shadow: var(--game-ui-shadow-button);
+    box-shadow: none;
     backdrop-filter: blur(12px);
   }
   .game-ui-fact-list[data-density='dense'] .game-ui-fact {

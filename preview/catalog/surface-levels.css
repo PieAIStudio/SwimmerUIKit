@@ -1,0 +1,40 @@
+@layer swimmer-ui {
+  .kit-surface-levels {
+    color: var(--game-ui-text);
+    background: var(--game-ui-bg);
+    max-width: 1240px;
+    margin: 0 auto 32px;
+  }
+  .kit-surface-levels header {
+    margin-bottom: 16px;
+  }
+  .kit-surface-levels h2 {
+    font: 700 22px/1.5 var(--game-ui-font-display);
+    margin: 0;
+  }
+  .kit-surface-levels p {
+    margin: 8px 0;
+    color: var(--game-ui-text-muted);
+  }
+  .kit-surface-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+  .kit-surface-base {
+    padding: 16px;
+    background: var(--game-ui-bg);
+  }
+  .kit-surface-raised {
+    padding: 16px;
+    border-radius: var(--game-ui-radius-panel);
+    background: var(--game-ui-surface-raised);
+    box-shadow: var(--game-ui-shadow-raised);
+  }
+  @media (max-width: 700px) {
+    .kit-surface-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

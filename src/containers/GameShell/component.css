@@ -22,7 +22,7 @@
       linear-gradient(150deg, var(--game-ui-scenery-pine), var(--game-ui-scenery-soil) 78%);
     color: var(--game-ui-text);
     isolation: isolate;
-    box-shadow: var(--game-ui-shadow-modal);
+    box-shadow: var(--game-ui-shadow-raised);
   }
   .game-ui-shell-scene {
     position: relative;

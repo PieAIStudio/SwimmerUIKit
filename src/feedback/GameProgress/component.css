@@ -16,7 +16,7 @@
     height: 10px;
     overflow: hidden;
     border-radius: 999px;
-    background: var(--game-ui-panel-deep);
+    background: var(--game-ui-surface-sunken);
   }
   .game-ui-progress-flat-fill {
     display: block;

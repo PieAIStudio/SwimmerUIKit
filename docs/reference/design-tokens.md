@@ -32,11 +32,17 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 组件样式随组件归档；[src/styles.css](../../src/styles.css) 按 tokens → 绘制原件 → 组件组装，产物仍是包的 styles.css。组件使用语义引用或基于它们的 color-mix，不写裸颜色；颜色原值只在 token 块里。
 
+## 四个层级
+
+页面使用 --game-ui-bg；普通面板与卡片用 --game-ui-surface；输入、凹槽与进度轨道用 --game-ui-surface-sunken；模态和浮层用 --game-ui-surface-raised 与唯一 --game-ui-shadow-raised。普通面板不投影，控件仍按十二个语义配方绘制，不将六种风格再复制成六套层级。
+
+浅色以 #fffdf8 为大底，surface 为文字色4%混大底，sunken为8%，raised仍为大底并使用0 12px 32px的12%黑影。深色以#1f2326为大底，surface为6%、sunken11%、raised9%，浮层阴影45%。玻璃场景仍是显式独立场景语气，也提供相同四角色。不保留panel、panel-strong、panel-deep和旧普通阴影别名。Tailwind桥的card/muted/popover分别对应surface/sunken/raised。
+
 ## 常用变量
 
 | 用途 | 变量族 |
 | --- | --- |
-| 页面和文字 | --game-ui-bg、--game-ui-panel、--game-ui-text、--game-ui-text-muted |
+| 页面和文字 | --game-ui-bg、--game-ui-surface、--game-ui-text、--game-ui-text-muted |
 | 普通/选中/含义/禁用控件 | --game-ui-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
 | 危险操作 | --game-ui-danger-ink、--game-ui-control-danger-edge；不会改变普通底色 |
 | 配色 | --game-ui-tint-*、--game-ui-mist-*；hue 映射为控件局部变量 |
@@ -54,7 +60,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 ```css
 .reading {
   color: var(--game-ui-text);
-  background: var(--game-ui-panel);
+  background: var(--game-ui-surface);
   font-size: var(--game-ui-font-reading);
   line-height: var(--game-ui-line-reading);
   max-width: var(--game-ui-measure-reading);

@@ -28,7 +28,7 @@ export const LongForm: Story = {
         overflow: 'auto',
         border: '1px solid var(--game-ui-border-strong)',
         borderRadius: 'var(--game-ui-radius-card)',
-        background: 'var(--game-ui-panel)',
+        background: 'var(--game-ui-surface)',
         padding: 'var(--game-ui-space-12)',
       }}
     >

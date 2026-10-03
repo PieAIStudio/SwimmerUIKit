@@ -112,8 +112,7 @@ export const semanticTokens = {
   playfieldScrim: 'var(--game-ui-playfield-scrim)',
   surface: 'var(--game-ui-surface)',
   surfaceRaised: 'var(--game-ui-surface-raised)',
-  panel: 'var(--game-ui-panel)',
-  panelStrong: 'var(--game-ui-panel-strong)',
+  surfaceSunken: 'var(--game-ui-surface-sunken)',
   text: 'var(--game-ui-text)',
   textMuted: 'var(--game-ui-text-muted)',
   accent: 'var(--game-ui-accent)',
@@ -170,8 +169,8 @@ export const radiusTokens = {
   bead: 'var(--game-ui-radius-bead)',
   control: 'var(--game-ui-radius-control)',
   card: 'var(--game-ui-radius-card)',
-  panel: 'var(--game-ui-radius-panel)',
-  modal: 'var(--game-ui-radius-modal)',
+  radiusPanel: 'var(--game-ui-radius-panel)',
+  radiusModal: 'var(--game-ui-radius-modal)',
 } as const;
 
 export const scrollbarTokens = {
@@ -182,10 +181,7 @@ export const scrollbarTokens = {
 } as const;
 
 export const elevationTokens = {
-  button: 'var(--game-ui-shadow-button)',
-  panel: 'var(--game-ui-shadow-panel)',
-  modal: 'var(--game-ui-shadow-modal)',
-  inset: 'var(--game-ui-shadow-inset)',
+  shadowRaised: 'var(--game-ui-shadow-raised)',
   stroke: 'var(--game-ui-stroke)',
 } as const;
 
@@ -203,7 +199,7 @@ export const layerTokens = {
   hud: 'var(--game-ui-z-hud)',
   sidebar: 'var(--game-ui-z-sidebar)',
   overlay: 'var(--game-ui-z-overlay)',
-  modal: 'var(--game-ui-z-modal)',
+  zModal: 'var(--game-ui-z-modal)',
   toast: 'var(--game-ui-z-toast)',
 } as const;
 

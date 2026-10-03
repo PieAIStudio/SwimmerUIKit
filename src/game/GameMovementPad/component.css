@@ -22,9 +22,9 @@
     gap: 7px;
     border: var(--game-ui-stroke);
     border-radius: var(--game-ui-radius-modal);
-    background: color-mix(in srgb, var(--game-ui-panel-strong) 82%, transparent);
+    background: color-mix(in srgb, var(--game-ui-surface) 82%, transparent);
     padding: 10px;
-    box-shadow: var(--game-ui-shadow-panel);
+    box-shadow: none;
     backdrop-filter: blur(14px);
     user-select: none;
     -webkit-user-select: none;

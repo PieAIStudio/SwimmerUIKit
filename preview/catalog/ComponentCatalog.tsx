@@ -10,6 +10,7 @@ import {
   type RecipeState,
 } from './recipes';
 import './catalog.css';
+import { SurfaceLevels } from './SurfaceLevels';
 
 const names: Record<GameUiStyle, string> = {
   candy: '彩色',
@@ -83,6 +84,7 @@ export function ComponentCatalog(): ReactNode {
           <a href="/?view=reference">组件与 token 总览 →</a>
         </div>
       </header>
+      <SurfaceLevels />
       <div className="kit-catalog-layout">
         <aside className="kit-catalog-sidebar" aria-label="按用途选择组件">
           <label className="kit-catalog-search">

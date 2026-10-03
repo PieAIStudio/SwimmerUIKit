@@ -23,9 +23,8 @@ const config: StorybookConfig = {
   staticDirs: [],
   // The kit is 100% standard CSS since 1.0 (the Tailwind @theme bridge moved
   // to the optional tailwind-bridge.css export), so Storybook needs no CSS
-  // plugin. staticDirs is the single owner of public assets; disabling Vite's
-  // second public copy avoids intermittent EEXIST failures when Storybook
-  // builds the icon catalog.
+  // plugin. Icons are inline geometry; fonts are regular CSS dependencies.
+  // No duplicate public asset copy is needed.
   async viteFinal(viteConfig) {
     return mergeConfig(viteConfig, { publicDir: false });
   },
