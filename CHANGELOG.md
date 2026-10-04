@@ -5,9 +5,9 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.0.0-rc.1 — 预发布候选（2026-10-03）
+## 3.0.0-rc.1 — 已发布到 next（2026-10-04 UTC）
 
-本候选只使用 npm next，latest 保持 2.14.0；不会自动升级消费产品。发布结果以单次 npm-publish 回执为准，失败不重复发布。它取代下方历史本地3.0.0候选，仍是干净断代，不提供兼容层。
+本预发布使用 npm next，latest 保持 2.14.0，不会自动升级消费产品。首轮工作流37141176655在发布前检查失败后停止；Owner新增一次授权的工作流37173677049成功，发布源为79d1649，独立npm查询已核对版本与标签。它取代下方历史本地3.0.0候选，仍是干净断代，不提供兼容层。
 
 - S7：删除五个未公开的闲置组件，选择指南覆盖全部公开值，并有缺项反例门禁。
 - S8：移除351个旧图片素材/工具文件与资源初始化API；48个24px viewBox线条图标提供内联组件与可裁剪纯数据入口，保留实际35个旧名字并增加13个约定名字。需要彩色黏土插图的产品须在升级前自行复制所需图片。
@@ -16,7 +16,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 - S11：GameButton/GameIconButton支持原生链接、路由注入和真实ref，新增32px小号；LiquidPopover提供受控状态、焦点、Escape/外部关闭及窄屏静态降级。
 - S12：展示组件使用静止水滴；Badge为24px/12px/600。进度条为10px轨道和潮汐弯月液面，数值变化后600ms休眠，零待机重绘、不占滤镜预算；删除GameProgress tone。
 - S13：组件入口及React共享分块保留client boundary，纯图标数据和声明/CSS不加。实际Next16.3.8消费者检查Server直接导入、Client交互、水合、Next Link和390px减少动态。
-- S14：根入口129个名字，生成迁移表覆盖179个名字变化与29个参数/样式变化。发布门禁新增真实Next消费者和11项标签保护测试；预发布确认next准确且latest未变，不把registry错误当作版本不存在。
+- S14：根入口129个名字，生成迁移表覆盖179个名字变化与29个参数/样式变化。发布门禁包含真实Next消费者和29项发布保护测试；固定npm12.2.0，保留真实数组返回及查询退出码，只允许目标版本特定E404而不放行网络/权限故障；确认next准确且latest未变。
 
 完整迁移及各产品接入范围见[3.0迁移表](docs/reference/migration-3.0.md)。
 

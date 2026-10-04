@@ -19,9 +19,9 @@ related:
 
 # 当前工作
 
-## 3.0 大手术
+## 当前：3.0.0-rc.1 已发布
 
-S0–S6按[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE.md)完成。原计划停在本地候选；其等待发布状态已由下方Owner 2026-10-03的S7–S14授权覆盖。继续在main分阶段提交，仅修改UIKit；版本事实看package.json，产品接入不属于本仓库验收。
+S0–S14与本次预发布均已完成，计划已归档：[结构重整](../../plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md)、[发布前补齐](../../plans/completed/PLAN-UIKIT-3-COMPLETION.md)。发布源提交79d1649a37f7f42d1ad89ab66f6ec844f6d678fa；工作流37173677049成功，npm独立核对next=3.0.0-rc.1、latest=2.14.0。本次新增授权只触发一次，run_attempt=1。后续文档收口提交不改变已发布包。
 
 | 阶段 | 进度与提交 | 证据 |
 | --- | --- | --- |
@@ -33,7 +33,7 @@ S0–S6按[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE
 | S5 | 完成，47d2cef：现行说明收敛为七个入口，旧业务/研究/发布回执归档；493 测试及文档、Storybook 门禁通过 | .scratch/s5/；276 个历史工件归档，非 Markdown 字节逐一一致；351 个公开素材路径与内容不变 |
 | S6 | 历史3.0.0本地候选（由rc.1接替，不再单独发布）；493 测试、文档、Storybook、实际 tarball、publint 严格检查和四入口 ESM 类型消费通过 | .scratch/s6/final/；package-check/receipt.json 记录源提交、包体校验值、351 个素材、四入口和共享块体积 |
 
-**发布前补齐（S7–S14）**：Owner 2026-10-03 决定发布前一次解决产品接入暴露的 11 个问题，不兼容旧写法；黏土图标退场、中文默认字体用资源圆体；完成后以 `3.0.0-rc.1` 发布到 npm `next` 标签（`latest` 保持 2.14.0）。任务书：[PLAN-UIKIT-3-COMPLETION](../../plans/active/PLAN-UIKIT-3-COMPLETION.md)。下文 S6 的 `3.0.0` 本地候选由该计划的 rc.1 取代。
+**发布前补齐（S7–S14）**：Owner 2026-10-03 决定发布前一次解决产品接入暴露的 11 个问题，不兼容旧写法；黏土图标退场、中文默认字体用资源圆体；完成后以 `3.0.0-rc.1` 发布到 npm `next` 标签（`latest` 保持 2.14.0）。已完成任务书：[PLAN-UIKIT-3-COMPLETION](../../plans/completed/PLAN-UIKIT-3-COMPLETION.md)。下文 S6 的 `3.0.0` 本地候选由该计划的 rc.1 取代。
 
 | 阶段 | 进度与证据 |
 | --- | --- |
@@ -45,13 +45,13 @@ S0–S6按[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE
 | S12 | 完成，本地提交45bdc12；展示组件静止水滴，进度条变值600ms后休眠、不占滤镜预算。十二组合与0→100记录在S12/；本次复验569测试、样式、字体与文档通过，日志在S12/resume/。 |
 | S13 | 完成，本地提交e3a96a7；完整verify与docs通过。React入口及共享分块client boundary；真实tarball通过Next16.3.8构建、启动、Server直接导入、Client液体交互、Next Link、390px减少动态与零浏览器错误检查。证据：.devspace-reports/uikit-3-completion/S13/next-consumer/；完整包体检查：.scratch/uikit-3-completion/S13/packed/。 |
 
-S14首轮提交9ec1463已推送。工作流37141176655在发布前registry检查失败，npm publish未执行，latest仍为2.14.0；原始回执保留在`.devspace-reports/uikit-3-completion/S14/`。Owner随后明确再授权一次，仍只发布3.0.0-rc.1到next，失败即停。新增证据独立保存在`S14-reauthorized/`，不覆盖首轮失败。
+S14首轮工作流37141176655在registry结构校验处失败并停止，实际发布未执行；证据保留在`.devspace-reports/uikit-3-completion/S14/`。Owner随后新增的一次授权已成功完成，证据在同级`S14-reauthorized/`：真实npm12.2.0返回夹具、29项发布保护专项、本地/云端598测试、真实包与Next门禁、推送、workflow及独立npm校验。
 
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
 
-S6旧候选及负例保留在`.scratch/s6/final/`，只作历史证据，不再用于新接入。S13消费端验收包在`.scratch/uikit-3-completion/S13/candidate.tgz`，仍是中间3.0.0版本；S14会生成最终3.0.0-rc.1包并重新跑完整门禁。每个回执绑定实际tarball与SHA-256，不能用旧的绿色结果替代后续修改的验证。
+当前安装使用精确版本`@pieai/swimmer-ui-kit@3.0.0-rc.1`。本地候选在`.scratch/uikit-3-completion/S14-reauthorized/swimmer-ui-kit-3.0.0-rc.1.tgz`；npm下载包与CI核对SHA-256为`80f3f59353ad70516e1442284793a7949007d943f0b3df3f42ed42f8b8c57681`，证据`S14-reauthorized/published-artifact.json`。本地候选哈希与云端归档哈希不同，回执明确分开；S6/S13包只作历史证据。
 
-再授权轮已用CI同版npm12.2.0复现：成功查询返回单元素数组，旧检查器按对象读取而误拒绝；候选精确版本查询返回E404。检查器现保留每条查询的目标、退出码与原始输出，只允许成功包查询加版本特定E404继续，其他查询故障一律拦截。真实返回已逐字节加入回归夹具；发布前重新跑完整门禁。工作流固定npm12.2.0，仍禁rerun，本次新增授权仅可触发一次。最终结果写入.devspace-reports/uikit-3-completion/REPORT.md；发布成功后才归档计划。
+下一步只剩各产品自己的主动接入验收；本任务未修改任何其他仓库。正式3.0.0、其他版本、再次发布或产品部署都需要新的明确授权。发布成功后短暂E404的原始观察也已保留，最终以版本和标签实际可见为准，不以publish步骤绿色代替。完整报告：`.devspace-reports/uikit-3-completion/REPORT.md`。
 
 ## 历史与边界
 

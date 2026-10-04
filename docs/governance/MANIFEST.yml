@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-03T17:30:59.816Z
+generated_at: 2026-10-04T03:27:37.495Z
 generator_version: doc-gov@0.14.2
 docs_count: 63
 docs:
@@ -221,20 +221,6 @@ docs:
     canonical: true
     last_reviewed: 2026-09-10
     pinned: true
-  - id: PLAN-UIKIT-3-COMPLETION
-    path: docs/plans/active/PLAN-UIKIT-3-COMPLETION.md
-    type: plan
-    status: active
-    canonical: true
-    last_reviewed: 2026-10-03
-    pinned: false
-  - id: PLAN-UIKIT-3-RESTRUCTURE
-    path: docs/plans/active/PLAN-UIKIT-3-RESTRUCTURE.md
-    type: plan
-    status: active
-    canonical: true
-    last_reviewed: 2026-10-02
-    pinned: false
   - id: PLAN-0004-GAME-ICON-SURFACE-FIX
     path: docs/plans/completed/game-icon-surface-fix.md
     type: plan
@@ -262,6 +248,20 @@ docs:
     status: completed
     canonical: true
     last_reviewed: 2026-09-12
+    pinned: false
+  - id: PLAN-UIKIT-3-COMPLETION
+    path: docs/plans/completed/PLAN-UIKIT-3-COMPLETION.md
+    type: plan
+    status: completed
+    canonical: true
+    last_reviewed: 2026-10-03
+    pinned: false
+  - id: PLAN-UIKIT-3-RESTRUCTURE
+    path: docs/plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md
+    type: plan
+    status: completed
+    canonical: true
+    last_reviewed: 2026-10-03
     pinned: false
   - id: PLAN-WO-UI-1-ACCOUNT-CONTROLS
     path: docs/plans/completed/wo-ui-1-account-controls.md
@@ -338,7 +338,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-02
+    last_reviewed: 2026-10-03
     pinned: false
   - id: REF-CURRENT-WORK
     path: docs/reference/execution/current-work.md

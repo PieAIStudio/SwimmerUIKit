@@ -2,7 +2,7 @@
 id: PLAN-UIKIT-3-COMPLETION
 title: UIKit 3.0 Completion Before Release
 type: plan
-status: active
+status: completed
 canonical: true
 owner: project
 created: 2026-10-03
@@ -25,6 +25,12 @@ related:
 给执行的 AI（Codex）读，一次做到底。前置是
 [PLAN-UIKIT-3-RESTRUCTURE](PLAN-UIKIT-3-RESTRUCTURE.md) 的 S0–S6，它们已经完成；
 本计划是 S7–S14。
+
+## 执行结论
+
+S7–S14已完成。首轮37141176655失败后停止；Owner明确再授权的一次工作流37173677049于2026-10-04 03:25:01 UTC成功结束，发布源提交79d1649a37f7f42d1ad89ab66f6ec844f6d678fa。npm独立查询确认3.0.0-rc.1已在next，latest仍为2.14.0；本次run_attempt=1，没有重跑。真实npm12返回回归、598测试、包级检查和Next消费端通过。完整回执在`.devspace-reports/uikit-3-completion/S14-reauthorized/`及`REPORT.md`。
+
+正式3.0.0与产品升级仍需分别授权；以下保留原任务书、首轮失败及再授权记录，不构成新发布许可。
 
 ## 来由与授权
 
