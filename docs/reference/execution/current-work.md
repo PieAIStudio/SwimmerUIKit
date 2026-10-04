@@ -45,13 +45,13 @@ S0–S6按[PLAN-UIKIT-3-RESTRUCTURE](../../plans/active/PLAN-UIKIT-3-RESTRUCTURE
 | S12 | 完成，本地提交45bdc12；展示组件静止水滴，进度条变值600ms后休眠、不占滤镜预算。十二组合与0→100记录在S12/；本次复验569测试、样式、字体与文档通过，日志在S12/resume/。 |
 | S13 | 完成，本地提交e3a96a7；完整verify与docs通过。React入口及共享分块client boundary；真实tarball通过Next16.3.8构建、启动、Server直接导入、Client液体交互、Next Link、390px减少动态与零浏览器错误检查。证据：.devspace-reports/uikit-3-completion/S13/next-consumer/；完整包体检查：.scratch/uikit-3-completion/S13/packed/。 |
 
-S14正在交付3.0.0-rc.1：文档与标签保护已补齐，11项发布保护专项通过；最终候选路径为`.scratch/uikit-3-completion/S14/swimmer-ui-kit-3.0.0-rc.1.tgz`，完整门禁和单次发布回执写入`.devspace-reports/uikit-3-completion/S14/`与`REPORT.md`。只有最终门禁全部通过才提交、推送和触发工作流；本段不是发布成功证明。
+S14首轮提交9ec1463已推送。工作流37141176655在发布前registry检查失败，npm publish未执行，latest仍为2.14.0；原始回执保留在`.devspace-reports/uikit-3-completion/S14/`。Owner随后明确再授权一次，仍只发布3.0.0-rc.1到next，失败即停。新增证据独立保存在`S14-reauthorized/`，不覆盖首轮失败。
 
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
 
 S6旧候选及负例保留在`.scratch/s6/final/`，只作历史证据，不再用于新接入。S13消费端验收包在`.scratch/uikit-3-completion/S13/candidate.tgz`，仍是中间3.0.0版本；S14会生成最终3.0.0-rc.1包并重新跑完整门禁。每个回执绑定实际tarball与SHA-256，不能用旧的绿色结果替代后续修改的验证。
 
-下一步执行S14：全部门禁通过后推送main，只触发一次npm-publish，3.0.0-rc.1使用next、latest保持2.14.0；工作流失败立即停，不重试。本轮尚未推送或发布，也未修改任何产品仓库。最终结果写入.devspace-reports/uikit-3-completion/REPORT.md；3.0计划发布后才归入completed。
+再授权轮已用CI同版npm12.2.0复现：成功查询返回单元素数组，旧检查器按对象读取而误拒绝；候选精确版本查询返回E404。检查器现保留每条查询的目标、退出码与原始输出，只允许成功包查询加版本特定E404继续，其他查询故障一律拦截。真实返回已逐字节加入回归夹具；发布前重新跑完整门禁。工作流固定npm12.2.0，仍禁rerun，本次新增授权仅可触发一次。最终结果写入.devspace-reports/uikit-3-completion/REPORT.md；发布成功后才归档计划。
 
 ## 历史与边界
 

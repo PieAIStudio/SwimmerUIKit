@@ -23,7 +23,6 @@ jobs:
       - name: Guard main branch
         run: |
           if [ "$GITHUB_REF_NAME" != "main" ]; then
-
             echo "npm publishing is only allowed from main, got: $GITHUB_REF_NAME" >&2
             exit 1
           fi
@@ -42,7 +41,7 @@ jobs:
 
       - name: Ensure npm supports Trusted Publishing
         run: |
-          npm install -g npm@latest
+          npm install -g npm@12.2.0
           npm --version
 
       - run: pnpm install --frozen-lockfile
@@ -66,7 +65,7 @@ jobs:
       - name: Capture registry and guard release tag
         id: package
         run: |
-          npm view @pieai/swimmer-ui-kit version dist-tags versions --json --registry=https://registry.npmjs.org > .scratch/npm-before.json
+          node scripts/check-release-metadata.mjs capture .scratch/npm-before.json
           node scripts/check-release-metadata.mjs before .scratch/npm-before.json >> "$GITHUB_OUTPUT"
 
       - name: Publish package
@@ -81,7 +80,7 @@ jobs:
         run: |
           # Read-only propagation checks. There is no second publishing attempt.
           for attempt in {1..90}; do
-            if npm view "@pieai/swimmer-ui-kit@$RELEASE_VERSION" version dist-tags versions --json --registry=https://registry.npmjs.org > .scratch/npm-after.json &&
+            if node scripts/check-release-metadata.mjs capture .scratch/npm-after.json &&
               node scripts/check-release-metadata.mjs after .scratch/npm-before.json .scratch/npm-after.json; then
               exit 0
             fi
