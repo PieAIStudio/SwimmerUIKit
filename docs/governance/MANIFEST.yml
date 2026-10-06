@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-04T03:27:37.495Z
+generated_at: 2026-10-06T04:31:00.251Z
 generator_version: doc-gov@0.14.2
-docs_count: 63
+docs_count: 57
 docs:
   - id: ARCHIVE-LIQUID-MERGE-OWNER-REVIEW
     path: docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md
@@ -41,48 +41,6 @@ docs:
     pinned: false
   - id: ARCHIVE-LEGACY-3D-ICON-RESEARCH
     path: docs/archive/legacy-doc/design/3d-icon-roadmap.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-VALIDATION
-    path: docs/archive/legacy-doc/LearningFrom0/_cross-validation-report.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-INDEX
-    path: docs/archive/legacy-doc/LearningFrom0/00-index.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-SEPARATION
-    path: docs/archive/legacy-doc/LearningFrom0/01-why-separate-ui-kit.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-TOKENS
-    path: docs/archive/legacy-doc/LearningFrom0/02-components-and-tokens.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-DECOUPLING
-    path: docs/archive/legacy-doc/LearningFrom0/03-why-no-app-dependency.md
-    type: archive
-    status: archived
-    canonical: false
-    last_reviewed: 2026-09-11
-    pinned: false
-  - id: ARCHIVE-LEGACY-LEARNING-INSTALL
-    path: docs/archive/legacy-doc/LearningFrom0/04-use-in-new-app.md
     type: archive
     status: archived
     canonical: false
