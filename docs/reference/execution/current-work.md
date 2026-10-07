@@ -19,9 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：芽族接入修复候选 3.0.0-rc.2
+## 当前：芽族接入修复候选 3.0.0-rc.2（npm 发布受阻）
 
-Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、验证、普通推送并通过本仓库可信工作流发布下一候选版。本轮不动其他产品或其工作区。原生按钮 props 整包注入的编译回归在 rc.1 为红；修正共用 NativeAction 的 `rel` 类型，不在芽族打兼容补丁。证据保留 `.scratch/yazu-renewal-rc2/`。最终本地 verify 同次114.789s、94测试文件/601例全过；Storybook7.492s、docs4.214s、打包检查3.115s与真实Next消费58.091s通过，1275份输入未变。候选SHA-256 `cf6a772f09588fd4cea782649369a4bed5054c9f1fa869e9a41e1801e99a0d94`；芽族使用这个实际tgz后类型/内容检查、8项语言与账号边界测试及构建通过，不丢弃原生按钮属性。证据见该目录的 `final-validation/result.json`。待本次提交推送后触发一次既有可信发版并读回；此处尚不称已发布，latest不动。
+Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、验证、普通推送并通过本仓库可信工作流发布下一候选版。本轮不动其他产品或其工作区。原生按钮 props 整包注入的编译回归在 rc.1 为红；修正共用 NativeAction 的 `rel` 类型，不在芽族打兼容补丁。证据保留 `.scratch/yazu-renewal-rc2/`。最终本地 verify 同次114.789s、94测试文件/601例全过；Storybook7.492s、docs4.214s、打包检查3.115s与真实Next消费58.091s通过，1275份输入未变。候选SHA-256 `cf6a772f09588fd4cea782649369a4bed5054c9f1fa869e9a41e1801e99a0d94`；芽族使用这个实际tgz后类型/内容检查、8项语言与账号边界测试及构建通过，不丢弃原生按钮属性。证据见该目录的 `final-validation/result.json`。2026-10-07 Owner 续接授权后普通推送成功，本地/远端实现均为 `39e3277f16b01a8d2e439aa78e91762837476de8`；发布状态见下段，不能把候选包当作已发布。
+
+本次只触发一次 `npm-publish`：运行 `37644318828`（run attempt 1）完成全部发布前门禁，包括云端601项测试、Storybook、文档、真实打包、publint、类型消费及Next验收；2026-10-07T15:33:53Z 在 npm PUT 发布请求处返回 E404，未通过发布。完整日志及结构化结果为 `.scratch/yazu-renewal-rc2/publish-37644318828.{log,json}`。独立注册表回读仍是 next=3.0.0-rc.1、latest=2.14.0，rc.2未可见；没有重复发布或改标签。
+
+已按中央 `.secrets/README.md` 与 cloud-platform-access 规则核对既有方式。官方 `npm trust list @pieai/swimmer-ui-kit --json --registry=https://registry.npmjs.org` 返回 E401，当前本机登录不能读取此包的可信发布配置。发布E404本身不能唯一确定根因；需要Owner恢复有此包管理权限的npm登录，再核对 GitHub组织 `PieAIStudio`、仓库 `SwimmerUIKit`、工作流文件 `npm-publish.yml`、环境条件与 `npm publish` 权限。不要获取/输出密钥、降低2FA或用私包GitHub令牌替代npm权限，也不要在缺少新证据时重跑发布。此处满足芽族计划§3.1的访问阻断，后续等待权限核对。
 
 ## 已发布基线：3.0.0-rc.1
 
