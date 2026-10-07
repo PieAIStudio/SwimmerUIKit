@@ -19,7 +19,8 @@ type ButtonAction = ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: undefined;
   linkComponent?: undefined;
   target?: never;
-  rel?: never;
+  // rel is also React HTML/RDFa metadata. Keep the native button attribute;
+  // href alone selects link behavior, while target/download remain link-only.
   download?: never;
 };
 type LinkAction = Omit<LinkAttributes, 'ref'> & {

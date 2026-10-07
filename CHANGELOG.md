@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 3.0.0-rc.2 — 2026-10-07
+
+- 修正 GameButton / GameIconButton 共用的 NativeAction 类型边界：React 原生按钮属性可以整包转发，`rel` 元数据不再被错误地禁止。`href` 仍是唯一链接选择，按钮的提交、ref、禁用语义和链接的安全关系不变。
+- 芽族对 AuthKit 0.8 的真实控件注入暴露了这个问题；在 Kit 根部修复，不要求每个消费产品删除属性、断言类型或新增兼容按钮。新增原生属性转发的编译回归与三个真实输出断言。
+- 候选版仅进入 next，不改变当前稳定 latest，不改变任何控件像素或液体预算。
+
 ## 3.0.0-rc.1 — 已发布到 next（2026-10-04 UTC）
 
 本预发布使用 npm next，latest 保持 2.14.0，不会自动升级消费产品。首轮工作流37141176655在发布前检查失败后停止；Owner新增一次授权的工作流37173677049成功，发布源为79d1649，独立npm查询已核对版本与标签。它取代下方历史本地3.0.0候选，仍是干净断代，不提供兼容层。

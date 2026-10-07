@@ -5,6 +5,28 @@ import { LiquidPopover } from '../../src/liquid-presence';
 const router = forwardRef<HTMLAnchorElement, ComponentProps<'a'>>((props, ref) => (
   <a {...props} ref={ref} />
 ));
+// Auth/form libraries pass native button props as a whole. React's global HTML
+// metadata (including rel) must not turn that button into an impossible type.
+export const InjectedButton = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+  (props, ref) => (
+    <GameButton {...props} ref={ref}>
+      {props.children}
+    </GameButton>
+  ),
+);
+export const InjectedIcon = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+  (props, ref) => (
+    <GameIconButton {...props} ref={ref} label="Account">
+      {props.children}
+    </GameIconButton>
+  ),
+);
+export const metadataButton = (
+  <InjectedButton rel="tag" type="submit">
+    Save
+  </InjectedButton>
+);
+
 const source = createRef<HTMLButtonElement>();
 export const action = (
   <GameButton ref={source} type="submit" size="sm">

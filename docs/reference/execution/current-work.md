@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-03
+last_reviewed: 2026-10-07
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,11 @@ related:
 
 # 当前工作
 
-## 当前：3.0.0-rc.1 已发布
+## 当前：芽族接入修复候选 3.0.0-rc.2
+
+Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、验证、普通推送并通过本仓库可信工作流发布下一候选版。本轮不动其他产品或其工作区。原生按钮 props 整包注入的编译回归在 rc.1 为红；修正共用 NativeAction 的 `rel` 类型，不在芽族打兼容补丁。证据保留 `.scratch/yazu-renewal-rc2/`。最终本地 verify 同次114.789s、94测试文件/601例全过；Storybook7.492s、docs4.214s、打包检查3.115s与真实Next消费58.091s通过，1275份输入未变。候选SHA-256 `cf6a772f09588fd4cea782649369a4bed5054c9f1fa869e9a41e1801e99a0d94`；芽族使用这个实际tgz后类型/内容检查、8项语言与账号边界测试及构建通过，不丢弃原生按钮属性。证据见该目录的 `final-validation/result.json`。待本次提交推送后触发一次既有可信发版并读回；此处尚不称已发布，latest不动。
+
+## 已发布基线：3.0.0-rc.1
 
 S0–S14与本次预发布均已完成，计划已归档：[结构重整](../../plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md)、[发布前补齐](../../plans/completed/PLAN-UIKIT-3-COMPLETION.md)。发布源提交79d1649a37f7f42d1ad89ab66f6ec844f6d678fa；工作流37173677049成功，npm独立核对next=3.0.0-rc.1、latest=2.14.0。本次新增授权只触发一次，run_attempt=1。后续文档收口提交不改变已发布包。
 
