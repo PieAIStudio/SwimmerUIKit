@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-07
+last_reviewed: 2026-10-08
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,9 @@ related:
 
 # 当前工作
 
-## 当前：芽族接入修复候选 3.0.0-rc.2（npm 发布受阻）
+## 当前：芽族使用本地 3.0.0-rc.2 候选，发布暂缓
+
+2026-10-08续接确认 Owner K3：芽族先使用下方哈希锁定的本地候选完成修正与验收，分阶段本地提交；推送与 npm 发布留待后面一起处理。无需为了本地开发重新登录 npm。包本身仍未发布，下面的失败记录继续有效，但不再阻塞芽族的本地工作；不要重复触发发布。候选文件仍原样保留，修改 Kit 源码后必须另做新候选并重新验收，不静默覆盖已经验证的 tarball。
 
 Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、验证、普通推送并通过本仓库可信工作流发布下一候选版。本轮不动其他产品或其工作区。原生按钮 props 整包注入的编译回归在 rc.1 为红；修正共用 NativeAction 的 `rel` 类型，不在芽族打兼容补丁。证据保留 `.scratch/yazu-renewal-rc2/`。最终本地 verify 同次114.789s、94测试文件/601例全过；Storybook7.492s、docs4.214s、打包检查3.115s与真实Next消费58.091s通过，1275份输入未变。候选SHA-256 `cf6a772f09588fd4cea782649369a4bed5054c9f1fa869e9a41e1801e99a0d94`；芽族使用这个实际tgz后类型/内容检查、8项语言与账号边界测试及构建通过，不丢弃原生按钮属性。证据见该目录的 `final-validation/result.json`。2026-10-07 Owner 续接授权后普通推送成功，本地/远端实现均为 `39e3277f16b01a8d2e439aa78e91762837476de8`；发布状态见下段，不能把候选包当作已发布。
 
