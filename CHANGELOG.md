@@ -5,6 +5,15 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 3.0.0-rc.3 — 本地候选（2026-10-10，未发布）
+
+- 按压至少保持 140 毫秒：快速点按也能看到完整压扁，然后再由弹簧回弹；指针与 Space / Enter 一致。取消、Escape、失焦、禁用、页面隐藏和卸载仍立即释放。
+- CTA 按压姿态由 scale 1.05 / scaleY 0.90 / y 2 改为 1.06 / 0.87 / 3，保留 wobbly 弹簧。
+- 平面水滴按压的压扁幅度加倍（scaleY 0.90 改为 0.80，横向 1.045 改为 1.09），仍不做横向平移。
+- GameButton 新增 `pending`：primary 液体 CTA 缓慢呼吸（约 1.2 秒一个周期），其他变体轻微脉冲；都设置 aria-busy，不设置 disabled，点击仍交给产品守卫。减少动态时保持静止，静态控件不动。待定液体占用与按压相同的液体预算。
+- LiquidSurface 新增可选 breathing，供高级用法；公开名字不变。
+- 版本号改为 3.0.0-rc.3。rc.2 本地候选文件保持原样，芽族仍按其哈希锁定使用；rc.3 候选另行打包并记录 SHA-256。npm 发布未触发。
+
 ## 3.0.0-rc.2 — 2026-10-07
 
 - 修正 GameButton / GameIconButton 共用的 NativeAction 类型边界：React 原生按钮属性可以整包转发，`rel` 元数据不再被错误地禁止。`href` 仍是唯一链接选择，按钮的提交、ref、禁用语义和链接的安全关系不变。
