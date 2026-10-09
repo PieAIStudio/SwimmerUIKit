@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { GameButton } from './GameButton';
 import { resetLiquidGooeyBudgetForTests } from '../../liquid/budget';
+import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
 (
@@ -11,6 +12,7 @@ import '../../styles.css';
 ).IS_REACT_ACT_ENVIRONMENT = true;
 let root: Root | undefined;
 let host: HTMLDivElement | undefined;
+const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 afterEach(async () => {
   await act(async () => root?.unmount());
@@ -75,6 +77,9 @@ describe('liquid CTA keeps layout and native interaction', () => {
     await act(async () =>
       button.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', bubbles: true })),
     );
+    // A quick Space keeps the squash for the minimum hold before the spring.
+    expect(surface.getAttribute('data-liquid-active')).toBe('true');
+    await act(async () => wait(MIN_PRESS_HOLD_MS + 30));
     expect(surface.getAttribute('data-liquid-active')).toBe('false');
     await act(async () => button.click());
     expect(onClick).toHaveBeenCalledOnce();

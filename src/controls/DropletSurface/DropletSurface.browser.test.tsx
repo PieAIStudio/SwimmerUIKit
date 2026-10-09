@@ -10,6 +10,7 @@ import { GameToggle } from '../GameToggle/GameToggle';
 import { GameSegmentedControl } from '../GameSegmentedControl/GameSegmentedControl';
 import { GameProgress } from '../../feedback/GameProgress/GameProgress';
 import { GAME_UI_STYLES, type GameUiStyle } from '../../tokens/styles';
+import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
 (
@@ -99,6 +100,9 @@ describe('one flat droplet primitive', () => {
     expect(button.getBoundingClientRect().toJSON()).toEqual(bounds);
     expect(getComputedStyle(button).transform).toBe('none');
     await pointer(button, 'pointerup');
+    // A released tap keeps its squash for the minimum hold, then the spring takes over.
+    expect(svg.dataset.pressed).toBe('true');
+    await act(async () => new Promise((resolve) => setTimeout(resolve, MIN_PRESS_HOLD_MS + 30)));
     await advance(240);
     expect(svg.dataset.pressed).toBe('false');
     expect(path.getAttribute('d')).toBe(initial);
