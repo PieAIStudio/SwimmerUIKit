@@ -58,3 +58,39 @@ describe('GameButton fullWidth is an opt-in layout contract', () => {
     expect(html).not.toContain('game-ui-liquid-surface');
   });
 });
+
+describe('GameButton pending is busy, never disabled', () => {
+  it('marks a pending CTA busy and keeps it a clickable liquid CTA', () => {
+    const html = renderToStaticMarkup(
+      <GameButton pending variant="primary">
+        保存中
+      </GameButton>,
+    );
+    expect(html).toContain('aria-busy="true"');
+    expect(html).toContain('data-game-ui-pending="true"');
+    expect(html).toContain('data-liquid-form="press"');
+    expect(html).toContain('data-liquid-breathing="true"');
+    expect(html).not.toContain('disabled=""');
+    expect(html).toContain('data-game-ui-cta="true"');
+  });
+
+  it('keeps other variants busy with their droplet and no disabled state', () => {
+    const html = renderToStaticMarkup(<GameButton pending>保存中</GameButton>);
+    expect(html).toContain('aria-busy="true"');
+    expect(html).toContain('class="game-ui-droplet"');
+    expect(html).not.toContain('disabled=""');
+    expect(html).not.toContain('data-liquid-breathing');
+  });
+
+  it('leaves an ordinary button without busy or pending markers', () => {
+    const html = renderToStaticMarkup(<GameButton variant="primary">开始学习</GameButton>);
+    expect(html).not.toContain('aria-busy');
+    expect(html).not.toContain('data-game-ui-pending');
+    expect(html).not.toContain('data-liquid-breathing');
+  });
+
+  it('does not leak the pending prop into the native button', () => {
+    const html = renderToStaticMarkup(<GameButton pending>Go</GameButton>);
+    expect(html).not.toMatch(/\spending=/);
+  });
+});

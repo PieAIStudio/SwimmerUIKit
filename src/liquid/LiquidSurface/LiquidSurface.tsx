@@ -1,10 +1,11 @@
-import { useMemo, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 
 import { LiquidGroup } from '../LiquidGroup/LiquidGroup';
 
 import { type LiquidFill } from '../LiquidGroup/fill';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 import { LIQUID_FORMS, liquidFormGroup, liquidFormItem, type LiquidForm } from '../forms';
+import { resolveTransition, type Transition } from '../spring';
 
 /*
  * A liquid body behind ordinary content.
@@ -83,6 +84,41 @@ const AT_REST: Readonly<Partial<Record<LiquidForm, Pose>>> = {
   settle: { scale: 0.94, scaleY: 1.08, y: -8 },
 };
 
+/*
+ * Pending breath: rest, then a 4% swell, then rest again, about 1.2 s a cycle.
+ * Each half cycle is one ordinary engine motion, so the loop claims the same
+ * animation budget as a press and the engine stops it when that budget is spent.
+ */
+const BREATH_POSE: Pose = { scale: 1.04, scaleY: 1.04, y: 0 };
+const BREATH_HALF_CYCLE_MS = 600;
+const BREATH_TRANSITION: Transition = { duration: BREATH_HALF_CYCLE_MS, ease: 'ease-in-out' };
+
+/**
+ * The breath clock belongs to the component, so it stops with it. A release from
+ * a press keeps the form's own spring for its rebound: `rebounding` lasts as long
+ * as that spring takes, and only then does the breath curve resume.
+ */
+function useBreath(running: boolean, engaged: boolean, reboundMs: number) {
+  const [swollen, setSwollen] = useState(false);
+  const [wasEngaged, setWasEngaged] = useState(engaged);
+  const [rebounding, setRebounding] = useState(false);
+  if (wasEngaged !== engaged) {
+    setWasEngaged(engaged);
+    if (wasEngaged) setRebounding(true);
+  }
+  useEffect(() => {
+    if (!running) return;
+    const timer = window.setInterval(() => setSwollen((value) => !value), BREATH_HALF_CYCLE_MS);
+    return () => window.clearInterval(timer);
+  }, [running]);
+  useEffect(() => {
+    if (!rebounding) return;
+    const timer = window.setTimeout(() => setRebounding(false), reboundMs);
+    return () => window.clearTimeout(timer);
+  }, [rebounding, reboundMs]);
+  return { swollen: running && swollen, rebounding };
+}
+
 /**
  * Say so, once, when a group form is handed to the single-body component.
  *
@@ -117,6 +153,11 @@ export interface LiquidSurfaceProps {
    * leaving for `drain`. Ignored by forms with no engaged state.
    */
   active?: boolean;
+  /**
+   * Breathe slowly while work is pending: rest, a 4% swell, rest, about 1.2 s a
+   * cycle. Yields to `active` and holds rest under reduced motion.
+   */
+  breathing?: boolean;
   /** Silhouette paint. Defaults to the kit's raised surface token. */
   fill?: LiquidFill;
   /**
@@ -142,6 +183,7 @@ export function LiquidSurface({
   children,
   form = 'press',
   active = false,
+  breathing = false,
   fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
   stroke,
   shadow: shadowOverride,
@@ -165,7 +207,15 @@ export function LiquidSurface({
   );
   const item = useMemo(() => liquidFormItem(form), [form]);
   if (LIQUID_FORMS[form].kind === 'group') warnGroupForm(form);
-  const target = engaged ? ENGAGED[form] : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
+  const running = breathing && !engaged && !reducedMotion;
+  const breath = useBreath(running, engaged, resolveTransition(item.transition).duration);
+  const target = engaged
+    ? ENGAGED[form]
+    : breath.swollen
+      ? BREATH_POSE
+      : (AT_REST[form] ?? { scale: 1, scaleY: 1, y: 0 });
+  // A breath step eases gently; a release from a press keeps the form's spring.
+  const transition = running && !breath.rebounding ? BREATH_TRANSITION : item.transition;
   const shadow = shadowOverride ?? group.shadow;
   const blob = outline
     ? { amplitude: outline.amplitude, lobes: outline.lobes ?? group.lobes }
@@ -176,6 +226,7 @@ export function LiquidSurface({
       className={['game-ui-liquid-surface', className].filter(Boolean).join(' ')}
       data-liquid-form={form}
       data-liquid-active={engaged ? 'true' : 'false'}
+      data-liquid-breathing={running ? 'true' : undefined}
       style={style}
     >
       <LiquidGroup
@@ -198,7 +249,7 @@ export function LiquidSurface({
           radius={radius}
           scale={target.scale}
           scaleY={target.scaleY}
-          {...(item.transition === undefined ? {} : { transition: item.transition })}
+          {...(transition === undefined ? {} : { transition })}
           {...(target.x === undefined ? {} : { x: target.x })}
           y={target.y}
         >

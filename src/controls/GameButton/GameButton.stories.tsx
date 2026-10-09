@@ -57,6 +57,26 @@ export const FullWidthLiquidCta: Story = {
   ],
 };
 
+export const PendingLiquidCta: Story = {
+  name: 'Pending CTA / 处理中的主按钮',
+  tags: ['liquid'],
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`pending` 让液体主按钮缓慢呼吸并设置 aria-busy，但不禁用：点击仍交给产品守卫决定。减少动态时保持静止。一屏只能有一个液体 CTA，因此这里与普通次要按钮并排对照；普通主按钮见「开始学习」故事。',
+      },
+    },
+  },
+  args: { variant: 'primary', pending: true, children: '保存中' },
+  render: (args) => (
+    <div style={{ display: 'grid', gap: 12, width: 'min(320px, 100%)' }}>
+      <GameButton {...args} fullWidth />
+      <GameButton fullWidth>返回</GameButton>
+    </div>
+  ),
+};
+
 export const DisabledLiquidCta: Story = {
   name: 'Disabled CTA / 禁用后的平面控件',
   tags: ['liquid'],

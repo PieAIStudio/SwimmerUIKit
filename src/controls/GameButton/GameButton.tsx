@@ -20,6 +20,13 @@ export type GameButtonProps = ActionProps & {
   hue?: GameUiHue;
   sound?: GameInteractionSoundOptions | false;
   static?: boolean;
+  /**
+   * Work is running behind this action. A primary CTA breathes slowly and stays
+   * a full liquid CTA; other variants pulse softly. Sets `aria-busy`, never
+   * `disabled`: a click still reaches the product, whose own guard decides it.
+   * Reduced motion keeps `aria-busy` and holds still.
+   */
+  pending?: boolean;
   variant?: GameButtonVariant;
   size?: 'md' | 'sm';
 };
@@ -30,6 +37,7 @@ export const GameButton = forwardRef<ActionElement, GameButtonProps>(function Ga
     className,
     fullWidth = false,
     hue,
+    pending = false,
     sound = false,
     static: isStatic = false,
     variant = 'secondary',
@@ -61,16 +69,19 @@ export const GameButton = forwardRef<ActionElement, GameButtonProps>(function Ga
       enabled={cta}
       static={isStatic}
       fullWidth={fullWidth}
+      pending={pending}
     >
       <NativeAction
         {...props}
         key="control"
         ref={nativeRef}
         className={classes}
+        aria-busy={pending ? true : props['aria-busy']}
         onActivate={() => {
           if (sound) playGameInteractionSound(sound);
         }}
         data-game-ui-size={size}
+        data-game-ui-pending={pending ? 'true' : undefined}
         data-game-ui-paint=""
         data-game-ui-cta={cta ? 'true' : undefined}
         data-game-ui-meaning={variant === 'danger' || variant === 'success' ? 'true' : undefined}

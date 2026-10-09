@@ -3,7 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { GameButton } from './GameButton';
-import { resetLiquidGooeyBudgetForTests } from '../../liquid/budget';
+import { resetLiquidGooeyBudgetForTests, setLiquidGooeyBudget } from '../../liquid/budget';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
@@ -145,5 +145,127 @@ describe('liquid CTA keeps layout and native interaction', () => {
     ).toBe('false');
     await act(async () => button.click());
     expect(onClick).toHaveBeenCalledOnce();
+  });
+});
+
+/** The engine writes `scale(x, y)` into the body host; read the uniform scale back. */
+const bodyScale = (shape: HTMLElement) => {
+  const match = /scale\(([\d.]+), ([\d.]+)\)/.exec(shape.style.transform);
+  return match ? Number(match[1]) : Number.NaN;
+};
+const reducedMotionQuery = () => {
+  const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  vi.spyOn(window, 'matchMedia').mockImplementation(
+    () =>
+      ({
+        ...media,
+        matches: true,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }) as unknown as MediaQueryList,
+  );
+};
+
+describe('pending state keeps the action live', () => {
+  it('breathes a pending CTA as liquid, stays enabled and still reaches the product', async () => {
+    const onClick = vi.fn();
+    const container = await mount(
+      <GameButton variant="primary" pending onClick={onClick}>
+        保存中
+      </GameButton>,
+    );
+    const button = container.querySelector('button')!;
+    const surface = container.querySelector<HTMLElement>('.game-ui-liquid-surface')!;
+    const shape = container.querySelector<HTMLElement>('.game-ui-liquid-surface__shape')!;
+    expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(button.disabled).toBe(false);
+    expect(surface.getAttribute('data-liquid-breathing')).toBe('true');
+    await until(() => bodyScale(shape) >= 1.03);
+    await until(() => bodyScale(shape) <= 1.005);
+    await act(async () => button.click());
+    expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it('squashes a pending CTA under a press, and releases it without disabling', async () => {
+    const container = await mount(
+      <GameButton variant="primary" pending>
+        保存中
+      </GameButton>,
+    );
+    const button = container.querySelector('button')!;
+    const shape = container.querySelector<HTMLElement>('.game-ui-liquid-surface__shape')!;
+    await act(async () =>
+      button.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 })),
+    );
+    await until(() => shape.style.transform.includes('scale(1.06, 0.87)'));
+    await act(async () =>
+      button.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, button: 0 })),
+    );
+    await until(
+      () =>
+        container.querySelector('.game-ui-liquid-surface')?.getAttribute('data-liquid-active') ===
+        'false',
+    );
+    expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(button.disabled).toBe(false);
+  });
+
+  it('holds the body still under reduced motion while staying busy', async () => {
+    reducedMotionQuery();
+    const container = await mount(
+      <GameButton variant="primary" pending>
+        保存中
+      </GameButton>,
+    );
+    const button = container.querySelector('button')!;
+    const surface = container.querySelector<HTMLElement>('.game-ui-liquid-surface')!;
+    const shape = container.querySelector<HTMLElement>('.game-ui-liquid-surface__shape')!;
+    expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(surface.hasAttribute('data-liquid-breathing')).toBe(false);
+    await act(async () => wait(1400));
+    expect(bodyScale(shape)).toBe(1);
+  });
+
+  it('gives the breath no animation slot when the liquid budget is spent', async () => {
+    setLiquidGooeyBudget({ maxAnimatedGroups: 0 });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const container = await mount(
+      <GameButton variant="primary" pending>
+        保存中
+      </GameButton>,
+    );
+    const shape = container.querySelector<HTMLElement>('.game-ui-liquid-surface__shape')!;
+    await act(async () => wait(1400));
+    expect(bodyScale(shape)).toBe(1);
+    expect(container.querySelector('button')!.getAttribute('aria-busy')).toBe('true');
+  });
+
+  it('pulses a pending flat button through its droplet, and holds it under reduced motion', async () => {
+    const container = await mount(<GameButton pending>保存中</GameButton>);
+    const droplet = container.querySelector<SVGSVGElement>('.game-ui-droplet')!;
+    expect(getComputedStyle(droplet).animationName).toBe('game-ui-button-pending');
+    expect(container.querySelector('button')!.disabled).toBe(false);
+    // Media queries are evaluated by the browser, not by matchMedia, so the hold
+    // is asserted as the loaded stylesheet rule that a reduced-motion user gets.
+    const rules: CSSRule[] = [];
+    const collect = (list: CSSRuleList) => {
+      for (const rule of list) {
+        rules.push(rule);
+        if ('cssRules' in rule) collect((rule as CSSGroupingRule).cssRules);
+      }
+    };
+    for (const sheet of document.styleSheets) collect(sheet.cssRules);
+    const held = rules.some(
+      (rule) =>
+        rule instanceof CSSMediaRule &&
+        rule.conditionText.includes('prefers-reduced-motion') &&
+        [...rule.cssRules].some(
+          (inner) =>
+            inner instanceof CSSStyleRule &&
+            inner.selectorText.includes('aria-busy') &&
+            inner.style.animationName === 'none',
+        ),
+    );
+    expect(held).toBe(true);
   });
 });

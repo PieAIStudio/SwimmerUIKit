@@ -92,4 +92,21 @@
     font-size: 14px;
     line-height: 20px;
   }
+  /* Pending, non-liquid variants: a soft pulse on the droplet alone. The label
+   * and the native hit target never move. Primary CTAs breathe as liquid instead,
+   * and static or reduced-motion controls hold still. */
+  .game-ui-button[aria-busy='true']:not(.game-ui-button--static) > .game-ui-droplet {
+    animation: game-ui-button-pending 1.2s ease-in-out infinite;
+  }
+  @keyframes game-ui-button-pending {
+    50% {
+      opacity: 0.72;
+      scale: 1.02;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-button[aria-busy='true']:not(.game-ui-button--static) > .game-ui-droplet {
+      animation: none;
+    }
+  }
 }

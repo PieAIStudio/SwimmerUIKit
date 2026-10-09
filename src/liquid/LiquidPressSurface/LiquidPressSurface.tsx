@@ -13,6 +13,7 @@ export function LiquidPressSurface({
   enabled,
   static: isStatic = false,
   fullWidth = false,
+  pending = false,
 }: {
   children: ReactNode;
   control: RefObject<HTMLElement | null>;
@@ -20,6 +21,8 @@ export function LiquidPressSurface({
   enabled: boolean;
   static?: boolean;
   fullWidth?: boolean;
+  /** Work is running: the body breathes, the native control stays enabled. */
+  pending?: boolean;
 }) {
   const [pressed, setPressed] = useState(false);
   useLayoutEffect(() => {
@@ -44,6 +47,7 @@ export function LiquidPressSurface({
         <LiquidSurface
           key="decoration"
           active={pressed && !isStatic}
+          breathing={pending && !isStatic}
           form="press"
           fill={TIDE_FILL}
           className="game-ui-cta-decoration"
