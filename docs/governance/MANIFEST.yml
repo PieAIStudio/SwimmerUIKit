@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-08T10:44:26.588Z
+generated_at: 2026-10-09T16:58:19.366Z
 generator_version: doc-gov@0.14.2
 docs_count: 57
 docs:
@@ -373,7 +373,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-07
+    last_reviewed: 2026-10-10
     pinned: false
   - id: REF-PUBLIC-API-INVENTORY
     path: docs/reference/public-api-inventory.md
@@ -387,7 +387,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-03
+    last_reviewed: 2026-10-10
     pinned: true
   - id: SPEC-0001
     path: docs/specs/completed/SPEC-0001-design-system-hardening.md
