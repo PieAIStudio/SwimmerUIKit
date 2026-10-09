@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-08
+last_reviewed: 2026-10-10
 domain: ui-components
 tags:
   - uikit
@@ -18,6 +18,12 @@ related:
 ---
 
 # 当前工作
+
+## 当前：本地 3.0.0-rc.3 候选（按压与待定，未发布）
+
+2026-10-10，Owner 反馈液体按压几乎不可见。本地提交依次为 `9e52771`（按压至少保持 140 毫秒）、`6c34140`（CTA 压扁 1.06 / 0.87 / 3，平面水滴压扁 1.09 / 0.80）、`b60d8cc`（GameButton `pending`）、`0b17020`（文档）与 `8d3cf78`（版本 3.0.0-rc.3 与更新日志）。`pnpm verify` 通过 95 个测试文件、624 项测试；storybook、docs、真实打包、packed 检查与真实 Next 消费均通过。
+
+本地候选为 `.scratch/jelly-rc3/swimmer-ui-kit-3.0.0-rc.3.tgz`，SHA-256 `004669ec5b6dfbdaba4af3a746c8b5abd1e727c44b2147145efc3b3e0e36356b`；证据见同目录 `result.json`。本次只推送源码，没有 npm 发布，也没有触发 `npm-publish` 或其他 GitHub workflow。rc.2 候选文件保持原样，芽族仍按其哈希锁定使用；rc.3 不覆盖 rc.2。下游接入或正式发布都需要 Owner 另行授权。
 
 ## 当前：芽族使用本地 3.0.0-rc.2 候选，发布暂缓
 
