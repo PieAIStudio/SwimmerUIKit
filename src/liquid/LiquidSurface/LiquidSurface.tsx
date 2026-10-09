@@ -41,16 +41,18 @@ interface Pose {
  * The two axes disagree on purpose. A uniform scale is a thing getting
  * smaller; a body that spreads sideways as it is pushed down is a body made of
  * something, and that is the whole difference between a pressed button and a
- * pressed jelly. It is not fully volume-preserving — 0.90 vertical would want
- * 1.11 horizontal and that much sideways travel on a 44px control reads as a
- * glitch rather than as squash.
+ * pressed jelly. It is not fully volume-preserving — 0.87 vertical would want
+ * about 1.15 horizontal, and 1.06 spreads less than that on purpose: more
+ * sideways travel on a 32–44px control reads as a glitch rather than as squash.
+ * The press holds for MIN_PRESS_HOLD_MS, so this pose is seen even on a tap.
  */
 const ENGAGED: Readonly<Record<LiquidForm, Pose>> = {
   // Firming up: one small contraction as it commits, and then it is furniture.
   // The visible change is the group swap — no pour, hard rim, no volume.
   set: { scale: 0.99, scaleY: 0.99, y: 0 },
-  // A finger is pushing it in, and it spreads.
-  press: { scale: 1.05, scaleY: 0.9, y: 2 },
+  // A finger is pushing it in, and it spreads. Deeper than before (0.90 to
+  // 0.87, and y 2 to 3) so a 32–44px CTA reads as jelly, not as a nudge.
+  press: { scale: 1.06, scaleY: 0.87, y: 3 },
   // Nothing is touching it, so nothing squashes it. It inflates.
   swell: { scale: 1.07, scaleY: 1.07, y: 0 },
   // It has just landed, so engaged is rest and the spring does the arriving.

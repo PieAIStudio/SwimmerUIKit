@@ -17,9 +17,14 @@ export const restingPose = (amplitude: number): DropletPose => ({
   amplitude,
   phase: 0,
 });
+/*
+ * Twice the first flat press (squash 0.10 to 0.20, spread 0.045 to 0.09), with
+ * the same spread-to-squash ratio. The droplet only scales in place: no
+ * sideways translation, so the press reads as squash and not as a glitch.
+ */
 export const pressedPose = (amplitude: number): DropletPose => ({
-  x: 1.045,
-  y: 0.9,
+  x: 1.09,
+  y: 0.8,
   amplitude: amplitude * 1.75 + 0.65,
   phase: 0.8,
 });

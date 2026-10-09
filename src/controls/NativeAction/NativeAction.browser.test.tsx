@@ -3,6 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { GameButton } from '../GameButton/GameButton';
 import { GameIconButton } from '../GameIconButton/GameIconButton';
+import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
 (
@@ -128,6 +129,9 @@ it('uses liquid for a primary link while keeping Space native and Enter pressabl
   expect(surface.getAttribute('data-liquid-active')).toBe('true');
   expect(link.getBoundingClientRect().toJSON()).toEqual(bounds);
   await act(async () => window.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' })));
+  // The minimum press hold applies to Enter as well as to pointer taps.
+  expect(surface.getAttribute('data-liquid-active')).toBe('true');
+  await act(async () => new Promise((resolve) => setTimeout(resolve, MIN_PRESS_HOLD_MS + 30)));
   expect(surface.getAttribute('data-liquid-active')).toBe('false');
 });
 

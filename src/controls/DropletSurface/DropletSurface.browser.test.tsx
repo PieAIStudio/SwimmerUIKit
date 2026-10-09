@@ -97,6 +97,9 @@ describe('one flat droplet primitive', () => {
     expect(svg.dataset.pressed).toBe('true');
     expect(path.getAttribute('d')).not.toBe(initial);
     expect(group.getAttribute('transform')).not.toContain('scale(1.00000 1.00000)');
+    // The flat press is clearly visible: a 20% squash with its spread, in place.
+    await advance(120);
+    expect(group.getAttribute('transform')).toContain('scale(1.09000 0.80000)');
     expect(button.getBoundingClientRect().toJSON()).toEqual(bounds);
     expect(getComputedStyle(button).transform).toBe('none');
     await pointer(button, 'pointerup');

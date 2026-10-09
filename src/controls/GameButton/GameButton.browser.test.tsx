@@ -13,6 +13,14 @@ import '../../styles.css';
 let root: Root | undefined;
 let host: HTMLDivElement | undefined;
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+/** Polls the real engine clock: liquid motion runs on requestAnimationFrame, not on test time. */
+async function until(check: () => boolean, timeout = 3000): Promise<void> {
+  const started = performance.now();
+  while (!check()) {
+    if (performance.now() - started > timeout) throw new Error('liquid state was not reached');
+    await act(async () => wait(20));
+  }
+}
 
 afterEach(async () => {
   await act(async () => root?.unmount());
@@ -83,6 +91,21 @@ describe('liquid CTA keeps layout and native interaction', () => {
     expect(surface.getAttribute('data-liquid-active')).toBe('false');
     await act(async () => button.click());
     expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it('squashes the CTA body to its press pose, even on a quick tap, then rebounds', async () => {
+    const container = await mount(<GameButton variant="primary">Go</GameButton>);
+    const button = container.querySelector('button')!;
+    const shape = container.querySelector<HTMLElement>('.game-ui-liquid-surface__shape')!;
+    await act(async () =>
+      button.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 })),
+    );
+    await until(() => shape.style.transform.includes('scale(1.06, 0.87)'));
+    await act(async () =>
+      button.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, button: 0 })),
+    );
+    // Released after the minimum hold: the spring carries the body back to rest.
+    await until(() => shape.style.transform.includes('scale(1, 1)'));
   });
 
   it('does not activate a disabled CTA', async () => {
