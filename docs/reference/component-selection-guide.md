@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: project
 created: 2026-09-11
-last_reviewed: 2026-10-03
+last_reviewed: 2026-10-10
 domain: product
 tags:
   - components
@@ -36,6 +36,7 @@ related:
 | 空状态、通知、进度、简短解释 | GameEmptyState / GameToast / GameCallout / GameProgress / GameHelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 游戏外壳和 HUD 槽位 | GameShell / GameHudActions / GameFactList | 不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | GameAvatar / GameMaterialSwatches / GameCollectibleCard / GameSplash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
+| 账号菜单 | GameAccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。 |
 | 图标 | GameIcon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
 
 ## 液体、可选特效和预览的入口
@@ -68,7 +69,7 @@ GameOtpInput 只接受数字验证码，全角数字会规范化；受控 value 
 
 GameTabs 用 id 与每项 panelId 关联真实 tabpanel。横向处理左右键，vertical 只处理上下键，Home/End 跳首尾；产品负责窄屏切换布局。GameListRow 左侧只放展示内容，交互放 actions，选择与右侧操作是兄弟按钮；危险确认仍归宿主。
 
-GameModal 是原生 dialog，可用 position="bottom" 做底部面板；GameDialog 只是内联内容，不提供模态阻断。GameHelpTip 用于可省略的短解释，支持触摸、焦点与 Escape，不把必须知道的错误/费用藏进去，也不放交互表单。GameTooltip 的直接孩子须可聚焦，重要信息不能只靠悬停看到。
+GameModal 是原生 dialog，可用 position="bottom" 做底部面板；GameDialog 只是内联内容，不提供模态阻断。GameHelpTip 用于可省略的短解释，支持触摸、焦点与 Escape，不把必须知道的错误/费用藏进去，也不放交互表单。GameTooltip 的直接孩子须可聚焦，重要信息不能只靠悬停看到；靠近视口边缘时用 `align="start"` 或 `"end"` 让气泡向有空间的一侧展开，`placement="bottom"` 放到下方。
 
 GameCollectibleCard 处理翻面、指针倾斜与减少动态；GameCollectibleCardSlot 是空位。一个卡册只创建一个 useGameCardOrientation，用户直接交互后调用 enable，tilt 只传给当前卡；关闭/卸载停止输入。enabled 不证明硬件已经给出样本，保留键盘与触摸后备操作。权限面板与实机表现由产品验证，不用模拟样本冒充。
 
@@ -105,7 +106,7 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameProgress` | 10px水滴轨道与潮汐液面；数值变化晃动600ms后静止，不占滤镜预算。保留原生progressbar语义，不伪造业务完成。 |
 | `GamePrompt` | 短操作提示，不代替实际输入控件。 |
 | `GameToast` | 单条短通知；排队、持久化和重要错误归宿主。 |
-| `GameTooltip` | 可聚焦目标的补充说明，不作为唯一可访问名称。 |
+| `GameTooltip` | 可聚焦目标的补充说明，不作为唯一可访问名称；`align`（center / start / end）与 `placement`（top / bottom）调整位置，标签中的换行保留。 |
 | `playGameCardRevealSound` | 明确允许的揭卡交互音效，默认不自动发声。 |
 | `playGameInteractionSound` | 主动交互中的提示音，偏好与音量由产品决定。 |
 | `playGameInteractionSoundForContext` | 接宿主已有音频上下文，不另起音频引擎。 |
@@ -118,6 +119,7 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameShell` | 安排场景及 HUD、侧栏、移动与底栏槽位。 |
 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现和持久记录由宿主决定。 |
 | `GameAvatar` | 展示头像；静态 plaque 相框不用于普通控件。 |
+| `GameAccountMenu` | 登录后的账号入口：头像与名字触发同一个账号面板，内容由产品提供；不登录、不退出、不联网，面板需引入 liquid-presence.css。 |
 | `GameCollectibleCard` | 收藏卡片翻面与倾斜，不决定获得规则和稀有度。 |
 | `useGameCardOrientation` | 卡册共享的显式设备倾斜输入，不把 enabled 当成已收到硬件样本。 |
 | `GameCollectibleCardSlot` | 收藏卡空位，不表示已经获得奖励。 |

@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.
 
-Compiler inventory: **129 named exports: 55 values and 74 types**.
+Compiler inventory: **133 named exports: 56 values and 77 types**.
 
 ## controls/ — Controls
 
@@ -140,6 +140,10 @@ Cards, avatars, opening screens and game compositions
 | `FirstSessionOnboardingStep` | type | [source](../../src/game/FirstSessionOnboarding/FirstSessionOnboarding.tsx) |
 | `GameAvatar` | value | [source](../../src/game/GameAvatar/GameAvatar.tsx) |
 | `GameAvatarProps` | type | [source](../../src/game/GameAvatar/GameAvatar.tsx) |
+| `GameAccountMenu` | value | [source](../../src/game/GameAccountMenu/GameAccountMenu.tsx) |
+| `GameAccountMenuLabels` | type | [source](../../src/game/GameAccountMenu/GameAccountMenu.tsx) |
+| `GameAccountMenuProps` | type | [source](../../src/game/GameAccountMenu/GameAccountMenu.tsx) |
+| `GameAccountProduct` | type | [source](../../src/game/GameAccountMenu/GameAccountMenu.tsx) |
 | `GameCollectibleCard` | value | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |
 | `GameCollectibleCardProps` | type | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |
 | `GameCollectibleCardRarity` | type | [source](../../src/game/GameCollectibleCard/GameCollectibleCard.tsx) |

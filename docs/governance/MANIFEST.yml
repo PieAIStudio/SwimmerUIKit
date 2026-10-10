@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-09T17:03:28.251Z
+generated_at: 2026-10-10T05:30:18.367Z
 generator_version: doc-gov@0.14.2
 docs_count: 57
 docs:
@@ -282,7 +282,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-03
+    last_reviewed: 2026-10-10
     pinned: true
   - id: REF-DESIGN-TOKENS
     path: docs/reference/design-tokens.md
