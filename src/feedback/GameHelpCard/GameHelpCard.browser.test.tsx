@@ -413,6 +413,8 @@ describe('topic tabs share one row inside the 340 px card', () => {
         it(`${language} labels fit on one row at ${width} px in ${theme}, whichever tab is selected`, async () => {
           const original = { width: innerWidth, height: innerHeight };
           await page.viewport(width, 720);
+          // Let the resize land before the card mounts, so it is measured at this width.
+          await settle(100);
           try {
             const labels = labelSets[language];
             const container = await mount(
@@ -441,6 +443,10 @@ describe('topic tabs share one row inside the 340 px card', () => {
               }
             }
           } finally {
+            // Unmount first: the card's position updater listens for resizes, and
+            // a resize while it is open updates state outside act.
+            await act(async () => root?.unmount());
+            root = undefined;
             await page.viewport(original.width, original.height);
           }
         });
