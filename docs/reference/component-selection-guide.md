@@ -36,7 +36,7 @@ related:
 | 空状态、通知、进度、简短解释 | GameEmptyState / GameToast / GameCallout / GameProgress / GameHelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 游戏外壳和 HUD 槽位 | GameShell / GameHudActions / GameFactList | 不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | GameAvatar / GameMaterialSwatches / GameCollectibleCard / GameSplash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
-| 账号菜单 | GameAccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。 |
+| 账号菜单 | GameAccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。从 **@pieai/swimmer-ui-kit/liquid-presence** 导入，并同时引入 liquid-presence.css。 |
 | 图标 | GameIcon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
 
 ## 液体、可选特效和预览的入口
@@ -50,7 +50,7 @@ related:
 需要融化、弯曲或图像接触溶解时，从 **@pieai/swimmer-ui-kit/liquid-effects** 导入 LiquidEffectsGroup，子项使用其 Item。
 这是可选依赖边界，不是第二套液体引擎：测量、时钟、预算与减少动态仍由同一引擎负责。
 
-涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。
+涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。账号菜单 GameAccountMenu 不在根入口：它的面板是 LiquidPopover，与涟同属这一入口，也要引入同一份 liquid-presence.css。
 它只画身体与手势，不调用模型，不开启麦克风，不替用户点击目标。
 
 组件展厅 GameUiPreview 和 LiquidPreview 从 **@pieai/swimmer-ui-kit/preview** 导入，并显式引入 preview.css。
@@ -119,7 +119,6 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameShell` | 安排场景及 HUD、侧栏、移动与底栏槽位。 |
 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现和持久记录由宿主决定。 |
 | `GameAvatar` | 展示头像；静态 plaque 相框不用于普通控件。 |
-| `GameAccountMenu` | 登录后的账号入口：头像与名字触发同一个账号面板，内容由产品提供；不登录、不退出、不联网，面板需引入 liquid-presence.css。 |
 | `GameCollectibleCard` | 收藏卡片翻面与倾斜，不决定获得规则和稀有度。 |
 | `useGameCardOrientation` | 卡册共享的显式设备倾斜输入，不把 enabled 当成已收到硬件样本。 |
 | `GameCollectibleCardSlot` | 收藏卡空位，不表示已经获得奖励。 |

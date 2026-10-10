@@ -7,11 +7,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## 3.1.0 — 本地候选（2026-10-10，待发布到 latest）
 
-- 新增 `GameAccountMenu`：登录后的共享账号入口。头像与名字是 sm 次要按钮；点击打开一个液体面板，含产品提供的站内内容、全部产品列表（当前产品为纯文字，其余为真实链接）和账号页签（管理账号与安全、退出登录）。
+- 新增 `GameAccountMenu`：登录后的共享账号入口，从 `@pieai/swimmer-ui-kit/liquid-presence` 导入。头像与名字是 sm 次要按钮；点击打开一个液体面板，含产品提供的站内内容、全部产品列表（当前产品为纯文字，其余为真实链接）和账号页签（管理账号与安全、退出登录）。只有账号页签时不显示页签条。
 - 产品拥有用户、产品列表、目的地址和所有登录、退出动作；组件不联网、不存储、不做认证。退出按钮处理中显示 `pending` 但不禁用，组件忽略处理中的重复点击。头像只渲染 https 图片，否则显示首字母。
-- 面板基于 LiquidPopover，宿主需同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。
+- 面板基于 LiquidPopover，宿主需同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。账号菜单不在根入口，只使用 GameAvatar 等根入口已有控件的产品不会因此加载液体面板代码。
 - `GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），向后兼容：默认仍居中于上方。长标签在 280px 内换行，标签中的换行保留。
-- 根入口新增 4 个名字（`GameAccountMenu` 及三个类型）；选择指南、接口清单和迁移表由生成器与人工条目同步。没有删除或改名。
+- 根入口公开名字不变（129 个）；迁移表与接口清单由生成器更新。`GameAccountMenu` 与其三个类型只从 liquid-presence 入口公开。没有删除或改名。
 - 版本号改为 3.1.0；发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
 
 ## 3.0.0 — 已发布到 npm latest（2026-10-10）
