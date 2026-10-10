@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { GameAccountMenu, type GameAccountMenuProps } from '../../index';
+// Public path: @pieai/swimmer-ui-kit/liquid-presence (the repo's source equivalent).
+import { GameAccountMenu, type GameAccountMenuProps } from '../../liquid-presence';
 // The popover is liquid-presence UI: consumers import this sheet next to styles.css.
 import '../../presence/presence.css';
 
@@ -50,7 +51,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '登录后的账号菜单：头像与名字位于头部，点击打开同一个账号面板。产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网、不存储。面板需同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。',
+          '登录后的账号菜单：头像与名字位于头部，点击打开同一个账号面板。产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网、不存储。从 `@pieai/swimmer-ui-kit/liquid-presence` 导入（不在根入口），并同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。',
       },
     },
   },

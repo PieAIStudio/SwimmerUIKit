@@ -1,11 +1,12 @@
 import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+// Public path: @pieai/swimmer-ui-kit/liquid-presence (the repo's source equivalent).
 import {
   GameAccountMenu,
   type GameAccountMenuProps,
   type GameAccountProduct,
-} from './GameAccountMenu';
+} from '../../liquid-presence';
 import { resetLiquidGooeyBudgetForTests } from '../../liquid/budget';
 import '../../styles.css';
 import '../../presence/presence.css';

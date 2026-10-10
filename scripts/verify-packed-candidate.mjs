@@ -128,6 +128,9 @@ assert.ok(!runtimeEntries['.'].includes('GameUiPreview'));
 assert.ok(!runtimeEntries['.'].includes('LiquidEffectsGroup'));
 assert.ok(runtimeEntries['./liquid-effects'].includes('LiquidEffectsGroup'));
 assert.ok(runtimeEntries['./liquid-presence'].includes('LiquidPresence'));
+// The account menu's LiquidPopover panel must not enter the root bundle graph.
+assert.ok(runtimeEntries['./liquid-presence'].includes('GameAccountMenu'));
+assert.ok(!runtimeEntries['.'].includes('GameAccountMenu'));
 
 // A real package-name consumer, linked only inside this private scratch fixture.
 const consumer = path.join(inspection, 'consumer');

@@ -89,4 +89,11 @@ describe('3.0 public contract and complete migration', () => {
     // this feature must not introduce a renderer/agent dependency of its own.
     expect(pkg.dependencies).toEqual({ '@floating-ui/react': '0.27.20' });
   });
+  it('ships the account menu only from the liquid-presence entry, never the root barrel', () => {
+    expect(current.some((item) => item.name === 'GameAccountMenu')).toBe(false);
+    const presence = readFileSync(new URL('../src/liquid-presence.ts', import.meta.url), 'utf8');
+    expect(presence).toMatch(
+      /export \{[^}]*\bGameAccountMenu\b[^}]*\} from '\.\/game\/GameAccountMenu\/GameAccountMenu'/,
+    );
+  });
 });

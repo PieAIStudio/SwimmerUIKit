@@ -6,4 +6,10 @@
 
 边界：产品拥有用户、产品列表、站内内容与退出逻辑；组件不联网、不存储、不做登录。退出按钮处理中显示 `pending`，但不禁用，重复点击由组件守卫忽略。当前产品显示为「当前」标记而不是链接；头像只渲染 https 图片，否则显示首字母。
 
-面板基于 LiquidPopover，宿主需同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。
+不在根入口：从 `@pieai/swimmer-ui-kit/liquid-presence` 导入。面板基于 LiquidPopover，宿主需同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`。
+
+```tsx
+import { GameAccountMenu } from '@pieai/swimmer-ui-kit/liquid-presence';
+import '@pieai/swimmer-ui-kit/styles.css';
+import '@pieai/swimmer-ui-kit/liquid-presence.css';
+```

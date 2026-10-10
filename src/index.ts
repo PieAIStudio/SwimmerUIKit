@@ -87,12 +87,6 @@ export {
 } from './game/FirstSessionOnboarding/FirstSessionOnboarding';
 export { GameAvatar, type GameAvatarProps } from './game/GameAvatar/GameAvatar';
 export {
-  GameAccountMenu,
-  type GameAccountMenuLabels,
-  type GameAccountMenuProps,
-  type GameAccountProduct,
-} from './game/GameAccountMenu/GameAccountMenu';
-export {
   GameCollectibleCard,
   type GameCollectibleCardProps,
   type GameCollectibleCardRarity,
