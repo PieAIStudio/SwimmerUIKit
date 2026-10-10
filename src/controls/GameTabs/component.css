@@ -28,4 +28,25 @@
     width: 100%;
     text-align: start;
   }
+  /*
+   * One shared rule for tabs that stay on one row in a fixed-width panel: the help
+   * card and the account menu. Labels truncate only as a last resort, and an
+   * unselected tab reserves no width for its check mark. The account menu adds
+   * its own equal widths; the help card sizes tabs to their content.
+   */
+  .game-ui-help-card .game-ui-tabs,
+  .game-ui-account-menu-panel .game-ui-tabs {
+    flex-wrap: nowrap;
+  }
+  .game-ui-help-card .game-ui-tab-label,
+  .game-ui-account-menu-panel .game-ui-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-help-card .game-ui-tab:not([aria-selected='true']) .game-ui-selection-mark,
+  .game-ui-account-menu-panel .game-ui-tab:not([aria-selected='true']) .game-ui-selection-mark {
+    display: none;
+  }
 }

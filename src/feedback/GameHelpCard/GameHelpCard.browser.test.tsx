@@ -1,7 +1,7 @@
 import { act, type ReactElement, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { contrastRatio } from '../../../scripts/lib/contrast.mjs';
 import { GameHelpCard, type GameHelpCardTopic, type GameHelpMedia } from './GameHelpCard';
 import { GameButton } from '../../controls/GameButton/GameButton';
@@ -387,6 +387,63 @@ it('paints a card outside any themed ancestor in the light default, readable on 
   await settle(600);
   expectReadable(card()!, 'light default');
   expect(container.querySelector('[role="dialog"]')).toBeNull();
+});
+
+describe('topic tabs share one row inside the 340 px card', () => {
+  const topic = (id: string, label: string): GameHelpCardTopic => ({
+    id,
+    label,
+    title: label,
+    body: '一行说明。',
+  });
+  const labelSets = {
+    zh: ['懒人包', '设定图', '选角单'],
+    en: ['Starter pack', 'Sheet', 'Cast'],
+  } as const;
+  // A label that wraps has more than one client rect as a text range.
+  const wrapped = (label: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(label);
+    return range.getClientRects().length > 1;
+  };
+
+  for (const language of ['zh', 'en'] as const)
+    for (const width of [1280, 360])
+      for (const theme of ['light', 'dark'] as const)
+        it(`${language} labels fit on one row at ${width} px in ${theme}, whichever tab is selected`, async () => {
+          const original = { width: innerWidth, height: innerHeight };
+          await page.viewport(width, 720);
+          try {
+            const labels = labelSets[language];
+            const container = await mount(
+              <section data-game-ui-theme={theme === 'dark' ? 'dark' : undefined}>
+                <GameHelpCard
+                  label="怎么用"
+                  topics={labels.map((label, index) => topic(`t${index}`, label))}
+                >
+                  <GameButton>怎么用</GameButton>
+                </GameHelpCard>
+              </section>,
+            );
+            await hover(container.querySelector('button')!);
+            await settle(600);
+            const tabs = () => [...card()!.querySelectorAll<HTMLElement>('[role="tab"]')];
+            expect(tabs()).toHaveLength(3);
+            for (let index = 0; index < 3; index++) {
+              await act(() => userEvent.click(tabs()[index]!));
+              const name = `${language} ${width} px ${theme}, tab ${index} selected`;
+              expect(tabs()[index]!.getAttribute('aria-selected'), name).toBe('true');
+              expect(new Set(tabs().map((node) => node.offsetTop)).size, name).toBe(1);
+              for (const node of tabs()) {
+                const label = node.querySelector<HTMLElement>('.game-ui-tab-label')!;
+                expect(label.scrollWidth, name).toBeLessThanOrEqual(label.clientWidth);
+                expect(wrapped(label), name).toBe(false);
+              }
+            }
+          } finally {
+            await page.viewport(original.width, original.height);
+          }
+        });
 });
 
 /** A child as React Flight hands it over while its Server Component row is still streaming. */

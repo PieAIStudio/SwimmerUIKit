@@ -32,6 +32,19 @@
     justify-self: start;
     max-width: 100%;
   }
+  /*
+   * Topic labels share one row at 340 px; the one-row rules are in GameTabs. Tabs
+   * take their content width, with the account menu's tighter spacing, since
+   * GameTabs has no compact size.
+   */
+  .game-ui-help-card .game-ui-tabs {
+    gap: 6px;
+  }
+  .game-ui-help-card .game-ui-tab {
+    flex: 1 1 auto;
+    gap: 6px;
+    padding-inline: 10px;
+  }
   .game-ui-help-card-title {
     margin: 0;
     font-size: var(--game-ui-font-md);

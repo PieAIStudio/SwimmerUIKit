@@ -100,6 +100,57 @@ export const ThreeTopicsWithTabs: Story = {
   },
 };
 
+/** The product's three Chinese topic labels: they must share one row at 340 px. */
+export const TopicTabsZh: Story = {
+  name: 'Topic tabs on one row, zh / 页签一行（中文）',
+  args: {
+    label: '怎么用',
+    topics: [
+      {
+        id: 'guide',
+        label: '懒人包',
+        title: '先看这一页',
+        body: '按顺序完成三步。\n不确定时可以先保存。',
+      },
+      { id: 'sheet', label: '设定图', title: '看懂设定图', body: '设定图列出角色的服装与配色。' },
+      {
+        id: 'cast',
+        label: '选角单',
+        title: '选角前先检查',
+        body: '选角单里的每个角色都可以替换。',
+      },
+    ],
+  },
+};
+
+/** The same three topics in English, for the label-width check in the other language. */
+export const TopicTabsEn: Story = {
+  name: 'Topic tabs on one row, en / 页签一行（英文）',
+  args: {
+    label: 'How to use',
+    topics: [
+      {
+        id: 'guide',
+        label: 'Starter pack',
+        title: 'Start here',
+        body: 'Follow the three steps in order.\nSave at any time if unsure.',
+      },
+      {
+        id: 'sheet',
+        label: 'Sheet',
+        title: 'Read the sheet',
+        body: 'The sheet lists each cast member’s outfit and colours.',
+      },
+      {
+        id: 'cast',
+        label: 'Cast',
+        title: 'Check before casting',
+        body: 'Every role in the cast list can be replaced.',
+      },
+    ],
+  },
+};
+
 /** Image media with a fixed box, so opening the card never shifts the layout. */
 export const ImageMedia: Story = {
   name: 'Image media / 图片',
