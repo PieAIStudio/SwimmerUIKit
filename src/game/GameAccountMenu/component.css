@@ -1,0 +1,92 @@
+@layer swimmer-ui {
+  .game-ui-account-menu {
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* The trigger is a secondary sm GameButton: same droplet and press as any sm control. */
+  .game-ui-account-menu-trigger.game-ui-button[data-game-ui-size='sm'] {
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0 14px 0 4px;
+  }
+  .game-ui-account-menu-trigger-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Below 480px the trigger keeps only the avatar; the label stays in aria-label. */
+  @media (max-width: 479px) {
+    .game-ui-account-menu-trigger.game-ui-button[data-game-ui-size='sm'] {
+      padding: 0 4px;
+    }
+    .game-ui-account-menu-trigger-name {
+      display: none;
+    }
+  }
+  /* The popover renders in a portal, so these rules target the panel itself. */
+  .game-ui-account-menu-name {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-account-menu-panel {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+  }
+  .game-ui-account-menu-panel [hidden] {
+    display: none !important;
+  }
+  .game-ui-account-menu-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .game-ui-account-menu-avatar {
+    display: inline-flex;
+    flex: none;
+  }
+  .game-ui-account-menu-email {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* The panel is a liquid body: use its ink, not the page's muted text token. */
+    color: var(--game-ui-cta-text);
+    opacity: 0.8;
+    font-size: 0.875rem;
+  }
+  .game-ui-account-menu-panel .game-ui-tabs {
+    gap: 6px;
+  }
+  .game-ui-account-menu-panel .game-ui-tab {
+    gap: 6px;
+    padding-inline: 10px;
+  }
+  .game-ui-account-menu-section {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+  .game-ui-account-menu-products {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .game-ui-account-menu-product a.game-ui-list-row-main {
+    text-decoration: none;
+  }
+  .game-ui-account-menu-actions {
+    display: grid;
+    gap: 8px;
+  }
+}

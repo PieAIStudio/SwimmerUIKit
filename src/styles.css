@@ -33,6 +33,7 @@
 @import './controls/GameTextArea/component.css';
 @import './controls/GameCheckbox/component.css';
 @import './game/GameAvatar/component.css';
+@import './game/GameAccountMenu/component.css';
 @import './feedback/GameProgress/component.css';
 @import './feedback/GameEmptyState/component.css';
 @import './containers/GameShell/component.css';
