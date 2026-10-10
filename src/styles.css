@@ -7,6 +7,7 @@
 @import './liquid/LiquidSurface/component.css';
 @import './controls/DropletSurface/component.css';
 @import './controls/shared/accessibility.css';
+@import './feedback/shared/trigger-slot.css';
 @import './feedback/GameHelpTip/component.css';
 @import './feedback/GameHelpCard/component.css';
 @import './containers/GameDialog/component.css';

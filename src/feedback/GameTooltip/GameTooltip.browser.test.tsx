@@ -1,4 +1,4 @@
-import { act } from 'react';
+import { act, type ReactElement } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
@@ -91,5 +91,22 @@ describe('GameTooltip layout', () => {
     const { bubble } = await render({ label: '第一行\n第二行' });
     expect(getComputedStyle(bubble).whiteSpace).toBe('pre-line');
     expect(bubble.getBoundingClientRect().height).toBeGreaterThan(singleHeight * 1.5);
+  });
+});
+
+describe('GameTooltip with a lazy trigger', () => {
+  it('describes the focusable element after mount, and removes the description on unmount', async () => {
+    const payload = { status: 'resolved', value: <GameButton>触发</GameButton> };
+    const lazy = {
+      $$typeof: Symbol.for('react.lazy'),
+      _payload: payload,
+      _init: (resolved: typeof payload) => resolved.value,
+    } as unknown as ReactElement;
+    await act(async () => root.render(<GameTooltip label="提示">{lazy}</GameTooltip>));
+    const trigger = host.querySelector<HTMLElement>('button')!;
+    const bubble = host.querySelector<HTMLElement>('[role="tooltip"]')!;
+    expect(trigger.getAttribute('aria-describedby')).toBe(bubble.id);
+    await act(async () => root.render(null));
+    expect(trigger.hasAttribute('aria-describedby')).toBe(false);
   });
 });

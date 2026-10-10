@@ -1,3 +1,4 @@
+import type { ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
@@ -34,5 +35,20 @@ describe('GameTooltip placement and alignment', () => {
     const id = /<span id="([^"]+)" role="tooltip"/.exec(html)?.[1];
     expect(id).toBeTruthy();
     expect(html).toContain(`aria-describedby="${id}"`);
+  });
+});
+
+describe('GameTooltip with a lazy trigger', () => {
+  it('renders a lazy child from a Server Component without reading its props', () => {
+    const payload = { status: 'resolved', value: <GameButton>按钮</GameButton> };
+    const lazy = {
+      $$typeof: Symbol.for('react.lazy'),
+      _payload: payload,
+      _init: (resolved: typeof payload) => resolved.value,
+    } as unknown as ReactElement;
+    const html = renderToStaticMarkup(<GameTooltip label="提示">{lazy}</GameTooltip>);
+    expect(html).toContain('class="game-ui-trigger-slot"');
+    expect(html).toContain('<button');
+    expect(html).toContain('role="tooltip"');
   });
 });

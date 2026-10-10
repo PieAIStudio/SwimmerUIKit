@@ -1,5 +1,6 @@
 import {
   cloneElement,
+  isValidElement,
   useCallback,
   useEffect,
   useId,
@@ -31,6 +32,7 @@ import {
 import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { GameTabs } from '../../controls/GameTabs/GameTabs';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
+import { isLazyChild, useSlotTrigger } from '../shared/trigger-slot';
 
 export type GameHelpMedia =
   | {
@@ -144,7 +146,11 @@ export function GameHelpCard({
   const dismiss = useDismiss(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss]);
 
-  const childRef = (children.props as TriggerProps).ref;
+  // A valid element keeps the cloned path. Any other child is a lazy node from a
+  // Server Component: it has no props, so it goes into a slot instead.
+  const valid = isValidElement(children);
+  const childProps: TriggerProps = valid ? (children.props as TriggerProps) : {};
+  const childRef = childProps.ref;
   const setReference = useCallback(
     (node: HTMLElement | null) => {
       triggerRef.current = node;
@@ -156,57 +162,120 @@ export function GameHelpCard({
     [childRef, refs],
   );
 
+  const slotRef = useRef<HTMLSpanElement>(null);
+  const slotTrigger = useSlotTrigger(slotRef, {
+    component: 'GameHelpCard',
+    lazy: !valid && isLazyChild(children),
+    active: !valid,
+  });
+  const floatingId = `${id}-card`;
+  useLayoutEffect(() => {
+    if (valid) return;
+    triggerRef.current = slotTrigger;
+    refs.setReference(slotTrigger);
+    setPortalRoot(slotTrigger?.closest('dialog') ?? undefined);
+  }, [valid, slotTrigger, refs]);
+  useLayoutEffect(() => {
+    if (valid || !slotTrigger) return;
+    // The attributes the cloned path sets, on the element that takes focus.
+    slotTrigger.setAttribute('aria-expanded', String(open));
+    if (open) slotTrigger.setAttribute('aria-controls', floatingId);
+    else slotTrigger.removeAttribute('aria-controls');
+    return () => {
+      slotTrigger.removeAttribute('aria-expanded');
+      slotTrigger.removeAttribute('aria-controls');
+    };
+  }, [valid, slotTrigger, open, floatingId]);
+
   const active = topics.find((topic) => topic.id === selectedId) ?? topics[0];
   if (!active) return children;
-  const childProps = children.props as TriggerProps;
-  const floatingId = `${id}-card`;
   const tabsId = `${id}-tabs`;
   const tabId = (topicId: string) => `${tabsId}-${topicId}`;
   const panelId = (topicId: string) => `${id}-panel-${topicId}`;
 
-  const trigger = cloneElement(children as ReactElement<Record<string, unknown>>, {
-    ...getReferenceProps({
-      onPointerDown(event: PointerEvent<HTMLElement>) {
-        pointerTypeRef.current = event.pointerType;
-        pointerFocusRef.current = true;
-        childProps.onPointerDown?.(event);
-      },
-      onFocus(event: FocusEvent<HTMLElement>) {
-        const fromPointer = pointerFocusRef.current;
-        pointerFocusRef.current = false;
-        if (!fromPointer && !open && !suppressFocusOpenRef.current) setCardOpen(true);
-        childProps.onFocus?.(event);
-      },
-      onBlur(event: FocusEvent<HTMLElement>) {
-        pointerFocusRef.current = false;
-        childProps.onBlur?.(event);
-      },
-      onClick(event: MouseEvent<HTMLElement>) {
-        const touch = pointerTypeRef.current === 'touch';
-        pointerTypeRef.current = undefined;
-        if (touch && !open) {
-          // The first tap only opens the card; the second tap is the action.
-          event.preventDefault();
-          event.stopPropagation();
-          setCardOpen(true);
-          return;
-        }
-        childProps.onClick?.(event);
-      },
-      onKeyDown(event: KeyboardEvent<HTMLElement>) {
-        if (open && event.key === 'Escape') {
-          event.preventDefault();
-          event.stopPropagation();
-          setCardOpen(false);
-          return;
-        }
-        childProps.onKeyDown?.(event);
-      },
-    }),
-    ref: setReference,
-    'aria-expanded': open,
-    'aria-controls': open ? floatingId : undefined,
-  });
+  // Shared by both trigger paths, so the touch, focus and Escape rules cannot drift.
+  const rememberPointer = (event: PointerEvent<HTMLElement>) => {
+    pointerTypeRef.current = event.pointerType;
+    pointerFocusRef.current = true;
+  };
+  const focusTrigger = () => {
+    const fromPointer = pointerFocusRef.current;
+    pointerFocusRef.current = false;
+    if (!fromPointer && !open && !suppressFocusOpenRef.current) setCardOpen(true);
+  };
+  const blurTrigger = () => {
+    pointerFocusRef.current = false;
+  };
+  /** Returns true when the tap only opened the card, so the action must not run. */
+  const firstTouchTap = (event: MouseEvent<HTMLElement>): boolean => {
+    const touch = pointerTypeRef.current === 'touch';
+    pointerTypeRef.current = undefined;
+    if (!touch || open) return false;
+    // The first tap only opens the card; the second tap is the action.
+    event.preventDefault();
+    event.stopPropagation();
+    setCardOpen(true);
+    return true;
+  };
+  /** Returns true when Escape closed the card. */
+  const closeOnEscape = (event: KeyboardEvent<HTMLElement>): boolean => {
+    if (!open || event.key !== 'Escape') return false;
+    event.preventDefault();
+    event.stopPropagation();
+    setCardOpen(false);
+    return true;
+  };
+
+  const trigger = valid ? (
+    cloneElement(children as ReactElement<Record<string, unknown>>, {
+      ...getReferenceProps({
+        onPointerDown(event: PointerEvent<HTMLElement>) {
+          rememberPointer(event);
+          childProps.onPointerDown?.(event);
+        },
+        onFocus(event: FocusEvent<HTMLElement>) {
+          focusTrigger();
+          childProps.onFocus?.(event);
+        },
+        onBlur(event: FocusEvent<HTMLElement>) {
+          blurTrigger();
+          childProps.onBlur?.(event);
+        },
+        onClick(event: MouseEvent<HTMLElement>) {
+          if (firstTouchTap(event)) return;
+          childProps.onClick?.(event);
+        },
+        onKeyDown(event: KeyboardEvent<HTMLElement>) {
+          if (closeOnEscape(event)) return;
+          childProps.onKeyDown?.(event);
+        },
+      }),
+      ref: setReference,
+      'aria-expanded': open,
+      'aria-controls': open ? floatingId : undefined,
+    })
+  ) : (
+    // The slot adds no layout (trigger-slot.css). Focus and keys from the element
+    // inside bubble up to the slot. Taps use capture, so the inner link never sees
+    // the first touch tap and does not navigate on it; mouse and keyboard pass.
+    <span
+      className="game-ui-trigger-slot"
+      ref={slotRef}
+      {...getReferenceProps({
+        onPointerDownCapture: rememberPointer,
+        onFocus: focusTrigger,
+        onBlur: blurTrigger,
+        onClickCapture: (event: MouseEvent<HTMLElement>) => {
+          firstTouchTap(event);
+        },
+        onKeyDown: (event: KeyboardEvent<HTMLElement>) => {
+          closeOnEscape(event);
+        },
+      })}
+    >
+      {children}
+    </span>
+  );
 
   return (
     <>

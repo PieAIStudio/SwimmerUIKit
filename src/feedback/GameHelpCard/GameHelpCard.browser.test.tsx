@@ -1,6 +1,6 @@
-import { act, type ReactNode } from 'react';
+import { act, type ReactElement, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { afterEach, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { contrastRatio } from '../../../scripts/lib/contrast.mjs';
 import { GameHelpCard, type GameHelpCardTopic, type GameHelpMedia } from './GameHelpCard';
@@ -387,4 +387,132 @@ it('paints a card outside any themed ancestor in the light default, readable on 
   await settle(600);
   expectReadable(card()!, 'light default');
   expect(container.querySelector('[role="dialog"]')).toBeNull();
+});
+
+/** A child as React Flight hands it over while its Server Component row is still streaming. */
+function lazy(element: ReactElement): ReactElement {
+  const payload = { status: 'resolved', value: element };
+  return {
+    $$typeof: Symbol.for('react.lazy'),
+    _payload: payload,
+    _init: (resolved: typeof payload) => resolved.value,
+  } as unknown as ReactElement;
+}
+
+/** A touch tap as the browser sends it: pointerdown, then click. Returns the click. */
+function touchTap(element: Element): MouseEvent {
+  let click!: MouseEvent;
+  act(() => {
+    element.dispatchEvent(
+      new PointerEvent('pointerdown', { pointerType: 'touch', bubbles: true, cancelable: true }),
+    );
+    click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    element.dispatchEvent(click);
+  });
+  return click;
+}
+
+// The first test mounts a lazy trigger, so it must be the first one to do so: the
+// warning is printed once per component for the whole module.
+describe('a trigger that arrives lazily from a Server Component', () => {
+  it('warns once, keeps hover, focus and Escape working, and puts ARIA on the focusable element', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const container = await mount(
+      <GameHelpCard label="怎么用" topics={[share]}>
+        {lazy(<GameButton>怎么用</GameButton>)}
+      </GameHelpCard>,
+    );
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]?.[0])).toContain('GameHelpCard');
+    const button = container.querySelector('button')!;
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(button.hasAttribute('aria-controls')).toBe(false);
+    await hover(button);
+    await settle(600);
+    expect(card()).not.toBeNull();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(button.getAttribute('aria-controls')).toBe(card()!.id);
+    await press('{Escape}');
+    expect(card()).toBeNull();
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(button.hasAttribute('aria-controls')).toBe(false);
+    // Unmounting the trigger removes what the card added to it.
+    await act(async () => root!.render(null));
+    expect(button.hasAttribute('aria-expanded')).toBe(false);
+    expect(button.hasAttribute('aria-controls')).toBe(false);
+  });
+
+  it('keyboard: focus opens the card without moving focus, and Escape returns focus to the trigger', async () => {
+    const container = await mount(
+      <>
+        <input aria-label="之前的输入" />
+        <GameHelpCard
+          label="怎么用"
+          topics={[share]}
+          link={{ href: '#guide', label: '查看完整指南' }}
+        >
+          {lazy(<GameButton>怎么用</GameButton>)}
+        </GameHelpCard>
+      </>,
+    );
+    await act(() => userEvent.click(container.querySelector('input')!));
+    await tab();
+    const button = container.querySelector('button')!;
+    expect(document.activeElement).toBe(button);
+    expect(card()).not.toBeNull();
+    await tab();
+    expect(card()!.contains(document.activeElement)).toBe(true);
+    await press('{Escape}');
+    expect(card()).toBeNull();
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('touch: a lazy button runs its action on the second tap only', async () => {
+    const onAction = vi.fn();
+    const container = await mount(
+      <GameHelpCard label="怎么用" topics={[share]}>
+        {lazy(<GameButton onClick={onAction}>怎么用</GameButton>)}
+      </GameHelpCard>,
+    );
+    const button = container.querySelector('button')!;
+    expect(touchTap(button).defaultPrevented).toBe(true);
+    expect(onAction).not.toHaveBeenCalled();
+    expect(card()).not.toBeNull();
+    expect(touchTap(button).defaultPrevented).toBe(false);
+    expect(onAction).toHaveBeenCalledTimes(1);
+  });
+
+  it('touch: a router-style link does not navigate on the first tap; mouse and keyboard still do', async () => {
+    const navigate = vi.fn();
+    const container = await mount(
+      <GameHelpCard label="怎么用" topics={[share]}>
+        {lazy(
+          <a
+            href="#lazy-navigate"
+            aria-label="怎么用"
+            onClick={(event) => {
+              // Like a router Link: it navigates in script unless the click was prevented.
+              if (event.defaultPrevented) return;
+              event.preventDefault();
+              navigate();
+            }}
+          >
+            ?
+          </a>,
+        )}
+      </GameHelpCard>,
+    );
+    const link = container.querySelector('a')!;
+    expect(touchTap(link).defaultPrevented).toBe(true);
+    expect(navigate).not.toHaveBeenCalled();
+    expect(location.hash).not.toBe('#lazy-navigate');
+    expect(card()).not.toBeNull();
+    touchTap(link);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    await act(() => userEvent.click(link));
+    expect(navigate).toHaveBeenCalledTimes(2);
+    act(() => link.focus());
+    await press('{Enter}');
+    expect(navigate).toHaveBeenCalledTimes(3);
+  });
 });

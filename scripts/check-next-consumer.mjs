@@ -69,7 +69,33 @@ export default function Layout({children}:{children:ReactNode}) {
 );
 write(
   'app/page.tsx',
-  'import { GameButton, GameBadge } from "@pieai/swimmer-ui-kit";\nimport { LiquidPopover } from "@pieai/swimmer-ui-kit/liquid-presence";\nimport Host from "./host";\nexport default function Page(){return <main><h1>UIKit 3 Next consumer</h1><GameBadge>Server import</GameBadge><GameButton href="/read">Read</GameButton><Host Popover={LiquidPopover}/></main>;}\n',
+  `import { GameBadge, GameButton, GameHelpCard, GameIconButton, GameTooltip } from "@pieai/swimmer-ui-kit";
+import { LiquidPopover } from "@pieai/swimmer-ui-kit/liquid-presence";
+import Host from "./host";
+// A Server Component trigger that is still pending while the static page is
+// prerendered. It is the case where React Flight hands the client component a
+// lazy child; a kit that reads children.props there fails the build.
+async function Guide({ label, href }: { label: string; href: string }) {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return <GameIconButton href={href} label={label}>?</GameIconButton>;
+}
+export default function Page() {
+  return (
+    <main>
+      <h1>UIKit 3 Next consumer</h1>
+      <GameBadge>Server import</GameBadge>
+      <GameButton href="/read">Read</GameButton>
+      <GameHelpCard label="怎么用" topics={[{ id: "save", label: "保存", title: "点一下就保存", body: "第一行。" }]}>
+        <Guide label="怎么用" href="/read" />
+      </GameHelpCard>
+      <GameTooltip label="提示文字">
+        <Guide label="提示" href="/read" />
+      </GameTooltip>
+      <Host Popover={LiquidPopover} />
+    </main>
+  );
+}
+`,
 );
 write(
   'app/host.tsx',
@@ -185,6 +211,7 @@ try {
     assert.match(html, /UIKit 3 Next consumer/);
     assert.match(html, /Server import/);
     assert.match(html, /href="\/read"/);
+    assert.match(html, /game-ui-trigger-slot/, 'Server trigger must be prerendered in its slot');
     writeFileSync(path.join(evidence, 'server-render.html'), html);
     const browser = await chromium.launch({ headless: true });
     const errors = [];
@@ -203,6 +230,25 @@ try {
           .locator('.game-ui-badge')
           .evaluate((node) => node.getBoundingClientRect().height),
         24,
+      );
+      // The Server Component trigger keeps the card and its ARIA after hydration.
+      const helpTrigger = page.getByRole('link', { name: '怎么用', exact: true });
+      assert.equal(await helpTrigger.getAttribute('aria-expanded'), 'false');
+      await helpTrigger.focus();
+      const helpCard = page.getByRole('dialog', { name: '怎么用' });
+      await helpCard.waitFor({ state: 'visible' });
+      assert.equal(await helpTrigger.getAttribute('aria-expanded'), 'true');
+      assert.equal(
+        await helpTrigger.getAttribute('aria-controls'),
+        await helpCard.getAttribute('id'),
+      );
+      await page.keyboard.press('Escape');
+      await helpCard.waitFor({ state: 'hidden' });
+      assert.equal(await helpTrigger.getAttribute('aria-expanded'), 'false');
+      const tipTrigger = page.getByRole('link', { name: '提示', exact: true });
+      assert.equal(
+        await tipTrigger.getAttribute('aria-describedby'),
+        await page.getByRole('tooltip').getAttribute('id'),
       );
       for (const title of ['Server popover', 'Client popover']) {
         const trigger = page.getByRole('button', { name: `Open ${title}`, exact: true });
@@ -257,6 +303,7 @@ try {
       nextVersion: '16.3.8',
       reactVersion: pkg.devDependencies.react,
       directServerImports: ['GameButton', 'GameBadge', 'LiquidPopover'],
+      serverBuiltTriggers: ['GameHelpCard', 'GameTooltip'],
       clientLiquidImport: true,
       hydratedInteractions: true,
       nextLinkNavigation: true,

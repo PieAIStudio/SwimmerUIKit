@@ -1,0 +1,10 @@
+@layer swimmer-ui {
+  /*
+   * Wraps a trigger that arrived as a lazy React element (trigger-slot.ts). It must
+   * not change the layout: inline-flex sizes the slot to its child, with no padding,
+   * margin or line gap that a plain inline span would add.
+   */
+  .game-ui-trigger-slot {
+    display: inline-flex;
+  }
+}
