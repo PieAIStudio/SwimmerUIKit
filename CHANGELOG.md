@@ -5,7 +5,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.2.1 — 本地候选，待发布到 npm latest
+## 3.2.1 — 2026-10-10（已发布到 npm latest）
 
 - 修正服务端渲染时 `GameHelpCard` 与 `GameTooltip` 的崩溃。当 Server Component 构造好触发器（例如 `GameIconButton href=…`）并作为子元素传入时，子元素可能以惰性元素到达；3.2.0 读取它的 `props` 会报 `Cannot read properties of undefined (reading 'ref')`，页面的服务端渲染与生产预渲染都会失败。现在这类子元素放在一个不占布局的 `game-ui-trigger-slot` 中，挂载后把 `aria-expanded` 与 `aria-controls`（卡片）或 `aria-describedby`（提示）加到第一个可聚焦元素上，卸载时移除。悬停、焦点、Escape，以及触摸“第一次点按只打开、第二次才执行”的规则不变；内层链接不会因第一次触摸而跳转。在客户端组件中构造的触发器保留原始元素，DOM 与行为与 3.2.0 相同。
 - 惰性触发器会在挂载时打印一条 `console.warn`，建议改在客户端组件中构造；每个组件只打印一次，不按构建模式关闭，因为发布后的库无法看到使用方的构建模式。

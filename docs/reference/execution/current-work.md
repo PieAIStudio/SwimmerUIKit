@@ -19,7 +19,9 @@ related:
 
 # 当前工作
 
-## 当前：3.2.1 本地候选（待 Claude 发布到 latest）
+## 当前：3.2.1 已发布到 latest
+
+2026-10-10 20:36 +08（registry 记录的发布时间为 12:36:33 UTC）由 Claude 发布到 npm `latest`，发布的 tarball 为本地候选 `.scratch/release-3.2.1/swimmer-ui-kit-3.2.1.tgz`，SHA-256 `b0c803c7d50738be6eeca68c07f43717a34f6a23d6ed7b100bfd3c01b9589577`。只读核对：registry 的 `dist.integrity`（sha512）为 `sha512-725MGXbMxsA5qbKpROnyh4JRRrQjb4CvIOXo2mMmyLiKVN2hujnjfTgtgxXAPo1PzlIP4oFHRz+BQ2GSGR4gng==`，与本地候选的 sha512 一致；`latest` 为 3.2.1，`next` 仍为 3.0.0-rc.3。发布前的 `latest` 为 3.2.0。以下为发布前的候选记录。
 
 2026-10-10，任务单要求修正 3.2.0 的两个问题：（1）Server Component 构造的触发器以惰性元素传入 `GameHelpCard` 或 `GameTooltip` 时，服务端渲染与生产预渲染失败，报 `TypeError: Cannot read properties of undefined (reading 'ref')`；（2）`GameHelpCard` 的中文 `懒人包 / 设定图 / 选角单` 与英文 `Starter pack / Sheet / Cast` 在 340 像素卡片内换成两行。
 
