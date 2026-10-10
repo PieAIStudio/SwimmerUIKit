@@ -5,7 +5,20 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.1.0 — 本地候选（2026-10-10，待发布到 latest）
+## 3.2.0 — 本地候选（2026-10-10，待发布到 latest）
+
+- 新增 `GameHelpCard`：帮助的第二级。悬停（经过 `openDelay`，默认 200 毫秒）、键盘聚焦或点按后打开一张小卡片，含一个标题、一到三行正文（`\n` 换行）、可选的循环短演示和“完整指南”链接；一到四个主题时用页签切换。卡片的可访问名称由 `label` 提供，触发器获得 `aria-expanded` 与 `aria-controls`。
+- 行为：鼠标指针可移入卡片切换页签或点击链接，离开约 150 毫秒后关闭；键盘 Tab 进入卡片，Escape 关闭并回到触发器，焦点不被抢走；触摸的第一次点按只打开卡片、阻止触发器动作，第二次点按才执行，点击卡片外关闭。
+- 媒体只在卡片第一次打开、并且所在主题被选中时才请求；视频静音、循环，只在可见时播放；系统要求减少动态时不自动播放，显示 `poster`。`width` / `height` 预留位置，打开时不跳动；`alt` 作为媒体的可访问文字。
+- 卡片经门户离开触发器的主题子树后，会复制触发器所在的 `data-game-ui-theme` / `data-game-ui-style` 与主题级 `--game-ui-*` 令牌，并在它们变化时同步；深色与风格因此与触发器一致。卡片自己的圆角不被继承。
+- 与 `GameTooltip` 一样使用静止水滴，不使用液体引擎或 LiquidPopover，因此不进入液体预算。公开名字新增 `GameHelpCard`、`GameHelpCardProps`、`GameHelpCardTopic`、`GameHelpMedia`；没有删除或改名。
+- 根入口体积：153,482 字节（gzip 44,908）增至 158,197 字节（gzip 46,152），增加 4,715 字节（约 4.6 KB，minified）。
+- 组件选择指南新增“帮助提示怎么选”，列出四级帮助及不适合放进帮助卡的内容；接口清单与迁移表由生成器更新，根入口为 133 个名字（56 个值、77 个类型）。
+- `GameAccountMenu` 的页签在 360 像素面板内保持一行：三个页签等宽（`flex: 1 1 0`），标签单行并以省略号截断，未选中的页签不再为隐藏的对勾预留宽度。页签文字包在 `GameTabs` 的 `game-ui-tab-label` 内，公开接口不变。新增 360 像素布局测试。
+- `GameAccountMenu` 的选中页签文字：在六种风格与两种明暗下，选中页签文字与其填充的对比度均不低于 6.8:1，并由新增的对比度测试守护。本仓库的故事与浏览器检查没有复现文字不可见；若产品仍遇到，请提供风格、明暗与页面结构，不需要产品覆写。
+- 版本号改为 3.2.0。发布前 npm `latest` 为 3.1.0，`next` 为 3.0.0-rc.3。
+
+## 3.1.0 — 已发布到 npm latest（2026-10-10）
 
 - 新增 `GameAccountMenu`：登录后的共享账号入口，从 `@pieai/swimmer-ui-kit/liquid-presence` 导入。头像与名字是 sm 次要按钮；点击打开一个液体面板，含产品提供的站内内容、全部产品列表（当前产品为纯文字，其余为真实链接）和账号页签（管理账号与安全、退出登录）。只有账号页签时不显示页签条。
 - 产品拥有用户、产品列表、目的地址和所有登录、退出动作；组件不联网、不存储、不做认证。退出按钮处理中显示 `pending` 但不禁用，组件忽略处理中的重复点击。头像只渲染 https 图片，否则显示首字母。
@@ -13,6 +26,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 - `GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），向后兼容：默认仍居中于上方。长标签在 280px 内换行，标签中的换行保留。
 - 根入口公开名字不变（129 个）；迁移表与接口清单由生成器更新。`GameAccountMenu` 与其三个类型只从 liquid-presence 入口公开。没有删除或改名。
 - 版本号改为 3.1.0；发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
+- 发布记录：2026-10-10 16:19（+08）由 Claude 发布到 npm `latest`，发布的 tarball 为本地候选 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，SHA-256 `1954dd118ce94caba0d07aeed656dd48e668a5036894b0133e726af5cb9bdd28`。只读核对：registry 的 sha512 完整性与该候选一致；`latest` 为 3.1.0，`next` 为 3.0.0-rc.3。
 
 ## 3.0.0 — 已发布到 npm latest（2026-10-10）
 
