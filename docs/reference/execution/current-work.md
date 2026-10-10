@@ -39,7 +39,12 @@ related:
 
 本地候选为 `.scratch/release-3.2.1/swimmer-ui-kit-3.2.1.tgz`，23,977,391 字节，SHA-256 `b0c803c7d50738be6eeca68c07f43717a34f6a23d6ed7b100bfd3c01b9589577`。证据见同目录 `result.json`。截图在 `.scratch/release-3.2.1/shots/`：两个页签故事（中文、英文）各三个页签、1280 与 360 像素、浅色与深色，共 24 张，三个页签均在同一行、无截断、无换行；账号菜单 1280 与 360 像素的截图与 3.2.0 字节一致。
 
-开放事项：（1）入口体积超出记录上限，见上。（2）任务单要求惰性路径仅在开发环境告警；按仓库已有的 `check-warnings-survive-build` 规则，构建模式判断会在发布时被删除，故未加门控，告警只打印一次。（3）任务单写 `aria-haspopup`，但 3.2.0 的克隆路径没有设置它，两条路径保持一致，未加。（4）`docs/reference/theme-and-liquid.md` 是固定文档（REF-DESIGN-SYSTEM-GUIDE），其“适用版本”行仍写“3.2.0 候选”，3.2.0 发布后未更新；本次未改，需要 Owner 或 Claude 决定是否用 `Pinned-Override` 更新。（5）账号菜单的选中页签“小鱼的作品”在 360 像素下被截为“小鱼...”，3.2.0 即如此，本次按要求保持外观不变。
+开放事项：（1）入口体积超出记录上限，见上。（2）任务单要求惰性路径仅在开发环境告警；按仓库已有的 `check-warnings-survive-build` 规则，构建模式判断会在发布时被删除，故未加门控，告警只打印一次。（3）任务单写 `aria-haspopup`，但 3.2.0 的克隆路径没有设置它，两条路径保持一致，未加。（4）`docs/reference/theme-and-liquid.md` 是固定文档（REF-DESIGN-SYSTEM-GUIDE），其“适用版本”行仍写“3.2.0 候选”，3.2.0 发布后未更新；本次未改，需要 Owner 或 Claude 决定是否用 `Pinned-Override` 更新。（5）账号菜单的选中页签在 360 像素下截断，见下节“已知后续”。
+
+## 已知后续（未修复）
+
+- `GameSegmentedControl`（SwimmerParty，1024 像素）：长英文选项标签互相重叠，由产品报告。选项为 `flex: 1 1 0` 且 `min-width: 0`；SwimmerParty 的 `SheetBuilder` 在选项上加了 `whitespace-nowrap`，标签溢出到相邻选项，并用 `!flex-[0_1_auto]` 覆盖基础宽度。需注意：3.2.1 源码中该规则位于 `@layer swimmer-ui`，并非未分层；产品为何仍需要 `!important`，尚未核实。未来 kit 修正方向：按内容定宽并允许换行，或在文档中写明这一限制。本次未修。
+- `GameAccountMenu`（360 像素）：选中页签“小鱼的作品”被截为“小鱼...”。3.2.0 即如此，由等宽页签（`flex: 1 1 0`）造成；3.2.1 按要求未改外观。未来方向待定。本次未修。
 
 ## 当前：3.2.0 已发布到 latest
 
