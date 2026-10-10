@@ -19,13 +19,27 @@ related:
 
 # 当前工作
 
-## 当前：本地 3.0.0-rc.3 候选（按压与待定，未发布）
+## 当前：3.0.0 稳定版本地候选（待发布到 latest）
+
+2026-10-10，Owner 决定发布稳定版 3.0.0：源码与 3.0.0-rc.3 完全相同（基于提交 `c058b9f`），只把版本号改为 3.0.0，并更新 README 安装命令、更新日志与迁移说明。`pnpm verify` 通过（95 个测试文件、624 项测试，与 rc.3 相同）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、真实打包检查 `check:packed` 与真实 Next 消费检查 `check:next-consumer` 均通过。
+
+本地候选为 `.scratch/stable-3.0.0/swimmer-ui-kit-3.0.0.tgz`，SHA-256 `eb6cdfe9e8cdd804d10078e69acd224ba349d30fb457f9c681220b7d3a98561d`，证据见同目录 `result.json`。与 rc.3 tarball 对比：文件列表 500 项完全相同；除 `package.json`、`README.md`、`CHANGELOG.md` 三个文件外，所有文件字节一致。
+
+3.0.0-rc.3（SHA-256 `004669ec…356`）已于 2026-10-10 发布到 npm `next`。3.0.0 是本地候选，尚未发布到 npm `latest`，由 Claude 发布；发布前 `latest` 仍为 2.14.0。下游产品仍按各自精确版本锁定，不因此自动升级。
+
+npm 访问：Owner 的 npm 登录（账号 `pieai`，组织 owner）现可在本机使用，下文 rc.2 节记录的“等待权限核对”阻断已解除。GitHub `npm-publish` 工作流的可信发布配置仍未核实，保留为开放事项；本次没有触发任何 GitHub 工作流。
+
+## 前序：3.0.0-rc.3 候选（按压与待定，已发布到 next）
 
 2026-10-10，Owner 反馈液体按压几乎不可见。本地提交依次为 `9e52771`（按压至少保持 140 毫秒）、`6c34140`（CTA 压扁 1.06 / 0.87 / 3，平面水滴压扁 1.09 / 0.80）、`b60d8cc`（GameButton `pending`）、`0b17020`（文档）与 `8d3cf78`（版本 3.0.0-rc.3 与更新日志）。`pnpm verify` 通过 95 个测试文件、624 项测试；storybook、docs、真实打包、packed 检查与真实 Next 消费均通过。
 
 本地候选为 `.scratch/jelly-rc3/swimmer-ui-kit-3.0.0-rc.3.tgz`，SHA-256 `004669ec5b6dfbdaba4af3a746c8b5abd1e727c44b2147145efc3b3e0e36356b`；证据见同目录 `result.json`。本次只推送源码，没有 npm 发布，也没有触发 `npm-publish` 或其他 GitHub workflow。rc.2 候选文件保持原样，芽族仍按其哈希锁定使用；rc.3 不覆盖 rc.2。下游接入或正式发布都需要 Owner 另行授权。
 
-## 当前：芽族使用本地 3.0.0-rc.2 候选，发布暂缓
+2026-10-10 后续：Owner 决定后，Claude 使用 Owner 的本机 npm 登录，把上述 tarball 发布到 npm `next`（SHA-256 不变，未经 GitHub 工作流）。`latest` 未变。3.0.0 稳定版见上节。
+
+## 前序：芽族使用本地 3.0.0-rc.2 候选，发布暂缓
+
+2026-10-10 更新：Owner 的 npm 登录现可在本机使用，下文“权限核对”的访问阻断已解除；rc.2 发布失败的原始记录保留不变。GitHub `npm-publish` 的可信发布配置仍未核实，见上节。
 
 2026-10-08续接确认 Owner K3：芽族先使用下方哈希锁定的本地候选完成修正与验收，分阶段本地提交；推送与 npm 发布留待后面一起处理。无需为了本地开发重新登录 npm。包本身仍未发布，下面的失败记录继续有效，但不再阻塞芽族的本地工作；不要重复触发发布。候选文件仍原样保留，修改 Kit 源码后必须另做新候选并重新验收，不静默覆盖已经验证的 tarball。
 
@@ -65,9 +79,9 @@ S14首轮工作流37141176655在registry结构校验处失败并停止，实际�
 
 本轮迁移唯一入口：[migration-3.0](../migration-3.0.md)，包含 University 的主题、风格、CTA、AuthKit 验证码判断与候选验收事项。接口明细由 pnpm api:inventory 生成，数字随源更新，不从历史版本推断。
 
-当前安装使用精确版本`@pieai/swimmer-ui-kit@3.0.0-rc.1`。本地候选在`.scratch/uikit-3-completion/S14-reauthorized/swimmer-ui-kit-3.0.0-rc.1.tgz`；npm下载包与CI核对SHA-256为`80f3f59353ad70516e1442284793a7949007d943f0b3df3f42ed42f8b8c57681`，证据`S14-reauthorized/published-artifact.json`。本地候选哈希与云端归档哈希不同，回执明确分开；S6/S13包只作历史证据。
+S14 当时的安装版本为精确版本`@pieai/swimmer-ui-kit@3.0.0-rc.1`（历史记录；当前稳定版见上文 3.0.0 节）。本地候选在`.scratch/uikit-3-completion/S14-reauthorized/swimmer-ui-kit-3.0.0-rc.1.tgz`；npm下载包与CI核对SHA-256为`80f3f59353ad70516e1442284793a7949007d943f0b3df3f42ed42f8b8c57681`，证据`S14-reauthorized/published-artifact.json`。本地候选哈希与云端归档哈希不同，回执明确分开；S6/S13包只作历史证据。
 
-下一步只剩各产品自己的主动接入验收；本任务未修改任何其他仓库。正式3.0.0、其他版本、再次发布或产品部署都需要新的明确授权。发布成功后短暂E404的原始观察也已保留，最终以版本和标签实际可见为准，不以publish步骤绿色代替。完整报告：`.devspace-reports/uikit-3-completion/REPORT.md`。
+下一步只剩各产品自己的主动接入验收；本任务未修改任何其他仓库。正式3.0.0已由Owner于2026-10-10授权（见上文）；其他版本、再次发布或产品部署仍需新的明确授权。发布成功后短暂E404的原始观察也已保留，最终以版本和标签实际可见为准，不以publish步骤绿色代替。完整报告：`.devspace-reports/uikit-3-completion/REPORT.md`。
 
 ## 历史与边界
 

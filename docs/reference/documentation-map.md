@@ -30,7 +30,7 @@ AI 从根 AGENTS.md 进入；本文只帮人和 AI 找事实，不另设一份�
 
 ## 执行与历史
 
-[3.0 结构重整](../plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md)与[发布前补齐](../plans/completed/PLAN-UIKIT-3-COMPLETION.md)均已完成，3.0.0-rc.1已发布到next，latest保持2.14.0。发布与失败历史由[当前工作](execution/current-work.md)定位；正式版和产品接入不在本次发布范围内。
+[3.0 结构重整](../plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md)与[发布前补齐](../plans/completed/PLAN-UIKIT-3-COMPLETION.md)均已完成，3.0.0-rc.1与rc.3已发布到next，3.0.0稳定版待发布到latest（发布前latest保持2.14.0）。发布与失败历史由[当前工作](execution/current-work.md)定位；正式版和产品接入不在本次发布范围内。
 
 docs/plans/completed 保留完成记录；docs/specs/completed 保留历史需求。OwnMySpace 专用设计/报告在 docs/archive/ownmyspace；2.x 研究与手册在 docs/archive/reference-2.x。它们不再决定 3.0 产品如何接入。
 
