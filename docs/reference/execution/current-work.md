@@ -19,7 +19,25 @@ related:
 
 # 当前工作
 
-## 当前：3.1.0 本地候选（待发布到 latest）
+## 当前：3.2.0 本地候选（待发布到 latest）
+
+2026-10-10，Owner 决定：帮助属于 UIKit 的同一个 help 家族，四级由轻到重（GameTooltip、GameHelpCard、FirstSessionOnboarding、产品自己的指南页），UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架，产品提供文字与短演示。Claude 据此委托实现 `GameHelpCard`，并在候选中补充两项 GameAccountMenu 修正：360 像素面板的页签保持一行，选中页签文字的对比度加以守护。
+
+`GameHelpCard` 与其三个类型从根入口导出。悬停经过 `openDelay`（默认 200 毫秒）打开，离开约 150 毫秒后关闭；键盘聚焦打开但不抢焦点，Tab 进入卡片，Escape 回到触发器；触摸第一次点按只打开、第二次才执行动作。一到四个主题用 GameTabs 切换。媒体在第一次打开并选中主题后才请求，视频静音循环、只在可见时播放，减少动态时不自动播放并显示 poster。卡片经门户离开主题子树后，通过一个带主题与风格属性的外框镜像触发器的主题（测试覆盖深色与风格）。演示素材 23 KB，由脚本生成，放在 `src/feedback/GameHelpCard/assets/`。
+
+源码提交：`46d644b`（GameHelpCard）、`3befbb7`（账号页签一行与对比度守护）、`7e91c62`（选择指南、主题说明与接口清单）、`378711f`（3.2.0 版本号、更新日志与 README 状态）。没有发布 npm，没有运行 `npm dist-tag` 或 `npm trust`，没有触发任何 workflow；所有 workflow 都是 `workflow_dispatch`，推送不会触发它们，Vercel 的 git 部署在 `vercel.json` 中已关闭。
+
+门禁（源码 `378711f`）：`pnpm verify` 通过（103 个测试文件、683 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、真实打包检查 `check:packed`（回执的源提交为 `378711f`，工作树干净）与真实 Next 消费检查 `check:next-consumer` 均通过。
+
+入口体积：根入口 `index.js` 从 153,482 字节（gzip 44,908）增至 159,459 字节（gzip 46,558），增加 5,977 字节（minified，低于 6 KB 上限，余量较小）。根入口公开名字从 129 增至 133（56 个值、77 个类型）；迁移表与接口清单由生成器更新。
+
+本地候选为 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`，23,975,862 字节，SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`。证据见同目录 `result.json`。截图在 `.scratch/release-3.2.0/shots/`：GameHelpCard 七个故事，各含 1280 与 390 像素、浅色与深色、关闭与打开，共 56 张；另有 GameAccountMenu 灰色风格的页签截图 3 张。56 张无页面错误，无横向滚动，每个打开状态都有对话框。
+
+账号页签：360 像素下三个页签等宽、同一行（测量顶边相同），标签单行并省略，未选中页签不为隐藏的对勾预留宽度。选中页签文字在六种风格与两种明暗下的对比度均不低于 6.8:1（测试以 4.5:1 为下限守护）。开放事项：本仓库的故事与浏览器检查没有复现“选中页签文字不可见”，悬停与焦点状态也没有变化；若产品仍遇到，需要提供风格、明暗与 DOM 结构，本次不做产品覆写。
+
+开放事项：（1）3.1.0 的账号菜单入口闭包约 83 KB 的问题仍待 Claude 决定（见下节）。（2）GameHelpTip 也经门户渲染，但未做主题镜像，它在深色下是否出错未核实，留作后续检查。（3）`documentation-map.md` 中关于 3.0.0 的既有过时句子不在本次范围，未改。
+
+## 前序：3.1.0（已发布到 npm latest，2026-10-10 16:19 +08）
 
 2026-10-10，Owner 委托新增共享账号菜单。Claude 审核后定为：`GameAccountMenu` 与其三个类型只从 `@pieai/swimmer-ui-kit/liquid-presence` 导出，并需同时引入 `liquid-presence.css`，不进入根入口。头像与名字的 sm 次要按钮打开同一个液体面板（站内内容、全部产品、账号页签）；产品拥有数据、产品列表和登录/退出，组件不联网、不存储。`GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
 
@@ -36,7 +54,7 @@ related:
 
 开放事项：（1）账号菜单的入口闭包比上一候选的 liquid-presence 多约 83 KB，原因是它依赖 GameButton。若 Claude 认为 liquid-presence 的专用产品承担不起，需要决定是否改用不依赖 GameButton 的结构，或接受现状。（2）账号菜单自身的样式仍在 `styles.css`，因为既有的 CSS 归属检查要求 game/ 下的组件样式进入主样式表；面板的液体样式仍在 `liquid-presence.css`。
 
-3.1.0 尚未发布。发布需要 Owner 另行授权。发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
+3.1.0 已于 2026-10-10 16:19（+08）由 Claude 发布到 npm `latest`，发布的 tarball 为上面的本地候选 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，SHA-256 `1954dd118ce94caba0d07aeed656dd48e668a5036894b0133e726af5cb9bdd28`。只读核对：registry 的 `dist.integrity`（sha512）与该候选一致；`latest` 为 3.1.0，`next` 为 3.0.0-rc.3。发布前的 `latest` 为 3.0.0。
 
 ## 前序：3.0.0 稳定版（已发布到 npm latest，2026-10-10）
 
