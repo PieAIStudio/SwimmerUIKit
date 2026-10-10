@@ -50,7 +50,16 @@ export function useSlotTrigger(
     const node = slot.current;
     if (!active || !node) return;
     if (lazy) warnLazy(component);
-    const sync = () => setTarget(node.querySelector<HTMLElement>(TRIGGER));
+    // Set state only when the element changes. The observer also sees child
+    // changes that leave the trigger alone, and a same-value update still
+    // schedules work while the component has pending updates.
+    let found: HTMLElement | null = null;
+    const sync = () => {
+      const next = node.querySelector<HTMLElement>(TRIGGER);
+      if (next === found) return;
+      found = next;
+      setTarget(next);
+    };
     sync();
     const observer = new MutationObserver(sync);
     observer.observe(node, { childList: true, subtree: true });
