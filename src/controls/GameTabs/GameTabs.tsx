@@ -104,7 +104,7 @@ export function GameTabs({
           data-game-ui-paint=""
         >
           <DropletSurface />
-          {tab.label}
+          <span className="game-ui-tab-label">{tab.label}</span>
           <SelectionMark />
         </button>
       ))}

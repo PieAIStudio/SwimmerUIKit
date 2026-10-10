@@ -1,6 +1,9 @@
 import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
+import { contrastRatio } from '../../../scripts/lib/contrast.mjs';
+import { GAME_UI_STYLES } from '../../tokens/styles';
 // Public path: @pieai/swimmer-ui-kit/liquid-presence (the repo's source equivalent).
 import {
   GameAccountMenu,
@@ -257,5 +260,66 @@ describe('GameAccountMenu avatar', () => {
     expect(trigger().querySelector('img')).toBeNull();
     await render(menu({ user: { name: '小鱼', avatarUrl: 'https://cdn.example/a.png' } }));
     expect(trigger().querySelector('img')?.getAttribute('src')).toBe('https://cdn.example/a.png');
+  });
+});
+
+describe('GameAccountMenu tabs layout and contrast', () => {
+  it('keeps the three tabs on one row at 360 px, equal in width, with truncating labels', async () => {
+    const original = { width: innerWidth, height: innerHeight };
+    await page.viewport(360, 720);
+    try {
+      await render(
+        menu({
+          labels: {
+            ...labels,
+            siteTab: 'This site',
+            productsTab: 'All products',
+            accountTab: 'Account',
+          },
+        }),
+      );
+      await openPanel();
+      const rects = tabs().map((tab) => tab.getBoundingClientRect());
+      expect(rects).toHaveLength(3);
+      expect(new Set(rects.map((rect) => Math.round(rect.top))).size).toBe(1);
+      const widths = rects.map((rect) => rect.width);
+      expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+      for (const tab of tabs()) {
+        const label = tab.querySelector<HTMLElement>('.game-ui-tab-label')!;
+        const css = getComputedStyle(label);
+        expect(css.whiteSpace).toBe('nowrap');
+        expect(css.textOverflow).toBe('ellipsis');
+      }
+      // Only the selected tab reserves room for its check mark.
+      const unselected = tabs().find((tab) => tab.getAttribute('aria-selected') === 'false')!;
+      expect(getComputedStyle(unselected.querySelector('.game-ui-selection-mark')!).display).toBe(
+        'none',
+      );
+    } finally {
+      await page.viewport(original.width, original.height);
+    }
+  });
+
+  it('keeps the selected tab label readable on its fill in every built-in style and mode', async () => {
+    const context = document.createElement('canvas').getContext('2d')!;
+    // Any computed colour, including color(srgb ...), as 8-bit RGB.
+    const rgb = (value: string) => {
+      context.fillStyle = value;
+      context.fillRect(0, 0, 1, 1);
+      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3);
+    };
+    await render(menu());
+    for (const style of GAME_UI_STYLES)
+      for (const theme of ['light', 'dark']) {
+        host.setAttribute('data-game-ui-style', style);
+        host.setAttribute('data-game-ui-theme', theme);
+        await openPanel();
+        const selected = document.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]')!;
+        const foreground = rgb(getComputedStyle(selected).color);
+        // The painted face is the droplet path; the tab's own background is transparent.
+        const fill = rgb(getComputedStyle(selected.querySelector('.game-ui-droplet path')!).fill);
+        expect(contrastRatio(foreground, fill), `${style} ${theme}`).toBeGreaterThanOrEqual(4.5);
+        await pressEscape();
+      }
   });
 });

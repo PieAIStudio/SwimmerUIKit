@@ -63,12 +63,26 @@
     opacity: 0.8;
     font-size: 0.875rem;
   }
+  /* Three tabs share one row at 360px: equal widths, labels truncate with an ellipsis. */
   .game-ui-account-menu-panel .game-ui-tabs {
+    flex-wrap: nowrap;
     gap: 6px;
   }
   .game-ui-account-menu-panel .game-ui-tab {
+    flex: 1 1 0;
     gap: 6px;
+    min-width: 0;
     padding-inline: 10px;
+  }
+  .game-ui-account-menu-panel .game-ui-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Only the selected tab shows its check; an unselected tab reserves no width for it. */
+  .game-ui-account-menu-panel .game-ui-tab:not([aria-selected='true']) .game-ui-selection-mark {
+    display: none;
   }
   .game-ui-account-menu-section {
     display: grid;
