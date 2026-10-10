@@ -19,13 +19,27 @@ related:
 
 # 当前工作
 
-## 当前：3.0.0 稳定版本地候选（待发布到 latest）
+## 当前：3.1.0 本地候选（待发布到 latest）
+
+2026-10-10，Owner 委托新增共享账号菜单。`GameAccountMenu` 进入根入口：头像与名字是 sm 次要按钮，点击打开同一个液体面板，含产品提供的站内内容、全部产品列表（当前产品为纯文字）和账号页签（管理账号与安全、退出登录）。产品拥有用户、产品列表和登录/退出；组件不联网、不存储。`GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
+
+源码提交：`f183446`（GameAccountMenu）、`2c985e3`（GameTooltip）、`efa7936`（选择指南、接口清单与迁移表生成）、`c5fc480`（3.1.0 版本号、更新日志与 README 状态）。`pnpm verify` 通过（100 个测试文件、658 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、`check:packed` 与 `check:next-consumer` 均通过。首次完整验证时 `tests/recipeCode.test.ts` 因机器负载在 20 秒处超时；单独重跑与再次完整验证均通过，记录在 `.scratch/release-3.1.0/verify-final.log` 与 `verify-final2.log`。
+
+本地候选为 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，SHA-256 `9afc973cb65991c718d113dec30f238cf669c13a8beb6c702dd163f5480b887e`，证据见同目录 `result.json`。截图 64 张在 `.scratch/release-3.1.0/shots/`，覆盖各故事的展开与收起、1280 与 390 像素、浅色与深色；390 像素下无横向滚动，无页面错误。
+
+根入口名字由 129 增至 133（56 个值、77 个类型）。根入口 JS 由 153,332 字节增至 179,195 字节（gzip 由 44,709 增至 52,975），增量来自根入口引用的 LiquidPopover 及其共享块。
+
+开放事项，需 Owner 决定：（1）账号菜单的面板必须同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`，否则面板样式缺失；这是按 Brief 把 LiquidPopover 放入根入口的结果。是否保留这一边界，或把账号菜单移入独立入口、让根入口不再承担 presence 体积，需要 Owner 确认。（2）`migration-3.0.md` 的根入口名字数由生成器统计，现在显示 133；3.0 迁移的叙述是否改为固定的 295→129，需要 Owner 决定。
+
+3.1.0 尚未发布。发布需要 Owner 另行授权。发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
+
+## 前序：3.0.0 稳定版（已发布到 npm latest，2026-10-10）
 
 2026-10-10，Owner 决定发布稳定版 3.0.0：源码与 3.0.0-rc.3 完全相同（基于提交 `c058b9f`），只把版本号改为 3.0.0，并更新 README 安装命令、更新日志与迁移说明。`pnpm verify` 通过（95 个测试文件、624 项测试，与 rc.3 相同）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、真实打包检查 `check:packed` 与真实 Next 消费检查 `check:next-consumer` 均通过。
 
 本地候选为 `.scratch/stable-3.0.0/swimmer-ui-kit-3.0.0.tgz`，SHA-256 `eb6cdfe9e8cdd804d10078e69acd224ba349d30fb457f9c681220b7d3a98561d`，证据见同目录 `result.json`。与 rc.3 tarball 对比：文件列表 500 项完全相同；除 `package.json`、`README.md`、`CHANGELOG.md` 三个文件外，所有文件字节一致。
 
-3.0.0-rc.3（SHA-256 `004669ec…356`）已于 2026-10-10 发布到 npm `next`。3.0.0 是本地候选，尚未发布到 npm `latest`，由 Claude 发布；发布前 `latest` 仍为 2.14.0。下游产品仍按各自精确版本锁定，不因此自动升级。
+3.0.0-rc.3（SHA-256 `004669ec…356`）已于 2026-10-10 发布到 npm `next`。3.0.0 已于 2026-10-10 04:48:31 UTC 由 Claude 发布到 npm `latest`，发布的 tarball SHA-256 与上述候选一致（`eb6cdfe9…`，发布后用 npm 只读下载核对）。发布后只读查询：`latest` 为 3.0.0，`next` 为 3.0.0-rc.3。下游产品仍按各自精确版本锁定，不因此自动升级。`.scratch/stable-3.0.0/result.json` 保留的是发布前记录（`published: false`），不作修改。
 
 npm 访问：Owner 的 npm 登录（账号 `pieai`，组织 owner）现可在本机使用，下文 rc.2 节记录的“等待权限核对”阻断已解除。GitHub `npm-publish` 工作流的可信发布配置仍未核实，保留为开放事项；本次没有触发任何 GitHub 工作流。
 

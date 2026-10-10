@@ -14,11 +14,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 - 根入口新增 4 个名字（`GameAccountMenu` 及三个类型）；选择指南、接口清单和迁移表由生成器与人工条目同步。没有删除或改名。
 - 版本号改为 3.1.0；发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
 
-## 3.0.0 — 稳定版本地候选（2026-10-10，待发布到 latest）
+## 3.0.0 — 已发布到 npm latest（2026-10-10）
 
 - 稳定版，源码与 3.0.0-rc.3 相同，没有任何代码改动（Owner 决定，2026-10-10）；只把版本号改为 3.0.0。
 - 从 2.x 升级请先读 [3.0 迁移表](docs/reference/migration-3.0.md)。这是干净断代，不提供旧接口或旧主题的兼容层。
-- 发布到 npm `latest` 前，`latest` 仍为 2.14.0；以 npm 标签回读和当前工作记录为准。
+- 发布记录：2026-10-10 04:48 UTC 由 Claude 发布到 npm `latest`，发布的 tarball SHA-256 为 `eb6cdfe9e8cdd804d10078e69acd224ba349d30fb457f9c681220b7d3a98561d`，与本地候选一致。只读回读：`latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
 
 ## 3.0.0-rc.3 — 已发布到 npm next（2026-10-10）
 
