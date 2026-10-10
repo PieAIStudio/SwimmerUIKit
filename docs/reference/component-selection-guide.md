@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应3.0.0稳定契约（与3.0.0-rc.3源码相同），不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随main，也不把next当成稳定latest。
+本指南对应3.0.0稳定契约，并包含3.1与3.2候选新增的组件；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随main，也不把next当成稳定latest。
 
 ## 先按任务选择
 
@@ -34,10 +34,24 @@ related:
 | 验证码、独立列表动作 | GameOtpInput / GameListRow | 验证请求由 AuthKit/产品拥有；列表右侧动作与选择是兄弟按钮。 |
 | 一块信息、折叠信息、阻断背景的对话框 | GamePanel / GameCollapsiblePanel / GameModal | GameDialog 是内联对话内容，不是模态框；编辑表单跨关闭保留时用 keepMounted。 |
 | 空状态、通知、进度、简短解释 | GameEmptyState / GameToast / GameCallout / GameProgress / GameHelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
+| 解释一个操作，需要标题、短句或一段演示 | GameHelpCard | 悬停、聚焦或点按后出现；可省略。必要信息、错误和价格不放进卡片，见下节。 |
 | 游戏外壳和 HUD 槽位 | GameShell / GameHudActions / GameFactList | 不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | GameAvatar / GameMaterialSwatches / GameCollectibleCard / GameSplash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
 | 账号菜单 | GameAccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。从 **@pieai/swimmer-ui-kit/liquid-presence** 导入，并同时引入 liquid-presence.css。 |
 | 图标 | GameIcon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
+
+## 帮助提示怎么选
+
+帮助分四级，由轻到重，按需要逐级升级。UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架；产品提供文字和演示。
+
+| 级别 | 组件 | 什么时候用 |
+| --- | --- | --- |
+| 1 | `GameTooltip` | 一行补充名称或说明，触发器本身已经可聚焦。 |
+| 2 | `GameHelpCard` | 解释一个操作：悬停、聚焦或点按后出现一个标题、一到三行正文，可选一段短演示和“完整指南”链接。 |
+| 3 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现、何时关闭和是否记录由宿主决定。 |
+| 4 | 产品自己的指南页 | 完整教程、长流程和检索，不在 UIKit 内。 |
+
+不要用帮助卡承载下列内容：必要信息、错误、费用和价格必须常驻可见；需要填写、确认或付款的操作不放进卡片；卡片不是某件事的唯一说明来源。
 
 ## 液体、可选特效和预览的入口
 
@@ -102,6 +116,7 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameCallout` | 正文旁的可读提醒，重要错误应持续可见。 |
 | `GameEmptyState` | 解释当前没有内容的原因，并提供宿主动作。 |
 | `GameHelpTip` | 可省略的短解释，不放必要费用或交互表单。 |
+| `GameHelpCard` | 悬停、聚焦或点按后打开的小卡片：一个标题、一到三行正文、可选循环短演示（减少动态时不自动播放）和完整指南链接；必要信息、错误和价格不放进去，需要操作的内容也不放进去。 |
 | `GameLoadingState` | 表示真实加载中，不承诺完成时间。 |
 | `GameProgress` | 10px水滴轨道与潮汐液面；数值变化晃动600ms后静止，不占滤镜预算。保留原生progressbar语义，不伪造业务完成。 |
 | `GamePrompt` | 短操作提示，不代替实际输入控件。 |

@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.
 
-Compiler inventory: **129 named exports: 55 values and 74 types**.
+Compiler inventory: **133 named exports: 56 values and 77 types**.
 
 ## controls/ — Controls
 
@@ -86,6 +86,10 @@ Status, progress, help and non-modal notices
 | `GameEmptyStateProps` | type | [source](../../src/feedback/GameEmptyState/GameEmptyState.tsx) |
 | `GameHelpTip` | value | [source](../../src/feedback/GameHelpTip/GameHelpTip.tsx) |
 | `GameHelpTipProps` | type | [source](../../src/feedback/GameHelpTip/GameHelpTip.tsx) |
+| `GameHelpCard` | value | [source](../../src/feedback/GameHelpCard/GameHelpCard.tsx) |
+| `GameHelpCardProps` | type | [source](../../src/feedback/GameHelpCard/GameHelpCard.tsx) |
+| `GameHelpCardTopic` | type | [source](../../src/feedback/GameHelpCard/GameHelpCard.tsx) |
+| `GameHelpMedia` | type | [source](../../src/feedback/GameHelpCard/GameHelpCard.tsx) |
 | `GameLoadingState` | value | [source](../../src/feedback/GameLoadingState/GameLoadingState.tsx) |
 | `GameLoadingStateProps` | type | [source](../../src/feedback/GameLoadingState/GameLoadingState.tsx) |
 | `GameProgress` | value | [source](../../src/feedback/GameProgress/GameProgress.tsx) |
