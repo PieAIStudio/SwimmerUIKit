@@ -45,6 +45,12 @@ export {
 export { GameEmptyState, type GameEmptyStateProps } from './feedback/GameEmptyState/GameEmptyState';
 export { GameHelpTip, type GameHelpTipProps } from './feedback/GameHelpTip/GameHelpTip';
 export {
+  GameHelpCard,
+  type GameHelpCardProps,
+  type GameHelpCardTopic,
+  type GameHelpMedia,
+} from './feedback/GameHelpCard/GameHelpCard';
+export {
   GameLoadingState,
   type GameLoadingStateProps,
 } from './feedback/GameLoadingState/GameLoadingState';

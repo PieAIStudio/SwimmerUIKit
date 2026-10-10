@@ -1,0 +1,68 @@
+/*
+ * The card is a [data-game-ui-paint] droplet like GameTooltip: the static
+ * DropletSurface draws its shape, and the text stays in normal flow above it.
+ * Positioning comes from Floating UI's inline styles, not from this sheet.
+ */
+@layer swimmer-ui {
+  /* The frame is positioned by Floating UI and carries the mirrored theme. */
+  .game-ui-help-card {
+    z-index: 100;
+    box-sizing: border-box;
+    width: min(340px, calc(100vw - 24px));
+    max-width: min(340px, calc(100vw - 24px));
+  }
+  /* The painted card: a static droplet like GameTooltip, with its own radius. */
+  .game-ui-help-card-paint[data-game-ui-paint] {
+    --game-ui-droplet-radius: var(--game-ui-radius-card);
+    box-sizing: border-box;
+    padding: var(--game-ui-space-12) var(--game-ui-space-16);
+    box-shadow: var(--game-ui-shadow-callout);
+    font-family: var(--game-ui-font-body);
+    font-size: var(--game-ui-font-md);
+    font-weight: 400;
+    line-height: 1.65;
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-help-card-content {
+    display: grid;
+    gap: var(--game-ui-space-8);
+  }
+  .game-ui-help-card .game-ui-tabs {
+    justify-self: start;
+    max-width: 100%;
+  }
+  .game-ui-help-card-title {
+    margin: 0;
+    font-size: var(--game-ui-font-md);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .game-ui-help-card-body {
+    margin: 0;
+    white-space: pre-line;
+  }
+  .game-ui-help-card-media {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .game-ui-help-card [hidden] {
+    display: none;
+  }
+  .game-ui-help-card-link {
+    justify-self: start;
+    color: inherit;
+    font-size: var(--game-ui-font-sm);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-radius: 6px;
+  }
+  .game-ui-help-card-link:focus-visible {
+    outline: 2px solid var(--game-ui-focus-ring);
+    outline-offset: 2px;
+  }
+}

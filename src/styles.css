@@ -8,6 +8,7 @@
 @import './controls/DropletSurface/component.css';
 @import './controls/shared/accessibility.css';
 @import './feedback/GameHelpTip/component.css';
+@import './feedback/GameHelpCard/component.css';
 @import './containers/GameDialog/component.css';
 @import './containers/GamePanel/component.css';
 @import './containers/GameHistoryPanel/component.css';
