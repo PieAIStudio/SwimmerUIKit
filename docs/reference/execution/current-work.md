@@ -19,7 +19,9 @@ related:
 
 # 当前工作
 
-## 当前：3.2.0 本地候选（待发布到 latest）
+## 当前：3.2.0 已发布到 latest
+
+2026-10-10 18:32 +08 由 Claude 用 Owner 的 npm 登录从 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`（SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`）发布；`latest` = 3.2.0，`next` 仍为 3.0.0-rc.3。以下为发布前的候选记录。
 
 2026-10-10，Owner 决定：帮助属于 UIKit 的同一个 help 家族，四级由轻到重（GameTooltip、GameHelpCard、FirstSessionOnboarding、产品自己的指南页），UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架，产品提供文字与短演示。Claude 据此委托实现 `GameHelpCard`，并在候选中补充两项 GameAccountMenu 修正：360 像素面板的页签保持一行，选中页签文字的对比度加以守护。
 

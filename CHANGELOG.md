@@ -5,7 +5,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.2.0 — 本地候选（2026-10-10，待发布到 latest）
+## 3.2.0 — 2026-10-10（已发布到 npm latest）
 
 - 新增 `GameHelpCard`：帮助的第二级。悬停（经过 `openDelay`，默认 200 毫秒）、键盘聚焦或点按后打开一张小卡片，含一个标题、一到三行正文（`\n` 换行）、可选的循环短演示和“完整指南”链接；一到四个主题时用页签切换。卡片的可访问名称由 `label` 提供，触发器获得 `aria-expanded` 与 `aria-controls`。
 - 行为：鼠标指针可移入卡片切换页签或点击链接，离开约 150 毫秒后关闭；键盘 Tab 进入卡片，Escape 关闭并回到触发器，焦点不被抢走；触摸的第一次点按只打开卡片、阻止触发器动作，第二次点按才执行，点击卡片外关闭。
