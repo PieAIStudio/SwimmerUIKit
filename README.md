@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**3.0.0 为稳定版候选（源码与 3.0.0-rc.3 相同），待发布到 npm latest；发布前 latest 仍为 2.14.0。** 3.0.0-rc.1 与 rc.3 已发布到 npm next。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**3.0.0 已发布到 npm latest（2026-10-10）。3.1.0 为本地候选（新增账号菜单与 GameTooltip 位置选项），待发布到 npm latest；发布前 latest 仍为 3.0.0。** 3.0.0-rc.1 与 rc.3 已发布到 npm next。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,9 +10,9 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@3.0.0
+pnpm add --save-exact @pieai/swimmer-ui-kit@3.1.0
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-3.0.0.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-3.1.0.tgz
 ```
 
 ```tsx
