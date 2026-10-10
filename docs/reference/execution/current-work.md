@@ -19,6 +19,24 @@ related:
 
 # 当前工作
 
+## 当前：3.2.1 本地候选（待 Claude 发布到 latest）
+
+2026-10-10，任务单要求修正 3.2.0 的两个问题：（1）Server Component 构造的触发器以惰性元素传入 `GameHelpCard` 或 `GameTooltip` 时，服务端渲染与生产预渲染失败，报 `TypeError: Cannot read properties of undefined (reading 'ref')`；（2）`GameHelpCard` 的中文 `懒人包 / 设定图 / 选角单` 与英文 `Starter pack / Sheet / Cast` 在 340 像素卡片内换成两行。
+
+惰性触发器的处理：有效元素仍走原来的克隆路径；其他子元素放入不占布局的 `game-ui-trigger-slot`，挂载后把 `aria-expanded` 与 `aria-controls`（卡片）或 `aria-describedby`（提示）加到第一个可聚焦元素上，卸载时移除。触摸的第一次点按在捕获阶段处理，内层链接不会因此跳转。`GameTooltip` 此前不崩溃，但惰性触发器缺少 `aria-describedby`，已补上。惰性路径每个组件打印一次 `console.warn`，没有按构建模式关闭（理由见 `scripts/check-warnings-survive-build.mjs`）。
+
+页签一行：`GameHelpCard` 与 `GameAccountMenu` 共用一条组合选择器（写在 `GameTabs` 的样式中）；帮助卡的页签按内容定宽，并用账号菜单的紧凑间距，因为 `GameTabs` 没有紧凑尺寸。账号菜单的等宽页签不变。
+
+源码提交：`e2018e6`（惰性触发器与 Next 消费检查）、`7fa6b25`（页签一行）、`13e37b1`（版本 3.2.1、更新日志与 README 状态）、`30c1310`（惰性触发器只在元素变化时更新）、`d810572`（页签测试在恢复视口前卸载卡片）。候选源码为 `d810572`。没有发布 npm，没有运行 `npm publish`、`npm dist-tag` 或 `npm trust`，没有触发任何 workflow。
+
+门禁（源码 `d810572`）：`pnpm verify` 通过（103 个测试文件、700 项测试，退出码 0；`act` 警告 6 条，均为既有的 `LiquidReveal`，与 3.2.0 相同）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook` 通过；`check:packed` 通过（回执源提交 `d810572`，工作树干净）；`check:next-consumer` 通过（3.2.1，SHA-256 与候选一致，控制台与网络错误为零，包含服务端触发器用例）。3.2.0 候选在同一用例上失败：静态预渲染报同样的 `TypeError`，动态渲染返回 500。
+
+入口体积：根入口 `index.js` 从 3.2.0 的 159,459 字节（gzip 46,558）增至 161,753 字节（gzip 47,366），相对 3.2.0 增加 2,294 字节。相对 3.1.0（153,482）增加 8,271 字节，超过 3.2.0 候选记录的 6 KB 上限约 2.1 KB，需 Claude 决定接受或精简。
+
+本地候选为 `.scratch/release-3.2.1/swimmer-ui-kit-3.2.1.tgz`，23,977,391 字节，SHA-256 `b0c803c7d50738be6eeca68c07f43717a34f6a23d6ed7b100bfd3c01b9589577`。证据见同目录 `result.json`。截图在 `.scratch/release-3.2.1/shots/`：两个页签故事（中文、英文）各三个页签、1280 与 360 像素、浅色与深色，共 24 张，三个页签均在同一行、无截断、无换行；账号菜单 1280 与 360 像素的截图与 3.2.0 字节一致。
+
+开放事项：（1）入口体积超出记录上限，见上。（2）任务单要求惰性路径仅在开发环境告警；按仓库已有的 `check-warnings-survive-build` 规则，构建模式判断会在发布时被删除，故未加门控，告警只打印一次。（3）任务单写 `aria-haspopup`，但 3.2.0 的克隆路径没有设置它，两条路径保持一致，未加。（4）`docs/reference/theme-and-liquid.md` 是固定文档（REF-DESIGN-SYSTEM-GUIDE），其“适用版本”行仍写“3.2.0 候选”，3.2.0 发布后未更新；本次未改，需要 Owner 或 Claude 决定是否用 `Pinned-Override` 更新。（5）账号菜单的选中页签“小鱼的作品”在 360 像素下被截为“小鱼...”，3.2.0 即如此，本次按要求保持外观不变。
+
 ## 当前：3.2.0 已发布到 latest
 
 2026-10-10 18:32 +08 由 Claude 用 Owner 的 npm 登录从 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`（SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`）发布；`latest` = 3.2.0，`next` 仍为 3.0.0-rc.3。以下为发布前的候选记录。
