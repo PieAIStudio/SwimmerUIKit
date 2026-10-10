@@ -21,15 +21,20 @@ related:
 
 ## 当前：3.1.0 本地候选（待发布到 latest）
 
-2026-10-10，Owner 委托新增共享账号菜单。`GameAccountMenu` 进入根入口：头像与名字是 sm 次要按钮，点击打开同一个液体面板，含产品提供的站内内容、全部产品列表（当前产品为纯文字）和账号页签（管理账号与安全、退出登录）。产品拥有用户、产品列表和登录/退出；组件不联网、不存储。`GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
+2026-10-10，Owner 委托新增共享账号菜单。Claude 审核后定为：`GameAccountMenu` 与其三个类型只从 `@pieai/swimmer-ui-kit/liquid-presence` 导出，并需同时引入 `liquid-presence.css`，不进入根入口。头像与名字的 sm 次要按钮打开同一个液体面板（站内内容、全部产品、账号页签）；产品拥有数据、产品列表和登录/退出，组件不联网、不存储。`GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
 
-源码提交：`f183446`（GameAccountMenu）、`2c985e3`（GameTooltip）、`efa7936`（选择指南、接口清单与迁移表生成）、`c5fc480`（3.1.0 版本号、更新日志与 README 状态）。`pnpm verify` 通过（100 个测试文件、658 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、`check:packed` 与 `check:next-consumer` 均通过。首次完整验证时 `tests/recipeCode.test.ts` 因机器负载在 20 秒处超时；单独重跑与再次完整验证均通过，记录在 `.scratch/release-3.1.0/verify-final.log` 与 `verify-final2.log`。
+源码提交：`f183446`（GameAccountMenu）、`2c985e3`（GameTooltip）、`efa7936`（选择指南与接口清单）、`c5fc480`（3.1.0 版本号、更新日志与 README 状态）、`9f711ae`（3.0.0 发布记录）、`32b91e2`（账号菜单移入 liquid-presence 入口）、`d458717`（入口相关文档与生成清单）。`pnpm verify` 通过（100 个测试文件、659 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、`check:packed` 与 `check:next-consumer` 通过。
 
-本地候选为 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，SHA-256 `9afc973cb65991c718d113dec30f238cf669c13a8beb6c702dd163f5480b887e`，证据见同目录 `result.json`。截图 64 张在 `.scratch/release-3.1.0/shots/`，覆盖各故事的展开与收起、1280 与 390 像素、浅色与深色；390 像素下无横向滚动，无页面错误。
+本地候选为 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，源码 `d458717`（工作树干净），SHA-256 `1954dd118ce94caba0d07aeed656dd48e668a5036894b0133e726af5cb9bdd28`。它取代入口移动前的候选 `9afc973c…b887e`（菜单在根入口，未发布，已覆盖）。证据见同目录 `result.json`；截图 64 张在 `.scratch/release-3.1.0/shots/`，取自本候选的 storybook 构建，覆盖展开与收起、1280 与 390 像素、浅色与深色；390 像素无横向滚动，无页面错误。
 
-根入口名字由 129 增至 133（56 个值、77 个类型）。根入口 JS 由 153,332 字节增至 179,195 字节（gzip 由 44,709 增至 52,975），增量来自根入口引用的 LiquidPopover 及其共享块。
+入口体积。方法：沿打包产物的导入图累计各入口的块字节（与 `check:packed` 的 rootRuntimeBytes 同一规则；3.0.0 得到 153,332，与已记录一致）。
 
-开放事项，需 Owner 决定：（1）账号菜单的面板必须同时引入 `@pieai/swimmer-ui-kit/liquid-presence.css`，否则面板样式缺失；这是按 Brief 把 LiquidPopover 放入根入口的结果。是否保留这一边界，或把账号菜单移入独立入口、让根入口不再承担 presence 体积，需要 Owner 确认。（2）`migration-3.0.md` 的根入口名字数由生成器统计，现在显示 133；3.0 迁移的叙述是否改为固定的 295→129，需要 Owner 决定。
+- 根入口 index.js：3.0.0 为 153,332 字节（gzip 44,709）；移动入口前的 3.1.0 为 179,195（gzip 52,975）；移动后为 153,482（gzip 44,908），与 3.0.0 相差 150 字节，来自 GameTooltip 的新参数。
+- liquid-presence 入口：3.0.0 为 57,052 字节（gzip 17,629，2 块）；移动入口前为 57,764（gzip 19,229）；移动后为 140,187（gzip 41,130，3 块）。增量约 83 KB，来自账号菜单使用的 GameButton（所在共享块 `GameAvatar-*.js`，26 KB）及液体引擎共享块 `LiquidGroup-*.js`（66 KB）。这两块与根入口是同一份文件，没有重复代码；液体预算的定义只出现在一处。消费端是否裁掉未使用的菜单代码，取决于其打包器的摇树，本次未实测。
+
+根入口公开名字为 129 个（55 值、74 类型），与 3.0.0 相同；迁移表与接口清单由生成器重新生成，数字照生成器算出的结果保留。
+
+开放事项：（1）账号菜单的入口闭包比上一候选的 liquid-presence 多约 83 KB，原因是它依赖 GameButton。若 Claude 认为 liquid-presence 的专用产品承担不起，需要决定是否改用不依赖 GameButton 的结构，或接受现状。（2）账号菜单自身的样式仍在 `styles.css`，因为既有的 CSS 归属检查要求 game/ 下的组件样式进入主样式表；面板的液体样式仍在 `liquid-presence.css`。
 
 3.1.0 尚未发布。发布需要 Owner 另行授权。发布前 npm `latest` 为 3.0.0，`next` 为 3.0.0-rc.3。
 
