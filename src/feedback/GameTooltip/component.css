@@ -8,14 +8,31 @@
     bottom: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
+    /* Short labels keep the old minimum; long labels wrap inside the viewport. */
+    width: max-content;
     min-width: 150px;
+    max-width: min(280px, calc(100vw - 24px));
     padding: 7px 9px;
+    white-space: pre-line;
     font-size: var(--game-ui-font-xs);
     --game-ui-droplet-radius: 12px;
     opacity: 0;
     pointer-events: none;
     z-index: 2;
     touch-action: auto;
+  }
+  .game-ui-tooltip [role='tooltip'][data-tooltip-placement='bottom'] {
+    top: calc(100% + 8px);
+    bottom: auto;
+  }
+  .game-ui-tooltip [role='tooltip'][data-tooltip-align='start'] {
+    left: 0;
+    transform: none;
+  }
+  .game-ui-tooltip [role='tooltip'][data-tooltip-align='end'] {
+    left: auto;
+    right: 0;
+    transform: none;
   }
   .game-ui-tooltip:hover [role='tooltip'],
   .game-ui-tooltip:focus-within [role='tooltip'] {
