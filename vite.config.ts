@@ -66,6 +66,10 @@ export default defineConfig({
       cssFileName: 'styles',
     },
     rollupOptions: {
+      // Do not ship source-region debug comments. Keep normal minification,
+      // license comments and PURE annotations; the module graph below still
+      // records source ownership without adding bytes to every consumer.
+      experimental: { attachDebugInfo: 'none' },
       external: ['react', 'react-dom', 'react/jsx-runtime', '@floating-ui/react'],
     },
   },

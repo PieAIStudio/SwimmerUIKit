@@ -7,9 +7,16 @@
     width: fit-content;
     max-width: 100%;
   }
+  .game-ui-segmented-label {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .game-ui-segmented-option {
     display: inline-flex;
-    flex: 1 1 0;
+    /* Content sets the wrap point; zero basis squeezed long labels together. */
+    flex: 1 1 auto;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
     gap: 8px;

@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: h
 created: 2026-07-03
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-12
 domain: ui-components
 tags:
   - uikit
@@ -20,7 +20,9 @@ related:
 
 # 主题与液体
 
-适用版本：3.2.1。3.0.0（与3.0.0-rc.3源码相同）；3.1.0 新增 liquid-presence 入口的账号菜单（需同时引入 liquid-presence.css）与 GameTooltip 位置选项，外观与按压规则不变；3.2.0 新增 GameHelpCard，它与 GameTooltip 一样使用静止水滴，不进入液体预算，也不使用液体滤镜；3.2.1 修正它的服务端触发器，并让三个主题页签保持一行（页签的内边距与间距比 3.2.0 紧凑，与账号菜单一致）。这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因npm标签更新而自动完成升级。
+适用版本：3.2 系列（含本地 3.2.2 候选）。3.0.0（与3.0.0-rc.3源码相同）；3.1.0 新增 liquid-presence 入口的账号菜单（需同时引入 liquid-presence.css）与 GameTooltip 位置选项，外观与按压规则不变；3.2.0 新增 GameHelpCard，它与 GameTooltip 一样使用静止水滴，不进入液体预算，也不使用液体滤镜；3.2.1 修正它的服务端触发器，并让三个主题页签保持一行（页签的内边距与间距比 3.2.0 紧凑，与账号菜单一致）。这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因npm标签更新而自动完成升级。
+
+3.2.2 候选中，GameSegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 
 ## 品牌与边界
 
@@ -41,14 +43,14 @@ Swimmer 的界面有触感、轻快、可靠。能按的东西是水滴，按下
 
 明暗为 light / dark，省略为 light；风格为 candy、pastel、mist、grey、outline、ink，省略为 pastel。两者可以分开嵌套，局部 light 可恢复浅色。切换属性不重建原生控件，不清空输入、选区或焦点。University 的孩子/大人风格选择属于产品，UIKit 不判断年龄。
 
-| 风格 | 平时 | 选中 | 有含义的颜色 |
-| --- | --- | --- | --- |
-| candy 彩色 | 纸色和细边 | 明亮色块 | 明亮色块 |
-| pastel 淡彩 | 淡色块、无边 | 明亮色块 | 明亮色块 |
-| mist 雾色 | 纸色和细边 | 灰调色块 | 灰调色块 |
-| grey 灰阶 | 灰块、无边 | 墨色/纸色反转 | 深一档灰 |
-| outline 包边 | 普通底色和淡边 | 墨色边、略深的底 | 不带色相 |
-| ink 黑白包边 | 普通底色和实边 | 墨色/纸色反转 | 不带色相 |
+| 风格         | 平时           | 选中             | 有含义的颜色 |
+| ------------ | -------------- | ---------------- | ------------ |
+| candy 彩色   | 纸色和细边     | 明亮色块         | 明亮色块     |
+| pastel 淡彩  | 淡色块、无边   | 明亮色块         | 明亮色块     |
+| mist 雾色    | 纸色和细边     | 灰调色块         | 灰调色块     |
+| grey 灰阶    | 灰块、无边     | 墨色/纸色反转    | 深一档灰     |
+| outline 包边 | 普通底色和淡边 | 墨色边、略深的底 | 不带色相     |
+| ink 黑白包边 | 普通底色和实边 | 墨色/纸色反转    | 不带色相     |
 
 选中一律加对勾，不鼓起、不扩大；一列选项两端保持对齐。支持 hue 的控件可选 coral、sun、leaf、sky、grape、pink；组件只读取语义变量，不按风格名分叉。
 
@@ -139,7 +141,7 @@ import { LiquidEffectsGroup } from '@pieai/swimmer-ui-kit/liquid-effects';
   <LiquidEffectsGroup.Item effect="melt" melt={{ mix: 1 }}>
     <img alt="第二张色板" src={secondImage} />
   </LiquidEffectsGroup.Item>
-</LiquidEffectsGroup>
+</LiquidEffectsGroup>;
 ```
 
 Melt 只取前两张图构成一对。dissolve 可以是 boolean、数值或选项对象，只给图像上遮罩，卸载必须还原图像；不要意外启用默认的内容模糊。Bend 跟随子内容的已渲染矩形，以速度弯曲边界；它的四个 --lg-bend-* 变量是高级装饰出口。Move 是组的 motion="follow"，不是一个 Item effect。

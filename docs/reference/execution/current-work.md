@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-12
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,23 @@ related:
 
 # 当前工作
 
-## 当前：3.2.1 已发布到 latest
+## 当前：3.2.2 修复候选，尚未发布
+
+Owner 的 2026-10-12 SSO 收尾授权要求修正长选项、窄屏账号页签和根入口体积。Kit 内三个问题均已修复：分段选项按内容换行，超长词留在自己的点击区；账号页签按内容分配宽度、两侧留白 4 像素，360 像素下中英文标准标签及选中对勾完整显示，普通英文单词不折断，点击高度至少 44 像素。无新增认证逻辑、公开接口或品牌包依赖。
+
+根入口及全部可达分块共 **157262 字节（gzip 46442）**，比 3.2.1 少 4491 字节。采用现有 Rolldown `attachDebugInfo: 'none'`，仅不再输出源码分区调试注释；许可证、PURE 标记、运行警告和可选入口边界仍受检查。真实 tarball 门禁硬性守护原上限 **159626 = 153482 + 6144 字节**，不改变计量范围、不把代码挪出根入口凑数字。
+
+最终候选：`.scratch/release-3.2.2-final/pieai-swimmer-ui-kit-3.2.2.tgz`，**23972852 字节**，SHA-256 **`f24d775e1d30e3a68727a22a45ab69a34908c224585df64d79f84453265dba53`**。候选不可覆盖；源修改、源码提交、npm 发布与产品验收分别记录。
+
+本轮完整 `pnpm verify` **104 文件 / 705 测试通过**；类型、lint、格式、公开接口、指南覆盖、60 份组件样式、12 套语义配色、构建与真实字体通过；`build-storybook`、实际包 `check:packed` 和实际 Next 16.3.8 消费 `check:next-consumer` 全部通过，后两项摘要与上述最终包一致。日志仍有 LiquidReveal/act 测试环境、声明编译器版本和 Storybook 大分块等警告，不宣称零警告；实际 Next 消费回执无浏览器错误。
+
+原始证据：`.scratch/sso-layout-3.2.2/` 保留 4 项布局红灯、161753 字节超预算红灯、英文 Account 拆词红灯与修正后的绿灯；`.scratch/release-3.2.2/` 保留第一轮包和截图，因英文拆词被最终候选取代，不发布该轮包。最终门禁、包与 Next 回执、28 张明暗/中英/宽窄截图在 `.scratch/release-3.2.2-final/`。截图来自构建后的故事，检查无横向越界、完整文字、英文不拆词及真实点击；代表图已目视复核，28 场景均无页面错误。
+
+下一步：提交推送后，对同一份最终 tarball 补核干净提交回执，再按交接的本机发布流程发到 latest。npm 两步验证必须由 Owner 本人完成，出现授权页时在 Microsoft Edge 打开并停下来询问。2026-10-12 本轮发布前查询为 `latest=3.2.1`、`next=3.0.0-rc.3`，3.2.2 返回 E404；发布前重新查询，发布后重新下载核对完整包及标签。不用第一轮包、不重打包或改 next。
+
+各产品尚未接入此补丁，产品已有 nowrap/宽度覆写需在各自迁移中单独核对；本轮没有修改 University 或账号中心头像代码。主题指南适用版本已按本轮授权同步，不再等待下方历史开放项所述的另一次决定；惰性路径警告和 aria 属性合同保持不变。
+
+## 上次发布：3.2.1 已发布到 latest
 
 2026-10-10 20:36 +08（registry 记录的发布时间为 12:36:33 UTC）由 Claude 发布到 npm `latest`，发布的 tarball 为本地候选 `.scratch/release-3.2.1/swimmer-ui-kit-3.2.1.tgz`，SHA-256 `b0c803c7d50738be6eeca68c07f43717a34f6a23d6ed7b100bfd3c01b9589577`。只读核对：registry 的 `dist.integrity`（sha512）为 `sha512-725MGXbMxsA5qbKpROnyh4JRRrQjb4CvIOXo2mMmyLiKVN2hujnjfTgtgxXAPo1PzlIP4oFHRz+BQ2GSGR4gng==`，与本地候选的 sha512 一致；`latest` 为 3.2.1，`next` 仍为 3.0.0-rc.3。发布前的 `latest` 为 3.2.0。以下为发布前的候选记录。
 
@@ -41,12 +57,14 @@ related:
 
 开放事项：（1）入口体积超出记录上限，见上。（2）任务单要求惰性路径仅在开发环境告警；按仓库已有的 `check-warnings-survive-build` 规则，构建模式判断会在发布时被删除，故未加门控，告警只打印一次。（3）任务单写 `aria-haspopup`，但 3.2.0 的克隆路径没有设置它，两条路径保持一致，未加。（4）`docs/reference/theme-and-liquid.md` 是固定文档（REF-DESIGN-SYSTEM-GUIDE），其“适用版本”行仍写“3.2.0 候选”，3.2.0 发布后未更新；本次未改，需要 Owner 或 Claude 决定是否用 `Pinned-Override` 更新。（5）账号菜单的选中页签在 360 像素下截断，见下节“已知后续”。
 
-## 已知后续（未修复）
+## 3.2.1 原始问题记录（Kit 内已在上方 3.2.2 候选修复）
+
+以下保留最初诊断及产品覆写背景；其中“本次未修”指 3.2.1 当时，不是 3.2.2 当前状态。产品迁移验收仍需独立完成。
 
 - `GameSegmentedControl`（SwimmerParty，1024 像素）：长英文选项标签互相重叠，由产品报告。选项为 `flex: 1 1 0` 且 `min-width: 0`；SwimmerParty 的 `SheetBuilder` 在选项上加了 `whitespace-nowrap`，标签溢出到相邻选项，并用 `!flex-[0_1_auto]` 覆盖基础宽度。需注意：3.2.1 源码中该规则位于 `@layer swimmer-ui`，并非未分层；产品为何仍需要 `!important`，尚未核实。未来 kit 修正方向：按内容定宽并允许换行，或在文档中写明这一限制。本次未修。
 - `GameAccountMenu`（360 像素）：选中页签“小鱼的作品”被截为“小鱼...”。3.2.0 即如此，由等宽页签（`flex: 1 1 0`）造成；3.2.1 按要求未改外观。未来方向待定。本次未修。
 
-## 当前：3.2.0 已发布到 latest
+## 历史：3.2.0 发布到 latest
 
 2026-10-10 18:32 +08 由 Claude 用 Owner 的 npm 登录从 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`（SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`）发布；`latest` = 3.2.0，`next` 仍为 3.0.0-rc.3。以下为发布前的候选记录。
 
@@ -119,27 +137,27 @@ Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、�
 
 S0–S14与本次预发布均已完成，计划已归档：[结构重整](../../plans/completed/PLAN-UIKIT-3-RESTRUCTURE.md)、[发布前补齐](../../plans/completed/PLAN-UIKIT-3-COMPLETION.md)。发布源提交79d1649a37f7f42d1ad89ab66f6ec844f6d678fa；工作流37173677049成功，npm独立核对next=3.0.0-rc.1、latest=2.14.0。本次新增授权只触发一次，run_attempt=1。后续文档收口提交不改变已发布包。
 
-| 阶段 | 进度与提交 | 证据 |
-| --- | --- | --- |
-| S0 | 完成，c9aed8b；66 源码文件 / 20,069 行，295 名字，482 测试 | .scratch/baseline/：原始构建、288 张浅深色 DPR 1 图、metrics.json |
-| S1 | 完成，1e720ba；只拆分归位，492 测试，295 名字不变 | .scratch/s1/consistent-v9/ 与保存的 S0 重拍：288 张逐字节一致 |
-| S2 | 完成，38ca91c；组件样式归位，496 测试 | .scratch/s2/：993 条编译后原子规则等价、288 张截图一致 |
-| S3 | 完成，6cde281、f18fe32；移除专用业务、分离特效和展厅，dark 断代，460 测试 | .scratch/s3/visuals-final/：保留 238 图一致；删除故事有清单 |
-| S4 | 完成，8442b1a；Claude 通过，危险红字、普通底色、两套红边，开关语义色；489 测试 | 原评审 .scratch/s4/review/；补充 .scratch/s4/claude-amendment/，三引擎各 360 色对最低 5.036:1 |
-| S5 | 完成，47d2cef：现行说明收敛为七个入口，旧业务/研究/发布回执归档；493 测试及文档、Storybook 门禁通过 | .scratch/s5/；276 个历史工件归档，非 Markdown 字节逐一一致；351 个公开素材路径与内容不变 |
-| S6 | 历史3.0.0本地候选（由rc.1接替，不再单独发布）；493 测试、文档、Storybook、实际 tarball、publint 严格检查和四入口 ESM 类型消费通过 | .scratch/s6/final/；package-check/receipt.json 记录源提交、包体校验值、351 个素材、四入口和共享块体积 |
+| 阶段 | 进度与提交                                                                                                                        | 证据                                                                                                  |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| S0   | 完成，c9aed8b；66 源码文件 / 20,069 行，295 名字，482 测试                                                                        | .scratch/baseline/：原始构建、288 张浅深色 DPR 1 图、metrics.json                                     |
+| S1   | 完成，1e720ba；只拆分归位，492 测试，295 名字不变                                                                                 | .scratch/s1/consistent-v9/ 与保存的 S0 重拍：288 张逐字节一致                                         |
+| S2   | 完成，38ca91c；组件样式归位，496 测试                                                                                             | .scratch/s2/：993 条编译后原子规则等价、288 张截图一致                                                |
+| S3   | 完成，6cde281、f18fe32；移除专用业务、分离特效和展厅，dark 断代，460 测试                                                         | .scratch/s3/visuals-final/：保留 238 图一致；删除故事有清单                                           |
+| S4   | 完成，8442b1a；Claude 通过，危险红字、普通底色、两套红边，开关语义色；489 测试                                                    | 原评审 .scratch/s4/review/；补充 .scratch/s4/claude-amendment/，三引擎各 360 色对最低 5.036:1         |
+| S5   | 完成，47d2cef：现行说明收敛为七个入口，旧业务/研究/发布回执归档；493 测试及文档、Storybook 门禁通过                               | .scratch/s5/；276 个历史工件归档，非 Markdown 字节逐一一致；351 个公开素材路径与内容不变              |
+| S6   | 历史3.0.0本地候选（由rc.1接替，不再单独发布）；493 测试、文档、Storybook、实际 tarball、publint 严格检查和四入口 ESM 类型消费通过 | .scratch/s6/final/；package-check/receipt.json 记录源提交、包体校验值、351 个素材、四入口和共享块体积 |
 
 **发布前补齐（S7–S14）**：Owner 2026-10-03 决定发布前一次解决产品接入暴露的 11 个问题，不兼容旧写法；黏土图标退场、中文默认字体用资源圆体；完成后以 `3.0.0-rc.1` 发布到 npm `next` 标签（`latest` 保持 2.14.0）。已完成任务书：[PLAN-UIKIT-3-COMPLETION](../../plans/completed/PLAN-UIKIT-3-COMPLETION.md)。下文 S6 的 `3.0.0` 本地候选由该计划的 rc.1 取代。
 
-| 阶段 | 进度与证据 |
-| --- | --- |
-| S7 | 本地提交0354542；移除五个未公开组件及所有关联代码；指南逐项覆盖全部公开值，缺行反例检查接入 verify。门禁记录：.devspace-reports/uikit-3-completion/S7/。 |
-| S8 | 351个图片素材及复制工具退场，48个线条图标和逐图快照；独立路径子入口可裁剪，来源与许可证已登记。门禁和浅深色总览：.devspace-reports/uikit-3-completion/S8/。 |
-| S9 | 资源圆体OFL1.1允许切分，保留版权并改内部名称；四字重464块按需加载。确定性、实际字体和纯英文零中文请求的证据：.devspace-reports/uikit-3-completion/S9/。 |
-| S10 | 四个层级与一个浮层阴影归位，旧panel别名删除；12风格控件配方不变，首页有真实层级示例。证据：.devspace-reports/uikit-3-completion/S10/。 |
-| S11 | 原生/路由链接、32px小号与受控LiquidPopover；新10个浏览器用例覆盖真实ref、禁用、键盘、焦点与静态预算。阶段门禁与桌面/窄屏截图：.devspace-reports/uikit-3-completion/S11/。 |
-| S12 | 完成，本地提交45bdc12；展示组件静止水滴，进度条变值600ms后休眠、不占滤镜预算。十二组合与0→100记录在S12/；本次复验569测试、样式、字体与文档通过，日志在S12/resume/。 |
-| S13 | 完成，本地提交e3a96a7；完整verify与docs通过。React入口及共享分块client boundary；真实tarball通过Next16.3.8构建、启动、Server直接导入、Client液体交互、Next Link、390px减少动态与零浏览器错误检查。证据：.devspace-reports/uikit-3-completion/S13/next-consumer/；完整包体检查：.scratch/uikit-3-completion/S13/packed/。 |
+| 阶段 | 进度与证据                                                                                                                                                                                                                                                                                                               |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| S7   | 本地提交0354542；移除五个未公开组件及所有关联代码；指南逐项覆盖全部公开值，缺行反例检查接入 verify。门禁记录：.devspace-reports/uikit-3-completion/S7/。                                                                                                                                                                 |
+| S8   | 351个图片素材及复制工具退场，48个线条图标和逐图快照；独立路径子入口可裁剪，来源与许可证已登记。门禁和浅深色总览：.devspace-reports/uikit-3-completion/S8/。                                                                                                                                                              |
+| S9   | 资源圆体OFL1.1允许切分，保留版权并改内部名称；四字重464块按需加载。确定性、实际字体和纯英文零中文请求的证据：.devspace-reports/uikit-3-completion/S9/。                                                                                                                                                                  |
+| S10  | 四个层级与一个浮层阴影归位，旧panel别名删除；12风格控件配方不变，首页有真实层级示例。证据：.devspace-reports/uikit-3-completion/S10/。                                                                                                                                                                                   |
+| S11  | 原生/路由链接、32px小号与受控LiquidPopover；新10个浏览器用例覆盖真实ref、禁用、键盘、焦点与静态预算。阶段门禁与桌面/窄屏截图：.devspace-reports/uikit-3-completion/S11/。                                                                                                                                                |
+| S12  | 完成，本地提交45bdc12；展示组件静止水滴，进度条变值600ms后休眠、不占滤镜预算。十二组合与0→100记录在S12/；本次复验569测试、样式、字体与文档通过，日志在S12/resume/。                                                                                                                                                      |
+| S13  | 完成，本地提交e3a96a7；完整verify与docs通过。React入口及共享分块client boundary；真实tarball通过Next16.3.8构建、启动、Server直接导入、Client液体交互、Next Link、390px减少动态与零浏览器错误检查。证据：.devspace-reports/uikit-3-completion/S13/next-consumer/；完整包体检查：.scratch/uikit-3-completion/S13/packed/。 |
 
 S14首轮工作流37141176655在registry结构校验处失败并停止，实际发布未执行；证据保留在`.devspace-reports/uikit-3-completion/S14/`。Owner随后新增的一次授权已成功完成，证据在同级`S14-reauthorized/`：真实npm12.2.0返回夹具、29项发布保护专项、本地/云端598测试、真实包与Next门禁、推送、workflow及独立npm校验。
 

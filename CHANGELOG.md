@@ -5,6 +5,13 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 3.2.2 — 2026-10-12（本地候选，未发布）
+
+- `GameSegmentedControl` 按选项内容决定换行位置，长标签在自己的点击区域内换行；无空格长词也不会盖到相邻选项。选中仍只改变对勾和填充，不改变点击框尺寸。
+- `GameAccountMenu` 的三个页签仍保持一排，但按内容分配宽度，不再等宽挤压文字；必要时标签在页签内部换行，不用省略号隐藏名称，点击高度至少 44 像素。页签两侧改用 4 像素紧凑留白，中英文标准标签在 360 像素下都完整显示，普通英文单词不被折断；每个页签选中状态均有真实浏览器回归。
+- 构建使用现有 Rolldown 的 `attachDebugInfo: 'none'`，不再把源码分区注释发给消费者；不改变导出、运行逻辑、许可证、PURE 标记、警告和可选入口边界。真实 tarball 检查新增原有根入口预算的硬断言：3.1.0 基线 153482 字节加 6144 字节，完整计算所有可达分块，不能以移动代码或改变计量范围过关。
+- 新增长标签与英文账号菜单故事；布局回归和包预算分别保留先红后绿证据。版本号改为 3.2.2，包发布与消费产品接入另行记录。
+
 ## 3.2.1 — 2026-10-10（已发布到 npm latest）
 
 - 修正服务端渲染时 `GameHelpCard` 与 `GameTooltip` 的崩溃。当 Server Component 构造好触发器（例如 `GameIconButton href=…`）并作为子元素传入时，子元素可能以惰性元素到达；3.2.0 读取它的 `props` 会报 `Cannot read properties of undefined (reading 'ref')`，页面的服务端渲染与生产预渲染都会失败。现在这类子元素放在一个不占布局的 `game-ui-trigger-slot` 中，挂载后把 `aria-expanded` 与 `aria-controls`（卡片）或 `aria-describedby`（提示）加到第一个可聚焦元素上，卸载时移除。悬停、焦点、Escape，以及触摸“第一次点按只打开、第二次才执行”的规则不变；内层链接不会因第一次触摸而跳转。在客户端组件中构造的触发器保留原始元素，DOM 与行为与 3.2.0 相同。
@@ -112,7 +119,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
   opaque wherever the highlight was bright. The light is now clipped to the
   body eroded by a pixel and feathered; the highlight itself is unchanged.
 - Add `LiquidFill`: `LiquidGroup` and `LiquidSurface` take `fill={{ top,
-  bottom?, sheen? }}` for the coloured-liquid light (a narrow brighter band at
+bottom?, sheen? }}` for the coloured-liquid light (a narrow brighter band at
   the top, a deeper foot). Colours may be tokens; bands are CSS `color-mix`.
 - `LiquidSurface` takes `gloss` and `outline={{ amplitude, lobes? }}` to
   override its form's light and rest lobing.

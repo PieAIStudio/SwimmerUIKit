@@ -39,7 +39,7 @@ export function GameSegmentedControl({
           style={controlHue(option.hue ?? hue)}
         >
           <DropletSurface />
-          <span>{option.label}</span>
+          <span className="game-ui-segmented-label">{option.label}</span>
           <SelectionMark />
         </button>
       ))}

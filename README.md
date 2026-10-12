@@ -4,15 +4,17 @@ Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐�
 
 **3.0.0、3.1.0、3.2.0 与 3.2.1 已发布到 npm latest（3.2.1 于 2026-10-10 发布，修正 GameHelpCard 与 GameTooltip 的服务端触发器，页签保持一行）。发布前 latest 为 3.2.0。** 3.0.0-rc.1 与 rc.3 已发布到 npm next。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
+本地 3.2.2 候选修正长选项与窄屏账号页签，并收回根入口体积超支；尚未发布，不能当成 npm 已可用版本。发布进度以[当前工作](docs/reference/execution/current-work.md)为准。
+
 ## 安装与最小使用
 
 React / React DOM 需要 19 或以上。发布前的候选评审时安装交付回执里的本地 tarball，先核对 SHA-256；发布后使用 Owner 批准的精确 npm 版本。不要把相邻仓库源码当生产依赖。
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@3.1.0
+pnpm add --save-exact @pieai/swimmer-ui-kit@3.2.1
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-3.1.0.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-3.2.2.tgz
 ```
 
 ```tsx
@@ -37,14 +39,14 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 
 ## 去哪里看
 
-| 需要 | 入口 |
-| --- | --- |
-| 选组件、正确使用 | [组件选择指南](docs/reference/component-selection-guide.md) |
-| 主题、液体、可选特效 | [主题与液体](docs/reference/theme-and-liquid.md) |
-| 改配色、字体和样式 | [设计 token](docs/reference/design-tokens.md) |
-| 全部公开名字 | [生成的 API 清单](docs/reference/public-api-inventory.md) |
-| 迁移与候选验收 | [3.0 迁移表](docs/reference/migration-3.0.md) |
-| 工作状态与证据 | [当前工作](docs/reference/execution/current-work.md) |
+| 需要                 | 入口                                                        |
+| -------------------- | ----------------------------------------------------------- |
+| 选组件、正确使用     | [组件选择指南](docs/reference/component-selection-guide.md) |
+| 主题、液体、可选特效 | [主题与液体](docs/reference/theme-and-liquid.md)            |
+| 改配色、字体和样式   | [设计 token](docs/reference/design-tokens.md)               |
+| 全部公开名字         | [生成的 API 清单](docs/reference/public-api-inventory.md)   |
+| 迁移与候选验收       | [3.0 迁移表](docs/reference/migration-3.0.md)               |
+| 工作状态与证据       | [当前工作](docs/reference/execution/current-work.md)        |
 
 本机 `pnpm dev` 打开组件目录，`pnpm storybook` 打开故事；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 3.0 候选的证明。
 

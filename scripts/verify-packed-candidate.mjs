@@ -215,6 +215,11 @@ const clientChunks = [];
 const serverDataChunks = [];
 for (const [name, chunk] of Object.entries(graph)) {
   const code = readFileSync(path.join(packedRoot, 'dist', name), 'utf8');
+  assert.doesNotMatch(
+    code,
+    /^\s*\/\/#(?:end)?region\b/m,
+    `Unexpected source debug region: ${name}`,
+  );
   const hasReact =
     clientEntries.has(name) ||
     chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
@@ -231,6 +236,24 @@ for (const file of shippedSourceFiles.filter((file) => /(?:\.d\.ts|\.css)$/.test
   assert.doesNotMatch(readFileSync(path.join(packedRoot, file), 'utf8'), clientDirective, file);
 }
 const rootChunks = reachableChunks(graph, 'index.js');
+assert.ok(
+  rootChunks.some((name) =>
+    readFileSync(path.join(packedRoot, 'dist', name), 'utf8').includes('@__PURE__'),
+  ),
+  'Package optimization must preserve downstream tree-shaking annotations',
+);
+const rootRuntimeBytes = rootChunks.reduce(
+  (sum, name) => sum + statSync(path.join(packedRoot, 'dist', name)).size,
+  0,
+);
+// Retain the 3.1.0 baseline (153482 bytes) + 6 KiB allowance from the 3.2 review.
+// Count every actual reachable chunk, including dynamic imports. Do not exclude
+// comments, move runtime to an optional entry or reset the baseline to pass.
+const rootRuntimeBudgetBytes = 153482 + 6144;
+assert.ok(
+  rootRuntimeBytes <= rootRuntimeBudgetBytes,
+  `Root runtime ${rootRuntimeBytes} bytes exceeds ${rootRuntimeBudgetBytes}-byte budget`,
+);
 const receipt = {
   status: 'local release candidate, not published or product-accepted',
   checkedAt: new Date().toISOString(),
@@ -251,10 +274,8 @@ const receipt = {
   rejectedLegacyContracts: true,
   packedCliMigration: true,
   rootChunks,
-  rootRuntimeBytes: rootChunks.reduce(
-    (sum, name) => sum + statSync(path.join(packedRoot, 'dist', name)).size,
-    0,
-  ),
+  rootRuntimeBytes,
+  rootRuntimeBudgetBytes,
   rootRuntimeGzipBytes: rootChunks.reduce(
     (sum, name) => sum + gzipSync(readFileSync(path.join(packedRoot, 'dist', name))).length,
     0,

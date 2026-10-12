@@ -19,6 +19,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const LongLabels: Story = {
+  render: function LongLabelsStory(args) {
+    const [activeId, setActiveId] = useState(args.activeId);
+    return <GameSegmentedControl {...args} activeId={activeId} onSelect={setActiveId} />;
+  },
+  args: {
+    activeId: 'describe',
+    label: 'Party setup',
+    options: [
+      { id: 'describe', label: 'Describe the party you want to create' },
+      { id: 'template', label: 'Start with a ready-made party template' },
+      { id: 'import', label: 'Import an existing game configuration' },
+    ],
+  },
+};
+
 export const Default: Story = {
   args: {
     activeId: 'live',

@@ -264,41 +264,63 @@ describe('GameAccountMenu avatar', () => {
 });
 
 describe('GameAccountMenu tabs layout and contrast', () => {
-  it('keeps the three tabs on one row at 360 px, equal in width, with truncating labels', async () => {
-    const original = { width: innerWidth, height: innerHeight };
-    await page.viewport(360, 720);
-    try {
-      await render(
-        menu({
-          labels: {
-            ...labels,
-            siteTab: 'This site',
-            productsTab: 'All products',
-            accountTab: 'Account',
-          },
-        }),
-      );
-      await openPanel();
-      const rects = tabs().map((tab) => tab.getBoundingClientRect());
-      expect(rects).toHaveLength(3);
-      expect(new Set(rects.map((rect) => Math.round(rect.top))).size).toBe(1);
-      const widths = rects.map((rect) => rect.width);
-      expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
-      for (const tab of tabs()) {
-        const label = tab.querySelector<HTMLElement>('.game-ui-tab-label')!;
-        const css = getComputedStyle(label);
-        expect(css.whiteSpace).toBe('nowrap');
-        expect(css.textOverflow).toBe('ellipsis');
+  it.each([
+    ['Chinese', labels],
+    [
+      'English',
+      { ...labels, siteTab: 'This site', productsTab: 'All products', accountTab: 'Account' },
+    ],
+  ])(
+    'keeps complete %s tab labels on one row at 360 px in every selection',
+    async (_language, copy) => {
+      const original = { width: innerWidth, height: innerHeight };
+      await page.viewport(360, 720);
+      try {
+        await render(menu({ labels: copy }));
+        const panel = await openPanel();
+        for (const selected of tabs()) {
+          await act(async () => selected.click());
+          const rects = tabs().map((tab) => tab.getBoundingClientRect());
+          expect(rects).toHaveLength(3);
+          expect(new Set(rects.map((rect) => Math.round(rect.top))).size).toBe(1);
+          const panelBounds = panel.getBoundingClientRect();
+          for (const tab of tabs()) {
+            const label = tab.querySelector<HTMLElement>('.game-ui-tab-label')!;
+            expect(label.scrollWidth, label.textContent!).toBeLessThanOrEqual(
+              label.clientWidth + 1,
+            );
+            const bounds = tab.getBoundingClientRect();
+            expect(bounds.left).toBeGreaterThanOrEqual(panelBounds.left);
+            expect(bounds.right).toBeLessThanOrEqual(panelBounds.right);
+            expect(bounds.height).toBeGreaterThanOrEqual(44);
+            // A complete label must also keep ordinary English words intact.
+            for (const word of label.textContent!.matchAll(/[A-Za-z]+/g)) {
+              const wordRange = document.createRange();
+              wordRange.setStart(label.firstChild!, word.index);
+              wordRange.setEnd(label.firstChild!, word.index + word[0].length);
+              expect(
+                new Set([...wordRange.getClientRects()].map((line) => line.top)).size,
+                word[0],
+              ).toBe(1);
+            }
+            const range = document.createRange();
+            range.selectNodeContents(label);
+            for (const line of range.getClientRects()) {
+              expect(line.left).toBeGreaterThanOrEqual(bounds.left);
+              expect(line.right).toBeLessThanOrEqual(bounds.right);
+            }
+          }
+          expect(
+            getComputedStyle(selected.querySelector('.game-ui-selection-mark')!).display,
+          ).not.toBe('none');
+        }
+      } finally {
+        // Remove observers before restoring the viewport, as in the help-card regression.
+        await act(async () => root.render(null));
+        await page.viewport(original.width, original.height);
       }
-      // Only the selected tab reserves room for its check mark.
-      const unselected = tabs().find((tab) => tab.getAttribute('aria-selected') === 'false')!;
-      expect(getComputedStyle(unselected.querySelector('.game-ui-selection-mark')!).display).toBe(
-        'none',
-      );
-    } finally {
-      await page.viewport(original.width, original.height);
-    }
-  });
+    },
+  );
 
   it('keeps the selected tab label readable on its fill in every built-in style and mode', async () => {
     const context = document.createElement('canvas').getContext('2d')!;

@@ -85,6 +85,12 @@ export const LongNameAndEmail: Story = {
   },
 };
 
+export const EnglishLabels: Story = {
+  args: {
+    labels: { ...labels, siteTab: 'This site', productsTab: 'All products', accountTab: 'Account' },
+  },
+};
+
 export const AccountOnly: Story = {
   name: 'Account tab only / 仅账号',
   args: { site: undefined, products: [] },

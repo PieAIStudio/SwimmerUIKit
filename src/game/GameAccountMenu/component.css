@@ -63,14 +63,21 @@
     opacity: 0.8;
     font-size: 0.875rem;
   }
-  /* Three tabs share one row at 360px with equal widths; the one-row rules are in GameTabs. */
+  /* Share one row, giving longer labels more room instead of equal-width clipping. */
   .game-ui-account-menu-panel .game-ui-tabs {
     gap: 6px;
   }
   .game-ui-account-menu-panel .game-ui-tab {
-    flex: 1 1 0;
+    flex: 1 1 auto;
     gap: 6px;
-    padding-inline: 10px;
+    /* Compact horizontal padding keeps ordinary English words whole at 360px. */
+    padding-inline: 4px;
+  }
+  .game-ui-account-menu-panel .game-ui-tab-label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    overflow: visible;
+    text-overflow: clip;
   }
   .game-ui-account-menu-section {
     display: grid;

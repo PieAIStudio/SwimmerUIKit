@@ -31,8 +31,8 @@
   /*
    * One shared rule for tabs that stay on one row in a fixed-width panel: the help
    * card and the account menu. Labels truncate only as a last resort, and an
-   * unselected tab reserves no width for its check mark. The account menu adds
-   * its own equal widths; the help card sizes tabs to their content.
+   * unselected tab reserves no width for its check mark. The account menu allows
+   * long labels to wrap; both panels size tabs according to their content.
    */
   .game-ui-help-card .game-ui-tabs,
   .game-ui-account-menu-panel .game-ui-tabs {
