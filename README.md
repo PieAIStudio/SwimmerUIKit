@@ -2,9 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**3.0.0、3.1.0、3.2.0 与 3.2.1 已发布到 npm latest（3.2.1 于 2026-10-10 发布，修正 GameHelpCard 与 GameTooltip 的服务端触发器，页签保持一行）。发布前 latest 为 3.2.0。** 3.0.0-rc.1 与 rc.3 已发布到 npm next。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
-
-本地 3.2.2 候选修正长选项与窄屏账号页签，并收回根入口体积超支；尚未发布，不能当成 npm 已可用版本。发布进度以[当前工作](docs/reference/execution/current-work.md)为准。
+**3.2.2 已于 2026-10-12 发布到 npm latest**：修正长选项与窄屏账号页签，并收回根入口体积超支；`next` 保持 3.0.0-rc.3。独立下载的完整归档与验收原包逐字节一致。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -12,7 +10,7 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@3.2.1
+pnpm add --save-exact @pieai/swimmer-ui-kit@3.2.2
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
 pnpm add --save-exact /path/to/swimmer-ui-kit-3.2.2.tgz
 ```
