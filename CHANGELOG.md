@@ -5,7 +5,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.2.3 — 2026-10-13（候选，尚未发布）
+## 3.2.3 — 2026-10-14（已发布到 npm latest；registry UTC 2026-10-13）
 
 - `GameButton` 已有的显式原生 `id` 同时提供平面水滴轮廓身份；同一控件重新挂载时不再因为 React 自动编号变化而换一条边缘。没有 `id` 的控件保留原来的自动分配，不新增公开参数，不改变原生 DOM 身份、点击框或可访问性。
 - 仍使用同一个 `DropletSurface`、1.4px 缓波上限和原按压弹簧；不固定动画帧、不取整宿主尺寸、不覆盖截图参考。增加静态/动态重新挂载、链接与按钮及真实按压回归。
