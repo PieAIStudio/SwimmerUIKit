@@ -88,7 +88,7 @@ export const GameButton = forwardRef<ActionElement, GameButtonProps>(function Ga
         data-game-ui-danger={variant === 'danger' ? 'true' : undefined}
         style={{ ...controlHue(hue ?? (variant === 'success' ? 'leaf' : 'sky')), ...style }}
       >
-        {!cta && !delegated ? <DropletSurface static={isStatic} /> : null}
+        {!cta && !delegated ? <DropletSurface seedKey={props.id} static={isStatic} /> : null}
         {children}
         {props['aria-pressed'] !== undefined ? <SelectionMark /> : null}
       </NativeAction>

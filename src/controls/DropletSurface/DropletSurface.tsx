@@ -6,10 +6,13 @@ import { dropletSeed } from './geometry';
 /** One internal paint primitive for every flat control. Not an interactive
  * wrapper: it decorates the same native parent that owns focus and value. */
 export function DropletSurface({
+  seedKey,
   static: isStatic = false,
   pressTarget,
   maxWobble = 1.4,
 }: {
+  /** Stable host identity for repeatable paint, independent of React allocation order. */
+  seedKey?: string | undefined;
   static?: boolean;
   pressTarget?: RefObject<HTMLElement | null>;
   /** Internal static display cap; never raises the brand's 1.4px maximum. */
@@ -29,7 +32,7 @@ export function DropletSurface({
       disconnect = attachDroplet(
         element,
         parent,
-        dropletSeed(id),
+        dropletSeed(seedKey ?? id),
         !reduced && !isStatic,
         pressTarget?.current ?? parent,
         maxWobble,
@@ -44,7 +47,7 @@ export function DropletSurface({
       disposed = true;
       disconnect?.();
     };
-  }, [id, reduced, isStatic, pressTarget, maxWobble]);
+  }, [id, seedKey, reduced, isStatic, pressTarget, maxWobble]);
   return (
     <svg ref={svg} className="game-ui-droplet" aria-hidden="true" focusable="false">
       <g>
