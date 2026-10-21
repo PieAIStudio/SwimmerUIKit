@@ -22,3 +22,6 @@ SHOTS/
 SCRATCH/
 artifacts/
 debug-*.log
+
+# PGS workspace folders: generated scratch and dated records
+/.reports/
