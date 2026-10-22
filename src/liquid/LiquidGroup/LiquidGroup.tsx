@@ -281,8 +281,11 @@ export const LiquidGroupRoot = forwardRef<
         {typeof fill === 'string' ? null : (
           <LiquidFillGradient id={`${filterId}-fill`} fill={fill} />
         )}
+        {/* React installs focus listeners on this portal container, making the SVG
+            group tabbable in Chromium unless it is explicitly excluded. */}
         <g
           ref={setPortalRef}
+          tabIndex={-1}
           fill={typeof fill === 'string' ? fill : `url(#${filterId}-fill)`}
           filter={`url(#${filterId})`}
         />

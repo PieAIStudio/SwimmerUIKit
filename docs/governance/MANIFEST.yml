@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-21T18:10:56.490Z
+generated_at: 2026-10-22T23:45:18.290Z
 generator_version: doc-gov@0.16.0
 docs_count: 57
 docs:
@@ -303,7 +303,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-13
+    last_reviewed: 2026-10-23
     pinned: true
   - id: REF-LEARNING-TOKEN-DERIVATION-COLOR-MIX-GUARD-TESTS
     path: docs/reference/learnings/design-patterns/token-derivation-color-mix-guard-tests.md

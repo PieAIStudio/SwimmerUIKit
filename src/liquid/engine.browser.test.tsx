@@ -1,6 +1,7 @@
 import { LiquidEffectsGroup } from '../liquid-effects/LiquidEffectsGroup/LiquidEffectsGroup';
 import { StrictMode, act, useEffect, useState, type ReactNode } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
 import { createRoot, type Root } from 'react-dom/client';
 
@@ -66,6 +67,45 @@ function makeRegistration(): LiquidGooeyItemRegistration {
 }
 
 describe('LiquidGroup browser architecture', () => {
+  it.each([LiquidGroup, LiquidEffectsGroup])(
+    'skips the decorative portal during Tab navigation and preserves child order (%#)',
+    async (Group) => {
+      const container = await mount(
+        <>
+          <button type="button">Before liquid</button>
+          <Group>
+            <Group.Item>
+              <button type="button" style={{ border: 0 }}>
+                Liquid action
+              </button>
+              <a href="#after-liquid">Liquid link</a>
+            </Group.Item>
+          </Group>
+          <button id="after-liquid" type="button">
+            After liquid
+          </button>
+        </>,
+      );
+      const [before, action, after] = container.querySelectorAll('button');
+      const link = container.querySelector('a')!;
+      const silhouette = container.querySelector<SVGElement>('[data-liquid-gooey-silhouette]')!;
+      expect(silhouette.getAttribute('aria-hidden')).toBe('true');
+      expect(silhouette.getAttribute('focusable')).toBe('false');
+      expect(silhouette.querySelector('[data-liquid-gooey-blob]')).not.toBeNull();
+
+      before!.focus();
+      for (const target of [action, link, after]) {
+        await act(() => userEvent.tab());
+        expect(document.activeElement).toBe(target);
+        expect(document.activeElement?.closest('[aria-hidden="true"]')).toBeNull();
+      }
+      for (const target of [link, action, before]) {
+        await act(() => userEvent.tab({ shift: true }));
+        expect(document.activeElement).toBe(target);
+      }
+    },
+  );
+
   it('paints the Morph silhouette when mounted inside React StrictMode', async () => {
     vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const renderMorph = (merged: boolean): ReactNode => {

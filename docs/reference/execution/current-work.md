@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-13
+last_reviewed: 2026-10-23
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：3.2.3 已发布，独立核对与验收原包一致
+## 当前：3.2.4 焦点修复候选，私有发布身份待确认
+
+2026-10-23 总指挥授权修复并发补丁，且明确禁止公开 npm 发布。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。本轮证据见根目录 `PI-RESULT.md` 与 `.reports/2026-10-23-liquid-focus/`。
+
+3.2.4 尚未发布。当前源码及手动工作流仍是公开 npm 的 `@pieai/swimmer-ui-kit`，只读查实的 GitHub Packages 私有包则为 `@pieaistudio/swimmer-ui-kit`（latest 1.0.0，关联本仓库）。不能把换 registry 当作同名补丁发布；已请求确认是否恢复私有 scope，确认前不改包身份、不调用发布。未改消费者仓库，Directing 升级由总指挥另行派发。下方 npm 发布事实是历史，不授权本轮再次向 npm 发布。
+
+## 前次：3.2.3 已发布，独立核对与验收原包一致
 
 2026-10-13 Directing 的同一 `3160887`、390 窄屏原用例连续三次诊断为两过一败，但五个铜牌控件每次都得到不同 SVG 路径；每轮内等待 600ms 路径不变。字体均已加载、DPR=1、画布 390×844、CSS 点击框一致。用本包未改的几何函数和实际 React `useId` 重算，15/15 路径逐字节吻合；不是截图前多等一会儿或画布取整可以解决的问题。
 
