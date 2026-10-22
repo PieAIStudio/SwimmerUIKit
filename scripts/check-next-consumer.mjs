@@ -19,7 +19,7 @@ import path from 'node:path';
 
 const tarball = path.resolve(process.argv[2] ?? '');
 const evidence = path.resolve(
-  process.argv[3] ?? '.devspace-reports/uikit-3-completion/S13/next-consumer',
+  process.argv[3] ?? '.reports/' + new Date().toISOString().slice(0, 10) + '-uikit-next-consumer',
 );
 assert.ok(tarball.endsWith('.tgz') && existsSync(tarball), 'Pass the actual candidate tarball');
 mkdirSync(evidence, { recursive: true });
