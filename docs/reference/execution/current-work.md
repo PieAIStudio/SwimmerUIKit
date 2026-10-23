@@ -19,13 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：3.2.4 公开 npm 候选，Next 消费安装首红阻断
+## 当前：3.2.4 完整发布门禁通过，npm 登录 E401 阻断
 
 2026-10-23 总指挥授权修复并发补丁；前份任务书的私有发布要求已由 08:0x 更正撤回，UIKit 仍发布到公开 npm 的 `@pieai/swimmer-ui-kit`，不改包名或恢复旧 scope。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。修复原始证据保留在 `.reports/2026-10-23-liquid-focus/`。
 
-公开发布候选是已推送且检查时工作区干净的 `a139bc51c74a550b70a931c843f0dd3dd0be1d3e`。本轮单次完整 `pnpm verify` 通过 **105 文件／710 项**；Storybook 构建、文档 57 份／195 链接、真实包检查、publint 严格模式与仓库既定 ESM-only 类型消费均通过。原 tarball 为 `.scratch/release-3.2.4/pieai-swimmer-ui-kit-3.2.4.tgz`，**23977825 字节**，SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，冻结保留。
+公开发布候选包源码仍为 `a139bc51c74a550b70a931c843f0dd3dd0be1d3e`；09:0x 续接检查时本地／远端 main 为 `0a49bc2`，仅状态文档不同，工作区干净。总指挥新增授权对同一候选的网络失败重跑完整门禁一次，安装网络错误最多 3 次尝试；本轮冻结安装和 Next 安装均一次成功，额外重试 **0 次**，没有重跑测试。09:09:37–09:12:40 +08 的完整 `pnpm verify` 通过 **105 文件／710 项**；Storybook、文档 57 份／195 链接、真实包检查、publint 严格模式、仓库既定 ESM-only 类型消费，以及 **Next 16.3.8 构建／水合／链接／焦点／390 窄屏减少动态浏览器验收全部通过**，Next 浏览器错误为零。三张实际消费截图已目视复核。
 
-**3.2.4 未发布。** 08:15:35 +08 的首红是 Next 16.3.8 消费夹具安装：从官方 registry 下载 `baseline-browser-mapping-2.11.31.tgz` 时 `ECONNRESET`，TLS 建立前连接断开；Next 构建与浏览器验收未执行。按任务书立即停止，未重跑、换源、改依赖或尝试 publish；npm 身份／验证码与发布后读回均未到达，不能把源测试或已有 tarball 当作已发布。首红与全部本轮证据见 `.reports/2026-10-23-release-3.2.4/`，交接见根目录 `PI-RESULT.md`。待网络故障取得新证据／环境恢复后由总指挥决定续接；未改消费者，Directing 升级仍另行派发。
+本轮 tarball 为 `.scratch/release-3.2.4-network-retry/pieai-swimmer-ui-kit-3.2.4.tgz`，**23977825 字节／500 文件**，SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，与前轮 `.scratch/release-3.2.4/pieai-swimmer-ui-kit-3.2.4.tgz` **逐字节一致**；两包均只读保留。前轮 08:15:35 +08 的 Next 安装 `ECONNRESET` 及未执行的构建／浏览器回执继续原样保留在 `.reports/2026-10-23-release-3.2.4/`，本轮成功证据不覆盖首红。
+
+**3.2.4 仍未发布，阻断已变为登录。** 发布前 `npm whoami --registry=https://registry.npmjs.org/` 返回 **E401 Unauthorized**，按任务书停止，未调用 publish、登录或验证码流程。独立公开元数据仍为 `latest=3.2.3`、`next=3.0.0-rc.3`，版本列表无 3.2.4，精确查询为 `No match found for version 3.2.4`；因此没有发布后 integrity 或下载核验结果。Owner 须在本人终端恢复公开 npm 登录，再对上述已验原包续接身份／发布与独立下载读回；只有源、依赖、环境和保留原包仍有效时才能复用本轮门禁，不能重新打包后沿用结果。本轮证据在 `.reports/2026-10-23-release-3.2.4-network-retry/`，交接见根目录 `PI-RESULT.md`。未改消费者，Directing 须等 3.2.4 正式发布读回后再升级。
 
 ## 前次：3.2.3 已发布，独立核对与验收原包一致
 
