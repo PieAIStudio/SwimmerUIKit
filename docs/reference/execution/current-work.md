@@ -19,7 +19,7 @@ related:
 
 # 当前工作
 
-## 当前：3.2.4 原包发布遇 EOTP 停止，npm latest 仍为 3.2.3
+## 当前：3.2.4 已于 2026-10-23 发布为 npm latest
 
 2026-10-23 总指挥授权修复并发补丁；前份任务书的私有发布要求已由 08:0x 更正撤回，UIKit 仍发布到公开 npm 的 `@pieai/swimmer-ui-kit`，不改包名或恢复旧 scope。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。修复原始证据保留在 `.reports/2026-10-23-liquid-focus/`。
 
@@ -27,7 +27,7 @@ related:
 
 本轮 tarball 为 `.scratch/release-3.2.4-network-retry/pieai-swimmer-ui-kit-3.2.4.tgz`，**23977825 字节／500 文件**，SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，与前轮 `.scratch/release-3.2.4/pieai-swimmer-ui-kit-3.2.4.tgz` **逐字节一致**；两包均只读保留。前轮 08:15:35 +08 的 Next 安装 `ECONNRESET` 及未执行的构建／浏览器回执继续原样保留在 `.reports/2026-10-23-release-3.2.4/`，本轮成功证据不覆盖首红。
 
-**3.2.4 仍未发布，当前阻断为 EOTP。** Owner 本人恢复登录后，总指挥于 2026-10-23 12:5x 授权仅发布上述已验原包。当前 npm 12.2.0 的 `npm whoami --registry=https://registry.npmjs.org/` 两次返回 `pieai`；本地／远端 main=`c4ec96c`，相对 a139bc5 只有状态文档差异，源码与依赖锁不变，已安装依赖锁逐字相符，Node 24.19.0／pnpm 11.22.0／npm 12.2.0 与上一轮一致，冻结包哈希及原始门禁证据仍有效。因此复用 105 文件／710 项及真实包／Next 门禁，未重打包或重跑已绿全套。发布保护确认包存在、`latest=3.2.3`、无 3.2.4 后，12:50:58–12:51:06 +08 唯一一次 `npm publish <上述 tgz> --tag latest --registry=https://registry.npmjs.org/` 按 `publishConfig` 的 public access 执行，返回 **EOTP：This operation requires a one-time password**（退出 1）。按本轮指令停止；未打开验证链接、输入 OTP、换认证方式或重试发布。
+**3.2.4 已发布为 npm latest（2026-10-23，Owner 本机发布）。** registry tarball 与冻结候选逐字节一致：SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，registry integrity（sha512）与本地候选相同。下方 EOTP 停止过程和 12:51 读回是发布前的历史记录，不代表当前状态。此前：Owner 本人恢复登录后，总指挥于 2026-10-23 12:5x 授权仅发布上述已验原包。当前 npm 12.2.0 的 `npm whoami --registry=https://registry.npmjs.org/` 两次返回 `pieai`；本地／远端 main=`c4ec96c`，相对 a139bc5 只有状态文档差异，源码与依赖锁不变，已安装依赖锁逐字相符，Node 24.19.0／pnpm 11.22.0／npm 12.2.0 与上一轮一致，冻结包哈希及原始门禁证据仍有效。因此复用 105 文件／710 项及真实包／Next 门禁，未重打包或重跑已绿全套。发布保护确认包存在、`latest=3.2.3`、无 3.2.4 后，12:50:58–12:51:06 +08 唯一一次 `npm publish <上述 tgz> --tag latest --registry=https://registry.npmjs.org/` 按 `publishConfig` 的 public access 执行，返回 **EOTP：This operation requires a one-time password**（退出 1）。按本轮指令停止；未打开验证链接、输入 OTP、换认证方式或重试发布。
 
 12:51 +08 独立读回仍为 `latest=3.2.3`、`next=3.0.0-rc.3`，版本列表无 3.2.4；新缓存精确查询 `version dist.integrity` 返回 `No match found for version 3.2.4`。因此**没有发布时间、registry integrity 或已发布 tarball 可供下载比对**，未创建 v3.2.4 tag 或 GitHub release，Directing 暂不能升级。Owner 须本人完成供应商要求的一次性验证；续接时先独立读回是否已发布，不能自动重复 publish。本轮证据为 `.reports/2026-10-23-release-3.2.4-publish/release-receipt.json` 与同目录命令／日志／退出码；上一轮 E401、首轮 ECONNRESET 和原包均原样保留。交接见根目录 `PI-RESULT.md`，未改消费者、Actions 或 Vercel。
 
@@ -157,7 +157,7 @@ Owner 在芽族 `PLAN-YAZU-PLATFORM-RENEWAL-V1` §1 K2／§2 已授权根修、�
 
 本次只触发一次 `npm-publish`：运行 `37644318828`（run attempt 1）完成全部发布前门禁，包括云端601项测试、Storybook、文档、真实打包、publint、类型消费及Next验收；2026-10-07T15:33:53Z 在 npm PUT 发布请求处返回 E404，未通过发布。完整日志及结构化结果为 `.scratch/yazu-renewal-rc2/publish-37644318828.{log,json}`。独立注册表回读仍是 next=3.0.0-rc.1、latest=2.14.0，rc.2未可见；没有重复发布或改标签。
 
-已按中央 `.secrets/README.md` 与 cloud-platform-access 规则核对既有方式。官方 `npm trust list @pieai/swimmer-ui-kit --json --registry=https://registry.npmjs.org` 返回 E401，当前本机登录不能读取此包的可信发布配置。发布E404本身不能唯一确定根因；需要Owner恢复有此包管理权限的npm登录，再核对 GitHub组织 `PieAIStudio`、仓库 `SwimmerUIKit`、工作流文件 `npm-publish.yml`、环境条件与 `npm publish` 权限。不要获取/输出密钥、降低2FA或用私包GitHub令牌替代npm权限，也不要在缺少新证据时重跑发布。此处满足芽族计划§3.1的访问阻断，后续等待权限核对。
+已按中央 `.secrets/README.md` 与 cloud-platform-access 规则核对既有方式。官方 `npm trust list @pieai/swimmer-ui-kit --json --registry=https://registry.npmjs.org` 返回 E401，当前本机登录不能读取此包的可信发布配置。发布E404本身不能唯一确定根因；需要Owner恢复有此包管理权限的npm登录，再核对 GitHub组织 `PieAIStudio`、仓库 `SwimmerUIKit`、工作流文件 `npm-publish.yml`、环境条件与 `npm publish` 权限。不要获取/输出密钥、降低2FA或用私包GitHub令牌替代npm权限，也不要在缺少新证据时重跑发布。此处满足芽族计划§3.1的访问阻断，后续等待权限核对。2026-10-23 npm 网页核实本包可信发布 PieAIStudio/SwimmerUIKit · npm-publish.yml 状态 Valid；下次发布先走该工作流。
 
 ## 已发布基线：3.0.0-rc.1
 
