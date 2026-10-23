@@ -19,11 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：3.2.4 焦点修复候选，私有发布身份待确认
+## 当前：3.2.4 公开 npm 候选，Next 消费安装首红阻断
 
-2026-10-23 总指挥授权修复并发补丁，且明确禁止公开 npm 发布。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。本轮证据见根目录 `PI-RESULT.md` 与 `.reports/2026-10-23-liquid-focus/`。
+2026-10-23 总指挥授权修复并发补丁；前份任务书的私有发布要求已由 08:0x 更正撤回，UIKit 仍发布到公开 npm 的 `@pieai/swimmer-ui-kit`，不改包名或恢复旧 scope。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。修复原始证据保留在 `.reports/2026-10-23-liquid-focus/`。
 
-3.2.4 尚未发布。当前源码及手动工作流仍是公开 npm 的 `@pieai/swimmer-ui-kit`，只读查实的 GitHub Packages 私有包则为 `@pieaistudio/swimmer-ui-kit`（latest 1.0.0，关联本仓库）。不能把换 registry 当作同名补丁发布；已请求确认是否恢复私有 scope，确认前不改包身份、不调用发布。未改消费者仓库，Directing 升级由总指挥另行派发。下方 npm 发布事实是历史，不授权本轮再次向 npm 发布。
+公开发布候选是已推送且检查时工作区干净的 `a139bc51c74a550b70a931c843f0dd3dd0be1d3e`。本轮单次完整 `pnpm verify` 通过 **105 文件／710 项**；Storybook 构建、文档 57 份／195 链接、真实包检查、publint 严格模式与仓库既定 ESM-only 类型消费均通过。原 tarball 为 `.scratch/release-3.2.4/pieai-swimmer-ui-kit-3.2.4.tgz`，**23977825 字节**，SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，冻结保留。
+
+**3.2.4 未发布。** 08:15:35 +08 的首红是 Next 16.3.8 消费夹具安装：从官方 registry 下载 `baseline-browser-mapping-2.11.31.tgz` 时 `ECONNRESET`，TLS 建立前连接断开；Next 构建与浏览器验收未执行。按任务书立即停止，未重跑、换源、改依赖或尝试 publish；npm 身份／验证码与发布后读回均未到达，不能把源测试或已有 tarball 当作已发布。首红与全部本轮证据见 `.reports/2026-10-23-release-3.2.4/`，交接见根目录 `PI-RESULT.md`。待网络故障取得新证据／环境恢复后由总指挥决定续接；未改消费者，Directing 升级仍另行派发。
 
 ## 前次：3.2.3 已发布，独立核对与验收原包一致
 
