@@ -33,6 +33,8 @@ export interface GameAccountMenuLabels {
 export interface GameAccountMenuProps {
   user: { name: string; email?: string; avatarUrl?: string };
   labels: GameAccountMenuLabels;
+  /** Stable native id of the trigger button, also used for its contour. */
+  triggerId?: string;
   /** Product-owned content for the first tab; the tab is omitted when absent. */
   site?: ReactNode;
   /** All products; the tab is omitted when empty. */
@@ -70,6 +72,7 @@ function avatarSource(url: string | undefined): string | undefined {
 export function GameAccountMenu({
   user,
   labels,
+  triggerId,
   site,
   products = [],
   accountHref,
@@ -94,6 +97,7 @@ export function GameAccountMenu({
     <div className={['game-ui-account-menu', className].filter(Boolean).join(' ')}>
       <GameButton
         ref={trigger}
+        id={triggerId}
         size="sm"
         className="game-ui-account-menu-trigger"
         aria-haspopup="dialog"

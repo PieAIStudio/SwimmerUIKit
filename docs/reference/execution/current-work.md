@@ -19,7 +19,11 @@ related:
 
 # 当前工作
 
-## 当前：3.2.4 已于 2026-10-23 发布为 npm latest
+## 当前：3.2.5 账号触发器稳定身份候选
+
+Owner 2026-10-23 接续⑫仅授权 `GameAccountMenu` 可选 `triggerId` 透传到内部 `GameButton.id`；不改种子算法，未传时保留原行为与参考图。两次挂载回归、相关检查与 `npm-publish.yml` 手动可信发布待执行；版本号不代表已发布。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。证据与两仓收据统一在 Directing 的 `.reports/2026-10-23-uikit-trigger-id/PI-RESULT.md`。
+
+## 前次：3.2.4 已于 2026-10-23 发布为 npm latest
 
 2026-10-23 总指挥授权修复并发补丁；前份任务书的私有发布要求已由 08:0x 更正撤回，UIKit 仍发布到公开 npm 的 `@pieai/swimmer-ui-kit`，不改包名或恢复旧 scope。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。修复原始证据保留在 `.reports/2026-10-23-liquid-focus/`。
 

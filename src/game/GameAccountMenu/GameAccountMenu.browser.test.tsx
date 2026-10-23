@@ -106,6 +106,21 @@ function tabLabels(): (string | null | undefined)[] {
 }
 
 describe('GameAccountMenu trigger', () => {
+  it('keeps the same trigger contour across two mounts with an explicit triggerId', async () => {
+    const props = { ...menu(), triggerId: 'stable-account-trigger' };
+    const paths: (string | null)[] = [];
+    for (let mount = 0; mount < 2; mount++) {
+      await render(props);
+      await document.fonts.ready;
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      paths.push(trigger().querySelector('.game-ui-droplet path')!.getAttribute('d'));
+      if (mount === 0) await act(async () => root.render(null));
+    }
+    expect(paths[0]).toBeTruthy();
+    expect(paths[1]).toBe(paths[0]);
+    expect(trigger().id).toBe(props.triggerId);
+  });
+
   it('shows the avatar and a short name, with the full label as the accessible name', async () => {
     await render(menu({ user: { name: '一二三四五六七八九十十一十二十三' } }));
     expect(trigger().getAttribute('aria-label')).toBe(labels.trigger);

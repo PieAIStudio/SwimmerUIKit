@@ -5,6 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 3.2.5 — 2026-10-23（发布候选）
+
+- `GameAccountMenu` 新增可选 `triggerId`，原样传给内部 `GameButton` 的原生 `id`，让同一账号触发器重新挂载时保持相同的平面水滴轮廓。未传时保留原行为；不改种子算法、几何、按压或现有参考图。
+- 真实浏览器回归覆盖同一 `triggerId` 的两次挂载：外圈路径一致，原生按钮收到相同 id。
+
 ## 3.2.4 — 2026-10-23（发布候选）
 
 - 修复 `LiquidGroup` 装饰 SVG 的 `<g>` portal 容器占用键盘 Tab 焦点：React 为该容器注册焦点事件，Chromium 因而将其视为可聚焦；现在显式设置 `tabIndex={-1}`，保留外层的 `aria-hidden="true"` 与 `focusable="false"`。不改真实 DOM 子控件的语义、焦点顺序或液体外观。
