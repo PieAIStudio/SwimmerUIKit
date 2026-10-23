@@ -19,9 +19,11 @@ related:
 
 # 当前工作
 
-## 当前：3.2.5 账号触发器稳定身份候选
+## 当前：3.2.5 已于 2026-10-23 通过 Actions 发布为 npm latest
 
-Owner 2026-10-23 接续⑫仅授权 `GameAccountMenu` 可选 `triggerId` 透传到内部 `GameButton.id`；不改种子算法，未传时保留原行为与参考图。两次挂载回归、相关检查与 `npm-publish.yml` 手动可信发布待执行；版本号不代表已发布。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。证据与两仓收据统一在 Directing 的 `.reports/2026-10-23-uikit-trigger-id/PI-RESULT.md`。
+Owner 接续⑫授权的最小补丁已在 `3701eaa` 推至 main：`GameAccountMenu` 可选 `triggerId` 原样透传到内部 `GameButton.id`，产品 +4 行（含注释），不改种子算法，未传时保留原行为与参考图。新增两次挂载回归修前在路径相等断言失败，修后依赖自动选中的 4 文件／26 项全过；类型、lint、格式、API、构建与文档通过。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。
+
+仅手动触发 `npm-publish.yml`：运行 `39951527996`／attempt 1 成功，完整 105 文件／711 项、Storybook、文档、真实包、publint、类型消费和 Next 消费全部通过；由该工作流发布原包，本机没有 `npm publish`。CI 包 SHA-256 为 `c97ddc9f0b17452af9e8a3aecbcfdfe4bc6e070fee5f5061a402dd8db3c37bed`；官方精确 `npm view` 于 20:25 +08 返回 **3.2.5**，工作流确认 `latest=3.2.5`、`next=3.0.0-rc.3`。发布后只读传播等待中的 E404 原日志保留，没有重发。两仓收据与 registry integrity 统一在 Directing 的 `.reports/2026-10-23-uikit-trigger-id/PI-RESULT.md`；消费端发布另行验收。
 
 ## 前次：3.2.4 已于 2026-10-23 发布为 npm latest
 

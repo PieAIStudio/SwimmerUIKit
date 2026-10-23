@@ -5,10 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 3.2.5 — 2026-10-23（发布候选）
+## 3.2.5 — 2026-10-23（已发布到 npm latest）
 
 - `GameAccountMenu` 新增可选 `triggerId`，原样传给内部 `GameButton` 的原生 `id`，让同一账号触发器重新挂载时保持相同的平面水滴轮廓。未传时保留原行为；不改种子算法、几何、按压或现有参考图。
 - 真实浏览器回归覆盖同一 `triggerId` 的两次挂载：外圈路径一致，原生按钮收到相同 id。
+- 发布源 `3701eaa`，可信工作流 `39951527996`（attempt 1）全绿后发布；官方精确读回为 3.2.5。本机未发布，默认无 id 时改用稳定种子的建议另留组件 README，本次不做。
 
 ## 3.2.4 — 2026-10-23（发布候选）
 
