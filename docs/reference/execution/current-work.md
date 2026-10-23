@@ -19,7 +19,7 @@ related:
 
 # 当前工作
 
-## 当前：3.2.4 完整发布门禁通过，npm 登录 E401 阻断
+## 当前：3.2.4 原包发布遇 EOTP 停止，npm latest 仍为 3.2.3
 
 2026-10-23 总指挥授权修复并发补丁；前份任务书的私有发布要求已由 08:0x 更正撤回，UIKit 仍发布到公开 npm 的 `@pieai/swimmer-ui-kit`，不改包名或恢复旧 scope。`LiquidGroup` 的 SVG portal `<g>` 因 React 注册焦点事件而在 Chromium 占用 Tab；只在该装饰容器设置 `tabIndex={-1}`，保留已有的 `aria-hidden`／`focusable`，不改变真实子控件顺序。`LiquidEffectsGroup` 共用根组件一并修复；两项真实 Tab 反例在旧实现均失败。依赖自动选检通过 57 个文件／390 项（12 个单元文件、28 个 Storybook 文件、17 个 Chromium 文件），零重试；类型、lint、格式、API、构建和文档通过。修复原始证据保留在 `.reports/2026-10-23-liquid-focus/`。
 
@@ -27,7 +27,9 @@ related:
 
 本轮 tarball 为 `.scratch/release-3.2.4-network-retry/pieai-swimmer-ui-kit-3.2.4.tgz`，**23977825 字节／500 文件**，SHA-256 **`7a52b7606ab787ec302e30a400f5208bb62cbdbe6bf81372aeb545cf8465eee9`**，与前轮 `.scratch/release-3.2.4/pieai-swimmer-ui-kit-3.2.4.tgz` **逐字节一致**；两包均只读保留。前轮 08:15:35 +08 的 Next 安装 `ECONNRESET` 及未执行的构建／浏览器回执继续原样保留在 `.reports/2026-10-23-release-3.2.4/`，本轮成功证据不覆盖首红。
 
-**3.2.4 仍未发布，阻断已变为登录。** 发布前 `npm whoami --registry=https://registry.npmjs.org/` 返回 **E401 Unauthorized**，按任务书停止，未调用 publish、登录或验证码流程。独立公开元数据仍为 `latest=3.2.3`、`next=3.0.0-rc.3`，版本列表无 3.2.4，精确查询为 `No match found for version 3.2.4`；因此没有发布后 integrity 或下载核验结果。Owner 须在本人终端恢复公开 npm 登录，再对上述已验原包续接身份／发布与独立下载读回；只有源、依赖、环境和保留原包仍有效时才能复用本轮门禁，不能重新打包后沿用结果。本轮证据在 `.reports/2026-10-23-release-3.2.4-network-retry/`，交接见根目录 `PI-RESULT.md`。未改消费者，Directing 须等 3.2.4 正式发布读回后再升级。
+**3.2.4 仍未发布，当前阻断为 EOTP。** Owner 本人恢复登录后，总指挥于 2026-10-23 12:5x 授权仅发布上述已验原包。当前 npm 12.2.0 的 `npm whoami --registry=https://registry.npmjs.org/` 两次返回 `pieai`；本地／远端 main=`c4ec96c`，相对 a139bc5 只有状态文档差异，源码与依赖锁不变，已安装依赖锁逐字相符，Node 24.19.0／pnpm 11.22.0／npm 12.2.0 与上一轮一致，冻结包哈希及原始门禁证据仍有效。因此复用 105 文件／710 项及真实包／Next 门禁，未重打包或重跑已绿全套。发布保护确认包存在、`latest=3.2.3`、无 3.2.4 后，12:50:58–12:51:06 +08 唯一一次 `npm publish <上述 tgz> --tag latest --registry=https://registry.npmjs.org/` 按 `publishConfig` 的 public access 执行，返回 **EOTP：This operation requires a one-time password**（退出 1）。按本轮指令停止；未打开验证链接、输入 OTP、换认证方式或重试发布。
+
+12:51 +08 独立读回仍为 `latest=3.2.3`、`next=3.0.0-rc.3`，版本列表无 3.2.4；新缓存精确查询 `version dist.integrity` 返回 `No match found for version 3.2.4`。因此**没有发布时间、registry integrity 或已发布 tarball 可供下载比对**，未创建 v3.2.4 tag 或 GitHub release，Directing 暂不能升级。Owner 须本人完成供应商要求的一次性验证；续接时先独立读回是否已发布，不能自动重复 publish。本轮证据为 `.reports/2026-10-23-release-3.2.4-publish/release-receipt.json` 与同目录命令／日志／退出码；上一轮 E401、首轮 ECONNRESET 和原包均原样保留。交接见根目录 `PI-RESULT.md`，未改消费者、Actions 或 Vercel。
 
 ## 前次：3.2.3 已发布，独立核对与验收原包一致
 
