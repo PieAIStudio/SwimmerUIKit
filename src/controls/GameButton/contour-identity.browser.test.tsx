@@ -52,6 +52,26 @@ for (const isStatic of [false, true]) {
   });
 }
 
+it('uses a deterministic default contour when no native id is provided', async () => {
+  let original: string | null = null;
+  for (const count of [0, 7, 19]) {
+    await act(async () =>
+      root.render(
+        <StrictMode key={`default-${count}`}>
+          {Array.from({ length: count }, (_, i) => (
+            <UnrelatedControl key={i} />
+          ))}
+          <GameButton style={{ width: 121, height: 44 }}>Action</GameButton>
+        </StrictMode>,
+      ),
+    );
+    await paint();
+    expect(path()).toBeTruthy();
+    if (original !== null) expect(path()).toBe(original);
+    original = path();
+  }
+});
+
 it('uses the same native id seed for a link and a button without changing geometry or press behavior', async () => {
   const expected = dropletPath(
     createDropletGeometry(121, 44, 22),

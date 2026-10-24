@@ -68,15 +68,15 @@ related:
 | `LiquidFormItem` | type | 使用 ReturnType<typeof liquidFormItem>，避免重复公开内部配方结构。 |
 | `LiquidFormKind` | type | 动作类别是实现细节；成品单体用 LiquidSurface，多体由 LiquidGroup 显式组合。 |
 | `LiquidFormSpec` | type | 内部完整配方表不再公开；使用 LiquidSurfaceProps 或 LiquidGroupProps。 |
-| `LiquidItem` | value | 使用 LiquidGroup.Item；需要融化、弯曲或图像溶解时改用独立入口的 LiquidEffectsGroup.Item。 |
-| `BendTuning` | type | 从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型；搭配 LiquidEffectsGroup.Item。 |
+| `LiquidItem` | value | 使用 LiquidGroup.Item；4.0 alpha 不发布可选图像特效入口，产品不得把这些特效当成当前包契约。 |
+| `BendTuning` | type | 4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。 |
 | `liquidFormSummary` | value | 删除预览说明帮助函数；从组件选择指南选择组件。 |
 | `LIQUID_GOOEY_WAVINESS_MAX_FRACTION` | value | 删除内部 token 分类或渲染安全常量；组件自行读取语义变量，宿主常用引用使用 GAME_UI_TOKENS。 |
 | `DISSOLVE_DEFAULTS` | value | 删除内部默认值或解析帮助函数；传入公开组件参数，由实现负责默认值和校验。 |
 | `IMAGE_MELT_DEFAULTS` | value | 删除内部默认值或解析帮助函数；传入公开组件参数，由实现负责默认值和校验。 |
-| `DissolveOptions` | type | 从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型。 |
-| `DissolveValue` | type | 使用 LiquidEffectsItemProps["dissolve"]；只在 ./liquid-effects 支持。 |
-| `ImageMeltOptions` | type | 从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型。 |
+| `DissolveOptions` | type | 4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。 |
+| `DissolveValue` | type | 4.0 alpha 不再发布 advanced-effects JS leaf；图像接触特效不属于当前包契约。 |
+| `ImageMeltOptions` | type | 4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。 |
 | `resolveDissolveOptions` | value | 删除内部默认值或解析帮助函数；传入公开组件参数，由实现负责默认值和校验。 |
 | `GameActionGrid` | value | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
 | `GameActionGridProps` | type | S7 删除未公开且无产品调用的整个组件、样式、故事和展厅片段；一般工具栏使用 GameHudActions，收藏展示使用 GameCollectibleCard，首次引导使用 FirstSessionOnboarding。 |
@@ -198,7 +198,7 @@ related:
 | `CLAY_ICON_VARIANTS` | value | 删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。 |
 | `acknowledgeClayPlaceholders` | value | 删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。 |
 | `getClayAssetBasePath` | value | 删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。 |
-| `getClayIconPath` | value | 删除图片路径解析；用 GameIcon 或 icon-paths 子入口的独立路径数据。 |
+| `getClayIconPath` | value | 删除图片路径解析；用 GameIcon 的内联语义图标，不再从包读取独立路径数据。 |
 | `getClayIconStyles` | value | 删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。 |
 | `getClaySourceAssetPath` | value | 删除素材目录、解析、路径和表面帮助入口；用 GameIcon / GAME_ICON_NAMES，不再有资源初始化或公开图片目录。 |
 | `setClayAssetBasePath` | value | 删除，无须替代；不再存在可配置图片根。 |
@@ -213,9 +213,9 @@ related:
 | `getClayCatalogPaths` | value | 删除展厅素材表访问；图标用 GameIcon。 |
 | `GameAssetIcon` | value | 改用 GameIcon；图标语义名字保留，变为 currentColor 的内联线条。size 只支持 sm16 / md20 / lg24；需要彩色插画的产品先自行保存其旧图，不依赖品牌包。 |
 | `GameAssetIconProps` | type | 改用 GameIconProps，删除资源路径与 game/line 表面选择参数。 |
-| `GameUiPreview` | value | 从 @pieai/swimmer-ui-kit/preview 导入同名组件；展厅不进入默认包。 |
-| `GameUiPreviewProps` | type | 从 @pieai/swimmer-ui-kit/preview 导入同名类型。 |
-| `GAME_UI_PREVIEW_MESSAGES` | value | 从 @pieai/swimmer-ui-kit/preview 导入同名示例数据；不是产品消息状态。 |
+| `GameUiPreview` | value | 4.0 alpha 不再发布 preview JS leaf；展厅只保留在本仓库或产品自己的演示材料中。 |
+| `GameUiPreviewProps` | type | 4.0 alpha 不再发布 preview JS leaf；不要把展厅类型作为产品运行时依赖。 |
+| `GAME_UI_PREVIEW_MESSAGES` | value | 4.0 alpha 不再发布 preview JS leaf；示例消息不构成产品消息状态。 |
 
 ## 参数、主题与样式
 
@@ -223,8 +223,8 @@ related:
 | --- | --- |
 | `data-game-ui-theme="night"` | 改成 `data-game-ui-theme="dark"`；明暗目标值为 light / dark。选择器、dataset 赋值、主题判断、closest 查询一起改。旧值只由检查工具报错，不再支持。 |
 | `--game-ui-glass-night`、`--game-ui-glass-night-soft` | 分别改成 `--game-ui-glass-dark`、`--game-ui-glass-dark-soft`；数值不变，统一深色命名。 |
-| `LiquidGroup.Item effect="melt" / effect="bend" / dissolve` | 从 `./liquid-effects` 导入 `LiquidEffectsGroup`，将相互作用的整组及子项改用它；参数语义和资源预算不变。根入口的 LiquidGroup.Item 不再接受这些参数。 |
-| `liquidFormItem('drain').dissolve` | drain 只提供动作，不再自动附加图像溶解。实际需要图像接触溶解时，显式使用可选特效入口的 `LiquidEffectsGroup.Item dissolve`。 |
+| `LiquidGroup.Item effect="melt" / effect="bend" / dissolve` | 4.0 alpha 不发布可选特效 JS leaf；不要把融化、弯曲或图像接触溶解作为当前包依赖。根入口的 LiquidGroup.Item 仍不接受这些参数。 |
+| `liquidFormItem('drain').dissolve` | drain 只提供动作，不再自动附加图像溶解；4.0 alpha 不发布图像接触特效入口。 |
 | `--game-ui-liquid-metal-*` | 随零使用的金属按钮删除；不存在替代 WebGL 皮肤，也不存在兼容 token。 |
 | 建造、施工、资产库及放置工具的 `game-ui-*` 类 | 随 D1 删除的组件移除；产品继续锁定旧版直到完成自身业务界面迁移。通用 GameShell 的槽位和 GameMaterialSwatches 保留。 |
 | `GameButton surface / liquidFinish`、`GameIconButton surface / liquidFinish` | 删除这些参数：primary 是唯一潮汐液体 CTA，其他按钮和图标按钮固定二维水滴。删除按钮铜牌皮肤；GameAvatar 的静态铜牌相框不属于普通控件，仍然保留。 |
@@ -249,11 +249,11 @@ related:
 | 产品自行组合液体弹出面板、焦点和外点关闭 | S11：从 ./liquid-presence 导入 LiquidPopover；open/onOpenChange/source/title 必需，默认440px/bottom-end，窄屏优先top、视口减24px；Esc/外点关闭并恢复来源焦点，超预算静态显示，面板内用secondary。 |
 | GameBadge 的厚边/28px/大写，Toast 入场位移，Callout/Tooltip 矩形背景 | S12：展示背景统一静止水滴。Badge高24px、横向10px、12px/600、缓波最多1px；其他展示最多1.4px，文字布局和status/alert/tooltip语义保持。tone使用现有风格语义，灰阶/包边去色，danger红字例外。 |
 | GameProgress tone、普通矩形填充和 game-ui-progress-flat-fill 类 | S12：删除tone参数和旧填充类，不留别名。轨道是10px静止水滴/surface-sunken，液面固定潮汐，变值时600ms弯月缓波后静止，无滤镜预算；减少动态直接到位。progressbar数值、max、label、showValue、valueLabel保持。 |
-| Next.js App Router 直接导入 UIKit 的组件遇到 hooks / RSC 边界错误 | S13：根入口、liquid-presence、liquid-effects、preview及含React的共享分块在构建时带use client；Server Component可直接挂载组件，不需要产品重复包装导出。事件、ref和受控状态仍由App的Client Component提供，不能把普通函数跨服务端序列化。纯类型用import type；icon-paths保持无React、可在服务端直接读取。CSS仍在应用layout显式导入。 |
+| Next.js App Router 直接导入 UIKit 的组件遇到 hooks / RSC 边界错误 | S13：根入口、liquid-presence及含React的共享分块在构建时带use client；Server Component可直接挂载组件，不需要产品重复包装导出。事件、ref和受控状态仍由App的Client Component提供，不能把普通函数跨服务端序列化。CSS仍在应用layout显式导入；4.0 alpha 不发布 preview、advanced-effects 或独立图标路径 JS leaf。 |
 
 ## 图标对应与新增名字
 
-计划中标为41的旧名字逐项清单实际为35个；完整保留该清单，加13个名字，共48个，没有增加未约定图标。全部改成内联线条。需要彩色黏土插图的产品，升级前自行从旧版本把需要的图片复制到产品仓库；UIKit不再保留图片路径、复制工具或资源初始化兼容层。独立路径通过 icon-paths 子入口具名导入，只有名称查询组件需要完整的小型名称表。
+计划中标为41的旧名字逐项清单实际为35个；完整保留该清单，加13个名字，共48个，没有增加未约定图标。全部改成内联线条。需要彩色黏土插图的产品，升级前自行从旧版本把需要的图片复制到产品仓库；UIKit不再保留图片路径、复制工具或资源初始化兼容层。4.0 alpha 不发布独立路径 JS leaf，字符串名的 GameIcon 继续使用包内小型名称表。
 
 | 图标名 | 新写法 | 独立数据导出 | Lucide 1.51.0 来源 |
 | --- | --- | --- | --- |
@@ -314,8 +314,7 @@ University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit。
 
 ## 特效与展厅
 
-一般界面继续从包根导入。融化、弯曲与图像溶解改从 ./liquid-effects 导入 LiquidEffectsGroup，子项使用它的 Item；原有几何、共享预算、减弱动态和清理规则保持。
-预览从 ./preview 导入，并显式加载 preview.css。默认入口和 ./liquid-presence 均不包含这两个可选部分的实现。
+一般界面继续从包根导入；4.0 alpha 只公开根入口、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
 
 GameMaterialSwatches 已被 University 的 AvatarLab 用于头像配色，不是 OwnMySpace 独占功能；保留为通用控件，类型去掉地形命名。其余建造、施工和资产业务组件按 D1 删除。
 

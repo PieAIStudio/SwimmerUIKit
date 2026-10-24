@@ -30,6 +30,7 @@ export function GameProgress({
   const ratio = safeValue / safeMax,
     percentage = ratio * 100;
   const id = `progress-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  const seed = dropletSeed('progress-track');
   const reduced = useSystemReducedMotion();
   const svg = useRef<SVGSVGElement>(null);
   const controller = useRef<ReturnType<typeof attachProgress> | null>(null);
@@ -38,15 +39,15 @@ export function GameProgress({
   valueRef.current = ratio;
   useLayoutEffect(() => {
     if (!svg.current) return;
-    const instance = attachProgress(svg.current, dropletSeed(id), valueRef.current, !reduced);
+    const instance = attachProgress(svg.current, seed, valueRef.current, !reduced);
     controller.current = instance;
     return () => {
       instance.dispose();
       controller.current = null;
     };
-  }, [id, reduced]);
+  }, [id, reduced, seed]);
   useLayoutEffect(() => controller.current?.update(ratio), [ratio, reduced]);
-  const outline = dropletPath(createDropletGeometry(100, 10, 5), 1, 0, dropletSeed(id), 4);
+  const outline = dropletPath(createDropletGeometry(100, 10, 5), 1, 0, seed, 4);
   return (
     <div className={['game-ui-progress', className].filter(Boolean).join(' ')}>
       <div

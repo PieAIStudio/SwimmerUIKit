@@ -14,6 +14,7 @@ it('retains every listed semantic name, adds thirteen, and removes the old distr
   expect(new Set(GAME_ICON_NAMES).size).toBe(48);
   const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
   expect(pkg.exports['./assets/*']).toBeUndefined();
+  expect(pkg.exports['./icon-paths']).toBeUndefined();
   expect(pkg.bin['swimmer-ui-assets']).toBeUndefined();
   expect(existsSync('src/icons/assets.ts')).toBe(false);
 });
@@ -23,7 +24,7 @@ it('tree-shakes a single named path without any registry, renderer or other icon
   const entry = resolve(temporary, 'consumer.ts');
   writeFileSync(
     entry,
-    `export { CHECK_ICON } from ${JSON.stringify(resolve('src/icon-paths.ts'))};`,
+    `export { CHECK_ICON } from ${JSON.stringify(resolve('src/icons/paths.ts'))};`,
   );
   try {
     const result = await build({

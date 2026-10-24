@@ -1,13 +1,16 @@
-import { LiquidGroup, liquidFormItem, GameMaterialSwatches } from '../../src/index';
-import { LiquidEffectsGroup } from '../../src/liquid-effects';
-import { GameUiPreview } from '../../src/preview';
-import { GameButton, GameIconButton, GameSelect, GameToggle } from '../../src/index';
+import {
+  LiquidGroup,
+  liquidFormItem,
+  GameMaterialSwatches,
+  GameButton,
+  GameIconButton,
+  GameSelect,
+  GameToggle,
+  GameIcon,
+} from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
-import { GameIcon } from '../../src/index';
-import { CHECK_ICON } from '../../src/icon-paths';
 
 export const namedIcon = <GameIcon icon="check" label="Completed" />;
-export const pathIcon = <GameIcon icon={CHECK_ICON} />;
 
 // Checked by pnpm typecheck; these fixtures are not bundle entries.
 export const ordinary = (
@@ -15,38 +18,25 @@ export const ordinary = (
     <LiquidGroup.Item {...liquidFormItem('press')}>Text</LiquidGroup.Item>
   </LiquidGroup>
 );
-export const imageEffect = (
-  <LiquidEffectsGroup>
-    <LiquidEffectsGroup.Item effect="melt" melt={{ mix: 0.5 }}>
-      <img alt="Example" src="example.png" />
-    </LiquidEffectsGroup.Item>
-  </LiquidEffectsGroup>
-);
-export const bendEffect = (
-  <LiquidEffectsGroup>
-    <LiquidEffectsGroup.Item effect="bend" bend={{ horizontal: 0.2 }}>
-      Text
-    </LiquidEffectsGroup.Item>
-  </LiquidEffectsGroup>
-);
-export const imageDissolve = (
-  <LiquidEffectsGroup>
-    <LiquidEffectsGroup.Item dissolve={{ strength: 0.5 }}>
-      <img alt="Example" src="example.png" />
-    </LiquidEffectsGroup.Item>
-  </LiquidEffectsGroup>
-);
-export const showroom = <GameUiPreview />;
 export const palette = (
   <GameMaterialSwatches
     label="Palette"
     materials={[{ id: 'sky', label: 'Sky', color: '#6bb3ea' }]}
   />
 );
+export const action = <GameButton variant="primary">Start</GameButton>;
+export const iconAction = <GameIconButton label="Action">+</GameIconButton>;
+export const select = (
+  <GameSelect aria-label="Choice">
+    <option>One</option>
+  </GameSelect>
+);
+export const toggle = <GameToggle checked label="Sound" />;
+export const reveal = <LiquidReveal>Draft</LiquidReveal>;
 
 // @ts-expect-error Image effects are not part of the default group API.
 export const rejectedMelt = <LiquidGroup.Item effect="melt">Text</LiquidGroup.Item>;
-// @ts-expect-error Bend requires the optional effect entry.
+// @ts-expect-error Bend requires the removed optional effect entry.
 export const rejectedBend = <LiquidGroup.Item bend={{ horizontal: 0.2 }}>Text</LiquidGroup.Item>;
 // @ts-expect-error Image contact effects cannot silently enter the core.
 export const rejectedDissolve = <LiquidGroup.Item dissolve>Text</LiquidGroup.Item>;

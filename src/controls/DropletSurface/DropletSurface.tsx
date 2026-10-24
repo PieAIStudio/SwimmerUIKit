@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useRef, type RefObject } from 'react';
+import { useLayoutEffect, useRef, type RefObject } from 'react';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 import { attachDroplet } from './controller';
 import { dropletSeed } from './geometry';
@@ -18,7 +18,6 @@ export function DropletSurface({
   /** Internal static display cap; never raises the brand's 1.4px maximum. */
   maxWobble?: number;
 }) {
-  const id = useId();
   const svg = useRef<SVGSVGElement>(null);
   const reduced = useSystemReducedMotion();
   useLayoutEffect(() => {
@@ -32,7 +31,7 @@ export function DropletSurface({
       disconnect = attachDroplet(
         element,
         parent,
-        dropletSeed(seedKey ?? id),
+        dropletSeed(seedKey ?? 'flat-control'),
         !reduced && !isStatic,
         pressTarget?.current ?? parent,
         maxWobble,
@@ -47,7 +46,7 @@ export function DropletSurface({
       disposed = true;
       disconnect?.();
     };
-  }, [id, seedKey, reduced, isStatic, pressTarget, maxWobble]);
+  }, [seedKey, reduced, isStatic, pressTarget, maxWobble]);
   return (
     <svg ref={svg} className="game-ui-droplet" aria-hidden="true" focusable="false">
       <g>

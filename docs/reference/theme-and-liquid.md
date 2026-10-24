@@ -123,40 +123,25 @@ activity 来自真实观察；levelRef 只接已有媒体连接的真实音量�
 
 账号菜单 `GameAccountMenu` 的触发器是普通 sm 次要按钮；点击打开的面板是 LiquidPopover，因此它从 `@pieai/swimmer-ui-kit/liquid-presence` 导入，并同时引入 `liquid-presence.css`。它不在根入口，所以不给只用控件的产品增加液体面板代码。
 
-## 高级原件与可选特效
+## 高级原件与 alpha 边界
 
 LiquidSurface 画单体，LiquidGroup + LiquidGroup.Item 组合多体；liquidFormItem 提供动作姿态。LiquidFill 是 fill 参数的配色类型（颜色或 top/bottom/sheen 配色），不是另外一个需要挂载的 React 按钮。
 
 SVG 装饰层不接收指针，内容保持真实 DOM。高级 Item 的 x/y/scale 可以同时移动内容和装饰；这与成品按钮“只变背景”不同，勿拿它包装普通导航。Morph 的 contentBlur 是显式的内容效果；需要清晰文字时设为 0，不能把整篇正文加入滤镜。
 
-融化、弯曲与图像接触溶解只从可选入口导入：
+4.0.0-alpha.1 不发布融化、弯曲或图像接触溶解的 JS leaf。相关源码仍可在本仓库内部故事/测试中维护，但不是产品可安装契约；不要在产品中复制一套平行特效引擎。
 
-```tsx
-import { LiquidEffectsGroup } from '@pieai/swimmer-ui-kit/liquid-effects';
+根入口和 `liquid-presence` 只保留已验收的液体原件与面板；预算默认最多两个活动组、单区域 480,000 CSS 像素，计算包含变形和滤镜外扩。用 `setLiquidGooeyBudget` 调整宿主策略，不为截图通过临时抬高预算；资源不足保留静态可读结果并释放活动资源。
 
-<LiquidEffectsGroup>
-  <LiquidEffectsGroup.Item effect="melt" melt={{ mix: 1 }}>
-    <img alt="第一张色板" src={firstImage} />
-  </LiquidEffectsGroup.Item>
-  <LiquidEffectsGroup.Item effect="melt" melt={{ mix: 1 }}>
-    <img alt="第二张色板" src={secondImage} />
-  </LiquidEffectsGroup.Item>
-</LiquidEffectsGroup>;
-```
-
-Melt 只取前两张图构成一对。dissolve 可以是 boolean、数值或选项对象，只给图像上遮罩，卸载必须还原图像；不要意外启用默认的内容模糊。Bend 跟随子内容的已渲染矩形，以速度弯曲边界；它的四个 --lg-bend-* 变量是高级装饰出口。Move 是组的 motion="follow"，不是一个 Item effect。
-
-默认包及 liquid-presence 不含可选特效/展厅实现；四入口共用同一预算。预算默认最多两个活动组、单区域 480,000 CSS 像素，计算包含变形和滤镜外扩。用 setLiquidGooeyBudget 调整宿主策略，不为截图通过临时抬高预算；资源不足保留静态可读结果并释放活动资源。
-
-waviness 是高级液体位移纹理，不用于平面水滴边。其实际量默认受短边 30% 限制并计入面积，观察属性 data-liquid-filter-area / data-liquid-feature-padding 可协助排查。组静止后休眠；图像遮罩卸载、StrictMode 重挂、页面隐藏都有独立回归测试。
+`waviness` 是高级液体位移纹理，不用于平面水滴边。其实际量默认受短边 30% 限制并计入面积，观察属性 `data-liquid-filter-area` / `data-liquid-feature-padding` 可协助排查。组静止后休眠；内部特效的卸载、StrictMode 重挂、页面隐藏仍由本仓库测试守护。
 
 完整参数看[公共接口清单](public-api-inventory.md)与其源码链接。上游版本、采纳/拒绝的原因和许可只在 [donor 索引](../../donors-individual.md)、锁文件与 NOTICE 维护，不把外部 checkout 变成运行时依赖。
 
 ## Next.js 与消费端边界
 
-根入口、liquid-presence、liquid-effects、preview及其React共享分块的产物都保留use client。App Router的Server Component可以直接挂载GameButton、GameBadge，并把LiquidPopover的客户端组件引用交给宿主Client Component；事件、ref、受控状态和运行时函数仍在客户端编排，不把普通回调从服务端传过去。
+根入口、liquid-presence 及其 React 共享分块的产物保留 use client。App Router 的 Server Component 可以直接挂载 GameButton、GameBadge，并把 LiquidPopover 的客户端组件引用交给宿主 Client Component；事件、ref、受控状态和运行时函数仍在客户端编排，不把普通回调从服务端传过去。
 
-styles.css与按需的liquid-presence.css在应用layout导入。纯图标路径入口icon-paths不依赖React，仍可在服务端读取；类型使用import type。不要给纯CSS或声明文件添加客户端指令，也不要为了绕开边界在产品复制一份UIKit导出层。
+styles.css 与按需的 liquid-presence.css 在应用 layout 导入。4.0.0-alpha.1 不发布独立图标路径、展厅或高级特效 JS leaf；不要给纯 CSS 或声明文件添加客户端指令，也不要为了绕开边界在产品复制一份 UIKit 导出层。
 
 pnpm check:next-consumer <实际tgz> [证据目录] 会在临时App Router项目安装该包，执行Next构建、启动、真实浏览器水合、原生/Next Link、液体面板焦点与窄屏减少动态检查。它不进普通pnpm test，也不会修改产品仓库；失败回执不会沿用上次的绿色状态。
 

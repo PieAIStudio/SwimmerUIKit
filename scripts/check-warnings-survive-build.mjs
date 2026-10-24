@@ -13,10 +13,12 @@
  * unconditional early return. No consumer could ever have seen them.
  *
  * 1.11.2 unblocked the budget warnings and added this check. It was still
- * incomplete: the item-border warning and the dissolve-on-move warning used
- * the same DEV gate, so they were deleted from the published bundle. Product
- * apps consume the published package; a miswired child border in University
- * therefore never warned. The check now covers every warning the kit promises.
+ * incomplete: the item-border warning used the same DEV gate, so it was
+ * deleted from the published bundle. Product apps consume the published
+ * package; a miswired child border in University therefore never warned. The
+ * check now covers every warning shipped by the core and presence leaves.
+ * Optional effect source is not a 4.0 alpha package entry and is not part of
+ * this published-bundle contract.
  *
  * That failure is invisible in the source, invisible in the test suite, and
  * only appears in the built file. So the check has to read the built file.
@@ -39,11 +41,6 @@ const PROMISED_WARNINGS = [
     message: 'the liquid animation budget is insufficient',
   },
   {
-    id: 'image-filter-budget',
-    entry: 'liquid-effects.js',
-    message: 'the Melt/dissolve image filter budget is insufficient',
-  },
-  {
     id: 'item-border',
     entry: 'index.js',
     message: 'LiquidGroup.Item children should not have their own border',
@@ -52,14 +49,6 @@ const PROMISED_WARNINGS = [
     id: 'group-form-on-surface',
     entry: 'index.js',
     message: 'it describes a relationship',
-  },
-  {
-    id: 'dissolve-on-move',
-    entry: 'liquid-effects.js',
-    // Minifiers keep this as `effect=\"move\"` inside a JS string, so the
-    // needle stops before the quotes. `dissolve is ignored for effect=` is
-    // unique to this warning.
-    message: 'dissolve is ignored for effect=',
   },
 ];
 
@@ -77,10 +66,7 @@ if (!existsSync(BUNDLE)) {
 
 const graph = JSON.parse(readFileSync('.scratch/build/module-graph.json', 'utf8'));
 const reach = Object.fromEntries(
-  ['index.js', 'liquid-presence.js', 'liquid-effects.js', 'preview.js'].map((entry) => [
-    entry,
-    reachableChunks(graph, entry),
-  ]),
+  ['index.js', 'liquid-presence.js'].map((entry) => [entry, reachableChunks(graph, entry)]),
 );
 const code = Object.fromEntries(
   Object.entries(reach).map(([entry, chunks]) => [
@@ -94,17 +80,11 @@ for (const entry of ['index.js', 'liquid-presence.js']) {
     .filter((file) => /^src\/(?:liquid-effects|preview)\//.test(file));
   assert.deepEqual(forbidden, [], `${entry} must not ship optional effects or showroom code`);
 }
-assert.ok(
-  reach['liquid-effects.js'].some((file) =>
-    graph[file].modules.some((id) => id.startsWith('src/liquid-effects/')),
-  ),
-  'The optional effect entry must really contain its implementation',
-);
 const budgetOwners = Object.entries(graph)
   .filter(([, chunk]) => chunk.modules.includes('src/liquid/budget.ts'))
   .map(([file]) => file);
 assert.equal(budgetOwners.length, 1, 'All entries must share one emitted budget owner');
-for (const entry of ['index.js', 'liquid-presence.js', 'liquid-effects.js'])
+for (const entry of ['index.js', 'liquid-presence.js'])
   assert.ok(
     reach[entry].includes(budgetOwners[0]),
     `${entry} must use the shared budget, not a private copy`,
@@ -138,5 +118,5 @@ if (problems.length > 0) {
 }
 
 console.log(
-  `warnings survive the build: ok (${PROMISED_WARNINGS.length} checked); core/presence exclude effects and preview`,
+  `warnings survive the build: ok (${PROMISED_WARNINGS.length} checked); core/presence exclude optional effects and preview`,
 );

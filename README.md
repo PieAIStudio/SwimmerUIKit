@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**3.2.3 已于 2026-10-14（+08）发布到 npm latest**：显式原生 `id` 让同一按钮重新挂载后保留固定轮廓；此前 3.2.2 的长选项、窄屏账号页签和根入口体积修正仍保留。`next` 保持 3.0.0-rc.3。独立下载的完整归档与验收原包逐字节一致。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**4.0.0-alpha.1 已发布到 npm `next`（2026-10-24）**：按 B1 清理未使用的 JS leaves，保留 `preview.css` 等仍有消费者的 CSS；根入口与 `liquid-presence` 继续按需加载，`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,9 +10,9 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@3.2.3
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.1
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-3.2.3.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.1.tgz
 ```
 
 ```tsx
@@ -33,7 +33,7 @@ export function Actions() {
 
 图标直接用 `<GameIcon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。默认英文与中文字体声明已随 styles.css 加载；中文按字符块请求，fonts.css 也可单独使用。
 
-App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref 与受控状态放在宿主 Client Component，CSS 在 layout 导入。组件入口和 React 共享分块已有 client boundary，不需要产品重复包装导出；纯图标数据从 icon-paths 子入口读取。具体边界见[主题与液体](docs/reference/theme-and-liquid.md)。
+App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref 与受控状态放在宿主 Client Component，CSS 在 layout 导入。根入口和 `liquid-presence` 的 React 共享分块已有 client boundary，不需要产品重复包装导出；图标通过 `GameIcon` 使用。具体边界见[主题与液体](docs/reference/theme-and-liquid.md)。
 
 ## 去哪里看
 
@@ -59,6 +59,6 @@ pnpm build-storybook
 
 公共 API 变更后运行 pnpm api:inventory。提交/推送只保存代码，不发 npm，也不部署网站。发布需完整本机门禁和明确授权；S14 已完成，首轮失败及再授权成功均有回执；已有单次授权已经使用，后续发布须另行明确批准。包级门禁与下游产品真实接入验收分别记录。
 
-维护者检查真实包体使用 `pnpm check:packed .scratch/<candidate>.tgz`：五个 JS 入口（含独立图标路径）、React 共享分块边界、严格类型消费、资源原字节和迁移检查器都从 tarball 验证。该命令只创建仓库内隔离夹具，不安装到产品、不发布。 另用 `pnpm check:next-consumer .scratch/<candidate>.tgz` 安装真实候选到临时 Next 项目，检查构建、启动、水合、链接、液体交互与窄屏；发布工作流也执行此门禁。
+维护者检查真实包体使用 `pnpm check:packed .scratch/<candidate>.tgz`：根入口与 `liquid-presence` 两个 JS leaf、React 共享分块边界、严格类型消费、资源原字节和迁移检查器都从 tarball 验证。该命令只创建仓库内隔离夹具，不安装到产品、不发布。另用 `pnpm check:next-consumer .scratch/<candidate>.tgz` 安装真实候选到临时 Next 项目，检查构建、启动、水合、链接、液体交互与窄屏；发布工作流也执行此门禁。
 
 源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。字体和图标路径遵循各自第三方许可证；来源看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。

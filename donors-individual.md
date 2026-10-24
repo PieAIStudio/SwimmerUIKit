@@ -140,9 +140,9 @@ data instead. That is a divergence from the donor, not a defect in it — the
 donor's own demos use waviness on large, merging bodies where a pixel of
 contour noise is invisible.
 
-### 3.0 package boundaries
+### Package boundaries
 
-The adopted Bend math lives in `src/liquid-effects/bend/`; image melt and dissolve live in `src/liquid-effects/melt/`. Only `./liquid-effects` exposes them. The core engine supplies a typed internal deformation seam and continues to own measurement, clocks and budgets. This is a local ownership split, not an upstream pin update. The default package and presence leaf do not contain optional effect implementations.
+The adopted Bend math lives in `src/liquid-effects/bend/`; image melt and dissolve live in `src/liquid-effects/melt/`. These remain reviewed local source for repository stories/tests, but 4.0 alpha does not publish a JavaScript advanced-effects leaf. The core engine supplies a typed internal deformation seam and continues to own measurement, clocks and budgets. This is a local ownership split, not an upstream pin update. The default package and presence leaf do not contain optional effect implementations.
 
 ### Update policy
 

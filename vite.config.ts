@@ -20,7 +20,7 @@ export default defineConfig({
       name: 'swimmer-client-chunks',
       renderChunk(code, chunk) {
         const client =
-          ['index', 'liquid-presence', 'liquid-effects', 'preview'].includes(chunk.name) ||
+          ['index', 'liquid-presence'].includes(chunk.name) ||
           chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
           Object.keys(chunk.modules).some((id) => /\.[jt]sx$/.test(id));
         if (!client || /^\s*['"]use client['"]\s*;/.test(code)) return null;
@@ -55,10 +55,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
-        'icon-paths': resolve(__dirname, 'src/icon-paths.ts'),
         'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
-        'liquid-effects': resolve(__dirname, 'src/liquid-effects.ts'),
-        preview: resolve(__dirname, 'src/preview.ts'),
       },
       name: 'SwimmerUiKit',
       formats: ['es'],

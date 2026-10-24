@@ -9,11 +9,11 @@
   },
   {
     "before": "`LiquidGroup.Item effect=\"melt\" / effect=\"bend\" / dissolve`",
-    "after": "从 `./liquid-effects` 导入 `LiquidEffectsGroup`，将相互作用的整组及子项改用它；参数语义和资源预算不变。根入口的 LiquidGroup.Item 不再接受这些参数。"
+    "after": "4.0 alpha 不发布可选特效 JS leaf；不要把融化、弯曲或图像接触溶解作为当前包依赖。根入口的 LiquidGroup.Item 仍不接受这些参数。"
   },
   {
     "before": "`liquidFormItem('drain').dissolve`",
-    "after": "drain 只提供动作，不再自动附加图像溶解。实际需要图像接触溶解时，显式使用可选特效入口的 `LiquidEffectsGroup.Item dissolve`。"
+    "after": "drain 只提供动作，不再自动附加图像溶解；4.0 alpha 不发布图像接触特效入口。"
   },
   {
     "before": "`--game-ui-liquid-metal-*`",
@@ -113,6 +113,6 @@
   },
   {
     "before": "Next.js App Router 直接导入 UIKit 的组件遇到 hooks / RSC 边界错误",
-    "after": "S13：根入口、liquid-presence、liquid-effects、preview及含React的共享分块在构建时带use client；Server Component可直接挂载组件，不需要产品重复包装导出。事件、ref和受控状态仍由App的Client Component提供，不能把普通函数跨服务端序列化。纯类型用import type；icon-paths保持无React、可在服务端直接读取。CSS仍在应用layout显式导入。"
+    "after": "S13：根入口、liquid-presence及含React的共享分块在构建时带use client；Server Component可直接挂载组件，不需要产品重复包装导出。事件、ref和受控状态仍由App的Client Component提供，不能把普通函数跨服务端序列化。CSS仍在应用layout显式导入；4.0 alpha 不发布 preview、advanced-effects 或独立图标路径 JS leaf。"
   }
 ]

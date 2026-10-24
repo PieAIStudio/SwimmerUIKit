@@ -6,7 +6,7 @@ const mappedNames = {
   GameAssetIconProps: '改用 GameIconProps，删除资源路径与 game/line 表面选择参数。',
   ClayIconName: '改用 GameIconName；原清单的35个实际名字保留，新增13个常用名字。',
   CLAY_ICON_NAMES: '改用 GAME_ICON_NAMES；全部48个名字对应一套内联 SVG 线条。',
-  getClayIconPath: '删除图片路径解析；用 GameIcon 或 icon-paths 子入口的独立路径数据。',
+  getClayIconPath: '删除图片路径解析；用 GameIcon 的内联语义图标，不再从包读取独立路径数据。',
   setClayAssetMode: '删除，无须替代；内联 SVG 没有资源模式初始化。',
   getClayAssetMode: '删除，无须替代；不再存在资源模式。',
   setClayAssetBasePath: '删除，无须替代；不再存在可配置图片根。',
@@ -21,16 +21,17 @@ const mappedNames = {
   GameTerrainMaterialSwatch: '改用 GameMaterialSwatch；通用配色选择不再依赖地形模型。',
   GameTerrainMaterialPattern: '改用 GameMaterialPattern；通用配色选择不再依赖地形模型。',
   GameTerrainBuildVariant: '配色色块改用 GameMaterialLayout；其余建造专用界面由产品自己拥有。',
-  GameUiPreview: '从 @pieai/swimmer-ui-kit/preview 导入同名组件；展厅不进入默认包。',
-  GameUiPreviewProps: '从 @pieai/swimmer-ui-kit/preview 导入同名类型。',
-  GAME_UI_PREVIEW_MESSAGES: '从 @pieai/swimmer-ui-kit/preview 导入同名示例数据；不是产品消息状态。',
-  BendTuning:
-    '从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型；搭配 LiquidEffectsGroup.Item。',
-  ImageMeltOptions: '从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型。',
-  DissolveOptions: '从 @pieai/swimmer-ui-kit/liquid-effects 导入同名类型。',
-  DissolveValue: '使用 LiquidEffectsItemProps["dissolve"]；只在 ./liquid-effects 支持。',
+  GameUiPreview: '4.0 alpha 不再发布 preview JS leaf；展厅只保留在本仓库或产品自己的演示材料中。',
+  GameUiPreviewProps: '4.0 alpha 不再发布 preview JS leaf；不要把展厅类型作为产品运行时依赖。',
+  GAME_UI_PREVIEW_MESSAGES: '4.0 alpha 不再发布 preview JS leaf；示例消息不构成产品消息状态。',
+  BendTuning: '4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。',
+  ImageMeltOptions:
+    '4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。',
+  DissolveOptions:
+    '4.0 alpha 不再发布 advanced-effects JS leaf；不要把该可选特效类型作为包运行时依赖。',
+  DissolveValue: '4.0 alpha 不再发布 advanced-effects JS leaf；图像接触特效不属于当前包契约。',
   LiquidItem:
-    '使用 LiquidGroup.Item；需要融化、弯曲或图像溶解时改用独立入口的 LiquidEffectsGroup.Item。',
+    '使用 LiquidGroup.Item；4.0 alpha 不发布可选图像特效入口，产品不得把这些特效当成当前包契约。',
   LiquidFormItem: '使用 ReturnType<typeof liquidFormItem>，避免重复公开内部配方结构。',
   LiquidFormGroup: '自定义组合用 LiquidGroupProps；内部命名配方不再公开。',
   LiquidFormKind: '动作类别是实现细节；成品单体用 LiquidSurface，多体由 LiquidGroup 显式组合。',
@@ -140,7 +141,7 @@ ${propertyRows.map((row) => `| ${row.before} | ${row.after} |`).join('\n')}
 
 ## 图标对应与新增名字
 
-计划中标为41的旧名字逐项清单实际为35个；完整保留该清单，加13个名字，共48个，没有增加未约定图标。全部改成内联线条。需要彩色黏土插图的产品，升级前自行从旧版本把需要的图片复制到产品仓库；UIKit不再保留图片路径、复制工具或资源初始化兼容层。独立路径通过 icon-paths 子入口具名导入，只有名称查询组件需要完整的小型名称表。
+计划中标为41的旧名字逐项清单实际为35个；完整保留该清单，加13个名字，共48个，没有增加未约定图标。全部改成内联线条。需要彩色黏土插图的产品，升级前自行从旧版本把需要的图片复制到产品仓库；UIKit不再保留图片路径、复制工具或资源初始化兼容层。4.0 alpha 不发布独立路径 JS leaf，字符串名的 GameIcon 继续使用包内小型名称表。
 
 | 图标名 | 新写法 | 独立数据导出 | Lucide 1.51.0 来源 |
 | --- | --- | --- | --- |
@@ -154,8 +155,7 @@ University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit。
 
 ## 特效与展厅
 
-一般界面继续从包根导入。融化、弯曲与图像溶解改从 ./liquid-effects 导入 LiquidEffectsGroup，子项使用它的 Item；原有几何、共享预算、减弱动态和清理规则保持。
-预览从 ./preview 导入，并显式加载 preview.css。默认入口和 ./liquid-presence 均不包含这两个可选部分的实现。
+一般界面继续从包根导入；4.0 alpha 只公开根入口、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
 
 GameMaterialSwatches 已被 University 的 AvatarLab 用于头像配色，不是 OwnMySpace 独占功能；保留为通用控件，类型去掉地形命名。其余建造、施工和资产业务组件按 D1 删除。
 

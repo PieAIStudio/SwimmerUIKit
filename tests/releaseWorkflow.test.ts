@@ -268,6 +268,10 @@ describe('one-shot release metadata guard', () => {
     expect(workflow).toContain('test "$GITHUB_RUN_ATTEMPT" = "1"');
     expect(workflow).toContain('check-release-metadata.mjs after');
     expect(workflow).toContain('pnpm check:next-consumer .scratch/release-candidate.tgz');
+    expect(workflow).toContain(
+      '--entrypoints . ./liquid-presence ./package.json --profile esm-only',
+    );
+    expect(workflow).not.toContain('./liquid-effects ./preview ./icon-paths');
     expect(workflow.indexOf('check-release-metadata.mjs before')).toBeLessThan(
       workflow.indexOf('run: npm publish'),
     );

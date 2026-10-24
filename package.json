@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "3.2.5",
+  "version": "4.0.0-alpha.1",
   "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
   "keywords": [
     "design-system",
@@ -46,23 +46,11 @@
       "default": "./dist/liquid-presence.js"
     },
     "./liquid-presence.css": "./dist/liquid-presence.css",
-    "./liquid-effects": {
-      "types": "./dist/liquid-effects.d.ts",
-      "default": "./dist/liquid-effects.js"
-    },
-    "./preview": {
-      "types": "./dist/preview.d.ts",
-      "default": "./dist/preview.js"
-    },
     "./styles.css": "./dist/styles.css",
     "./preview.css": "./dist/preview.css",
     "./fonts.css": "./dist/fonts.css",
     "./tailwind.css": "./dist/tailwind.css",
-    "./package.json": "./package.json",
-    "./icon-paths": {
-      "types": "./dist/icon-paths.d.ts",
-      "default": "./dist/icon-paths.js"
-    }
+    "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public",

@@ -24,7 +24,7 @@ related:
 Start with the [component selection guide](component-selection-guide.md), not this exhaustive index.
 `src/index.ts` is the public membership authority; every name below remains supported.
 A supporting helper is not private just because beginners should not start there.
-Optional ./preview and ./liquid-effects implementations are outside this root inventory; use their explicit entry declarations.
+Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
 Compiler inventory: **133 named exports: 56 values and 77 types**.
 

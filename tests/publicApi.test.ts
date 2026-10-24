@@ -62,11 +62,10 @@ describe('3.0 public contract and complete migration', () => {
     for (const row of rows) expect(existsSync(new URL(row[3]!, inventoryUrl)), row[1]).toBe(true);
   });
 
-  it('removes image assets and keeps styles, optional leaves and pure icon paths explicit', () => {
+  it('removes image assets and keeps the published CSS and presence leaves explicit', () => {
     const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
     expect(pkg.exports).toEqual({
       '.': { types: './dist/index.d.ts', default: './dist/index.js' },
-      './icon-paths': { types: './dist/icon-paths.d.ts', default: './dist/icon-paths.js' },
       './styles.css': './dist/styles.css',
       './preview.css': './dist/preview.css',
       './fonts.css': './dist/fonts.css',
@@ -77,14 +76,9 @@ describe('3.0 public contract and complete migration', () => {
         default: './dist/liquid-presence.js',
       },
       './liquid-presence.css': './dist/liquid-presence.css',
-      './liquid-effects': {
-        types: './dist/liquid-effects.d.ts',
-        default: './dist/liquid-effects.js',
-      },
-      './preview': { types: './dist/preview.d.ts', default: './dist/preview.js' },
     });
-    // The liquid body is deliberately opt-in, not a new root barrel export.
-    // Keep the route allowlist exact: S8 explicitly retires image assets.
+    // Keep the route allowlist exact: B1 retires unused JavaScript leaves and
+    // earlier work explicitly retires image assets.
     // 2.7's one maintained headless dependency already supplies its positioning;
     // this feature must not introduce a renderer/agent dependency of its own.
     expect(pkg.dependencies).toEqual({ '@floating-ui/react': '0.27.20' });

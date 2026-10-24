@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.1 — 2026-10-24（已发布到 npm next）
+
+- B1 清理未使用的 `liquid-effects`、`preview`、`icon-paths` JS package leaves；仍被消费者使用的 `preview.css` 保留。
+- 发布契约同步为根入口与 `liquid-presence` 两个 JS leaf；trusted workflow 的 attw、packed、公共 API 和类型 fixture 均按新 export map 验证。
+- 平面液体外圈和进度轨道不再用 React `useId` 的分配顺序作为几何种子；调用方有 `id` 时继续使用稳定身份，没有身份时使用固定可读轮廓。`latest` 保持 3.2.5。
+
 ## 3.2.5 — 2026-10-23（已发布到 npm latest）
 
 - `GameAccountMenu` 新增可选 `triggerId`，原样传给内部 `GameButton` 的原生 `id`，让同一账号触发器重新挂载时保持相同的平面水滴轮廓。未传时保留原行为；不改种子算法、几何、按压或现有参考图。

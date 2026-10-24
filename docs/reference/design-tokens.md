@@ -88,7 +88,7 @@ styles.css 已包含默认字体声明；fonts.css 仍可单独加载字体而�
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 
-GameIcon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；单个具名路径数据可从 icon-paths 子入口导入并裁剪。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
+GameIcon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.1 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
 
 ## 自动约束
 

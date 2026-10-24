@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应3.0.0稳定契约，并包含3.1与3.2候选新增的组件；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随main，也不把next当成稳定latest。
+本指南对应 4.0.0-alpha.1 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 
@@ -61,14 +61,12 @@ related:
 单体装饰用 LiquidSurface，多体关系用 LiquidGroup + liquidFormItem。它们不替代真实 DOM 控件。
 宿主预算只通过 setLiquidGooeyBudget 设置，不依赖内部计数器、默认常量或整张配方表。
 
-需要融化、弯曲或图像接触溶解时，从 **@pieai/swimmer-ui-kit/liquid-effects** 导入 LiquidEffectsGroup，子项使用其 Item。
-这是可选依赖边界，不是第二套液体引擎：测量、时钟、预算与减少动态仍由同一引擎负责。
+4.0.0-alpha.1 不发布高级图像特效 JS leaf；本仓库仍保留相关源码供内部故事和测试，但产品不能把这些实现当成当前包依赖。普通液体只使用根入口公开的 `LiquidSurface` / `LiquidGroup`，测量、时钟、预算与减少动态仍由同一引擎负责。
 
 涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。账号菜单 GameAccountMenu 不在根入口：它的面板是 LiquidPopover，与涟同属这一入口，也要引入同一份 liquid-presence.css。
 它只画身体与手势，不调用模型，不开启麦克风，不替用户点击目标。
 
-组件展厅 GameUiPreview 和 LiquidPreview 从 **@pieai/swimmer-ui-kit/preview** 导入，并显式引入 preview.css。
-默认控件包和涟的入口都不会带上展厅、图像融化或弯曲代码。
+4.0.0-alpha.1 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
 
 ## 深色主题与迁移
 
@@ -155,7 +153,7 @@ GameAvatar 的 surface="plaque" 只表示静态头像相框，不用于普通按
 | `GameIcon` | 内联 SVG 图标；label 表示可朗读含义，省略时作为装饰。默认 md20，另有 sm16、lg24。 |
 | `GAME_ICON_NAMES` | 展厅或动态菜单需要的名称清单，不是第二套组件。 |
 
-独立的具名路径数据从 `@pieai/swimmer-ui-kit/icon-paths` 导入，例如 `CHECK_ICON`。该入口不引入 React、名称查询表或其他运行时库，可以按数据导出裁剪；用字符串名的 GameIcon 包含本包的小型名称表。图标的每条来源及对应导出见迁移表。
+独立具名路径 JS leaf 在 4.0.0-alpha.1 不再公开；用字符串名的 `GameIcon` 继续使用本包的小型名称表。图标来源与许可证见 [donor 索引](../../donors-individual.md) 和 `NOTICE`。
 
 ## 链接、小号与液体弹出面板
 
