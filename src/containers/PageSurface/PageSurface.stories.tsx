@@ -26,7 +26,7 @@ export const Slots: Story = {
     description: 'The same frame can carry home, results, review, complete or settings content.',
     children: (
       <BasePanel>
-        <h2 style={{ margin: 0, fontSize: 'var(--swimmer-font-title)' }}>Content slot</h2>
+        <h2 style={{ margin: 0, fontSize: 'var(--swimmer-tool-font-title)' }}>Content slot</h2>
         <p style={{ margin: 0, color: 'var(--swimmer-text-muted)' }}>
           Children remain host-owned. The frame does not know about routes or business state.
         </p>

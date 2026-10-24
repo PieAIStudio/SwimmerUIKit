@@ -319,7 +319,7 @@
     margin-top: auto;
     padding: var(--swimmer-space-5) var(--swimmer-space-3) 0;
     color: var(--swimmer-text-muted);
-    font-size: var(--swimmer-font-label);
+    font-size: var(--swimmer-tool-font-label);
   }
 
   .game-ui-shell-window-bar {

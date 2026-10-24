@@ -39,7 +39,7 @@ type Story = StoryObj<typeof meta>;
 function Panel({ children, title }: { children: ReactNode; title: string }): ReactNode {
   return (
     <BasePanel>
-      <h2 style={{ margin: 0, fontSize: 'var(--swimmer-font-title)' }}>{title}</h2>
+      <h2 style={{ margin: 0, fontSize: 'var(--swimmer-tool-font-title)' }}>{title}</h2>
       {children}
     </BasePanel>
   );
@@ -132,7 +132,7 @@ function MobileNav({ active }: { active: ToolPage }): ReactNode {
           type="button"
         >
           <Icon icon={PAGE_ICONS[page]} size="sm" />
-          <span style={{ fontSize: 'var(--swimmer-font-label)' }}>{PAGE_LABELS[page]}</span>
+          <span style={{ fontSize: 'var(--swimmer-tool-font-label)' }}>{PAGE_LABELS[page]}</span>
         </button>
       ))}
     </nav>

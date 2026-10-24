@@ -31,7 +31,7 @@
     margin: 0;
     color: var(--swimmer-text);
     font-family: var(--swimmer-game-font-display);
-    font-size: var(--swimmer-font-display);
+    font-size: var(--swimmer-tool-font-display);
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.12;
@@ -42,7 +42,7 @@
     max-width: 62ch;
     margin: var(--swimmer-space-3) 0 0;
     color: var(--swimmer-text-muted);
-    font-size: var(--swimmer-font-subtitle);
+    font-size: var(--swimmer-tool-font-subtitle);
     line-height: 1.5;
   }
 
@@ -50,7 +50,7 @@
     display: block;
     margin-bottom: var(--swimmer-space-2);
     color: var(--swimmer-text-muted);
-    font-size: var(--swimmer-font-meta);
+    font-size: var(--swimmer-tool-font-meta);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -121,7 +121,7 @@
     }
 
     .game-ui-page-surface-heading h1 {
-      font-size: var(--swimmer-font-heading);
+      font-size: var(--swimmer-tool-font-heading);
     }
 
     .game-ui-page-surface[data-layout='split'] .game-ui-page-surface-content {

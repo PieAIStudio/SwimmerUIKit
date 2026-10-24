@@ -45,7 +45,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 | 用途 | 变量族 |
 | --- | --- |
 | 页面和文字 | --swimmer-game-bg、--swimmer-game-surface、--swimmer-game-text、--swimmer-game-text-muted |
-| 工具窗口和页面骨架 | --swimmer-bg、--swimmer-surface、--swimmer-surface-soft、--swimmer-sidebar、--swimmer-selection、--swimmer-text、--swimmer-text-muted |
+| 工具窗口和页面骨架 | --swimmer-bg、--swimmer-surface、--swimmer-surface-soft、--swimmer-sidebar、--swimmer-selection、--swimmer-text、--swimmer-text-muted、--swimmer-tool-font-* |
 | 普通/选中/含义/禁用控件 | --swimmer-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
 | 危险操作 | --swimmer-danger-ink、--swimmer-control-danger-edge；不会改变普通底色 |
 | 配色 | --swimmer-tint-*、--swimmer-mist-*；hue 映射为控件局部变量 |
