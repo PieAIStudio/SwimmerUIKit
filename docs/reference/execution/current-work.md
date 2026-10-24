@@ -19,13 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.3 B3 已完成本地验证，待 trusted Actions 发布
+## 当前：4.0.0-alpha.3 已于 2026-10-24 通过 trusted Actions 发布为 npm next
 
-B3 沿用 B2 的公开 `Shell` API，新增工具壳的 `platform`、`compact`、`reducedMotion` 与 sidebar/windowBar/mobileNav 槽位，并新增无状态 `PageSurface`。六个 Storybook 页面故事覆盖 home、progress、results、review、complete、settings；静态卡片/列表不加待机动画，液体只落在主按钮、进行中和完成一次反馈。
+B3 沿用 B2 的公开 `Shell` API，新增工具壳的 `platform`、`compact`、`reducedMotion` 与 sidebar/windowBar/mobileNav 槽位，并新增无状态 `PageSurface`。六个 Storybook 页面故事覆盖 home、progress、results、review、complete、settings；静态卡片/列表不加待机动画，液体只落在主按钮、进行中和完成一次反馈。没有改产品仓库，没有新增五个结果组合件、路由/数据状态或兼容别名。
 
-本轮没有改产品仓库，没有新增五个结果组合件、路由/数据状态或兼容别名；主题 token、线性图标和 Mac 半透明/Windows 普通/手机单列规则均归 Kit。六页截图和三种代表性浏览器烟测收据在 `.reports/2026-10-24-uikit4-b3/`。
+源提交 **`d22a243`** 已推送 `main`；首次 workflow 因字体 token 冲突首红并保留原始日志，修正后只重新触发一次 **`40109303108`**／attempt 1，head `d22a243`。云端 `pnpm verify`、Storybook、文档、packed、publint strict、ESM-only attw、Next 真包消费全部通过；候选 SHA-256 **`025ce35de752d4571032b7cb33c48aebcf1a870c6ee94a02620e07dfe169248e`**，root runtime **156929 bytes**，低于 159626-byte budget。当前包比 3.2.5 基线多一个工具壳/页面骨架契约，B3 的本地截图和三代表性 Chromium 烟测在 `.reports/2026-10-24-uikit4-b3/`。
 
-本地相关检查已通过：类型、lint、格式、API inventory/guide、样式/主题/字体、相关单元、Shell Chromium 三烟测、Storybook 154 项、构建、文档。版本已改为 `4.0.0-alpha.3`；尚未触发 workflow、尚未发布 npm，`latest` 目标仍为 3.2.5。
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.3` 存在，`next=4.0.0-alpha.3`，`latest=3.2.5`；registry `dist.integrity=sha512-n67vKN+huPGHjsoSMxA4UrKVrKy1FkdyR3Lru08I931ubYheXOvMmVctvRRMuM/8j4eS0Ln0QRk8reGy4qBsgQ==`。下载包 SHA-256 与 workflow 候选一致；4.0 alpha 只发布到 `next`，不代表任何产品已升级或验收。
 
 ## 前次：4.0.0-alpha.2 已于 2026-10-24 通过 trusted Actions 发布为 npm next
 
