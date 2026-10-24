@@ -19,7 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：3.2.5 已于 2026-10-23 通过 Actions 发布为 npm latest
+## 当前：4.0.0-alpha.1 已于 2026-10-24 通过 trusted Actions 发布为 npm next
+
+B1 按 `BRIEF.md` 完成：计划收窄提交 `51e7088`，B1 提交 `7ef18ef`，均已正常推送 `main`。B1 移除未使用的 `./liquid-effects`、`./preview`、`./icon-paths` JavaScript package leaves，保留仍有消费者的 `preview.css`；根入口与 `liquid-presence` 的发布、packed、API、类型和构建边界已同步。液体外圈与进度轨道不再使用 React `useId` 分配顺序作为几何种子；无调用方身份时使用固定可读种子。
+
+仅手动触发 `npm-publish.yml`：run **40096094967**／attempt 1 成功，head `7ef18ef`。云端完整 `pnpm verify`、Storybook、文档、真实包、publint、ESM-only attw、类型消费和 Next 真包消费全部通过；Next consumer 与发布候选 SHA-256 为 **`0db5567a3b55983b6befbe65b1e1f0677cc21537c17bee2a58c3e4322110a408`**。workflow 的传播读回先短暂得到精确版本 E404，随后同一 attempt 内成功确认版本和标签；没有重发或重跑。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.1` 存在，`next=4.0.0-alpha.1`，`latest=3.2.5`，registry `dist.integrity=sha512-4v1jWGmz/ovhVeo1OzL/Q7kE6t2SaKfjYGuGMSIuFfK7A6rosGpOfA+KVmEMvks7X7fPJAJf7as3XbJuRcxoYg==`；新下载归档与 workflow 候选 SHA-256 一致。4.0 alpha 只发布到 `next`，不代表任何产品已升级或验收。
+
+## 稳定基线：3.2.5 已于 2026-10-23 通过 Actions 发布为 npm latest
 
 Owner 接续⑫授权的最小补丁已在 `3701eaa` 推至 main：`GameAccountMenu` 可选 `triggerId` 原样透传到内部 `GameButton.id`，产品 +4 行（含注释），不改种子算法，未传时保留原行为与参考图。新增两次挂载回归修前在路径相等断言失败，修后依赖自动选中的 4 文件／26 项全过；类型、lint、格式、API、构建与文档通过。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。
 
