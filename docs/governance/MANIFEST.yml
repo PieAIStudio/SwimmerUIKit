@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-22T23:45:18.290Z
+generated_at: 2026-10-24T10:38:16.425Z
 generator_version: doc-gov@0.16.0
-docs_count: 57
+docs_count: 58
 docs:
   - id: ARCHIVE-LIQUID-MERGE-OWNER-REVIEW
     path: docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md
@@ -179,6 +179,13 @@ docs:
     canonical: true
     last_reviewed: 2026-09-10
     pinned: true
+  - id: PLAN-UIKIT-4-ALPHA
+    path: docs/plans/active/PLAN-UIKIT-4-ALPHA.md
+    type: plan
+    status: active
+    canonical: true
+    last_reviewed: 2026-10-24
+    pinned: false
   - id: PLAN-0004-GAME-ICON-SURFACE-FIX
     path: docs/plans/completed/game-icon-surface-fix.md
     type: plan
