@@ -19,11 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.4 B4 已完成本地验证，待 trusted Actions 发布
+## 当前：4.0.0-alpha.4 已于 2026-10-25 通过 trusted Actions 发布为 npm next
 
-B4 扩展 `swimmer-ui-check`：一次可传多个目录，并用 `--rules=tokens,old-names,contrast` 选择规则组；每个目录单独报告归属。两个仓库 fixture 覆盖单目录兼容、多目录、规则选择、缺目录和旧主题值负例；不复制 `api:check` 的 exports 审计，也没有改产品仓库。
+B4 扩展 `swimmer-ui-check`：一次可传多个目录，并用 `--rules=tokens,old-names,contrast` 选择规则组；每个目录单独报告归属。两个仓库 fixture 覆盖单目录兼容、多目录、规则选择、缺目录和旧主题值负例；不复制 `api:check` 的 exports 审计，也没有改产品仓库。B 段至此完成。
 
-本地检查器相关测试 28 项通过；类型、lint、格式和 docs:check 通过（59 份文档／201 个当前链接），`pnpm build` 通过，CSS 0 warning。默认 `pnpm check:styles` 仍以 `node bin/swimmer-ui-check.mjs src` 扫 61 个 CSS 文件并退出 0；版本已改为 `4.0.0-alpha.4`，发布仍只走 `npm-publish.yml` 的 npm `next`，`latest` 守护值为 3.2.5。
+源提交 **`fa858f2`** 已推送 `main`；仅手动触发 trusted workflow **`40112540019`**／attempt 1 成功。云端 `pnpm verify`（110 个文件／731 项）、Storybook、docs、packed、publint strict、ESM-only attw、Next 真包消费全部通过；候选 SHA-256 **`c4c7ac4498cd61e06949e26fdceec1949677f8fb6c152c1130d5cf55ca732653`**，root runtime **156929 bytes**，低于 159626-byte budget。默认 `pnpm check:styles` 的单目录行为和退出 0 由本地前后输出对照保留在 `.reports/2026-10-24-uikit4-b4/`。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.4` 存在，`next=4.0.0-alpha.4`，`latest=3.2.5`；registry `dist.integrity=sha512-xY6RDFXvaqipIDipgLF15PQI6tcBFe+GrNiHF2vuwLlLIH0sHGDKPd78OdwDwOE3+bBm5bFEifHBfGiT0kuDfg==`，下载 tarball SHA-256 与 workflow 候选一致。4.0 alpha 只发布到 `next`，不代表任何产品已升级或验收。
 
 ## 前次：4.0.0-alpha.3 已于 2026-10-24 通过 trusted Actions 发布为 npm next
 
