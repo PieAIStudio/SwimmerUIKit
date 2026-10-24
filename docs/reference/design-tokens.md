@@ -18,7 +18,7 @@ related:
 
 # 设计 token
 
-适用版本：4.0.0-alpha.3。B2 已硬切公开名字和 token 前缀，B3 新增工具壳与页面骨架 token；表面、字体和展示组件按下方唯一来源取值，旧 panel 别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套 token 补缺。
+适用版本：4.0.0-alpha.4。B2 已硬切公开名字和 token 前缀，B3 新增工具壳与页面骨架 token，B4 的检查器支持按目录和规则组复查 token 使用；表面、字体和展示组件按下方唯一来源取值，旧 panel 别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套 token 补缺。
 
 token 是按用途命名的视觉变量。产品选择“文字、普通底色、危险文字”，不复制一份按钮 CSS。
 
@@ -73,10 +73,11 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 库的组件规则在 swimmer-ui 层。消费方确需覆写时优先改语义 token，不复制组件或使用 !important。风格配方在绘制元素上解析：hue 改动必须在该元素形成实际语义值，不能先在祖先把 color-mix 算死。自定义颜色要重新跑真实文字/背景对比检查，不能继承官方配色的通过结论。
 
-普通主色与文字主色不同：accent-ink 是强调色文字，accent-contrast 才是用于 accent 背景的文字。检测工具会报告不可读的裸 token 配对、未定义变量和旧主题取值；透明叠色与任意用户图像仍需在实际场景验证。
+普通主色与文字主色不同：accent-ink 是强调色文字，accent-contrast 才是用于 accent 背景的文字。检测工具会报告不可读的裸 token 配对、未定义变量和旧主题取值；透明叠色与任意用户图像仍需在实际场景验证。默认一次扫描一个目录并运行全部规则；需要拆开归属或只跑相关规则时，可以传多个目录和 `--rules=tokens,old-names,contrast` 的子集。
 
 ```sh
 pnpm exec swimmer-ui-check src
+pnpm exec swimmer-ui-check src preview --ext=css,tsx --rules=tokens,contrast
 ```
 
 ## 字体、Tailwind 与资源
@@ -89,7 +90,7 @@ styles.css 已包含默认字体声明；fonts.css 仍可单独加载字体而�
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 
-Icon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.3 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
+Icon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.4 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
 
 ## 自动约束
 

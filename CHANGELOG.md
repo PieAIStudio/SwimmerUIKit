@@ -5,6 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.4 — 2026-10-25（已发布到 npm next）
+
+- B4 扩展 `swimmer-ui-check`：一次可检查多个目录，并可按 `tokens`、`old-names`、`contrast` 规则组选择检查；报告保留每个目录的归属。
+- 保留默认单目录 `pnpm check:styles` 的检查范围和退出码；仓库 fixture 覆盖单目录兼容、多目录、规则选择、缺目录和旧写法负例。不重复 `api:check` 的 exports 审计，`latest` 仍保持 3.2.5。
+
 ## 4.0.0-alpha.3 — 2026-10-24（已发布到 npm next）
 
 - B3 沿用 B2 的 `Shell` API，新增 `platform`、`compact`、`reducedMotion` 以及 sidebar、windowBar、mobileNav 工具槽位；不自动猜宿主操作系统。

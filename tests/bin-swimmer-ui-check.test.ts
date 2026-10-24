@@ -1,7 +1,7 @@
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { copyFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { afterEach, describe, expect, it } from 'vitest';
@@ -12,14 +12,24 @@ import { afterEach, describe, expect, it } from 'vitest';
 const SRC = dirname(fileURLToPath(import.meta.url));
 const BIN = join(SRC, '..', 'bin', 'swimmer-ui-check.mjs');
 
-function run(dir: string, bin = BIN): { status: number; stdout: string } {
-  try {
-    const stdout = execFileSync('node', [bin, dir], { encoding: 'utf8' });
-    return { status: 0, stdout };
-  } catch (error) {
-    const e = error as { status: number; stdout: string };
-    return { status: e.status, stdout: e.stdout };
-  }
+function runWithBin(
+  bin: string,
+  ...args: string[]
+): {
+  status: number;
+  stdout: string;
+  stderr: string;
+} {
+  const result = spawnSync('node', [bin, ...args], { encoding: 'utf8' });
+  return {
+    status: result.status ?? 2,
+    stdout: result.stdout,
+    stderr: result.stderr,
+  };
+}
+
+function run(...args: string[]): { status: number; stdout: string; stderr: string } {
+  return runWithBin(BIN, ...args);
 }
 
 describe('bin/swimmer-ui-check.mjs', () => {
@@ -79,6 +89,45 @@ describe('bin/swimmer-ui-check.mjs', () => {
     const { status } = run(dir);
 
     expect(status).toBe(0);
+  });
+});
+
+const FIXTURES = join(SRC, 'fixtures', 'swimmer-ui-check');
+
+describe('B4 rule groups and directory ownership', () => {
+  it('keeps the single-directory invocation compatible and labels multiple directories', () => {
+    const single = join(FIXTURES, 'single');
+    const multi = join(FIXTURES, 'multi');
+
+    expect(run(single).status).toBe(0);
+    const result = run(single, multi);
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toContain(`checking directory "${single}"`);
+    expect(result.stdout).toContain(`checking directory "${multi}"`);
+    expect(result.stdout).toContain(`${relative(process.cwd(), multi)}/tokens.css:2`);
+    expect(result.stderr).toContain(`${relative(process.cwd(), multi)}/legacy.ts:1`);
+  });
+
+  it('selects only the requested rule group', () => {
+    const multi = join(FIXTURES, 'multi');
+
+    const tokens = run(multi, '--rules=tokens');
+    expect(tokens.status).toBe(1);
+    expect(tokens.stdout).toContain('raw color literal "#123456"');
+    expect(tokens.stderr).not.toContain('请改成 data-game-ui-theme="dark"');
+
+    const oldNames = run(multi, '--rules=old-names');
+    expect(oldNames.status).toBe(1);
+    expect(oldNames.stderr).toContain('请改成 data-game-ui-theme="dark"');
+    expect(oldNames.stdout).not.toContain('raw color literal');
+  });
+
+  it('uses exit 2 for a missing directory', () => {
+    const result = run(join(FIXTURES, 'missing'));
+
+    expect(result.status).toBe(2);
+    expect(result.stderr).toContain('cannot read');
   });
 });
 
@@ -209,13 +258,13 @@ describe('token ownership and clean-checkout discovery', () => {
       join(app, 'app.css'),
       '.primary { background: var(--swimmer-game-accent); color: var(--swimmer-game-accent-ink); }',
     );
-    expect(run(app, bin).status).toBe(1);
+    expect(runWithBin(bin, app).status).toBe(1);
     mkdirSync(join(kit, 'dist'));
     writeFileSync(
       join(kit, 'dist', 'styles.css'),
       ':root { --swimmer-game-accent: #000000; --swimmer-game-accent-ink: #ffffff; }',
     );
-    const result = run(app, bin);
+    const result = runWithBin(bin, app);
     expect(result.status).toBe(1);
     expect(result.stdout).toContain('--swimmer-game-accent-ink on --swimmer-game-accent');
     expect(result.stdout).toContain('below AA');

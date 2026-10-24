@@ -1,0 +1,4 @@
+.card {
+  background: var(--swimmer-game-accent);
+  color: var(--swimmer-accent-contrast);
+}

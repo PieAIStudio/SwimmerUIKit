@@ -12,9 +12,10 @@
 // consumers to re-theme or re-scope surface tones. Only raw colors inside
 // *other* selectors (component rules) are flagged.
 //
-// Usage: swimmer-ui-check [dir] [--ext=css,tsx]
-//   dir      directory to scan, default "src"
+// Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast]
+//   dir      one or more directories to scan, default "src"
 //   --ext    comma-separated extensions to scan, default "css"
+//   --rules  comma-separated rule groups; default: tokens,old-names,contrast
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -323,132 +324,273 @@ function findContrastViolations(css, themes) {
   return out;
 }
 
-const args = process.argv.slice(2);
-const target = args.find((a) => !a.startsWith('--')) ?? 'src';
-const extArg = args.find((a) => a.startsWith('--ext='));
-const exts = new Set(
-  (extArg ? extArg.slice('--ext='.length).split(',') : ['css']).map((e) =>
-    e.startsWith('.') ? e : `.${e}`,
-  ),
-);
+const RULE_GROUPS = ['tokens', 'old-names', 'contrast'];
+const RULE_ALIASES = new Map([
+  ['token', 'tokens'],
+  ['tokens', 'tokens'],
+  ['old', 'old-names'],
+  ['old-name', 'old-names'],
+  ['old-names', 'old-names'],
+  ['old_names', 'old-names'],
+  ['oldnames', 'old-names'],
+  ['old names', 'old-names'],
+  ['contrast', 'contrast'],
+]);
+const SOURCE_EXTENSIONS = new Set([
+  '.css',
+  '.ts',
+  '.tsx',
+  '.js',
+  '.jsx',
+  '.mjs',
+  '.cjs',
+  '.mts',
+  '.cts',
+  '.html',
+  '.vue',
+  '.svelte',
+]);
+const CODE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']);
 
-const files = [];
-try {
+function printUsage() {
+  console.error(
+    'Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast]\n' +
+      '  default directory: src\n' +
+      '  default rules: tokens,old-names,contrast\n' +
+      '  rules: tokens, old-names, contrast',
+  );
+}
+
+function parseRuleGroups(value) {
+  const selected = new Set();
+  for (const raw of value.split(',')) {
+    const name = raw.trim().toLowerCase();
+    if (name === 'all') {
+      for (const group of RULE_GROUPS) selected.add(group);
+      continue;
+    }
+    const group = RULE_ALIASES.get(name);
+    if (!group) throw new Error(`unknown rule group "${raw.trim()}"`);
+    selected.add(group);
+  }
+  if (selected.size === 0) throw new Error('at least one rule group is required');
+  return selected;
+}
+
+function parseArgs(rawArgs) {
+  const targets = [];
+  let extValue = 'css';
+  let explicitExt = false;
+  let rules = new Set(RULE_GROUPS);
+  let explicitRules = false;
+
+  for (let index = 0; index < rawArgs.length; index += 1) {
+    const arg = rawArgs[index];
+    if (arg === '--help' || arg === '-h') return { help: true };
+    if (arg === '--ext') {
+      extValue = rawArgs[++index] ?? '';
+      explicitExt = true;
+      continue;
+    }
+    if (arg.startsWith('--ext=')) {
+      extValue = arg.slice('--ext='.length);
+      explicitExt = true;
+      continue;
+    }
+    if (arg === '--rules') {
+      const value = rawArgs[++index] ?? '';
+      rules = parseRuleGroups(value);
+      explicitRules = true;
+      continue;
+    }
+    if (arg.startsWith('--rules=')) {
+      rules = parseRuleGroups(arg.slice('--rules='.length));
+      explicitRules = true;
+      continue;
+    }
+    if (arg.startsWith('--')) throw new Error(`unknown option "${arg}"`);
+    targets.push(arg);
+  }
+
+  const exts = new Set(
+    extValue
+      .split(',')
+      .filter(Boolean)
+      .map((extension) => (extension.startsWith('.') ? extension : `.${extension}`)),
+  );
+  if (exts.size === 0) throw new Error('at least one file extension is required');
+  return {
+    help: false,
+    targets: targets.length > 0 ? targets : ['src'],
+    exts,
+    rules,
+    explicitExt,
+    explicitRules,
+  };
+}
+
+function collectFiles(target, exts) {
+  const files = [];
   walk(target, exts, files);
+  return files;
+}
+
+function scanTarget(target, options, themes, definedTokens) {
+  const { exts, rules } = options;
+  const files = collectFiles(target, exts);
+  const counts = { contrast: 0, undefined: 0, raw: 0, oldNames: 0 };
+
+  if (rules.has('old-names')) {
+    const themeFiles = collectFiles(target, SOURCE_EXTENSIONS);
+    for (const file of themeFiles) {
+      for (const violation of findRetiredThemeValues(readFileSync(file, 'utf8'))) {
+        console.error(`${relative(process.cwd(), file)}:${violation.line}: ${violation.message}`);
+        counts.oldNames += 1;
+      }
+    }
+  }
+
+  let ownTokens = new Set();
+  if (rules.has('tokens')) {
+    for (const file of files) {
+      for (const match of readFileSync(file, 'utf8').matchAll(/^\s*(--swimmer-[\w-]+)\s*:/gm)) {
+        ownTokens.add(match[1]);
+      }
+    }
+    // Tokens written from code are a per-element channel, not a theme value.
+    const codeFiles = collectFiles(target, CODE_EXTENSIONS);
+    for (const file of codeFiles) {
+      if (/\.(?:test|spec|stories)\.[cm]?[jt]sx?$/.test(file)) continue;
+      const code = readFileSync(file, 'utf8');
+      // A quoted name is not a definition: tests and read-only token lookups
+      // previously hid undefined CSS hooks. Accept actual inline style writes or
+      // native setProperty writes, not arbitrary strings containing token names.
+      for (const pattern of [
+        /['"`](--swimmer-[\w-]+)['"`]\s*\]?\s*:/g,
+        /\.setProperty\(\s*['"`](--swimmer-[\w-]+)['"`]/g,
+      ]) {
+        for (const match of code.matchAll(pattern)) ownTokens.add(match[1]);
+      }
+    }
+  }
+
+  for (const file of files) {
+    const text = readFileSync(file, 'utf8');
+    if (rules.has('contrast')) {
+      for (const pair of findContrastViolations(text, themes)) {
+        console.log(
+          `${relative(process.cwd(), file)}:${pair.line}: ${pair.fgToken} on ${pair.bgToken} is ` +
+            `${pair.ratio}:1 on the ${pair.theme} theme — below AA (${AA_NORMAL}:1)`,
+        );
+        counts.contrast += 1;
+      }
+    }
+    if (rules.has('tokens')) {
+      for (const undef of findUndefinedTokens(text, definedTokens, ownTokens)) {
+        console.log(
+          `${relative(process.cwd(), file)}:${undef.line}: ${undef.name} is not a token this kit ` +
+            'defines — the var() fallback is doing all the work',
+        );
+        counts.undefined += 1;
+      }
+      for (const violation of findViolations(text)) {
+        console.log(
+          `${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--swimmer-*) instead`,
+        );
+        counts.raw += 1;
+      }
+    }
+  }
+
+  return { files, counts };
+}
+
+const args = process.argv.slice(2);
+let parsed;
+try {
+  parsed = parseArgs(args);
 } catch (error) {
-  console.error(`swimmer-ui-check: cannot read "${target}": ${error.message}`);
+  console.error(`swimmer-ui-check: ${error.message}`);
+  printUsage();
   process.exit(2);
 }
+if (parsed.help) {
+  printUsage();
+  process.exit(0);
+}
 
-const themes = themeTokens();
-const definedTokens = definedTokenNames();
-const ownTokens = new Set();
-for (const file of files) {
-  for (const match of readFileSync(file, 'utf8').matchAll(/^\s*(--swimmer-[\w-]+)\s*:/gm)) {
-    ownTokens.add(match[1]);
-  }
-}
-// Tokens written from code are a per-element channel, not a theme value.
-const codeFiles = [];
-walk(target, new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']), codeFiles);
-for (const file of codeFiles) {
-  if (/\.(?:test|spec|stories)\.[cm]?[jt]sx?$/.test(file)) continue;
-  const code = readFileSync(file, 'utf8');
-  // A quoted name is not a definition: tests and read-only token lookups
-  // previously hid undefined CSS hooks. Accept actual inline style writes or
-  // native setProperty writes, not arbitrary strings containing token names.
-  for (const pattern of [
-    /['"`](--swimmer-[\w-]+)['"`]\s*\]?\s*:/g,
-    /\.setProperty\(\s*['"`](--swimmer-[\w-]+)['"`]/g,
-  ]) {
-    for (const match of code.matchAll(pattern)) ownTokens.add(match[1]);
-  }
-}
-if (!themes || themes.size === 0) {
+const themes = parsed.rules.has('contrast') ? themeTokens() : null;
+const definedTokens = parsed.rules.has('tokens') ? definedTokenNames() : null;
+if (parsed.rules.has('contrast') && (!themes || themes.size === 0)) {
   console.error(
     "swimmer-ui-check: could not read this package's theme tokens, so contrast was NOT checked. " +
-      'Raw-colour linting below still ran.',
-  );
-}
-let contrastCount = 0;
-let undefinedCount = 0;
-let violationCount = 0;
-let retiredThemeCount = 0;
-// This migration check always reads source as well as CSS, even when the
-// default raw-colour scan is CSS-only. It never supplies a legacy fallback.
-const themeFiles = [];
-walk(
-  target,
-  new Set([
-    '.css',
-    '.ts',
-    '.tsx',
-    '.js',
-    '.jsx',
-    '.mjs',
-    '.cjs',
-    '.mts',
-    '.cts',
-    '.html',
-    '.vue',
-    '.svelte',
-  ]),
-  themeFiles,
-);
-for (const file of themeFiles)
-  for (const violation of findRetiredThemeValues(readFileSync(file, 'utf8'))) {
-    console.error(`${relative(process.cwd(), file)}:${violation.line}: ${violation.message}`);
-    retiredThemeCount++;
-  }
-for (const file of files) {
-  const text = readFileSync(file, 'utf8');
-  for (const pair of findContrastViolations(text, themes)) {
-    console.log(
-      `${relative(process.cwd(), file)}:${pair.line}: ${pair.fgToken} on ${pair.bgToken} is ` +
-        `${pair.ratio}:1 on the ${pair.theme} theme — below AA (${AA_NORMAL}:1)`,
-    );
-    contrastCount += 1;
-  }
-  for (const undef of findUndefinedTokens(text, definedTokens, ownTokens)) {
-    console.log(
-      `${relative(process.cwd(), file)}:${undef.line}: ${undef.name} is not a token this kit ` +
-        'defines — the var() fallback is doing all the work',
-    );
-    undefinedCount += 1;
-  }
-  for (const violation of findViolations(text)) {
-    console.log(
-      `${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--swimmer-*) instead`,
-    );
-    violationCount += 1;
-  }
-}
-
-if (contrastCount > 0) {
-  console.error(
-    `\nswimmer-ui-check: ${contrastCount} unreadable token pair(s). Two tokens are not ` +
-      'automatically safe together: --swimmer-game-accent-ink is accent-COLOURED ink for a surface, ' +
-      'while --swimmer-accent-contrast is the ink meant to sit on --swimmer-game-accent.',
+      'Token linting below still ran.',
   );
 }
 
-if (undefinedCount > 0) {
-  console.error(
-    `\nswimmer-ui-check: ${undefinedCount} reference(s) to a token this kit does not define. ` +
-      'These never fail at runtime, because var() falls back — which is exactly why they survive. ' +
-      'Either the name is wrong, or the token is missing from the kit and should be proposed there.',
-  );
-}
+const legacyInvocation =
+  parsed.targets.length === 1 && !parsed.explicitExt && !parsed.explicitRules;
+let failed = false;
+for (const target of parsed.targets) {
+  const label = target || '.';
+  if (!legacyInvocation) {
+    console.log(
+      `swimmer-ui-check: checking directory "${label}" (rules: ${[...parsed.rules].join(', ')}).`,
+    );
+  }
 
-if (violationCount > 0 || contrastCount > 0 || undefinedCount > 0 || retiredThemeCount > 0) {
-  console.error(
-    `\nswimmer-ui-check: ${violationCount} raw color literal(s) in ${files.length} file(s) under "${target}". ` +
-      'Raw colors are expected inside :root / [data-*theme*=...] / [data-*tone*=...] token blocks ' +
-      '(that is how you re-theme or re-scope the kit) but not inside component rules — see the ' +
-      'design-system-guide "主题化配方" section.',
-  );
-  process.exit(1);
+  let result;
+  try {
+    result = scanTarget(target, parsed, themes, definedTokens);
+  } catch (error) {
+    console.error(`swimmer-ui-check: cannot read "${target}": ${error.message}`);
+    process.exit(2);
+  }
+
+  const { files, counts } = result;
+  const hasErrors = Object.values(counts).some((count) => count > 0);
+  if (counts.contrast > 0) {
+    console.error(
+      `\nswimmer-ui-check: ${counts.contrast} unreadable token pair(s) in "${label}". ` +
+        'Two tokens are not automatically safe together: --swimmer-game-accent-ink is ' +
+        'accent-COLOURED ink for a surface, while --swimmer-accent-contrast is the ink meant ' +
+        'to sit on --swimmer-game-accent.',
+    );
+  }
+  if (counts.undefined > 0) {
+    console.error(
+      `\nswimmer-ui-check: ${counts.undefined} reference(s) to an undefined token in "${label}". ` +
+        'These never fail at runtime, because var() falls back — which is exactly why they survive. ' +
+        'Either the name is wrong, or the token is missing from the kit and should be proposed there.',
+    );
+  }
+  if (hasErrors) {
+    failed = true;
+    if (legacyInvocation) {
+      console.error(
+        `\nswimmer-ui-check: ${counts.raw} raw color literal(s) in ${files.length} file(s) under "${target}". ` +
+          'Raw colors are expected inside :root / [data-*theme*=...] / [data-*tone*=...] token blocks ' +
+          '(that is how you re-theme or re-scope the kit) but not inside component rules — see the ' +
+          'design-system-guide "主题化配方" section.',
+      );
+    } else {
+      console.error(
+        `swimmer-ui-check: directory "${label}" failed ` +
+          `(${counts.raw} raw colors, ${counts.undefined} undefined tokens, ${counts.contrast} contrast issues, ${counts.oldNames} old-name issues).`,
+      );
+    }
+    continue;
+  }
+
+  if (legacyInvocation) {
+    console.log(
+      `swimmer-ui-check: 0 raw color literals in component rules across ${files.length} file(s) under "${target}". Clean.`,
+    );
+  } else {
+    console.log(
+      `swimmer-ui-check: directory "${label}" clean across ${files.length} file(s) ` +
+        `(rules: ${[...parsed.rules].join(', ')}).`,
+    );
+  }
 }
-console.log(
-  `swimmer-ui-check: 0 raw color literals in component rules across ${files.length} file(s) under "${target}". Clean.`,
-);
+if (failed) process.exit(1);

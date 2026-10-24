@@ -19,7 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.3 已于 2026-10-24 通过 trusted Actions 发布为 npm next
+## 当前：4.0.0-alpha.4 B4 已完成本地验证，待 trusted Actions 发布
+
+B4 扩展 `swimmer-ui-check`：一次可传多个目录，并用 `--rules=tokens,old-names,contrast` 选择规则组；每个目录单独报告归属。两个仓库 fixture 覆盖单目录兼容、多目录、规则选择、缺目录和旧主题值负例；不复制 `api:check` 的 exports 审计，也没有改产品仓库。
+
+本地检查器相关测试 28 项通过；类型、lint、格式和 docs:check 通过（59 份文档／201 个当前链接），`pnpm build` 通过，CSS 0 warning。默认 `pnpm check:styles` 仍以 `node bin/swimmer-ui-check.mjs src` 扫 61 个 CSS 文件并退出 0；版本已改为 `4.0.0-alpha.4`，发布仍只走 `npm-publish.yml` 的 npm `next`，`latest` 守护值为 3.2.5。
+
+## 前次：4.0.0-alpha.3 已于 2026-10-24 通过 trusted Actions 发布为 npm next
 
 B3 沿用 B2 的公开 `Shell` API，新增工具壳的 `platform`、`compact`、`reducedMotion` 与 sidebar/windowBar/mobileNav 槽位，并新增无状态 `PageSurface`。六个 Storybook 页面故事覆盖 home、progress、results、review、complete、settings；静态卡片/列表不加待机动画，液体只落在主按钮、进行中和完成一次反馈。没有改产品仓库，没有新增五个结果组合件、路由/数据状态或兼容别名。
 

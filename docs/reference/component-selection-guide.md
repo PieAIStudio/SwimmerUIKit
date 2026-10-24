@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应 4.0.0-alpha.3 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
+本指南对应 4.0.0-alpha.4 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 
@@ -62,12 +62,12 @@ related:
 单体装饰用 LiquidSurface，多体关系用 LiquidGroup + liquidFormItem。它们不替代真实 DOM 控件。
 宿主预算只通过 setLiquidGooeyBudget 设置，不依赖内部计数器、默认常量或整张配方表。
 
-4.0.0-alpha.3 不发布高级图像特效 JS leaf；本仓库仍保留相关源码供内部故事和测试，但产品不能把这些实现当成当前包依赖。普通液体只使用根入口公开的 `LiquidSurface` / `LiquidGroup`，测量、时钟、预算与减少动态仍由同一引擎负责。
+4.0.0-alpha.4 不发布高级图像特效 JS leaf；本仓库仍保留相关源码供内部故事和测试，但产品不能把这些实现当成当前包依赖。普通液体只使用根入口公开的 `LiquidSurface` / `LiquidGroup`，测量、时钟、预算与减少动态仍由同一引擎负责。
 
 涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。账号菜单 AccountMenu 不在根入口：它的面板是 LiquidPopover，与涟同属这一入口，也要引入同一份 liquid-presence.css。
 它只画身体与手势，不调用模型，不开启麦克风，不替用户点击目标。
 
-4.0.0-alpha.3 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
+4.0.0-alpha.4 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
 
 ## 深色主题与迁移
 
@@ -155,7 +155,7 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `Icon` | 内联 SVG 图标；label 表示可朗读含义，省略时作为装饰。默认 md20，另有 sm16、lg24。 |
 | `GAME_ICON_NAMES` | 展厅或动态菜单需要的名称清单，不是第二套组件。 |
 
-独立具名路径 JS leaf 在 4.0.0-alpha.3 不再公开；用字符串名的 `Icon` 继续使用本包的小型名称表。图标来源与许可证见 [donor 索引](../../donors-individual.md) 和 `NOTICE`。
+独立具名路径 JS leaf 在 4.0.0-alpha.4 不再公开；用字符串名的 `Icon` 继续使用本包的小型名称表。图标来源与许可证见 [donor 索引](../../donors-individual.md) 和 `NOTICE`。
 
 ## 链接、小号与液体弹出面板
 
