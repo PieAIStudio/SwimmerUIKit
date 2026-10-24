@@ -40,11 +40,11 @@ superseded_by: null
 
 脚本：[scripts/measure-uikit4-baseline.mjs](../../../scripts/measure-uikit4-baseline.mjs)。它在提交 `ee1b62d4d183a97c2c50353261840a182a01ee90` 上：
 
-1. 以 `run-locked.py` 排队，连续三次 `pnpm build`、三次 `pnpm test`；
+1. 以 `run-locked.py` 排队，完成 A 段的 `pnpm build`、`pnpm test` 基线与日志；
 2. 对 `package.json.exports` 的 11 个运行时/CSS/JSON 入口算原始和 gzip；
 3. 用一个只导入 `GameButton` + `styles.css` 的临时 Vite 消费者算 JS、CSS 和总量；
 4. 只读扫描 12 个消费者的导入、包版本、公开值/类型和相对模块边；
-5. 将日志和 tarball 放在 `.reports/2026-10-24-uikit4-plan/`，不写消费者。
+5. 将日志和 tarball 放在 `.reports/2026-10-24-uikit4-plan/`，不写消费者。A 段已有的多次测量只作历史收据；B1–B4 不为体积或时间重复跑三次，也不把它们设为阻断门禁。
 
 公开入口明细：
 
@@ -164,7 +164,7 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 | --- | --- | --- | --- |
 | Mac 半透明侧栏、Windows 普通侧栏、手机单列 | `GameShell`/`GameHudActions` 是游戏槽位，不是工具窗口壳 | 新增工具 `Shell`、`Sidebar`、`WindowBar`、mobile nav；接受 platform/compact/reduced-motion 属性，不自动猜宿主 OS | 窗口尺寸、Electron/宿主菜单、导航路由 |
 | 六页骨架：home / progress / results / review / complete / settings | 没有工具页骨架 | 新增六个可组合 page slots 或一个明确的 page-surface API；提供布局、标题区、主动作槽、内容槽、底部动作槽 | 页面文案、数据、路由、加载和业务状态 |
-| 四组结果卡、审阅左右栏、固定选择底栏 | `Panel`、`ListRow`、`Badge` 等零件可复用；没有组合布局 | 新增 `SummaryCard`、`ReviewLayout`、`CategoryNav`、`SelectionFooter`、`ResultList`；卡片/list 静止平面 | 4+2+2+3 计数、分组规则、聊天详情、账号范围 |
+| 四组结果卡、审阅左右栏、固定选择底栏 | `Panel`、`ListRow`、`Badge` 等零件可复用；没有组合布局 | B3 不新增结果组合件；用一个通用 page surface/slots 和已有零件组合，卡片/list 保持静止平面 | 4+2+2+3 计数、分组规则、聊天详情、账号范围 |
 | 主动作 | `GameButton variant="primary"` 已有潮汐液体 | B2 改名为 `Button`，保留一屏一个 CTA；不把普通按钮变液体 | “检查聊天/全部同步”等动作语义 |
 | 扫描/同步进度 | `GameProgress` 已有 600ms 变化后休眠的规则 | B2 改名为 `Progress`；B3 只接工具骨架，验证无待机动画和 reduced-motion | 真实进度、停止边界、写入结果 |
 | 完成瞬间 | 没有通用 completion feedback；已有 `LiquidSurface` 只是一体装饰 | 先用现有 CTA/progress/静止图形验证；只有确有第二个工具需求才新增最小 `CompletionFeedback`，不把 `liquid-effects` 硬塞进完成页 | relay PNG、六项完成清单、产品成就文案 |
@@ -182,22 +182,23 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 
 **改什么**
 
-- 以本 A 段收据为准删掉零使用 `./liquid-effects`、`./preview`、`./icon-paths` 的包入口；`preview.css` 因 TuringPact 仍用，暂留但不再让 preview JS 随包可达。
-- 按基础 / 工具 / 游戏 / 液体重新定义公开子路径和入口依赖图；根入口只保留基础/普通控件，游戏、工具壳、presence/liquid 按需进入子路径。先不改 Game 名，避免把拓扑和改名混成一次不可诊断的提交。
-- 检查液体外圈的稳定种子：移除对 `useId` 造成跨挂载几何漂移的依赖，使用调用方稳定身份或明确稳定 seed；不改变没有身份时的可读静态结果。
-- 复查所有动态分支的 `prefers-reduced-motion` / explicit reduced-motion，静态展示不加环境时钟。`liquid-effects` 不为完成瞬间强行复活；若没有第二个明确工具落点，就只从 4.0 包移出，Git 历史保留。
+- 以本 A 段收据为准删掉零使用 `./liquid-effects`、`./preview`、`./icon-paths` 的公开包入口；`preview.css` 因 TuringPact 仍用，暂留，但 preview JS 不再随包可达。保留仓库内部预览、图标路径数据和特效源码供本仓库故事/测试使用，不把它们继续声明成已发布 JS leaves。
+- 按基础 / 工具 / 游戏 / 液体收紧公开入口与入口依赖图；根入口只保留基础/普通控件，`liquid-presence` 按需保留。先不改 Game 名，避免把拓扑和改名混成一次不可诊断的提交。
+- 删除入口后同步既有契约，不新增发布系统或第二套检查：`.github/workflows/npm-publish.yml` 的 attw `--entrypoints`、`scripts/verify-packed-candidate.mjs` 的 runtime/export/type fixture、`tests/publicApi.test.ts`、`tests/type-contracts/optional-entries.tsx`，以及 `scripts/check-warnings-survive-build.mjs` 的构建入口/警告清单；同时收敛仍宣称这些 leaves 可安装的现行文档。
+- 检查液体外圈的稳定种子：几何使用调用方稳定身份或明确固定 seed，不依赖 React `useId` 的分配顺序；没有身份时保持可读静态结果。复查所有动态分支的 `prefers-reduced-motion` / explicit reduced-motion，静态展示不加环境时钟。
 
 **不改什么**
 
 - 不改消费者、ClaudeSync、University 或任何产品截图；不做名字硬切，不改 `latest`。
-- 不重写液体引擎、不做第二套 theme engine、不把预览页搬成产品组件。
+- 不重写液体引擎、不做第二套 theme engine、不把预览页搬成产品组件；`liquid-effects` 不为完成瞬间强行复活，Git 历史保留源码。
 
 **怎么验证**
 
-- 依赖图无根入口→effects/preview；单按钮消费者 JS、入口闭包、构建时间和测试时间不劣于 A 基线。
-- 受影响的液体/seed/reduced-motion 相关单元和 Chromium 用例按 changed-path selector 运行；打包候选做 export-map/类型/最小消费检查。视觉结果必须在实际浏览器看，不用测试代替。
+- 相关 API、类型、入口边界、警告构建和 packed fixture 检查通过；候选包的 export map、实际 `dist/bin` 文件集合、ESM 类型消费和最小消费检查与新公开入口一致。
+- 受影响的固定浏览器 smoke set 是 `DropletSurface.browser.test.tsx`、`GameButton/contour-identity.browser.test.tsx` 和 `GameProgress.browser.test.tsx`；按 changed-path 选择时记录选择依据与盲点（不覆盖外部消费者）。视觉/交互结果必须看实际 Chromium，测试不替代浏览器证据。
+- 入口体积、构建时间和测试时间只在本片收据中与 A 段作一次对照，不作阻断门禁，不为此重复三次。
 
-**预计改动**：约 **900–1,800 行**；最大风险是入口边界移动时把共享 chunk 重复打进工具和游戏两个闭包。
+**预计改动**：约 **120–260 行**；最大风险是入口边界移动时把共享 chunk 重复打进仍保留的入口。
 
 ### B2：硬改名（`4.0.0-alpha.2`）
 
@@ -214,8 +215,8 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 
 **怎么验证**
 
-- API inventory、类型消费、`rg` 旧名检查和迁移工具的正/负 fixture；旧名只能出现在迁移材料/历史证据，不能出现在运行时出口。
-- 入口体积、最小消费者和相关浏览器回归不能比 A 基线恶化；所有 `--swimmer-*` 语义组合跑真实对比度/主题检查。
+- API inventory、类型消费、`rg` 旧名检查和迁移工具的正/负 fixture；旧名只能出现在迁移材料/历史证据，不能出现在运行时出口。API inventory 与迁移说明只运行现有 `pnpm api:inventory` 生成，不另写手工表。
+- 相关浏览器 smoke set 由变更路径映射到现有控件/主题用例，记录选择依据和外部产品未覆盖的盲点；入口体积只作为一次收据指标，不作门禁、不重复三次。
 
 **预计改动**：约 **2,000–4,000 行**（含调用点、测试和生成表）；最大风险是同名 token 的语义被机械替换，导致工具和游戏主题互相覆盖。
 
@@ -223,10 +224,10 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 
 **改什么**
 
-- 新增 `Shell`、`Sidebar`、`WindowBar`、六页 surface slots、`SummaryCard`、`ReviewLayout`、`CategoryNav`、`SelectionFooter`、`ResultList` 等最小组合；产品用 children/slots 注入内容。
-- 用 Lucide-derived 内嵌路径做统一线性图标；只把液体放在主按钮、进行中和完成一次反馈，静态卡片、列表、普通按钮不动不晃。
-- 将 v2.7 的窗口渐变、侧栏玻璃/普通版、浅深 token、字号/间距/圆角/动效和手机单列规则收为 `--swimmer-*`；工具壳不拥有 ClaudeSync 的 sky 业务数据。
-- 加 Storybook/浏览器故事覆盖 home、progress、results、review、complete、settings，桌面/窄屏、浅深色、Windows 普通版和 reduced motion。
+- 只新增/改造一个 `Shell` API 和一个通用 page surface/slots；B2 的 `GameShell → Shell` 是同一个公开 API 的改名/收窄，工具壳不另造第二套 `Shell`。六页只用 `Shell`、通用页面槽位和已有 `Panel` / `ListRow` / `Badge` 等零件组合。
+- 不在 alpha 加入 `SummaryCard`、`ReviewLayout`、`CategoryNav`、`SelectionFooter`、`ResultList` 五个结果组合件及其专属故事/测试；产品用 children/slots 注入数据和文案。
+- 用已审核的 Lucide-derived 内嵌路径做统一线性图标；只把液体放在主按钮、进行中和完成一次反馈，静态卡片、列表、普通按钮不动不晃。
+- 将 v2.7 的窗口/侧栏语气、浅深 token、字号/间距/圆角/动效和手机单列规则收为 `--swimmer-*`；工具壳不拥有 ClaudeSync 的 sky 业务数据。
 
 **不改什么**
 
@@ -235,32 +236,42 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 
 **怎么验证**
 
-- 实际浏览器逐页对照 v2.7 六阶段截图的布局层级、唯一主按钮、静止卡片、窄屏不横溢和键盘焦点；视觉验收单独留截图，不以 Storybook 绿灯冒充。
-- 相关单元/浏览器/a11y/contrast 检查；入口和最小按钮消费者要优于 A 基线，尤其不能让只用按钮的根入口带进 preview/effects/game 闭包。
+- 实际浏览器只做三个代表性 smoke：桌面浅色、桌面深色、窄屏 reduced-motion；六页用一张骨架故事/图逐页确认层级、唯一主按钮、静止卡片、窄屏不横溢和键盘焦点，不做 6 页 × 2 主题 × 2 平台 × 桌面/手机 × reduced-motion 的全交叉矩阵。
+- 相关单元/浏览器/a11y/contrast 检查按维护的 source→browser mapping 或固定 smoke set 选择；收据写明覆盖与盲点，外部产品和 Electron 实机不在 Kit alpha 验收内。
+- 入口与最小按钮消费者的体积/时间只作一次收据指标，不作阻断门禁、不重复三次。视觉验收单独留截图，不以 Storybook 绿灯冒充。
 
-**预计改动**：约 **1,800–3,200 行**；最大风险是把 ClaudeSync 业务状态塞进 Kit，或为追截图重新引入无限待机动画。
+**预计改动**：约 **700–1,300 行**；最大风险是把 ClaudeSync 业务状态塞进 Kit，或为追截图重新引入无限待机动画。
 
 ### B4：检查工具（`4.0.0-alpha.4`）
 
 **改什么**
 
-- `swimmer-ui-check` 支持多个目录输入、目录/包配置选择和可选规则组（tokens、old names、exports、contrast 等）；一次报告每个目录的归属。
-- 把 University 现有 407 行包裹层能删除作为目标，但本仓库只提供 CLI 能力，不改 University。
+- `swimmer-ui-check` 支持多个目录输入和可选规则组（tokens、old names、contrast 等）；一次报告每个目录的归属。保留旧写法负例，不复制 `api:check` 的 exports 审计。
+- 用仓库内最小的两个 fixture 覆盖多目录/单目录和规则选择；不把 University 的行数或真实消费者接入作为 Kit 目标。
 
 **不改什么**
 
-- 不把检查器变成 formatter、迁移器或运行时兼容层；不新增 CI 服务，不默认跑全仓库全套。
+- 不把检查器变成 formatter、迁移器、包配置选择器或运行时兼容层；不新增 warning/blocking 双语义体系或重复实现 exports 规则；不新增 CI 服务，不默认跑全仓库全套。
+- 现有 `pnpm check:styles` 的默认单目录输入和退出行为保持不变。
 
 **怎么验证**
 
-- 多目录、单目录兼容、规则选择、缺目录和旧名负例；输出能明确区分 warning 与 blocking error。
-- 只跑脚本相关 lint/unit/fixture；用一两个真实消费者目录做只读 smoke，记录其覆盖盲点。
+- 多目录、单目录兼容、规则选择、缺目录和旧名负例；确认默认 `check:styles` 行为未变。
+- 只跑脚本相关 lint/unit/fixture，不做 University 或真实消费者 smoke；在收据中记录 fixture 覆盖与外部消费者盲点。
 
-**预计改动**：约 **250–500 行**；最大风险是可选规则默认值改变现有消费方的失败语义。
+**预计改动**：约 **120–260 行**；最大风险是可选规则默认值改变现有消费方的失败语义。
 
-## 7. 发布工作流判断（A 段不改）
+## 7. 每片通用发布验收清单
 
-当前 `.github/workflows/npm-publish.yml` 已支持预发布：`scripts/check-release-metadata.mjs` 读取 `package.json.version`，版本含 `-` 时输出 `tag=next`；工作流把该值传给 `npm publish --tag "$RELEASE_TAG"`，发布后还断言 `next` 指向新版本、`latest` 不变。因此 B1–B4 的 `4.0.0-alpha.*` 可以走 `next`，无需改工作流。本段不触发 `gh workflow run`，不运行 npm publish。
+每个 B 片都必须独立完成这一组短清单；它是执行步骤，不新增门禁。B1 删除公开 JS leaves 时，先同步既有 workflow/packed/API/type 契约，再按本清单发布。
+
+1. **版本号**：只改到该片批准的 `4.0.0-alpha.*`，确认预发布版本会选择 `next`。
+2. **相关检查**：按完整 outgoing diff 的路径与依赖选择格式、lint、类型、单元/浏览器、API、构建、packed/文档等相关检查；浏览器使用维护的 source→browser mapping 或固定 smoke set，并在收据写覆盖盲点。体积和时间只记录一次，不作阻断，不跑三次。
+3. **可信发布**：干净提交推到 `main` 后，只运行 `gh workflow run npm-publish.yml`；禁止本机 `npm publish`，不为发布绿灯降低断言或使用 `--no-verify`。
+4. **npm `next` 回读**：独立读取精确版本、`dist.integrity` 和 dist-tags，确认 `next` 指向该 alpha 版本。
+5. **`latest` 守护**：确认 `latest` 仍为 **3.2.5**；失败保留首红和原始日志，不重复发布。
+
+API inventory 与迁移文档只通过已有 `pnpm api:inventory` 生成来源维护，不另写手工事实表；发布收据记录计划变化、相关检查/选择依据、workflow run 号、npm 回读和提交号。
 
 ## 8. 「别做大」
 
@@ -271,7 +282,7 @@ v2.7 的 `Specification.md`、`Tokens.md`、`prototype-src/*` 和 12 张 1440×1
 - 不新建 GameKit，不保留 3.x 兼容别名，不让 2.x 产品被动升级，不碰消费者仓库。
 - 不为证明“液体特色”而把融化/弯折放进静态卡片；没有真实第二落点就移出 4.0 包，不新造一套特效引擎。
 - 不在普通 push 前跑全仓库 full suite、全浏览器套件、整套 timing suite 或付费云验收；只跑 changed-path 相关检查。正式 E 版才按授权跑 release full suite。
-- 不把 A 段的基线脚本变成新的长期门禁；它是可复跑收据工具，是否纳入 B 段由后续切片决定。
+- 不把 A 段的基线脚本变成新的长期门禁；包体、构建/测试时间只作为每片收据指标，不设置“不得劣于”阻断条件，也不重复三次。
 
 ## 9. A 段交付与下一步
 
