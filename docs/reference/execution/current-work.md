@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-23
+last_reviewed: 2026-10-24
 domain: ui-components
 tags:
   - uikit
@@ -19,13 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.1 已于 2026-10-24 通过 trusted Actions 发布为 npm next
+## 当前：4.0.0-alpha.2 已于 2026-10-24 通过 trusted Actions 发布为 npm next
 
-B1 按 `BRIEF.md` 完成：计划收窄提交 `51e7088`，B1 提交 `7ef18ef`，均已正常推送 `main`。B1 移除未使用的 `./liquid-effects`、`./preview`、`./icon-paths` JavaScript package leaves，保留仍有消费者的 `preview.css`；根入口与 `liquid-presence` 的发布、packed、API、类型和构建边界已同步。液体外圈与进度轨道不再使用 React `useId` 分配顺序作为几何种子；无调用方身份时使用固定可读种子。
+B2 按 `BRIEF.md` 完成，源提交 **`07f1d22`** 已推送 `main`：当前包的 **42 个 Game* 运行时值、71 个公开 Game* 类型**硬切去前缀；源 CSS 定义的 **403 个变量**和 15 个局部引用名迁移到 `--swimmer-*`。与 ClaudeSync v2.7 同名的 26 个 token 保留工具壳的 `--swimmer-*` 归属，Kit 现有游戏/控件语义落到 `--swimmer-game-*`，没有运行时旧名或 CSS 旧别名。`GameShell → Shell` 是同一个公开 API 的断代改名；B3 工具壳继续改造这个 `Shell`，不另造第二套 Shell。
 
-仅手动触发 `npm-publish.yml`：run **40096094967**／attempt 1 成功，head `7ef18ef`。云端完整 `pnpm verify`、Storybook、文档、真实包、publint、ESM-only attw、类型消费和 Next 真包消费全部通过；Next consumer 与发布候选 SHA-256 为 **`0db5567a3b55983b6befbe65b1e1f0677cc21537c17bee2a58c3e4322110a408`**。workflow 的传播读回先短暂得到精确版本 E404，随后同一 attempt 内成功确认版本和标签；没有重发或重跑。
+迁移工具和同源对照表在包外 `migration/uikit-4-alpha-2/replace.mjs` 与 `name-map.json`，不进入 npm 包；API inventory 与迁移文档只由 `pnpm api:inventory` 生成。没有改任何产品仓库，没有做 B3/B4，没有本机 `npm publish`。
 
-官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.1` 存在，`next=4.0.0-alpha.1`，`latest=3.2.5`，registry `dist.integrity=sha512-4v1jWGmz/ovhVeo1OzL/Q7kE6t2SaKfjYGuGMSIuFfK7A6rosGpOfA+KVmEMvks7X7fPJAJf7as3XbJuRcxoYg==`；新下载归档与 workflow 候选 SHA-256 一致。4.0 alpha 只发布到 `next`，不代表任何产品已升级或验收。
+仅手动触发 `npm-publish.yml`：run **40102419872**／attempt 1 成功，head `07f1d22`。云端 `pnpm verify`、Storybook、文档、真实包、packed、publint strict、ESM-only attw、类型消费和 Next 真包消费全部通过；trusted candidate SHA-256 为 **`4607316ff46e7397c45cdd7c4e1322829d6c62d7435563b4910dc36098bc789d`**，root runtime **154427 bytes**，仍低于现有 159626-byte budget。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.2` 存在，`next=4.0.0-alpha.2`，`latest=3.2.5`，registry `dist.integrity=sha512-Qq5ALZCAMkJ4AoRt4/FRh2zJXcGiDv2msq95zYeULmJhL3L3codb5IlGwpDlrsxALBtPMV/UJxQl6jbYLOCZqA==`。4.0 alpha 只发布到 `next`，不代表任何产品已升级或验收。
 
 ## 稳定基线：3.2.5 已于 2026-10-23 通过 Actions 发布为 npm latest
 
