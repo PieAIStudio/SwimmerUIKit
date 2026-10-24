@@ -1,7 +1,7 @@
 @layer swimmer-ui {
   .kit-surface-levels {
-    color: var(--game-ui-text);
-    background: var(--game-ui-bg);
+    color: var(--swimmer-game-text);
+    background: var(--swimmer-game-bg);
     max-width: 1240px;
     margin: 0 auto 32px;
   }
@@ -9,12 +9,12 @@
     margin-bottom: 16px;
   }
   .kit-surface-levels h2 {
-    font: 700 22px/1.5 var(--game-ui-font-display);
+    font: 700 22px/1.5 var(--swimmer-game-font-display);
     margin: 0;
   }
   .kit-surface-levels p {
     margin: 8px 0;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .kit-surface-grid {
     display: grid;
@@ -24,13 +24,13 @@
   }
   .kit-surface-base {
     padding: 16px;
-    background: var(--game-ui-bg);
+    background: var(--swimmer-game-bg);
   }
   .kit-surface-raised {
     padding: 16px;
-    border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-surface-raised);
-    box-shadow: var(--game-ui-shadow-raised);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-game-surface-raised);
+    box-shadow: var(--swimmer-game-shadow-raised);
   }
   @media (max-width: 700px) {
     .kit-surface-grid {

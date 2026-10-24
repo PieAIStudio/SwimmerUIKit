@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { GameUiPreview } from '../src/preview/GameUiPreview/GameUiPreview';
+import { UiPreview } from '../src/preview/UiPreview/UiPreview';
 import { ShowcaseNav } from './ShowcaseNav';
 import { ComponentCatalog } from './catalog/ComponentCatalog';
 import { ThemeReviewPage } from './review/ThemeReview';
@@ -32,7 +32,7 @@ createRoot(root).render(
         <ShowcaseNav current="components" />
         {new URLSearchParams(window.location.search).get('view') === 'reference' ||
         window.location.hash.startsWith('#game-ui-preview-') ? (
-          <GameUiPreview />
+          <UiPreview />
         ) : (
           <ComponentCatalog />
         )}

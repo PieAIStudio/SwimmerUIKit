@@ -79,7 +79,7 @@ export function attachDroplet(
       height = box('height');
     if (width <= 0 || height <= 0) return;
     const radius = numeric(
-      style.getPropertyValue('--game-ui-droplet-radius'),
+      style.getPropertyValue('--swimmer-droplet-radius'),
       Math.min(width, height) / 2,
     );
     const wave = Math.max(
@@ -87,7 +87,7 @@ export function attachDroplet(
       Math.min(
         DROPLET_WOBBLE_MAX,
         Number.isFinite(maxWobble) ? Math.max(0, maxWobble) : DROPLET_WOBBLE_MAX,
-        numeric(style.getPropertyValue('--game-ui-droplet-wobble'), DROPLET_WOBBLE_MAX),
+        numeric(style.getPropertyValue('--swimmer-droplet-wobble'), DROPLET_WOBBLE_MAX),
       ),
     );
     const next = `${width}|${height}|${radius}|${wave}`;

@@ -1,12 +1,12 @@
 /*
- * Demo/preview-only styles for `GameUiPreview` (the design-system showcase
+ * Demo/preview-only styles for `UiPreview` (the design-system showcase
  * component). Split out of styles.css (0.6+) so consumers who never render
  * the kit's own component gallery don't ship this CSS. Load AFTER styles.css
- * only if you actually render <GameUiPreview />:
+ * only if you actually render <UiPreview />:
  *   import '@pieai/swimmer-ui-kit/styles.css';
  *   import '@pieai/swimmer-ui-kit/preview.css';
  * Tokens resolve from styles.css's theme.css import; this file assumes
- * that's already loaded and does not redeclare any --game-ui-* tokens.
+ * that's already loaded and does not redeclare any --swimmer-* tokens.
  */
 @layer swimmer-ui {
   html[data-game-ui-preview='reference'],
@@ -19,18 +19,18 @@
   .game-ui-preview-canvas {
     min-height: 100dvh;
     padding: 24px;
-    color: var(--game-ui-text);
-    font-family: var(--game-ui-font-body);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background:
-      radial-gradient(circle at 12% 4%, var(--game-ui-preview-glow-warm), transparent 27rem),
-      radial-gradient(circle at 86% 8%, var(--game-ui-preview-glow-mint), transparent 26rem),
+      radial-gradient(circle at 12% 4%, var(--swimmer-preview-glow-warm), transparent 27rem),
+      radial-gradient(circle at 86% 8%, var(--swimmer-preview-glow-mint), transparent 26rem),
       linear-gradient(
         160deg,
-        var(--game-ui-preview-canvas-1) 0%,
-        var(--game-ui-preview-canvas-2) 52%,
-        var(--game-ui-preview-canvas-3) 100%
+        var(--swimmer-preview-canvas-1) 0%,
+        var(--swimmer-preview-canvas-2) 52%,
+        var(--swimmer-preview-canvas-3) 100%
       );
   }
 
@@ -41,8 +41,8 @@
   }
   .game-ui-preview-canvas code {
     border-radius: 8px;
-    background: color-mix(in srgb, var(--game-ui-ink-deep) 8%, transparent);
-    color: var(--game-ui-border-ink);
+    background: color-mix(in srgb, var(--swimmer-ink-deep) 8%, transparent);
+    color: var(--swimmer-border-ink);
     padding: 1px 6px;
     font-size: 0.74em;
   }
@@ -68,20 +68,20 @@
     grid-column: 1 / -1;
     max-width: 13ch;
     margin: 0;
-    color: var(--game-ui-ink-title);
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-xxl);
-    font-weight: var(--game-ui-weight-title);
+    color: var(--swimmer-ink-title);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-xxl);
+    font-weight: var(--swimmer-weight-title);
     line-height: 0.9;
-    text-shadow: 0 3px 0 color-mix(in srgb, var(--game-ui-surface) 72%, transparent);
+    text-shadow: 0 3px 0 color-mix(in srgb, var(--swimmer-game-surface) 72%, transparent);
   }
   .game-ui-preview-hero p {
     grid-column: 1 / -1;
     max-width: 72ch;
     margin: 0;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-lg);
-    line-height: var(--game-ui-line-body);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-lg);
+    line-height: var(--swimmer-line-body);
     text-wrap: pretty;
   }
   .game-ui-preview-section {
@@ -89,17 +89,17 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
     margin-top: 22px;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-modal);
-    background: color-mix(in srgb, var(--game-ui-surface) 50%, transparent);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-radius-modal);
+    background: color-mix(in srgb, var(--swimmer-game-surface) 50%, transparent);
     padding: clamp(16px, 2vw, 24px);
     box-shadow: none;
   }
   .game-ui-preview-section > h2,
   .game-ui-token-card h3 {
     margin: 0;
-    color: var(--game-ui-ink-heading);
-    font-family: var(--game-ui-font-display);
+    color: var(--swimmer-ink-heading);
+    font-family: var(--swimmer-game-font-display);
     font-weight: 900;
   }
   .game-ui-preview-section > h2 {
@@ -137,9 +137,9 @@
   .game-ui-stage-world,
   .game-ui-stage-sidecar,
   .game-ui-proof-frame {
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-surface);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-game-surface);
     box-shadow: none;
   }
   .game-ui-swatch {
@@ -153,7 +153,7 @@
     width: 46px;
     height: 46px;
     flex: none;
-    border: 1px solid color-mix(in srgb, var(--game-ui-ink-deep) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--swimmer-ink-deep) 16%, transparent);
     border-radius: 15px;
     box-shadow: none;
   }
@@ -178,14 +178,14 @@
     grid-template-columns: 1fr;
     align-items: start;
     border-radius: 10px;
-    background: color-mix(in srgb, var(--game-ui-wood) 6%, transparent);
+    background: color-mix(in srgb, var(--swimmer-wood) 6%, transparent);
     padding: 7px 8px;
   }
   .game-ui-token-row span,
   .game-ui-small-copy,
   .game-ui-type-kicker {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     font-style: normal;
     font-weight: 820;
     letter-spacing: 0.08em;
@@ -215,21 +215,21 @@
     margin: 0;
   }
   .game-ui-type-scale h1 {
-    color: var(--game-ui-ink-title);
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-xxl);
-    font-weight: var(--game-ui-weight-title);
-    line-height: var(--game-ui-line-tight);
+    color: var(--swimmer-ink-title);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-xxl);
+    font-weight: var(--swimmer-weight-title);
+    line-height: var(--swimmer-line-tight);
   }
   .game-ui-type-scale h2 {
-    font-size: var(--game-ui-font-xl);
+    font-size: var(--swimmer-font-xl);
     font-weight: 880;
   }
   .game-ui-type-scale p {
     max-width: 62ch;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-md);
-    line-height: var(--game-ui-line-body);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-md);
+    line-height: var(--swimmer-line-body);
   }
 
   .game-ui-component-row,
@@ -270,17 +270,17 @@
     gap: 7px;
     margin: 0;
     padding: 12px 6px;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-surface);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-game-surface);
     box-shadow: none;
   }
   .game-ui-icon-cell figcaption {
     min-width: 0;
     max-width: 100%;
     overflow-wrap: anywhere;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     font-weight: 760;
     letter-spacing: 0.03em;
     text-align: center;
@@ -303,22 +303,22 @@
     min-height: 430px;
     overflow: hidden;
     background:
-      radial-gradient(ellipse at 50% 66%, var(--game-ui-scenery-clearing) 0 18%, transparent 18.5%),
+      radial-gradient(ellipse at 50% 66%, var(--swimmer-scenery-clearing) 0 18%, transparent 18.5%),
       radial-gradient(
         circle at 25% 32%,
-        color-mix(in srgb, var(--game-ui-secondary) 38%, transparent),
+        color-mix(in srgb, var(--swimmer-secondary) 38%, transparent),
         transparent 11rem
       ),
       radial-gradient(
         circle at 74% 28%,
-        color-mix(in srgb, var(--game-ui-accent) 34%, transparent),
+        color-mix(in srgb, var(--swimmer-game-accent) 34%, transparent),
         transparent 12rem
       ),
       linear-gradient(
         160deg,
-        var(--game-ui-scenery-canopy),
-        var(--game-ui-scenery-moss) 48%,
-        var(--game-ui-scenery-soil) 100%
+        var(--swimmer-scenery-canopy),
+        var(--swimmer-scenery-moss) 48%,
+        var(--swimmer-scenery-soil) 100%
       );
     padding: 16px;
   }
@@ -326,8 +326,8 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, var(--game-ui-scenery-grid-strong) 1px, transparent 1px),
-      linear-gradient(0deg, var(--game-ui-scenery-grid-soft) 1px, transparent 1px);
+      linear-gradient(90deg, var(--swimmer-scenery-grid-strong) 1px, transparent 1px),
+      linear-gradient(0deg, var(--swimmer-scenery-grid-soft) 1px, transparent 1px);
     background-size: 56px 56px;
     content: '';
     opacity: 0.28;
@@ -339,27 +339,27 @@
     width: min(46%, 360px);
     aspect-ratio: 1.9 / 1;
     transform: translate(-50%, -42%);
-    border: 4px solid color-mix(in srgb, var(--game-ui-text-on-dark) 24%, transparent);
+    border: 4px solid color-mix(in srgb, var(--swimmer-text-on-dark) 24%, transparent);
     border-radius: 50%;
     background: radial-gradient(
       ellipse at 50% 38%,
-      var(--game-ui-scenery-wood-hi),
-      var(--game-ui-scenery-wood-lo) 72%
+      var(--swimmer-scenery-wood-hi),
+      var(--swimmer-scenery-wood-lo) 72%
     );
-    box-shadow: var(--game-ui-shadow-scenery);
+    box-shadow: var(--swimmer-shadow-scenery);
   }
   .game-ui-seat {
     position: absolute;
     width: 36px;
     height: 36px;
-    border: 3px solid var(--game-ui-text-on-dark);
+    border: 3px solid var(--swimmer-text-on-dark);
     border-radius: 50%;
     background: radial-gradient(
       circle at 35% 28%,
-      var(--game-ui-accent-pale),
-      var(--game-ui-accent)
+      var(--swimmer-accent-pale),
+      var(--swimmer-game-accent)
     );
-    box-shadow: var(--game-ui-shadow-seat);
+    box-shadow: var(--swimmer-shadow-seat);
   }
   .game-ui-seat.is-host {
     top: -10px;
@@ -370,27 +370,27 @@
     bottom: 6%;
     background: radial-gradient(
       circle at 35% 28%,
-      var(--game-ui-secondary-pale),
-      var(--game-ui-secondary)
+      var(--swimmer-secondary-pale),
+      var(--swimmer-secondary)
     );
   }
   .game-ui-seat.is-guest-b {
     bottom: 6%;
     left: 7%;
-    background: radial-gradient(circle at 35% 28%, var(--game-ui-berry-pale), var(--game-ui-berry));
+    background: radial-gradient(circle at 35% 28%, var(--swimmer-berry-pale), var(--swimmer-berry));
   }
   /* Decorative speech bubble pinned to a seat on the demo table. Preview-only
-   * scenery, like .game-ui-seat above — it is NOT the <GameCallout> component
+   * scenery, like .game-ui-seat above — it is NOT the <Callout> component
    * and must never share that component's class name (see 1.3.0 changelog). */
   .game-ui-seat-callout {
     position: absolute;
     border-radius: 16px 16px 16px 5px;
-    background: var(--game-ui-surface);
-    color: var(--game-ui-text);
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text);
     padding: 6px 9px;
-    font-size: var(--game-ui-font-xs);
+    font-size: var(--swimmer-font-xs);
     font-weight: 820;
-    box-shadow: var(--game-ui-shadow-callout);
+    box-shadow: var(--swimmer-shadow-callout);
     white-space: nowrap;
   }
   .game-ui-seat-callout.is-a {
@@ -406,7 +406,7 @@
     right: 16px;
     bottom: 16px;
     left: 16px;
-    z-index: var(--game-ui-z-hud);
+    z-index: var(--swimmer-z-hud);
     justify-content: flex-end;
   }
   .game-ui-stage-sidecar {
@@ -487,8 +487,8 @@
     padding: 12px 8px 4px;
   }
   .game-ui-liquid-showcase__pair small {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     text-align: center;
     line-height: 1.4;
   }
@@ -496,7 +496,7 @@
      restating its shelf, so this is the one rule that section still needs of
      its own. */
   .game-ui-liquid-showcase__link {
-    color: var(--game-ui-accent-ink);
+    color: var(--swimmer-game-accent-ink);
     font-weight: 700;
   }
 
@@ -513,7 +513,7 @@
 
   /* Polish · P5/P6 entrance: mirrors styles.css's game-ui-rise keyframes */
   .game-ui-preview-hero > * {
-    animation: game-ui-rise var(--game-ui-motion-slow) var(--game-ui-ease-soft) both;
+    animation: game-ui-rise var(--swimmer-motion-slow) var(--swimmer-ease-soft) both;
   }
   .game-ui-preview-hero > *:nth-child(2) {
     animation-delay: 60ms;
@@ -542,24 +542,24 @@
     position: relative;
     min-height: 360px;
     overflow: hidden;
-    border-radius: var(--game-ui-radius-modal);
+    border-radius: var(--swimmer-radius-modal);
     background: linear-gradient(
       145deg,
-      var(--game-ui-scenery-dusk-1) 0%,
-      var(--game-ui-scenery-dusk-2) 48%,
-      var(--game-ui-scenery-dusk-3) 100%
+      var(--swimmer-scenery-dusk-1) 0%,
+      var(--swimmer-scenery-dusk-2) 48%,
+      var(--swimmer-scenery-dusk-3) 100%
     );
-    box-shadow: var(--game-ui-shadow-raised);
+    box-shadow: var(--swimmer-game-shadow-raised);
   }
   .game-ui-first-session-world::before {
     position: absolute;
     inset: 18% 22% 30%;
-    border: 4px solid color-mix(in srgb, var(--game-ui-text-on-dark) 22%, transparent);
+    border: 4px solid color-mix(in srgb, var(--swimmer-text-on-dark) 22%, transparent);
     border-radius: 50%;
     background: radial-gradient(
       ellipse at 50% 38%,
-      var(--game-ui-scenery-wood-hi),
-      var(--game-ui-scenery-wood-lo) 72%
+      var(--swimmer-scenery-wood-hi),
+      var(--swimmer-scenery-wood-lo) 72%
     );
     content: '';
   }
@@ -567,8 +567,8 @@
     position: relative;
     min-height: 360px;
     overflow: hidden;
-    border-radius: var(--game-ui-radius-modal);
-    background: color-mix(in srgb, var(--game-ui-ink-deep) 18%, transparent);
+    border-radius: var(--swimmer-radius-modal);
+    background: color-mix(in srgb, var(--swimmer-ink-deep) 18%, transparent);
   }
   .game-ui-first-session-modal-slot .swimmer-first-session-onboarding-card {
     width: min(100%, 360px);
@@ -629,9 +629,9 @@
     min-width: var(--repro-width);
     gap: 8px;
     overflow: hidden;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-surface) 42%, transparent);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: color-mix(in srgb, var(--swimmer-game-surface) 42%, transparent);
     padding: 10px;
   }
 
@@ -640,7 +640,7 @@
     inset: 0;
     display: grid;
     place-items: center;
-    color: color-mix(in srgb, var(--game-ui-text-on-dark) 72%, transparent);
+    color: color-mix(in srgb, var(--swimmer-text-on-dark) 72%, transparent);
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -649,14 +649,14 @@
     position: absolute;
     width: min(46%, 360px);
     aspect-ratio: 1.7 / 1;
-    border: 4px solid color-mix(in srgb, var(--game-ui-text-on-dark) 22%, transparent);
+    border: 4px solid color-mix(in srgb, var(--swimmer-text-on-dark) 22%, transparent);
     border-radius: 50%;
     background: radial-gradient(
       ellipse at 50% 42%,
-      var(--game-ui-scenery-wood-hi),
-      var(--game-ui-scenery-wood-lo) 72%
+      var(--swimmer-scenery-wood-hi),
+      var(--swimmer-scenery-wood-lo) 72%
     );
-    box-shadow: var(--game-ui-shadow-scenery);
+    box-shadow: var(--swimmer-shadow-scenery);
     content: '';
   }
   .game-ui-surface-pack-demo-scene span {
@@ -674,27 +674,27 @@
     text-align: center;
   }
   .game-ui-construction-preview-card strong {
-    color: var(--game-ui-text);
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-lg);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-lg);
   }
   .game-ui-construction-preview-card small {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     font-weight: 820;
     text-transform: uppercase;
   }
   .game-ui-construction-preview-card[data-preview='after'] {
     background: radial-gradient(
       circle at 50% 58%,
-      color-mix(in srgb, var(--game-ui-success) 30%, transparent),
+      color-mix(in srgb, var(--swimmer-game-success) 30%, transparent),
       transparent 7rem
     );
   }
   .game-ui-construction-preview-card[data-preview='before'] {
     background: radial-gradient(
       circle at 50% 58%,
-      color-mix(in srgb, var(--game-ui-accent) 22%, transparent),
+      color-mix(in srgb, var(--swimmer-game-accent) 22%, transparent),
       transparent 7rem
     );
   }
@@ -704,9 +704,9 @@
     gap: 16px;
     width: min(100%, 720px);
     margin: 0 auto;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-modal);
-    background: color-mix(in srgb, var(--game-ui-surface) 82%, transparent);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-radius-modal);
+    background: color-mix(in srgb, var(--swimmer-game-surface) 82%, transparent);
     padding: clamp(16px, 3vw, 28px);
     box-shadow: none;
   }
@@ -716,23 +716,23 @@
   }
   .game-ui-liquid-demo-header h2 {
     margin: 0;
-    color: var(--game-ui-ink-heading);
-    font-family: var(--game-ui-font-display);
+    color: var(--swimmer-ink-heading);
+    font-family: var(--swimmer-game-font-display);
     font-size: clamp(1.5rem, 4vw, 2.15rem);
-    font-weight: var(--game-ui-weight-title);
+    font-weight: var(--swimmer-weight-title);
     line-height: 0.95;
   }
   .game-ui-liquid-demo-header p {
     max-width: 58ch;
     margin: 0;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-md);
-    line-height: var(--game-ui-line-body);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-md);
+    line-height: var(--swimmer-line-body);
   }
   .game-ui-liquid-demo-kicker,
   .game-ui-liquid-demo-status {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     font-weight: 850;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -742,9 +742,9 @@
     place-items: center;
     min-height: 220px;
     overflow: visible;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-secondary-pale) 28%, var(--game-ui-bg));
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: color-mix(in srgb, var(--swimmer-secondary-pale) 28%, var(--swimmer-game-bg));
     padding: 8px;
   }
   .game-ui-liquid-demo-group {
@@ -770,14 +770,14 @@
     bottom: 10px;
     left: 12px;
     z-index: 1;
-    color: var(--game-ui-text-on-dark);
-    font-family: var(--game-ui-font-mono);
+    color: var(--swimmer-text-on-dark);
+    font-family: var(--swimmer-font-mono);
     font-size: 0.62rem;
     font-weight: 850;
     letter-spacing: 0.06em;
     line-height: 1.1;
     text-align: center;
-    text-shadow: 0 1px 3px color-mix(in srgb, var(--game-ui-ink-deep) 65%, transparent);
+    text-shadow: 0 1px 3px color-mix(in srgb, var(--swimmer-ink-deep) 65%, transparent);
   }
   .game-ui-liquid-dissolve-card {
     position: relative;
@@ -790,15 +790,15 @@
   .game-ui-liquid-demo-capsule {
     display: grid;
     place-items: center;
-    border-radius: var(--game-ui-radius-bead);
+    border-radius: var(--swimmer-radius-bead);
     border: 0;
     background: transparent;
     box-shadow: none;
-    color: var(--game-ui-text);
+    color: var(--swimmer-game-text);
     appearance: none;
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-lg);
-    font-weight: var(--game-ui-weight-title);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-lg);
+    font-weight: var(--swimmer-weight-title);
     cursor: pointer;
     padding: 0;
   }
@@ -812,7 +812,7 @@
   }
   .game-ui-liquid-demo-orb:hover,
   .game-ui-liquid-demo-capsule:hover {
-    color: var(--game-ui-ink-heading);
+    color: var(--swimmer-ink-heading);
   }
   .game-ui-liquid-demo-morph-card,
   .game-ui-liquid-demo-bend-card {
@@ -821,20 +821,20 @@
     width: 100%;
     height: 100%;
     border: 0;
-    border-radius: var(--game-ui-radius-bead);
+    border-radius: var(--swimmer-radius-bead);
     background: transparent;
     box-shadow: none;
-    color: var(--game-ui-text);
+    color: var(--swimmer-game-text);
     appearance: none;
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-md);
-    font-weight: var(--game-ui-weight-title);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-md);
+    font-weight: var(--swimmer-weight-title);
     cursor: pointer;
     padding: 0;
   }
   .game-ui-liquid-demo-morph-card:hover,
   .game-ui-liquid-demo-bend-card:hover {
-    color: var(--game-ui-ink-heading);
+    color: var(--swimmer-ink-heading);
   }
   .game-ui-liquid-demo-bend-card {
     width: 144px;
@@ -846,10 +846,10 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    color: var(--game-ui-text);
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-sm);
-    font-weight: var(--game-ui-weight-title);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-sm);
+    font-weight: var(--swimmer-weight-title);
   }
   .game-ui-liquid-demo-controls {
     display: flex;
@@ -865,8 +865,8 @@
     gap: 10px;
   }
   .game-ui-liquid-waviness-grid-heading {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     font-weight: 850;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -876,7 +876,7 @@
     grid-template-columns: minmax(112px, 0.62fr) repeat(2, minmax(0, 1fr));
     align-items: center;
     gap: 10px;
-    border-top: var(--game-ui-stroke);
+    border-top: var(--swimmer-stroke);
     padding-top: 10px;
   }
   .game-ui-liquid-waviness-heading-row {
@@ -884,10 +884,10 @@
     padding-top: 0;
   }
   .game-ui-liquid-waviness-size {
-    color: var(--game-ui-ink-heading);
-    font-family: var(--game-ui-font-display);
-    font-size: var(--game-ui-font-sm);
-    font-weight: var(--game-ui-weight-title);
+    color: var(--swimmer-ink-heading);
+    font-family: var(--swimmer-game-font-display);
+    font-size: var(--swimmer-font-sm);
+    font-weight: var(--swimmer-weight-title);
   }
   .game-ui-liquid-waviness-cell {
     display: grid;
@@ -896,8 +896,8 @@
     min-width: 0;
   }
   .game-ui-liquid-waviness-label {
-    color: var(--game-ui-text-muted);
-    font-family: var(--game-ui-font-mono);
+    color: var(--swimmer-game-text-muted);
+    font-family: var(--swimmer-font-mono);
     font-size: 0.68rem;
     font-weight: 760;
     text-align: center;
@@ -942,11 +942,11 @@
   .game-ui-liquid-page__rule {
     max-width: 62ch;
     padding: 12px 16px;
-    border-left: 3px solid var(--game-ui-accent);
-    border-radius: var(--game-ui-radius-card);
-    background: var(--game-ui-surface);
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-sm);
+    border-left: 3px solid var(--swimmer-game-accent);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-sm);
     line-height: 1.55;
   }
 
@@ -957,9 +957,9 @@
     align-items: center;
   }
   .game-ui-liquid-page__tone-picker > span {
-    color: var(--game-ui-text-muted);
-    font-family: var(--game-ui-font-mono);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-xs);
   }
 
   .game-ui-liquid-page__shelf,
@@ -995,8 +995,8 @@
   .game-ui-liquid-page__state h4,
   .game-ui-liquid-page__size-row h4 {
     margin: 0;
-    font-family: var(--game-ui-font-mono);
-    font-size: var(--game-ui-font-sm);
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-sm);
     letter-spacing: 0.04em;
   }
   /* A shelf is a comparison, so the twelve tiles have to line up: the summary
@@ -1016,16 +1016,16 @@
   .game-ui-liquid-page__prose {
     max-width: 74ch;
     margin: 0;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-sm);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-sm);
     line-height: 1.6;
   }
   .game-ui-liquid-page__tile .game-ui-liquid-page__prose {
-    font-size: var(--game-ui-font-xs);
+    font-size: var(--swimmer-font-xs);
   }
   .game-ui-liquid-page__hint {
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-sm);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-sm);
     font-weight: 400;
   }
 
@@ -1049,16 +1049,16 @@
     position: relative;
     z-index: 1;
     display: flex;
-    color: var(--game-ui-text-muted);
-    font-family: var(--game-ui-font-mono);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-xs);
   }
   .game-ui-liquid-page__rail-slots span {
     width: 62px;
     text-align: center;
   }
   .game-ui-liquid-page__rail-slots [data-on='true'] {
-    color: var(--game-ui-accent-contrast);
+    color: var(--swimmer-accent-contrast);
     font-weight: 700;
   }
 
@@ -1089,23 +1089,23 @@
     width: 100%;
     margin: 0;
     padding-top: 8px;
-    border-top: 1px solid var(--game-ui-border-subtle);
+    border-top: 1px solid var(--swimmer-border-subtle);
     grid-template-columns: auto 1fr;
     gap: 2px 10px;
     text-align: left;
   }
   .game-ui-liquid-page__knobs dt {
-    color: var(--game-ui-text-muted);
-    font-family: var(--game-ui-font-mono);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-xs);
   }
   .game-ui-liquid-page__knobs dd {
     margin: 0;
-    font-size: var(--game-ui-font-xs);
+    font-size: var(--swimmer-font-xs);
     overflow-wrap: anywhere;
   }
   .game-ui-liquid-page__derived {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
 
   .game-ui-liquid-page__size-row {
@@ -1127,8 +1127,8 @@
   .game-ui-liquid-page__size-pair small,
   .game-ui-liquid-page__state small {
     display: block;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-xs);
     line-height: 1.45;
     text-align: center;
   }
@@ -1151,14 +1151,14 @@
     margin: 0;
   }
   .game-ui-liquid-page__glossary dt {
-    color: var(--game-ui-accent-ink);
-    font-family: var(--game-ui-font-mono);
-    font-size: var(--game-ui-font-sm);
+    color: var(--swimmer-game-accent-ink);
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-sm);
   }
   .game-ui-liquid-page__glossary dd {
     margin: 2px 0 0;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-sm);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-sm);
     line-height: 1.6;
   }
 

@@ -1,0 +1,65 @@
+@layer swimmer-ui {
+  .game-ui-slider {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    font: inherit;
+    color: var(--swimmer-game-text);
+  }
+  .game-ui-slider input {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .game-ui-slider input::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--swimmer-control-fill);
+    border: 1px solid var(--swimmer-control-edge);
+    box-shadow: none;
+  }
+  .game-ui-slider input::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--swimmer-control-fill);
+    border: 1px solid var(--swimmer-control-edge);
+    box-shadow: none;
+  }
+  .game-ui-slider input::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--swimmer-control-on-text);
+    background: var(--swimmer-control-on-fill);
+    box-shadow: none;
+  }
+  .game-ui-slider input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--swimmer-control-on-text);
+    background: var(--swimmer-control-on-fill);
+    box-shadow: none;
+  }
+  .game-ui-slider input:disabled {
+    cursor: not-allowed;
+  }
+  @media (forced-colors: active) {
+    .game-ui-slider input::-webkit-slider-thumb {
+      background: Highlight;
+      border-color: ButtonText;
+    }
+    .game-ui-slider input::-moz-range-thumb {
+      background: Highlight;
+      border-color: ButtonText;
+    }
+  }
+}

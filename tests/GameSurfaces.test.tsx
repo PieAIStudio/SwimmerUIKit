@@ -3,13 +3,13 @@ import { readComponentStyles } from './helpers/styles';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameIconButton } from '../src/controls/GameIconButton/GameIconButton';
+import { IconButton } from '../src/controls/IconButton/IconButton';
 
-import { GameTabs } from '../src/controls/GameTabs/GameTabs';
+import { Tabs } from '../src/controls/Tabs/Tabs';
 
-import { GameToggle } from '../src/controls/GameToggle/GameToggle';
+import { Toggle } from '../src/controls/Toggle/Toggle';
 
-import { GameTooltip } from '../src/feedback/GameTooltip/GameTooltip';
+import { Tooltip } from '../src/feedback/Tooltip/Tooltip';
 
 const stylesCss = readComponentStyles();
 
@@ -27,13 +27,13 @@ function trackRules(css: string): { base: string; checked: string | undefined } 
   };
 }
 
-describe('GameTooltip', () => {
+describe('Tooltip', () => {
   it('wires aria-describedby onto a single element trigger', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameTooltip label="Open settings">
-          <GameIconButton label="Settings">⚙</GameIconButton>
-        </GameTooltip>,
+        <Tooltip label="Open settings">
+          <IconButton label="Settings">⚙</IconButton>
+        </Tooltip>,
       ),
     );
 
@@ -45,19 +45,17 @@ describe('GameTooltip', () => {
   });
 
   it('renders text children unchanged without throwing', () => {
-    const html = compact(
-      renderToStaticMarkup(<GameTooltip label="Info">Plain text trigger</GameTooltip>),
-    );
+    const html = compact(renderToStaticMarkup(<Tooltip label="Info">Plain text trigger</Tooltip>));
     expect(html).toContain('Plain text trigger');
     expect(html).toContain('role="tooltip"');
   });
 });
 
-describe('GameTabs', () => {
+describe('Tabs', () => {
   it('wires aria-controls from panelId and gives each tab a predictable id', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameTabs
+        <Tabs
           activeId="info"
           id="detail"
           tabs={[
@@ -76,18 +74,18 @@ describe('GameTabs', () => {
 
   it('omits aria-controls when panelId is not provided (no breaking change)', () => {
     const html = compact(
-      renderToStaticMarkup(<GameTabs activeId="a" tabs={[{ id: 'a', label: 'A' }]} />),
+      renderToStaticMarkup(<Tabs activeId="a" tabs={[{ id: 'a', label: 'A' }]} />),
     );
     expect(html).not.toContain('aria-controls');
   });
 });
 
-describe('GameToggle', () => {
+describe('Toggle', () => {
   it('reports its state to assistive technology', () => {
-    expect(compact(renderToStaticMarkup(<GameToggle checked={false} label="Sound" />))).toContain(
+    expect(compact(renderToStaticMarkup(<Toggle checked={false} label="Sound" />))).toContain(
       'aria-checked="false"',
     );
-    expect(compact(renderToStaticMarkup(<GameToggle checked label="Sound" />))).toContain(
+    expect(compact(renderToStaticMarkup(<Toggle checked label="Sound" />))).toContain(
       'aria-checked="true"',
     );
   });
@@ -114,10 +112,10 @@ describe('GameToggle', () => {
     // A reserved visible check and the semantic selected fill reinforce state,
     // without using an inset shadow as a fake second bead in 3.0.
     // Claude's S4 amendment: the thumb reads its style token, not black text ink.
-    expect(track.base).toContain('background: var(--game-ui-control-on-edge)');
-    expect(stylesCss).toContain('background: var(--game-ui-control-disabled-fill)');
+    expect(track.base).toContain('background: var(--swimmer-control-on-edge)');
+    expect(stylesCss).toContain('background: var(--swimmer-control-disabled-fill)');
     expect(track.base).not.toContain('box-shadow');
-    expect(stylesCss).toContain('--game-ui-paint-fill: var(--game-ui-control-on-fill)');
+    expect(stylesCss).toContain('--swimmer-paint-fill: var(--swimmer-control-on-fill)');
     expect(stylesCss).toMatch(
       /aria-checked='true'[\s\S]*?game-ui-selection-mark\s*\{\s*visibility:\s*visible/,
     );

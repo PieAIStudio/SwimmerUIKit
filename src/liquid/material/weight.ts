@@ -7,11 +7,11 @@ export const LIQUID_MATERIAL = {
   blob: 3.5,
   lobes: 3,
   filterPadding: 20,
-  shadow: 'var(--game-ui-liquid-material-shadow)',
+  shadow: 'var(--swimmer-liquid-material-shadow)',
 } as const;
 
 export const TIDE_FILL = {
-  top: 'var(--game-ui-cta-from)',
-  bottom: 'var(--game-ui-cta-to)',
+  top: 'var(--swimmer-game-cta-from)',
+  bottom: 'var(--swimmer-game-cta-to)',
   sheen: 0.3,
 } as const;

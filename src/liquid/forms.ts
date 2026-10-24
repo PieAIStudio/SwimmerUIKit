@@ -41,7 +41,7 @@ export interface LiquidFormGroup {
    * What the body casts on the ground at rest, in CSS box-shadow syntax.
    *
    * Every liquid button floated before this existed: the flat button has a lip
-   * *and* `--game-ui-shadow-button`, and the liquid one had neither, which is
+   * *and* `--swimmer-shadow-button`, and the liquid one had neither, which is
    * most of why it read flatter than its own flat twin. A form is where this
    * belongs rather than a call site, because how far a body sits off the
    * surface is part of what the form means.

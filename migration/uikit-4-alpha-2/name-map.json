@@ -1,0 +1,3242 @@
+{
+  "version": "4.0.0-alpha.2",
+  "source": "B2 hard rename mapping; generated from the pre-B2 public exports and source CSS names.",
+  "publicNames": [
+    {
+      "old": "GameAccountMenu",
+      "new": "AccountMenu",
+      "kind": "value"
+    },
+    {
+      "old": "GameAccountMenuLabels",
+      "new": "AccountMenuLabels",
+      "kind": "type"
+    },
+    {
+      "old": "GameAccountMenuProps",
+      "new": "AccountMenuProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameAccountProduct",
+      "new": "AccountProduct",
+      "kind": "type"
+    },
+    {
+      "old": "GameAvatar",
+      "new": "Avatar",
+      "kind": "value"
+    },
+    {
+      "old": "GameAvatarProps",
+      "new": "AvatarProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameBadge",
+      "new": "Badge",
+      "kind": "value"
+    },
+    {
+      "old": "GameBadgeProps",
+      "new": "BadgeProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameBadgeTone",
+      "new": "BadgeTone",
+      "kind": "type"
+    },
+    {
+      "old": "GameButton",
+      "new": "Button",
+      "kind": "value"
+    },
+    {
+      "old": "GameButtonProps",
+      "new": "ButtonProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameButtonVariant",
+      "new": "ButtonVariant",
+      "kind": "type"
+    },
+    {
+      "old": "GameCallout",
+      "new": "Callout",
+      "kind": "value"
+    },
+    {
+      "old": "GameCalloutProps",
+      "new": "CalloutProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameCalloutTone",
+      "new": "CalloutTone",
+      "kind": "type"
+    },
+    {
+      "old": "GameCardOrientationStatus",
+      "new": "CardOrientationStatus",
+      "kind": "type"
+    },
+    {
+      "old": "GameCardTilt",
+      "new": "CardTilt",
+      "kind": "type"
+    },
+    {
+      "old": "GameCheckbox",
+      "new": "Checkbox",
+      "kind": "value"
+    },
+    {
+      "old": "GameCheckboxProps",
+      "new": "CheckboxProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameCollapsiblePanel",
+      "new": "CollapsiblePanel",
+      "kind": "value"
+    },
+    {
+      "old": "GameCollapsiblePanelLabels",
+      "new": "CollapsiblePanelLabels",
+      "kind": "type"
+    },
+    {
+      "old": "GameCollapsiblePanelProps",
+      "new": "CollapsiblePanelProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameCollectibleCard",
+      "new": "CollectibleCard",
+      "kind": "value"
+    },
+    {
+      "old": "GameCollectibleCardProps",
+      "new": "CollectibleCardProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameCollectibleCardRarity",
+      "new": "CollectibleCardRarity",
+      "kind": "type"
+    },
+    {
+      "old": "GameCollectibleCardSlot",
+      "new": "CollectibleCardSlot",
+      "kind": "value"
+    },
+    {
+      "old": "GameDialog",
+      "new": "Dialog",
+      "kind": "value"
+    },
+    {
+      "old": "GameDialogProps",
+      "new": "DialogProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameEmptyState",
+      "new": "EmptyState",
+      "kind": "value"
+    },
+    {
+      "old": "GameEmptyStateProps",
+      "new": "EmptyStateProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameFactItem",
+      "new": "FactItem",
+      "kind": "type"
+    },
+    {
+      "old": "GameFactList",
+      "new": "FactList",
+      "kind": "value"
+    },
+    {
+      "old": "GameFactListProps",
+      "new": "FactListProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameField",
+      "new": "Field",
+      "kind": "value"
+    },
+    {
+      "old": "GameFieldProps",
+      "new": "FieldProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameHelpCard",
+      "new": "HelpCard",
+      "kind": "value"
+    },
+    {
+      "old": "GameHelpCardProps",
+      "new": "HelpCardProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameHelpCardTopic",
+      "new": "HelpCardTopic",
+      "kind": "type"
+    },
+    {
+      "old": "GameHelpMedia",
+      "new": "HelpMedia",
+      "kind": "type"
+    },
+    {
+      "old": "GameHelpTip",
+      "new": "HelpTip",
+      "kind": "value"
+    },
+    {
+      "old": "GameHelpTipProps",
+      "new": "HelpTipProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameHistoryPanel",
+      "new": "HistoryPanel",
+      "kind": "value"
+    },
+    {
+      "old": "GameHistoryPanelProps",
+      "new": "HistoryPanelProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameHudActions",
+      "new": "HudActions",
+      "kind": "value"
+    },
+    {
+      "old": "GameHudActionsProps",
+      "new": "HudActionsProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameIcon",
+      "new": "Icon",
+      "kind": "value"
+    },
+    {
+      "old": "GameIconButton",
+      "new": "IconButton",
+      "kind": "value"
+    },
+    {
+      "old": "GameIconButtonProps",
+      "new": "IconButtonProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameIconData",
+      "new": "IconData",
+      "kind": "type"
+    },
+    {
+      "old": "GameIconName",
+      "new": "IconName",
+      "kind": "type"
+    },
+    {
+      "old": "GameIconProps",
+      "new": "IconProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameInput",
+      "new": "Input",
+      "kind": "value"
+    },
+    {
+      "old": "GameInputProps",
+      "new": "InputProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameInteractionAudioContext",
+      "new": "InteractionAudioContext",
+      "kind": "type"
+    },
+    {
+      "old": "GameInteractionSoundOptions",
+      "new": "InteractionSoundOptions",
+      "kind": "type"
+    },
+    {
+      "old": "GameLanguageMenu",
+      "new": "LanguageMenu",
+      "kind": "value"
+    },
+    {
+      "old": "GameLanguageMenuProps",
+      "new": "LanguageMenuProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameListRow",
+      "new": "ListRow",
+      "kind": "value"
+    },
+    {
+      "old": "GameListRowProps",
+      "new": "ListRowProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameLoadingState",
+      "new": "LoadingState",
+      "kind": "value"
+    },
+    {
+      "old": "GameLoadingStateProps",
+      "new": "LoadingStateProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameMaterialLayout",
+      "new": "MaterialLayout",
+      "kind": "type"
+    },
+    {
+      "old": "GameMaterialPattern",
+      "new": "MaterialPattern",
+      "kind": "type"
+    },
+    {
+      "old": "GameMaterialSwatch",
+      "new": "MaterialSwatch",
+      "kind": "type"
+    },
+    {
+      "old": "GameMaterialSwatches",
+      "new": "MaterialSwatches",
+      "kind": "value"
+    },
+    {
+      "old": "GameMaterialSwatchesProps",
+      "new": "MaterialSwatchesProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameModal",
+      "new": "Modal",
+      "kind": "value"
+    },
+    {
+      "old": "GameModalProps",
+      "new": "ModalProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameMovementAction",
+      "new": "MovementAction",
+      "kind": "type"
+    },
+    {
+      "old": "GameMovementDirection",
+      "new": "MovementDirection",
+      "kind": "type"
+    },
+    {
+      "old": "GameMovementPad",
+      "new": "MovementPad",
+      "kind": "value"
+    },
+    {
+      "old": "GameMovementPadProps",
+      "new": "MovementPadProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameOtpInput",
+      "new": "OtpInput",
+      "kind": "value"
+    },
+    {
+      "old": "GameOtpInputProps",
+      "new": "OtpInputProps",
+      "kind": "type"
+    },
+    {
+      "old": "GamePanel",
+      "new": "Panel",
+      "kind": "value"
+    },
+    {
+      "old": "GamePanelProps",
+      "new": "PanelProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameProgress",
+      "new": "Progress",
+      "kind": "value"
+    },
+    {
+      "old": "GameProgressProps",
+      "new": "ProgressProps",
+      "kind": "type"
+    },
+    {
+      "old": "GamePrompt",
+      "new": "Prompt",
+      "kind": "value"
+    },
+    {
+      "old": "GamePromptProps",
+      "new": "PromptProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameRadialMenu",
+      "new": "RadialMenu",
+      "kind": "value"
+    },
+    {
+      "old": "GameRadialMenuProps",
+      "new": "RadialMenuProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameSegmentedControl",
+      "new": "SegmentedControl",
+      "kind": "value"
+    },
+    {
+      "old": "GameSegmentedControlProps",
+      "new": "SegmentedControlProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameSelect",
+      "new": "Select",
+      "kind": "value"
+    },
+    {
+      "old": "GameSelectProps",
+      "new": "SelectProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameShell",
+      "new": "Shell",
+      "kind": "value"
+    },
+    {
+      "old": "GameShellProps",
+      "new": "ShellProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameSlider",
+      "new": "Slider",
+      "kind": "value"
+    },
+    {
+      "old": "GameSliderProps",
+      "new": "SliderProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameSplash",
+      "new": "Splash",
+      "kind": "value"
+    },
+    {
+      "old": "GameSplashLine",
+      "new": "SplashLine",
+      "kind": "type"
+    },
+    {
+      "old": "GameSplashProps",
+      "new": "SplashProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameStageTile",
+      "new": "StageTile",
+      "kind": "value"
+    },
+    {
+      "old": "GameStageTileProps",
+      "new": "StageTileProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameSurfaceDensity",
+      "new": "SurfaceDensity",
+      "kind": "type"
+    },
+    {
+      "old": "GameSurfaceLayout",
+      "new": "SurfaceLayout",
+      "kind": "type"
+    },
+    {
+      "old": "GameTabItem",
+      "new": "TabItem",
+      "kind": "type"
+    },
+    {
+      "old": "GameTabs",
+      "new": "Tabs",
+      "kind": "value"
+    },
+    {
+      "old": "GameTabsProps",
+      "new": "TabsProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameTextArea",
+      "new": "TextArea",
+      "kind": "value"
+    },
+    {
+      "old": "GameTextAreaProps",
+      "new": "TextAreaProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameToast",
+      "new": "Toast",
+      "kind": "value"
+    },
+    {
+      "old": "GameToastProps",
+      "new": "ToastProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameToggle",
+      "new": "Toggle",
+      "kind": "value"
+    },
+    {
+      "old": "GameToggleProps",
+      "new": "ToggleProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameTooltip",
+      "new": "Tooltip",
+      "kind": "value"
+    },
+    {
+      "old": "GameTooltipProps",
+      "new": "TooltipProps",
+      "kind": "type"
+    },
+    {
+      "old": "GameUiHistoryEntry",
+      "new": "UiHistoryEntry",
+      "kind": "type"
+    },
+    {
+      "old": "GameUiHistoryKind",
+      "new": "UiHistoryKind",
+      "kind": "type"
+    },
+    {
+      "old": "GameUiHue",
+      "new": "UiHue",
+      "kind": "type"
+    },
+    {
+      "old": "GameUiStyle",
+      "new": "UiStyle",
+      "kind": "type"
+    },
+    {
+      "old": "GameUiTheme",
+      "new": "UiTheme",
+      "kind": "type"
+    }
+  ],
+  "tokens": [
+    {
+      "old": "--game-ui-accent",
+      "new": "--swimmer-game-accent",
+      "proposed": "--swimmer-accent",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-accent-bright",
+      "new": "--swimmer-accent-bright",
+      "proposed": "--swimmer-accent-bright",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-accent-contrast",
+      "new": "--swimmer-accent-contrast",
+      "proposed": "--swimmer-accent-contrast",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-accent-ink",
+      "new": "--swimmer-game-accent-ink",
+      "proposed": "--swimmer-accent-ink",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-accent-pale",
+      "new": "--swimmer-accent-pale",
+      "proposed": "--swimmer-accent-pale",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-asset-button-min-width",
+      "new": "--swimmer-asset-button-min-width",
+      "proposed": "--swimmer-asset-button-min-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-asset-card-dense-min-width",
+      "new": "--swimmer-asset-card-dense-min-width",
+      "proposed": "--swimmer-asset-card-dense-min-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-asset-card-min-width",
+      "new": "--swimmer-asset-card-min-width",
+      "proposed": "--swimmer-asset-card-min-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-asset-rail-card-size",
+      "new": "--swimmer-asset-rail-card-size",
+      "proposed": "--swimmer-asset-rail-card-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-asset-rail-preview-size",
+      "new": "--swimmer-asset-rail-preview-size",
+      "proposed": "--swimmer-asset-rail-preview-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-assistance-z",
+      "new": "--swimmer-assistance-z",
+      "proposed": "--swimmer-assistance-z",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-berry",
+      "new": "--swimmer-berry",
+      "proposed": "--swimmer-berry",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-berry-pale",
+      "new": "--swimmer-berry-pale",
+      "proposed": "--swimmer-berry-pale",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-bg",
+      "new": "--swimmer-game-bg",
+      "proposed": "--swimmer-bg",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-border-ink",
+      "new": "--swimmer-border-ink",
+      "proposed": "--swimmer-border-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-border-strong",
+      "new": "--swimmer-border-strong",
+      "proposed": "--swimmer-border-strong",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-border-subtle",
+      "new": "--swimmer-border-subtle",
+      "proposed": "--swimmer-border-subtle",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-brush-number-width",
+      "new": "--swimmer-brush-number-width",
+      "proposed": "--swimmer-brush-number-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-build-rail-card-size",
+      "new": "--swimmer-build-rail-card-size",
+      "proposed": "--swimmer-build-rail-card-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-back",
+      "new": "--swimmer-collect-card-back",
+      "proposed": "--swimmer-collect-card-back",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-back-dash",
+      "new": "--swimmer-collect-card-back-dash",
+      "proposed": "--swimmer-collect-card-back-dash",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-back-deep",
+      "new": "--swimmer-collect-card-back-deep",
+      "proposed": "--swimmer-collect-card-back-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-back-ring",
+      "new": "--swimmer-collect-card-back-ring",
+      "proposed": "--swimmer-collect-card-back-ring",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-caption",
+      "new": "--swimmer-collect-card-caption",
+      "proposed": "--swimmer-collect-card-caption",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-art",
+      "new": "--swimmer-collect-card-common-art",
+      "proposed": "--swimmer-collect-card-common-art",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-art-deep",
+      "new": "--swimmer-collect-card-common-art-deep",
+      "proposed": "--swimmer-collect-card-common-art-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-band",
+      "new": "--swimmer-collect-card-common-band",
+      "proposed": "--swimmer-collect-card-common-band",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-band-ink",
+      "new": "--swimmer-collect-card-common-band-ink",
+      "proposed": "--swimmer-collect-card-common-band-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-dot",
+      "new": "--swimmer-collect-card-common-dot",
+      "proposed": "--swimmer-collect-card-common-dot",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-frame",
+      "new": "--swimmer-collect-card-common-frame",
+      "proposed": "--swimmer-collect-card-common-frame",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-common-frame-deep",
+      "new": "--swimmer-collect-card-common-frame-deep",
+      "proposed": "--swimmer-collect-card-common-frame-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-crown",
+      "new": "--swimmer-collect-card-crown",
+      "proposed": "--swimmer-collect-card-crown",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-drop",
+      "new": "--swimmer-collect-card-drop",
+      "proposed": "--swimmer-collect-card-drop",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-foil-1",
+      "new": "--swimmer-collect-card-foil-1",
+      "proposed": "--swimmer-collect-card-foil-1",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-foil-2",
+      "new": "--swimmer-collect-card-foil-2",
+      "proposed": "--swimmer-collect-card-foil-2",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-foil-3",
+      "new": "--swimmer-collect-card-foil-3",
+      "proposed": "--swimmer-collect-card-foil-3",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-foil-4",
+      "new": "--swimmer-collect-card-foil-4",
+      "proposed": "--swimmer-collect-card-foil-4",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-foil-5",
+      "new": "--swimmer-collect-card-foil-5",
+      "proposed": "--swimmer-collect-card-foil-5",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-gem",
+      "new": "--swimmer-collect-card-gem",
+      "proposed": "--swimmer-collect-card-gem",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-gem-light",
+      "new": "--swimmer-collect-card-gem-light",
+      "proposed": "--swimmer-collect-card-gem-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-glare",
+      "new": "--swimmer-collect-card-glare",
+      "proposed": "--swimmer-collect-card-glare",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-ink",
+      "new": "--swimmer-collect-card-ink",
+      "proposed": "--swimmer-collect-card-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-jewel",
+      "new": "--swimmer-collect-card-jewel",
+      "proposed": "--swimmer-collect-card-jewel",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-art",
+      "new": "--swimmer-collect-card-legendary-art",
+      "proposed": "--swimmer-collect-card-legendary-art",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-art-deep",
+      "new": "--swimmer-collect-card-legendary-art-deep",
+      "proposed": "--swimmer-collect-card-legendary-art-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-band",
+      "new": "--swimmer-collect-card-legendary-band",
+      "proposed": "--swimmer-collect-card-legendary-band",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-band-ink",
+      "new": "--swimmer-collect-card-legendary-band-ink",
+      "proposed": "--swimmer-collect-card-legendary-band-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-dot",
+      "new": "--swimmer-collect-card-legendary-dot",
+      "proposed": "--swimmer-collect-card-legendary-dot",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-frame",
+      "new": "--swimmer-collect-card-legendary-frame",
+      "proposed": "--swimmer-collect-card-legendary-frame",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-legendary-frame-deep",
+      "new": "--swimmer-collect-card-legendary-frame-deep",
+      "proposed": "--swimmer-collect-card-legendary-frame-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-paper",
+      "new": "--swimmer-collect-card-paper",
+      "proposed": "--swimmer-collect-card-paper",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-pip-off",
+      "new": "--swimmer-collect-card-pip-off",
+      "proposed": "--swimmer-collect-card-pip-off",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-art",
+      "new": "--swimmer-collect-card-rare-art",
+      "proposed": "--swimmer-collect-card-rare-art",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-art-deep",
+      "new": "--swimmer-collect-card-rare-art-deep",
+      "proposed": "--swimmer-collect-card-rare-art-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-band",
+      "new": "--swimmer-collect-card-rare-band",
+      "proposed": "--swimmer-collect-card-rare-band",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-band-ink",
+      "new": "--swimmer-collect-card-rare-band-ink",
+      "proposed": "--swimmer-collect-card-rare-band-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-dot",
+      "new": "--swimmer-collect-card-rare-dot",
+      "proposed": "--swimmer-collect-card-rare-dot",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-frame",
+      "new": "--swimmer-collect-card-rare-frame",
+      "proposed": "--swimmer-collect-card-rare-frame",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-rare-frame-deep",
+      "new": "--swimmer-collect-card-rare-frame-deep",
+      "proposed": "--swimmer-collect-card-rare-frame-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-shadow",
+      "new": "--swimmer-collect-card-shadow",
+      "proposed": "--swimmer-collect-card-shadow",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-spotlight",
+      "new": "--swimmer-collect-card-spotlight",
+      "proposed": "--swimmer-collect-card-spotlight",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-star",
+      "new": "--swimmer-collect-card-star",
+      "proposed": "--swimmer-collect-card-star",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-sticker",
+      "new": "--swimmer-collect-card-sticker",
+      "proposed": "--swimmer-collect-card-sticker",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-collect-card-sticker-ink",
+      "new": "--swimmer-collect-card-sticker-ink",
+      "proposed": "--swimmer-collect-card-sticker-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-color-scheme",
+      "new": "--swimmer-color-scheme",
+      "proposed": "--swimmer-color-scheme",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-chroma-ink",
+      "new": "--swimmer-control-chroma-ink",
+      "proposed": "--swimmer-control-chroma-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-danger-edge",
+      "new": "--swimmer-control-danger-edge",
+      "proposed": "--swimmer-control-danger-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-danger-edge-dark",
+      "new": "--swimmer-control-danger-edge-dark",
+      "proposed": "--swimmer-control-danger-edge-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-danger-edge-light",
+      "new": "--swimmer-control-danger-edge-light",
+      "proposed": "--swimmer-control-danger-edge-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-danger-ink",
+      "new": "--swimmer-control-danger-ink",
+      "proposed": "--swimmer-control-danger-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-edge",
+      "new": "--swimmer-control-disabled-edge",
+      "proposed": "--swimmer-control-disabled-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-edge-dark",
+      "new": "--swimmer-control-disabled-edge-dark",
+      "proposed": "--swimmer-control-disabled-edge-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-edge-light",
+      "new": "--swimmer-control-disabled-edge-light",
+      "proposed": "--swimmer-control-disabled-edge-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-fill",
+      "new": "--swimmer-control-disabled-fill",
+      "proposed": "--swimmer-control-disabled-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-fill-dark",
+      "new": "--swimmer-control-disabled-fill-dark",
+      "proposed": "--swimmer-control-disabled-fill-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-fill-light",
+      "new": "--swimmer-control-disabled-fill-light",
+      "proposed": "--swimmer-control-disabled-fill-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-text",
+      "new": "--swimmer-control-disabled-text",
+      "proposed": "--swimmer-control-disabled-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-text-dark",
+      "new": "--swimmer-control-disabled-text-dark",
+      "proposed": "--swimmer-control-disabled-text-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-disabled-text-light",
+      "new": "--swimmer-control-disabled-text-light",
+      "proposed": "--swimmer-control-disabled-text-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge",
+      "new": "--swimmer-control-edge",
+      "proposed": "--swimmer-control-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge-dark",
+      "new": "--swimmer-control-edge-dark",
+      "proposed": "--swimmer-control-edge-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge-light",
+      "new": "--swimmer-control-edge-light",
+      "proposed": "--swimmer-control-edge-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge-width",
+      "new": "--swimmer-control-edge-width",
+      "proposed": "--swimmer-control-edge-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge-width-dark",
+      "new": "--swimmer-control-edge-width-dark",
+      "proposed": "--swimmer-control-edge-width-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-edge-width-light",
+      "new": "--swimmer-control-edge-width-light",
+      "proposed": "--swimmer-control-edge-width-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-fill",
+      "new": "--swimmer-control-fill",
+      "proposed": "--swimmer-control-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-fill-dark",
+      "new": "--swimmer-control-fill-dark",
+      "proposed": "--swimmer-control-fill-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-fill-light",
+      "new": "--swimmer-control-fill-light",
+      "proposed": "--swimmer-control-fill-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-gap",
+      "new": "--swimmer-control-gap",
+      "proposed": "--swimmer-control-gap",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge",
+      "new": "--swimmer-control-meaning-edge",
+      "proposed": "--swimmer-control-meaning-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge-dark",
+      "new": "--swimmer-control-meaning-edge-dark",
+      "proposed": "--swimmer-control-meaning-edge-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge-light",
+      "new": "--swimmer-control-meaning-edge-light",
+      "proposed": "--swimmer-control-meaning-edge-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge-width",
+      "new": "--swimmer-control-meaning-edge-width",
+      "proposed": "--swimmer-control-meaning-edge-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge-width-dark",
+      "new": "--swimmer-control-meaning-edge-width-dark",
+      "proposed": "--swimmer-control-meaning-edge-width-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-edge-width-light",
+      "new": "--swimmer-control-meaning-edge-width-light",
+      "proposed": "--swimmer-control-meaning-edge-width-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-fill",
+      "new": "--swimmer-control-meaning-fill",
+      "proposed": "--swimmer-control-meaning-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-fill-dark",
+      "new": "--swimmer-control-meaning-fill-dark",
+      "proposed": "--swimmer-control-meaning-fill-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-fill-light",
+      "new": "--swimmer-control-meaning-fill-light",
+      "proposed": "--swimmer-control-meaning-fill-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-text",
+      "new": "--swimmer-control-meaning-text",
+      "proposed": "--swimmer-control-meaning-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-text-dark",
+      "new": "--swimmer-control-meaning-text-dark",
+      "proposed": "--swimmer-control-meaning-text-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-meaning-text-light",
+      "new": "--swimmer-control-meaning-text-light",
+      "proposed": "--swimmer-control-meaning-text-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge",
+      "new": "--swimmer-control-on-edge",
+      "proposed": "--swimmer-control-on-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge-dark",
+      "new": "--swimmer-control-on-edge-dark",
+      "proposed": "--swimmer-control-on-edge-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge-light",
+      "new": "--swimmer-control-on-edge-light",
+      "proposed": "--swimmer-control-on-edge-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge-width",
+      "new": "--swimmer-control-on-edge-width",
+      "proposed": "--swimmer-control-on-edge-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge-width-dark",
+      "new": "--swimmer-control-on-edge-width-dark",
+      "proposed": "--swimmer-control-on-edge-width-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-edge-width-light",
+      "new": "--swimmer-control-on-edge-width-light",
+      "proposed": "--swimmer-control-on-edge-width-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-fill",
+      "new": "--swimmer-control-on-fill",
+      "proposed": "--swimmer-control-on-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-fill-dark",
+      "new": "--swimmer-control-on-fill-dark",
+      "proposed": "--swimmer-control-on-fill-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-fill-light",
+      "new": "--swimmer-control-on-fill-light",
+      "proposed": "--swimmer-control-on-fill-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-text",
+      "new": "--swimmer-control-on-text",
+      "proposed": "--swimmer-control-on-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-text-dark",
+      "new": "--swimmer-control-on-text-dark",
+      "proposed": "--swimmer-control-on-text-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-on-text-light",
+      "new": "--swimmer-control-on-text-light",
+      "proposed": "--swimmer-control-on-text-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-padding-block",
+      "new": "--swimmer-control-padding-block",
+      "proposed": "--swimmer-control-padding-block",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-padding-inline",
+      "new": "--swimmer-control-padding-inline",
+      "proposed": "--swimmer-control-padding-inline",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-row-radius",
+      "new": "--swimmer-control-row-radius",
+      "proposed": "--swimmer-control-row-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-text",
+      "new": "--swimmer-control-text",
+      "proposed": "--swimmer-control-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-text-dark",
+      "new": "--swimmer-control-text-dark",
+      "proposed": "--swimmer-control-text-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-control-text-light",
+      "new": "--swimmer-control-text-light",
+      "proposed": "--swimmer-control-text-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-cta-from",
+      "new": "--swimmer-game-cta-from",
+      "proposed": "--swimmer-cta-from",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-cta-text",
+      "new": "--swimmer-game-cta-text",
+      "proposed": "--swimmer-cta-text",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-cta-to",
+      "new": "--swimmer-game-cta-to",
+      "proposed": "--swimmer-cta-to",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-danger",
+      "new": "--swimmer-game-danger",
+      "proposed": "--swimmer-danger",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-danger-bright",
+      "new": "--swimmer-danger-bright",
+      "proposed": "--swimmer-danger-bright",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-danger-ink",
+      "new": "--swimmer-danger-ink",
+      "proposed": "--swimmer-danger-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-disabled",
+      "new": "--swimmer-disabled",
+      "proposed": "--swimmer-disabled",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-droplet-radius",
+      "new": "--swimmer-droplet-radius",
+      "proposed": "--swimmer-droplet-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-droplet-wobble",
+      "new": "--swimmer-droplet-wobble",
+      "proposed": "--swimmer-droplet-wobble",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-ease-pop",
+      "new": "--swimmer-ease-pop",
+      "proposed": "--swimmer-ease-pop",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-ease-soft",
+      "new": "--swimmer-ease-soft",
+      "proposed": "--swimmer-ease-soft",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-field-edge",
+      "new": "--swimmer-field-edge",
+      "proposed": "--swimmer-field-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-field-edge-width",
+      "new": "--swimmer-field-edge-width",
+      "proposed": "--swimmer-field-edge-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-focus-ring",
+      "new": "--swimmer-focus-ring",
+      "proposed": "--swimmer-focus-ring",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-body",
+      "new": "--swimmer-game-font-body",
+      "proposed": "--swimmer-font-body",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-font-display",
+      "new": "--swimmer-game-font-display",
+      "proposed": "--swimmer-font-display",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-font-lg",
+      "new": "--swimmer-font-lg",
+      "proposed": "--swimmer-font-lg",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-md",
+      "new": "--swimmer-font-md",
+      "proposed": "--swimmer-font-md",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-mono",
+      "new": "--swimmer-font-mono",
+      "proposed": "--swimmer-font-mono",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-reading",
+      "new": "--swimmer-font-reading",
+      "proposed": "--swimmer-font-reading",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-sm",
+      "new": "--swimmer-font-sm",
+      "proposed": "--swimmer-font-sm",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-xl",
+      "new": "--swimmer-font-xl",
+      "proposed": "--swimmer-font-xl",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-xs",
+      "new": "--swimmer-font-xs",
+      "proposed": "--swimmer-font-xs",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-xxl",
+      "new": "--swimmer-font-xxl",
+      "proposed": "--swimmer-font-xxl",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-glass-dark",
+      "new": "--swimmer-glass-dark",
+      "proposed": "--swimmer-glass-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-glass-dark-soft",
+      "new": "--swimmer-glass-dark-soft",
+      "proposed": "--swimmer-glass-dark-soft",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-coral",
+      "new": "--swimmer-hue-coral",
+      "proposed": "--swimmer-hue-coral",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-grape",
+      "new": "--swimmer-hue-grape",
+      "proposed": "--swimmer-hue-grape",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-ink",
+      "new": "--swimmer-hue-ink",
+      "proposed": "--swimmer-hue-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-leaf",
+      "new": "--swimmer-hue-leaf",
+      "proposed": "--swimmer-hue-leaf",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-pink",
+      "new": "--swimmer-hue-pink",
+      "proposed": "--swimmer-hue-pink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-sky",
+      "new": "--swimmer-hue-sky",
+      "proposed": "--swimmer-hue-sky",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-sun",
+      "new": "--swimmer-hue-sun",
+      "proposed": "--swimmer-hue-sun",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-icon-lg",
+      "new": "--swimmer-icon-lg",
+      "proposed": "--swimmer-icon-lg",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-icon-md",
+      "new": "--swimmer-icon-md",
+      "proposed": "--swimmer-icon-md",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-icon-sm",
+      "new": "--swimmer-icon-sm",
+      "proposed": "--swimmer-icon-sm",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-ink-deep",
+      "new": "--swimmer-ink-deep",
+      "proposed": "--swimmer-ink-deep",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-ink-heading",
+      "new": "--swimmer-ink-heading",
+      "proposed": "--swimmer-ink-heading",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-ink-title",
+      "new": "--swimmer-ink-title",
+      "proposed": "--swimmer-ink-title",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-line-body",
+      "new": "--swimmer-line-body",
+      "proposed": "--swimmer-line-body",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-line-reading",
+      "new": "--swimmer-line-reading",
+      "proposed": "--swimmer-line-reading",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-line-tight",
+      "new": "--swimmer-line-tight",
+      "proposed": "--swimmer-line-tight",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-action-border",
+      "new": "--swimmer-liquid-action-border",
+      "proposed": "--swimmer-liquid-action-border",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-action-face",
+      "new": "--swimmer-liquid-action-face",
+      "proposed": "--swimmer-liquid-action-face",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-action-ink",
+      "new": "--swimmer-liquid-action-ink",
+      "proposed": "--swimmer-liquid-action-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-action-lip",
+      "new": "--swimmer-liquid-action-lip",
+      "proposed": "--swimmer-liquid-action-lip",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-field-face",
+      "new": "--swimmer-liquid-field-face",
+      "proposed": "--swimmer-liquid-field-face",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-field-ink",
+      "new": "--swimmer-liquid-field-ink",
+      "proposed": "--swimmer-liquid-field-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-active-threshold",
+      "new": "--swimmer-liquid-gooey-bend-active-threshold",
+      "proposed": "--swimmer-liquid-gooey-bend-active-threshold",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-horizontal",
+      "new": "--swimmer-liquid-gooey-bend-horizontal",
+      "proposed": "--swimmer-liquid-gooey-bend-horizontal",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-horizontal-cap",
+      "new": "--swimmer-liquid-gooey-bend-horizontal-cap",
+      "proposed": "--swimmer-liquid-gooey-bend-horizontal-cap",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-leading-cap-factor",
+      "new": "--swimmer-liquid-gooey-bend-leading-cap-factor",
+      "proposed": "--swimmer-liquid-gooey-bend-leading-cap-factor",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-radius-max",
+      "new": "--swimmer-liquid-gooey-bend-radius-max",
+      "proposed": "--swimmer-liquid-gooey-bend-radius-max",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-radius-min",
+      "new": "--swimmer-liquid-gooey-bend-radius-min",
+      "proposed": "--swimmer-liquid-gooey-bend-radius-min",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-smoothing",
+      "new": "--swimmer-liquid-gooey-bend-smoothing",
+      "proposed": "--swimmer-liquid-gooey-bend-smoothing",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-trailing-cap-factor",
+      "new": "--swimmer-liquid-gooey-bend-trailing-cap-factor",
+      "proposed": "--swimmer-liquid-gooey-bend-trailing-cap-factor",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-velocity-horizontal",
+      "new": "--swimmer-liquid-gooey-bend-velocity-horizontal",
+      "proposed": "--swimmer-liquid-gooey-bend-velocity-horizontal",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-velocity-vertical",
+      "new": "--swimmer-liquid-gooey-bend-velocity-vertical",
+      "proposed": "--swimmer-liquid-gooey-bend-velocity-vertical",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-vertical",
+      "new": "--swimmer-liquid-gooey-bend-vertical",
+      "proposed": "--swimmer-liquid-gooey-bend-vertical",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-bend-vertical-cap",
+      "new": "--swimmer-liquid-gooey-bend-vertical-cap",
+      "proposed": "--swimmer-liquid-gooey-bend-vertical-cap",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-blur",
+      "new": "--swimmer-liquid-gooey-blur",
+      "proposed": "--swimmer-liquid-gooey-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-content-blur-area-multiplier",
+      "new": "--swimmer-liquid-gooey-content-blur-area-multiplier",
+      "proposed": "--swimmer-liquid-gooey-content-blur-area-multiplier",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-contrast",
+      "new": "--swimmer-liquid-gooey-contrast",
+      "proposed": "--swimmer-liquid-gooey-contrast",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-blur",
+      "new": "--swimmer-liquid-gooey-dissolve-blur",
+      "proposed": "--swimmer-liquid-gooey-dissolve-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-detail",
+      "new": "--swimmer-liquid-gooey-dissolve-detail",
+      "proposed": "--swimmer-liquid-gooey-dissolve-detail",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-fade-ms",
+      "new": "--swimmer-liquid-gooey-dissolve-fade-ms",
+      "proposed": "--swimmer-liquid-gooey-dissolve-fade-ms",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-flow-speed",
+      "new": "--swimmer-liquid-gooey-dissolve-flow-speed",
+      "proposed": "--swimmer-liquid-gooey-dissolve-flow-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-gravity",
+      "new": "--swimmer-liquid-gooey-dissolve-gravity",
+      "proposed": "--swimmer-liquid-gooey-dissolve-gravity",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-mix",
+      "new": "--swimmer-liquid-gooey-dissolve-mix",
+      "proposed": "--swimmer-liquid-gooey-dissolve-mix",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-pull",
+      "new": "--swimmer-liquid-gooey-dissolve-pull",
+      "proposed": "--swimmer-liquid-gooey-dissolve-pull",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-range",
+      "new": "--swimmer-liquid-gooey-dissolve-range",
+      "proposed": "--swimmer-liquid-gooey-dissolve-range",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-release-ms",
+      "new": "--swimmer-liquid-gooey-dissolve-release-ms",
+      "proposed": "--swimmer-liquid-gooey-dissolve-release-ms",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-seam-blur",
+      "new": "--swimmer-liquid-gooey-dissolve-seam-blur",
+      "proposed": "--swimmer-liquid-gooey-dissolve-seam-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-sink",
+      "new": "--swimmer-liquid-gooey-dissolve-sink",
+      "proposed": "--swimmer-liquid-gooey-dissolve-sink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-strength",
+      "new": "--swimmer-liquid-gooey-dissolve-strength",
+      "proposed": "--swimmer-liquid-gooey-dissolve-strength",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-taper",
+      "new": "--swimmer-liquid-gooey-dissolve-taper",
+      "proposed": "--swimmer-liquid-gooey-dissolve-taper",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-warp",
+      "new": "--swimmer-liquid-gooey-dissolve-warp",
+      "proposed": "--swimmer-liquid-gooey-dissolve-warp",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-warp-freq",
+      "new": "--swimmer-liquid-gooey-dissolve-warp-freq",
+      "proposed": "--swimmer-liquid-gooey-dissolve-warp-freq",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-dissolve-zone",
+      "new": "--swimmer-liquid-gooey-dissolve-zone",
+      "proposed": "--swimmer-liquid-gooey-dissolve-zone",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-anticipation",
+      "new": "--swimmer-liquid-gooey-evolve-anticipation",
+      "proposed": "--swimmer-liquid-gooey-evolve-anticipation",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-content-blur",
+      "new": "--swimmer-liquid-gooey-evolve-content-blur",
+      "proposed": "--swimmer-liquid-gooey-evolve-content-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-corner-delay",
+      "new": "--swimmer-liquid-gooey-evolve-corner-delay",
+      "proposed": "--swimmer-liquid-gooey-evolve-corner-delay",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-corner-duration",
+      "new": "--swimmer-liquid-gooey-evolve-corner-duration",
+      "proposed": "--swimmer-liquid-gooey-evolve-corner-duration",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-corner-ease",
+      "new": "--swimmer-liquid-gooey-evolve-corner-ease",
+      "proposed": "--swimmer-liquid-gooey-evolve-corner-ease",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-mass-damping",
+      "new": "--swimmer-liquid-gooey-evolve-mass-damping",
+      "proposed": "--swimmer-liquid-gooey-evolve-mass-damping",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-mass-stiffness",
+      "new": "--swimmer-liquid-gooey-evolve-mass-stiffness",
+      "proposed": "--swimmer-liquid-gooey-evolve-mass-stiffness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-radius-damping",
+      "new": "--swimmer-liquid-gooey-evolve-radius-damping",
+      "proposed": "--swimmer-liquid-gooey-evolve-radius-damping",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-radius-stiffness",
+      "new": "--swimmer-liquid-gooey-evolve-radius-stiffness",
+      "proposed": "--swimmer-liquid-gooey-evolve-radius-stiffness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-roundness",
+      "new": "--swimmer-liquid-gooey-evolve-roundness",
+      "proposed": "--swimmer-liquid-gooey-evolve-roundness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-size-damping",
+      "new": "--swimmer-liquid-gooey-evolve-size-damping",
+      "proposed": "--swimmer-liquid-gooey-evolve-size-damping",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-size-stiffness",
+      "new": "--swimmer-liquid-gooey-evolve-size-stiffness",
+      "proposed": "--swimmer-liquid-gooey-evolve-size-stiffness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-evolve-travel",
+      "new": "--swimmer-liquid-gooey-evolve-travel",
+      "proposed": "--swimmer-liquid-gooey-evolve-travel",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-blur",
+      "new": "--swimmer-liquid-gooey-melt-blur",
+      "proposed": "--swimmer-liquid-gooey-melt-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-contrast",
+      "new": "--swimmer-liquid-gooey-melt-contrast",
+      "proposed": "--swimmer-liquid-gooey-melt-contrast",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-fade",
+      "new": "--swimmer-liquid-gooey-melt-fade",
+      "proposed": "--swimmer-liquid-gooey-melt-fade",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-gravity",
+      "new": "--swimmer-liquid-gooey-melt-gravity",
+      "proposed": "--swimmer-liquid-gooey-melt-gravity",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-mix",
+      "new": "--swimmer-liquid-gooey-melt-mix",
+      "proposed": "--swimmer-liquid-gooey-melt-mix",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-mix-blur",
+      "new": "--swimmer-liquid-gooey-melt-mix-blur",
+      "proposed": "--swimmer-liquid-gooey-melt-mix-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-reach",
+      "new": "--swimmer-liquid-gooey-melt-reach",
+      "proposed": "--swimmer-liquid-gooey-melt-reach",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-warp",
+      "new": "--swimmer-liquid-gooey-melt-warp",
+      "proposed": "--swimmer-liquid-gooey-melt-warp",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-melt-waviness",
+      "new": "--swimmer-liquid-gooey-melt-waviness",
+      "proposed": "--swimmer-liquid-gooey-melt-waviness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-morph-bounce",
+      "new": "--swimmer-liquid-gooey-morph-bounce",
+      "proposed": "--swimmer-liquid-gooey-morph-bounce",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-morph-shape",
+      "new": "--swimmer-liquid-gooey-morph-shape",
+      "proposed": "--swimmer-liquid-gooey-morph-shape",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-morph-speed",
+      "new": "--swimmer-liquid-gooey-morph-speed",
+      "proposed": "--swimmer-liquid-gooey-morph-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-damping",
+      "new": "--swimmer-liquid-gooey-move-damping",
+      "proposed": "--swimmer-liquid-gooey-move-damping",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-force",
+      "new": "--swimmer-liquid-gooey-move-force",
+      "proposed": "--swimmer-liquid-gooey-move-force",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-integration-rate",
+      "new": "--swimmer-liquid-gooey-move-integration-rate",
+      "proposed": "--swimmer-liquid-gooey-move-integration-rate",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-lag-base",
+      "new": "--swimmer-liquid-gooey-move-lag-base",
+      "proposed": "--swimmer-liquid-gooey-move-lag-base",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-lag-force",
+      "new": "--swimmer-liquid-gooey-move-lag-force",
+      "proposed": "--swimmer-liquid-gooey-move-lag-force",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-min-perpendicular",
+      "new": "--swimmer-liquid-gooey-move-min-perpendicular",
+      "proposed": "--swimmer-liquid-gooey-move-min-perpendicular",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-settle-distance",
+      "new": "--swimmer-liquid-gooey-move-settle-distance",
+      "proposed": "--swimmer-liquid-gooey-move-settle-distance",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-settle-speed",
+      "new": "--swimmer-liquid-gooey-move-settle-speed",
+      "proposed": "--swimmer-liquid-gooey-move-settle-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-speed-threshold",
+      "new": "--swimmer-liquid-gooey-move-speed-threshold",
+      "proposed": "--swimmer-liquid-gooey-move-speed-threshold",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-stiffness",
+      "new": "--swimmer-liquid-gooey-move-stiffness",
+      "proposed": "--swimmer-liquid-gooey-move-stiffness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-stretch",
+      "new": "--swimmer-liquid-gooey-move-stretch",
+      "proposed": "--swimmer-liquid-gooey-move-stretch",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-stretch-speed",
+      "new": "--swimmer-liquid-gooey-move-stretch-speed",
+      "proposed": "--swimmer-liquid-gooey-move-stretch-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-stretch-squash",
+      "new": "--swimmer-liquid-gooey-move-stretch-squash",
+      "proposed": "--swimmer-liquid-gooey-move-stretch-squash",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail",
+      "new": "--swimmer-liquid-gooey-move-tail",
+      "proposed": "--swimmer-liquid-gooey-move-tail",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-mid-radius-a",
+      "new": "--swimmer-liquid-gooey-move-tail-mid-radius-a",
+      "proposed": "--swimmer-liquid-gooey-move-tail-mid-radius-a",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-mid-radius-b",
+      "new": "--swimmer-liquid-gooey-move-tail-mid-radius-b",
+      "proposed": "--swimmer-liquid-gooey-move-tail-mid-radius-b",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-midpoint-a",
+      "new": "--swimmer-liquid-gooey-move-tail-midpoint-a",
+      "proposed": "--swimmer-liquid-gooey-move-tail-midpoint-a",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-midpoint-b",
+      "new": "--swimmer-liquid-gooey-move-tail-midpoint-b",
+      "proposed": "--swimmer-liquid-gooey-move-tail-midpoint-b",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-min-radius",
+      "new": "--swimmer-liquid-gooey-move-tail-min-radius",
+      "proposed": "--swimmer-liquid-gooey-move-tail-min-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-onset-range",
+      "new": "--swimmer-liquid-gooey-move-tail-onset-range",
+      "proposed": "--swimmer-liquid-gooey-move-tail-onset-range",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-onset-speed",
+      "new": "--swimmer-liquid-gooey-move-tail-onset-speed",
+      "proposed": "--swimmer-liquid-gooey-move-tail-onset-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-phase-speed",
+      "new": "--swimmer-liquid-gooey-move-tail-phase-speed",
+      "proposed": "--swimmer-liquid-gooey-move-tail-phase-speed",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-ramp",
+      "new": "--swimmer-liquid-gooey-move-tail-ramp",
+      "proposed": "--swimmer-liquid-gooey-move-tail-ramp",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-spring-damping",
+      "new": "--swimmer-liquid-gooey-move-tail-spring-damping",
+      "proposed": "--swimmer-liquid-gooey-move-tail-spring-damping",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-spring-stiffness",
+      "new": "--swimmer-liquid-gooey-move-tail-spring-stiffness",
+      "proposed": "--swimmer-liquid-gooey-move-tail-spring-stiffness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-wobble",
+      "new": "--swimmer-liquid-gooey-move-tail-wobble",
+      "proposed": "--swimmer-liquid-gooey-move-tail-wobble",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-move-tail-wobble-phase",
+      "new": "--swimmer-liquid-gooey-move-tail-wobble-phase",
+      "proposed": "--swimmer-liquid-gooey-move-tail-wobble-phase",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-waviness",
+      "new": "--swimmer-liquid-gooey-waviness",
+      "proposed": "--swimmer-liquid-gooey-waviness",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-gooey-waviness-freq",
+      "new": "--swimmer-liquid-gooey-waviness-freq",
+      "proposed": "--swimmer-liquid-gooey-waviness-freq",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-blur",
+      "new": "--swimmer-liquid-material-blur",
+      "proposed": "--swimmer-liquid-material-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-contrast",
+      "new": "--swimmer-liquid-material-contrast",
+      "proposed": "--swimmer-liquid-material-contrast",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-field",
+      "new": "--swimmer-liquid-material-field",
+      "proposed": "--swimmer-liquid-material-field",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-gloss",
+      "new": "--swimmer-liquid-material-gloss",
+      "proposed": "--swimmer-liquid-material-gloss",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-ink",
+      "new": "--swimmer-liquid-material-ink",
+      "proposed": "--swimmer-liquid-material-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-lobes",
+      "new": "--swimmer-liquid-material-lobes",
+      "proposed": "--swimmer-liquid-material-lobes",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-muted",
+      "new": "--swimmer-liquid-material-muted",
+      "proposed": "--swimmer-liquid-material-muted",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-outline",
+      "new": "--swimmer-liquid-material-outline",
+      "proposed": "--swimmer-liquid-material-outline",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-shadow",
+      "new": "--swimmer-liquid-material-shadow",
+      "proposed": "--swimmer-liquid-material-shadow",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-material-sheen",
+      "new": "--swimmer-liquid-material-sheen",
+      "proposed": "--swimmer-liquid-material-sheen",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-presence-shadow",
+      "new": "--swimmer-liquid-presence-shadow",
+      "proposed": "--swimmer-liquid-presence-shadow",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-backdrop",
+      "new": "--swimmer-liquid-reveal-backdrop",
+      "proposed": "--swimmer-liquid-reveal-backdrop",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-bg",
+      "new": "--swimmer-liquid-reveal-bg",
+      "proposed": "--swimmer-liquid-reveal-bg",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-muted",
+      "new": "--swimmer-liquid-reveal-muted",
+      "proposed": "--swimmer-liquid-reveal-muted",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-shadow",
+      "new": "--swimmer-liquid-reveal-shadow",
+      "proposed": "--swimmer-liquid-reveal-shadow",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-solid",
+      "new": "--swimmer-liquid-reveal-solid",
+      "proposed": "--swimmer-liquid-reveal-solid",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-reveal-text",
+      "new": "--swimmer-liquid-reveal-text",
+      "proposed": "--swimmer-liquid-reveal-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-list-row-radius",
+      "new": "--swimmer-list-row-radius",
+      "proposed": "--swimmer-list-row-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-measure-reading",
+      "new": "--swimmer-measure-reading",
+      "proposed": "--swimmer-measure-reading",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-coral",
+      "new": "--swimmer-mist-coral",
+      "proposed": "--swimmer-mist-coral",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-grape",
+      "new": "--swimmer-mist-grape",
+      "proposed": "--swimmer-mist-grape",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-leaf",
+      "new": "--swimmer-mist-leaf",
+      "proposed": "--swimmer-mist-leaf",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-pink",
+      "new": "--swimmer-mist-pink",
+      "proposed": "--swimmer-mist-pink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-sky",
+      "new": "--swimmer-mist-sky",
+      "proposed": "--swimmer-mist-sky",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-mist-sun",
+      "new": "--swimmer-mist-sun",
+      "proposed": "--swimmer-mist-sun",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-motion-base",
+      "new": "--swimmer-motion-base",
+      "proposed": "--swimmer-motion-base",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-motion-fast",
+      "new": "--swimmer-game-motion-fast",
+      "proposed": "--swimmer-motion-fast",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-motion-slow",
+      "new": "--swimmer-motion-slow",
+      "proposed": "--swimmer-motion-slow",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-otp-target",
+      "new": "--swimmer-otp-target",
+      "proposed": "--swimmer-otp-target",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-bg",
+      "new": "--swimmer-overlay-glass-bg",
+      "proposed": "--swimmer-overlay-glass-bg",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-bg-hover",
+      "new": "--swimmer-overlay-glass-bg-hover",
+      "proposed": "--swimmer-overlay-glass-bg-hover",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-bg-panel",
+      "new": "--swimmer-overlay-glass-bg-panel",
+      "proposed": "--swimmer-overlay-glass-bg-panel",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-bg-strong",
+      "new": "--swimmer-overlay-glass-bg-strong",
+      "proposed": "--swimmer-overlay-glass-bg-strong",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-blur",
+      "new": "--swimmer-overlay-glass-blur",
+      "proposed": "--swimmer-overlay-glass-blur",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-border",
+      "new": "--swimmer-overlay-glass-border",
+      "proposed": "--swimmer-overlay-glass-border",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-border-hover",
+      "new": "--swimmer-overlay-glass-border-hover",
+      "proposed": "--swimmer-overlay-glass-border-hover",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-focus-ring",
+      "new": "--swimmer-overlay-glass-focus-ring",
+      "proposed": "--swimmer-overlay-glass-focus-ring",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-primary-fill",
+      "new": "--swimmer-overlay-glass-primary-fill",
+      "proposed": "--swimmer-overlay-glass-primary-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-shadow-lift",
+      "new": "--swimmer-overlay-glass-shadow-lift",
+      "proposed": "--swimmer-overlay-glass-shadow-lift",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-text",
+      "new": "--swimmer-overlay-glass-text",
+      "proposed": "--swimmer-overlay-glass-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-overlay-glass-text-muted",
+      "new": "--swimmer-overlay-glass-text-muted",
+      "proposed": "--swimmer-overlay-glass-text-muted",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paint-edge",
+      "new": "--swimmer-paint-edge",
+      "proposed": "--swimmer-paint-edge",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paint-edge-width",
+      "new": "--swimmer-paint-edge-width",
+      "proposed": "--swimmer-paint-edge-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paint-fill",
+      "new": "--swimmer-paint-fill",
+      "proposed": "--swimmer-paint-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paint-text",
+      "new": "--swimmer-paint-text",
+      "proposed": "--swimmer-paint-text",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-grey-dark",
+      "new": "--swimmer-paper-grey-dark",
+      "proposed": "--swimmer-paper-grey-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-grey-light",
+      "new": "--swimmer-paper-grey-light",
+      "proposed": "--swimmer-paper-grey-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-grey2-dark",
+      "new": "--swimmer-paper-grey2-dark",
+      "proposed": "--swimmer-paper-grey2-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-grey2-light",
+      "new": "--swimmer-paper-grey2-light",
+      "proposed": "--swimmer-paper-grey2-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-ink-dark",
+      "new": "--swimmer-paper-ink-dark",
+      "proposed": "--swimmer-paper-ink-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-ink-light",
+      "new": "--swimmer-paper-ink-light",
+      "proposed": "--swimmer-paper-ink-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-line-dark",
+      "new": "--swimmer-paper-line-dark",
+      "proposed": "--swimmer-paper-line-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-line-light",
+      "new": "--swimmer-paper-line-light",
+      "proposed": "--swimmer-paper-line-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-muted-dark",
+      "new": "--swimmer-paper-muted-dark",
+      "proposed": "--swimmer-paper-muted-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-muted-light",
+      "new": "--swimmer-paper-muted-light",
+      "proposed": "--swimmer-paper-muted-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-paper-dark",
+      "new": "--swimmer-paper-paper-dark",
+      "proposed": "--swimmer-paper-paper-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-paper-light",
+      "new": "--swimmer-paper-paper-light",
+      "proposed": "--swimmer-paper-paper-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-soft-dark",
+      "new": "--swimmer-paper-soft-dark",
+      "proposed": "--swimmer-paper-soft-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-paper-soft-light",
+      "new": "--swimmer-paper-soft-light",
+      "proposed": "--swimmer-paper-soft-light",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-border",
+      "new": "--swimmer-plaque-border",
+      "proposed": "--swimmer-plaque-border",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-brass",
+      "new": "--swimmer-plaque-brass",
+      "proposed": "--swimmer-plaque-brass",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-highlight",
+      "new": "--swimmer-plaque-highlight",
+      "proposed": "--swimmer-plaque-highlight",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-hover",
+      "new": "--swimmer-plaque-hover",
+      "proposed": "--swimmer-plaque-hover",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-ink",
+      "new": "--swimmer-plaque-ink",
+      "proposed": "--swimmer-plaque-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-radius",
+      "new": "--swimmer-plaque-radius",
+      "proposed": "--swimmer-plaque-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-plaque-surface",
+      "new": "--swimmer-plaque-surface",
+      "proposed": "--swimmer-plaque-surface",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-playfield-scrim",
+      "new": "--swimmer-playfield-scrim",
+      "proposed": "--swimmer-playfield-scrim",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-preview-canvas-1",
+      "new": "--swimmer-preview-canvas-1",
+      "proposed": "--swimmer-preview-canvas-1",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-preview-canvas-2",
+      "new": "--swimmer-preview-canvas-2",
+      "proposed": "--swimmer-preview-canvas-2",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-preview-canvas-3",
+      "new": "--swimmer-preview-canvas-3",
+      "proposed": "--swimmer-preview-canvas-3",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-preview-glow-mint",
+      "new": "--swimmer-preview-glow-mint",
+      "proposed": "--swimmer-preview-glow-mint",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-preview-glow-warm",
+      "new": "--swimmer-preview-glow-warm",
+      "proposed": "--swimmer-preview-glow-warm",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radial-diameter",
+      "new": "--swimmer-radial-diameter",
+      "proposed": "--swimmer-radial-diameter",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radial-radius",
+      "new": "--swimmer-radial-radius",
+      "proposed": "--swimmer-radial-radius",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radius-bead",
+      "new": "--swimmer-radius-bead",
+      "proposed": "--swimmer-radius-bead",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radius-card",
+      "new": "--swimmer-radius-card",
+      "proposed": "--swimmer-radius-card",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radius-control",
+      "new": "--swimmer-game-radius-control",
+      "proposed": "--swimmer-radius-control",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-radius-modal",
+      "new": "--swimmer-radius-modal",
+      "proposed": "--swimmer-radius-modal",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-radius-panel",
+      "new": "--swimmer-game-radius-panel",
+      "proposed": "--swimmer-radius-panel",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-reduced-motion-policy",
+      "new": "--swimmer-reduced-motion-policy",
+      "proposed": "--swimmer-reduced-motion-policy",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-safe-bottom",
+      "new": "--swimmer-safe-bottom",
+      "proposed": "--swimmer-safe-bottom",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-safe-left",
+      "new": "--swimmer-safe-left",
+      "proposed": "--swimmer-safe-left",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-safe-right",
+      "new": "--swimmer-safe-right",
+      "proposed": "--swimmer-safe-right",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-safe-top",
+      "new": "--swimmer-safe-top",
+      "proposed": "--swimmer-safe-top",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-canopy",
+      "new": "--swimmer-scenery-canopy",
+      "proposed": "--swimmer-scenery-canopy",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-clearing",
+      "new": "--swimmer-scenery-clearing",
+      "proposed": "--swimmer-scenery-clearing",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-dusk-1",
+      "new": "--swimmer-scenery-dusk-1",
+      "proposed": "--swimmer-scenery-dusk-1",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-dusk-2",
+      "new": "--swimmer-scenery-dusk-2",
+      "proposed": "--swimmer-scenery-dusk-2",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-dusk-3",
+      "new": "--swimmer-scenery-dusk-3",
+      "proposed": "--swimmer-scenery-dusk-3",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-grid-soft",
+      "new": "--swimmer-scenery-grid-soft",
+      "proposed": "--swimmer-scenery-grid-soft",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-grid-strong",
+      "new": "--swimmer-scenery-grid-strong",
+      "proposed": "--swimmer-scenery-grid-strong",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-moss",
+      "new": "--swimmer-scenery-moss",
+      "proposed": "--swimmer-scenery-moss",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-pine",
+      "new": "--swimmer-scenery-pine",
+      "proposed": "--swimmer-scenery-pine",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-soil",
+      "new": "--swimmer-scenery-soil",
+      "proposed": "--swimmer-scenery-soil",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-wood-hi",
+      "new": "--swimmer-scenery-wood-hi",
+      "proposed": "--swimmer-scenery-wood-hi",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scenery-wood-lo",
+      "new": "--swimmer-scenery-wood-lo",
+      "proposed": "--swimmer-scenery-wood-lo",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scrim-strong",
+      "new": "--swimmer-scrim-strong",
+      "proposed": "--swimmer-scrim-strong",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scrollbar-size",
+      "new": "--swimmer-scrollbar-size",
+      "proposed": "--swimmer-scrollbar-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scrollbar-thumb",
+      "new": "--swimmer-scrollbar-thumb",
+      "proposed": "--swimmer-scrollbar-thumb",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scrollbar-thumb-hover",
+      "new": "--swimmer-scrollbar-thumb-hover",
+      "proposed": "--swimmer-scrollbar-thumb-hover",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-scrollbar-track",
+      "new": "--swimmer-scrollbar-track",
+      "proposed": "--swimmer-scrollbar-track",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-secondary",
+      "new": "--swimmer-secondary",
+      "proposed": "--swimmer-secondary",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-secondary-pale",
+      "new": "--swimmer-secondary-pale",
+      "proposed": "--swimmer-secondary-pale",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-callout",
+      "new": "--swimmer-shadow-callout",
+      "proposed": "--swimmer-shadow-callout",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-liquid-ink",
+      "new": "--swimmer-shadow-liquid-ink",
+      "proposed": "--swimmer-shadow-liquid-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-raised",
+      "new": "--swimmer-game-shadow-raised",
+      "proposed": "--swimmer-shadow-raised",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-shadow-scenery",
+      "new": "--swimmer-shadow-scenery",
+      "proposed": "--swimmer-shadow-scenery",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-seat",
+      "new": "--swimmer-shadow-seat",
+      "proposed": "--swimmer-shadow-seat",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-side-tabs-width",
+      "new": "--swimmer-side-tabs-width",
+      "proposed": "--swimmer-side-tabs-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-space-10",
+      "new": "--swimmer-game-space-10",
+      "proposed": "--swimmer-space-10",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-12",
+      "new": "--swimmer-game-space-12",
+      "proposed": "--swimmer-space-12",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-16",
+      "new": "--swimmer-game-space-16",
+      "proposed": "--swimmer-space-16",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-2",
+      "new": "--swimmer-game-space-2",
+      "proposed": "--swimmer-space-2",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-20",
+      "new": "--swimmer-space-20",
+      "proposed": "--swimmer-space-20",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-space-24",
+      "new": "--swimmer-space-24",
+      "proposed": "--swimmer-space-24",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-space-32",
+      "new": "--swimmer-space-32",
+      "proposed": "--swimmer-space-32",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-space-4",
+      "new": "--swimmer-game-space-4",
+      "proposed": "--swimmer-space-4",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-6",
+      "new": "--swimmer-game-space-6",
+      "proposed": "--swimmer-space-6",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-space-8",
+      "new": "--swimmer-game-space-8",
+      "proposed": "--swimmer-space-8",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-stage-tile-min-height",
+      "new": "--swimmer-stage-tile-min-height",
+      "proposed": "--swimmer-stage-tile-min-height",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-stroke",
+      "new": "--swimmer-stroke",
+      "proposed": "--swimmer-stroke",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-success",
+      "new": "--swimmer-game-success",
+      "proposed": "--swimmer-success",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-success-bright",
+      "new": "--swimmer-success-bright",
+      "proposed": "--swimmer-success-bright",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-surface",
+      "new": "--swimmer-game-surface",
+      "proposed": "--swimmer-surface",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-surface-raised",
+      "new": "--swimmer-game-surface-raised",
+      "proposed": "--swimmer-surface-raised",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-surface-sunken",
+      "new": "--swimmer-surface-sunken",
+      "proposed": "--swimmer-surface-sunken",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-terrain-swatch-size",
+      "new": "--swimmer-terrain-swatch-size",
+      "proposed": "--swimmer-terrain-swatch-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-terrain-tool-hit-size",
+      "new": "--swimmer-terrain-tool-hit-size",
+      "proposed": "--swimmer-terrain-tool-hit-size",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-text",
+      "new": "--swimmer-game-text",
+      "proposed": "--swimmer-text",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-text-muted",
+      "new": "--swimmer-game-text-muted",
+      "proposed": "--swimmer-text-muted",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-text-on-dark",
+      "new": "--swimmer-text-on-dark",
+      "proposed": "--swimmer-text-on-dark",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-coral",
+      "new": "--swimmer-tint-coral",
+      "proposed": "--swimmer-tint-coral",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-cream",
+      "new": "--swimmer-tint-cream",
+      "proposed": "--swimmer-tint-cream",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-grape",
+      "new": "--swimmer-tint-grape",
+      "proposed": "--swimmer-tint-grape",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-leaf",
+      "new": "--swimmer-tint-leaf",
+      "proposed": "--swimmer-tint-leaf",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-pink",
+      "new": "--swimmer-tint-pink",
+      "proposed": "--swimmer-tint-pink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-sky",
+      "new": "--swimmer-tint-sky",
+      "proposed": "--swimmer-tint-sky",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tint-sun",
+      "new": "--swimmer-tint-sun",
+      "proposed": "--swimmer-tint-sun",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tooltip-ink",
+      "new": "--swimmer-tooltip-ink",
+      "proposed": "--swimmer-tooltip-ink",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-tooltip-surface",
+      "new": "--swimmer-tooltip-surface",
+      "proposed": "--swimmer-tooltip-surface",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-warning",
+      "new": "--swimmer-game-warning",
+      "proposed": "--swimmer-warning",
+      "conflict": true
+    },
+    {
+      "old": "--game-ui-weight-body",
+      "new": "--swimmer-weight-body",
+      "proposed": "--swimmer-weight-body",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-weight-strong",
+      "new": "--swimmer-weight-strong",
+      "proposed": "--swimmer-weight-strong",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-weight-title",
+      "new": "--swimmer-weight-title",
+      "proposed": "--swimmer-weight-title",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-wood",
+      "new": "--swimmer-wood",
+      "proposed": "--swimmer-wood",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-hud",
+      "new": "--swimmer-z-hud",
+      "proposed": "--swimmer-z-hud",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-modal",
+      "new": "--swimmer-z-modal",
+      "proposed": "--swimmer-z-modal",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-overlay",
+      "new": "--swimmer-z-overlay",
+      "proposed": "--swimmer-z-overlay",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-playfield",
+      "new": "--swimmer-z-playfield",
+      "proposed": "--swimmer-z-playfield",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-sidebar",
+      "new": "--swimmer-z-sidebar",
+      "proposed": "--swimmer-z-sidebar",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-z-toast",
+      "new": "--swimmer-z-toast",
+      "proposed": "--swimmer-z-toast",
+      "conflict": false
+    }
+  ],
+  "conflicts": [
+    {
+      "old": "--game-ui-accent",
+      "proposed": "--swimmer-accent",
+      "new": "--swimmer-game-accent",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-accent-ink",
+      "proposed": "--swimmer-accent-ink",
+      "new": "--swimmer-game-accent-ink",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-bg",
+      "proposed": "--swimmer-bg",
+      "new": "--swimmer-game-bg",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-cta-from",
+      "proposed": "--swimmer-cta-from",
+      "new": "--swimmer-game-cta-from",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-cta-text",
+      "proposed": "--swimmer-cta-text",
+      "new": "--swimmer-game-cta-text",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-cta-to",
+      "proposed": "--swimmer-cta-to",
+      "new": "--swimmer-game-cta-to",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-danger",
+      "proposed": "--swimmer-danger",
+      "new": "--swimmer-game-danger",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-font-body",
+      "proposed": "--swimmer-font-body",
+      "new": "--swimmer-game-font-body",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-font-display",
+      "proposed": "--swimmer-font-display",
+      "new": "--swimmer-game-font-display",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-motion-fast",
+      "proposed": "--swimmer-motion-fast",
+      "new": "--swimmer-game-motion-fast",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-radius-control",
+      "proposed": "--swimmer-radius-control",
+      "new": "--swimmer-game-radius-control",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-radius-panel",
+      "proposed": "--swimmer-radius-panel",
+      "new": "--swimmer-game-radius-panel",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-shadow-raised",
+      "proposed": "--swimmer-shadow-raised",
+      "new": "--swimmer-game-shadow-raised",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-10",
+      "proposed": "--swimmer-space-10",
+      "new": "--swimmer-game-space-10",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-12",
+      "proposed": "--swimmer-space-12",
+      "new": "--swimmer-game-space-12",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-16",
+      "proposed": "--swimmer-space-16",
+      "new": "--swimmer-game-space-16",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-2",
+      "proposed": "--swimmer-space-2",
+      "new": "--swimmer-game-space-2",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-4",
+      "proposed": "--swimmer-space-4",
+      "new": "--swimmer-game-space-4",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-6",
+      "proposed": "--swimmer-space-6",
+      "new": "--swimmer-game-space-6",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-space-8",
+      "proposed": "--swimmer-space-8",
+      "new": "--swimmer-game-space-8",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-success",
+      "proposed": "--swimmer-success",
+      "new": "--swimmer-game-success",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-surface",
+      "proposed": "--swimmer-surface",
+      "new": "--swimmer-game-surface",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-surface-raised",
+      "proposed": "--swimmer-surface-raised",
+      "new": "--swimmer-game-surface-raised",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-text",
+      "proposed": "--swimmer-text",
+      "new": "--swimmer-game-text",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-text-muted",
+      "proposed": "--swimmer-text-muted",
+      "new": "--swimmer-game-text-muted",
+      "owner": "game-controls"
+    },
+    {
+      "old": "--game-ui-warning",
+      "proposed": "--swimmer-warning",
+      "new": "--swimmer-game-warning",
+      "owner": "game-controls"
+    }
+  ],
+  "definedTokenCount": 403,
+  "localTokens": [
+    {
+      "old": "--game-ui-button-lip-depth",
+      "new": "--swimmer-button-lip-depth",
+      "proposed": "--swimmer-button-lip-depth",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-card-offset",
+      "new": "--swimmer-card-offset",
+      "proposed": "--swimmer-card-offset",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-font-",
+      "new": "--swimmer-font-",
+      "proposed": "--swimmer-font-",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-hue-",
+      "new": "--swimmer-hue-",
+      "proposed": "--swimmer-hue-",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-metal-",
+      "new": "--swimmer-liquid-metal-",
+      "proposed": "--swimmer-liquid-metal-",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-liquid-surface-fill",
+      "new": "--swimmer-liquid-surface-fill",
+      "proposed": "--swimmer-liquid-surface-fill",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-local-offset",
+      "new": "--swimmer-local-offset",
+      "proposed": "--swimmer-local-offset",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-only-in-test",
+      "new": "--swimmer-only-in-test",
+      "proposed": "--swimmer-only-in-test",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-only-mentioned",
+      "new": "--swimmer-only-mentioned",
+      "proposed": "--swimmer-only-mentioned",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-panel",
+      "new": "--swimmer-panel",
+      "proposed": "--swimmer-panel",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-popover-width",
+      "new": "--swimmer-popover-width",
+      "proposed": "--swimmer-popover-width",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-safe-",
+      "new": "--swimmer-safe-",
+      "proposed": "--swimmer-safe-",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-",
+      "new": "--swimmer-shadow-",
+      "proposed": "--swimmer-shadow-",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-button",
+      "new": "--swimmer-shadow-button",
+      "proposed": "--swimmer-shadow-button",
+      "conflict": false
+    },
+    {
+      "old": "--game-ui-shadow-color",
+      "new": "--swimmer-shadow-color",
+      "proposed": "--swimmer-shadow-color",
+      "conflict": false
+    }
+  ]
+}

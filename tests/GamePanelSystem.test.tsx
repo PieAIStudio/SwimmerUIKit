@@ -1,23 +1,23 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameCollapsiblePanel } from '../src/containers/GameCollapsiblePanel/GameCollapsiblePanel';
+import { CollapsiblePanel } from '../src/containers/CollapsiblePanel/CollapsiblePanel';
 
-import { GameModal } from '../src/containers/GameModal/GameModal';
+import { Modal } from '../src/containers/Modal/Modal';
 
-import { GameWindowPanel } from '../src/containers/GameWindowPanel/GameWindowPanel';
+import { WindowPanel } from '../src/containers/WindowPanel/WindowPanel';
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');
 }
 
-describe('GameCollapsiblePanel', () => {
+describe('CollapsiblePanel', () => {
   it('renders an accessible disclosure with heading, chevron, and wired region', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameCollapsiblePanel title="Inventory">
+        <CollapsiblePanel title="Inventory">
           <p>12 items</p>
-        </GameCollapsiblePanel>,
+        </CollapsiblePanel>,
       ),
     );
 
@@ -32,9 +32,9 @@ describe('GameCollapsiblePanel', () => {
   it('respects defaultOpen=false and controlled open, and renders header actions', () => {
     const closed = compact(
       renderToStaticMarkup(
-        <GameCollapsiblePanel defaultOpen={false} title="Quests">
+        <CollapsiblePanel defaultOpen={false} title="Quests">
           <p>hidden</p>
-        </GameCollapsiblePanel>,
+        </CollapsiblePanel>,
       ),
     );
     expect(closed).toContain('data-open="false"');
@@ -42,13 +42,9 @@ describe('GameCollapsiblePanel', () => {
 
     const controlled = compact(
       renderToStaticMarkup(
-        <GameCollapsiblePanel
-          actions={<button type="button">pin</button>}
-          open={false}
-          title="Quests"
-        >
+        <CollapsiblePanel actions={<button type="button">pin</button>} open={false} title="Quests">
           <p>hidden</p>
-        </GameCollapsiblePanel>,
+        </CollapsiblePanel>,
       ),
     );
     expect(controlled).toContain('data-open="false"');
@@ -56,13 +52,13 @@ describe('GameCollapsiblePanel', () => {
   });
 });
 
-describe('GameWindowPanel', () => {
+describe('WindowPanel', () => {
   it('renders titlebar, minimize/maximize buttons, and body content', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameWindowPanel title="Crafting">
+        <WindowPanel title="Crafting">
           <p>Recipes</p>
-        </GameWindowPanel>,
+        </WindowPanel>,
       ),
     );
 
@@ -77,14 +73,14 @@ describe('GameWindowPanel', () => {
   it('shows restore affordance when minimized and close button when onClose given', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameWindowPanel
+        <WindowPanel
           defaultState="minimized"
           footer={<button type="button">Apply</button>}
           onClose={() => {}}
           title="Map"
         >
           <p>World map</p>
-        </GameWindowPanel>,
+        </WindowPanel>,
       ),
     );
 
@@ -97,7 +93,7 @@ describe('GameWindowPanel', () => {
   it('supports hiding window controls and localized labels', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameWindowPanel
+        <WindowPanel
           allowMaximize={false}
           allowMinimize={false}
           labels={{ close: '关闭' }}
@@ -105,7 +101,7 @@ describe('GameWindowPanel', () => {
           title="设置"
         >
           <p>content</p>
-        </GameWindowPanel>,
+        </WindowPanel>,
       ),
     );
 
@@ -115,11 +111,11 @@ describe('GameWindowPanel', () => {
   });
 });
 
-describe('GameModal', () => {
+describe('Modal', () => {
   it('renders a native dialog with labelled title, close button, and footer', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameModal
+        <Modal
           footer={<button type="button">OK</button>}
           onClose={() => {}}
           open
@@ -127,7 +123,7 @@ describe('GameModal', () => {
           title="Confirm"
         >
           <p>Are you sure?</p>
-        </GameModal>,
+        </Modal>,
       ),
     );
 
@@ -144,9 +140,9 @@ describe('GameModal', () => {
   it('does not render body content while closed', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameModal onClose={() => {}} open={false} title="Hidden">
+        <Modal onClose={() => {}} open={false} title="Hidden">
           <p>expensive content</p>
-        </GameModal>,
+        </Modal>,
       ),
     );
 
@@ -157,9 +153,9 @@ describe('GameModal', () => {
   it('keeps closed body content mounted and inert when requested', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameModal keepMounted onClose={() => {}} open={false} title="Preserved">
+        <Modal keepMounted onClose={() => {}} open={false} title="Preserved">
           <input aria-label="unfinished answer" defaultValue="draft" />
-        </GameModal>,
+        </Modal>,
       ),
     );
 
@@ -171,18 +167,18 @@ describe('GameModal', () => {
   it('defaults to a centered position and accepts a bottom-sheet variant', () => {
     const centered = compact(
       renderToStaticMarkup(
-        <GameModal onClose={() => {}} open title="Centered">
+        <Modal onClose={() => {}} open title="Centered">
           <p>content</p>
-        </GameModal>,
+        </Modal>,
       ),
     );
     expect(centered).toContain('data-position="center"');
 
     const sheet = compact(
       renderToStaticMarkup(
-        <GameModal onClose={() => {}} open position="bottom" title="Sheet">
+        <Modal onClose={() => {}} open position="bottom" title="Sheet">
           <p>content</p>
-        </GameModal>,
+        </Modal>,
       ),
     );
     expect(sheet).toContain('data-position="bottom"');

@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { GameButton } from '../../src/controls/GameButton/GameButton';
-import type { GameButtonVariant } from '../../src/controls/GameButton/GameButton';
-import { GAME_UI_STYLES, type GameUiStyle } from '../../src/tokens/styles';
+import { Button } from '../../src/controls/Button/Button';
+import type { ButtonVariant } from '../../src/controls/Button/Button';
+import { GAME_UI_STYLES, type UiStyle } from '../../src/tokens/styles';
 import {
   CONTROL_RECIPES,
   ControlRecipe,
@@ -12,7 +12,7 @@ import {
 import './catalog.css';
 import { SurfaceLevels } from './SurfaceLevels';
 
-const names: Record<GameUiStyle, string> = {
+const names: Record<UiStyle, string> = {
   candy: '彩色',
   pastel: '淡彩',
   mist: '雾色',
@@ -28,7 +28,7 @@ export function ComponentCatalog(): ReactNode {
     () => CONTROL_RECIPES.find((item) => item.id === initial('component'))?.id ?? 'button',
   );
   const [query, setQuery] = useState('');
-  const [uiStyle, setStyle] = useState<GameUiStyle>(
+  const [uiStyle, setStyle] = useState<UiStyle>(
     () => GAME_UI_STYLES.find((value) => value === initial('style')) ?? 'pastel',
   );
   const [state, setState] = useState<RecipeState>(() =>
@@ -38,9 +38,9 @@ export function ComponentCatalog(): ReactNode {
         ? 'invalid'
         : 'ready',
   );
-  const [tone, setTone] = useState<GameButtonVariant>(() =>
+  const [tone, setTone] = useState<ButtonVariant>(() =>
     ['primary', 'secondary', 'success', 'danger', 'ghost'].includes(initial('tone') ?? '')
-      ? (initial('tone') as GameButtonVariant)
+      ? (initial('tone') as ButtonVariant)
       : 'primary',
   );
   const [notice, setNotice] = useState('');
@@ -93,7 +93,7 @@ export function ComponentCatalog(): ReactNode {
               type="search"
               value={query}
               onChange={(event) => setQuery(event.currentTarget.value)}
-              placeholder="按钮、下拉、GameToggle…"
+              placeholder="按钮、下拉、Toggle…"
             />
           </label>
           <p className="kit-catalog-caption">{CONTROL_RECIPES.length} 组示例 · 六套风格</p>
@@ -141,7 +141,7 @@ export function ComponentCatalog(): ReactNode {
               风格
               <select
                 value={uiStyle}
-                onChange={(event) => setStyle(event.currentTarget.value as GameUiStyle)}
+                onChange={(event) => setStyle(event.currentTarget.value as UiStyle)}
               >
                 {GAME_UI_STYLES.map((style) => (
                   <option key={style} value={style}>
@@ -168,7 +168,7 @@ export function ComponentCatalog(): ReactNode {
                 操作语义
                 <select
                   value={tone}
-                  onChange={(event) => setTone(event.currentTarget.value as GameButtonVariant)}
+                  onChange={(event) => setTone(event.currentTarget.value as ButtonVariant)}
                 >
                   {['primary', 'secondary', 'success', 'danger', 'ghost'].map((value) => (
                     <option key={value}>{value}</option>
@@ -178,8 +178,8 @@ export function ComponentCatalog(): ReactNode {
             ) : null}
           </div>
           <div className="kit-recipe-actions">
-            <GameButton onClick={() => void copy(code)}>复制代码</GameButton>
-            <GameButton onClick={() => void copy(window.location.href)}>复制示例链接</GameButton>
+            <Button onClick={() => void copy(code)}>复制代码</Button>
+            <Button onClick={() => void copy(window.location.href)}>复制示例链接</Button>
           </div>
           <p role="status">{notice}</p>
           <pre className="kit-catalog-code">

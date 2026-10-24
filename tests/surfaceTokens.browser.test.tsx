@@ -1,8 +1,8 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, it } from 'vitest';
-import { GameInput } from '../src/controls/GameInput/GameInput';
-import { GamePanel } from '../src/containers/GamePanel/GamePanel';
+import { Input } from '../src/controls/Input/Input';
+import { Panel } from '../src/containers/Panel/Panel';
 import { GAME_UI_STYLES } from '../src/tokens/styles';
 import { contrastRatio } from '../scripts/lib/contrast.mjs';
 import '../src/styles.css';
@@ -27,14 +27,20 @@ it.each(['light', 'dark'])('%s has four honest surface roles across all styles',
           <div
             data-game-ui-theme={theme}
             data-game-ui-style={style}
-            style={{ color: 'var(--game-ui-text)' }}
+            style={{ color: 'var(--swimmer-game-text)' }}
           >
-            <GamePanel>
-              <GameInput aria-label="Input" />
-            </GamePanel>
+            <Panel>
+              <Input aria-label="Input" />
+            </Panel>
             {['bg', 'surface', 'surface-sunken', 'surface-raised'].map((role) => (
-              <div key={role} data-surface={role} style={{ background: `var(--game-ui-${role})` }}>
-                Text<span style={{ color: 'var(--game-ui-text-muted)' }}>Muted</span>
+              <div
+                key={role}
+                data-surface={role}
+                style={{
+                  background: `var(${['bg', 'surface', 'surface-raised'].includes(role) ? '--swimmer-game-' : '--swimmer-'}${role})`,
+                }}
+              >
+                Text<span style={{ color: 'var(--swimmer-game-text-muted)' }}>Muted</span>
               </div>
             ))}
           </div>,

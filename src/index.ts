@@ -12,132 +12,102 @@ export {
   type MorphTuning,
 } from './liquid/LiquidGroup/types';
 export { LiquidSurface, type LiquidSurfaceProps } from './liquid/LiquidSurface/LiquidSurface';
+export { Button, type ButtonProps, type ButtonVariant } from './controls/Button/Button';
+export { Checkbox, type CheckboxProps } from './controls/Checkbox/Checkbox';
+export { Field, type FieldProps } from './controls/Field/Field';
+export { IconButton, type IconButtonProps } from './controls/IconButton/IconButton';
+export { Input, type InputProps } from './controls/Input/Input';
+export { LanguageMenu, type LanguageMenuProps } from './controls/LanguageMenu/LanguageMenu';
+export { ListRow, type ListRowProps } from './controls/ListRow/ListRow';
+export { OtpInput, type OtpInputProps } from './controls/OtpInput/OtpInput';
 export {
-  GameButton,
-  type GameButtonProps,
-  type GameButtonVariant,
-} from './controls/GameButton/GameButton';
-export { GameCheckbox, type GameCheckboxProps } from './controls/GameCheckbox/GameCheckbox';
-export { GameField, type GameFieldProps } from './controls/GameField/GameField';
-export { GameIconButton, type GameIconButtonProps } from './controls/GameIconButton/GameIconButton';
-export { GameInput, type GameInputProps } from './controls/GameInput/GameInput';
+  SegmentedControl,
+  type SegmentedControlProps,
+} from './controls/SegmentedControl/SegmentedControl';
+export { Select, type SelectProps } from './controls/Select/Select';
+export { Slider, type SliderProps } from './controls/Slider/Slider';
+export { Tabs, type TabItem, type TabsProps } from './controls/Tabs/Tabs';
+export { TextArea, type TextAreaProps } from './controls/TextArea/TextArea';
+export { Toggle, type ToggleProps } from './controls/Toggle/Toggle';
+export { Badge, type BadgeProps, type BadgeTone } from './feedback/Badge/Badge';
+export { Callout, type CalloutProps, type CalloutTone } from './feedback/Callout/Callout';
+export { EmptyState, type EmptyStateProps } from './feedback/EmptyState/EmptyState';
+export { HelpTip, type HelpTipProps } from './feedback/HelpTip/HelpTip';
 export {
-  GameLanguageMenu,
-  type GameLanguageMenuProps,
-} from './controls/GameLanguageMenu/GameLanguageMenu';
-export { GameListRow, type GameListRowProps } from './controls/GameListRow/GameListRow';
-export { GameOtpInput, type GameOtpInputProps } from './controls/GameOtpInput/GameOtpInput';
-export {
-  GameSegmentedControl,
-  type GameSegmentedControlProps,
-} from './controls/GameSegmentedControl/GameSegmentedControl';
-export { GameSelect, type GameSelectProps } from './controls/GameSelect/GameSelect';
-export { GameSlider, type GameSliderProps } from './controls/GameSlider/GameSlider';
-export { GameTabs, type GameTabItem, type GameTabsProps } from './controls/GameTabs/GameTabs';
-export { GameTextArea, type GameTextAreaProps } from './controls/GameTextArea/GameTextArea';
-export { GameToggle, type GameToggleProps } from './controls/GameToggle/GameToggle';
-export { GameBadge, type GameBadgeProps, type GameBadgeTone } from './feedback/GameBadge/GameBadge';
-export {
-  GameCallout,
-  type GameCalloutProps,
-  type GameCalloutTone,
-} from './feedback/GameCallout/GameCallout';
-export { GameEmptyState, type GameEmptyStateProps } from './feedback/GameEmptyState/GameEmptyState';
-export { GameHelpTip, type GameHelpTipProps } from './feedback/GameHelpTip/GameHelpTip';
-export {
-  GameHelpCard,
-  type GameHelpCardProps,
-  type GameHelpCardTopic,
-  type GameHelpMedia,
-} from './feedback/GameHelpCard/GameHelpCard';
-export {
-  GameLoadingState,
-  type GameLoadingStateProps,
-} from './feedback/GameLoadingState/GameLoadingState';
-export { GameProgress, type GameProgressProps } from './feedback/GameProgress/GameProgress';
-export { GamePrompt, type GamePromptProps } from './feedback/GamePrompt/GamePrompt';
-export { GameToast, type GameToastProps } from './feedback/GameToast/GameToast';
-export { GameTooltip, type GameTooltipProps } from './feedback/GameTooltip/GameTooltip';
+  HelpCard,
+  type HelpCardProps,
+  type HelpCardTopic,
+  type HelpMedia,
+} from './feedback/HelpCard/HelpCard';
+export { LoadingState, type LoadingStateProps } from './feedback/LoadingState/LoadingState';
+export { Progress, type ProgressProps } from './feedback/Progress/Progress';
+export { Prompt, type PromptProps } from './feedback/Prompt/Prompt';
+export { Toast, type ToastProps } from './feedback/Toast/Toast';
+export { Tooltip, type TooltipProps } from './feedback/Tooltip/Tooltip';
 export {
   playGameCardRevealSound,
   playGameInteractionSound,
   playGameInteractionSoundForContext,
-  type GameInteractionAudioContext,
-  type GameInteractionSoundOptions,
+  type InteractionAudioContext,
+  type InteractionSoundOptions,
 } from './feedback/sound/interactionSound';
 export {
-  GameCollapsiblePanel,
-  type GameCollapsiblePanelLabels,
-  type GameCollapsiblePanelProps,
-} from './containers/GameCollapsiblePanel/GameCollapsiblePanel';
-export { GameDialog, type GameDialogProps } from './containers/GameDialog/GameDialog';
+  CollapsiblePanel,
+  type CollapsiblePanelLabels,
+  type CollapsiblePanelProps,
+} from './containers/CollapsiblePanel/CollapsiblePanel';
+export { Dialog, type DialogProps } from './containers/Dialog/Dialog';
 export {
-  GameHistoryPanel,
-  type GameHistoryPanelProps,
-  type GameUiHistoryEntry,
-  type GameUiHistoryKind,
-} from './containers/GameHistoryPanel/GameHistoryPanel';
-export {
-  GameHudActions,
-  type GameHudActionsProps,
-} from './containers/GameHudActions/GameHudActions';
-export { GameModal, type GameModalProps } from './containers/GameModal/GameModal';
-export { GamePanel, type GamePanelProps } from './containers/GamePanel/GamePanel';
-export { GameShell, type GameShellProps } from './containers/GameShell/GameShell';
-export { type GameSurfaceDensity, type GameSurfaceLayout } from './containers/shared/surfaceTypes';
+  HistoryPanel,
+  type HistoryPanelProps,
+  type UiHistoryEntry,
+  type UiHistoryKind,
+} from './containers/HistoryPanel/HistoryPanel';
+export { HudActions, type HudActionsProps } from './containers/HudActions/HudActions';
+export { Modal, type ModalProps } from './containers/Modal/Modal';
+export { Panel, type PanelProps } from './containers/Panel/Panel';
+export { Shell, type ShellProps } from './containers/Shell/Shell';
+export { type SurfaceDensity, type SurfaceLayout } from './containers/shared/surfaceTypes';
 export {
   FirstSessionOnboarding,
   type FirstSessionOnboardingProps,
   type FirstSessionOnboardingLabels,
   type FirstSessionOnboardingStep,
 } from './game/FirstSessionOnboarding/FirstSessionOnboarding';
-export { GameAvatar, type GameAvatarProps } from './game/GameAvatar/GameAvatar';
+export { Avatar, type AvatarProps } from './game/Avatar/Avatar';
 export {
-  GameCollectibleCard,
-  type GameCollectibleCardProps,
-  type GameCollectibleCardRarity,
-} from './game/GameCollectibleCard/GameCollectibleCard';
+  CollectibleCard,
+  type CollectibleCardProps,
+  type CollectibleCardRarity,
+} from './game/CollectibleCard/CollectibleCard';
 export {
   useGameCardOrientation,
-  type GameCardTilt,
-  type GameCardOrientationStatus,
-} from './game/GameCollectibleCard/orientation';
-export { GameCollectibleCardSlot } from './game/GameCollectibleCardSlot/GameCollectibleCardSlot';
+  type CardTilt,
+  type CardOrientationStatus,
+} from './game/CollectibleCard/orientation';
+export { CollectibleCardSlot } from './game/CollectibleCardSlot/CollectibleCardSlot';
+export { FactList, type FactItem, type FactListProps } from './game/FactList/FactList';
 export {
-  GameFactList,
-  type GameFactItem,
-  type GameFactListProps,
-} from './game/GameFactList/GameFactList';
+  MovementPad,
+  type MovementAction,
+  type MovementDirection,
+  type MovementPadProps,
+} from './game/MovementPad/MovementPad';
+export { RadialMenu, type RadialMenuProps } from './game/RadialMenu/RadialMenu';
+export { Splash, type SplashLine, type SplashProps } from './game/Splash/Splash';
+export { StageTile, type StageTileProps } from './game/StageTile/StageTile';
 export {
-  GameMovementPad,
-  type GameMovementAction,
-  type GameMovementDirection,
-  type GameMovementPadProps,
-} from './game/GameMovementPad/GameMovementPad';
-export { GameRadialMenu, type GameRadialMenuProps } from './game/GameRadialMenu/GameRadialMenu';
-export {
-  GameSplash,
-  type GameSplashLine,
-  type GameSplashProps,
-} from './game/GameSplash/GameSplash';
-export { GameStageTile, type GameStageTileProps } from './game/GameStageTile/GameStageTile';
-export {
-  GameMaterialSwatches,
-  type GameMaterialSwatchesProps,
-} from './controls/GameMaterialSwatches/GameMaterialSwatches';
-export { GAME_ICON_NAMES, type GameIconName } from './icons/registry';
-export type { GameIconData } from './icons/types';
-export { GameIcon, type GameIconProps } from './icons/GameIcon/GameIcon';
+  MaterialSwatches,
+  type MaterialSwatchesProps,
+} from './controls/MaterialSwatches/MaterialSwatches';
+export { GAME_ICON_NAMES, type IconName } from './icons/registry';
+export type { IconData } from './icons/types';
+export { Icon, type IconProps } from './icons/Icon/Icon';
 export type {
-  GameMaterialSwatch,
-  GameMaterialPattern,
-  GameMaterialLayout,
-} from './controls/GameMaterialSwatches/types';
+  MaterialSwatch,
+  MaterialPattern,
+  MaterialLayout,
+} from './controls/MaterialSwatches/types';
 
-export type { GameUiHue } from './tokens/hue';
-export {
-  GAME_UI_STYLES,
-  GAME_UI_DEFAULT_STYLE,
-  type GameUiStyle,
-  type GameUiTheme,
-} from './tokens/styles';
+export type { UiHue } from './tokens/hue';
+export { GAME_UI_STYLES, GAME_UI_DEFAULT_STYLE, type UiStyle, type UiTheme } from './tokens/styles';

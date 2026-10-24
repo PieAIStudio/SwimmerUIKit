@@ -50,12 +50,12 @@ const nightVars = parseVars(blockOf(themeCss, "[data-game-ui-theme='dark']"));
 
 describe('flat token exports', () => {
   it('exports CSS variable tokens for cross-stack integration', () => {
-    expect(semanticTokens.background).toBe('var(--game-ui-bg)');
-    expect(typeTokens.familyBody).toBe('var(--game-ui-font-body)');
-    expect(scrollbarTokens.thumb).toBe('var(--game-ui-scrollbar-thumb)');
-    expect(GAME_UI_TOKENS.surface).toBe('var(--game-ui-surface)');
-    expect(GAME_UI_TOKENS.scrollbarThumb).toBe('var(--game-ui-scrollbar-thumb)');
-    expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--game-ui-liquid-gooey-move-stiffness)');
+    expect(semanticTokens.background).toBe('var(--swimmer-game-bg)');
+    expect(typeTokens.familyBody).toBe('var(--swimmer-game-font-body)');
+    expect(scrollbarTokens.thumb).toBe('var(--swimmer-scrollbar-thumb)');
+    expect(GAME_UI_TOKENS.surface).toBe('var(--swimmer-game-surface)');
+    expect(GAME_UI_TOKENS.scrollbarThumb).toBe('var(--swimmer-scrollbar-thumb)');
+    expect(GAME_UI_TOKENS.moveStiffness).toBe('var(--swimmer-liquid-gooey-move-stiffness)');
   });
 
   it('defines the public scroll-surface tokens and opt-in CSS hook', () => {
@@ -66,7 +66,7 @@ describe('flat token exports', () => {
     }
     expect(stylesCss).toContain('.game-ui-scroll-surface');
     expect(stylesCss).toContain('::-webkit-scrollbar-thumb');
-    expect(stylesCss).toContain('scrollbar-color: var(--game-ui-scrollbar-thumb)');
+    expect(stylesCss).toContain('scrollbar-color: var(--swimmer-scrollbar-thumb)');
   });
 
   it('keeps proof viewport targets in code tokens', () => {
@@ -87,8 +87,8 @@ describe('liquid-gooey token mirror', () => {
   });
 
   it('ships the adopted visible defaults and keeps the donor frequency baseline', () => {
-    expect(liquidTokens.waviness).toBe('var(--game-ui-liquid-gooey-waviness)');
-    expect(liquidTokens.wavinessFreq).toBe('var(--game-ui-liquid-gooey-waviness-freq)');
+    expect(liquidTokens.waviness).toBe('var(--swimmer-liquid-gooey-waviness)');
+    expect(liquidTokens.wavinessFreq).toBe('var(--swimmer-liquid-gooey-waviness-freq)');
     /*
       0 since 2.1.0, changed deliberately rather than drifted. This assertion
       used to read '6', which was the donor's visible default and which
@@ -98,21 +98,21 @@ describe('liquid-gooey token mirror', () => {
       baseline below is untouched — what changed is how far the edge travels at
       rest, not the shape of the noise when a surface asks for it.
     */
-    expect(rootVars.get('--game-ui-liquid-gooey-waviness')).toBe('0');
-    expect(rootVars.get('--game-ui-liquid-gooey-waviness-freq')).toBe('0.018');
-    expect(rootVars.get('--game-ui-liquid-gooey-morph-shape')).toBe('1');
-    expect(rootVars.get('--game-ui-liquid-gooey-morph-speed')).toBe('1');
-    expect(rootVars.get('--game-ui-liquid-gooey-morph-bounce')).toBe('0.5');
-    expect(rootVars.get('--game-ui-liquid-gooey-evolve-content-blur')).toBe('7');
-    expect(rootVars.get('--game-ui-liquid-gooey-bend-vertical')).toBe('0.6');
-    expect(rootVars.get('--game-ui-liquid-gooey-bend-horizontal')).toBe('0.35');
+    expect(rootVars.get('--swimmer-liquid-gooey-waviness')).toBe('0');
+    expect(rootVars.get('--swimmer-liquid-gooey-waviness-freq')).toBe('0.018');
+    expect(rootVars.get('--swimmer-liquid-gooey-morph-shape')).toBe('1');
+    expect(rootVars.get('--swimmer-liquid-gooey-morph-speed')).toBe('1');
+    expect(rootVars.get('--swimmer-liquid-gooey-morph-bounce')).toBe('0.5');
+    expect(rootVars.get('--swimmer-liquid-gooey-evolve-content-blur')).toBe('7');
+    expect(rootVars.get('--swimmer-liquid-gooey-bend-vertical')).toBe('0.6');
+    expect(rootVars.get('--swimmer-liquid-gooey-bend-horizontal')).toBe('0.35');
   });
 });
 
 /**
  * The mirror is a promise: a name in `typeTokens` claims a variable of
  * that name exists. Three consumers had already written
- * `var(--game-ui-font-mono, …)` against a token this kit did not define, and
+ * `var(--swimmer-font-mono, …)` against a token this kit did not define, and
  * because `var()` takes a fallback, nothing anywhere failed — the CSS merely
  * looked token-driven while the fallback did all the work. A mirrored name
  * with no definition behind it is that failure waiting to be repeated.
@@ -127,10 +127,10 @@ describe('every mirrored type token exists in theme.css', () => {
   });
 
   it('carries a reading scale, because the rest of the scale is a HUD scale', () => {
-    expect(themeCss).toContain('--game-ui-font-mono:');
-    expect(themeCss).toContain('--game-ui-font-reading:');
-    expect(themeCss).toContain('--game-ui-line-reading:');
-    expect(themeCss).toContain('--game-ui-measure-reading:');
+    expect(themeCss).toContain('--swimmer-font-mono:');
+    expect(themeCss).toContain('--swimmer-font-reading:');
+    expect(themeCss).toContain('--swimmer-line-reading:');
+    expect(themeCss).toContain('--swimmer-measure-reading:');
   });
 });
 
@@ -176,25 +176,25 @@ describe('token single source of truth', () => {
       ['dark', nightVars],
       ['glass', glassVars],
     ] as const) {
-      expect(vars.get('--game-ui-shadow-liquid-ink'), `${label} missing the ink`).toBeTruthy();
+      expect(vars.get('--swimmer-shadow-liquid-ink'), `${label} missing the ink`).toBeTruthy();
     }
   });
 
   it('every referenced token has a real global, style-block or component-local declaration', () => {
     // Only real runtime channels are exempt. Tunable layout defaults belong
     // in theme.css, not in this test's strings as an accidental linter allowlist.
-    const componentOwned = new Set(['--game-ui-card-offset']);
+    const componentOwned = new Set(['--swimmer-card-offset']);
     // Read definitions, not mentions in comments/test strings. Style blocks
     // additionally undergo the exact twelve-block completeness/contrast gates.
     const localDefinitions = new Set(
       [
         ...stylesCss
           .replace(/\/\*[\s\S]*?\*\//g, '')
-          .matchAll(/(?:^|[;{\s])(--game-ui-[\w-]+)\s*:/g),
+          .matchAll(/(?:^|[;{\s])(--swimmer-[\w-]+)\s*:/g),
       ].map((match) => match[1]),
     );
     const referenced = new Set<string>();
-    for (const match of stylesCss.matchAll(/var\((--game-ui-[\w-]+)[,)]/g)) {
+    for (const match of stylesCss.matchAll(/var\((--swimmer-[\w-]+)[,)]/g)) {
       const name = match[1];
       if (name) referenced.add(name);
     }
@@ -205,10 +205,10 @@ describe('token single source of truth', () => {
   });
 
   it('declares asset-layout defaults at exactly their existing fallback dimensions', () => {
-    expect(rootVars.get('--game-ui-asset-card-min-width')).toBe('168px');
-    expect(rootVars.get('--game-ui-asset-card-dense-min-width')).toBe('132px');
-    expect(rootVars.get('--game-ui-asset-rail-card-size')).toBe('52px');
-    expect(rootVars.get('--game-ui-asset-rail-preview-size')).toBe('42px');
+    expect(rootVars.get('--swimmer-asset-card-min-width')).toBe('168px');
+    expect(rootVars.get('--swimmer-asset-card-dense-min-width')).toBe('132px');
+    expect(rootVars.get('--swimmer-asset-rail-card-size')).toBe('52px');
+    expect(rootVars.get('--swimmer-asset-rail-preview-size')).toBe('42px');
   });
 });
 
@@ -268,10 +268,10 @@ function contrastRatio(fg: string, bg: string, variables = rootVars): number {
 describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
   it('editable placeholders use readable muted ink rather than the disabled-control token', () => {
     const placeholder = blockOf(stylesCss, '.game-ui-input::placeholder');
-    expect(placeholder).toContain('color: var(--game-ui-text-muted)');
+    expect(placeholder).toContain('color: var(--swimmer-game-text-muted)');
     expect(placeholder).toContain('opacity: 1');
     expect(blockOf(stylesCss, '.game-ui-input:disabled::placeholder')).toContain(
-      'var(--game-ui-control-disabled-text)',
+      'var(--swimmer-control-disabled-text)',
     );
   });
   // Every pair below is normal-or-bold small UI text (not WCAG "large
@@ -279,41 +279,41 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
   const MIN_AA = 4.5;
 
   const pairs: Array<[string, string, string]> = [
-    ['plaque text at rest', '--game-ui-plaque-ink', '--game-ui-plaque-surface'],
-    ['plaque text on hover and press', '--game-ui-plaque-ink', '--game-ui-plaque-hover'],
-    ['body text on page background', '--game-ui-text', '--game-ui-bg'],
-    ['muted text on page background', '--game-ui-text-muted', '--game-ui-bg'],
-    ['muted text on strong panel', '--game-ui-text-muted', '--game-ui-surface'],
+    ['plaque text at rest', '--swimmer-plaque-ink', '--swimmer-plaque-surface'],
+    ['plaque text on hover and press', '--swimmer-plaque-ink', '--swimmer-plaque-hover'],
+    ['body text on page background', '--swimmer-game-text', '--swimmer-game-bg'],
+    ['muted text on page background', '--swimmer-game-text-muted', '--swimmer-game-bg'],
+    ['muted text on strong panel', '--swimmer-game-text-muted', '--swimmer-game-surface'],
     // accent-contrast is the dark-ink foreground shared by primary/danger/
     // success buttons, the active tab/segmented pill, avatar initials, and
     // the checkbox checkmark — checking it against each saturated brand
     // background covers all of those call sites at once.
-    ['primary button text on accent', '--game-ui-accent-contrast', '--game-ui-accent'],
-    ['danger button text on danger', '--game-ui-accent-contrast', '--game-ui-danger'],
-    ['success button text on success', '--game-ui-accent-contrast', '--game-ui-success'],
-    ['active tab/segmented text on secondary', '--game-ui-accent-contrast', '--game-ui-secondary'],
+    ['primary button text on accent', '--swimmer-accent-contrast', '--swimmer-game-accent'],
+    ['danger button text on danger', '--swimmer-accent-contrast', '--swimmer-game-danger'],
+    ['success button text on success', '--swimmer-accent-contrast', '--swimmer-game-success'],
+    ['active tab/segmented text on secondary', '--swimmer-accent-contrast', '--swimmer-secondary'],
     // 1.1 preview-split verification pass also caught these: raw brand
     // colors used directly as text (not as a button/badge background).
-    ['field error/required text on panel', '--game-ui-danger-ink', '--game-ui-surface'],
-    ['first-session step number on panel', '--game-ui-accent-ink', '--game-ui-surface'],
+    ['field error/required text on panel', '--swimmer-danger-ink', '--swimmer-game-surface'],
+    ['first-session step number on panel', '--swimmer-game-accent-ink', '--swimmer-game-surface'],
     // scenery-soil (not redeclared per-theme — HUD glass always overlays the
     // same dark 3D scene regardless of UI theme) stands in for the glass's
     // real backdrop, since color-mix() over an arbitrary scene can't be
     // reduced to one flat pair.
     [
       'hud-chip/fact-copy small text on dark glass',
-      '--game-ui-text-on-dark',
-      '--game-ui-scenery-soil',
+      '--swimmer-text-on-dark',
+      '--swimmer-scenery-soil',
     ],
     [
       'selected build/terrain control meta text on panel',
-      '--game-ui-ink-heading',
-      '--game-ui-surface',
+      '--swimmer-ink-heading',
+      '--swimmer-game-surface',
     ],
   ];
 
   it('removes the D2 metal material instead of leaving a dormant theme or renderer', () => {
-    expect(themeCss).not.toMatch(/--game-ui-liquid-metal-/);
+    expect(themeCss).not.toMatch(/--swimmer-liquid-metal-/);
     expect(stylesCss).not.toMatch(/\.game-ui-liquid-metal/);
     expect(existsSync(join(SRC, 'controls', 'LiquidMetalButton'))).toBe(false);
   });
@@ -373,7 +373,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       .map((match) => match[1])
       .filter((name): name is string => Boolean(name));
     expect(mapped.length).toBeGreaterThan(0);
-    for (const name of mapped) expect(name).toMatch(/^--game-ui-/);
+    for (const name of mapped) expect(name).toMatch(/^--swimmer-/);
   });
 
   it('entry module never imports CSS (keeps dist/index.d.ts resolvable)', () => {
@@ -424,9 +424,9 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(existsSync(join(SRC, 'tokens', 'fonts', 'zh', 'OFL.txt'))).toBe(true);
   });
 
-  it('demo-only GameUiPreview classes stay out of styles.css and live only in preview.css', () => {
+  it('demo-only UiPreview classes stay out of styles.css and live only in preview.css', () => {
     // Regression guard for the 1.1 preview/component CSS split: these class
-    // names are used exclusively by GameUiPreview.tsx (verified by grepping
+    // names are used exclusively by UiPreview.tsx (verified by grepping
     // every other src/*.tsx at split time). If one leaks back into
     // styles.css, every consumer starts paying for demo-only CSS again.
     const previewOnlyClasses = [
@@ -492,7 +492,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
   it('wrapped-app hardening stays in place (touch + safe-area discipline)', () => {
     expect(stylesCss).toContain('touch-action: manipulation');
     expect(stylesCss).toContain('-webkit-tap-highlight-color: transparent');
-    // All safe-area reads flow through --game-ui-safe-* tokens in theme.css so
+    // All safe-area reads flow through --swimmer-safe-* tokens in theme.css so
     // hosts (e.g. Capacitor Android edge-to-edge) can override the source.
     const rulesOnly = stylesCss.replace(/\/\*[\s\S]*?\*\//g, '');
     expect(rulesOnly.includes('env(safe-area-inset')).toBe(false);

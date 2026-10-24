@@ -1,8 +1,8 @@
 import { type CSSProperties } from 'react';
 
-import { type GameButtonVariant } from '../../controls/GameButton/GameButton';
+import { type ButtonVariant } from '../../controls/Button/Button';
 
-export const TONES: readonly GameButtonVariant[] = ['primary', 'secondary', 'success', 'danger'];
+export const TONES: readonly ButtonVariant[] = ['primary', 'secondary', 'success', 'danger'];
 
 /** The stage every form is shown on, so twelve tiles are actually comparable. */
 export const STAGE: CSSProperties = { width: 132, height: 56 };

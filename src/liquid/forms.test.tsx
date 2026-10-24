@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameButton } from '../controls/GameButton/GameButton';
+import { Button } from '../controls/Button/Button';
 import { LiquidSurface } from './LiquidSurface/LiquidSurface';
 import { presets } from './spring';
 import { blobPath, LIQUID_BLOB_MAX_FRACTION, silhouettePath, type CornerRadii } from './geometry';
@@ -14,7 +14,7 @@ import {
 } from './filter';
 import { parseShadow, svgFilterShadows } from './shadow';
 const themeCss = readFileSync(new URL('../tokens/theme.css', import.meta.url), 'utf8');
-const materialShadow = /--game-ui-liquid-material-shadow:\s*([^;]+);/.exec(themeCss)![1]!;
+const materialShadow = /--swimmer-liquid-material-shadow:\s*([^;]+);/.exec(themeCss)![1]!;
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');
@@ -156,11 +156,11 @@ describe('liquid forms', () => {
 
 describe('3.0 fixed action surfaces', () => {
   it('makes primary the only liquid action without a surface option', () => {
-    const primary = renderToStaticMarkup(<GameButton variant="primary">Go</GameButton>);
+    const primary = renderToStaticMarkup(<Button variant="primary">Go</Button>);
     expect(primary).toContain('data-game-ui-cta="true"');
     expect(primary).toContain('data-liquid-form="press"');
     for (const variant of ['secondary', 'ghost', 'success', 'danger'] as const) {
-      const html = renderToStaticMarkup(<GameButton variant={variant}>Go</GameButton>);
+      const html = renderToStaticMarkup(<Button variant={variant}>Go</Button>);
       expect(html).not.toContain('data-liquid-gooey-silhouette');
       expect(html).toContain('class="game-ui-droplet"');
       expect(html).toContain('vector-effect="non-scaling-stroke"');
@@ -168,7 +168,7 @@ describe('3.0 fixed action surfaces', () => {
   });
 
   it('keeps native semantics for meaningful flat actions', () => {
-    const html = renderToStaticMarkup(<GameButton variant="danger">Delete</GameButton>);
+    const html = renderToStaticMarkup(<Button variant="danger">Delete</Button>);
     expect(html).toContain('game-ui-button game-ui-button--danger');
     expect(html).toContain('data-game-ui-meaning="true"');
     expect(html).toContain('Delete');
@@ -179,9 +179,9 @@ describe('3.0 fixed action surfaces', () => {
   it('drops back to the flat button when disabled', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameButton disabled variant="primary">
+        <Button disabled variant="primary">
           Run
-        </GameButton>,
+        </Button>,
       ),
     );
     expect(html).not.toContain('game-ui-liquid-surface');
@@ -199,7 +199,7 @@ describe('liquid cast shadow', () => {
 
   it('gives every form the same material rather than twelve shadow recipes', () => {
     for (const form of LIQUID_FORM_NAMES)
-      expect(LIQUID_FORMS[form].group.shadow).toBe('var(--game-ui-liquid-material-shadow)');
+      expect(LIQUID_FORMS[form].group.shadow).toBe('var(--swimmer-liquid-material-shadow)');
   });
 
   it('keeps the one material shadow on the compositor and off SVG passes', () => {
@@ -211,7 +211,7 @@ describe('liquid cast shadow', () => {
 
   it('keeps form paint token-only with one CSS material owner', () => {
     for (const form of LIQUID_FORM_NAMES) {
-      expect(LIQUID_FORMS[form].group.shadow).toMatch(/^var\(--game-ui-liquid-material-shadow\)$/);
+      expect(LIQUID_FORMS[form].group.shadow).toMatch(/^var\(--swimmer-liquid-material-shadow\)$/);
       expect(JSON.stringify(LIQUID_FORMS[form].group)).not.toMatch(/#[0-9a-fA-F]{3,8}/);
     }
     expect(materialShadow).toBeTruthy();

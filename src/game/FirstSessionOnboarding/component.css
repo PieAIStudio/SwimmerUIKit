@@ -8,15 +8,15 @@
 @layer swimmer-ui {
   .swimmer-first-session-onboarding-card h2 {
     margin: 0;
-    color: var(--game-ui-ink-heading);
-    font-family: var(--game-ui-font-display);
+    color: var(--swimmer-ink-heading);
+    font-family: var(--swimmer-game-font-display);
     font-weight: 900;
   }
   .swimmer-first-session-onboarding-card p {
     max-width: 62ch;
-    color: var(--game-ui-text-muted);
-    font-size: var(--game-ui-font-md);
-    line-height: var(--game-ui-line-body);
+    color: var(--swimmer-game-text-muted);
+    font-size: var(--swimmer-font-md);
+    line-height: var(--swimmer-line-body);
   }
 
   .swimmer-first-session-onboarding-actions {
@@ -31,19 +31,19 @@
     text-wrap: balance;
   }
   .swimmer-first-session-onboarding-card {
-    animation: game-ui-pop var(--game-ui-motion-base) var(--game-ui-ease-pop) both;
+    animation: game-ui-pop var(--swimmer-motion-base) var(--swimmer-ease-pop) both;
     position: relative;
     display: grid;
     width: min(720px, calc(100vw - 40px));
     max-height: min(720px, calc(100dvh - 28px));
     gap: 12px;
     overflow: auto;
-    border: var(--game-ui-stroke);
-    border-radius: var(--game-ui-radius-modal);
-    background: var(--game-ui-surface-raised);
-    color: var(--game-ui-text);
+    border: var(--swimmer-stroke);
+    border-radius: var(--swimmer-radius-modal);
+    background: var(--swimmer-game-surface-raised);
+    color: var(--swimmer-game-text);
     padding: clamp(18px, 3vw, 30px);
-    box-shadow: var(--game-ui-shadow-raised);
+    box-shadow: var(--swimmer-game-shadow-raised);
   }
   @media (prefers-reduced-motion: reduce) {
     .swimmer-first-session-onboarding-card {
@@ -53,7 +53,7 @@
   .swimmer-first-session-onboarding {
     position: absolute;
     inset: 0;
-    z-index: var(--game-ui-z-modal);
+    z-index: var(--swimmer-z-modal);
     display: grid;
     place-items: center;
     padding: 18px;
@@ -61,7 +61,7 @@
   .swimmer-first-session-onboarding-scrim {
     position: absolute;
     inset: 0;
-    background: var(--game-ui-scrim-strong);
+    background: var(--swimmer-scrim-strong);
     backdrop-filter: blur(10px);
   }
   .swimmer-first-session-onboarding-card h2 {
@@ -80,18 +80,18 @@
   .swimmer-first-session-onboarding-steps li {
     display: grid;
     gap: 5px;
-    border: 1px solid color-mix(in srgb, var(--game-ui-border-ink) 14%, transparent);
-    border-radius: var(--game-ui-radius-panel);
-    background: color-mix(in srgb, var(--game-ui-surface) 56%, transparent);
+    border: 1px solid color-mix(in srgb, var(--swimmer-border-ink) 14%, transparent);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: color-mix(in srgb, var(--swimmer-game-surface) 56%, transparent);
     padding: 12px;
   }
   .swimmer-first-session-onboarding-steps span {
-    color: var(--game-ui-accent-ink);
-    font-size: var(--game-ui-font-xs);
+    color: var(--swimmer-game-accent-ink);
+    font-size: var(--swimmer-font-xs);
     font-weight: 950;
   }
   .swimmer-first-session-onboarding-steps small {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     line-height: 1.35;
   }
 

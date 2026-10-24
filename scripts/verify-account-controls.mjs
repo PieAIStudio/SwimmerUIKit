@@ -284,11 +284,11 @@ try {
         'main',
         { style: { padding: 24, display: 'grid', gap: 24 } },
         ...['primary', 'secondary', 'ghost', 'danger', 'success'].map((variant) =>
-          h(kit.GameButton, { key: variant, variant }, variant),
+          h(kit.Button, { key: variant, variant }, variant),
         ),
-        h(kit.GameIconButton, { label: 'Account' }, 'A'),
-        h(kit.GameAvatar, { name: 'Mika Ono' }),
-        h(kit.GameTabs, {
+        h(kit.IconButton, { label: 'Account' }, 'A'),
+        h(kit.Avatar, { name: 'Mika Ono' }),
+        h(kit.Tabs, {
           id: 'baseline',
           activeId: 'profile',
           tabs: [

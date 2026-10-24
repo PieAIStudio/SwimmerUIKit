@@ -1,0 +1,91 @@
+/*
+ * All component rules live in the "swimmer-ui" cascade layer so that
+ * downstream product CSS (unlayered) always wins overrides without
+ * specificity or import-order fights. Tailwind consumers should declare:
+ *   @layer swimmer-ui, theme, base, components, utilities;
+ * in their entry CSS if they want utilities to beat kit styles.
+ */
+@layer swimmer-ui {
+  /*
+   * Splash: the opening screen and the scene-change screen. Full-viewport,
+   * the kit's own surface, one line at a time rising in, the bar under it.
+   */
+  .game-ui-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: var(--swimmer-safe-top) var(--swimmer-safe-right) var(--swimmer-safe-bottom)
+      var(--swimmer-safe-left);
+    background: var(--swimmer-game-bg);
+    color: var(--swimmer-game-text);
+  }
+  .game-ui-splash-body {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    width: min(28rem, 100%);
+    text-align: center;
+  }
+  .game-ui-splash-title {
+    margin: 0;
+    font-family: var(--swimmer-game-font-display);
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: var(--swimmer-weight-strong);
+    letter-spacing: -0.01em;
+  }
+  .game-ui-splash-line {
+    min-height: 3.2em;
+    margin: 0;
+    color: var(--swimmer-game-text);
+    font-size: var(--swimmer-font-lg);
+    line-height: var(--swimmer-line-body);
+    text-wrap: balance;
+    animation: game-ui-splash-line var(--swimmer-motion-slow) var(--swimmer-ease-soft) both;
+  }
+  .game-ui-splash-mark {
+    padding: 0 0.12em;
+    border-radius: 0.3em;
+    background: transparent;
+    color: var(--swimmer-game-accent-ink);
+    font-weight: var(--swimmer-weight-strong);
+    animation: game-ui-splash-mark var(--swimmer-motion-slow) var(--swimmer-motion-base)
+      var(--swimmer-ease-soft) both;
+  }
+  .game-ui-splash-progress {
+    width: 100%;
+  }
+  .game-ui-splash-start {
+    animation: game-ui-rise var(--swimmer-motion-base) var(--swimmer-ease-pop) both;
+  }
+  @keyframes game-ui-splash-line {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes game-ui-splash-mark {
+    from {
+      background: transparent;
+    }
+    to {
+      background: var(--swimmer-accent-pale);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-splash-line {
+      animation: none;
+    }
+    .game-ui-splash-mark {
+      animation: none;
+    }
+    .game-ui-splash-start {
+      animation: none;
+    }
+  }
+}

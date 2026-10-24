@@ -73,7 +73,7 @@ describe('bin/swimmer-ui-check.mjs', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-ui-check-'));
     writeFileSync(
       join(dir, 'theme.css'),
-      `[data-game-ui-tone='glass'] {\n  --game-ui-surface: rgba(12, 14, 20, 0.72);\n}\n`,
+      `[data-game-ui-tone='glass'] {\n  --swimmer-game-surface: rgba(12, 14, 20, 0.72);\n}\n`,
     );
 
     const { status } = run(dir);
@@ -90,7 +90,7 @@ describe('unreadable token pairs', () => {
   });
 
   /**
-   * The pairing that prompted this check. `--game-ui-accent-ink` reads like
+   * The pairing that prompted this check. `--swimmer-game-accent-ink` reads like
    * "the ink for accent things" and means accent-COLOURED ink for a surface;
    * on the accent itself it measured 1.48:1 on dark, on a shipping product's
    * primary button, with every test green.
@@ -99,13 +99,13 @@ describe('unreadable token pairs', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
     writeFileSync(
       join(dir, 'a.css'),
-      '.primary { background: var(--game-ui-accent); color: var(--game-ui-accent-ink); }',
+      '.primary { background: var(--swimmer-game-accent); color: var(--swimmer-game-accent-ink); }',
     );
 
     const { status, stdout } = run(dir);
 
     expect(status).toBe(1);
-    expect(stdout).toContain('--game-ui-accent-ink on --game-ui-accent');
+    expect(stdout).toContain('--swimmer-game-accent-ink on --swimmer-game-accent');
     expect(stdout).toMatch(/dark/);
   });
 
@@ -113,7 +113,7 @@ describe('unreadable token pairs', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
     writeFileSync(
       join(dir, 'a.css'),
-      '.primary { background: var(--game-ui-accent); color: var(--game-ui-accent-contrast); }',
+      '.primary { background: var(--swimmer-game-accent); color: var(--swimmer-accent-contrast); }',
     );
 
     expect(run(dir).status).toBe(0);
@@ -123,12 +123,12 @@ describe('unreadable token pairs', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-mix-'));
     writeFileSync(
       join(dir, 'a.css'),
-      '.popover { background: var(--game-ui-surface-raised); color: var(--game-ui-text); }',
+      '.popover { background: var(--swimmer-game-surface-raised); color: var(--swimmer-game-text); }',
     );
     expect(run(dir).status).toBe(0);
     writeFileSync(
       join(dir, 'a.css'),
-      '.unreadable { background: var(--game-ui-surface-sunken); color: var(--game-ui-surface-sunken); }',
+      '.unreadable { background: var(--swimmer-surface-sunken); color: var(--swimmer-surface-sunken); }',
     );
     const result = run(dir);
     expect(result.status).toBe(1);
@@ -145,8 +145,8 @@ describe('unreadable token pairs', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-contrast-'));
     writeFileSync(
       join(dir, 'a.css'),
-      '.chip { background: color-mix(in srgb, var(--game-ui-accent) 18%, transparent);' +
-        ' color: var(--game-ui-accent); }',
+      '.chip { background: color-mix(in srgb, var(--swimmer-game-accent) 18%, transparent);' +
+        ' color: var(--swimmer-game-accent); }',
     );
 
     expect(run(dir).status).toBe(0);
@@ -164,25 +164,25 @@ describe('token ownership and clean-checkout discovery', () => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-token-owner-'));
     writeFileSync(
       join(dir, 'app.css'),
-      '.card { width: var(--game-ui-only-mentioned, 20px); height: var(--game-ui-only-in-test, 20px); }',
+      '.card { width: var(--swimmer-only-mentioned, 20px); height: var(--swimmer-only-in-test, 20px); }',
     );
-    writeFileSync(join(dir, 'app.ts'), "export const name = '--game-ui-only-mentioned';");
+    writeFileSync(join(dir, 'app.ts'), "export const name = '--swimmer-only-mentioned';");
     writeFileSync(
       join(dir, 'app.test.tsx'),
-      "export const fixture = { '--game-ui-only-in-test': '20px' };",
+      "export const fixture = { '--swimmer-only-in-test': '20px' };",
     );
     const result = run(dir);
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain('--game-ui-only-mentioned is not a token');
-    expect(result.stdout).toContain('--game-ui-only-in-test is not a token');
+    expect(result.stdout).toContain('--swimmer-only-mentioned is not a token');
+    expect(result.stdout).toContain('--swimmer-only-in-test is not a token');
   });
 
   it.each([
-    "export const style = { '--game-ui-local-offset': '20px' };",
-    "element.style.setProperty('--game-ui-local-offset', '20px');",
+    "export const style = { '--swimmer-local-offset': '20px' };",
+    "element.style.setProperty('--swimmer-local-offset', '20px');",
   ])('recognizes an actual element-level write: %s', (code) => {
     dir = mkdtempSync(join(tmpdir(), 'swimmer-token-write-'));
-    writeFileSync(join(dir, 'app.css'), '.card { width: var(--game-ui-local-offset); }');
+    writeFileSync(join(dir, 'app.css'), '.card { width: var(--swimmer-local-offset); }');
     writeFileSync(join(dir, 'app.ts'), code);
     expect(run(dir).status).toBe(0);
   });
@@ -203,21 +203,21 @@ describe('token ownership and clean-checkout discovery', () => {
     );
     writeFileSync(
       join(kit, 'src', 'tokens', 'theme.css'),
-      ':root { --game-ui-accent: #000000; --game-ui-accent-ink: #010101; }',
+      ':root { --swimmer-game-accent: #000000; --swimmer-game-accent-ink: #010101; }',
     );
     writeFileSync(
       join(app, 'app.css'),
-      '.primary { background: var(--game-ui-accent); color: var(--game-ui-accent-ink); }',
+      '.primary { background: var(--swimmer-game-accent); color: var(--swimmer-game-accent-ink); }',
     );
     expect(run(app, bin).status).toBe(1);
     mkdirSync(join(kit, 'dist'));
     writeFileSync(
       join(kit, 'dist', 'styles.css'),
-      ':root { --game-ui-accent: #000000; --game-ui-accent-ink: #ffffff; }',
+      ':root { --swimmer-game-accent: #000000; --swimmer-game-accent-ink: #ffffff; }',
     );
     const result = run(app, bin);
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain('--game-ui-accent-ink on --game-ui-accent');
+    expect(result.stdout).toContain('--swimmer-game-accent-ink on --swimmer-game-accent');
     expect(result.stdout).toContain('below AA');
   });
 });

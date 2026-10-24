@@ -58,7 +58,7 @@ it('declares all three actual font families and no invented named fallbacks', ()
   expect(families).toEqual(new Set(['Baloo 2', 'Geist Variable', 'Swimmer Rounded CN']));
   postcss
     .parse(readFileSync('src/tokens/theme.css', 'utf8'))
-    .walkDecls(/^--game-ui-font-(display|body|mono)$/, (decl) => {
+    .walkDecls(/^--swimmer-font-(display|body|mono)$/, (decl) => {
       for (const entry of decl.value.split(',').map((value) => value.trim().replace(/['"]/g, '')))
         expect(
           families.has(entry) ||

@@ -3,9 +3,9 @@
   max-width: 1160px;
   margin: auto;
   padding: 32px 40px;
-  background: var(--game-ui-bg);
-  color: var(--game-ui-text);
-  font: 15px/1.5 var(--game-ui-font-body);
+  background: var(--swimmer-game-bg);
+  color: var(--swimmer-game-text);
+  font: 15px/1.5 var(--swimmer-game-font-body);
 }
 .theme-review-heading {
   display: grid;
@@ -27,7 +27,7 @@
 }
 .theme-review-heading code {
   font-size: 12px;
-  color: var(--game-ui-text-muted);
+  color: var(--swimmer-game-text-muted);
 }
 .theme-review-section {
   display: grid;

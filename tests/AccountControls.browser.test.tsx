@@ -48,12 +48,12 @@ describe('WO-UI-1 account controls', () => {
     const click = vi.fn();
     const node = await mount(
       <>
-        <Kit.GameButton disabled onClick={click}>
+        <Kit.Button disabled onClick={click}>
           Unavailable
-        </Kit.GameButton>
-        <Kit.GameIconButton label="Unavailable account" disabled onClick={click}>
+        </Kit.Button>
+        <Kit.IconButton label="Unavailable account" disabled onClick={click}>
           A
-        </Kit.GameIconButton>
+        </Kit.IconButton>
       </>,
     );
     for (const button of node.querySelectorAll('button')) {
@@ -62,8 +62,8 @@ describe('WO-UI-1 account controls', () => {
       const css = getComputedStyle(button);
       expect(css.opacity).toBe('1');
       expect(css.cursor).toBe('not-allowed');
-      expect(css.getPropertyValue('--game-ui-paint-text').trim()).toBe(
-        css.getPropertyValue('--game-ui-control-disabled-text').trim(),
+      expect(css.getPropertyValue('--swimmer-paint-text').trim()).toBe(
+        css.getPropertyValue('--swimmer-control-disabled-text').trim(),
       );
       expect(button.querySelector('[data-liquid-gooey-silhouette]')).toBeNull();
     }
@@ -71,12 +71,12 @@ describe('WO-UI-1 account controls', () => {
   });
 
   it('exports a controlled OTP, accepts a complete paste once and exposes accessible numeric slots', async () => {
-    expect(Kit.GameOtpInput).toBeTypeOf('function');
+    expect(Kit.OtpInput).toBeTypeOf('function');
     const complete = vi.fn();
     function Demo() {
       const [value, setValue] = useState('');
       return (
-        <Kit.GameOtpInput
+        <Kit.OtpInput
           aria-label="Verification code"
           value={value}
           onChange={setValue}
@@ -106,18 +106,13 @@ describe('WO-UI-1 account controls', () => {
   });
 
   it('supports keyboard entry, backspace, middle replacement and a caller reset without submitting on mount', async () => {
-    expect(Kit.GameOtpInput).toBeTypeOf('function');
+    expect(Kit.OtpInput).toBeTypeOf('function');
     const complete = vi.fn();
     function Demo() {
       const [value, setValue] = useState('');
       return (
         <>
-          <Kit.GameOtpInput
-            aria-label="Code"
-            value={value}
-            onChange={setValue}
-            onComplete={complete}
-          />
+          <Kit.OtpInput aria-label="Code" value={value} onChange={setValue} onComplete={complete} />
           <button onClick={() => setValue('')} type="button">
             Reset
           </button>
@@ -151,7 +146,7 @@ describe('WO-UI-1 account controls', () => {
   });
 
   it('does not publish or submit composing text, then completes full-width digits once', async () => {
-    expect(Kit.GameOtpInput).toBeTypeOf('function');
+    expect(Kit.OtpInput).toBeTypeOf('function');
     const changed = vi.fn();
     const complete = vi.fn();
     function Demo() {
@@ -162,7 +157,7 @@ describe('WO-UI-1 account controls', () => {
             event.preventDefault();
           }}
         >
-          <Kit.GameOtpInput
+          <Kit.OtpInput
             aria-label="Code"
             value={value}
             onChange={(next) => {
@@ -200,11 +195,11 @@ describe('WO-UI-1 account controls', () => {
   });
 
   it('supports arbitrary length, invalid descriptions and disabling without completing programmatic values', async () => {
-    expect(Kit.GameOtpInput).toBeTypeOf('function');
+    expect(Kit.OtpInput).toBeTypeOf('function');
     const changed = vi.fn();
     const complete = vi.fn();
     const node = await mount(
-      <Kit.GameOtpInput
+      <Kit.OtpInput
         aria-label="Short code"
         aria-describedby="code-error"
         length={4}
@@ -232,7 +227,7 @@ describe('WO-UI-1 account controls', () => {
     function Demo({ orientation = 'horizontal' }: { orientation?: 'horizontal' | 'vertical' }) {
       const [activeId, setActive] = useState('profile');
       return (
-        <Kit.GameTabs
+        <Kit.Tabs
           activeId={activeId}
           onSelect={setActive}
           orientation={orientation}
@@ -274,26 +269,26 @@ describe('WO-UI-1 account controls', () => {
   });
 
   it('keeps row selection and right-side actions separate and avoids nested buttons', async () => {
-    expect(Kit.GameListRow).toBeTypeOf('function');
+    expect(Kit.ListRow).toBeTypeOf('function');
     const select = vi.fn();
     const more = vi.fn();
     const remove = vi.fn();
     const node = await mount(
-      <Kit.GameListRow
+      <Kit.ListRow
         title="Story"
         description="Edited today"
-        thumbnail={<Kit.GameAvatar name="Story" />}
+        thumbnail={<Kit.Avatar name="Story" />}
         current
         selected
         onSelect={select}
         actions={
           <>
-            <Kit.GameIconButton label="More" onClick={more}>
+            <Kit.IconButton label="More" onClick={more}>
               …
-            </Kit.GameIconButton>
-            <Kit.GameButton variant="danger" onClick={remove}>
+            </Kit.IconButton>
+            <Kit.Button variant="danger" onClick={remove}>
               Remove
-            </Kit.GameButton>
+            </Kit.Button>
           </>
         }
       />,
@@ -324,10 +319,10 @@ describe('WO-UI-1 account controls', () => {
   it('retains the static circular avatar frame while ordinary buttons have no plaque skin', async () => {
     const node = await mount(
       <>
-        <Kit.GameButton>作品</Kit.GameButton>
-        <Kit.GameIconButton label="Account">A</Kit.GameIconButton>
-        <Kit.GameAvatar surface="plaque" name="River" />
-        <Kit.GameButton>Default</Kit.GameButton>
+        <Kit.Button>作品</Kit.Button>
+        <Kit.IconButton label="Account">A</Kit.IconButton>
+        <Kit.Avatar surface="plaque" name="River" />
+        <Kit.Button>Default</Kit.Button>
       </>,
     );
     const plaques = node.querySelectorAll('[data-game-ui-surface="plaque"]');

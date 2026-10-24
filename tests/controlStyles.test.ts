@@ -16,7 +16,7 @@ describe('twelve complete style blocks', () => {
     expect(() =>
       inspectControlStyleBlocks(
         css.replace(
-          /--game-ui-control-on-text-dark:[^;]+;/,
+          /--swimmer-control-on-text-dark:[^;]+;/,
           '--missing-control-token: transparent;',
         ),
       ),
@@ -31,8 +31,8 @@ describe('twelve complete style blocks', () => {
     expect(() =>
       inspectControlStyleBlocks(
         css.replace(
-          '--game-ui-control-fill-light:',
-          '--game-ui-control-fill-light: red; --game-ui-control-fill-light:',
+          '--swimmer-control-fill-light:',
+          '--swimmer-control-fill-light: red; --swimmer-control-fill-light:',
         ),
       ),
     ).toThrow(/duplicate/);

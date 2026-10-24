@@ -1,11 +1,11 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameFactList } from '../src/game/GameFactList/GameFactList';
+import { FactList } from '../src/game/FactList/FactList';
 
-import { GameMovementPad } from '../src/game/GameMovementPad/GameMovementPad';
+import { MovementPad } from '../src/game/MovementPad/MovementPad';
 
-import { GameShell } from '../src/containers/GameShell/GameShell';
+import { Shell } from '../src/containers/Shell/Shell';
 
 function compact(markup: string): string {
   return markup.replace(/\s+/g, ' ');
@@ -15,20 +15,20 @@ describe('OwnMySpace game surface pack', () => {
   it('renders a reusable game shell with named HUD, library, movement, and toolbar slots', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameShell
+        <Shell
           title="OwnMySpace surface"
           hud={
-            <GameFactList
+            <FactList
               label="World facts"
               facts={[{ id: 'position', label: 'Position', value: '0,0,0' }]}
             />
           }
           assetLibrary={<span>Library slot</span>}
-          movementPad={<GameMovementPad label="Move avatar" />}
+          movementPad={<MovementPad label="Move avatar" />}
           bottomBar={<span>Placement slot</span>}
         >
           <canvas aria-label="3D scene" />
-        </GameShell>,
+        </Shell>,
       ),
     );
 
@@ -43,7 +43,7 @@ describe('OwnMySpace game surface pack', () => {
   it('renders movement controls with accessible labels, keyboard shortcuts, and dense variant hooks', () => {
     const html = compact(
       renderToStaticMarkup(
-        <GameMovementPad density="dense" helpText="Use WASD or arrows." label="Move avatar" />,
+        <MovementPad density="dense" helpText="Use WASD or arrows." label="Move avatar" />,
       ),
     );
 

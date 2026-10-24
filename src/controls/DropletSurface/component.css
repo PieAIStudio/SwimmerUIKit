@@ -2,17 +2,17 @@
  * branch here: tokens/control-styles.css is the sole owner of paint recipes. */
 @layer swimmer-ui {
   [data-game-ui-paint] {
-    --game-ui-paint-fill: var(--game-ui-control-fill);
-    --game-ui-paint-edge: var(--game-ui-control-edge);
-    --game-ui-paint-edge-width: var(--game-ui-control-edge-width);
-    --game-ui-paint-text: var(--game-ui-control-text);
+    --swimmer-paint-fill: var(--swimmer-control-fill);
+    --swimmer-paint-edge: var(--swimmer-control-edge);
+    --swimmer-paint-edge-width: var(--swimmer-control-edge-width);
+    --swimmer-paint-text: var(--swimmer-control-text);
     position: relative;
     isolation: isolate;
     box-sizing: border-box;
     border: 0;
-    border-radius: var(--game-ui-droplet-radius);
-    background: var(--game-ui-paint-fill);
-    color: var(--game-ui-paint-text);
+    border-radius: var(--swimmer-droplet-radius);
+    background: var(--swimmer-paint-fill);
+    color: var(--swimmer-paint-text);
     box-shadow: none;
     text-shadow: none;
     filter: none;
@@ -27,10 +27,10 @@
     -webkit-tap-highlight-color: transparent;
   }
   [data-game-ui-paint][data-game-ui-meaning='true'] {
-    --game-ui-paint-fill: var(--game-ui-control-meaning-fill);
-    --game-ui-paint-edge: var(--game-ui-control-meaning-edge);
-    --game-ui-paint-edge-width: var(--game-ui-control-meaning-edge-width);
-    --game-ui-paint-text: var(--game-ui-control-meaning-text);
+    --swimmer-paint-fill: var(--swimmer-control-meaning-fill);
+    --swimmer-paint-edge: var(--swimmer-control-meaning-edge);
+    --swimmer-paint-edge-width: var(--swimmer-control-meaning-edge-width);
+    --swimmer-paint-text: var(--swimmer-control-meaning-text);
   }
   [data-game-ui-paint]:is(
     [aria-pressed='true'],
@@ -39,18 +39,18 @@
     [data-selected='true'],
     :has(> :where(input):checked)
   ) {
-    --game-ui-paint-fill: var(--game-ui-control-on-fill);
-    --game-ui-paint-edge: var(--game-ui-control-on-edge);
-    --game-ui-paint-edge-width: var(--game-ui-control-on-edge-width);
-    --game-ui-paint-text: var(--game-ui-control-on-text);
+    --swimmer-paint-fill: var(--swimmer-control-on-fill);
+    --swimmer-paint-edge: var(--swimmer-control-on-edge);
+    --swimmer-paint-edge-width: var(--swimmer-control-on-edge-width);
+    --swimmer-paint-text: var(--swimmer-control-on-text);
   }
   /* Danger changes ink, never the normal face. Selection must not restore
    * a coloured destructive background; disabled state below still wins. */
   [data-game-ui-paint][data-game-ui-danger='true'] {
-    --game-ui-paint-fill: var(--game-ui-control-fill);
-    --game-ui-paint-text: var(--game-ui-danger-ink);
-    --game-ui-paint-edge: var(--game-ui-control-danger-edge);
-    --game-ui-paint-edge-width: var(--game-ui-control-edge-width);
+    --swimmer-paint-fill: var(--swimmer-control-fill);
+    --swimmer-paint-text: var(--swimmer-danger-ink);
+    --swimmer-paint-edge: var(--swimmer-control-danger-edge);
+    --swimmer-paint-edge-width: var(--swimmer-control-edge-width);
   }
   [data-game-ui-paint]:is(
     :disabled,
@@ -58,9 +58,9 @@
     [data-game-ui-disabled='true'],
     :has(> input:disabled)
   ) {
-    --game-ui-paint-fill: var(--game-ui-control-disabled-fill);
-    --game-ui-paint-edge: var(--game-ui-control-disabled-edge);
-    --game-ui-paint-text: var(--game-ui-control-disabled-text);
+    --swimmer-paint-fill: var(--swimmer-control-disabled-fill);
+    --swimmer-paint-edge: var(--swimmer-control-disabled-edge);
+    --swimmer-paint-text: var(--swimmer-control-disabled-text);
     cursor: not-allowed;
   }
   [data-game-ui-paint]:has(> .game-ui-droplet[data-ready='true']) {
@@ -74,9 +74,9 @@
     overflow: visible;
   }
   .game-ui-droplet path {
-    fill: var(--game-ui-paint-fill);
-    stroke: var(--game-ui-paint-edge);
-    stroke-width: var(--game-ui-paint-edge-width);
+    fill: var(--swimmer-paint-fill);
+    stroke: var(--swimmer-paint-edge);
+    stroke-width: var(--swimmer-paint-edge-width);
     stroke-linejoin: round;
   }
   .game-ui-selection-mark {
@@ -100,7 +100,7 @@
   }
   [data-game-ui-paint]:focus-visible,
   [data-game-ui-paint]:has(> input:focus-visible) {
-    outline: 3px solid var(--game-ui-focus-ring);
+    outline: 3px solid var(--swimmer-focus-ring);
     outline-offset: 3px;
   }
   @media (forced-colors: active) {

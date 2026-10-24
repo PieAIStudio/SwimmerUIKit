@@ -1,0 +1,52 @@
+@layer swimmer-ui {
+  .game-ui-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+  }
+  .game-ui-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 44px;
+    min-width: 0;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .game-ui-tabs[aria-orientation='vertical'] {
+    display: grid;
+    width: var(--swimmer-side-tabs-width);
+    max-width: 100%;
+  }
+  .game-ui-tabs[aria-orientation='vertical'] .game-ui-tab {
+    --swimmer-droplet-radius: var(--swimmer-control-row-radius);
+    width: 100%;
+    text-align: start;
+  }
+  /*
+   * One shared rule for tabs that stay on one row in a fixed-width panel: the help
+   * card and the account menu. Labels truncate only as a last resort, and an
+   * unselected tab reserves no width for its check mark. The account menu allows
+   * long labels to wrap; both panels size tabs according to their content.
+   */
+  .game-ui-help-card .game-ui-tabs,
+  .game-ui-account-menu-panel .game-ui-tabs {
+    flex-wrap: nowrap;
+  }
+  .game-ui-help-card .game-ui-tab-label,
+  .game-ui-account-menu-panel .game-ui-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .game-ui-help-card .game-ui-tab:not([aria-selected='true']) .game-ui-selection-mark,
+  .game-ui-account-menu-panel .game-ui-tab:not([aria-selected='true']) .game-ui-selection-mark {
+    display: none;
+  }
+}

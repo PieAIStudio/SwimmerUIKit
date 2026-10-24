@@ -1,6 +1,6 @@
 import { type CSSProperties, type ReactNode } from 'react';
 
-import { type GameButtonVariant } from '../../controls/GameButton/GameButton';
+import { type ButtonVariant } from '../../controls/Button/Button';
 
 import { LiquidSurface } from '../../liquid/LiquidSurface/LiquidSurface';
 
@@ -21,19 +21,19 @@ import { STAGE } from './constants';
  * The tokens are the ones `.game-ui-button-liquid--*` already maps to, so what
  * a reader picks here is what a product gets from `variant`.
  */
-export const TONE_FILL: Readonly<Record<GameButtonVariant, string>> = {
-  primary: 'var(--game-ui-accent)',
-  secondary: 'var(--game-ui-accent-pale)',
-  success: 'var(--game-ui-success)',
-  danger: 'var(--game-ui-danger)',
-  ghost: 'var(--game-ui-accent-pale)',
+export const TONE_FILL: Readonly<Record<ButtonVariant, string>> = {
+  primary: 'var(--swimmer-game-accent)',
+  secondary: 'var(--swimmer-accent-pale)',
+  success: 'var(--swimmer-game-success)',
+  danger: 'var(--swimmer-game-danger)',
+  ghost: 'var(--swimmer-accent-pale)',
 };
 
 /** A body form, drawn the way a product would draw it. */
 export function BodyStage({
   form,
   engaged,
-  fill = 'var(--game-ui-accent)',
+  fill = 'var(--swimmer-game-accent)',
   style = STAGE,
   radius = 999,
 }: {

@@ -57,18 +57,18 @@ for entry in CONTRACT['icons']:
     rows.append((entry['name'], [shape(child) for child in svg]))
 
 header = '// Generated from reviewed Lucide ' + CONTRACT['version'] + '. ISC / Feather-derived MIT: see NOTICE.\n'
-paths = header + "import type { GameIconData } from './types';\n\n"
+paths = header + "import type { IconData } from './types';\n\n"
 exports = []
 registry = []
 for name, data in rows:
     symbol = name.upper().replace('-', '_') + '_ICON'
-    paths += f'export const {symbol} = {{ name: {json.dumps(name)}, paths: {json.dumps(data)} }} as const satisfies GameIconData;\n'
+    paths += f'export const {symbol} = {{ name: {json.dumps(name)}, paths: {json.dumps(data)} }} as const satisfies IconData;\n'
     exports.append(symbol)
     registry.append(f'  {json.dumps(name)}: {symbol},')
 files = {
     'src/icons/paths.ts': paths,
-    'src/icons/registry.ts': header + f"import {{ {', '.join(exports)} }} from './paths';\n\nexport const GAME_ICONS = {{\n" + '\n'.join(registry) + "\n} as const;\nexport type GameIconName = keyof typeof GAME_ICONS;\nexport const GAME_ICON_NAMES = Object.keys(GAME_ICONS) as GameIconName[];\n",
-    'src/icon-paths.ts': header + f"export {{ {', '.join(exports)} }} from './icons/paths';\nexport type {{ GameIconData }} from './icons/types';\n",
+    'src/icons/registry.ts': header + f"import {{ {', '.join(exports)} }} from './paths';\n\nexport const GAME_ICONS = {{\n" + '\n'.join(registry) + "\n} as const;\nexport type IconName = keyof typeof GAME_ICONS;\nexport const GAME_ICON_NAMES = Object.keys(GAME_ICONS) as IconName[];\n",
+    'src/icon-paths.ts': header + f"export {{ {', '.join(exports)} }} from './icons/paths';\nexport type {{ IconData }} from './icons/types';\n",
 }
 for relative, text in files.items():
     dest = ROOT / relative

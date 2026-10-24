@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
-import {
-  GameIcon,
-  GameBadge,
-  GameButton,
-  GameHudActions,
-  GameIconButton,
-  GamePanel,
-  GameProgress,
-} from '../../index';
+import { Icon, Badge, Button, HudActions, IconButton, Panel, Progress } from '../../index';
 import { GAME_UI_OVERLAY } from '../../tokens/index';
 
 /**
@@ -89,34 +81,34 @@ function HudCluster({
       {...attrs}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <GameHudActions label={toolsLabel}>
-          <GameIconButton label={`${title} history`}>
-            <GameIcon icon="scroll" size="sm" />
-          </GameIconButton>
-          <GameIconButton label={`${title} settings`}>
-            <GameIcon icon="settings" size="sm" />
-          </GameIconButton>
-        </GameHudActions>
+        <HudActions label={toolsLabel}>
+          <IconButton label={`${title} history`}>
+            <Icon icon="scroll" size="sm" />
+          </IconButton>
+          <IconButton label={`${title} settings`}>
+            <Icon icon="settings" size="sm" />
+          </IconButton>
+        </HudActions>
       </div>
 
-      <GamePanel title={`${title} dialogue`}>
+      <Panel title={`${title} dialogue`}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
-          <GameBadge tone="ai">LIVE</GameBadge>
-          <GameBadge tone="success">READY</GameBadge>
-          <GameBadge tone="warning">GATE</GameBadge>
-          <GameProgress label={`${title} affinity`} value={68} />
+          <Badge tone="ai">LIVE</Badge>
+          <Badge tone="success">READY</Badge>
+          <Badge tone="warning">GATE</Badge>
+          <Progress label={`${title} affinity`} value={68} />
         </div>
         <p style={{ margin: 0, maxWidth: '52ch' }}>
           The scene stays visible through the glass chrome — no heavy flat parchment blocking the
           playfield.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <GameButton variant={primaryAction ? 'primary' : 'secondary'}>Continue</GameButton>
-          <GameButton variant="secondary">Emote</GameButton>
-          <GameButton variant="ghost">Skip</GameButton>
-          <GameButton variant="danger">Leave</GameButton>
+          <Button variant={primaryAction ? 'primary' : 'secondary'}>Continue</Button>
+          <Button variant="secondary">Emote</Button>
+          <Button variant="ghost">Skip</Button>
+          <Button variant="danger">Leave</Button>
         </div>
-      </GamePanel>
+      </Panel>
     </div>
   );
 }
@@ -150,7 +142,7 @@ export const SideBySide: Story = {
         gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
         gap: 16,
         padding: 16,
-        background: 'var(--game-ui-bg, #f3e8d8)',
+        background: 'var(--swimmer-game-bg, #f3e8d8)',
       }}
     >
       <div>

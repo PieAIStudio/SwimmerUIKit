@@ -2,7 +2,7 @@ import { LiquidEffectsGroup } from '../../liquid-effects/LiquidEffectsGroup/Liqu
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ReactNode } from 'react';
 
-import { GameButton, LiquidGroup } from '../../index';
+import { Button, LiquidGroup } from '../../index';
 import '../../preview/preview.css';
 
 const meta = {
@@ -69,7 +69,7 @@ function MorphScene({
   initialMerged,
   motion = 'auto',
   shadow,
-  stroke = '1px solid var(--game-ui-border-subtle)',
+  stroke = '1px solid var(--swimmer-border-subtle)',
   waviness,
   wavinessFreq,
 }: MorphSceneProps): ReactNode {
@@ -135,9 +135,9 @@ function MorphScene({
         </LiquidGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
-        <GameButton onClick={() => setMerged((value) => !value)} variant="primary">
+        <Button onClick={() => setMerged((value) => !value)} variant="primary">
           {merged ? 'Split the drops' : 'Merge the drops'}
-        </GameButton>
+        </Button>
         <span className="game-ui-liquid-demo-status" aria-live="polite">
           {motion === 'reduced'
             ? 'Reduced motion · instant state change'
@@ -192,8 +192,8 @@ export const StrokeAndShadow: Story = {
       description="轮廓线和阴影都属于融合后的剪影；子元素只保留可点击、可读的内容。"
       eyebrow="Surface · group-owned"
       initialMerged
-      shadow="0 10px 22px color-mix(in srgb, var(--game-ui-accent) 30%, transparent)"
-      stroke="2px solid var(--game-ui-accent)"
+      shadow="0 10px 22px color-mix(in srgb, var(--swimmer-game-accent) 30%, transparent)"
+      stroke="2px solid var(--swimmer-game-accent)"
       title="One outline, one shadow"
     />
   ),
@@ -270,7 +270,7 @@ function WavinessComparisonSurface({
       <LiquidGroup
         className="game-ui-liquid-waviness-surface"
         data-testid={`waviness-${size.id}-${clamped ? 'after' : 'before'}`}
-        fill="var(--game-ui-accent)"
+        fill="var(--swimmer-game-accent)"
         filterPadding={12}
         motion="reduced"
         style={{ height: `${size.height}px`, width: `${size.width}px` }}
@@ -281,7 +281,7 @@ function WavinessComparisonSurface({
         <LiquidGroup.Item
           {...(size.shape === 'blob' ? { radius: 999 } : {})}
           style={{
-            borderRadius: size.shape === 'blob' ? '50%' : 'var(--game-ui-radius-control)',
+            borderRadius: size.shape === 'blob' ? '50%' : 'var(--swimmer-game-radius-control)',
             inset: 0,
             position: 'absolute',
           }}
@@ -387,9 +387,9 @@ function MorphKnobScene({ shape, speed, bounce, contentBlur }: MorphKnobProps): 
         </LiquidGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
-        <GameButton onClick={() => setWide((value) => !value)} variant="primary">
+        <Button onClick={() => setWide((value) => !value)} variant="primary">
           {wide ? 'Make it compact' : 'Make it wide'}
-        </GameButton>
+        </Button>
         <span className="game-ui-liquid-demo-status" aria-live="polite">
           shape {shape ? 'on' : 'off'} · speed {speed} · bounce {bounce} · blur {contentBlur}px
         </span>
@@ -449,9 +449,9 @@ function MeltScene(): ReactNode {
         </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
-        <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
+        <Button onClick={() => setTouching((value) => !value)} variant="primary">
           {touching ? 'Separate the palettes' : 'Melt the palettes'}
-        </GameButton>
+        </Button>
         <span className="game-ui-liquid-demo-status" aria-live="polite">
           {touching
             ? 'Contact · color mix + marbling visible'
@@ -523,12 +523,12 @@ function DissolveScene(): ReactNode {
         </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
-        <GameButton onClick={() => setTouching((value) => !value)} variant="primary">
+        <Button onClick={() => setTouching((value) => !value)} variant="primary">
           {touching ? 'Release contact' : 'Reconnect contact'}
-        </GameButton>
-        <GameButton onClick={() => setActive((value) => !value)} variant="secondary">
+        </Button>
+        <Button onClick={() => setActive((value) => !value)} variant="secondary">
           {active ? 'Pause dissolve' : 'Resume dissolve'}
-        </GameButton>
+        </Button>
         <span className="game-ui-liquid-demo-status" aria-live="polite">
           {active
             ? touching
@@ -634,9 +634,9 @@ function BendKnobScene({ vertical, horizontal }: BendKnobProps): ReactNode {
         </LiquidEffectsGroup>
       </div>
       <div className="game-ui-liquid-demo-controls">
-        <GameButton onClick={() => setDragged((value) => !value)} variant="primary">
+        <Button onClick={() => setDragged((value) => !value)} variant="primary">
           {dragged ? 'Return the card' : 'Drag the card'}
-        </GameButton>
+        </Button>
         <span className="game-ui-liquid-demo-status" aria-live="polite">
           vertical {vertical} · horizontal {horizontal} · no tail / no lag
         </span>

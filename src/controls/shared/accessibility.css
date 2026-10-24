@@ -6,7 +6,7 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
-  /* Display: GameAvatar / GameProgress / GameEmptyState */
+  /* Display: Avatar / Progress / EmptyState */
   .game-ui-sr-only {
     position: absolute;
     width: 1px;

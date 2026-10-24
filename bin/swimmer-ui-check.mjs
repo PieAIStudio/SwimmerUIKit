@@ -101,9 +101,9 @@ function findViolations(css) {
  *
  * The raw-colour rule above keeps consumers on tokens. It does not stop them
  * choosing two tokens that do not contrast, and the names make one pairing
- * genuinely inviting: `--game-ui-accent-ink` sounds like "the ink for accent
+ * genuinely inviting: `--swimmer-game-accent-ink` sounds like "the ink for accent
  * things" and means the opposite — accent-COLOURED ink for a surface. Painted
- * on `--game-ui-accent` it measured 1.48:1 in a shipping product, on that
+ * on `--swimmer-game-accent` it measured 1.48:1 in a shipping product, on that
  * product's primary button, and every test it had was green.
  *
  * PRODUCT.md promises "contrast-safe token combinations". That promise only
@@ -183,7 +183,7 @@ function themeTokens() {
   for (const match of css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(blockRe)) {
     const name = match[2] ?? 'light';
     const values = declarations.get(name) ?? new Map();
-    for (const decl of match[3].matchAll(/(--game-ui-[\w-]+)\s*:\s*([^;}]+)/g))
+    for (const decl of match[3].matchAll(/(--swimmer-[\w-]+)\s*:\s*([^;}]+)/g))
       values.set(decl[1], decl[2].trim());
     declarations.set(name, values);
   }
@@ -199,7 +199,7 @@ function themeTokens() {
         return color(values.get(variable[1]), new Set([...seen, variable[1]]));
       }
       const mix =
-        /^color-mix\(in srgb,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*([\d.]+)%,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*\)$/i.exec(
+        /^color-mix\(\s*in\s+srgb\s*,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*([\d.]+)%\s*,\s*(var\(--[\w-]+\)|#[\da-f]+)\s*\)$/i.exec(
           value,
         );
       if (!mix) return null; // Unknown/alpha paint is not guessed or inherited.
@@ -221,7 +221,7 @@ function themeTokens() {
 }
 
 /**
- * Every `--game-ui-*` name this package defines, in any theme block.
+ * Every `--swimmer-*` name this package defines, in any theme block.
  *
  * Colours only is not enough here: the gap this catches was a *font* token.
  */
@@ -234,7 +234,7 @@ function definedTokenNames() {
   for (const candidate of sources) {
     try {
       const css = readFileSync(candidate, 'utf8');
-      return new Set([...css.matchAll(/(--game-ui-[\w-]+)\s*:/g)].map((m) => m[1]));
+      return new Set([...css.matchAll(/(--swimmer-[\w-]+)\s*:/g)].map((m) => m[1]));
     } catch {
       // try the next one
     }
@@ -243,21 +243,21 @@ function definedTokenNames() {
 }
 
 /**
- * A `var(--game-ui-…)` naming a token this kit does not define.
+ * A `var(--swimmer-…)` naming a token this kit does not define.
  *
  * `var()` takes a fallback, so this never fails at runtime — the rule renders
  * from the fallback and looks token-driven while being nothing of the sort. A
- * consumer had six borders reading `var(--game-ui-border, #253048)` against a
+ * consumer had six borders reading `var(--swimmer-border, #253048)` against a
  * token that does not exist, so those borders were a cold blue-grey in an app
  * whose theme is warm brown, for as long as the file had existed, and no brand
  * change could ever have reached them. Another was writing
- * `var(--game-ui-font-mono, …)` — that one turned out to be a real gap in this
+ * `var(--swimmer-font-mono, …)` — that one turned out to be a real gap in this
  * kit, which is the other reason to surface it rather than let the fallback
  * hide it.
  *
  * Two things are not typos and are not flagged. A token the scanned files
  * define themselves is a downstream theme override, which is how theming
- * works. And a token written from code — `style={{ '--game-ui-card-offset': n }}`
+ * works. And a token written from code — `style={{ '--swimmer-card-offset': n }}`
  * — is a per-element channel that cannot have a stylesheet default; those are
  * found by scanning the sibling sources.
  *
@@ -270,7 +270,7 @@ function findUndefinedTokens(css, defined, ownTokens) {
   if (!defined) return [];
   const at = lineFinder(css);
   const out = [];
-  for (const match of css.matchAll(/var\(\s*(--game-ui-[\w-]+)/g)) {
+  for (const match of css.matchAll(/var\(\s*(--swimmer-[\w-]+)/g)) {
     const name = match[1];
     if (defined.has(name) || ownTokens.has(name)) continue;
     out.push({ line: at(match.index ?? 0), name });
@@ -279,17 +279,17 @@ function findUndefinedTokens(css, defined, ownTokens) {
 }
 
 /**
- * A bare token reference and nothing else: `var(--game-ui-x)` or
- * `var(--game-ui-x, #fallback)`.
+ * A bare token reference and nothing else: `var(--swimmer-x)` or
+ * `var(--swimmer-x, #fallback)`.
  *
- * Deliberately refuses `color-mix(in srgb, var(--game-ui-accent) 18%,
+ * Deliberately refuses `color-mix(in srgb, var(--swimmer-game-accent) 18%,
  * transparent)` and gradients. A tint of the accent behind accent-coloured
  * text is perfectly readable, and reading the first token out of the
  * expression would call it 1.00:1 — the first draft of this check did exactly
  * that and flagged four rules that were fine. A linter that cries wolf is
  * worse than no linter, because the next real finding gets skimmed too.
  */
-const BARE_TOKEN = /^\s*var\(\s*(--game-ui-[\w-]+)\s*(?:,[^()]*)?\)\s*$/;
+const BARE_TOKEN = /^\s*var\(\s*(--swimmer-[\w-]+)\s*(?:,[^()]*)?\)\s*$/;
 
 function findContrastViolations(css, themes) {
   if (!themes || themes.size === 0) return [];
@@ -344,7 +344,7 @@ const themes = themeTokens();
 const definedTokens = definedTokenNames();
 const ownTokens = new Set();
 for (const file of files) {
-  for (const match of readFileSync(file, 'utf8').matchAll(/^\s*(--game-ui-[\w-]+)\s*:/gm)) {
+  for (const match of readFileSync(file, 'utf8').matchAll(/^\s*(--swimmer-[\w-]+)\s*:/gm)) {
     ownTokens.add(match[1]);
   }
 }
@@ -358,8 +358,8 @@ for (const file of codeFiles) {
   // previously hid undefined CSS hooks. Accept actual inline style writes or
   // native setProperty writes, not arbitrary strings containing token names.
   for (const pattern of [
-    /['"`](--game-ui-[\w-]+)['"`]\s*\]?\s*:/g,
-    /\.setProperty\(\s*['"`](--game-ui-[\w-]+)['"`]/g,
+    /['"`](--swimmer-[\w-]+)['"`]\s*\]?\s*:/g,
+    /\.setProperty\(\s*['"`](--swimmer-[\w-]+)['"`]/g,
   ]) {
     for (const match of code.matchAll(pattern)) ownTokens.add(match[1]);
   }
@@ -418,7 +418,7 @@ for (const file of files) {
   }
   for (const violation of findViolations(text)) {
     console.log(
-      `${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--game-ui-*) instead`,
+      `${relative(process.cwd(), file)}:${violation.line}: raw color literal "${violation.text}" — use var(--swimmer-*) instead`,
     );
     violationCount += 1;
   }
@@ -427,8 +427,8 @@ for (const file of files) {
 if (contrastCount > 0) {
   console.error(
     `\nswimmer-ui-check: ${contrastCount} unreadable token pair(s). Two tokens are not ` +
-      'automatically safe together: --game-ui-accent-ink is accent-COLOURED ink for a surface, ' +
-      'while --game-ui-accent-contrast is the ink meant to sit on --game-ui-accent.',
+      'automatically safe together: --swimmer-game-accent-ink is accent-COLOURED ink for a surface, ' +
+      'while --swimmer-accent-contrast is the ink meant to sit on --swimmer-game-accent.',
   );
 }
 

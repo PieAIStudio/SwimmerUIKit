@@ -1,13 +1,13 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { GameButton, GameIconButton } from '../src/index';
+import { Button, IconButton } from '../src/index';
 
 describe('native action metadata is independent of link intent', () => {
   it('forwards native button metadata without inventing a link or losing submit semantics', () => {
     const html = renderToStaticMarkup(
-      <GameButton rel="tag" type="submit" name="account" value="save">
+      <Button rel="tag" type="submit" name="account" value="save">
         Save
-      </GameButton>,
+      </Button>,
     );
     expect(html).toContain('<button');
     expect(html).toContain('rel="tag"');
@@ -19,9 +19,9 @@ describe('native action metadata is independent of link intent', () => {
   });
   it('gives icon buttons the same native metadata contract while keeping their accessible label', () => {
     const html = renderToStaticMarkup(
-      <GameIconButton rel="tag" label="Account">
+      <IconButton rel="tag" label="Account">
         A
-      </GameIconButton>,
+      </IconButton>,
     );
     expect(html).toContain('<button');
     expect(html).toContain('rel="tag"');
@@ -30,9 +30,9 @@ describe('native action metadata is independent of link intent', () => {
   });
   it('still protects actual new-window links without dropping their authored relationship', () => {
     const html = renderToStaticMarkup(
-      <GameButton href="/account" target="_blank" rel="help">
+      <Button href="/account" target="_blank" rel="help">
         Account
-      </GameButton>,
+      </Button>,
     );
     expect(html).toContain('<a ');
     expect(html).toContain('rel="help noopener noreferrer"');

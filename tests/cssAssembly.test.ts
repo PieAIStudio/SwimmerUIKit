@@ -52,11 +52,11 @@ describe('CSS assembly ownership', () => {
     expect(names.findIndex((file) => file.includes('LiquidGroup/component.css'))).toBeLessThan(
       firstComponent,
     );
-    expect(names.findIndex((file) => file.includes('GameInput/component.css'))).toBeLessThan(
-      names.findIndex((file) => file.includes('GameTextArea/component.css')),
+    expect(names.findIndex((file) => file.includes('Input/component.css'))).toBeLessThan(
+      names.findIndex((file) => file.includes('TextArea/component.css')),
     );
-    expect(names.findIndex((file) => file.includes('GameIconButton/component.css'))).toBeLessThan(
-      names.findIndex((file) => file.includes('GameWindowPanel/component.css')),
+    expect(names.findIndex((file) => file.includes('IconButton/component.css'))).toBeLessThan(
+      names.findIndex((file) => file.includes('WindowPanel/component.css')),
     );
   });
 

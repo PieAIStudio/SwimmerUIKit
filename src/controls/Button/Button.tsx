@@ -1,0 +1,97 @@
+import { forwardRef, useRef, type ReactNode } from 'react';
+import {
+  playGameInteractionSound,
+  type InteractionSoundOptions,
+} from '../../feedback/sound/interactionSound';
+import { LiquidPressSurface } from '../../liquid/LiquidPressSurface/LiquidPressSurface';
+import { DropletSurface, SelectionMark } from '../DropletSurface/DropletSurface';
+import { controlHue, type UiHue } from '../../tokens/hue';
+import {
+  NativeAction,
+  useActionRef,
+  type ActionElement,
+  type ActionProps,
+} from '../NativeAction/NativeAction';
+
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success';
+export type ButtonProps = ActionProps & {
+  children: ReactNode;
+  fullWidth?: boolean;
+  hue?: UiHue;
+  sound?: InteractionSoundOptions | false;
+  static?: boolean;
+  /**
+   * Work is running behind this action. A primary CTA breathes slowly and stays
+   * a full liquid CTA; other variants pulse softly. Sets `aria-busy`, never
+   * `disabled`: a click still reaches the product, whose own guard decides it.
+   * Reduced motion keeps `aria-busy` and holds still.
+   */
+  pending?: boolean;
+  variant?: ButtonVariant;
+  size?: 'md' | 'sm';
+};
+
+export const Button = forwardRef<ActionElement, ButtonProps>(function Button(
+  {
+    children,
+    className,
+    fullWidth = false,
+    hue,
+    pending = false,
+    sound = false,
+    static: isStatic = false,
+    variant = 'secondary',
+    size = 'md',
+    style,
+    ...props
+  },
+  ref,
+) {
+  const control = useRef<ActionElement | null>(null);
+  const nativeRef = useActionRef(ref, control);
+  const delegated =
+    (props as Record<string, unknown>)['data-game-ui-control'] === 'liquid-presence';
+  const cta = variant === 'primary' && !props.disabled && !delegated;
+  const classes = [
+    'game-ui-button',
+    `game-ui-button--${variant}`,
+    fullWidth && 'game-ui-button--full-width',
+    isStatic && 'game-ui-button--static',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const identity = props.href === undefined ? 'button' : (props.linkComponent ?? 'a');
+  return (
+    <LiquidPressSurface
+      control={control}
+      controlIdentity={identity}
+      enabled={cta}
+      static={isStatic}
+      fullWidth={fullWidth}
+      pending={pending}
+    >
+      <NativeAction
+        {...props}
+        key="control"
+        ref={nativeRef}
+        className={classes}
+        aria-busy={pending ? true : props['aria-busy']}
+        onActivate={() => {
+          if (sound) playGameInteractionSound(sound);
+        }}
+        data-game-ui-size={size}
+        data-game-ui-pending={pending ? 'true' : undefined}
+        data-game-ui-paint=""
+        data-game-ui-cta={cta ? 'true' : undefined}
+        data-game-ui-meaning={variant === 'danger' || variant === 'success' ? 'true' : undefined}
+        data-game-ui-danger={variant === 'danger' ? 'true' : undefined}
+        style={{ ...controlHue(hue ?? (variant === 'success' ? 'leaf' : 'sky')), ...style }}
+      >
+        {!cta && !delegated ? <DropletSurface seedKey={props.id} static={isStatic} /> : null}
+        {children}
+        {props['aria-pressed'] !== undefined ? <SelectionMark /> : null}
+      </NativeAction>
+    </LiquidPressSurface>
+  );
+});

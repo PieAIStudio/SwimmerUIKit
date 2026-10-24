@@ -1,8 +1,0 @@
-@layer swimmer-ui {
-  .game-ui-toast[data-game-ui-paint] {
-    padding: 12px 14px;
-    font-weight: 820;
-    --game-ui-droplet-radius: var(--game-ui-radius-panel);
-    touch-action: auto;
-  }
-}

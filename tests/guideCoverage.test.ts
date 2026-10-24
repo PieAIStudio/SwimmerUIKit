@@ -7,8 +7,8 @@ it('covers every generated public value with a use-boundary row', () => {
   expect(checkGuideCoverage(inventory, guide)).toBeGreaterThan(0);
 });
 it('rejects a missing guide row even when its name is mentioned elsewhere', () => {
-  const omitted = guide.replace(/^\| `GameBadge` \|[^\n]+\n/m, '');
+  const omitted = guide.replace(/^\| `Badge` \|[^\n]+\n/m, '');
   expect(omitted).not.toBe(guide);
-  expect(() => checkGuideCoverage(inventory, omitted + '\nGameBadge')).toThrow('GameBadge');
+  expect(() => checkGuideCoverage(inventory, omitted + '\nGameBadge')).toThrow('Badge');
   expect(() => checkGuideCoverage('', guide)).toThrow('no public values');
 });

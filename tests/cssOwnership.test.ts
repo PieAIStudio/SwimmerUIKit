@@ -87,7 +87,7 @@ describe('kit stylesheets keep one owner per class', () => {
     expect(violations.map(formatOwnershipViolation)).toEqual([]);
   });
 
-  it('keeps the demo table bubble out of the GameCallout class name', () => {
+  it('keeps the demo table bubble out of the Callout class name', () => {
     // Regression guard for the 1.2.0 bug: preview scenery must not squat on a
     // published component's class, in either stylesheet.
     expect(previewCss).toContain('.game-ui-seat-callout');

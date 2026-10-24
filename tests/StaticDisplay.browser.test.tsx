@@ -1,7 +1,7 @@
 import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it } from 'vitest';
-import { GameBadge, GameCallout, GameToast, GameTooltip, GameIconButton } from '../src/index';
+import { Badge, Callout, Toast, Tooltip, IconButton } from '../src/index';
 import { GAME_UI_STYLES } from '../src/tokens/styles';
 import { attachDroplet } from '../src/controls/DropletSurface/controller';
 import { createDropletGeometry, dropletPath } from '../src/controls/DropletSurface/geometry';
@@ -32,12 +32,12 @@ it('keeps all display silhouettes static through pointer/key input in twelve sty
         root.render(
           <StrictMode>
             <section data-game-ui-style={style} data-game-ui-theme={theme}>
-              <GameBadge tone="success">Saved</GameBadge>
-              <GameToast tone="danger">Check input</GameToast>
-              <GameCallout heading="Notice">Original explanation</GameCallout>
-              <GameTooltip label="More explanation">
-                <GameIconButton label="Help">?</GameIconButton>
-              </GameTooltip>
+              <Badge tone="success">Saved</Badge>
+              <Toast tone="danger">Check input</Toast>
+              <Callout heading="Notice">Original explanation</Callout>
+              <Tooltip label="More explanation">
+                <IconButton label="Help">?</IconButton>
+              </Tooltip>
             </section>
           </StrictMode>,
         ),
@@ -70,7 +70,7 @@ it('keeps all display silhouettes static through pointer/key input in twelve sty
 it('enforces the badge one-pixel geometry cap even with an excessive host token', () => {
   const target = document.createElement('span');
   target.style.cssText =
-    'display:block;width:100px;height:24px;--game-ui-droplet-wobble:90;--game-ui-droplet-radius:12px';
+    'display:block;width:100px;height:24px;--swimmer-droplet-wobble:90;--swimmer-droplet-radius:12px';
   target.innerHTML = '<svg><g><path /></g></svg>';
   host.append(target);
   const svg = target.querySelector('svg')!;

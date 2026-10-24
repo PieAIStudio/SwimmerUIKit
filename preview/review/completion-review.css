@@ -2,15 +2,15 @@
   max-width: 960px;
   margin: auto;
   padding: 24px;
-  color: var(--game-ui-text);
-  font-family: var(--game-ui-font-body);
+  color: var(--swimmer-game-text);
+  font-family: var(--swimmer-game-font-body);
 }
 .completion-review > section {
   margin: 28px 0;
 }
 .completion-review h1,
 .completion-review h2 {
-  font-family: var(--game-ui-font-display);
+  font-family: var(--swimmer-game-font-display);
 }
 .completion-review-row {
   display: flex;

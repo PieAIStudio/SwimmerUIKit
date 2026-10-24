@@ -1,0 +1,76 @@
+@layer swimmer-ui {
+  .game-ui-list-row {
+    --swimmer-droplet-radius: var(--swimmer-control-row-radius);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .game-ui-list-row-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    min-height: 52px;
+    padding: 12px 16px;
+    text-align: start;
+    font: inherit;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    box-shadow: none;
+    border-radius: inherit;
+  }
+  .game-ui-list-row-main:focus-visible {
+    outline: 3px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-list-row[data-selected='true'] .game-ui-list-row-main > .game-ui-selection-mark {
+    visibility: visible;
+  }
+  div.game-ui-list-row-main {
+    cursor: default;
+  }
+  .game-ui-list-row-thumbnail {
+    flex: none;
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+  }
+  .game-ui-list-row-thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+  }
+  .game-ui-list-row-copy {
+    display: grid;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+  .game-ui-list-row-title {
+    font-weight: 750;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-list-row-description {
+    font-size: 0.86em;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-list-row-current {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .game-ui-list-row-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    padding-inline-end: 10px;
+  }
+}

@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 
-import { GameIcon } from '../../icons/GameIcon/GameIcon';
+import { Icon } from '../../icons/Icon/Icon';
 
-import { GameBadge } from '../../feedback/GameBadge/GameBadge';
+import { Badge } from '../../feedback/Badge/Badge';
 
-import { GameButton } from '../../controls/GameButton/GameButton';
+import { Button } from '../../controls/Button/Button';
 
 export interface FirstSessionOnboardingStep {
   body: string;
@@ -42,8 +42,8 @@ export function FirstSessionOnboarding({
     >
       <div className="swimmer-first-session-onboarding-scrim" />
       <div className="swimmer-first-session-onboarding-card">
-        <GameIcon icon="trophy" size="lg" />
-        <GameBadge tone="warning">{labels.badge}</GameBadge>
+        <Icon icon="trophy" size="lg" />
+        <Badge tone="warning">{labels.badge}</Badge>
         <h2 id="swimmer-first-session-onboarding-title">{labels.title}</h2>
         <p>{labels.body}</p>
         <ol className="swimmer-first-session-onboarding-steps">
@@ -56,12 +56,12 @@ export function FirstSessionOnboarding({
           ))}
         </ol>
         <div className="swimmer-first-session-onboarding-actions">
-          <GameButton onClick={onDismiss} variant="primary">
+          <Button onClick={onDismiss} variant="primary">
             {labels.start}
-          </GameButton>
-          <GameButton onClick={onDismiss} variant="ghost">
+          </Button>
+          <Button onClick={onDismiss} variant="ghost">
             {labels.skip}
-          </GameButton>
+          </Button>
         </div>
       </div>
     </aside>

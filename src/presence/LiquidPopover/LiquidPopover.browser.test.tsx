@@ -2,7 +2,7 @@ import { act, StrictMode, useRef, useState } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { LiquidPopover } from './LiquidPopover';
-import { GameButton } from '../../controls/GameButton/GameButton';
+import { Button } from '../../controls/Button/Button';
 import { setLiquidGooeyBudget, resetLiquidGooeyBudgetForTests } from '../../liquid/budget';
 import '../../styles.css';
 import '../presence.css';
@@ -26,12 +26,12 @@ function Fixture() {
     [open, setOpen] = useState(false);
   return (
     <section data-game-ui-theme="dark" data-game-ui-style="grey">
-      <GameButton ref={source} onClick={() => setOpen(!open)}>
+      <Button ref={source} onClick={() => setOpen(!open)}>
         Open
-      </GameButton>
+      </Button>
       <LiquidPopover open={open} onOpenChange={setOpen} source={source} title="Choices">
         <input aria-label="Draft" defaultValue="retain" />
-        <GameButton>Choose</GameButton>
+        <Button>Choose</Button>
       </LiquidPopover>
     </section>
   );

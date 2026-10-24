@@ -4,8 +4,8 @@ import { isValidElement, useLayoutEffect, useState, type ReactNode, type RefObje
  * A trigger built in a Server Component can reach a client component as a lazy
  * node: `$$typeof` is react.lazy and there is no `props`. It happens while the
  * child's Flight row is still streaming. Reading `children.props` then throws
- * "Cannot read properties of undefined (reading 'ref')". GameHelpCard and
- * GameTooltip keep such a child inside a slot and find its focusable element
+ * "Cannot read properties of undefined (reading 'ref')". HelpCard and
+ * Tooltip keep such a child inside a slot and find its focusable element
  * after mount. A valid element never takes this path.
  */
 

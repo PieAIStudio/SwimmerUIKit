@@ -1,8 +1,8 @@
 import { useState, type ReactNode } from 'react';
 
-import { GameButton } from '../../controls/GameButton/GameButton';
+import { Button } from '../../controls/Button/Button';
 
-import { GamePanel } from '../../containers/GamePanel/GamePanel';
+import { Panel } from '../../containers/Panel/Panel';
 
 import { LIQUID_FORM_NAMES, LIQUID_FORMS, type LiquidForm } from '../../liquid/forms';
 
@@ -28,9 +28,9 @@ export function Sizes({ copy }: { copy: Copy }): ReactNode {
     <>
       <div className="game-ui-liquid-demo-controls" role="group" aria-label="尺寸对照的形态">
         {bodies.map((form) => (
-          <GameButton key={form} aria-pressed={selected === form} onClick={() => setSelected(form)}>
+          <Button key={form} aria-pressed={selected === form} onClick={() => setSelected(form)}>
             {form}
-          </GameButton>
+          </Button>
         ))}
       </div>
       <div className="game-ui-liquid-page__sizes">
@@ -40,12 +40,12 @@ export function Sizes({ copy }: { copy: Copy }): ReactNode {
             const on = engaged.has(form);
             const { blob } = LIQUID_FORMS[form].group;
             return (
-              <GamePanel className="game-ui-liquid-page__size-row" key={form} tone="strong">
+              <Panel className="game-ui-liquid-page__size-row" key={form} tone="strong">
                 <header>
                   <h4>{form}</h4>
-                  <GameButton onClick={() => toggle(form)} variant="ghost">
+                  <Button onClick={() => toggle(form)} variant="ghost">
                     {form === 'ripple' ? copy.pulse : on ? copy.reset : copy.trigger}
-                  </GameButton>
+                  </Button>
                 </header>
                 <div className="game-ui-liquid-page__size-pair">
                   <div>
@@ -65,7 +65,7 @@ export function Sizes({ copy }: { copy: Copy }): ReactNode {
                     </small>
                   </div>
                 </div>
-              </GamePanel>
+              </Panel>
             );
           })}
       </div>

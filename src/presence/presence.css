@@ -13,10 +13,10 @@
     isolation: isolate;
     min-width: 0;
     border-radius: 32px;
-    color: var(--game-ui-cta-text);
-    font-family: var(--game-ui-font-body);
-    --game-ui-liquid-reveal-text: var(--game-ui-cta-text);
-    --game-ui-liquid-reveal-muted: var(--game-ui-cta-text);
+    color: var(--swimmer-game-cta-text);
+    font-family: var(--swimmer-game-font-body);
+    --swimmer-liquid-reveal-text: var(--swimmer-game-cta-text);
+    --swimmer-liquid-reveal-muted: var(--swimmer-game-cta-text);
   }
   .game-ui-liquid-reveal-content {
     position: relative;
@@ -33,7 +33,7 @@
     inset: 0;
     pointer-events: none;
     overflow: visible;
-    filter: var(--game-ui-liquid-presence-shadow);
+    filter: var(--swimmer-liquid-presence-shadow);
   }
   .game-ui-liquid-reveal[data-reveal-variant='input'] {
     border-radius: 36px;
@@ -41,25 +41,25 @@
   @media (forced-colors: active) {
     .game-ui-liquid-reveal {
       border: 2px solid CanvasText;
-      color: var(--game-ui-cta-text);
-      --game-ui-liquid-reveal-text: var(--game-ui-cta-text);
-      --game-ui-liquid-reveal-muted: var(--game-ui-cta-text);
+      color: var(--swimmer-game-cta-text);
+      --swimmer-liquid-reveal-text: var(--swimmer-game-cta-text);
+      --swimmer-liquid-reveal-muted: var(--swimmer-game-cta-text);
     }
     .game-ui-liquid-reveal-ink {
       display: none;
-      filter: var(--game-ui-liquid-presence-shadow);
+      filter: var(--swimmer-liquid-presence-shadow);
     }
   }
   .game-ui-liquid-presence {
-    --liquid-presence-from: var(--game-ui-cta-from);
-    --liquid-presence-to: var(--game-ui-cta-to);
+    --liquid-presence-from: var(--swimmer-game-cta-from);
+    --liquid-presence-to: var(--swimmer-game-cta-to);
     display: inline-block;
     position: relative;
     flex: none;
     line-height: 0;
     vertical-align: middle;
     pointer-events: none;
-    color: var(--game-ui-secondary);
+    color: var(--swimmer-secondary);
   }
   .game-ui-liquid-presence > svg {
     display: block;
@@ -67,15 +67,15 @@
     height: 100%;
     overflow: visible;
     /* Same contact shadow as the material reveal panel below. */
-    filter: var(--game-ui-liquid-presence-shadow);
+    filter: var(--swimmer-liquid-presence-shadow);
   }
   .game-ui-liquid-presence[data-activity='disabled'] {
     opacity: 0.5;
   }
   .game-ui-liquid-presence[data-activity='error'],
   .game-ui-liquid-presence[data-activity='unknown'] {
-    --liquid-presence-from: var(--game-ui-warning);
-    --liquid-presence-to: var(--game-ui-warning);
+    --liquid-presence-from: var(--swimmer-game-warning);
+    --liquid-presence-to: var(--swimmer-game-warning);
   }
   .game-ui-liquid-presence-overlay {
     position: fixed;
@@ -83,7 +83,7 @@
     z-index: 95;
     pointer-events: none;
     overflow: visible;
-    color: var(--game-ui-secondary);
+    color: var(--swimmer-secondary);
   }
   .game-ui-liquid-presence-overlay > [hidden] {
     display: none !important;
@@ -112,11 +112,11 @@
     max-width: min(260px, calc(100vw - 32px));
     width: max-content;
     padding: 9px 14px;
-    border-radius: var(--game-ui-radius-control, 12px);
-    background: var(--game-ui-surface);
-    color: var(--game-ui-text);
+    border-radius: var(--swimmer-game-radius-control, 12px);
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text);
     box-shadow: none;
-    font: 500 13px/1.5 var(--game-ui-font-body);
+    font: 500 13px/1.5 var(--swimmer-game-font-body);
     overflow-wrap: anywhere;
     text-wrap: pretty;
   }
@@ -132,7 +132,7 @@
     text-wrap: wrap;
     background: transparent;
     box-shadow: none;
-    color: var(--game-ui-cta-text);
+    color: var(--swimmer-game-cta-text);
   }
   .game-ui-liquid-presence-label--expanded {
     display: flex;
@@ -163,7 +163,7 @@
 
   /* Source placement belongs to the host. Only its temporary outlet floats. */
   .game-ui-liquid-anchor {
-    z-index: var(--game-ui-assistance-z, 95);
+    z-index: var(--swimmer-assistance-z, 95);
     width: max-content;
   }
 }

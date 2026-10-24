@@ -53,7 +53,7 @@ export function parseShadow(input?: string | null): ShadowLayer[] {
       y,
       blur,
       spread,
-      color: colorParts.join(' ') || 'var(--game-ui-shadow-color, transparent)',
+      color: colorParts.join(' ') || 'var(--swimmer-shadow-color, transparent)',
       inset,
     });
   }
@@ -72,7 +72,7 @@ export function parseStroke(input?: string | null): StrokeLayer | null {
   }
   return {
     width,
-    color: colorParts.join(' ') || 'var(--game-ui-stroke, transparent)',
+    color: colorParts.join(' ') || 'var(--swimmer-stroke, transparent)',
   };
 }
 

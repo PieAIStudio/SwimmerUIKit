@@ -49,4 +49,4 @@ export {
   SUN_ICON,
   USER_ICON,
 } from './icons/paths';
-export type { GameIconData } from './icons/types';
+export type { IconData } from './icons/types';

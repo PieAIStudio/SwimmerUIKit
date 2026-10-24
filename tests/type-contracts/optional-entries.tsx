@@ -1,16 +1,16 @@
 import {
   LiquidGroup,
   liquidFormItem,
-  GameMaterialSwatches,
-  GameButton,
-  GameIconButton,
-  GameSelect,
-  GameToggle,
-  GameIcon,
+  MaterialSwatches,
+  Button,
+  IconButton,
+  Select,
+  Toggle,
+  Icon,
 } from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
 
-export const namedIcon = <GameIcon icon="check" label="Completed" />;
+export const namedIcon = <Icon icon="check" label="Completed" />;
 
 // Checked by pnpm typecheck; these fixtures are not bundle entries.
 export const ordinary = (
@@ -19,19 +19,16 @@ export const ordinary = (
   </LiquidGroup>
 );
 export const palette = (
-  <GameMaterialSwatches
-    label="Palette"
-    materials={[{ id: 'sky', label: 'Sky', color: '#6bb3ea' }]}
-  />
+  <MaterialSwatches label="Palette" materials={[{ id: 'sky', label: 'Sky', color: '#6bb3ea' }]} />
 );
-export const action = <GameButton variant="primary">Start</GameButton>;
-export const iconAction = <GameIconButton label="Action">+</GameIconButton>;
+export const action = <Button variant="primary">Start</Button>;
+export const iconAction = <IconButton label="Action">+</IconButton>;
 export const select = (
-  <GameSelect aria-label="Choice">
+  <Select aria-label="Choice">
     <option>One</option>
-  </GameSelect>
+  </Select>
 );
-export const toggle = <GameToggle checked label="Sound" />;
+export const toggle = <Toggle checked label="Sound" />;
 export const reveal = <LiquidReveal>Draft</LiquidReveal>;
 
 // @ts-expect-error Image effects are not part of the default group API.
@@ -43,22 +40,22 @@ export const rejectedDissolve = <LiquidGroup.Item dissolve>Text</LiquidGroup.Ite
 // @ts-expect-error The internal layer seam is not a public plugin escape hatch.
 export const rejectedLayer = <LiquidGroup auxiliary={() => null}>Text</LiquidGroup>;
 // @ts-expect-error The primary action chooses liquid; the surface axis is removed.
-export const rejectedSurface = <GameButton surface="liquid">Start</GameButton>;
+export const rejectedSurface = <Button surface="liquid">Start</Button>;
 // @ts-expect-error No old finish selector is retained for primitive groups.
 export const rejectedFinish = <LiquidGroup liquidFinish="matte">Text</LiquidGroup>;
 export const rejectedPlaque = (
   // @ts-expect-error Ordinary icon controls cannot opt back into liquid or plaque.
-  <GameIconButton label="Icon" surface="plaque">
+  <IconButton label="Icon" surface="plaque">
     +
-  </GameIconButton>
+  </IconButton>
 );
 export const rejectedSelect = (
   // @ts-expect-error Native fields no longer have a liquid renderer.
-  <GameSelect surface="liquid">
+  <Select surface="liquid">
     <option>One</option>
-  </GameSelect>
+  </Select>
 );
 // @ts-expect-error Toggle state is not a choice of material.
-export const rejectedToggle = <GameToggle checked label="Sound" liquidFinish="glossy" />;
+export const rejectedToggle = <Toggle checked label="Sound" liquidFinish="glossy" />;
 // @ts-expect-error Reveal has one shared material, not a second dark-surface mode.
 export const rejectedReveal = <LiquidReveal surface="dark">Draft</LiquidReveal>;

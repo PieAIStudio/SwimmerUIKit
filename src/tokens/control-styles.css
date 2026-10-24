@@ -7,72 +7,72 @@
  */
 @layer swimmer-ui {
   [data-game-ui-paint] {
-    color-scheme: var(--game-ui-color-scheme);
-    --hue: var(--game-ui-hue-sky);
-    --game-ui-hue-ink: var(--game-ui-control-chroma-ink);
-    --game-ui-control-fill: light-dark(
-      var(--game-ui-control-fill-light),
-      var(--game-ui-control-fill-dark)
+    color-scheme: var(--swimmer-color-scheme);
+    --hue: var(--swimmer-hue-sky);
+    --swimmer-hue-ink: var(--swimmer-control-chroma-ink);
+    --swimmer-control-fill: light-dark(
+      var(--swimmer-control-fill-light),
+      var(--swimmer-control-fill-dark)
     );
-    --game-ui-control-edge: light-dark(
-      var(--game-ui-control-edge-light),
-      var(--game-ui-control-edge-dark)
+    --swimmer-control-edge: light-dark(
+      var(--swimmer-control-edge-light),
+      var(--swimmer-control-edge-dark)
     );
-    --game-ui-control-text: light-dark(
-      var(--game-ui-control-text-light),
-      var(--game-ui-control-text-dark)
+    --swimmer-control-text: light-dark(
+      var(--swimmer-control-text-light),
+      var(--swimmer-control-text-dark)
     );
-    --game-ui-control-danger-edge: light-dark(
-      var(--game-ui-control-danger-edge-light),
-      var(--game-ui-control-danger-edge-dark)
+    --swimmer-control-danger-edge: light-dark(
+      var(--swimmer-control-danger-edge-light),
+      var(--swimmer-control-danger-edge-dark)
     );
-    --game-ui-control-on-fill: light-dark(
-      var(--game-ui-control-on-fill-light),
-      var(--game-ui-control-on-fill-dark)
+    --swimmer-control-on-fill: light-dark(
+      var(--swimmer-control-on-fill-light),
+      var(--swimmer-control-on-fill-dark)
     );
-    --game-ui-control-on-edge: light-dark(
-      var(--game-ui-control-on-edge-light),
-      var(--game-ui-control-on-edge-dark)
+    --swimmer-control-on-edge: light-dark(
+      var(--swimmer-control-on-edge-light),
+      var(--swimmer-control-on-edge-dark)
     );
-    --game-ui-control-on-text: light-dark(
-      var(--game-ui-control-on-text-light),
-      var(--game-ui-control-on-text-dark)
+    --swimmer-control-on-text: light-dark(
+      var(--swimmer-control-on-text-light),
+      var(--swimmer-control-on-text-dark)
     );
-    --game-ui-control-meaning-fill: light-dark(
-      var(--game-ui-control-meaning-fill-light),
-      var(--game-ui-control-meaning-fill-dark)
+    --swimmer-control-meaning-fill: light-dark(
+      var(--swimmer-control-meaning-fill-light),
+      var(--swimmer-control-meaning-fill-dark)
     );
-    --game-ui-control-meaning-edge: light-dark(
-      var(--game-ui-control-meaning-edge-light),
-      var(--game-ui-control-meaning-edge-dark)
+    --swimmer-control-meaning-edge: light-dark(
+      var(--swimmer-control-meaning-edge-light),
+      var(--swimmer-control-meaning-edge-dark)
     );
-    --game-ui-control-meaning-text: light-dark(
-      var(--game-ui-control-meaning-text-light),
-      var(--game-ui-control-meaning-text-dark)
+    --swimmer-control-meaning-text: light-dark(
+      var(--swimmer-control-meaning-text-light),
+      var(--swimmer-control-meaning-text-dark)
     );
-    --game-ui-control-disabled-fill: light-dark(
-      var(--game-ui-control-disabled-fill-light),
-      var(--game-ui-control-disabled-fill-dark)
+    --swimmer-control-disabled-fill: light-dark(
+      var(--swimmer-control-disabled-fill-light),
+      var(--swimmer-control-disabled-fill-dark)
     );
-    --game-ui-control-disabled-edge: light-dark(
-      var(--game-ui-control-disabled-edge-light),
-      var(--game-ui-control-disabled-edge-dark)
+    --swimmer-control-disabled-edge: light-dark(
+      var(--swimmer-control-disabled-edge-light),
+      var(--swimmer-control-disabled-edge-dark)
     );
-    --game-ui-control-disabled-text: light-dark(
-      var(--game-ui-control-disabled-text-light),
-      var(--game-ui-control-disabled-text-dark)
+    --swimmer-control-disabled-text: light-dark(
+      var(--swimmer-control-disabled-text-light),
+      var(--swimmer-control-disabled-text-dark)
     );
-    --game-ui-control-edge-width: var(--game-ui-control-edge-width-light);
-    --game-ui-control-on-edge-width: var(--game-ui-control-on-edge-width-light);
-    --game-ui-control-meaning-edge-width: var(--game-ui-control-meaning-edge-width-light);
+    --swimmer-control-edge-width: var(--swimmer-control-edge-width-light);
+    --swimmer-control-on-edge-width: var(--swimmer-control-on-edge-width-light);
+    --swimmer-control-meaning-edge-width: var(--swimmer-control-meaning-edge-width-light);
   }
   /* light-dark() is a colour function, not a length function. Resolve edge
    * widths on the same bounded theme subtree, including nested light resets. */
   @scope ([data-game-ui-theme='dark']) to ([data-game-ui-theme]) {
     [data-game-ui-paint] {
-      --game-ui-control-edge-width: var(--game-ui-control-edge-width-dark);
-      --game-ui-control-on-edge-width: var(--game-ui-control-on-edge-width-dark);
-      --game-ui-control-meaning-edge-width: var(--game-ui-control-meaning-edge-width-dark);
+      --swimmer-control-edge-width: var(--swimmer-control-edge-width-dark);
+      --swimmer-control-on-edge-width: var(--swimmer-control-on-edge-width-dark);
+      --swimmer-control-meaning-edge-width: var(--swimmer-control-meaning-edge-width-dark);
     }
   }
 }
@@ -80,325 +80,325 @@
 @scope ([data-game-ui-style='candy']) to ([data-game-ui-style]) {
   /* style-token-block: candy light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-control-edge-light);
-    --game-ui-control-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 1.5px;
-    --game-ui-control-on-fill-light: var(--hue);
-    --game-ui-control-on-edge-light: var(--hue);
-    --game-ui-control-on-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-light: 0px;
-    --game-ui-control-meaning-fill-light: var(--hue);
-    --game-ui-control-meaning-edge-light: var(--hue);
-    --game-ui-control-meaning-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-light: 0px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-light: var(--swimmer-control-edge-light);
+    --swimmer-control-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 1.5px;
+    --swimmer-control-on-fill-light: var(--hue);
+    --swimmer-control-on-edge-light: var(--hue);
+    --swimmer-control-on-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: var(--hue);
+    --swimmer-control-meaning-edge-light: var(--hue);
+    --swimmer-control-meaning-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-light: 0px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
   /* style-token-block: candy dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-control-edge-dark);
-    --game-ui-control-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 1.5px;
-    --game-ui-control-on-fill-dark: var(--hue);
-    --game-ui-control-on-edge-dark: var(--hue);
-    --game-ui-control-on-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-dark: 0px;
-    --game-ui-control-meaning-fill-dark: var(--hue);
-    --game-ui-control-meaning-edge-dark: var(--hue);
-    --game-ui-control-meaning-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-dark: 0px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-dark: var(--swimmer-control-edge-dark);
+    --swimmer-control-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 1.5px;
+    --swimmer-control-on-fill-dark: var(--hue);
+    --swimmer-control-on-edge-dark: var(--hue);
+    --swimmer-control-on-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: var(--hue);
+    --swimmer-control-meaning-edge-dark: var(--hue);
+    --swimmer-control-meaning-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-dark: 0px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }
 
 @scope (:root:not([data-game-ui-style]), [data-game-ui-style='pastel']) to ([data-game-ui-style]) {
   /* style-token-block: pastel light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-control-edge-light);
-    --game-ui-control-fill-light: color-mix(
+    --swimmer-control-danger-edge-light: var(--swimmer-control-edge-light);
+    --swimmer-control-fill-light: color-mix(
       in srgb,
       var(--hue) 38%,
-      var(--game-ui-paper-paper-light)
+      var(--swimmer-paper-paper-light)
     );
-    --game-ui-control-edge-light: transparent;
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 0px;
-    --game-ui-control-on-fill-light: var(--hue);
-    --game-ui-control-on-edge-light: var(--hue);
-    --game-ui-control-on-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-light: 0px;
-    --game-ui-control-meaning-fill-light: var(--hue);
-    --game-ui-control-meaning-edge-light: var(--hue);
-    --game-ui-control-meaning-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-light: 0px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-edge-light: transparent;
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 0px;
+    --swimmer-control-on-fill-light: var(--hue);
+    --swimmer-control-on-edge-light: var(--hue);
+    --swimmer-control-on-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: var(--hue);
+    --swimmer-control-meaning-edge-light: var(--hue);
+    --swimmer-control-meaning-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-light: 0px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
   /* style-token-block: pastel dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-control-edge-dark);
-    --game-ui-control-fill-dark: color-mix(
+    --swimmer-control-danger-edge-dark: var(--swimmer-control-edge-dark);
+    --swimmer-control-fill-dark: color-mix(
       in srgb,
       var(--hue) 28%,
-      var(--game-ui-paper-paper-dark)
+      var(--swimmer-paper-paper-dark)
     );
-    --game-ui-control-edge-dark: transparent;
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 0px;
-    --game-ui-control-on-fill-dark: var(--hue);
-    --game-ui-control-on-edge-dark: var(--hue);
-    --game-ui-control-on-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-dark: 0px;
-    --game-ui-control-meaning-fill-dark: var(--hue);
-    --game-ui-control-meaning-edge-dark: var(--hue);
-    --game-ui-control-meaning-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-dark: 0px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-edge-dark: transparent;
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 0px;
+    --swimmer-control-on-fill-dark: var(--hue);
+    --swimmer-control-on-edge-dark: var(--hue);
+    --swimmer-control-on-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: var(--hue);
+    --swimmer-control-meaning-edge-dark: var(--hue);
+    --swimmer-control-meaning-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-dark: 0px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }
 
 @scope ([data-game-ui-style='mist']) to ([data-game-ui-style]) {
   /* style-token-block: mist light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-control-edge-light);
-    --game-ui-control-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 1.5px;
-    --game-ui-control-on-fill-light: var(--hue);
-    --game-ui-control-on-edge-light: var(--hue);
-    --game-ui-control-on-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-light: 0px;
-    --game-ui-control-meaning-fill-light: var(--hue);
-    --game-ui-control-meaning-edge-light: var(--hue);
-    --game-ui-control-meaning-text-light: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-light: 0px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-mist-coral);
-    --game-ui-hue-sun: var(--game-ui-mist-sun);
-    --game-ui-hue-leaf: var(--game-ui-mist-leaf);
-    --game-ui-hue-sky: var(--game-ui-mist-sky);
-    --game-ui-hue-grape: var(--game-ui-mist-grape);
-    --game-ui-hue-pink: var(--game-ui-mist-pink);
+    --swimmer-control-danger-edge-light: var(--swimmer-control-edge-light);
+    --swimmer-control-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 1.5px;
+    --swimmer-control-on-fill-light: var(--hue);
+    --swimmer-control-on-edge-light: var(--hue);
+    --swimmer-control-on-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: var(--hue);
+    --swimmer-control-meaning-edge-light: var(--hue);
+    --swimmer-control-meaning-text-light: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-light: 0px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-mist-coral);
+    --swimmer-hue-sun: var(--swimmer-mist-sun);
+    --swimmer-hue-leaf: var(--swimmer-mist-leaf);
+    --swimmer-hue-sky: var(--swimmer-mist-sky);
+    --swimmer-hue-grape: var(--swimmer-mist-grape);
+    --swimmer-hue-pink: var(--swimmer-mist-pink);
   }
   /* style-token-block: mist dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-control-edge-dark);
-    --game-ui-control-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 1.5px;
-    --game-ui-control-on-fill-dark: var(--hue);
-    --game-ui-control-on-edge-dark: var(--hue);
-    --game-ui-control-on-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-on-edge-width-dark: 0px;
-    --game-ui-control-meaning-fill-dark: var(--hue);
-    --game-ui-control-meaning-edge-dark: var(--hue);
-    --game-ui-control-meaning-text-dark: var(--game-ui-hue-ink);
-    --game-ui-control-meaning-edge-width-dark: 0px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-mist-coral);
-    --game-ui-hue-sun: var(--game-ui-mist-sun);
-    --game-ui-hue-leaf: var(--game-ui-mist-leaf);
-    --game-ui-hue-sky: var(--game-ui-mist-sky);
-    --game-ui-hue-grape: var(--game-ui-mist-grape);
-    --game-ui-hue-pink: var(--game-ui-mist-pink);
+    --swimmer-control-danger-edge-dark: var(--swimmer-control-edge-dark);
+    --swimmer-control-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 1.5px;
+    --swimmer-control-on-fill-dark: var(--hue);
+    --swimmer-control-on-edge-dark: var(--hue);
+    --swimmer-control-on-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: var(--hue);
+    --swimmer-control-meaning-edge-dark: var(--hue);
+    --swimmer-control-meaning-text-dark: var(--swimmer-hue-ink);
+    --swimmer-control-meaning-edge-width-dark: 0px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-mist-coral);
+    --swimmer-hue-sun: var(--swimmer-mist-sun);
+    --swimmer-hue-leaf: var(--swimmer-mist-leaf);
+    --swimmer-hue-sky: var(--swimmer-mist-sky);
+    --swimmer-hue-grape: var(--swimmer-mist-grape);
+    --swimmer-hue-pink: var(--swimmer-mist-pink);
   }
 }
 
 @scope ([data-game-ui-style='grey']) to ([data-game-ui-style]) {
   /* style-token-block: grey light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-control-edge-light);
-    --game-ui-control-fill-light: var(--game-ui-paper-grey-light);
-    --game-ui-control-edge-light: transparent;
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 0px;
-    --game-ui-control-on-fill-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-edge-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-text-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-on-edge-width-light: 0px;
-    --game-ui-control-meaning-fill-light: var(--game-ui-paper-grey2-light);
-    --game-ui-control-meaning-edge-light: transparent;
-    --game-ui-control-meaning-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-meaning-edge-width-light: 0px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-light: var(--swimmer-control-edge-light);
+    --swimmer-control-fill-light: var(--swimmer-paper-grey-light);
+    --swimmer-control-edge-light: transparent;
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 0px;
+    --swimmer-control-on-fill-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-edge-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-text-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: var(--swimmer-paper-grey2-light);
+    --swimmer-control-meaning-edge-light: transparent;
+    --swimmer-control-meaning-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-meaning-edge-width-light: 0px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
   /* style-token-block: grey dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-control-edge-dark);
-    --game-ui-control-fill-dark: var(--game-ui-paper-grey-dark);
-    --game-ui-control-edge-dark: transparent;
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 0px;
-    --game-ui-control-on-fill-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-edge-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-text-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-on-edge-width-dark: 0px;
-    --game-ui-control-meaning-fill-dark: var(--game-ui-paper-grey2-dark);
-    --game-ui-control-meaning-edge-dark: transparent;
-    --game-ui-control-meaning-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-meaning-edge-width-dark: 0px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-dark: var(--swimmer-control-edge-dark);
+    --swimmer-control-fill-dark: var(--swimmer-paper-grey-dark);
+    --swimmer-control-edge-dark: transparent;
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 0px;
+    --swimmer-control-on-fill-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-edge-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-text-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: var(--swimmer-paper-grey2-dark);
+    --swimmer-control-meaning-edge-dark: transparent;
+    --swimmer-control-meaning-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-meaning-edge-width-dark: 0px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }
 
 @scope ([data-game-ui-style='outline']) to ([data-game-ui-style]) {
   /* style-token-block: outline light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-danger-ink);
-    --game-ui-control-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 1.5px;
-    --game-ui-control-on-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-on-edge-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-edge-width-light: 2px;
-    --game-ui-control-meaning-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-meaning-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-meaning-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-meaning-edge-width-light: 1.5px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-light: var(--swimmer-danger-ink);
+    --swimmer-control-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 1.5px;
+    --swimmer-control-on-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-on-edge-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-edge-width-light: 2px;
+    --swimmer-control-meaning-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-meaning-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-meaning-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-meaning-edge-width-light: 1.5px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
   /* style-token-block: outline dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-danger-ink);
-    --game-ui-control-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 1.5px;
-    --game-ui-control-on-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-on-edge-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-edge-width-dark: 2px;
-    --game-ui-control-meaning-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-meaning-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-meaning-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-meaning-edge-width-dark: 1.5px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-dark: var(--swimmer-danger-ink);
+    --swimmer-control-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 1.5px;
+    --swimmer-control-on-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-on-edge-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-edge-width-dark: 2px;
+    --swimmer-control-meaning-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-meaning-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-meaning-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-meaning-edge-width-dark: 1.5px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }
 
 @scope ([data-game-ui-style='ink']) to ([data-game-ui-style]) {
   /* style-token-block: ink light */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-light: var(--game-ui-danger-ink);
-    --game-ui-control-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-edge-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-edge-width-light: 1.5px;
-    --game-ui-control-on-fill-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-edge-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-on-text-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-on-edge-width-light: 0px;
-    --game-ui-control-meaning-fill-light: var(--game-ui-paper-paper-light);
-    --game-ui-control-meaning-edge-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-meaning-text-light: var(--game-ui-paper-ink-light);
-    --game-ui-control-meaning-edge-width-light: 1.5px;
-    --game-ui-control-disabled-fill-light: var(--game-ui-paper-soft-light);
-    --game-ui-control-disabled-edge-light: var(--game-ui-paper-line-light);
-    --game-ui-control-disabled-text-light: var(--game-ui-paper-muted-light);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-light: var(--swimmer-danger-ink);
+    --swimmer-control-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-edge-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-edge-width-light: 1.5px;
+    --swimmer-control-on-fill-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-edge-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-on-text-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: var(--swimmer-paper-paper-light);
+    --swimmer-control-meaning-edge-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-meaning-text-light: var(--swimmer-paper-ink-light);
+    --swimmer-control-meaning-edge-width-light: 1.5px;
+    --swimmer-control-disabled-fill-light: var(--swimmer-paper-soft-light);
+    --swimmer-control-disabled-edge-light: var(--swimmer-paper-line-light);
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
   /* style-token-block: ink dark */
   :where([data-game-ui-paint]) {
-    --game-ui-control-danger-edge-dark: var(--game-ui-danger-ink);
-    --game-ui-control-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-edge-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-edge-width-dark: 1.5px;
-    --game-ui-control-on-fill-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-edge-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-on-text-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-on-edge-width-dark: 0px;
-    --game-ui-control-meaning-fill-dark: var(--game-ui-paper-paper-dark);
-    --game-ui-control-meaning-edge-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-meaning-text-dark: var(--game-ui-paper-ink-dark);
-    --game-ui-control-meaning-edge-width-dark: 1.5px;
-    --game-ui-control-disabled-fill-dark: var(--game-ui-paper-soft-dark);
-    --game-ui-control-disabled-edge-dark: var(--game-ui-paper-line-dark);
-    --game-ui-control-disabled-text-dark: var(--game-ui-paper-muted-dark);
-    --game-ui-hue-coral: var(--game-ui-tint-coral);
-    --game-ui-hue-sun: var(--game-ui-tint-sun);
-    --game-ui-hue-leaf: var(--game-ui-tint-leaf);
-    --game-ui-hue-sky: var(--game-ui-tint-sky);
-    --game-ui-hue-grape: var(--game-ui-tint-grape);
-    --game-ui-hue-pink: var(--game-ui-tint-pink);
+    --swimmer-control-danger-edge-dark: var(--swimmer-danger-ink);
+    --swimmer-control-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-edge-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-edge-width-dark: 1.5px;
+    --swimmer-control-on-fill-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-edge-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-on-text-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: var(--swimmer-paper-paper-dark);
+    --swimmer-control-meaning-edge-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-meaning-text-dark: var(--swimmer-paper-ink-dark);
+    --swimmer-control-meaning-edge-width-dark: 1.5px;
+    --swimmer-control-disabled-fill-dark: var(--swimmer-paper-soft-dark);
+    --swimmer-control-disabled-edge-dark: var(--swimmer-paper-line-dark);
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }

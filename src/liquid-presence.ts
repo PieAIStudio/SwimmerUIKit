@@ -17,8 +17,8 @@ export type { LiquidPresenceRect } from './presence/geometry';
 // The account menu's panel is a LiquidPopover, so it ships with this entry and
 // its stylesheet (liquid-presence.css), not with the root barrel.
 export {
-  GameAccountMenu,
-  type GameAccountMenuLabels,
-  type GameAccountMenuProps,
-  type GameAccountProduct,
-} from './game/GameAccountMenu/GameAccountMenu';
+  AccountMenu,
+  type AccountMenuLabels,
+  type AccountMenuProps,
+  type AccountProduct,
+} from './game/AccountMenu/AccountMenu';

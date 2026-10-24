@@ -44,7 +44,7 @@ export const GAME_UI_OVERLAY = {
 export const GAME_UI_TARGETS = targetTokens;
 
 /**
- * The semantic `--game-ui-*` custom properties a *complete* theme must
+ * The semantic `--swimmer-*` custom properties a *complete* theme must
  * override for full fidelity — this is the same list the official
  * `[data-game-ui-theme='dark']` block in theme.css satisfies, enforced by
  * a guard test in src/tokens.test.ts. A downstream product building its own
@@ -53,27 +53,27 @@ export const GAME_UI_TARGETS = targetTokens;
  * see "自定义第三主题" in design-system-guide.md for a usage example.
  */
 export const GAME_UI_THEME_CONTRACT = [
-  '--game-ui-bg',
-  '--game-ui-surface',
-  '--game-ui-surface-raised',
-  '--game-ui-surface-sunken',
-  '--game-ui-text',
-  '--game-ui-text-muted',
-  '--game-ui-accent',
-  '--game-ui-accent-bright',
-  '--game-ui-secondary',
-  '--game-ui-success',
-  '--game-ui-success-bright',
-  '--game-ui-danger',
-  '--game-ui-danger-bright',
-  '--game-ui-warning',
-  '--game-ui-focus-ring',
-  '--game-ui-border-subtle',
-  '--game-ui-border-strong',
-  '--game-ui-disabled',
-  '--game-ui-ink-deep',
-  '--game-ui-border-ink',
-  '--game-ui-wood',
-  '--game-ui-ink-title',
-  '--game-ui-ink-heading',
+  '--swimmer-game-bg',
+  '--swimmer-game-surface',
+  '--swimmer-game-surface-raised',
+  '--swimmer-surface-sunken',
+  '--swimmer-game-text',
+  '--swimmer-game-text-muted',
+  '--swimmer-game-accent',
+  '--swimmer-accent-bright',
+  '--swimmer-secondary',
+  '--swimmer-game-success',
+  '--swimmer-success-bright',
+  '--swimmer-game-danger',
+  '--swimmer-danger-bright',
+  '--swimmer-game-warning',
+  '--swimmer-focus-ring',
+  '--swimmer-border-subtle',
+  '--swimmer-border-strong',
+  '--swimmer-disabled',
+  '--swimmer-ink-deep',
+  '--swimmer-border-ink',
+  '--swimmer-wood',
+  '--swimmer-ink-title',
+  '--swimmer-ink-heading',
 ] as const;

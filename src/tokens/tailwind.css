@@ -16,23 +16,23 @@
  * itself never requires Tailwind anywhere.
  */
 @theme inline {
-  --font-sans: var(--game-ui-font-body);
-  --color-background: var(--game-ui-bg);
-  --color-foreground: var(--game-ui-text);
-  --color-card: var(--game-ui-surface);
-  --color-popover: var(--game-ui-surface-raised);
-  --color-popover-foreground: var(--game-ui-text);
-  --color-card-foreground: var(--game-ui-text);
-  --color-muted: var(--game-ui-surface-sunken);
-  --color-muted-foreground: var(--game-ui-text-muted);
-  --color-primary: var(--game-ui-accent);
-  --color-primary-foreground: var(--game-ui-accent-contrast);
-  --color-secondary: var(--game-ui-secondary);
-  --color-secondary-foreground: var(--game-ui-accent-contrast);
-  --color-border: var(--game-ui-border-subtle);
-  --color-input: var(--game-ui-surface-sunken);
-  --color-ring: var(--game-ui-focus-ring);
-  --radius-sm: var(--game-ui-radius-control);
-  --radius-md: var(--game-ui-radius-card);
-  --radius-lg: var(--game-ui-radius-panel);
+  --font-sans: var(--swimmer-game-font-body);
+  --color-background: var(--swimmer-game-bg);
+  --color-foreground: var(--swimmer-game-text);
+  --color-card: var(--swimmer-game-surface);
+  --color-popover: var(--swimmer-game-surface-raised);
+  --color-popover-foreground: var(--swimmer-game-text);
+  --color-card-foreground: var(--swimmer-game-text);
+  --color-muted: var(--swimmer-surface-sunken);
+  --color-muted-foreground: var(--swimmer-game-text-muted);
+  --color-primary: var(--swimmer-game-accent);
+  --color-primary-foreground: var(--swimmer-accent-contrast);
+  --color-secondary: var(--swimmer-secondary);
+  --color-secondary-foreground: var(--swimmer-accent-contrast);
+  --color-border: var(--swimmer-border-subtle);
+  --color-input: var(--swimmer-surface-sunken);
+  --color-ring: var(--swimmer-focus-ring);
+  --radius-sm: var(--swimmer-game-radius-control);
+  --radius-md: var(--swimmer-radius-card);
+  --radius-lg: var(--swimmer-game-radius-panel);
 }

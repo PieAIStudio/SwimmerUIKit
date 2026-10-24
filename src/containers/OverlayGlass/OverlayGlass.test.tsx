@@ -6,16 +6,16 @@ import { readComponentStyles } from '../../../tests/helpers/styles';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import { GameIcon } from '../../icons/GameIcon/GameIcon';
+import { Icon } from '../../icons/Icon/Icon';
 
-import { GameButton } from '../../controls/GameButton/GameButton';
-import { GameIconButton } from '../../controls/GameIconButton/GameIconButton';
-import { GameBadge } from '../../feedback/GameBadge/GameBadge';
-import { GameProgress } from '../../feedback/GameProgress/GameProgress';
+import { Button } from '../../controls/Button/Button';
+import { IconButton } from '../../controls/IconButton/IconButton';
+import { Badge } from '../../feedback/Badge/Badge';
+import { Progress } from '../../feedback/Progress/Progress';
 
 import { GAME_UI_OVERLAY } from '../../tokens/index';
 import { overlayTokens } from '../../tokens/references';
-import { GamePanel } from '../GamePanel/GamePanel';
+import { Panel } from '../Panel/Panel';
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
 const stylesCss = readComponentStyles();
@@ -54,18 +54,18 @@ const glassVars = parseVars(
 
 describe('overlay glass tokens', () => {
   it('defines overlay-glass primitives on :root', () => {
-    expect(rootVars.get('--game-ui-overlay-glass-bg')).toBe('rgba(12, 14, 20, 0.72)');
-    expect(rootVars.get('--game-ui-overlay-glass-text')).toBe('#fff6ee');
-    expect(rootVars.get('--game-ui-overlay-glass-border')).toBe('rgba(255, 255, 255, 0.18)');
-    expect(rootVars.get('--game-ui-overlay-glass-blur')).toBe('12px');
-    expect(rootVars.has('--game-ui-overlay-glass-primary-fill')).toBe(true);
-    expect(rootVars.has('--game-ui-overlay-glass-focus-ring')).toBe(true);
+    expect(rootVars.get('--swimmer-overlay-glass-bg')).toBe('rgba(12, 14, 20, 0.72)');
+    expect(rootVars.get('--swimmer-overlay-glass-text')).toBe('#fff6ee');
+    expect(rootVars.get('--swimmer-overlay-glass-border')).toBe('rgba(255, 255, 255, 0.18)');
+    expect(rootVars.get('--swimmer-overlay-glass-blur')).toBe('12px');
+    expect(rootVars.has('--swimmer-overlay-glass-primary-fill')).toBe(true);
+    expect(rootVars.has('--swimmer-overlay-glass-focus-ring')).toBe(true);
   });
 
   it('exports TS mirrors that point at the CSS variables', () => {
-    expect(overlayTokens.bg).toBe('var(--game-ui-overlay-glass-bg)');
-    expect(overlayTokens.text).toBe('var(--game-ui-overlay-glass-text)');
-    expect(overlayTokens.border).toBe('var(--game-ui-overlay-glass-border)');
+    expect(overlayTokens.bg).toBe('var(--swimmer-overlay-glass-bg)');
+    expect(overlayTokens.text).toBe('var(--swimmer-overlay-glass-text)');
+    expect(overlayTokens.border).toBe('var(--swimmer-overlay-glass-border)');
     expect(GAME_UI_OVERLAY.toneGlass).toBe('glass');
     expect(GAME_UI_OVERLAY.densityCompact).toBe('compact');
     expect(GAME_UI_OVERLAY.scopeClass).toBe('game-ui-overlay-scope');
@@ -75,29 +75,29 @@ describe('overlay glass tokens', () => {
     // Surface tone, not a full theme: brand accents intentionally inherit so
     // primary/hover stay warm flat on dark glass.
     const required = [
-      '--game-ui-surface',
-      '--game-ui-surface-raised',
-      '--game-ui-surface-sunken',
-      '--game-ui-text',
-      '--game-ui-text-muted',
-      '--game-ui-border-subtle',
-      '--game-ui-border-strong',
-      '--game-ui-focus-ring',
-      '--game-ui-ink-deep',
-      '--game-ui-border-ink',
-      '--game-ui-ink-title',
-      '--game-ui-ink-heading',
-      '--game-ui-shadow-raised',
+      '--swimmer-game-surface',
+      '--swimmer-game-surface-raised',
+      '--swimmer-surface-sunken',
+      '--swimmer-game-text',
+      '--swimmer-game-text-muted',
+      '--swimmer-border-subtle',
+      '--swimmer-border-strong',
+      '--swimmer-focus-ring',
+      '--swimmer-ink-deep',
+      '--swimmer-border-ink',
+      '--swimmer-ink-title',
+      '--swimmer-ink-heading',
+      '--swimmer-game-shadow-raised',
     ] as const;
     for (const cssVar of required) {
       expect(glassVars.has(cssVar), `glass tone missing ${cssVar}`).toBe(true);
     }
-    expect(glassVars.get('--game-ui-surface')).toBe('var(--game-ui-overlay-glass-bg)');
-    expect(glassVars.get('--game-ui-text')).toBe('var(--game-ui-overlay-glass-text)');
-    expect(glassVars.get('--game-ui-shadow-raised')).toBe('0 12px 32px rgba(0, 0, 0, 0.45)');
-    expect(glassVars.get('--game-ui-focus-ring')).toBe('var(--game-ui-overlay-glass-focus-ring)');
+    expect(glassVars.get('--swimmer-game-surface')).toBe('var(--swimmer-overlay-glass-bg)');
+    expect(glassVars.get('--swimmer-game-text')).toBe('var(--swimmer-overlay-glass-text)');
+    expect(glassVars.get('--swimmer-game-shadow-raised')).toBe('0 12px 32px rgba(0, 0, 0, 0.45)');
+    expect(glassVars.get('--swimmer-focus-ring')).toBe('var(--swimmer-overlay-glass-focus-ring)');
     // Warm accent stays on the inherited flat/dark value — not redeclared here.
-    expect(glassVars.has('--game-ui-accent')).toBe(false);
+    expect(glassVars.has('--swimmer-game-accent')).toBe(false);
   });
 
   it('documents the class alias beside the data attribute selector', () => {
@@ -110,12 +110,12 @@ describe('overlay glass tokens', () => {
 
 describe('overlay glass component rules', () => {
   it('keeps glass on containers without overriding the flat controls or tide CTA', () => {
-    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-primary-fill)');
-    expect(stylesCss).toContain('background: var(--game-ui-cta-from)');
-    expect(stylesCss).toContain('color: var(--game-ui-cta-text)');
-    expect(stylesCss).toContain('--game-ui-paint-fill: var(--game-ui-control-fill)');
-    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-border-hover)');
-    expect(stylesCss).not.toContain('var(--game-ui-overlay-glass-bg-hover)');
+    expect(stylesCss).not.toContain('var(--swimmer-overlay-glass-primary-fill)');
+    expect(stylesCss).toContain('background: var(--swimmer-game-cta-from)');
+    expect(stylesCss).toContain('color: var(--swimmer-game-cta-text)');
+    expect(stylesCss).toContain('--swimmer-paint-fill: var(--swimmer-control-fill)');
+    expect(stylesCss).not.toContain('var(--swimmer-overlay-glass-border-hover)');
+    expect(stylesCss).not.toContain('var(--swimmer-overlay-glass-bg-hover)');
     // S12's static display family no longer has a second glass renderer.
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-badge");
     expect(stylesCss).not.toContain("[data-game-ui-tone='glass'] .game-ui-toast");
@@ -142,15 +142,15 @@ describe('overlay glass component rules', () => {
         {...{ [GAME_UI_OVERLAY.toneAttr]: GAME_UI_OVERLAY.toneGlass }}
         {...{ [GAME_UI_OVERLAY.densityAttr]: GAME_UI_OVERLAY.densityCompact }}
       >
-        <GameIconButton label="Settings">
-          <GameIcon icon="settings" size="sm" />
-        </GameIconButton>
-        <GamePanel title="Dialogue">
-          <GameBadge tone="ai">LIVE</GameBadge>
-          <GameProgress label="Affinity" value={62} />
-          <GameButton variant="primary">Continue</GameButton>
-          <GameButton variant="secondary">Skip</GameButton>
-        </GamePanel>
+        <IconButton label="Settings">
+          <Icon icon="settings" size="sm" />
+        </IconButton>
+        <Panel title="Dialogue">
+          <Badge tone="ai">LIVE</Badge>
+          <Progress label="Affinity" value={62} />
+          <Button variant="primary">Continue</Button>
+          <Button variant="secondary">Skip</Button>
+        </Panel>
       </div>,
     );
 

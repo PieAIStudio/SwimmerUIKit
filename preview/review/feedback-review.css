@@ -4,9 +4,9 @@
   max-width: 1080px;
   margin: auto;
   padding: 32px;
-  font-family: var(--game-ui-font-body);
-  background: var(--game-ui-bg);
-  color: var(--game-ui-text);
+  font-family: var(--swimmer-game-font-body);
+  background: var(--swimmer-game-bg);
+  color: var(--swimmer-game-text);
 }
 .feedback-review header label {
   display: inline-flex;
@@ -15,7 +15,7 @@
 }
 .feedback-review h1,
 .feedback-review h2 {
-  font-family: var(--game-ui-font-display);
+  font-family: var(--swimmer-game-font-display);
 }
 .feedback-review section {
   margin-top: 32px;

@@ -117,11 +117,11 @@ for (const [entry, contract] of Object.entries(packed.exports)) {
   assert.ok(existsSync(path.join(packedRoot, contract.types)), `Missing types: ${entry}`);
 }
 assert.deepEqual(Object.keys(runtimeEntries).sort(), ['.', './liquid-presence']);
-assert.ok(runtimeEntries['.'].includes('GameButton'));
+assert.ok(runtimeEntries['.'].includes('Button'));
 assert.ok(runtimeEntries['./liquid-presence'].includes('LiquidPresence'));
 // The account menu's LiquidPopover panel must not enter the root bundle graph.
-assert.ok(runtimeEntries['./liquid-presence'].includes('GameAccountMenu'));
-assert.ok(!runtimeEntries['.'].includes('GameAccountMenu'));
+assert.ok(runtimeEntries['./liquid-presence'].includes('AccountMenu'));
+assert.ok(!runtimeEntries['.'].includes('AccountMenu'));
 
 // A real package-name consumer, linked only inside this private scratch fixture.
 const consumer = path.join(inspection, 'consumer');
@@ -134,7 +134,7 @@ for (const entry of ['index', 'liquid-presence'])
     `'../../src/${entry}'`,
     `'@pieai/swimmer-ui-kit${entry === 'index' ? '' : `/${entry}`}'`,
   );
-fixture += `\nimport type { GameUiTheme } from '@pieai/swimmer-ui-kit';\nexport const currentTheme: GameUiTheme = 'dark';\n// @ts-expect-error The removed theme must not re-enter the packed type contract.\nexport const retiredTheme: GameUiTheme = 'night';\n`;
+fixture += `\nimport type { UiTheme } from '@pieai/swimmer-ui-kit';\nexport const currentTheme: UiTheme = 'dark';\n// @ts-expect-error The removed theme must not re-enter the packed type contract.\nexport const retiredTheme: UiTheme = 'night';\n`;
 writeFileSync(path.join(consumer, 'consumer.tsx'), fixture);
 const modes = ['NodeNext', 'Bundler'];
 for (const mode of modes) {

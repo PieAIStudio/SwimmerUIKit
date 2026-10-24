@@ -33,20 +33,20 @@ export function inspectControlStyleBlocks(css) {
       const vars = new Map(
         rule.nodes.filter((node) => node.type === 'decl').map((decl) => [decl.prop, decl.value]),
       );
-      const mode = vars.has('--game-ui-control-fill-light')
+      const mode = vars.has('--swimmer-control-fill-light')
         ? 'light'
-        : vars.has('--game-ui-control-fill-dark')
+        : vars.has('--swimmer-control-fill-dark')
           ? 'dark'
           : null;
       assert.ok(mode, `${style}: no complete light/dark semantic block`);
       assert.ok(STYLE_NAMES.includes(style), `Unknown style block: ${style}`);
       for (const name of STYLE_SEMANTICS)
         assert.ok(
-          vars.get(`--game-ui-control-${name}-${mode}`)?.trim(),
+          vars.get(`--swimmer-control-${name}-${mode}`)?.trim(),
           `${style}/${mode}: missing ${name}`,
         );
       for (const hue of HUES)
-        assert.ok(vars.get(`--game-ui-hue-${hue}`)?.trim(), `${style}/${mode}: missing hue ${hue}`);
+        assert.ok(vars.get(`--swimmer-hue-${hue}`)?.trim(), `${style}/${mode}: missing hue ${hue}`);
       const duplicates = rule.nodes.filter((node) => node.type === 'decl').map((decl) => decl.prop);
       assert.equal(
         new Set(duplicates).size,

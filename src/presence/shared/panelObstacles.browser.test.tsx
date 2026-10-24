@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { expect, it } from 'vitest';
 import { LiquidPresence } from '../LiquidPresence/LiquidPresence';
 import { LiquidAnchor } from '../LiquidAnchor/LiquidAnchor';
-import { GameButton } from '../../controls/GameButton/GameButton';
+import { Button } from '../../controls/Button/Button';
 import '../../styles.css';
 import '../presence.css';
 
@@ -79,7 +79,7 @@ it('unlayered product button styles win inside the optional liquid family', asyn
     await act(async () =>
       root.render(
         <div className="game-ui-liquid-reveal">
-          <GameButton className="host-owned">Product action</GameButton>
+          <Button className="host-owned">Product action</Button>
         </div>,
       ),
     );

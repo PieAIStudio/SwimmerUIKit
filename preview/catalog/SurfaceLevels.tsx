@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { GamePanel } from '../../src/containers/GamePanel/GamePanel';
-import { GameInput } from '../../src/controls/GameInput/GameInput';
-import { GameButton } from '../../src/controls/GameButton/GameButton';
-import { GameModal } from '../../src/containers/GameModal/GameModal';
+import { Panel } from '../../src/containers/Panel/Panel';
+import { Input } from '../../src/controls/Input/Input';
+import { Button } from '../../src/controls/Button/Button';
+import { Modal } from '../../src/containers/Modal/Modal';
 import './surface-levels.css';
 
 /** Real shared components, not a second theme palette painted for a screenshot. */
@@ -19,24 +19,24 @@ export function SurfaceLevels() {
           <strong>大底</strong>
           <p>页面留白。</p>
         </div>
-        <GamePanel title="面板" data-surface-sample="surface">
+        <Panel title="面板" data-surface-sample="surface">
           <p>承载一组内容。</p>
-          <GameInput
+          <Input
             aria-label="写在凹入的区域"
             placeholder="输入的地方再深一点"
             data-surface-sample="sunken"
           />
-        </GamePanel>
+        </Panel>
         <div className="kit-surface-raised" data-surface-sample="raised">
           <strong>浮层</strong>
           <p>短暂出现，不抢走主线。</p>
-          <GameButton onClick={() => setOpen(true)}>打开真实弹窗</GameButton>
+          <Button onClick={() => setOpen(true)}>打开真实弹窗</Button>
         </div>
       </div>
-      <GameModal open={open} onClose={() => setOpen(false)} title="内容仍在原处">
+      <Modal open={open} onClose={() => setOpen(false)} title="内容仍在原处">
         <p>浮层使用 raised；关闭后回到原来的按钮。</p>
-        <GameButton onClick={() => setOpen(false)}>返回</GameButton>
-      </GameModal>
+        <Button onClick={() => setOpen(false)}>返回</Button>
+      </Modal>
     </section>
   );
 }

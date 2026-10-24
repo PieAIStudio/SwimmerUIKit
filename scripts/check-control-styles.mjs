@@ -31,7 +31,7 @@ try {
           const sample = await page.evaluate(
             ({ theme, style, hue, state }) => {
               const fixture = document.querySelector('#fixture');
-              fixture.innerHTML = `<div data-game-ui-theme="${theme}"><div data-game-ui-style="${style}"><button data-game-ui-paint ${state === 'on' ? 'aria-pressed="true"' : ''} ${state === 'meaning' ? 'data-game-ui-meaning="true"' : ''} ${state === 'disabled' ? 'disabled' : ''} ${state === 'danger' ? 'data-game-ui-danger="true"' : ''} style="--hue:var(--game-ui-hue-${hue})">Sample</button></div></div>`;
+              fixture.innerHTML = `<div data-game-ui-theme="${theme}"><div data-game-ui-style="${style}"><button data-game-ui-paint ${state === 'on' ? 'aria-pressed="true"' : ''} ${state === 'meaning' ? 'data-game-ui-meaning="true"' : ''} ${state === 'disabled' ? 'disabled' : ''} ${state === 'danger' ? 'data-game-ui-danger="true"' : ''} style="--hue:var(--swimmer-hue-${hue})">Sample</button></div></div>`;
               const control = fixture.querySelector('button'),
                 css = getComputedStyle(control);
               const canvas = document.createElement('canvas');
@@ -85,7 +85,7 @@ try {
       const nesting = await page.evaluate(
         ({ theme, style }) => {
           const fixture = document.querySelector('#fixture');
-          fixture.innerHTML = `<div data-game-ui-style="ink" data-game-ui-theme="${theme === 'dark' ? 'light' : 'dark'}"><div data-game-ui-style="${style}"><div data-game-ui-theme="${theme}"><button data-game-ui-paint aria-pressed="true" style="--hue:var(--game-ui-hue-sky)">Nested</button></div></div></div>`;
+          fixture.innerHTML = `<div data-game-ui-style="ink" data-game-ui-theme="${theme === 'dark' ? 'light' : 'dark'}"><div data-game-ui-style="${style}"><div data-game-ui-theme="${theme}"><button data-game-ui-paint aria-pressed="true" style="--hue:var(--swimmer-hue-sky)">Nested</button></div></div></div>`;
           const css = getComputedStyle(fixture.querySelector('button'));
           return { fill: css.backgroundColor, color: css.color };
         },
@@ -135,7 +135,7 @@ try {
       for (const style of ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink']) {
         button.parentElement.setAttribute('data-game-ui-style', style);
         button.setAttribute('data-game-ui-danger', 'true');
-        button.style.cssText = '--hue:var(--game-ui-hue-sky)';
+        button.style.cssText = '--hue:var(--swimmer-hue-sky)';
         result.push({
           id: `${theme}/${style}/danger`,
           foreground: rgb(getComputedStyle(button).color),
@@ -148,9 +148,9 @@ try {
           // as well, matching LiquidFill's 5% black finishing stop.
           const background =
             step === 20
-              ? 'color-mix(in srgb, var(--game-ui-cta-to), black 5%)'
-              : `color-mix(in srgb, var(--game-ui-cta-from) ${100 - step * 5}%, var(--game-ui-cta-to))`;
-          button.style.cssText = `background:${background};color:var(--game-ui-cta-text)`;
+              ? 'color-mix(in srgb, var(--swimmer-game-cta-to), black 5%)'
+              : `color-mix(in srgb, var(--swimmer-game-cta-from) ${100 - step * 5}%, var(--swimmer-game-cta-to))`;
+          button.style.cssText = `background:${background};color:var(--swimmer-game-cta-text)`;
           result.push({
             id: `${theme}/${style}/cta-${step}`,
             foreground: rgb(getComputedStyle(button).color),

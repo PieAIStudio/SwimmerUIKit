@@ -2,8 +2,8 @@ import { act, StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it, vi } from 'vitest';
 import { LiquidPresence } from './LiquidPresence';
-import { GameButton } from '../../controls/GameButton/GameButton';
-import { GameInput } from '../../controls/GameInput/GameInput';
+import { Button } from '../../controls/Button/Button';
+import { Input } from '../../controls/Input/Input';
 import type { LiquidPresenceProps } from '../types';
 import {
   getLiquidGooeyBudget,
@@ -127,8 +127,8 @@ it('puts the guide in the same thin material and inherits live source style acro
     reducedMotion: true,
     guideContent: (
       <>
-        <GameInput defaultValue="Draft" />
-        <GameButton aria-pressed={true}>Selected</GameButton>
+        <Input defaultValue="Draft" />
+        <Button aria-pressed={true}>Selected</Button>
       </>
     ),
   });

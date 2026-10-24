@@ -1,24 +1,24 @@
-export interface GameInteractionAudioParam {
+export interface InteractionAudioParam {
   exponentialRampToValueAtTime(value: number, endTime: number): void;
   setValueAtTime(value: number, startTime: number): void;
 }
 
-export interface GameInteractionGainNode {
+export interface InteractionGainNode {
   connect(destination: unknown): void;
-  gain: GameInteractionAudioParam;
+  gain: InteractionAudioParam;
 }
 
-export interface GameInteractionOscillatorNode {
-  connect(destination: GameInteractionGainNode): void;
-  frequency: GameInteractionAudioParam;
+export interface InteractionOscillatorNode {
+  connect(destination: InteractionGainNode): void;
+  frequency: InteractionAudioParam;
   start(when?: number): void;
   stop(when?: number): void;
   type: OscillatorType;
 }
 
-export interface GameInteractionAudioContext {
-  createGain(): GameInteractionGainNode;
-  createOscillator(): GameInteractionOscillatorNode;
+export interface InteractionAudioContext {
+  createGain(): InteractionGainNode;
+  createOscillator(): InteractionOscillatorNode;
   currentTime: number;
   destination: unknown;
   resume(): Promise<void>;
@@ -26,7 +26,7 @@ export interface GameInteractionAudioContext {
   suspend?: () => Promise<void>;
 }
 
-export interface GameInteractionSoundOptions {
+export interface InteractionSoundOptions {
   enabled?: boolean;
   masterVolume?: number;
   sfxVolume?: number;
@@ -57,13 +57,13 @@ function resolveAudioContext(): AudioContext | null {
   return sharedAudioContext;
 }
 
-function adaptAudioContext(audioContext: AudioContext): GameInteractionAudioContext {
-  const gainNodes = new WeakMap<GameInteractionGainNode, GainNode>();
+function adaptAudioContext(audioContext: AudioContext): InteractionAudioContext {
+  const gainNodes = new WeakMap<InteractionGainNode, GainNode>();
 
   return {
     createGain: () => {
       const gainNode = audioContext.createGain();
-      const wrappedGain: GameInteractionGainNode = {
+      const wrappedGain: InteractionGainNode = {
         connect: (destination: unknown) => {
           if (destination instanceof AudioNode) gainNode.connect(destination);
         },
@@ -75,7 +75,7 @@ function adaptAudioContext(audioContext: AudioContext): GameInteractionAudioCont
     createOscillator: () => {
       const oscillatorNode = audioContext.createOscillator();
       return {
-        connect: (destination: GameInteractionGainNode) => {
+        connect: (destination: InteractionGainNode) => {
           const gainNode = gainNodes.get(destination);
           if (gainNode) oscillatorNode.connect(gainNode);
         },
@@ -99,8 +99,8 @@ function adaptAudioContext(audioContext: AudioContext): GameInteractionAudioCont
 }
 
 export function playGameInteractionSoundForContext(
-  audioContext: GameInteractionAudioContext,
-  options: GameInteractionSoundOptions = {},
+  audioContext: InteractionAudioContext,
+  options: InteractionSoundOptions = {},
 ): boolean {
   if (options.enabled === false) return false;
 
@@ -127,7 +127,7 @@ export function playGameInteractionSoundForContext(
   return true;
 }
 
-export function playGameInteractionSound(options: GameInteractionSoundOptions = {}): boolean {
+export function playGameInteractionSound(options: InteractionSoundOptions = {}): boolean {
   const audioContext = resolveAudioContext();
   if (!audioContext) return false;
   return playGameInteractionSoundForContext(adaptAudioContext(audioContext), options);
@@ -139,9 +139,9 @@ export function playGameInteractionSound(options: GameInteractionSoundOptions = 
  * sound, the browser lets it play only once the page has been interacted with.
  */
 export function playGameCardRevealSoundForContext(
-  audioContext: GameInteractionAudioContext,
+  audioContext: InteractionAudioContext,
   rarity: 'common' | 'rare' | 'legendary',
-  options: GameInteractionSoundOptions = {},
+  options: InteractionSoundOptions = {},
 ): boolean {
   if (options.enabled === false) return false;
   const peak =
@@ -181,7 +181,7 @@ export function playGameCardRevealSoundForContext(
 
 export function playGameCardRevealSound(
   rarity: 'common' | 'rare' | 'legendary',
-  options: GameInteractionSoundOptions = {},
+  options: InteractionSoundOptions = {},
 ): boolean {
   const audioContext = resolveAudioContext();
   if (!audioContext) return false;

@@ -29,7 +29,7 @@ B1 按 `BRIEF.md` 完成：计划收窄提交 `51e7088`，B1 提交 `7ef18ef`，
 
 ## 稳定基线：3.2.5 已于 2026-10-23 通过 Actions 发布为 npm latest
 
-Owner 接续⑫授权的最小补丁已在 `3701eaa` 推至 main：`GameAccountMenu` 可选 `triggerId` 原样透传到内部 `GameButton.id`，产品 +4 行（含注释），不改种子算法，未传时保留原行为与参考图。新增两次挂载回归修前在路径相等断言失败，修后依赖自动选中的 4 文件／26 项全过；类型、lint、格式、API、构建与文档通过。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。
+Owner 接续⑫授权的最小补丁已在 `3701eaa` 推至 main：`AccountMenu` 可选 `triggerId` 原样透传到内部 `Button.id`，产品 +4 行（含注释），不改种子算法，未传时保留原行为与参考图。新增两次挂载回归修前在路径相等断言失败，修后依赖自动选中的 4 文件／26 项全过；类型、lint、格式、API、构建与文档通过。默认无 id 时改用稳定种子的建议留在组件 README，本次不实施。
 
 仅手动触发 `npm-publish.yml`：运行 `39951527996`／attempt 1 成功，完整 105 文件／711 项、Storybook、文档、真实包、publint、类型消费和 Next 消费全部通过；由该工作流发布原包，本机没有 `npm publish`。CI 包 SHA-256 为 `c97ddc9f0b17452af9e8a3aecbcfdfe4bc6e070fee5f5061a402dd8db3c37bed`；官方精确 `npm view` 于 20:25 +08 返回 **3.2.5**，工作流确认 `latest=3.2.5`、`next=3.0.0-rc.3`。发布后只读传播等待中的 E404 原日志保留，没有重发。两仓收据与 registry integrity 统一在 Directing 的 `.reports/2026-10-23-uikit-trigger-id/PI-RESULT.md`；消费端发布另行验收。
 
@@ -49,7 +49,7 @@ Owner 接续⑫授权的最小补丁已在 `3701eaa` 推至 main：`GameAccountM
 
 2026-10-13 Directing 的同一 `3160887`、390 窄屏原用例连续三次诊断为两过一败，但五个铜牌控件每次都得到不同 SVG 路径；每轮内等待 600ms 路径不变。字体均已加载、DPR=1、画布 390×844、CSS 点击框一致。用本包未改的几何函数和实际 React `useId` 重算，15/15 路径逐字节吻合；不是截图前多等一会儿或画布取整可以解决的问题。
 
-最小共享修正：`GameButton` 仅在调用方已提供原生 `id` 时，将它传给内部 `DropletSurface` 作为稳定种子。自动编号仍用于未指定身份的控件；1.4px 上限、曲线数学、按压与减少动态保持原样。产品负责选择稳定唯一的语义 ID，不复制绘图器，也不挑选自动编号匹配参考图。新增三项真实浏览器反例在旧实现全部失败，修正后全部通过；新增按压回归按原弹簧测试的 180 帧范围观察恢复，不改产品或原门禁时限。本轮完整 `pnpm verify` 已通过 **105 文件 / 708 项测试**，类型、lint、格式、公开接口、指南、样式/主题、构建与字体检查通过；文档 **57 份 / 195 链接**、Storybook 构建通过。源修复 `d175e8c` 已推送；实际 tarball 检查和 Next 16.3.8 消费也已通过，发布包 `.scratch/contour-identity/packed-candidate/pieai-swimmer-ui-kit-3.2.3.tgz` 共 **23977373 字节**，SHA-256 **`25ff96c69fa721deeaeda2ac05f6c7b9db995500d8383ded765417b52724bf77`**。该包的生产导入、原生链接、窄屏与减少动态验收无浏览器错误。发布前曾受阻：2026-10-13 17:37 官方 registry 身份检查返回 **E401**，当时精确版本查询仍无 3.2.3；此失败记录原样保留，不代表下方独立回读后的当前状态。原始过程在 `.scratch/contour-identity/`，第一次候选的可选类型声明错误已修正，首次新增按压测试误用默认 1 秒观察范围的失败也单独保留。
+最小共享修正：`Button` 仅在调用方已提供原生 `id` 时，将它传给内部 `DropletSurface` 作为稳定种子。自动编号仍用于未指定身份的控件；1.4px 上限、曲线数学、按压与减少动态保持原样。产品负责选择稳定唯一的语义 ID，不复制绘图器，也不挑选自动编号匹配参考图。新增三项真实浏览器反例在旧实现全部失败，修正后全部通过；新增按压回归按原弹簧测试的 180 帧范围观察恢复，不改产品或原门禁时限。本轮完整 `pnpm verify` 已通过 **105 文件 / 708 项测试**，类型、lint、格式、公开接口、指南、样式/主题、构建与字体检查通过；文档 **57 份 / 195 链接**、Storybook 构建通过。源修复 `d175e8c` 已推送；实际 tarball 检查和 Next 16.3.8 消费也已通过，发布包 `.scratch/contour-identity/packed-candidate/pieai-swimmer-ui-kit-3.2.3.tgz` 共 **23977373 字节**，SHA-256 **`25ff96c69fa721deeaeda2ac05f6c7b9db995500d8383ded765417b52724bf77`**。该包的生产导入、原生链接、窄屏与减少动态验收无浏览器错误。发布前曾受阻：2026-10-13 17:37 官方 registry 身份检查返回 **E401**，当时精确版本查询仍无 3.2.3；此失败记录原样保留，不代表下方独立回读后的当前状态。原始过程在 `.scratch/contour-identity/`，第一次候选的可选类型声明错误已修正，首次新增按压测试误用默认 1 秒观察范围的失败也单独保留。
 
 Directing 三次原始观察、输入哈希与 15 条路径归因保存在该产品现有 SSO 证据目录的 `resume-contour-rootcause-20261013/`。Directing 使用这一精确 tarball 的候选检查已通过类型、lint、双构建与三种冷重载；三轮完整 World 的六种画面 **18 组轮廓、位置、尺寸及变换全部一致**，整图按原容差两两比较 **12/12 通过**。这不替代产品参考图审批：原 World 三轮各 **8/11**，固定三张窄屏图与旧参考不同，其中 390 窄屏超出 Owner 原先只准更新两图的范围，待新的固定结果审阅。本轮没有改任何消费者参考图、University 或头像代码。npm 与 Directing 正式发布仍是各自独立的验收步骤。
 
@@ -79,11 +79,11 @@ Owner 的 2026-10-12 SSO 收尾授权要求修正长选项、窄屏账号页签�
 
 2026-10-10 20:36 +08（registry 记录的发布时间为 12:36:33 UTC）由 Claude 发布到 npm `latest`，发布的 tarball 为本地候选 `.scratch/release-3.2.1/swimmer-ui-kit-3.2.1.tgz`，SHA-256 `b0c803c7d50738be6eeca68c07f43717a34f6a23d6ed7b100bfd3c01b9589577`。只读核对：registry 的 `dist.integrity`（sha512）为 `sha512-725MGXbMxsA5qbKpROnyh4JRRrQjb4CvIOXo2mMmyLiKVN2hujnjfTgtgxXAPo1PzlIP4oFHRz+BQ2GSGR4gng==`，与本地候选的 sha512 一致；`latest` 为 3.2.1，`next` 仍为 3.0.0-rc.3。发布前的 `latest` 为 3.2.0。以下为发布前的候选记录。
 
-2026-10-10，任务单要求修正 3.2.0 的两个问题：（1）Server Component 构造的触发器以惰性元素传入 `GameHelpCard` 或 `GameTooltip` 时，服务端渲染与生产预渲染失败，报 `TypeError: Cannot read properties of undefined (reading 'ref')`；（2）`GameHelpCard` 的中文 `懒人包 / 设定图 / 选角单` 与英文 `Starter pack / Sheet / Cast` 在 340 像素卡片内换成两行。
+2026-10-10，任务单要求修正 3.2.0 的两个问题：（1）Server Component 构造的触发器以惰性元素传入 `HelpCard` 或 `Tooltip` 时，服务端渲染与生产预渲染失败，报 `TypeError: Cannot read properties of undefined (reading 'ref')`；（2）`HelpCard` 的中文 `懒人包 / 设定图 / 选角单` 与英文 `Starter pack / Sheet / Cast` 在 340 像素卡片内换成两行。
 
-惰性触发器的处理：有效元素仍走原来的克隆路径；其他子元素放入不占布局的 `game-ui-trigger-slot`，挂载后把 `aria-expanded` 与 `aria-controls`（卡片）或 `aria-describedby`（提示）加到第一个可聚焦元素上，卸载时移除。触摸的第一次点按在捕获阶段处理，内层链接不会因此跳转。`GameTooltip` 此前不崩溃，但惰性触发器缺少 `aria-describedby`，已补上。惰性路径每个组件打印一次 `console.warn`，没有按构建模式关闭（理由见 `scripts/check-warnings-survive-build.mjs`）。
+惰性触发器的处理：有效元素仍走原来的克隆路径；其他子元素放入不占布局的 `game-ui-trigger-slot`，挂载后把 `aria-expanded` 与 `aria-controls`（卡片）或 `aria-describedby`（提示）加到第一个可聚焦元素上，卸载时移除。触摸的第一次点按在捕获阶段处理，内层链接不会因此跳转。`Tooltip` 此前不崩溃，但惰性触发器缺少 `aria-describedby`，已补上。惰性路径每个组件打印一次 `console.warn`，没有按构建模式关闭（理由见 `scripts/check-warnings-survive-build.mjs`）。
 
-页签一行：`GameHelpCard` 与 `GameAccountMenu` 共用一条组合选择器（写在 `GameTabs` 的样式中）；帮助卡的页签按内容定宽，并用账号菜单的紧凑间距，因为 `GameTabs` 没有紧凑尺寸。账号菜单的等宽页签不变。
+页签一行：`HelpCard` 与 `AccountMenu` 共用一条组合选择器（写在 `Tabs` 的样式中）；帮助卡的页签按内容定宽，并用账号菜单的紧凑间距，因为 `Tabs` 没有紧凑尺寸。账号菜单的等宽页签不变。
 
 源码提交：`e2018e6`（惰性触发器与 Next 消费检查）、`7fa6b25`（页签一行）、`13e37b1`（版本 3.2.1、更新日志与 README 状态）、`30c1310`（惰性触发器只在元素变化时更新）、`d810572`（页签测试在恢复视口前卸载卡片）。候选源码为 `d810572`。没有发布 npm，没有运行 `npm publish`、`npm dist-tag` 或 `npm trust`，没有触发任何 workflow。
 
@@ -101,45 +101,45 @@ Owner 的 2026-10-12 SSO 收尾授权要求修正长选项、窄屏账号页签�
 
 以下保留最初诊断及产品覆写背景；其中“本次未修”指 3.2.1 当时，不是 3.2.2 当前状态。产品迁移验收仍需独立完成。
 
-- `GameSegmentedControl`（SwimmerParty，1024 像素）：长英文选项标签互相重叠，由产品报告。选项为 `flex: 1 1 0` 且 `min-width: 0`；SwimmerParty 的 `SheetBuilder` 在选项上加了 `whitespace-nowrap`，标签溢出到相邻选项，并用 `!flex-[0_1_auto]` 覆盖基础宽度。需注意：3.2.1 源码中该规则位于 `@layer swimmer-ui`，并非未分层；产品为何仍需要 `!important`，尚未核实。未来 kit 修正方向：按内容定宽并允许换行，或在文档中写明这一限制。本次未修。
-- `GameAccountMenu`（360 像素）：选中页签“小鱼的作品”被截为“小鱼...”。3.2.0 即如此，由等宽页签（`flex: 1 1 0`）造成；3.2.1 按要求未改外观。未来方向待定。本次未修。
+- `SegmentedControl`（SwimmerParty，1024 像素）：长英文选项标签互相重叠，由产品报告。选项为 `flex: 1 1 0` 且 `min-width: 0`；SwimmerParty 的 `SheetBuilder` 在选项上加了 `whitespace-nowrap`，标签溢出到相邻选项，并用 `!flex-[0_1_auto]` 覆盖基础宽度。需注意：3.2.1 源码中该规则位于 `@layer swimmer-ui`，并非未分层；产品为何仍需要 `!important`，尚未核实。未来 kit 修正方向：按内容定宽并允许换行，或在文档中写明这一限制。本次未修。
+- `AccountMenu`（360 像素）：选中页签“小鱼的作品”被截为“小鱼...”。3.2.0 即如此，由等宽页签（`flex: 1 1 0`）造成；3.2.1 按要求未改外观。未来方向待定。本次未修。
 
 ## 历史：3.2.0 发布到 latest
 
 2026-10-10 18:32 +08 由 Claude 用 Owner 的 npm 登录从 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`（SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`）发布；`latest` = 3.2.0，`next` 仍为 3.0.0-rc.3。以下为发布前的候选记录。
 
-2026-10-10，Owner 决定：帮助属于 UIKit 的同一个 help 家族，四级由轻到重（GameTooltip、GameHelpCard、FirstSessionOnboarding、产品自己的指南页），UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架，产品提供文字与短演示。Claude 据此委托实现 `GameHelpCard`，并在候选中补充两项 GameAccountMenu 修正：360 像素面板的页签保持一行，选中页签文字的对比度加以守护。
+2026-10-10，Owner 决定：帮助属于 UIKit 的同一个 help 家族，四级由轻到重（Tooltip、HelpCard、FirstSessionOnboarding、产品自己的指南页），UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架，产品提供文字与短演示。Claude 据此委托实现 `HelpCard`，并在候选中补充两项 AccountMenu 修正：360 像素面板的页签保持一行，选中页签文字的对比度加以守护。
 
-`GameHelpCard` 与其三个类型从根入口导出。悬停经过 `openDelay`（默认 200 毫秒）打开，离开约 150 毫秒后关闭；键盘聚焦打开但不抢焦点，Tab 进入卡片，Escape 回到触发器；触摸第一次点按只打开、第二次才执行动作。一到四个主题用 GameTabs 切换。媒体在第一次打开并选中主题后才请求，视频静音循环、只在可见时播放，减少动态时不自动播放并显示 poster。卡片经门户离开主题子树后，通过一个带主题与风格属性的外框镜像触发器的主题（测试覆盖深色与风格）。演示素材 23 KB，由脚本生成，放在 `src/feedback/GameHelpCard/assets/`。
+`HelpCard` 与其三个类型从根入口导出。悬停经过 `openDelay`（默认 200 毫秒）打开，离开约 150 毫秒后关闭；键盘聚焦打开但不抢焦点，Tab 进入卡片，Escape 回到触发器；触摸第一次点按只打开、第二次才执行动作。一到四个主题用 Tabs 切换。媒体在第一次打开并选中主题后才请求，视频静音循环、只在可见时播放，减少动态时不自动播放并显示 poster。卡片经门户离开主题子树后，通过一个带主题与风格属性的外框镜像触发器的主题（测试覆盖深色与风格）。演示素材 23 KB，由脚本生成，放在 `src/feedback/HelpCard/assets/`。
 
-源码提交：`46d644b`（GameHelpCard）、`3befbb7`（账号页签一行与对比度守护）、`7e91c62`（选择指南、主题说明与接口清单）、`378711f`（3.2.0 版本号、更新日志与 README 状态）。没有发布 npm，没有运行 `npm dist-tag` 或 `npm trust`，没有触发任何 workflow；所有 workflow 都是 `workflow_dispatch`，推送不会触发它们，Vercel 的 git 部署在 `vercel.json` 中已关闭。
+源码提交：`46d644b`（HelpCard）、`3befbb7`（账号页签一行与对比度守护）、`7e91c62`（选择指南、主题说明与接口清单）、`378711f`（3.2.0 版本号、更新日志与 README 状态）。没有发布 npm，没有运行 `npm dist-tag` 或 `npm trust`，没有触发任何 workflow；所有 workflow 都是 `workflow_dispatch`，推送不会触发它们，Vercel 的 git 部署在 `vercel.json` 中已关闭。
 
 门禁（源码 `378711f`）：`pnpm verify` 通过（103 个测试文件、683 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、真实打包检查 `check:packed`（回执的源提交为 `378711f`，工作树干净）与真实 Next 消费检查 `check:next-consumer` 均通过。
 
 入口体积：根入口 `index.js` 从 153,482 字节（gzip 44,908）增至 159,459 字节（gzip 46,558），增加 5,977 字节（minified，低于 6 KB 上限，余量较小）。根入口公开名字从 129 增至 133（56 个值、77 个类型）；迁移表与接口清单由生成器更新。
 
-本地候选为 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`，23,975,862 字节，SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`。证据见同目录 `result.json`。截图在 `.scratch/release-3.2.0/shots/`：GameHelpCard 七个故事，各含 1280 与 390 像素、浅色与深色、关闭与打开，共 56 张；另有 GameAccountMenu 灰色风格的页签截图 3 张。56 张无页面错误，无横向滚动，每个打开状态都有对话框。
+本地候选为 `.scratch/release-3.2.0/swimmer-ui-kit-3.2.0.tgz`，23,975,862 字节，SHA-256 `06853f1b81bed64838d5a3c37cc7b4482b1aa39a59a113640406dd5740388191`。证据见同目录 `result.json`。截图在 `.scratch/release-3.2.0/shots/`：HelpCard 七个故事，各含 1280 与 390 像素、浅色与深色、关闭与打开，共 56 张；另有 AccountMenu 灰色风格的页签截图 3 张。56 张无页面错误，无横向滚动，每个打开状态都有对话框。
 
 账号页签：360 像素下三个页签等宽、同一行（测量顶边相同），标签单行并省略，未选中页签不为隐藏的对勾预留宽度。选中页签文字在六种风格与两种明暗下的对比度均不低于 6.8:1（测试以 4.5:1 为下限守护）。开放事项：本仓库的故事与浏览器检查没有复现“选中页签文字不可见”，悬停与焦点状态也没有变化；若产品仍遇到，需要提供风格、明暗与 DOM 结构，本次不做产品覆写。
 
-开放事项：（1）3.1.0 的账号菜单入口闭包约 83 KB 的问题仍待 Claude 决定（见下节）。（2）GameHelpTip 也经门户渲染，但未做主题镜像，它在深色下是否出错未核实，留作后续检查。（3）`documentation-map.md` 中关于 3.0.0 的既有过时句子不在本次范围，未改。
+开放事项：（1）3.1.0 的账号菜单入口闭包约 83 KB 的问题仍待 Claude 决定（见下节）。（2）HelpTip 也经门户渲染，但未做主题镜像，它在深色下是否出错未核实，留作后续检查。（3）`documentation-map.md` 中关于 3.0.0 的既有过时句子不在本次范围，未改。
 
 ## 前序：3.1.0（已发布到 npm latest，2026-10-10 16:19 +08）
 
-2026-10-10，Owner 委托新增共享账号菜单。Claude 审核后定为：`GameAccountMenu` 与其三个类型只从 `@pieai/swimmer-ui-kit/liquid-presence` 导出，并需同时引入 `liquid-presence.css`，不进入根入口。头像与名字的 sm 次要按钮打开同一个液体面板（站内内容、全部产品、账号页签）；产品拥有数据、产品列表和登录/退出，组件不联网、不存储。`GameTooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
+2026-10-10，Owner 委托新增共享账号菜单。Claude 审核后定为：`AccountMenu` 与其三个类型只从 `@pieai/swimmer-ui-kit/liquid-presence` 导出，并需同时引入 `liquid-presence.css`，不进入根入口。头像与名字的 sm 次要按钮打开同一个液体面板（站内内容、全部产品、账号页签）；产品拥有数据、产品列表和登录/退出，组件不联网、不存储。`Tooltip` 新增可选 `align`（center / start / end）与 `placement`（top / bottom），默认外观不变。
 
-源码提交：`f183446`（GameAccountMenu）、`2c985e3`（GameTooltip）、`efa7936`（选择指南与接口清单）、`c5fc480`（3.1.0 版本号、更新日志与 README 状态）、`9f711ae`（3.0.0 发布记录）、`32b91e2`（账号菜单移入 liquid-presence 入口）、`d458717`（入口相关文档与生成清单）。`pnpm verify` 通过（100 个测试文件、659 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、`check:packed` 与 `check:next-consumer` 通过。
+源码提交：`f183446`（AccountMenu）、`2c985e3`（Tooltip）、`efa7936`（选择指南与接口清单）、`c5fc480`（3.1.0 版本号、更新日志与 README 状态）、`9f711ae`（3.0.0 发布记录）、`32b91e2`（账号菜单移入 liquid-presence 入口）、`d458717`（入口相关文档与生成清单）。`pnpm verify` 通过（100 个测试文件、659 项测试）；`pnpm docs:check` 通过（57 份文档，0 警告）；`pnpm build-storybook`、`check:packed` 与 `check:next-consumer` 通过。
 
 本地候选为 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，源码 `d458717`（工作树干净），SHA-256 `1954dd118ce94caba0d07aeed656dd48e668a5036894b0133e726af5cb9bdd28`。它取代入口移动前的候选 `9afc973c…b887e`（菜单在根入口，未发布，已覆盖）。证据见同目录 `result.json`；截图 64 张在 `.scratch/release-3.1.0/shots/`，取自本候选的 storybook 构建，覆盖展开与收起、1280 与 390 像素、浅色与深色；390 像素无横向滚动，无页面错误。
 
 入口体积。方法：沿打包产物的导入图累计各入口的块字节（与 `check:packed` 的 rootRuntimeBytes 同一规则；3.0.0 得到 153,332，与已记录一致）。
 
-- 根入口 index.js：3.0.0 为 153,332 字节（gzip 44,709）；移动入口前的 3.1.0 为 179,195（gzip 52,975）；移动后为 153,482（gzip 44,908），与 3.0.0 相差 150 字节，来自 GameTooltip 的新参数。
-- liquid-presence 入口：3.0.0 为 57,052 字节（gzip 17,629，2 块）；移动入口前为 57,764（gzip 19,229）；移动后为 140,187（gzip 41,130，3 块）。增量约 83 KB，来自账号菜单使用的 GameButton（所在共享块 `GameAvatar-*.js`，26 KB）及液体引擎共享块 `LiquidGroup-*.js`（66 KB）。这两块与根入口是同一份文件，没有重复代码；液体预算的定义只出现在一处。消费端是否裁掉未使用的菜单代码，取决于其打包器的摇树，本次未实测。
+- 根入口 index.js：3.0.0 为 153,332 字节（gzip 44,709）；移动入口前的 3.1.0 为 179,195（gzip 52,975）；移动后为 153,482（gzip 44,908），与 3.0.0 相差 150 字节，来自 Tooltip 的新参数。
+- liquid-presence 入口：3.0.0 为 57,052 字节（gzip 17,629，2 块）；移动入口前为 57,764（gzip 19,229）；移动后为 140,187（gzip 41,130，3 块）。增量约 83 KB，来自账号菜单使用的 Button（所在共享块 `Avatar-*.js`，26 KB）及液体引擎共享块 `LiquidGroup-*.js`（66 KB）。这两块与根入口是同一份文件，没有重复代码；液体预算的定义只出现在一处。消费端是否裁掉未使用的菜单代码，取决于其打包器的摇树，本次未实测。
 
 根入口公开名字为 129 个（55 值、74 类型），与 3.0.0 相同；迁移表与接口清单由生成器重新生成，数字照生成器算出的结果保留。
 
-开放事项：（1）账号菜单的入口闭包比上一候选的 liquid-presence 多约 83 KB，原因是它依赖 GameButton。若 Claude 认为 liquid-presence 的专用产品承担不起，需要决定是否改用不依赖 GameButton 的结构，或接受现状。（2）账号菜单自身的样式仍在 `styles.css`，因为既有的 CSS 归属检查要求 game/ 下的组件样式进入主样式表；面板的液体样式仍在 `liquid-presence.css`。
+开放事项：（1）账号菜单的入口闭包比上一候选的 liquid-presence 多约 83 KB，原因是它依赖 Button。若 Claude 认为 liquid-presence 的专用产品承担不起，需要决定是否改用不依赖 Button 的结构，或接受现状。（2）账号菜单自身的样式仍在 `styles.css`，因为既有的 CSS 归属检查要求 game/ 下的组件样式进入主样式表；面板的液体样式仍在 `liquid-presence.css`。
 
 3.1.0 已于 2026-10-10 16:19（+08）由 Claude 发布到 npm `latest`，发布的 tarball 为上面的本地候选 `.scratch/release-3.1.0/swimmer-ui-kit-3.1.0.tgz`，SHA-256 `1954dd118ce94caba0d07aeed656dd48e668a5036894b0133e726af5cb9bdd28`。只读核对：registry 的 `dist.integrity`（sha512）与该候选一致；`latest` 为 3.1.0，`next` 为 3.0.0-rc.3。发布前的 `latest` 为 3.0.0。
 
@@ -155,7 +155,7 @@ npm 访问：Owner 的 npm 登录（账号 `pieai`，组织 owner）现可在本
 
 ## 前序：3.0.0-rc.3 候选（按压与待定，已发布到 next）
 
-2026-10-10，Owner 反馈液体按压几乎不可见。本地提交依次为 `9e52771`（按压至少保持 140 毫秒）、`6c34140`（CTA 压扁 1.06 / 0.87 / 3，平面水滴压扁 1.09 / 0.80）、`b60d8cc`（GameButton `pending`）、`0b17020`（文档）与 `8d3cf78`（版本 3.0.0-rc.3 与更新日志）。`pnpm verify` 通过 95 个测试文件、624 项测试；storybook、docs、真实打包、packed 检查与真实 Next 消费均通过。
+2026-10-10，Owner 反馈液体按压几乎不可见。本地提交依次为 `9e52771`（按压至少保持 140 毫秒）、`6c34140`（CTA 压扁 1.06 / 0.87 / 3，平面水滴压扁 1.09 / 0.80）、`b60d8cc`（Button `pending`）、`0b17020`（文档）与 `8d3cf78`（版本 3.0.0-rc.3 与更新日志）。`pnpm verify` 通过 95 个测试文件、624 项测试；storybook、docs、真实打包、packed 检查与真实 Next 消费均通过。
 
 本地候选为 `.scratch/jelly-rc3/swimmer-ui-kit-3.0.0-rc.3.tgz`，SHA-256 `004669ec5b6dfbdaba4af3a746c8b5abd1e727c44b2147145efc3b3e0e36356b`；证据见同目录 `result.json`。本次只推送源码，没有 npm 发布，也没有触发 `npm-publish` 或其他 GitHub workflow。rc.2 候选文件保持原样，芽族仍按其哈希锁定使用；rc.3 不覆盖 rc.2。下游接入或正式发布都需要 Owner 另行授权。
 

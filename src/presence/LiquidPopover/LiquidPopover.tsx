@@ -114,7 +114,7 @@ function OpenPopover({
         data-popover-placement={actualPlacement}
         style={
           {
-            '--game-ui-popover-width': `${Number.isFinite(width) ? Math.max(24, width) : 440}px`,
+            '--swimmer-popover-width': `${Number.isFinite(width) ? Math.max(24, width) : 440}px`,
           } as CSSProperties
         }
       >

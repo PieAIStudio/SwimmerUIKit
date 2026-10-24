@@ -8,27 +8,27 @@
 @layer swimmer-ui {
   .game-ui-scroll-surface {
     scrollbar-width: thin;
-    scrollbar-color: var(--game-ui-scrollbar-thumb) var(--game-ui-scrollbar-track);
+    scrollbar-color: var(--swimmer-scrollbar-thumb) var(--swimmer-scrollbar-track);
   }
   .game-ui-scroll-surface::-webkit-scrollbar {
-    width: var(--game-ui-scrollbar-size);
-    height: var(--game-ui-scrollbar-size);
+    width: var(--swimmer-scrollbar-size);
+    height: var(--swimmer-scrollbar-size);
   }
   .game-ui-scroll-surface::-webkit-scrollbar-track {
-    background: var(--game-ui-scrollbar-track);
+    background: var(--swimmer-scrollbar-track);
   }
   .game-ui-scroll-surface::-webkit-scrollbar-corner {
-    background: var(--game-ui-scrollbar-track);
+    background: var(--swimmer-scrollbar-track);
   }
   .game-ui-scroll-surface::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
-    border-radius: var(--game-ui-radius-control);
-    background: var(--game-ui-scrollbar-thumb);
+    border-radius: var(--swimmer-game-radius-control);
+    background: var(--swimmer-scrollbar-thumb);
     background-clip: padding-box;
   }
   @media (hover: hover) {
     .game-ui-scroll-surface::-webkit-scrollbar-thumb:hover {
-      background: var(--game-ui-scrollbar-thumb-hover);
+      background: var(--swimmer-scrollbar-thumb-hover);
       background-clip: padding-box;
     }
   }

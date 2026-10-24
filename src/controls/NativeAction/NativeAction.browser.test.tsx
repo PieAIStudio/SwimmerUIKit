@@ -1,8 +1,8 @@
 import { act, createRef, forwardRef, StrictMode, type ComponentProps, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { GameButton } from '../GameButton/GameButton';
-import { GameIconButton } from '../GameIconButton/GameIconButton';
+import { Button } from '../Button/Button';
+import { IconButton } from '../IconButton/IconButton';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
@@ -28,9 +28,9 @@ const render = async (node: ReactNode) => {
 it('retains native anchor destination, download, new-tab protection and the actual forwarded ref', async () => {
   const ref = createRef<HTMLAnchorElement>();
   await render(
-    <GameButton href="#download" target="_blank" rel="author" download="lesson.txt" ref={ref}>
+    <Button href="#download" target="_blank" rel="author" download="lesson.txt" ref={ref}>
       Read
-    </GameButton>,
+    </Button>,
   );
   const link = host.querySelector('a')!;
   expect(ref.current).toBe(link);
@@ -49,14 +49,14 @@ it('uses a router component only for enabled links and makes disabled links iner
   });
   const click = vi.fn();
   await render(
-    <GameIconButton href="#route" linkComponent={Router} label="Read" onClick={click}>
+    <IconButton href="#route" linkComponent={Router} label="Read" onClick={click}>
       ↗
-    </GameIconButton>,
+    </IconButton>,
   );
   expect(host.querySelector('a')?.dataset.router).toBe('true');
   mounts = 0;
   await render(
-    <GameIconButton
+    <IconButton
       href="#route"
       linkComponent={Router}
       disabled
@@ -65,7 +65,7 @@ it('uses a router component only for enabled links and makes disabled links iner
       onClick={click}
     >
       ↗
-    </GameIconButton>,
+    </IconButton>,
   );
   const disabled = host.querySelector('a')!;
   expect(mounts).toBe(0);
@@ -83,12 +83,12 @@ it('uses a router component only for enabled links and makes disabled links iner
 it('keeps sm at 32px, with only the SVG changing under a pointer press', async () => {
   await render(
     <>
-      <GameButton href="#small" size="sm">
+      <Button href="#small" size="sm">
         Small
-      </GameButton>
-      <GameIconButton href="#small" size="sm" label="Small">
+      </Button>
+      <IconButton href="#small" size="sm" label="Small">
         +
-      </GameIconButton>
+      </IconButton>
     </>,
   );
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
@@ -112,9 +112,9 @@ it('keeps sm at 32px, with only the SVG changing under a pointer press', async (
 
 it('uses liquid for a primary link while keeping Space native and Enter pressable', async () => {
   await render(
-    <GameButton variant="primary" href="#start">
+    <Button variant="primary" href="#start">
       Start
-    </GameButton>,
+    </Button>,
   );
   const link = host.querySelector('a')!;
   const surface = host.querySelector('.game-ui-liquid-surface')!;
@@ -140,10 +140,10 @@ it('does not detach the external callback ref on a parent-only rerender', async 
   const ref = (element: HTMLButtonElement | HTMLAnchorElement | null) => {
     refs.push(element);
   };
-  await render(<GameButton ref={ref}>First</GameButton>);
+  await render(<Button ref={ref}>First</Button>);
   const native = host.querySelector('button');
   refs.length = 0;
-  await render(<GameButton ref={ref}>Second</GameButton>);
+  await render(<Button ref={ref}>Second</Button>);
   expect(refs).toEqual([]);
   expect(host.querySelector('button')).toBe(native);
 });
@@ -152,10 +152,10 @@ it('keeps native form submission separate from link activation', async () => {
   const submit = vi.fn((event: React.FormEvent) => event.preventDefault());
   await render(
     <form onSubmit={submit}>
-      <GameButton type="submit">Save</GameButton>
-      <GameButton href="#read" onClick={(event) => event.preventDefault()}>
+      <Button type="submit">Save</Button>
+      <Button href="#read" onClick={(event) => event.preventDefault()}>
         Read
-      </GameButton>
+      </Button>
     </form>,
   );
   await act(async () => host.querySelector('a')!.click());

@@ -4,10 +4,10 @@ import { bundle } from 'lightningcss';
 import { chromium, type Browser, type Page } from 'playwright';
 import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { GameButton } from '../src/controls/GameButton/GameButton';
-import { GameIconButton } from '../src/controls/GameIconButton/GameIconButton';
+import { Button } from '../src/controls/Button/Button';
+import { IconButton } from '../src/controls/IconButton/IconButton';
 
-import { GameToggle } from '../src/controls/GameToggle/GameToggle';
+import { Toggle } from '../src/controls/Toggle/Toggle';
 
 // This is deliberately a Node test driving a real browser: use the same native
 // CSS compiler as distribution, not Vite dev's unminified stylesheet. No React
@@ -41,13 +41,13 @@ async function renderFixture(node: ReactNode) {
 
 describe('published CSS preserves native hit targets', () => {
   const cases = [
-    { name: 'liquid CTA', node: <GameButton variant="primary">Start</GameButton> },
+    { name: 'liquid CTA', node: <Button variant="primary">Start</Button> },
     {
       name: 'flat icon',
-      node: <GameIconButton label="Save">★</GameIconButton>,
+      node: <IconButton label="Save">★</IconButton>,
     },
-    { name: 'flat switch', node: <GameToggle label="Notify" checked /> },
-    { name: 'static button', node: <GameButton static>Start</GameButton> },
+    { name: 'flat switch', node: <Toggle label="Notify" checked /> },
+    { name: 'static button', node: <Button static>Start</Button> },
   ];
   it.each(cases)(
     '$name does not move or shrink its native content after minification',
@@ -72,7 +72,7 @@ describe('published CSS preserves native hit targets', () => {
 
   it('keeps the flat button native hit target fixed after minification; its SVG alone owns the press', async () => {
     try {
-      await renderFixture(<GameButton>Start</GameButton>);
+      await renderFixture(<Button>Start</Button>);
       const button = page.locator('button');
       await button.hover();
       await page.waitForTimeout(250);

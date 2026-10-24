@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from 'react';
 
-import { GameBadge } from '../../feedback/GameBadge/GameBadge';
+import { Badge } from '../../feedback/Badge/Badge';
 
-import { GameLanguageMenu } from '../../controls/GameLanguageMenu/GameLanguageMenu';
+import { LanguageMenu } from '../../controls/LanguageMenu/LanguageMenu';
 
-import { GameButton, type GameButtonVariant } from '../../controls/GameButton/GameButton';
+import { Button, type ButtonVariant } from '../../controls/Button/Button';
 import { type Lang } from './copyTypes';
 import { COPY } from './copy';
 import { TONES } from './constants';
@@ -19,7 +19,7 @@ export function LiquidPreview(): ReactNode {
     if (typeof window === 'undefined') return 'shelf';
     return /liquid-(sizes|tones|states|knobs)-title/.exec(window.location.hash)?.[1] ?? 'shelf';
   });
-  const [tone, setTone] = useState<GameButtonVariant>('primary');
+  const [tone, setTone] = useState<ButtonVariant>('primary');
   const copy = COPY[lang];
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export function LiquidPreview(): ReactNode {
         className="game-ui-preview game-ui-preview-canvas game-ui-liquid-page"
       >
         <header className="game-ui-preview-hero">
-          <GameBadge tone="ai">@pieai/swimmer-ui-kit</GameBadge>
-          <GameLanguageMenu
+          <Badge tone="ai">@pieai/swimmer-ui-kit</Badge>
+          <LanguageMenu
             currentLabel={copy.triggerLabel}
             label={copy.langMenuLabel}
             onSelect={(id) => setLang(id as Lang)}
@@ -62,7 +62,7 @@ export function LiquidPreview(): ReactNode {
           <p>同一套涟的薄液体材质；这里只比较动作，不再选择不同厚度或高光皮肤。</p>
           <div className="game-ui-liquid-demo-controls" role="group" aria-label="材料实验类别">
             {(['shelf', 'sizes', 'tones', 'states', 'knobs'] as const).map((key) => (
-              <GameButton
+              <Button
                 key={key}
                 aria-pressed={view === key}
                 onClick={() => {
@@ -71,7 +71,7 @@ export function LiquidPreview(): ReactNode {
                 }}
               >
                 {copy.sections[key]}
-              </GameButton>
+              </Button>
             ))}
           </div>
         </section>
@@ -87,14 +87,14 @@ export function LiquidPreview(): ReactNode {
             >
               <span>{copy.tonePicker}</span>
               {TONES.map((option) => (
-                <GameButton
+                <Button
                   aria-pressed={tone === option}
                   key={option}
                   onClick={() => setTone(option)}
                   variant="secondary"
                 >
                   {option}
-                </GameButton>
+                </Button>
               ))}
             </div>
             <h3>

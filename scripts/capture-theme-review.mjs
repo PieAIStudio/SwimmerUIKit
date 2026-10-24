@@ -111,7 +111,7 @@ try {
               image: css.backgroundImage,
               filter: css.filter,
               transform: css.transform,
-              lip: css.getPropertyValue('--game-ui-button-lip-depth'),
+              lip: css.getPropertyValue('--swimmer-button-lip-depth'),
             };
           }),
       );

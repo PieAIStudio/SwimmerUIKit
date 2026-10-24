@@ -3,9 +3,9 @@
  *
  * Why this exists (1.3.0): `.game-ui-callout` was declared twice in
  * styles.css — once as a decorative absolutely-positioned speech bubble for
- * the demo table in <GameUiPreview />, and once as the real <GameCallout>
+ * the demo table in <UiPreview />, and once as the real <Callout>
  * component. CSS only overrides the properties a later rule re-declares, so
- * every product's <GameCallout> silently inherited `position: absolute` and
+ * every product's <Callout> silently inherited `position: absolute` and
  * `white-space: nowrap` from scenery it had nothing to do with. Four
  * downstream products (SupaLuv, Sea console, Sea viewer, Anvil) each shipped
  * their own `position: static` patch instead of the bug being fixed here.

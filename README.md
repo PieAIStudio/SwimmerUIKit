@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.1 已发布到 npm `next`（2026-10-24）**：按 B1 清理未使用的 JS leaves，保留 `preview.css` 等仍有消费者的 CSS；根入口与 `liquid-presence` 继续按需加载，`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**4.0.0-alpha.2 已发布到 npm `next`（2026-10-24）**：按 B2 硬切公开 Game* 名字与 `--game-ui-*` token，不保留运行时别名；迁移脚本在包外，`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,20 +10,20 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.1
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.2
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.1.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.2.tgz
 ```
 
 ```tsx
-import { GameButton } from '@pieai/swimmer-ui-kit';
+import { Button } from '@pieai/swimmer-ui-kit';
 import '@pieai/swimmer-ui-kit/styles.css';
 
 export function Actions() {
   return (
     <section data-game-ui-theme="light" data-game-ui-style="pastel">
-      <GameButton>看看详情</GameButton>
-      <GameButton variant="primary">继续下一步</GameButton>
+      <Button>看看详情</Button>
+      <Button variant="primary">继续下一步</Button>
     </section>
   );
 }
@@ -31,9 +31,9 @@ export function Actions() {
 
 一屏最多一个 primary。危险操作用 danger：红字、普通底色；不会变成另一个液体 CTA。安装包是 ESM-only；主样式是标准 CSS，不要求 Tailwind 或产品的 CSS 预处理器。
 
-图标直接用 `<GameIcon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。默认英文与中文字体声明已随 styles.css 加载；中文按字符块请求，fonts.css 也可单独使用。
+图标直接用 `<Icon icon="check" />`，没有图片请求或初始化；尺寸为16 / 20 / 24px。默认英文与中文字体声明已随 styles.css 加载；中文按字符块请求，fonts.css 也可单独使用。
 
-App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref 与受控状态放在宿主 Client Component，CSS 在 layout 导入。根入口和 `liquid-presence` 的 React 共享分块已有 client boundary，不需要产品重复包装导出；图标通过 `GameIcon` 使用。具体边界见[主题与液体](docs/reference/theme-and-liquid.md)。
+App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref 与受控状态放在宿主 Client Component，CSS 在 layout 导入。根入口和 `liquid-presence` 的 React 共享分块已有 client boundary，不需要产品重复包装导出；图标通过 `Icon` 使用。具体边界见[主题与液体](docs/reference/theme-and-liquid.md)。
 
 ## 去哪里看
 
@@ -43,10 +43,10 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 | 主题、液体、可选特效 | [主题与液体](docs/reference/theme-and-liquid.md)            |
 | 改配色、字体和样式   | [设计 token](docs/reference/design-tokens.md)               |
 | 全部公开名字         | [生成的 API 清单](docs/reference/public-api-inventory.md)   |
-| 迁移与候选验收       | [3.0 迁移表](docs/reference/migration-3.0.md)               |
+| 迁移与候选验收       | [3.0 / 4.0 迁移表](docs/reference/migration-3.0.md)          |
 | 工作状态与证据       | [当前工作](docs/reference/execution/current-work.md)        |
 
-本机 `pnpm dev` 打开组件目录，`pnpm storybook` 打开故事；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 3.0 候选的证明。
+本机 `pnpm dev` 打开组件目录，`pnpm storybook` 打开故事；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 4.0 alpha 候选的证明。
 
 ## 开发与交付
 

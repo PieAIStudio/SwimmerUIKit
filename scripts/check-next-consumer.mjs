@@ -69,7 +69,7 @@ export default function Layout({children}:{children:ReactNode}) {
 );
 write(
   'app/page.tsx',
-  `import { GameBadge, GameButton, GameHelpCard, GameIconButton, GameTooltip } from "@pieai/swimmer-ui-kit";
+  `import { Badge, Button, HelpCard, IconButton, Tooltip } from "@pieai/swimmer-ui-kit";
 import { LiquidPopover } from "@pieai/swimmer-ui-kit/liquid-presence";
 import Host from "./host";
 // A Server Component trigger that is still pending while the static page is
@@ -77,20 +77,20 @@ import Host from "./host";
 // lazy child; a kit that reads children.props there fails the build.
 async function Guide({ label, href }: { label: string; href: string }) {
   await new Promise((resolve) => setTimeout(resolve, 300));
-  return <GameIconButton href={href} label={label}>?</GameIconButton>;
+  return <IconButton href={href} label={label}>?</IconButton>;
 }
 export default function Page() {
   return (
     <main>
       <h1>UIKit 3 Next consumer</h1>
-      <GameBadge>Server import</GameBadge>
-      <GameButton href="/read">Read</GameButton>
-      <GameHelpCard label="怎么用" topics={[{ id: "save", label: "保存", title: "点一下就保存", body: "第一行。" }]}>
+      <Badge>Server import</Badge>
+      <Button href="/read">Read</Button>
+      <HelpCard label="怎么用" topics={[{ id: "save", label: "保存", title: "点一下就保存", body: "第一行。" }]}>
         <Guide label="怎么用" href="/read" />
-      </GameHelpCard>
-      <GameTooltip label="提示文字">
+      </HelpCard>
+      <Tooltip label="提示文字">
         <Guide label="提示" href="/read" />
-      </GameTooltip>
+      </Tooltip>
       <Host Popover={LiquidPopover} />
     </main>
   );
@@ -102,28 +102,28 @@ write(
   `'use client';
 import {useRef,useState,type ComponentType} from 'react';
 import Link from 'next/link';
-import {GameButton} from '@pieai/swimmer-ui-kit';
+import {Button} from '@pieai/swimmer-ui-kit';
 import {LiquidPopover as DirectPopover,type LiquidPopoverProps} from '@pieai/swimmer-ui-kit/liquid-presence';
 function Example({Popover,title}:{Popover:ComponentType<LiquidPopoverProps>;title:string}) {
   const source=useRef<HTMLButtonElement>(null),[open,setOpen]=useState(false);
   return <section style={{marginTop:32}}>
-    <GameButton ref={source} size="sm" onClick={()=>setOpen(true)}>Open {title}</GameButton>
+    <Button ref={source} size="sm" onClick={()=>setOpen(true)}>Open {title}</Button>
     <Popover open={open} onOpenChange={setOpen} source={source} title={title}>
       <p>Actual packed liquid component</p>
-      <GameButton onClick={()=>setOpen(false)}>Done</GameButton>
+      <Button onClick={()=>setOpen(false)}>Done</Button>
     </Popover>
   </section>;
 }
 export default function Host({Popover}:{Popover:ComponentType<LiquidPopoverProps>}) {
   return <><Example Popover={Popover} title="Server popover" />
     <Example Popover={DirectPopover} title="Client popover" />
-    <GameButton href="/read" linkComponent={Link}>Read through Next Link</GameButton></>;
+    <Button href="/read" linkComponent={Link}>Read through Next Link</Button></>;
 }
 `,
 );
 write(
   'app/read/page.tsx',
-  'import {GameBadge} from "@pieai/swimmer-ui-kit";\nexport default function Read(){return <main><h1>Read</h1><GameBadge tone="success">Ready</GameBadge></main>;}\n',
+  'import {Badge} from "@pieai/swimmer-ui-kit";\nexport default function Read(){return <main><h1>Read</h1><Badge tone="success">Ready</Badge></main>;}\n',
 );
 cpSync(tarball, path.join(fixture, 'candidate.tgz'));
 const env = { ...process.env, CI: '1', NEXT_TELEMETRY_DISABLED: '1' };
@@ -302,8 +302,8 @@ try {
       status: 'passed',
       nextVersion: '16.3.8',
       reactVersion: pkg.devDependencies.react,
-      directServerImports: ['GameButton', 'GameBadge', 'LiquidPopover'],
-      serverBuiltTriggers: ['GameHelpCard', 'GameTooltip'],
+      directServerImports: ['Button', 'Badge', 'LiquidPopover'],
+      serverBuiltTriggers: ['HelpCard', 'Tooltip'],
       clientLiquidImport: true,
       hydratedInteractions: true,
       nextLinkNavigation: true,

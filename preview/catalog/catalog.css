@@ -5,9 +5,9 @@
   }
   .kit-catalog {
     min-height: 100dvh;
-    color: var(--game-ui-text);
-    background: var(--game-ui-bg);
-    font-family: var(--game-ui-font-body);
+    color: var(--swimmer-game-text);
+    background: var(--swimmer-game-bg);
+    font-family: var(--swimmer-game-font-body);
     line-height: 1.6;
     padding: clamp(18px, 3vw, 44px);
     -webkit-font-smoothing: antialiased;
@@ -40,7 +40,7 @@
     font-size: 17px;
   }
   .kit-catalog-eyebrow {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     font-size: 12px;
     letter-spacing: 0.08em;
     font-weight: 760;
@@ -52,7 +52,7 @@
     gap: 12px 24px;
   }
   .kit-catalog a {
-    color: var(--game-ui-accent-ink);
+    color: var(--swimmer-game-accent-ink);
     text-underline-offset: 4px;
   }
   .kit-catalog-layout {
@@ -84,13 +84,13 @@
     border-radius: 14px;
     border: 1px solid transparent;
     background: transparent;
-    color: var(--game-ui-text);
+    color: var(--swimmer-game-text);
     font: inherit;
     cursor: pointer;
   }
   .kit-catalog-sidebar nav button[aria-current='true'] {
-    border-color: var(--game-ui-border-strong);
-    background: var(--game-ui-surface);
+    border-color: var(--swimmer-border-strong);
+    background: var(--swimmer-game-surface);
     box-shadow: none;
   }
   .kit-catalog-sidebar nav button span {
@@ -102,7 +102,7 @@
   }
   .kit-catalog-sidebar nav button em {
     font-size: 11px;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     font-style: normal;
   }
   .kit-catalog-search,
@@ -119,9 +119,9 @@
     min-height: 44px;
     padding: 8px 12px;
     font: inherit;
-    color: var(--game-ui-text);
-    background: var(--game-ui-surface);
-    border: 1px solid var(--game-ui-border-strong);
+    color: var(--swimmer-game-text);
+    background: var(--swimmer-game-surface);
+    border: 1px solid var(--swimmer-border-strong);
     border-radius: 12px;
   }
   .kit-catalog-controls select:disabled {
@@ -161,10 +161,10 @@
   .kit-catalog-compare input {
     width: 20px;
     height: 20px;
-    accent-color: var(--game-ui-accent);
+    accent-color: var(--swimmer-game-accent);
   }
   .kit-catalog-note {
-    border-inline-start: 3px solid var(--game-ui-accent);
+    border-inline-start: 3px solid var(--swimmer-game-accent);
     padding-inline-start: 12px;
     font-size: 13px;
   }
@@ -180,8 +180,8 @@
   .kit-catalog-sample {
     min-width: 0;
     padding: clamp(20px, 3vw, 32px);
-    background: var(--game-ui-surface);
-    border: 1px solid var(--game-ui-border-strong);
+    background: var(--swimmer-game-surface);
+    border: 1px solid var(--swimmer-border-strong);
     border-radius: 24px;
     box-shadow: none;
   }
@@ -194,7 +194,7 @@
     font-size: 12px;
     line-height: 1.6;
     font-weight: 500;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     margin-top: 8px;
   }
   .kit-recipe-stack {
@@ -205,7 +205,7 @@
   }
   .kit-recipe-stack > output {
     font-size: 13px;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .kit-recipe-stack .game-ui-segmented {
     flex-wrap: wrap;
@@ -221,13 +221,13 @@
   }
   .kit-catalog-caption {
     font-size: 12px;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .kit-catalog-code {
-    border: 1px solid var(--game-ui-border-strong);
+    border: 1px solid var(--swimmer-border-strong);
     border-radius: 20px;
     padding: clamp(16px, 2vw, 24px);
-    background: var(--game-ui-surface);
+    background: var(--swimmer-game-surface);
     margin-top: 28px;
   }
   .kit-catalog-code-head {
@@ -251,7 +251,7 @@
     font-size: 13px;
   }
   pre.kit-catalog-code {
-    font-family: var(--game-ui-font-mono);
+    font-family: var(--swimmer-font-mono);
     font-size: 12px;
     line-height: 1.8;
     white-space: pre-wrap;
@@ -260,7 +260,7 @@
     overflow-y: auto;
     padding: 16px;
     border-radius: 12px;
-    background: var(--game-ui-surface);
+    background: var(--swimmer-game-surface);
   }
   .kit-catalog-details {
     margin: 24px 0;
@@ -272,7 +272,7 @@
     font-weight: 700;
   }
   .kit-catalog :is(a, button, input, select, pre, summary):focus-visible {
-    outline: 3px solid var(--game-ui-focus-ring);
+    outline: 3px solid var(--swimmer-focus-ring);
     outline-offset: 3px;
   }
   @media (max-width: 760px) {

@@ -1,0 +1,81 @@
+/*
+ * The card is a [data-game-ui-paint] droplet like Tooltip: the static
+ * DropletSurface draws its shape, and the text stays in normal flow above it.
+ * Positioning comes from Floating UI's inline styles, not from this sheet.
+ */
+@layer swimmer-ui {
+  /* The frame is positioned by Floating UI and carries the mirrored theme. */
+  .game-ui-help-card {
+    z-index: 100;
+    box-sizing: border-box;
+    width: min(340px, calc(100vw - 24px));
+    max-width: min(340px, calc(100vw - 24px));
+  }
+  /* The painted card: a static droplet like Tooltip, with its own radius. */
+  .game-ui-help-card-paint[data-game-ui-paint] {
+    --swimmer-droplet-radius: var(--swimmer-radius-card);
+    box-sizing: border-box;
+    padding: var(--swimmer-game-space-12) var(--swimmer-game-space-16);
+    box-shadow: var(--swimmer-shadow-callout);
+    font-family: var(--swimmer-game-font-body);
+    font-size: var(--swimmer-font-md);
+    font-weight: 400;
+    line-height: 1.65;
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-help-card-content {
+    display: grid;
+    gap: var(--swimmer-game-space-8);
+  }
+  .game-ui-help-card .game-ui-tabs {
+    justify-self: start;
+    max-width: 100%;
+  }
+  /*
+   * Topic labels share one row at 340 px; the one-row rules are in Tabs. Tabs
+   * take their content width, with the account menu's tighter spacing, since
+   * Tabs has no compact size.
+   */
+  .game-ui-help-card .game-ui-tabs {
+    gap: 6px;
+  }
+  .game-ui-help-card .game-ui-tab {
+    flex: 1 1 auto;
+    gap: 6px;
+    padding-inline: 10px;
+  }
+  .game-ui-help-card-title {
+    margin: 0;
+    font-size: var(--swimmer-font-md);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .game-ui-help-card-body {
+    margin: 0;
+    white-space: pre-line;
+  }
+  .game-ui-help-card-media {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .game-ui-help-card [hidden] {
+    display: none;
+  }
+  .game-ui-help-card-link {
+    justify-self: start;
+    color: inherit;
+    font-size: var(--swimmer-font-sm);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-radius: 6px;
+  }
+  .game-ui-help-card-link:focus-visible {
+    outline: 2px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+}

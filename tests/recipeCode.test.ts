@@ -19,9 +19,9 @@ describe('copyable catalog examples', () => {
         }
     files.set(
       path.resolve('src/__recipe_contract_negative.tsx'),
-      `import { GameButton } from '@pieai/swimmer-ui-kit';
+      `import { Button } from '@pieai/swimmer-ui-kit';
 // @ts-expect-error Unknown props must fail; an unchecked/any API is not evidence.
-export const invalid = <GameButton unknownSwimmerProp="not-allowed">Start</GameButton>;
+export const invalid = <Button unknownSwimmerProp="not-allowed">Start</Button>;
 `,
     );
     const options = {

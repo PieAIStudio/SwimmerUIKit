@@ -184,7 +184,7 @@ export function LiquidSurface({
   form = 'press',
   active = false,
   breathing = false,
-  fill = 'var(--game-ui-liquid-surface-fill, var(--game-ui-surface-raised))',
+  fill = 'var(--swimmer-liquid-surface-fill, var(--swimmer-game-surface-raised))',
   stroke,
   shadow: shadowOverride,
   gloss: glossOverride,

@@ -100,5 +100,5 @@ export const GAME_ICONS = {
   sun: SUN_ICON,
   user: USER_ICON,
 } as const;
-export type GameIconName = keyof typeof GAME_ICONS;
-export const GAME_ICON_NAMES = Object.keys(GAME_ICONS) as GameIconName[];
+export type IconName = keyof typeof GAME_ICONS;
+export const GAME_ICON_NAMES = Object.keys(GAME_ICONS) as IconName[];

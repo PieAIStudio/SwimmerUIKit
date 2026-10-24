@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.2 — 2026-10-24（已发布到 npm next）
+
+- B2 硬切公开 `Game*` 名字：例如 `GameButton` → `Button`、`GameShell` → `Shell`；当前公开类型同样去掉 `Game` 前缀，不保留运行时别名。
+- `--game-ui-*` 改为 `--swimmer-*`；与 v2.7 工具 token 同名的 26 个语义改用 `--swimmer-game-*`，避免工具壳覆盖现有控件值和单位。
+- 旧名对照表与自动替换脚本放在包外 `migration/uikit-4-alpha-2/`；API inventory 与迁移表由 `pnpm api:inventory` 生成。`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.1 — 2026-10-24（已发布到 npm next）
 
 - B1 清理未使用的 `liquid-effects`、`preview`、`icon-paths` JS package leaves；仍被消费者使用的 `preview.css` 保留。

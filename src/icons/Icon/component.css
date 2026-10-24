@@ -1,0 +1,17 @@
+@layer swimmer-ui {
+  .game-ui-icon {
+    display: inline-block;
+    flex: none;
+    vertical-align: middle;
+    width: var(--swimmer-icon-md);
+    height: var(--swimmer-icon-md);
+  }
+  .game-ui-icon[data-icon-size='sm'] {
+    width: var(--swimmer-icon-sm);
+    height: var(--swimmer-icon-sm);
+  }
+  .game-ui-icon[data-icon-size='lg'] {
+    width: var(--swimmer-icon-lg);
+    height: var(--swimmer-icon-lg);
+  }
+}

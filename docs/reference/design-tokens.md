@@ -18,7 +18,7 @@ related:
 
 # 设计 token
 
-适用版本：3.0.0（与3.0.0-rc.3源码相同）。表面、字体和展示组件按下方唯一来源取值；旧panel别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套token补缺。
+适用版本：4.0.0-alpha.2。B2 已硬切公开名字和 token 前缀；表面、字体和展示组件按下方唯一来源取值，旧 panel 别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套 token 补缺。
 
 token 是按用途命名的视觉变量。产品选择“文字、普通底色、危险文字”，不复制一份按钮 CSS。
 
@@ -36,7 +36,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 ## 四个层级
 
-页面使用 --game-ui-bg；普通面板与卡片用 --game-ui-surface；输入、凹槽与进度轨道用 --game-ui-surface-sunken；模态和浮层用 --game-ui-surface-raised 与唯一 --game-ui-shadow-raised。普通面板不投影，控件仍按十二个语义配方绘制，不将六种风格再复制成六套层级。
+页面使用 --swimmer-game-bg；普通面板与卡片用 --swimmer-game-surface；输入、凹槽与进度轨道用 --swimmer-surface-sunken；模态和浮层用 --swimmer-game-surface-raised 与唯一 --swimmer-game-shadow-raised。普通面板不投影，控件仍按十二个语义配方绘制，不将六种风格再复制成六套层级。
 
 浅色以 #fffdf8 为大底，surface 为文字色4%混大底，sunken为8%，raised仍为大底并使用0 12px 32px的12%黑影。深色以#1f2326为大底，surface为6%、sunken11%、raised9%，浮层阴影45%。玻璃场景仍是显式独立场景语气，也提供相同四角色。不保留panel、panel-strong、panel-deep和旧普通阴影别名。Tailwind桥的card/muted/popover分别对应surface/sunken/raised。
 
@@ -44,17 +44,17 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 | 用途 | 变量族 |
 | --- | --- |
-| 页面和文字 | --game-ui-bg、--game-ui-surface、--game-ui-text、--game-ui-text-muted |
-| 普通/选中/含义/禁用控件 | --game-ui-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
-| 危险操作 | --game-ui-danger-ink、--game-ui-control-danger-edge；不会改变普通底色 |
-| 配色 | --game-ui-tint-*、--game-ui-mist-*；hue 映射为控件局部变量 |
-| CTA | --game-ui-cta-from、--game-ui-cta-to、--game-ui-cta-text |
+| 页面和文字 | --swimmer-game-bg、--swimmer-game-surface、--swimmer-game-text、--swimmer-game-text-muted |
+| 普通/选中/含义/禁用控件 | --swimmer-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
+| 危险操作 | --swimmer-danger-ink、--swimmer-control-danger-edge；不会改变普通底色 |
+| 配色 | --swimmer-tint-*、--swimmer-mist-*；hue 映射为控件局部变量 |
+| CTA | --swimmer-game-cta-from、--swimmer-game-cta-to、--swimmer-game-cta-text |
 | 进度条液面 | 复用cta-from/to；轨道surface-sunken，高10px，无滤镜、无待机动画 |
-| 轮廓和间距 | --game-ui-droplet-wobble、--game-ui-control-row-radius、--game-ui-control-padding-* |
-| 字体和正文 | --game-ui-font-body/display/mono、--game-ui-font-reading、--game-ui-line-reading、--game-ui-measure-reading |
-| 触控、安全区与滚动 | --game-ui-safe-*、--game-ui-scrollbar-*、--game-ui-focus-ring |
+| 轮廓和间距 | --swimmer-droplet-wobble、--swimmer-control-row-radius、--swimmer-control-padding-* |
+| 字体和正文 | --swimmer-game-font-body/display/mono、--swimmer-font-reading、--swimmer-line-reading、--swimmer-measure-reading |
+| 触控、安全区与滚动 | --swimmer-safe-*、--swimmer-scrollbar-*、--swimmer-focus-ring |
 
-完整定义以源码为准；不要把某一个控件的私有 --game-ui-paint-* 通道当成新的产品主题系统。长条行的缓波不能突破几何层 1.4px 上限。文字色和背景色成对使用；名字都叫 token 并不表示组合一定可读。
+完整定义以源码为准；不要把某一个控件的私有 --swimmer-paint-* 通道当成新的产品主题系统。长条行的缓波不能突破几何层 1.4px 上限。文字色和背景色成对使用；名字都叫 token 并不表示组合一定可读。
 
 ## 产品如何使用
 
@@ -62,11 +62,11 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 ```css
 .reading {
-  color: var(--game-ui-text);
-  background: var(--game-ui-surface);
-  font-size: var(--game-ui-font-reading);
-  line-height: var(--game-ui-line-reading);
-  max-width: var(--game-ui-measure-reading);
+  color: var(--swimmer-game-text);
+  background: var(--swimmer-game-surface);
+  font-size: var(--swimmer-font-reading);
+  line-height: var(--swimmer-line-reading);
+  max-width: var(--swimmer-measure-reading);
 }
 ```
 
@@ -88,7 +88,7 @@ styles.css 已包含默认字体声明；fonts.css 仍可单独加载字体而�
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 
-GameIcon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.1 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
+Icon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.1 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
 
 ## 自动约束
 

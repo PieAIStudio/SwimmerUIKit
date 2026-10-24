@@ -45,7 +45,7 @@ export function LiquidPresence(props: LiquidPresenceProps) {
       // Portals leave the source's CSS ancestry. Carry actual theme/hue values
       // without maintaining a second, incomplete list of the kit's tokens.
       const tokens = [...computed].filter(
-        (name) => name.startsWith('--game-ui-') || name.startsWith('--liquid-presence-'),
+        (name) => name.startsWith('--swimmer-') || name.startsWith('--liquid-presence-'),
       );
       for (const token of tokens) {
         const value = computed.getPropertyValue(token).trim();
@@ -80,8 +80,8 @@ export function LiquidPresence(props: LiquidPresenceProps) {
     ...(props.colorTo ? { '--liquid-presence-to': props.colorTo } : {}),
     ...(['error', 'unknown'].includes(props.activity ?? '')
       ? {
-          '--liquid-presence-from': 'var(--game-ui-warning)',
-          '--liquid-presence-to': 'var(--game-ui-warning)',
+          '--liquid-presence-from': 'var(--swimmer-game-warning)',
+          '--liquid-presence-to': 'var(--swimmer-game-warning)',
         }
       : {}),
   } as CSSProperties;

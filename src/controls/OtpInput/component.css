@@ -1,0 +1,45 @@
+/* Account primitives are opt-in. No selector below changes omitted defaults. */
+@layer swimmer-ui {
+  .game-ui-otp {
+    display: flex;
+    align-items: center;
+    gap: var(--swimmer-game-space-4);
+    max-width: 100%;
+    overflow-x: auto;
+    padding: var(--swimmer-game-space-4);
+    box-sizing: border-box;
+  }
+  .game-ui-otp-slot {
+    flex: 0 0 var(--swimmer-otp-target);
+  }
+  .game-ui-otp-input {
+    --swimmer-droplet-radius: 14px;
+    box-sizing: border-box;
+    width: var(--swimmer-otp-target);
+    min-width: var(--swimmer-otp-target);
+    min-height: 48px;
+    padding: var(--swimmer-game-space-4);
+    border-radius: var(--swimmer-list-row-radius);
+    font: inherit;
+    font-family: var(--swimmer-font-mono);
+    font-size: var(--swimmer-font-lg);
+    text-align: center;
+    caret-color: var(--swimmer-game-text);
+    border: var(--swimmer-control-edge-width) solid var(--swimmer-control-edge);
+  }
+  .game-ui-otp-input[aria-invalid='true'] {
+    border: 2px solid var(--swimmer-danger-ink);
+  }
+  .game-ui-otp-input:disabled {
+    cursor: not-allowed;
+  }
+  .game-ui-otp-input:focus-visible {
+    outline: 2px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+  @media (forced-colors: active) {
+    .game-ui-otp-input:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

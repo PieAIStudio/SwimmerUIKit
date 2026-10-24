@@ -20,9 +20,9 @@ related:
 
 # 主题与液体
 
-适用版本：3.2 系列（含本地 3.2.2 候选）。3.0.0（与3.0.0-rc.3源码相同）；3.1.0 新增 liquid-presence 入口的账号菜单（需同时引入 liquid-presence.css）与 GameTooltip 位置选项，外观与按压规则不变；3.2.0 新增 GameHelpCard，它与 GameTooltip 一样使用静止水滴，不进入液体预算，也不使用液体滤镜；3.2.1 修正它的服务端触发器，并让三个主题页签保持一行（页签的内边距与间距比 3.2.0 紧凑，与账号菜单一致）。这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因npm标签更新而自动完成升级。
+适用版本：4.0.0-alpha.2。B2 只改公开名字与 token 名称，不改变 3.x 的外观、液体预算或减少动态规则。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
 
-3.2.2 候选中，GameSegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
+3.2.2 候选中，SegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 
 ## 品牌与边界
 
@@ -36,8 +36,8 @@ Swimmer 的界面有触感、轻快、可靠。能按的东西是水滴，按下
 
 ```tsx
 <section data-game-ui-theme="dark" data-game-ui-style="pastel">
-  <GameButton>查看详情</GameButton>
-  <GameButton variant="primary">继续下一步</GameButton>
+  <Button>查看详情</Button>
+  <Button variant="primary">继续下一步</Button>
 </section>
 ```
 
@@ -66,13 +66,13 @@ Swimmer 的界面有触感、轻快、可靠。能按的东西是水滴，按下
 
 ## 静止展示与有限的进度动效
 
-GameBadge复用同一个路径原件，缓波上限1px，高24px、横向10px、字号12px/600。GameToast、GameCallout和GameTooltip背景缓波上限1.4px，不响应按压，没有入场移动或待机循环。文字布局、提示描述和status/alert语义保留；tone读取现有风格语义，灰阶/两种包边去色，危险红字例外。
+Badge复用同一个路径原件，缓波上限1px，高24px、横向10px、字号12px/600。Toast、Callout和Tooltip背景缓波上限1.4px，不响应按压，没有入场移动或待机循环。文字布局、提示描述和status/alert语义保留；tone读取现有风格语义，灰阶/两种包边去色，危险红字例外。
 
-GameProgress轨道是10px高的静止水滴，取surface-sunken；液面固定为潮汐。右缘用SVG弯月形路径，数值改变时最多600ms轻晃，然后完全停止绘制。只有数值/尺寸改变才更新，没有液体滤镜、预算租约或待机纹理。减少动态直接到位，隐藏页面停止；无论动画在哪一帧，progressbar报告的都是宿主当前真实数值，不靠动画宣布完成。旧tone和普通矩形填充被删除。
+Progress轨道是10px高的静止水滴，取surface-sunken；液面固定为潮汐。右缘用SVG弯月形路径，数值改变时最多600ms轻晃，然后完全停止绘制。只有数值/尺寸改变才更新，没有液体滤镜、预算租约或待机纹理。减少动态直接到位，隐藏页面停止；无论动画在哪一帧，progressbar报告的都是宿主当前真实数值，不靠动画宣布完成。旧tone和普通矩形填充被删除。
 
 ## 唯一主操作
 
-GameButton variant="primary" 自动使用潮汐液体，**一屏最多一个 CTA**。它用于开始、确认、继续、收下或付款，不用来表示某一项被选中；普通动作仍用默认 secondary。表单提交显式写 type="submit"。
+Button variant="primary" 自动使用潮汐液体，**一屏最多一个 CTA**。它用于开始、确认、继续、收下或付款，不用来表示某一项被选中；普通动作仍用默认 secondary。表单提交显式写 type="submit"。
 
 CTA、涟与面板共用薄液体重量：blur 5、contrast 18、gloss 1.5、三瓣轮廓 3.5px、贴地阴影与 sheen 0.3。潮汐配色为 #22d3ee 到 #22bb91，文字为深墨色；值的权威来源是 token 与 [材质文件](../../src/liquid/material/weight.ts)，不要在产品复制参数表。
 
@@ -86,7 +86,7 @@ CTA、涟与面板共用薄液体重量：blur 5、contrast 18、gloss 1.5、三
 
 CTA 的按压姿态为 `scale 1.06、scaleY 0.87、y 3`（此前 1.05、0.90、2），弹簧仍为 wobbly。具体数值以 [LiquidSurface 源码](../../src/liquid/LiquidSurface/LiquidSurface.tsx) 为准。
 
-`GameButton` 的 `pending` 表示处理中，但**不是禁用**：
+`Button` 的 `pending` 表示处理中，但**不是禁用**：
 
 - primary 液体 CTA 保持完整液体身体并缓慢呼吸：1.0 → 1.04 → 1.0，周期约 1.2 秒。每半周期是一次普通引擎运动，占用与按压相同的液体预算；预算不足时静止显示。
 - 其他变体只通过水滴做轻微的透明度与 1.02 缩放脉冲，文字和原生点击区域不动。
@@ -94,7 +94,7 @@ CTA 的按压姿态为 `scale 1.06、scaleY 0.87、y 3`（此前 1.05、0.90、2
 - 减少动态和静态控件保持静止，只保留 aria-busy。
 - pending 期间的按压仍显示压扁；松开后先由按压弹簧回弹，再恢复呼吸。
 
-一屏仍最多一个液体 CTA。Storybook 的 GameButton「Pending CTA」故事把 pending 主按钮与普通次要按钮并排，便于对照。
+一屏仍最多一个液体 CTA。Storybook 的 Button「Pending CTA」故事把 pending 主按钮与普通次要按钮并排，便于对照。
 
 ## 涟、锚点与内容面板
 
@@ -121,7 +121,7 @@ idleMotion 默认 still；显式 breathe 才有轻柔待机，宿主必须提供
 
 activity 来自真实观察；levelRef 只接已有媒体连接的真实音量，不采集麦克风，不伪造说话或任务状态。错误/未知仍需宿主可读解释。待机最多约 12 次绘制/秒，共用低频唤醒与预算，每次绘制后释放。普通控件没有这个待机循环。
 
-账号菜单 `GameAccountMenu` 的触发器是普通 sm 次要按钮；点击打开的面板是 LiquidPopover，因此它从 `@pieai/swimmer-ui-kit/liquid-presence` 导入，并同时引入 `liquid-presence.css`。它不在根入口，所以不给只用控件的产品增加液体面板代码。
+账号菜单 `AccountMenu` 的触发器是普通 sm 次要按钮；点击打开的面板是 LiquidPopover，因此它从 `@pieai/swimmer-ui-kit/liquid-presence` 导入，并同时引入 `liquid-presence.css`。它不在根入口，所以不给只用控件的产品增加液体面板代码。
 
 ## 高级原件与 alpha 边界
 
@@ -139,7 +139,7 @@ SVG 装饰层不接收指针，内容保持真实 DOM。高级 Item 的 x/y/scal
 
 ## Next.js 与消费端边界
 
-根入口、liquid-presence 及其 React 共享分块的产物保留 use client。App Router 的 Server Component 可以直接挂载 GameButton、GameBadge，并把 LiquidPopover 的客户端组件引用交给宿主 Client Component；事件、ref、受控状态和运行时函数仍在客户端编排，不把普通回调从服务端传过去。
+根入口、liquid-presence 及其 React 共享分块的产物保留 use client。App Router 的 Server Component 可以直接挂载 Button、Badge，并把 LiquidPopover 的客户端组件引用交给宿主 Client Component；事件、ref、受控状态和运行时函数仍在客户端编排，不把普通回调从服务端传过去。
 
 styles.css 与按需的 liquid-presence.css 在应用 layout 导入。4.0.0-alpha.1 不发布独立图标路径、展厅或高级特效 JS leaf；不要给纯 CSS 或声明文件添加客户端指令，也不要为了绕开边界在产品复制一份 UIKit 导出层。
 

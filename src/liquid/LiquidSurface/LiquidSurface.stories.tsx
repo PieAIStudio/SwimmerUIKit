@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-import {
-  GameButton,
-  LiquidGroup,
-  LiquidSurface,
-  liquidFormItem,
-  type LiquidForm,
-} from '../../index';
+import { Button, LiquidGroup, LiquidSurface, liquidFormItem, type LiquidForm } from '../../index';
 import { LIQUID_FORMS, liquidFormGroup } from '../forms';
 
 const meta = {
@@ -31,13 +25,11 @@ function FormDemo({ form }: { form: LiquidForm }) {
   const [active, setActive] = useState(false);
   return (
     <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
-      <LiquidSurface active={active} fill="var(--game-ui-accent)" form={form} radius={20}>
+      <LiquidSurface active={active} fill="var(--swimmer-game-accent)" form={form} radius={20}>
         <span style={{ display: 'block', width: 150, height: 62 }} />
       </LiquidSurface>
-      <GameButton onClick={() => setActive((value) => !value)}>
-        {active ? '复位' : '触发'}
-      </GameButton>
-      <code style={{ color: 'var(--game-ui-text-muted)', fontSize: 12 }}>
+      <Button onClick={() => setActive((value) => !value)}>{active ? '复位' : '触发'}</Button>
+      <code style={{ color: 'var(--swimmer-game-text-muted)', fontSize: 12 }}>
         blur {LIQUID_FORMS[form].group.blur} · contrast {LIQUID_FORMS[form].group.contrast} · blob{' '}
         {LIQUID_FORMS[form].group.blob}
       </code>
@@ -84,7 +76,7 @@ function MergeDemo() {
       <LiquidGroup
         blur={group.blur}
         contrast={group.contrast}
-        fill="var(--game-ui-accent)"
+        fill="var(--swimmer-game-accent)"
         filterPadding={group.filterPadding}
       >
         <div
@@ -112,9 +104,7 @@ function MergeDemo() {
           </LiquidGroup.Item>
         </div>
       </LiquidGroup>
-      <GameButton onClick={() => setTogether((value) => !value)}>
-        {together ? '分开' : '靠拢'}
-      </GameButton>
+      <Button onClick={() => setTogether((value) => !value)}>{together ? '分开' : '靠拢'}</Button>
     </div>
   );
 }
@@ -132,7 +122,7 @@ export const ButtonSurfaces: Story = {
     <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'danger', 'success'] as const).map((variant) => (
         <div key={variant} style={{ display: 'grid', gap: 8, justifyItems: 'center' }}>
-          <GameButton variant={variant}>{variant}</GameButton>
+          <Button variant={variant}>{variant}</Button>
         </div>
       ))}
     </div>

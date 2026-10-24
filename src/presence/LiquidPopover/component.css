@@ -1,6 +1,6 @@
 @layer swimmer-ui {
   .game-ui-liquid-popover {
-    width: min(var(--game-ui-popover-width, 440px), calc(100vw - 24px));
+    width: min(var(--swimmer-popover-width, 440px), calc(100vw - 24px));
     max-width: 100%;
     min-width: 0;
   }
@@ -12,7 +12,7 @@
     padding: 8px;
   }
   .game-ui-liquid-popover-content > h2 {
-    font: 700 20px/1.4 var(--game-ui-font-display);
+    font: 700 20px/1.4 var(--swimmer-game-font-display);
     margin: 0 0 12px;
     outline-offset: 2px;
   }

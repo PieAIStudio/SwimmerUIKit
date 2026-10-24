@@ -57,7 +57,7 @@ export function LiquidAnchor({
       }
       // Preserve scoped brand tokens across the portal without copying host styles.
       for (const name of Array.from(style)) {
-        if (name.startsWith('--game-ui-') || name.startsWith('--liquid-presence-')) {
+        if (name.startsWith('--swimmer-') || name.startsWith('--liquid-presence-')) {
           const value = style.getPropertyValue(name);
           if (node.style.getPropertyValue(name) !== value) node.style.setProperty(name, value);
         }

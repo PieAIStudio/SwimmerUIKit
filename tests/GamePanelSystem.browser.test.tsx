@@ -3,7 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 
-import { GameModal } from '../src/containers/GameModal/GameModal';
+import { Modal } from '../src/containers/Modal/Modal';
 import '../src/styles.css';
 
 (
@@ -36,12 +36,12 @@ function PreservedModalDemo(): ReactNode {
       <button data-testid="open-preserved" onClick={() => setOpen(true)} type="button">
         Open preserved
       </button>
-      <GameModal keepMounted onClose={() => setOpen(false)} open={open} title="Questionnaire">
+      <Modal keepMounted onClose={() => setOpen(false)} open={open} title="Questionnaire">
         <label>
           Answer
           <input aria-label="preserved answer" defaultValue="" />
         </label>
-      </GameModal>
+      </Modal>
     </>
   );
 }
@@ -54,17 +54,17 @@ function DefaultModalDemo(): ReactNode {
       <button data-testid="open-default" onClick={() => setOpen(true)} type="button">
         Open default
       </button>
-      <GameModal onClose={() => setOpen(false)} open={open} title="Default questionnaire">
+      <Modal onClose={() => setOpen(false)} open={open} title="Default questionnaire">
         <label>
           Answer
           <input aria-label="default answer" defaultValue="" />
         </label>
-      </GameModal>
+      </Modal>
     </>
   );
 }
 
-describe('GameModal keepMounted lifecycle', () => {
+describe('Modal keepMounted lifecycle', () => {
   it('preserves an uncontrolled input across Escape while closed content is inert', async () => {
     const container = await mount(<PreservedModalDemo />);
     const opener = container.querySelector('[data-testid="open-preserved"]')!;

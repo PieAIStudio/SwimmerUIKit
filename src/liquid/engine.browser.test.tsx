@@ -12,8 +12,8 @@ import {
   setLiquidGooeyBudget,
 } from './budget';
 import { LiquidGroup } from './LiquidGroup/LiquidGroup';
-import { GameProgress } from '../feedback/GameProgress/GameProgress';
-import { GameSegmentedControl } from '../controls/GameSegmentedControl/GameSegmentedControl';
+import { Progress } from '../feedback/Progress/Progress';
+import { SegmentedControl } from '../controls/SegmentedControl/SegmentedControl';
 import { LIQUID_GOOEY_WAVINESS_MAX_FRACTION } from './waviness';
 import '../styles.css';
 
@@ -922,7 +922,7 @@ describe('ordinary components no longer spend a liquid layer', () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const container = await mount(
       <div>
-        <GameSegmentedControl
+        <SegmentedControl
           activeId="one"
           label="Mode"
           options={[
@@ -930,7 +930,7 @@ describe('ordinary components no longer spend a liquid layer', () => {
             { id: 'two', label: 'Two' },
           ]}
         />
-        <GameProgress label="Progress" value={48} />
+        <Progress label="Progress" value={48} />
       </div>,
     );
     expect(container.querySelectorAll('[data-liquid-gooey-blob]')).toHaveLength(0);

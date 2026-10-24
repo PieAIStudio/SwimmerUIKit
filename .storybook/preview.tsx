@@ -33,7 +33,7 @@ const preview: Preview = {
   },
   // Toolbar switch for the kit's flagship theming feature (one data
   // attribute reskins everything) — previously the only way to see dark
-  // mode was the one hand-built "DarkTheme" story in GamePanelSystem.
+  // mode was the one hand-built "DarkTheme" story in PanelSystem.
   globalTypes: {
     uiStyle: {
       description: 'Independent visual style',
@@ -69,9 +69,9 @@ const preview: Preview = {
           minHeight: '100dvh',
           padding: '40px',
           boxSizing: 'border-box',
-          background: 'var(--game-ui-bg)',
-          color: 'var(--game-ui-text)',
-          fontFamily: 'var(--game-ui-font-body)',
+          background: 'var(--swimmer-game-bg)',
+          color: 'var(--swimmer-game-text)',
+          fontFamily: 'var(--swimmer-game-font-body)',
         }}
       >
         <Story />

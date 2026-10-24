@@ -1,15 +1,15 @@
 import { act, StrictMode, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { GameButton } from '../GameButton/GameButton';
-import { GameListRow } from '../GameListRow/GameListRow';
-import { GameIconButton } from '../GameIconButton/GameIconButton';
-import { GameInput } from '../GameInput/GameInput';
-import { GameTabs } from '../GameTabs/GameTabs';
-import { GameToggle } from '../GameToggle/GameToggle';
-import { GameSegmentedControl } from '../GameSegmentedControl/GameSegmentedControl';
-import { GameProgress } from '../../feedback/GameProgress/GameProgress';
-import { GAME_UI_STYLES, type GameUiStyle } from '../../tokens/styles';
+import { Button } from '../Button/Button';
+import { ListRow } from '../ListRow/ListRow';
+import { IconButton } from '../IconButton/IconButton';
+import { Input } from '../Input/Input';
+import { Tabs } from '../Tabs/Tabs';
+import { Toggle } from '../Toggle/Toggle';
+import { SegmentedControl } from '../SegmentedControl/SegmentedControl';
+import { Progress } from '../../feedback/Progress/Progress';
+import { GAME_UI_STYLES, type UiStyle } from '../../tokens/styles';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
@@ -74,7 +74,7 @@ const pointer = async (button: HTMLElement, type: string, buttonCode = 0) =>
 
 describe('one flat droplet primitive', () => {
   it('renders a native vector path, not a threshold filter, including under StrictMode', async () => {
-    await render(<GameButton>Start</GameButton>);
+    await render(<Button>Start</Button>);
     const svg = host.querySelector<SVGSVGElement>('.game-ui-droplet')!;
     const path = svg.querySelector('path')!;
     expect(path.getAttribute('d')).toMatch(/^M.*Z$/);
@@ -85,7 +85,7 @@ describe('one flat droplet primitive', () => {
     expect(frames.size).toBe(0);
   });
   it('spreads only its background and returns to rest without an ambient loop', async () => {
-    await render(<GameButton>Start</GameButton>);
+    await render(<Button>Start</Button>);
     const button = host.querySelector('button')!,
       svg = button.querySelector('svg')!,
       group = svg.querySelector('g')!,
@@ -115,7 +115,7 @@ describe('one flat droplet primitive', () => {
     expect(svg.outerHTML).toBe(final);
   });
   it('does not animate static or reduced-motion controls, without altering their native node', async () => {
-    await render(<GameButton static>Start</GameButton>);
+    await render(<Button static>Start</Button>);
     const button = host.querySelector('button')!,
       path = button.querySelector('path')!,
       initial = path.getAttribute('d');
@@ -136,7 +136,7 @@ describe('one flat droplet primitive', () => {
     );
     await act(async () => root.unmount());
     root = createRoot(host);
-    await render(<GameButton>Start</GameButton>);
+    await render(<Button>Start</Button>);
     const reduced = host.querySelector('button')!,
       before = reduced.querySelector('path')!.getAttribute('d');
     await pointer(reduced, 'pointerdown');
@@ -147,7 +147,7 @@ describe('one flat droplet primitive', () => {
   it('honours cancelled events and clears state on lost capture, inherited disable and blur', async () => {
     await render(
       <fieldset>
-        <GameButton onPointerDown={(event) => event.preventDefault()}>Start</GameButton>
+        <Button onPointerDown={(event) => event.preventDefault()}>Start</Button>
       </fieldset>,
     );
     let button = host.querySelector('button')!;
@@ -156,7 +156,7 @@ describe('one flat droplet primitive', () => {
     expect(frames.size).toBe(0);
     await render(
       <fieldset>
-        <GameButton>Start</GameButton>
+        <Button>Start</Button>
       </fieldset>,
     );
     button = host.querySelector('button')!;
@@ -187,17 +187,17 @@ describe('one flat droplet primitive', () => {
       action = vi.fn();
     const rows = (first: boolean) => (
       <div style={{ display: 'grid', gap: 12 }}>
-        <GameListRow
+        <ListRow
           title="First"
           selected={first}
           onSelect={selected}
           actions={
-            <GameIconButton label="Action" onClick={action}>
+            <IconButton label="Action" onClick={action}>
               +
-            </GameIconButton>
+            </IconButton>
           }
         />
-        <GameListRow title="Second" selected={!first} onSelect={selected} />
+        <ListRow title="Second" selected={!first} onSelect={selected} />
       </div>
     );
     await render(rows(true));
@@ -221,10 +221,10 @@ describe('one flat droplet primitive', () => {
     expect(selected).not.toHaveBeenCalled();
   });
   it('changes all twelve styles without changing native text, selection, geometry or focus', async () => {
-    const view = (style: GameUiStyle, theme: 'light' | 'dark') => (
+    const view = (style: UiStyle, theme: 'light' | 'dark') => (
       <div data-game-ui-style={style} data-game-ui-theme={theme}>
-        <GameInput defaultValue="draft" />
-        <GameButton aria-pressed={true}>Saved</GameButton>
+        <Input defaultValue="draft" />
+        <Button aria-pressed={true}>Saved</Button>
       </div>
     );
     await render(view('pastel', 'light'));
@@ -255,17 +255,17 @@ describe('one flat droplet primitive', () => {
     const view = (theme: 'light' | 'dark') => (
       <div data-game-ui-theme="dark" data-game-ui-style="outline">
         <div data-game-ui-theme={theme}>
-          <GameButton
+          <Button
             aria-pressed={true}
             style={
               {
-                '--game-ui-control-on-edge-width-light': '2px',
-                '--game-ui-control-on-edge-width-dark': '3px',
+                '--swimmer-control-on-edge-width-light': '2px',
+                '--swimmer-control-on-edge-width-dark': '3px',
               } as import('react').CSSProperties
             }
           >
             Selected
-          </GameButton>
+          </Button>
         </div>
       </div>
     );
@@ -280,14 +280,14 @@ describe('one flat droplet primitive', () => {
     for (const style of GAME_UI_STYLES) {
       await render(
         <div data-game-ui-style={style}>
-          <GameProgress value={40} label="Completion" />
+          <Progress value={40} label="Completion" />
         </div>,
       );
       for (const bar of host.querySelectorAll<HTMLElement>('.game-ui-progress')) {
         const probe = document.createElement('span');
         bar.append(probe);
         const stops = bar.querySelectorAll('stop');
-        for (const [i, token] of ['--game-ui-cta-from', '--game-ui-cta-to'].entries()) {
+        for (const [i, token] of ['--swimmer-game-cta-from', '--swimmer-game-cta-to'].entries()) {
           probe.style.color = `var(${token})`;
           expect(getComputedStyle(stops[i]!).stopColor).toBe(getComputedStyle(probe).color);
         }
@@ -301,15 +301,15 @@ describe('one flat droplet primitive', () => {
     const select = vi.fn();
     const action = vi.fn();
     await render(
-      <GameListRow
+      <ListRow
         title="Unavailable"
         selected
         disabled
         onSelect={select}
         actions={
-          <GameIconButton label="Details" onClick={action}>
+          <IconButton label="Details" onClick={action}>
             ?
-          </GameIconButton>
+          </IconButton>
         }
       />,
     );
@@ -330,7 +330,7 @@ describe('one flat droplet primitive', () => {
     expect(select).not.toHaveBeenCalled();
     expect(action).toHaveBeenCalledOnce();
     const probe = document.createElement('span');
-    probe.style.color = 'var(--game-ui-control-disabled-fill)';
+    probe.style.color = 'var(--swimmer-control-disabled-fill)';
     path.closest('.game-ui-list-row')!.append(probe);
     expect(getComputedStyle(path).fill).toBe(getComputedStyle(probe).color);
     probe.remove();
@@ -340,16 +340,12 @@ describe('one flat droplet primitive', () => {
       for (const theme of ['light', 'dark'] as const) {
         await render(
           <div data-game-ui-style={style} data-game-ui-theme={theme}>
-            <GameButton>Action</GameButton>
-            <GameIconButton label="Icon">+</GameIconButton>
-            <GameToggle checked label="Toggle" />
-            <GameTabs tabs={[{ id: 'a', label: 'A' }]} activeId="a" />
-            <GameSegmentedControl
-              options={[{ id: 'a', label: 'A' }]}
-              activeId="a"
-              label="Segment"
-            />
-            <GameInput defaultValue="Edit" />
+            <Button>Action</Button>
+            <IconButton label="Icon">+</IconButton>
+            <Toggle checked label="Toggle" />
+            <Tabs tabs={[{ id: 'a', label: 'A' }]} activeId="a" />
+            <SegmentedControl options={[{ id: 'a', label: 'A' }]} activeId="a" label="Segment" />
+            <Input defaultValue="Edit" />
           </div>,
         );
         expect(host.querySelector('filter')).toBeNull();
@@ -359,7 +355,7 @@ describe('one flat droplet primitive', () => {
           expect(css.backgroundImage).toBe('none');
           expect(css.filter).toBe('none');
           expect(css.transform).toBe('none');
-          expect(css.getPropertyValue('--game-ui-button-lip-depth')).toBe('');
+          expect(css.getPropertyValue('--swimmer-button-lip-depth')).toBe('');
         }
       }
   });

@@ -44,9 +44,9 @@ describe('3.0 public contract and complete migration', () => {
       removed.sort((a, b) => a.name.localeCompare(b.name)),
     );
     expect(new Set(documented.map((item) => item.name)).size).toBe(documented.length);
-    expect(current.some((item) => item.name === 'GameOtpInput')).toBe(true);
+    expect(current.some((item) => item.name === 'OtpInput')).toBe(true);
     expect(current.some((item) => item.name === 'setLiquidGooeyBudget')).toBe(true);
-    expect(current.some((item) => item.name === 'GameMaterialSwatches')).toBe(true);
+    expect(current.some((item) => item.name === 'MaterialSwatches')).toBe(true);
   });
 
   it('documents every current export exactly once with an existing definition link', () => {
@@ -84,10 +84,10 @@ describe('3.0 public contract and complete migration', () => {
     expect(pkg.dependencies).toEqual({ '@floating-ui/react': '0.27.20' });
   });
   it('ships the account menu only from the liquid-presence entry, never the root barrel', () => {
-    expect(current.some((item) => item.name === 'GameAccountMenu')).toBe(false);
+    expect(current.some((item) => item.name === 'AccountMenu')).toBe(false);
     const presence = readFileSync(new URL('../src/liquid-presence.ts', import.meta.url), 'utf8');
     expect(presence).toMatch(
-      /export \{[^}]*\bGameAccountMenu\b[^}]*\} from '\.\/game\/GameAccountMenu\/GameAccountMenu'/,
+      /export \{[^}]*\bAccountMenu\b[^}]*\} from '\.\/game\/AccountMenu\/AccountMenu'/,
     );
   });
 });

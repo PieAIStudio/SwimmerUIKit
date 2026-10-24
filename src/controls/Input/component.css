@@ -1,0 +1,52 @@
+@layer swimmer-ui {
+  .game-ui-input[data-game-ui-paint] {
+    --swimmer-droplet-radius: 16px;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    --swimmer-field-edge-width: var(--swimmer-paint-edge-width);
+    --swimmer-field-edge: var(--swimmer-paint-edge);
+    padding: calc(10px - var(--swimmer-field-edge-width))
+      calc(14px - var(--swimmer-field-edge-width));
+    font: inherit;
+    font-family: var(--swimmer-game-font-body);
+    line-height: 1.5;
+    border: var(--swimmer-field-edge-width) solid var(--swimmer-field-edge);
+    border-radius: var(--swimmer-droplet-radius);
+    background: var(--swimmer-paint-fill);
+    color: var(--swimmer-paint-text);
+  }
+  .game-ui-input[data-game-ui-paint]:not(:disabled) {
+    --swimmer-paint-fill: var(--swimmer-surface-sunken);
+    --swimmer-paint-text: var(--swimmer-game-text);
+  }
+  .game-ui-input::placeholder {
+    color: var(--swimmer-game-text-muted);
+    opacity: 1;
+  }
+  .game-ui-input[data-invalid='true'],
+  .game-ui-input[aria-invalid='true'] {
+    --swimmer-field-edge-width: 2px;
+    --swimmer-field-edge: var(--swimmer-danger-ink);
+  }
+  .game-ui-input:disabled {
+    cursor: not-allowed;
+  }
+  .game-ui-input:disabled::placeholder {
+    color: var(--swimmer-control-disabled-text);
+    opacity: 1;
+  }
+  [data-game-ui-density='compact'] .game-ui-input {
+    min-height: 36px;
+    padding: calc(8px - var(--swimmer-field-edge-width))
+      calc(12px - var(--swimmer-field-edge-width));
+  }
+  @media (forced-colors: active) {
+    .game-ui-input[data-game-ui-paint] {
+      background: Field;
+      color: FieldText;
+      border: 1px solid FieldText;
+    }
+  }
+}

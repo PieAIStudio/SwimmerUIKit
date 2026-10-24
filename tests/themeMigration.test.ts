@@ -10,7 +10,7 @@ describe('3.0 dark theme migration diagnostic', () => {
     '<div data-game-ui-theme="night" />',
     '<div data-game-ui-theme={"night"} />',
     '<div data-game-ui-theme={dark ? "night" : "light"} />',
-    '[data-game-ui-theme=night] { --game-ui-bg: #000; }',
+    '[data-game-ui-theme=night] { --swimmer-game-bg: #000; }',
     'element.closest(\'[data-game-ui-theme="night"]\')',
     'const selector = "[data-game-ui-theme=\\"night\\"]";',
     'const attrs = { "data-game-ui-theme": "night" };',

@@ -26,14 +26,14 @@ export const LongForm: Story = {
       style={{
         maxHeight: '180px',
         overflow: 'auto',
-        border: '1px solid var(--game-ui-border-strong)',
-        borderRadius: 'var(--game-ui-radius-card)',
-        background: 'var(--game-ui-surface)',
-        padding: 'var(--game-ui-space-12)',
+        border: '1px solid var(--swimmer-border-strong)',
+        borderRadius: 'var(--swimmer-radius-card)',
+        background: 'var(--swimmer-game-surface)',
+        padding: 'var(--swimmer-game-space-12)',
       }}
     >
       {Array.from({ length: 12 }, (_, index) => (
-        <p key={index} style={{ margin: index === 0 ? 0 : 'var(--game-ui-space-12) 0 0' }}>
+        <p key={index} style={{ margin: index === 0 ? 0 : 'var(--swimmer-game-space-12) 0 0' }}>
           A long-form scroll surface keeps the track quiet and the thumb legible. Entry {index + 1}.
         </p>
       ))}

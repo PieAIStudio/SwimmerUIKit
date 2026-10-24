@@ -53,7 +53,7 @@ export const LiquidGroupRoot = forwardRef<
     blur = 6,
     contrast = 18,
     gloss,
-    fill = 'var(--game-ui-surface, var(--game-ui-surface))',
+    fill = 'var(--swimmer-game-surface, var(--swimmer-game-surface))',
     filterPadding = 24,
     shadow,
     stroke,

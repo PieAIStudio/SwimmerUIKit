@@ -32,7 +32,7 @@
      * it — which reads as a flicker under the control rather than as contact.
      * Filter lists of the same shape interpolate, so this is the whole cost of
      * making it follow. */
-    transition: filter var(--game-ui-motion-base) var(--game-ui-ease-soft);
+    transition: filter var(--swimmer-motion-base) var(--swimmer-ease-soft);
   }
   .game-ui-liquid-content {
     position: relative;
@@ -47,7 +47,7 @@
     transform-origin: center;
   }
   .game-ui-liquid-group :focus-visible {
-    outline: 3px solid var(--game-ui-focus-ring);
+    outline: 3px solid var(--swimmer-focus-ring);
     outline-offset: 2px;
   }
   @media (prefers-reduced-motion: reduce) {
