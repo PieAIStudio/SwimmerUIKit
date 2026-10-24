@@ -19,11 +19,19 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.2 已于 2026-10-24 通过 trusted Actions 发布为 npm next
+## 当前：4.0.0-alpha.3 B3 已完成本地验证，待 trusted Actions 发布
 
-B2 按 `BRIEF.md` 完成，源提交 **`07f1d22`** 已推送 `main`：当前包的 **42 个 Game* 运行时值、71 个公开 Game* 类型**硬切去前缀；源 CSS 定义的 **403 个变量**和 15 个局部引用名迁移到 `--swimmer-*`。与 ClaudeSync v2.7 同名的 26 个 token 保留工具壳的 `--swimmer-*` 归属，Kit 现有游戏/控件语义落到 `--swimmer-game-*`，没有运行时旧名或 CSS 旧别名。`GameShell → Shell` 是同一个公开 API 的断代改名；B3 工具壳继续改造这个 `Shell`，不另造第二套 Shell。
+B3 沿用 B2 的公开 `Shell` API，新增工具壳的 `platform`、`compact`、`reducedMotion` 与 sidebar/windowBar/mobileNav 槽位，并新增无状态 `PageSurface`。六个 Storybook 页面故事覆盖 home、progress、results、review、complete、settings；静态卡片/列表不加待机动画，液体只落在主按钮、进行中和完成一次反馈。
 
-迁移工具和同源对照表在包外 `migration/uikit-4-alpha-2/replace.mjs` 与 `name-map.json`，不进入 npm 包；API inventory 与迁移文档只由 `pnpm api:inventory` 生成。没有改任何产品仓库，没有做 B3/B4，没有本机 `npm publish`。
+本轮没有改产品仓库，没有新增五个结果组合件、路由/数据状态或兼容别名；主题 token、线性图标和 Mac 半透明/Windows 普通/手机单列规则均归 Kit。六页截图和三种代表性浏览器烟测收据在 `.reports/2026-10-24-uikit4-b3/`。
+
+本地相关检查已通过：类型、lint、格式、API inventory/guide、样式/主题/字体、相关单元、Shell Chromium 三烟测、Storybook 154 项、构建、文档。版本已改为 `4.0.0-alpha.3`；尚未触发 workflow、尚未发布 npm，`latest` 目标仍为 3.2.5。
+
+## 前次：4.0.0-alpha.2 已于 2026-10-24 通过 trusted Actions 发布为 npm next
+
+B2 按 `BRIEF.md` 完成，源提交 **`07f1d22`** 已推送 `main`：当前包的 **42 个 Game* 运行时值、71 个公开 Game* 类型**硬切去前缀；源 CSS 定义的 **403 个变量**和 15 个局部引用名迁移到 `--swimmer-*`。与 ClaudeSync v2.7 同名的 26 个 token 保留工具壳的 `--swimmer-*` 归属，Kit 现有游戏/控件语义落到 `--swimmer-game-*`，没有运行时旧名或 CSS 旧别名；断代后的公开壳 API 为 `Shell`，B3 在此 API 上继续改造。
+
+迁移工具和同源对照表在包外 `migration/uikit-4-alpha-2/replace.mjs` 与 `name-map.json`，不进入 npm 包；API inventory 与迁移文档只由 `pnpm api:inventory` 生成。没有改任何产品仓库，没有本机 `npm publish`。
 
 仅手动触发 `npm-publish.yml`：run **40102419872**／attempt 1 成功，head `07f1d22`。云端 `pnpm verify`、Storybook、文档、真实包、packed、publint strict、ESM-only attw、类型消费和 Next 真包消费全部通过；trusted candidate SHA-256 为 **`4607316ff46e7397c45cdd7c4e1322829d6c62d7435563b4910dc36098bc789d`**，root runtime **154427 bytes**，仍低于现有 159626-byte budget。
 

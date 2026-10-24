@@ -39,6 +39,7 @@
 @import './feedback/Progress/component.css';
 @import './feedback/EmptyState/component.css';
 @import './containers/Shell/component.css';
+@import './containers/PageSurface/component.css';
 @import './game/FactList/component.css';
 @import './game/MovementPad/component.css';
 @import './controls/MaterialSwatches/component.css';

@@ -231,3 +231,199 @@
     }
   }
 }
+
+@layer swimmer-ui {
+  /* Tool-shell chrome: the host owns navigation and content, while Shell owns
+   * the Mac/Windows voice, responsive single-column boundary and motion policy. */
+  .game-ui-shell[data-tool-shell='true'] {
+    grid-template-columns: var(--swimmer-sidebar-width) minmax(0, 1fr);
+    min-height: min(860px, 100dvh);
+    border-radius: var(--swimmer-radius-window);
+    background: var(--swimmer-module-local);
+    color: var(--swimmer-text);
+    box-shadow: var(--swimmer-shadow-window);
+    --swimmer-game-bg: var(--swimmer-bg);
+    --swimmer-game-surface: var(--swimmer-surface);
+    --swimmer-game-surface-raised: var(--swimmer-surface-raised);
+    --swimmer-game-text: var(--swimmer-text);
+    --swimmer-game-text-muted: var(--swimmer-text-muted);
+    --swimmer-game-accent: var(--swimmer-accent);
+    --swimmer-game-accent-ink: var(--swimmer-accent-ink);
+    --swimmer-game-cta-from: var(--swimmer-cta-from);
+    --swimmer-game-cta-to: var(--swimmer-cta-to);
+    --swimmer-game-cta-text: var(--swimmer-cta-text);
+    --swimmer-game-radius-panel: var(--swimmer-radius-panel);
+    --swimmer-game-radius-control: var(--swimmer-radius-control);
+    --swimmer-game-shadow-raised: var(--swimmer-shadow-raised);
+    --swimmer-surface-sunken: var(--swimmer-progress-track);
+    --swimmer-focus-ring: var(--swimmer-focus);
+  }
+
+  .game-ui-shell-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: var(--swimmer-module-local);
+  }
+
+  .game-ui-shell[data-tool-shell='true'] .game-ui-shell-scene {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--swimmer-space-6);
+    background: transparent;
+  }
+
+  .game-ui-shell-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: var(--swimmer-space-5) var(--swimmer-space-3);
+    background: var(--swimmer-sidebar-glass);
+    backdrop-filter: blur(24px);
+  }
+
+  .game-ui-shell[data-platform='windows'] .game-ui-shell-sidebar {
+    background: var(--swimmer-sidebar);
+    backdrop-filter: none;
+  }
+
+  .game-ui-shell-sidebar nav {
+    display: grid;
+    gap: var(--swimmer-space-2);
+  }
+
+  .game-ui-shell-sidebar nav > :is(a, button) {
+    display: flex;
+    align-items: center;
+    gap: var(--swimmer-space-3);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--swimmer-space-2) var(--swimmer-space-3);
+    border: 0;
+    border-radius: var(--swimmer-radius-control);
+    background: transparent;
+    color: var(--swimmer-text-muted);
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .game-ui-shell-sidebar nav > :is(a, button):is(:hover, [data-current='true']) {
+    background: var(--swimmer-selection);
+    color: var(--swimmer-accent-ink);
+  }
+
+  .game-ui-shell-sidebar small {
+    margin-top: auto;
+    padding: var(--swimmer-space-5) var(--swimmer-space-3) 0;
+    color: var(--swimmer-text-muted);
+    font-size: var(--swimmer-font-label);
+  }
+
+  .game-ui-shell-window-bar {
+    display: flex;
+    flex: 0 0 var(--swimmer-topbar-height);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--swimmer-space-4);
+    min-width: 0;
+    padding: 0 var(--swimmer-space-6);
+    color: var(--swimmer-text-muted);
+  }
+
+  .game-ui-shell-window-bar > :first-child {
+    flex: 1 1 8rem;
+    min-width: 0;
+  }
+
+  .game-ui-shell-window-bar :is(button, a) {
+    white-space: nowrap;
+  }
+
+  .game-ui-shell-mobile-nav {
+    display: none;
+  }
+
+  .game-ui-shell[data-reduced-motion='true'] *,
+  .game-ui-shell[data-reduced-motion='true'] *::before,
+  .game-ui-shell[data-reduced-motion='true'] *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
+  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] {
+    grid-template-columns: minmax(0, 1fr);
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-main {
+    min-height: 0;
+  }
+
+  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-sidebar {
+    display: none;
+  }
+
+  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-mobile-nav {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--swimmer-z-sidebar);
+    display: block;
+    padding: var(--swimmer-space-2) var(--swimmer-space-4)
+      calc(var(--swimmer-space-2) + var(--swimmer-safe-bottom));
+    border-top: 1px solid color-mix(in srgb, var(--swimmer-text-muted) 18%, transparent);
+    background: color-mix(in srgb, var(--swimmer-surface-raised) 94%, transparent);
+    backdrop-filter: blur(18px);
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-shell[data-tool-shell='true'] {
+      grid-template-columns: minmax(0, 1fr);
+      height: 100dvh;
+      min-height: 100dvh;
+      border-radius: 0;
+    }
+
+    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-sidebar {
+      display: none;
+    }
+
+    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-main {
+      min-height: 0;
+      padding-bottom: calc(var(--swimmer-topbar-height) + var(--swimmer-safe-bottom));
+    }
+
+    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-scene {
+      padding: var(--swimmer-space-4);
+    }
+
+    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-mobile-nav {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: var(--swimmer-z-sidebar);
+      display: block;
+      padding: var(--swimmer-space-2) var(--swimmer-space-4)
+        calc(var(--swimmer-space-2) + var(--swimmer-safe-bottom));
+      border-top: 1px solid color-mix(in srgb, var(--swimmer-text-muted) 18%, transparent);
+      background: color-mix(in srgb, var(--swimmer-surface-raised) 94%, transparent);
+      backdrop-filter: blur(18px);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .game-ui-shell-sidebar,
+    .game-ui-shell-mobile-nav {
+      border: 1px solid CanvasText;
+      backdrop-filter: none;
+    }
+  }
+}

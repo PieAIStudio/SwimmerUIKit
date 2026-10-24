@@ -476,6 +476,76 @@
   --swimmer-surface-sunken: color-mix(in srgb, var(--swimmer-game-text) 8%, var(--swimmer-game-bg));
   --swimmer-game-surface-raised: #fffdf8;
   --swimmer-game-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  /* Tool-shell tokens. They keep v2.7's neutral tool voice separate from the
+   * existing game-control semantics, while remaining ordinary --swimmer-* CSS
+   * variables that hosts can override at the page boundary. */
+  --swimmer-bg: #eef8f5;
+  --swimmer-text: #19353c;
+  --swimmer-text-muted: #28444e;
+  --swimmer-surface: #f9fdfc;
+  --swimmer-surface-soft: #eaf2f1;
+  --swimmer-surface-raised: #ffffff;
+  --swimmer-sidebar: #e1efea;
+  --swimmer-sidebar-glass: rgb(234 245 240 / 67%);
+  --swimmer-module-local:
+    radial-gradient(ellipse at 82% 12%, #b4ebef, transparent 48%),
+    linear-gradient(145deg, #e2f6ee 0%, #b8e6df 42%, #90cfdd 76%, #a7badb 100%);
+  --swimmer-accent: #19b8b6;
+  --swimmer-accent-ink: #064858;
+  --swimmer-accent-2: #22bb91;
+  --swimmer-selection: #dfefed;
+  --swimmer-row-hover: #edf5f3;
+  --swimmer-pill: #e2eeeb;
+  --swimmer-success: #096d53;
+  --swimmer-success-surface: #def5ec;
+  --swimmer-warning: #87520b;
+  --swimmer-warning-surface: #fbe9c9;
+  --swimmer-danger: #a02636;
+  --swimmer-danger-surface: #fce4e6;
+  --swimmer-focus: #076b88;
+  --swimmer-cta-from: #20cee2;
+  --swimmer-cta-to: #23bc9a;
+  --swimmer-cta-text: #07353b;
+  --swimmer-progress-track: #d9e8e5;
+  --swimmer-shadow-window: 0 24px 80px rgb(18 62 81 / 19%);
+  --swimmer-shadow-raised: 0 20px 55px rgb(33 78 99 / 16%);
+  --swimmer-shadow-cta: 0 7px 20px rgb(7 109 118 / 12%);
+  --swimmer-radius-window: 28px;
+  --swimmer-radius-panel: 26px;
+  --swimmer-radius-control: 14px;
+  --swimmer-radius-small: 12px;
+  --swimmer-radius-row: 10px;
+  --swimmer-space-1: 4px;
+  --swimmer-space-2: 8px;
+  --swimmer-space-3: 12px;
+  --swimmer-space-4: 16px;
+  --swimmer-space-5: 20px;
+  --swimmer-space-6: 24px;
+  --swimmer-space-8: 32px;
+  --swimmer-space-12: 48px;
+  --swimmer-font-display: clamp(2.25rem, 4vw, 3.375rem);
+  --swimmer-font-heading: clamp(1.75rem, 3vw, 2.125rem);
+  --swimmer-font-title: 1.5rem;
+  --swimmer-font-section: 1.375rem;
+  --swimmer-font-subtitle: 1.125rem;
+  --swimmer-font-row: 1.0625rem;
+  --swimmer-font-body: 1rem;
+  --swimmer-font-meta: 0.9375rem;
+  --swimmer-font-label: 0.875rem;
+  --swimmer-row-height: 74px;
+  --swimmer-row-compact: 54px;
+  --swimmer-sidebar-width: 212px;
+  --swimmer-topbar-height: 52px;
+  --swimmer-action-height: 52px;
+  --swimmer-touch-target: 44px;
+  --swimmer-card-icon: 36px;
+  --swimmer-record-height: 44px;
+  --swimmer-record-gap: 12px;
+  --swimmer-disabled-opacity: 0.5;
+  --swimmer-motion-fast: 160ms;
+  --swimmer-motion-progress: 1.8s;
+  --swimmer-motion-settle: 650ms;
 }
 
 /*
@@ -547,6 +617,33 @@
     var(--swimmer-game-bg)
   );
   --swimmer-game-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  --swimmer-bg: #123138;
+  --swimmer-text: #f1f7f4;
+  --swimmer-text-muted: #d1e4e3;
+  --swimmer-surface: #20393e;
+  --swimmer-surface-soft: #2b454b;
+  --swimmer-surface-raised: #28424a;
+  --swimmer-sidebar: #17353c;
+  --swimmer-sidebar-glass: rgb(17 54 59 / 78%);
+  --swimmer-module-local:
+    radial-gradient(ellipse at 80% 12%, #126577, transparent 48%),
+    linear-gradient(145deg, #154c4a 0%, #10383f 42%, #123d50 76%, #262d50 100%);
+  --swimmer-accent-ink: #a3edf0;
+  --swimmer-selection: #2c494f;
+  --swimmer-row-hover: #2a444a;
+  --swimmer-pill: #36525a;
+  --swimmer-success: #93e7c6;
+  --swimmer-success-surface: #234c42;
+  --swimmer-warning: #ffd58c;
+  --swimmer-warning-surface: #59411c;
+  --swimmer-danger: #ffb9c3;
+  --swimmer-danger-surface: #532f36;
+  --swimmer-focus: #a5ecfa;
+  --swimmer-progress-track: #36545d;
+  --swimmer-shadow-window: 0 24px 80px rgb(0 22 34 / 32%);
+  --swimmer-shadow-raised: 0 22px 60px rgb(0 22 34 / 25%);
+  --swimmer-shadow-cta: none;
 }
 
 /*

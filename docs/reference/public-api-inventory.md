@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **133 named exports: 56 values and 77 types**.
+Compiler inventory: **137 named exports: 57 values and 80 types**.
 
 ## controls/ — Controls
 
@@ -127,7 +127,11 @@ Panels, dialogs, shells and action compositions
 | `ModalProps` | type | [source](../../src/containers/Modal/Modal.tsx) |
 | `Panel` | value | [source](../../src/containers/Panel/Panel.tsx) |
 | `PanelProps` | type | [source](../../src/containers/Panel/Panel.tsx) |
+| `PageSurface` | value | [source](../../src/containers/PageSurface/PageSurface.tsx) |
+| `PageSurfaceLayout` | type | [source](../../src/containers/PageSurface/PageSurface.tsx) |
+| `PageSurfaceProps` | type | [source](../../src/containers/PageSurface/PageSurface.tsx) |
 | `Shell` | value | [source](../../src/containers/Shell/Shell.tsx) |
+| `ShellPlatform` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `ShellProps` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `SurfaceDensity` | type | [source](../../src/containers/shared/surfaceTypes.ts) |
 | `SurfaceLayout` | type | [source](../../src/containers/shared/surfaceTypes.ts) |

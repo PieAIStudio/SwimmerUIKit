@@ -18,7 +18,7 @@ related:
 
 # 设计 token
 
-适用版本：4.0.0-alpha.2。B2 已硬切公开名字和 token 前缀；表面、字体和展示组件按下方唯一来源取值，旧 panel 别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套 token 补缺。
+适用版本：4.0.0-alpha.3。B2 已硬切公开名字和 token 前缀，B3 新增工具壳与页面骨架 token；表面、字体和展示组件按下方唯一来源取值，旧 panel 别名不保留，产品升级按[迁移表](migration-3.0.md)处理，不再复制第二套 token 补缺。
 
 token 是按用途命名的视觉变量。产品选择“文字、普通底色、危险文字”，不复制一份按钮 CSS。
 
@@ -45,6 +45,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 | 用途 | 变量族 |
 | --- | --- |
 | 页面和文字 | --swimmer-game-bg、--swimmer-game-surface、--swimmer-game-text、--swimmer-game-text-muted |
+| 工具窗口和页面骨架 | --swimmer-bg、--swimmer-surface、--swimmer-surface-soft、--swimmer-sidebar、--swimmer-selection、--swimmer-text、--swimmer-text-muted |
 | 普通/选中/含义/禁用控件 | --swimmer-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
 | 危险操作 | --swimmer-danger-ink、--swimmer-control-danger-edge；不会改变普通底色 |
 | 配色 | --swimmer-tint-*、--swimmer-mist-*；hue 映射为控件局部变量 |
@@ -88,7 +89,7 @@ styles.css 已包含默认字体声明；fonts.css 仍可单独加载字体而�
 
 只在产品已有 Tailwind 构建且需要主题桥时额外引 tailwind.css；主样式是标准 CSS，不需要 Tailwind。桥文件包含 @theme inline，不能直接交给不支持它的普通 CSS 管线。
 
-Icon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.1 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
+Icon 使用本包的内联 SVG 线条，继承 currentColor。动态图标名由 GAME_ICON_NAMES 提供；4.0.0-alpha.3 不公开独立具名路径 JS leaf。没有资源复制命令、图片路径配置或运行时 Lucide 依赖。字体与图标路径各按其第三方许可证分发，见 LICENSE / NOTICE。
 
 ## 自动约束
 

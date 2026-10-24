@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应 4.0.0-alpha.1 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
+本指南对应 4.0.0-alpha.3 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 
@@ -35,6 +35,7 @@ related:
 | 一块信息、折叠信息、阻断背景的对话框 | Panel / CollapsiblePanel / Modal | Dialog 是内联对话内容，不是模态框；编辑表单跨关闭保留时用 keepMounted。 |
 | 空状态、通知、进度、简短解释 | EmptyState / Toast / Callout / Progress / HelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 解释一个操作，需要标题、短句或一段演示 | HelpCard | 悬停、聚焦或点按后出现；可省略。必要信息、错误和价格不放进卡片，见下节。 |
+| 工具窗口壳和六页页面骨架 | Shell + PageSurface | Shell 只提供平台/响应式槽位；PageSurface 只提供标题、内容和动作槽，不包含路由、数据或业务状态。 |
 | 游戏外壳和 HUD 槽位 | Shell / HudActions / FactList | 不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | Avatar / MaterialSwatches / CollectibleCard / Splash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
 | 账号菜单 | AccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。从 **@pieai/swimmer-ui-kit/liquid-presence** 导入，并同时引入 liquid-presence.css。 |
@@ -61,12 +62,12 @@ related:
 单体装饰用 LiquidSurface，多体关系用 LiquidGroup + liquidFormItem。它们不替代真实 DOM 控件。
 宿主预算只通过 setLiquidGooeyBudget 设置，不依赖内部计数器、默认常量或整张配方表。
 
-4.0.0-alpha.1 不发布高级图像特效 JS leaf；本仓库仍保留相关源码供内部故事和测试，但产品不能把这些实现当成当前包依赖。普通液体只使用根入口公开的 `LiquidSurface` / `LiquidGroup`，测量、时钟、预算与减少动态仍由同一引擎负责。
+4.0.0-alpha.3 不发布高级图像特效 JS leaf；本仓库仍保留相关源码供内部故事和测试，但产品不能把这些实现当成当前包依赖。普通液体只使用根入口公开的 `LiquidSurface` / `LiquidGroup`，测量、时钟、预算与减少动态仍由同一引擎负责。
 
 涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。账号菜单 AccountMenu 不在根入口：它的面板是 LiquidPopover，与涟同属这一入口，也要引入同一份 liquid-presence.css。
 它只画身体与手势，不调用模型，不开启麦克风，不替用户点击目标。
 
-4.0.0-alpha.1 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
+4.0.0-alpha.3 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
 
 ## 深色主题与迁移
 
@@ -85,7 +86,7 @@ Modal 是原生 dialog，可用 position="bottom" 做底部面板；Dialog 只�
 
 CollectibleCard 处理翻面、指针倾斜与减少动态；CollectibleCardSlot 是空位。一个卡册只创建一个 useGameCardOrientation，用户直接交互后调用 enable，tilt 只传给当前卡；关闭/卸载停止输入。enabled 不证明硬件已经给出样本，保留键盘与触摸后备操作。权限面板与实机表现由产品验证，不用模拟样本冒充。
 
-Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮。MaterialSwatches 保留为头像/通用配色选择，不拥有地形数据。Shell 的 hud、sidePanel、movementPad、bottomBar、overlay、assetLibrary 都是宿主提供的槽，不是资源服务。
+Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮。MaterialSwatches 保留为头像/通用配色选择，不拥有地形数据。Shell 的 sidebar、windowBar、mobileNav、hud、sidePanel、movementPad、bottomBar、overlay、assetLibrary 都是宿主提供的槽，不是资源服务；PageSurface 的 aside、primaryAction、footer 也不拥有业务状态。
 
 声音默认关闭。Button 的 sound 是显式选择；playGameInteractionSound、playGameCardRevealSound 只在已允许的用户交互里发声，音量、暂停和偏好由宿主负责。共享上下文适配用 playGameInteractionSoundForContext，不复制音频引擎。
 
@@ -129,7 +130,8 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `HudActions` | 排列游戏界面工具按钮，不拥有场景和快捷键逻辑。 |
 | `Modal` | 原生模态 dialog；编辑跨关闭保留用 keepMounted。 |
 | `Panel` | 组织一块信息与标题，不加业务控制器。 |
-| `Shell` | 安排场景及 HUD、侧栏、移动与底栏槽位。 |
+| `PageSurface` | 工具页的无状态骨架：标题区、主动作、内容、可选侧栏和底部槽；宿主提供路由、数据和文案。 |
+| `Shell` | 安排场景或工具页，以及侧栏、窗口栏、移动导航和 HUD 槽位；平台语气与减少动态必须显式传入。 |
 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现和持久记录由宿主决定。 |
 | `Avatar` | 展示头像；静态 plaque 相框不用于普通控件。 |
 | `CollectibleCard` | 收藏卡片翻面与倾斜，不决定获得规则和稀有度。 |
@@ -153,7 +155,7 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `Icon` | 内联 SVG 图标；label 表示可朗读含义，省略时作为装饰。默认 md20，另有 sm16、lg24。 |
 | `GAME_ICON_NAMES` | 展厅或动态菜单需要的名称清单，不是第二套组件。 |
 
-独立具名路径 JS leaf 在 4.0.0-alpha.1 不再公开；用字符串名的 `Icon` 继续使用本包的小型名称表。图标来源与许可证见 [donor 索引](../../donors-individual.md) 和 `NOTICE`。
+独立具名路径 JS leaf 在 4.0.0-alpha.3 不再公开；用字符串名的 `Icon` 继续使用本包的小型名称表。图标来源与许可证见 [donor 索引](../../donors-individual.md) 和 `NOTICE`。
 
 ## 链接、小号与液体弹出面板
 

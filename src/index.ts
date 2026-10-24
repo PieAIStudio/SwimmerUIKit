@@ -66,7 +66,12 @@ export {
 export { HudActions, type HudActionsProps } from './containers/HudActions/HudActions';
 export { Modal, type ModalProps } from './containers/Modal/Modal';
 export { Panel, type PanelProps } from './containers/Panel/Panel';
-export { Shell, type ShellProps } from './containers/Shell/Shell';
+export {
+  PageSurface,
+  type PageSurfaceLayout,
+  type PageSurfaceProps,
+} from './containers/PageSurface/PageSurface';
+export { Shell, type ShellPlatform, type ShellProps } from './containers/Shell/Shell';
 export { type SurfaceDensity, type SurfaceLayout } from './containers/shared/surfaceTypes';
 export {
   FirstSessionOnboarding,

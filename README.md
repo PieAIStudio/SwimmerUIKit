@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.2 已发布到 npm `next`（2026-10-24）**：按 B2 硬切公开 Game* 名字与 `--game-ui-*` token，不保留运行时别名；迁移脚本在包外，`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**4.0.0-alpha.3 已发布到 npm `next`（2026-10-24）**：B3 沿用 B2 的 `Shell`，新增工具窗口槽位和无状态 `PageSurface` 六页骨架；`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,9 +10,9 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.2
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.3
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.2.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.3.tgz
 ```
 
 ```tsx

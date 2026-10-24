@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.3 — 2026-10-24（已发布到 npm next）
+
+- B3 沿用 B2 的 `Shell` API，新增 `platform`、`compact`、`reducedMotion` 以及 sidebar、windowBar、mobileNav 工具槽位；不自动猜宿主操作系统。
+- 新增无状态 `PageSurface`：标题区、主动作、内容、可选 aside 和 footer 槽位，配合 `Shell` 组成 home / progress / results / review / complete / settings 六页骨架。
+- 工具壳收纳 v2.7 的浅深主题、Mac 半透明/Windows 普通侧栏、手机单列、统一线性图标和三处液体落点；静态卡片、列表和普通按钮不增加待机动画。`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.2 — 2026-10-24（已发布到 npm next）
 
 - B2 硬切公开 `Game*` 名字：例如 `GameButton` → `Button`、`GameShell` → `Shell`；当前公开类型同样去掉 `Game` 前缀，不保留运行时别名。
