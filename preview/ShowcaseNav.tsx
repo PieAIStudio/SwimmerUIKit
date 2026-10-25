@@ -90,7 +90,8 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
       }}
     >
       <span style={{ fontWeight: 700, marginRight: 'auto', letterSpacing: '.02em' }}>
-        🟤 Swimmer UI Kit
+        🟤 Swimmer UI Kit{' '}
+        <small style={{ fontWeight: 500, opacity: 0.75 }}>4.0 alpha（npm next）</small>
       </span>
       <button
         aria-pressed={theme === 'dark'}
@@ -125,7 +126,7 @@ export function ShowcaseNav({ current }: ShowcaseNavProps) {
       >
         液体
       </a>
-      <a href="https://swimmer-ui-storybook.pieaistudio.com/" style={inactiveLinkStyle}>
+      <a href="https://swimmer-ui-storybook.swiminai.com/" style={inactiveLinkStyle}>
         Storybook →
       </a>
     </nav>

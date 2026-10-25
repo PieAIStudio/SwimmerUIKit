@@ -9,7 +9,7 @@
       "has": [
         {
           "type": "host",
-          "value": "swimmer-ui-storybook.pieaistudio.com"
+          "value": "swimmer-ui-storybook.swiminai.com"
         }
       ],
       "destination": "/storybook/",

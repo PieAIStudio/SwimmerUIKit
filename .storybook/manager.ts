@@ -6,8 +6,8 @@ import { create } from 'storybook/theming';
 addons.setConfig({
   theme: create({
     base: 'light',
-    brandTitle: '← Swimmer UI Kit · 组件总览',
-    brandUrl: 'https://swimmer-ui-kit.pieaistudio.com/',
+    brandTitle: '← Swimmer UI Kit 4.0 alpha（npm next）· 组件总览',
+    brandUrl: 'https://swimmer-ui-kit.swiminai.com/',
     brandTarget: '_self',
   }),
 });
