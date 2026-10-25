@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { type SurfaceDensity, type SurfaceLayout } from '../shared/surfaceTypes';
 
 export type ShellPlatform = 'mac' | 'windows';
+export type ShellLook = 'glass' | 'aura';
 
 export interface ShellProps {
   /** Main host surface, usually a game scene or a tool page. */
@@ -16,6 +17,11 @@ export interface ShellProps {
   density?: SurfaceDensity;
   /** Persistent HUD, facts, chips, or app navigation. */
   hud?: ReactNode;
+  /**
+   * Tool-shell surface. `glass` frosts the sidebar; `aura` paints one static
+   * spectral glow (`--swimmer-aura`) under sidebar and main, with no blur.
+   */
+  look?: ShellLook;
   /** Optional navigation shown when the tool shell becomes a single column. */
   mobileNav?: ReactNode;
   layout?: SurfaceLayout;
@@ -47,6 +53,7 @@ export function Shell({
   density = 'comfortable',
   hud,
   layout = 'auto',
+  look = 'glass',
   mobileNav,
   movementPad,
   overlay,
@@ -71,6 +78,7 @@ export function Shell({
       data-platform={toolShell ? platform : undefined}
       data-reduced-motion={reducedMotion ? 'true' : undefined}
       data-tool-shell={toolShell ? 'true' : undefined}
+      data-tool-look={toolShell && look === 'aura' ? 'aura' : undefined}
     >
       {sidebar !== undefined ? (
         <>

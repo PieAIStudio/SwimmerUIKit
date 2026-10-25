@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **137 named exports: 57 values and 80 types**.
+Compiler inventory: **138 named exports: 57 values and 81 types**.
 
 ## controls/ — Controls
 
@@ -131,6 +131,7 @@ Panels, dialogs, shells and action compositions
 | `PageSurfaceLayout` | type | [source](../../src/containers/PageSurface/PageSurface.tsx) |
 | `PageSurfaceProps` | type | [source](../../src/containers/PageSurface/PageSurface.tsx) |
 | `Shell` | value | [source](../../src/containers/Shell/Shell.tsx) |
+| `ShellLook` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `ShellPlatform` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `ShellProps` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `SurfaceDensity` | type | [source](../../src/containers/shared/surfaceTypes.ts) |

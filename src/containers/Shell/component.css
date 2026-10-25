@@ -289,6 +289,25 @@
     backdrop-filter: none;
   }
 
+  /* look="aura": one static spectral glow under sidebar and main, so the
+   * sidebar seam disappears. Gradients only — no blur, filter or animation. */
+  .game-ui-shell[data-tool-shell='true'][data-tool-look='aura'] {
+    background: var(--swimmer-aura), var(--swimmer-bg);
+  }
+
+  .game-ui-shell[data-tool-look='aura'] :is(.game-ui-shell-main, .game-ui-shell-sidebar) {
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .game-ui-shell[data-tool-look='aura']
+    .game-ui-shell-sidebar
+    nav
+    > :is(a, button):is(:hover, [data-current='true']) {
+    background: var(--swimmer-aura-pill);
+    color: var(--swimmer-text);
+  }
+
   .game-ui-shell-sidebar nav {
     display: grid;
     gap: var(--swimmer-space-2);

@@ -71,7 +71,12 @@ export {
   type PageSurfaceLayout,
   type PageSurfaceProps,
 } from './containers/PageSurface/PageSurface';
-export { Shell, type ShellPlatform, type ShellProps } from './containers/Shell/Shell';
+export {
+  Shell,
+  type ShellLook,
+  type ShellPlatform,
+  type ShellProps,
+} from './containers/Shell/Shell';
 export { type SurfaceDensity, type SurfaceLayout } from './containers/shared/surfaceTypes';
 export {
   FirstSessionOnboarding,

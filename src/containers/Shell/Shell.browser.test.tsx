@@ -30,10 +30,12 @@ async function mount(node: ReactNode): Promise<HTMLDivElement> {
 }
 
 function SmokeSurface({
+  look,
   reducedMotion,
   theme,
   layout,
 }: {
+  look?: 'glass' | 'aura';
   reducedMotion?: boolean;
   theme?: 'dark' | 'light';
   layout?: 'desktop' | 'mobile';
@@ -42,6 +44,7 @@ function SmokeSurface({
     <div data-game-ui-theme={theme === 'dark' ? 'dark' : undefined} style={{ minHeight: '100vh' }}>
       <Shell
         {...(layout ? { layout } : {})}
+        {...(look ? { look } : {})}
         mobileNav={
           <nav aria-label="Mobile pages">
             <button type="button">Home</button>
@@ -97,5 +100,26 @@ describe('tool shell representative browser smoke', () => {
       await userEvent.click(focusTarget!);
     });
     expect(document.activeElement).toBe(focusTarget);
+  });
+});
+
+describe('tool shell aura look', () => {
+  it.each(['light', 'dark'] as const)('%s paints one static glow without blur', async (theme) => {
+    const container = await mount(<SmokeSurface look="aura" theme={theme} />);
+    const shell = container.querySelector('.game-ui-shell') as HTMLElement;
+    const sidebar = shell.querySelector('.game-ui-shell-sidebar') as HTMLElement;
+    const main = shell.querySelector('.game-ui-shell-main') as HTMLElement;
+    expect(shell.dataset.toolLook).toBe('aura');
+    expect(getComputedStyle(shell).backgroundImage).toContain('radial-gradient');
+    for (const part of [sidebar, main]) {
+      expect(getComputedStyle(part).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+      expect(getComputedStyle(part).backdropFilter).toBe('none');
+    }
+  });
+
+  it('keeps the frosted sidebar by default', async () => {
+    const container = await mount(<SmokeSurface />);
+    const shell = container.querySelector('.game-ui-shell') as HTMLElement;
+    expect(shell.dataset.toolLook).toBeUndefined();
   });
 });

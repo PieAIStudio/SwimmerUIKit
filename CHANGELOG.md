@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.6 — 2026-10-25
+
+- `Shell` 新增 `look="aura"`（默认仍是 `glass`）：侧栏和主区共用一层静态光谱光晕，侧栏不再磨砂，当前导航项是白色胶囊。只用渐变，不用模糊、滤镜或动画，省电。
+- 新增主题变量 `--swimmer-aura` 与 `--swimmer-aura-pill`，浅色、深色各一套；App 覆盖它们换成自己的色相。
+- 新增类型 `ShellLook`。
+
 ## 4.0.0-alpha.5 — 2026-10-25（已发布到 npm next）
 
 - 普通 `IconButton` 与 `static` `Button` 使用干净的圆角边，避免平面按钮的手绘抖动描边；主 `Button` 的潮汐液体 CTA 不变。
