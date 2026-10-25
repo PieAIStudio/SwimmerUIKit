@@ -61,4 +61,4 @@ pnpm build-storybook
 
 维护者检查真实包体使用 `pnpm check:packed .scratch/<candidate>.tgz`：根入口与 `liquid-presence` 两个 JS leaf、React 共享分块边界、严格类型消费、资源原字节和迁移检查器都从 tarball 验证。该命令只创建仓库内隔离夹具，不安装到产品、不发布。另用 `pnpm check:next-consumer .scratch/<candidate>.tgz` 安装真实候选到临时 Next 项目，检查构建、启动、水合、链接、液体交互与窄屏；发布工作流也执行此门禁。
 
-源码公开可读，使用受 [PieAI Limited Use License](LICENSE) 约束，并非开源许可。字体和图标路径遵循各自第三方许可证；来源看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。
+源码公开可读，使用受 [SwimInAI Limited Use License](LICENSE) 约束，并非开源许可。字体和图标路径遵循各自第三方许可证；来源看 [NOTICE](NOTICE) 与 [donor 索引](donors-individual.md)。

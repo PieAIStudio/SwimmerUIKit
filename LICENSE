@@ -1,8 +1,9 @@
-PieAI Limited Use License 1.0
+SwimInAI Limited Use License 1.0
 
 Copyright (c) 2026 PieAI. All rights reserved.
 
-Subject to the restrictions below, PieAI grants you a limited,
+Subject to the restrictions below, Fei Yuan (SwimInAI) ("the Licensor")
+grants you a limited,
 non-exclusive, non-transferable, revocable license to:
 
 1. download and install this package;
@@ -14,11 +15,11 @@ non-exclusive, non-transferable, revocable license to:
 
 You may not:
 
-1. modify or create derivative works from PieAI's source code;
+1. modify or create derivative works from the Licensor's source code;
 2. redistribute, sublicense, publish, sell, or provide this package as a
    standalone library, template, or competing product;
 3. remove or alter copyright, license, attribution, or proprietary notices;
-4. use PieAI names, logos, or trademarks to imply endorsement.
+4. use SwimInAI names, logos, or trademarks to imply endorsement.
 
 Distribution of bundled or minified application output is permitted only when
 this package is an inseparable dependency of that application and is not
@@ -31,8 +32,8 @@ restrictions above limits rights granted by those third-party licenses.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. PIEAI WILL NOT BE
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE LICENSOR WILL NOT BE
 LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE SOFTWARE
 OR ITS USE.
 
-Any use outside these terms requires prior written permission from PieAI.
+Any use outside these terms requires prior written permission from the Licensor.

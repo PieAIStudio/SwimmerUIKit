@@ -1,7 +1,7 @@
 {
   "name": "@pieai/swimmer-ui-kit",
   "version": "4.0.0-alpha.5",
-  "description": "Token-driven React game UI kit for web and wrapped PieAI game surfaces.",
+  "description": "Token-driven React game UI kit for web and wrapped SwimInAI game surfaces.",
   "keywords": [
     "design-system",
     "game-ui",
