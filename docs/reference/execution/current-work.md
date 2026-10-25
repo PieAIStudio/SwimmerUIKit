@@ -19,7 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.4 已于 2026-10-25 通过 trusted Actions 发布为 npm next
+## 当前：4.0.0-alpha.5 已于 2026-10-25 通过 trusted Actions 发布为 npm next
+
+总指挥审图发现 MatrixAPPs 的辅助按钮和 ClaudeSync 的右上 IconButton 共用一条手绘抖动轮廓；根因在 `DropletSurface` 被 `Button`／`IconButton` 直接使用。`static` Button 与 IconButton 现在固定零波幅，按压仍保留原生点击框和缩放反馈；主 Button 的潮汐液体 CTA、动态普通 Button 与展示组件不改。
+
+源提交 **`d9d8405`** 已推送 `main`；仅手动触发 trusted workflow **`40148171735`**／attempt 1 成功。云端 `pnpm verify`、Storybook、docs、packed、publint strict、ESM-only attw、Next 真包消费全部通过，且发布后标签核对通过。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.5` 存在，`next=4.0.0-alpha.5`，`latest=3.2.5`；registry `dist.integrity=sha512-lJPTyKvkyvCHkc6Fchb802zYLHhAPxghPjofKfMYsBn49EfSlOqJ+S9jMt5kGft6V89I8kYBDiSaKMjHOQNGBw==`。本机未运行 `npm publish`，没有改任何消费产品；OnePlace 的精确升级与验收另见其自身收据。
+
+## 前次：4.0.0-alpha.4 已于 2026-10-25 通过 trusted Actions 发布为 npm next
 
 B4 扩展 `swimmer-ui-check`：一次可传多个目录，并用 `--rules=tokens,old-names,contrast` 选择规则组；每个目录单独报告归属。两个仓库 fixture 覆盖单目录兼容、多目录、规则选择、缺目录和旧主题值负例；不复制 `api:check` 的 exports 审计，也没有改产品仓库。B 段至此完成。
 
