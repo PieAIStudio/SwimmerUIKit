@@ -10,6 +10,7 @@ import { Toggle } from '../Toggle/Toggle';
 import { SegmentedControl } from '../SegmentedControl/SegmentedControl';
 import { Progress } from '../../feedback/Progress/Progress';
 import { GAME_UI_STYLES, type UiStyle } from '../../tokens/styles';
+import { createDropletGeometry, dropletPath } from './geometry';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
 import '../../styles.css';
 
@@ -143,6 +144,36 @@ describe('one flat droplet primitive', () => {
     await advance(30);
     expect(reduced.querySelector('path')!.getAttribute('d')).toBe(before);
     expect(frames.size).toBe(0);
+  });
+  it('keeps static buttons and icon actions on clean contours', async () => {
+    await render(
+      <>
+        <Button id="static-action" static style={{ width: 121, height: 44 }}>
+          Start
+        </Button>
+        <IconButton label="Settings">+</IconButton>
+      </>,
+    );
+    const button = host.querySelector<HTMLButtonElement>('#static-action')!;
+    const icon = host.querySelector<HTMLButtonElement>('[aria-label="Settings"]')!;
+    const expected = (width: number, height: number) =>
+      dropletPath(
+        createDropletGeometry(width, height, Math.min(width, height) / 2),
+        0,
+        0,
+        0,
+        Math.ceil(width * 0.025 + 6),
+      );
+    expect(button.querySelector('path')?.getAttribute('d')).toBe(expected(121, 44));
+    expect(icon.querySelector('path')?.getAttribute('d')).toBe(expected(44, 44));
+
+    const before = icon.querySelector('path')?.getAttribute('d');
+    await pointer(icon, 'pointerdown');
+    await advance(30);
+    expect(icon.querySelector('path')?.getAttribute('d')).toBe(before);
+    expect(icon.querySelector('g')?.getAttribute('transform')).not.toContain(
+      'scale(1.00000 1.00000)',
+    );
   });
   it('honours cancelled events and clears state on lost capture, inherited disable and blur', async () => {
     await render(

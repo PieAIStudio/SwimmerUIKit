@@ -25,7 +25,7 @@ export const restingPose = (amplitude: number): DropletPose => ({
 export const pressedPose = (amplitude: number): DropletPose => ({
   x: 1.09,
   y: 0.8,
-  amplitude: amplitude * 1.75 + 0.65,
+  amplitude: amplitude > 0 ? amplitude * 1.75 + 0.65 : 0,
   phase: 0.8,
 });
 

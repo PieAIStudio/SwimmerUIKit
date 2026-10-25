@@ -5,6 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.5 — 2026-10-25（已发布到 npm next）
+
+- 普通 `IconButton` 与 `static` `Button` 使用干净的圆角边，避免平面按钮的手绘抖动描边；主 `Button` 的潮汐液体 CTA 不变。
+- 保留原生点击框和按压反馈；清晰的辅助按钮轮廓不会在按压时重新变成抖动线。
+
 ## 4.0.0-alpha.4 — 2026-10-25（已发布到 npm next）
 
 - B4 扩展 `swimmer-ui-check`：一次可检查多个目录，并可按 `tokens`、`old-names`、`contrast` 规则组选择检查；报告保留每个目录的归属。

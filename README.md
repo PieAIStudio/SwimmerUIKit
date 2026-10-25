@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.4 已发布到 npm `next`（2026-10-25）**：B4 的 `swimmer-ui-check` 支持多目录和可选规则组；`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**4.0.0-alpha.5 已发布到 npm `next`（2026-10-25）**：普通 IconButton 与 `static` Button 使用干净圆角边，避免平面按钮的手绘抖动描边；B4 的 `swimmer-ui-check` 仍支持多目录和可选规则组；`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,9 +10,9 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.4
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.5
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.4.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.5.tgz
 ```
 
 ```tsx

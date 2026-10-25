@@ -23,7 +23,7 @@ export const IconButton = forwardRef<ActionElement, IconButtonProps>(function Ic
       data-game-ui-size={size}
       style={{ ...controlHue(hue), ...style }}
     >
-      <DropletSurface />
+      <DropletSurface maxWobble={0} />
       {children}
       {props['aria-pressed'] !== undefined ? <SelectionMark /> : null}
     </NativeAction>
