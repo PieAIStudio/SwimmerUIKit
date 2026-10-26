@@ -5,7 +5,9 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-- 新增 `quiet` 控件风格：柔和淡底、无描边；`Shell look="aura"` 的工具 App 可在根节点设置 `data-game-ui-style="quiet"`。
+## 4.0.0-alpha.7 — 2026-10-26
+
+- 新增 `quiet` 控件风格：柔和淡底、无描边；`Shell look="aura"` 的工具 App 可在根节点设置 `data-game-ui-style="quiet"`。淡底混面板底色、禁用文字用统一纸色，保持全部风格的 4.5:1 对比度契约；输入框仍用默认下沉面。
 
 ## 4.0.0-alpha.6 — 2026-10-25
 
