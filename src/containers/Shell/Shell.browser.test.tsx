@@ -117,6 +117,37 @@ describe('tool shell aura look', () => {
     }
   });
 
+  it.each(['light', 'dark'] as const)(
+    '%s quiet style gives inputs a neutral well, not the progress track',
+    async (theme) => {
+      const resolve = (shell: HTMLElement, token: string) => {
+        const probe = document.createElement('span');
+        probe.style.backgroundColor = `var(${token})`;
+        shell.append(probe);
+        const color = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return color;
+      };
+      const quiet = await mount(
+        <div data-game-ui-style="quiet">
+          <SmokeSurface look="aura" theme={theme} />
+        </div>,
+      );
+      const shell = quiet.querySelector('.game-ui-shell') as HTMLElement;
+      const accent = getComputedStyle(shell).getPropertyValue('--swimmer-accent-ink').trim();
+      const surface = getComputedStyle(shell).getPropertyValue('--swimmer-surface').trim();
+      expect(resolve(shell, '--swimmer-surface-sunken')).not.toBe(
+        resolve(shell, '--swimmer-progress-track'),
+      );
+      const expected = document.createElement('span');
+      expected.style.backgroundColor = `color-mix(in srgb, ${accent} 7%, ${surface})`;
+      shell.append(expected);
+      expect(resolve(shell, '--swimmer-surface-sunken')).toBe(
+        getComputedStyle(expected).backgroundColor,
+      );
+    },
+  );
+
   it('keeps the frosted sidebar by default', async () => {
     const container = await mount(<SmokeSurface />);
     const shell = container.querySelector('.game-ui-shell') as HTMLElement;

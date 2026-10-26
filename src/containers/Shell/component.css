@@ -295,6 +295,18 @@
     background: var(--swimmer-aura), var(--swimmer-bg);
   }
 
+  /* quiet style: the tool shell's input well is a neutral tint of the surface,
+   * matching the quiet control fill, instead of the teal progress track. */
+  @scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
+    .game-ui-shell[data-tool-shell='true'] {
+      --swimmer-surface-sunken: color-mix(
+        in srgb,
+        var(--swimmer-accent-ink) 7%,
+        var(--swimmer-surface)
+      );
+    }
+  }
+
   .game-ui-shell[data-tool-look='aura'] :is(.game-ui-shell-main, .game-ui-shell-sidebar) {
     background: transparent;
     backdrop-filter: none;
