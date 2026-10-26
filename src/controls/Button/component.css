@@ -109,4 +109,15 @@
       animation: none;
     }
   }
+  @scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
+    .game-ui-button--ghost {
+      --swimmer-paint-fill: transparent;
+    }
+    .game-ui-button--ghost:hover:not(:disabled) {
+      --swimmer-paint-fill: var(--swimmer-control-fill);
+    }
+    .game-ui-button--static {
+      border-radius: 12px;
+    }
+  }
 }
