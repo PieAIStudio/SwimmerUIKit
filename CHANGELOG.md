@@ -5,7 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 4.0.0-alpha.7 — 2026-10-26
+## 4.0.0-alpha.8 — 2026-10-26
+
+- `quiet` 风格下，工具壳（`Shell` 的工具模式）里输入框的下沉底色改为中性淡色，与 quiet 控件底色一致，不再沿用青绿的进度条轨道色；App 不必再自己覆盖 `--swimmer-surface-sunken`。
+
+## 4.0.0-alpha.7 — 2026-10-26（已发布到 npm next）
 
 - 新增 `quiet` 控件风格：柔和淡底、无描边；`Shell look="aura"` 的工具 App 可在根节点设置 `data-game-ui-style="quiet"`。淡底混面板底色、禁用文字用统一纸色，保持全部风格的 4.5:1 对比度契约；输入框仍用默认下沉面。
 
