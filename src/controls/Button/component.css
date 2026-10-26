@@ -110,8 +110,11 @@
     }
   }
   @scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
+    /* Ghost buttons are the tool apps' text links: accent ink, no plate.
+     * Disabled, danger and selected rules are more specific and still win. */
     .game-ui-button--ghost {
       --swimmer-paint-fill: transparent;
+      --swimmer-paint-text: var(--swimmer-accent-ink);
     }
     .game-ui-button--ghost:hover:not(:disabled) {
       --swimmer-paint-fill: var(--swimmer-control-fill);

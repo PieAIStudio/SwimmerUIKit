@@ -269,3 +269,29 @@ describe('pending state keeps the action live', () => {
     expect(held).toBe(true);
   });
 });
+
+describe('quiet ghost buttons read as text links', () => {
+  it.each(['light', 'dark'] as const)('%s theme paints ghost text in accent ink', async (theme) => {
+    const container = await mount(
+      <div data-game-ui-style="quiet" data-game-ui-theme={theme}>
+        <Button variant="ghost">Help</Button>
+        <Button variant="ghost" disabled>
+          Off
+        </Button>
+        <Button variant="secondary">Plain</Button>
+      </div>,
+    );
+    const scope = container.firstElementChild as HTMLElement;
+    const [ghost, disabled, plain] = Array.from(
+      container.querySelectorAll<HTMLButtonElement>('.game-ui-button'),
+    );
+    const probe = document.createElement('span');
+    probe.style.color = 'var(--swimmer-accent-ink)';
+    scope.append(probe);
+    const accent = getComputedStyle(probe).color;
+    expect(getComputedStyle(ghost!).color).toBe(accent);
+    expect(getComputedStyle(ghost!).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    expect(getComputedStyle(disabled!).color).not.toBe(accent);
+    expect(getComputedStyle(plain!).color).not.toBe(accent);
+  });
+});
