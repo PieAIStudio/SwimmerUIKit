@@ -251,7 +251,7 @@ describe('one flat droplet primitive', () => {
     expect(action).toHaveBeenCalledOnce();
     expect(selected).not.toHaveBeenCalled();
   });
-  it('changes all twelve styles without changing native text, selection, geometry or focus', async () => {
+  it('changes all fourteen style modes without changing native text, selection, geometry or focus', async () => {
     const view = (style: UiStyle, theme: 'light' | 'dark') => (
       <div data-game-ui-style={style} data-game-ui-theme={theme}>
         <Input defaultValue="draft" />

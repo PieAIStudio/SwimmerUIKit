@@ -2,6 +2,7 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, it } from 'vitest';
 import { Toggle } from './Toggle';
+import { GAME_UI_STYLES } from '../../tokens/styles';
 import '../../styles.css';
 
 (
@@ -13,7 +14,7 @@ it('uses the style semantic track and thumb instead of a black outlined circle, 
   document.body.append(host);
   const root = createRoot(host);
   try {
-    for (const style of ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink'])
+    for (const style of GAME_UI_STYLES)
       for (const theme of ['light', 'dark']) {
         const render = (checked: boolean) =>
           act(async () =>

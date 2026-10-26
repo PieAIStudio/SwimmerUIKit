@@ -132,7 +132,7 @@ try {
         color: getComputedStyle(button).color,
       };
       result.push({ id: `${theme}/default-pastel`, implicit, explicit });
-      for (const style of ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink']) {
+      for (const style of ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink', 'quiet']) {
         button.parentElement.setAttribute('data-game-ui-style', style);
         button.setAttribute('data-game-ui-danger', 'true');
         button.style.cssText = '--hue:var(--swimmer-hue-sky)';
@@ -177,7 +177,7 @@ try {
     JSON.stringify(additional, null, 2),
   );
   console.log(
-    `Style contract PASS (${browserName}): twelve complete blocks; ${results.length} compiled paint pairs >= 4.5:1; nested axes, omitted default, danger and 21-step tide ramps pass; minimum ${Math.min(...results.map((result) => result.ratio)).toFixed(3)}:1`,
+    `Style contract PASS (${browserName}): ${STYLE_NAMES.length * 2} complete blocks; ${results.length} compiled paint pairs >= 4.5:1; nested axes, omitted default, danger and 21-step tide ramps pass; minimum ${Math.min(...results.map((result) => result.ratio)).toFixed(3)}:1`,
   );
 } finally {
   await browser.close();

@@ -25,7 +25,7 @@ const settleFonts = async () => {
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 };
 
-it('keeps all display silhouettes static through pointer/key input in twelve styles, retaining status semantics', async () => {
+it('keeps all display silhouettes static through pointer/key input in fourteen style modes, retaining status semantics', async () => {
   for (const style of GAME_UI_STYLES)
     for (const theme of ['light', 'dark']) {
       await act(async () =>

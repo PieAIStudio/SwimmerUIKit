@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import postcss from 'postcss';
 
-export const STYLE_NAMES = ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink'];
+export const STYLE_NAMES = ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink', 'quiet'];
 export const STYLE_SEMANTICS = [
   'fill',
   'edge',
@@ -56,7 +56,11 @@ export function inspectControlStyleBlocks(css) {
       blocks.push({ style, mode, variables: Object.fromEntries(vars) });
     }
   });
-  assert.equal(blocks.length, 12, 'Six styles must each define exactly two complete mode blocks');
+  assert.equal(
+    blocks.length,
+    STYLE_NAMES.length * 2,
+    'Every style must define exactly two complete mode blocks',
+  );
   assert.deepEqual(
     blocks.map((block) => `${block.style}/${block.mode}`).sort(),
     STYLE_NAMES.flatMap((style) => [`${style}/light`, `${style}/dark`]).sort(),

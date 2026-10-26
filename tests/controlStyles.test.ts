@@ -6,10 +6,10 @@ import {
 } from '../scripts/lib/control-style-contract.mjs';
 
 const css = readFileSync(new URL('../src/tokens/control-styles.css', import.meta.url), 'utf8');
-describe('twelve complete style blocks', () => {
-  it('reads six styles times two modes from their real CSS source', () => {
+describe('fourteen complete style blocks', () => {
+  it('reads seven styles times two modes from their real CSS source', () => {
     const blocks = inspectControlStyleBlocks(css);
-    expect(blocks).toHaveLength(12);
+    expect(blocks).toHaveLength(14);
     expect(blocks.every((block) => Object.keys(block.variables).length === 22)).toBe(true);
   });
   it('rejects a missing token rather than borrowing another style’s definition', () => {

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { CONTROL_RECIPES, recipeCode } from '../preview/catalog/recipes';
 
 describe('copyable catalog examples', () => {
-  it('typechecks every recipe, six styles, and advertised state against the actual package API', () => {
+  it('typechecks every recipe, seven styles, and advertised state against the actual package API', () => {
     const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile);
     const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, process.cwd());
     const files = new Map<string, string>();

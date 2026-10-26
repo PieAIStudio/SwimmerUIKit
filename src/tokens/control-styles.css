@@ -402,3 +402,76 @@
     --swimmer-hue-pink: var(--swimmer-tint-pink);
   }
 }
+
+@scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
+  /* style-token-block: quiet light */
+  :where([data-game-ui-paint]) {
+    --swimmer-control-danger-edge-light: transparent;
+    --swimmer-control-fill-light: color-mix(
+      in srgb,
+      var(--swimmer-accent-ink) 7%,
+      var(--swimmer-surface)
+    );
+    --swimmer-control-edge-light: transparent;
+    --swimmer-control-text-light: var(--swimmer-text);
+    --swimmer-control-edge-width-light: 0px;
+    --swimmer-control-on-fill-light: var(--swimmer-accent);
+    --swimmer-control-on-edge-light: transparent;
+    --swimmer-control-on-text-light: var(--swimmer-cta-text);
+    --swimmer-control-on-edge-width-light: 0px;
+    --swimmer-control-meaning-fill-light: color-mix(
+      in srgb,
+      var(--hue) 20%,
+      var(--swimmer-surface)
+    );
+    --swimmer-control-meaning-edge-light: transparent;
+    --swimmer-control-meaning-text-light: var(--swimmer-text);
+    --swimmer-control-meaning-edge-width-light: 0px;
+    --swimmer-control-disabled-fill-light: color-mix(
+      in srgb,
+      var(--swimmer-text) 5%,
+      var(--swimmer-surface)
+    );
+    --swimmer-control-disabled-edge-light: transparent;
+    --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
+  }
+  /* style-token-block: quiet dark */
+  :where([data-game-ui-paint]) {
+    --swimmer-control-danger-edge-dark: transparent;
+    --swimmer-control-fill-dark: color-mix(
+      in srgb,
+      var(--swimmer-accent-ink) 10%,
+      var(--swimmer-surface)
+    );
+    --swimmer-control-edge-dark: transparent;
+    --swimmer-control-text-dark: var(--swimmer-text);
+    --swimmer-control-edge-width-dark: 0px;
+    --swimmer-control-on-fill-dark: var(--swimmer-accent);
+    --swimmer-control-on-edge-dark: transparent;
+    --swimmer-control-on-text-dark: var(--swimmer-cta-text);
+    --swimmer-control-on-edge-width-dark: 0px;
+    --swimmer-control-meaning-fill-dark: color-mix(in srgb, var(--hue) 20%, var(--swimmer-surface));
+    --swimmer-control-meaning-edge-dark: transparent;
+    --swimmer-control-meaning-text-dark: var(--swimmer-text);
+    --swimmer-control-meaning-edge-width-dark: 0px;
+    --swimmer-control-disabled-fill-dark: color-mix(
+      in srgb,
+      var(--swimmer-text) 6%,
+      var(--swimmer-surface)
+    );
+    --swimmer-control-disabled-edge-dark: transparent;
+    --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
+    --swimmer-hue-coral: var(--swimmer-tint-coral);
+    --swimmer-hue-sun: var(--swimmer-tint-sun);
+    --swimmer-hue-leaf: var(--swimmer-tint-leaf);
+    --swimmer-hue-sky: var(--swimmer-tint-sky);
+    --swimmer-hue-grape: var(--swimmer-tint-grape);
+    --swimmer-hue-pink: var(--swimmer-tint-pink);
+  }
+}
