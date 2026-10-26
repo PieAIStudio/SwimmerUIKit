@@ -5,7 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 4.0.0-alpha.8 — 2026-10-26
+## 4.0.0-alpha.9 — 2026-10-26
+
+- `quiet` 风格下，`ghost` 按钮的文字改用强调色（`--swimmer-accent-ink`），在工具 App 里读作文字链接；禁用、危险、选中状态照旧优先。App 不必再自己写这条覆盖。
+
+## 4.0.0-alpha.8 — 2026-10-26（已发布到 npm next）
 
 - `quiet` 风格下，工具壳（`Shell` 的工具模式）里输入框的下沉底色改为中性淡色，与 quiet 控件底色一致，不再沿用青绿的进度条轨道色；App 不必再自己覆盖 `--swimmer-surface-sunken`。
 
