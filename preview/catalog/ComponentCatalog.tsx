@@ -19,6 +19,7 @@ const names: Record<UiStyle, string> = {
   grey: '灰阶',
   outline: '包边',
   ink: '黑白包边',
+  quiet: '安静',
 };
 const initial = (key: string) =>
   typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get(key);
@@ -96,7 +97,7 @@ export function ComponentCatalog(): ReactNode {
               placeholder="按钮、下拉、Toggle…"
             />
           </label>
-          <p className="kit-catalog-caption">{CONTROL_RECIPES.length} 组示例 · 六套风格</p>
+          <p className="kit-catalog-caption">{CONTROL_RECIPES.length} 组示例 · 七套风格</p>
           <nav aria-label="组件目录">
             {filtered.map((entry) => (
               <button

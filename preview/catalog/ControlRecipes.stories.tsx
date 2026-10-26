@@ -5,6 +5,7 @@ import {
   Primary as PrimaryCanvas,
   Controls,
 } from '@storybook/addon-docs/blocks';
+import { GAME_UI_STYLES } from '../../src/tokens/styles';
 import { CONTROL_RECIPES, ControlRecipe, recipeCode } from './recipes';
 import './catalog.css';
 
@@ -15,7 +16,7 @@ const meta = {
   args: { recipe: 'button', uiStyle: 'pastel', state: 'ready', tone: 'primary' },
   argTypes: {
     recipe: { control: 'select', options: CONTROL_RECIPES.map((entry) => entry.id) },
-    uiStyle: { control: 'select', options: ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink'] },
+    uiStyle: { control: 'select', options: GAME_UI_STYLES },
     state: { control: 'select', options: ['ready', 'disabled', 'invalid'] },
     tone: { control: 'select', options: ['primary', 'secondary', 'success', 'danger', 'ghost'] },
   },

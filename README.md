@@ -1,6 +1,6 @@
 # @pieai/swimmer-ui-kit
 
-Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持六套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
+Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持七套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
 **4.0.0-alpha.5 已发布到 npm `next`（2026-10-25）**：普通 IconButton 与 `static` Button 使用干净圆角边，避免平面按钮的手绘抖动描边；B4 的 `swimmer-ui-check` 仍支持多目录和可选规则组；`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
 

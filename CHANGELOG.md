@@ -5,6 +5,8 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+- 新增 `quiet` 控件风格：柔和淡底、无描边；`Shell look="aura"` 的工具 App 可在根节点设置 `data-game-ui-style="quiet"`。
+
 ## 4.0.0-alpha.6 — 2026-10-25
 
 - `Shell` 新增 `look="aura"`（默认仍是 `glass`）：侧栏和主区共用一层静态光谱光晕，侧栏不再磨砂，当前导航项是白色胶囊。只用渐变，不用模糊、滤镜或动画，省电。
