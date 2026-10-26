@@ -106,7 +106,7 @@ try {
         `${style}/${theme}: nested style/theme must have the same text`,
       );
     }
-  const additional = await page.evaluate(() => {
+  const additional = await page.evaluate((styleNames) => {
     const fixture = document.querySelector('#fixture');
     const canvas = document.createElement('canvas');
     canvas.width = 1;
@@ -132,7 +132,7 @@ try {
         color: getComputedStyle(button).color,
       };
       result.push({ id: `${theme}/default-pastel`, implicit, explicit });
-      for (const style of ['candy', 'pastel', 'mist', 'grey', 'outline', 'ink', 'quiet']) {
+      for (const style of styleNames) {
         button.parentElement.setAttribute('data-game-ui-style', style);
         button.setAttribute('data-game-ui-danger', 'true');
         button.style.cssText = '--hue:var(--swimmer-hue-sky)';
@@ -161,7 +161,7 @@ try {
       }
     }
     return result;
-  });
+  }, STYLE_NAMES);
   for (const sample of additional) {
     if (sample.implicit) assert.deepEqual(sample.implicit, sample.explicit, sample.id);
     else {
