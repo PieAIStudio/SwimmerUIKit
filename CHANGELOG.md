@@ -5,7 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 4.0.0-alpha.9 — 2026-10-26
+## 4.0.0-alpha.10 — 2026-10-27
+
+- `quiet` 风格下，按钮淡底（普通、带色、禁用）改为混卡片底色（`--swimmer-surface-raised`），不再混页面底色。深色工具 App 里页面比卡片暗很多，原来的淡底落在卡片上几乎看不见，禁用的次按钮像一行裸字；现在卡片上能看出底板。深色普通淡底 10%→8%、禁用淡底 6%→5%，文字对比度仍全部 ≥4.5:1。
+
+## 4.0.0-alpha.9 — 2026-10-26（已发布到 npm next）
 
 - `quiet` 风格下，`ghost` 按钮的文字改用强调色（`--swimmer-accent-ink`），在工具 App 里读作文字链接；禁用、危险、选中状态照旧优先。App 不必再自己写这条覆盖。
 
