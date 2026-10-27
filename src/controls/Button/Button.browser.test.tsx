@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Button } from './Button';
 import { resetLiquidGooeyBudgetForTests, setLiquidGooeyBudget } from '../../liquid/budget';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
+import { contrastRatio } from '../../../scripts/lib/contrast.mjs';
 import '../../styles.css';
 
 (
@@ -293,5 +294,47 @@ describe('quiet ghost buttons read as text links', () => {
     expect(getComputedStyle(ghost!).backgroundColor).toBe('rgba(0, 0, 0, 0)');
     expect(getComputedStyle(disabled!).color).not.toBe(accent);
     expect(getComputedStyle(plain!).color).not.toBe(accent);
+  });
+});
+
+describe('quiet plates show on the card they sit on', () => {
+  const rgba = (value: string): number[] => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const context = canvas.getContext('2d')!;
+    context.fillStyle = value;
+    context.fillRect(0, 0, 1, 1);
+    return [...context.getImageData(0, 0, 1, 1).data];
+  };
+  // Kit defaults, and a tool app whose dark page sits well below its cards.
+  const surfaces = {
+    kit: {},
+    'tool app': { '--swimmer-surface': '#14141c', '--swimmer-surface-raised': '#1c1c27' },
+  } as const;
+  it.each(
+    (['light', 'dark'] as const).flatMap((theme) =>
+      (Object.keys(surfaces) as Array<keyof typeof surfaces>).map((name) => [theme, name] as const),
+    ),
+  )('%s theme, %s surfaces', async (theme, name) => {
+    const container = await mount(
+      <div
+        data-game-ui-style="quiet"
+        data-game-ui-theme={theme}
+        style={theme === 'dark' ? surfaces[name] : {}}
+      >
+        <div data-card style={{ background: 'var(--swimmer-surface-raised)' }}>
+          <Button variant="secondary">Plain</Button>
+          <Button variant="secondary" disabled>
+            Off
+          </Button>
+        </div>
+      </div>,
+    );
+    const card = rgba(getComputedStyle(container.querySelector('[data-card]')!).backgroundColor);
+    const [plain, off] = Array.from(container.querySelectorAll('path')).map((path) =>
+      rgba(getComputedStyle(path).fill),
+    );
+    expect(contrastRatio(plain!, card), 'plain plate').toBeGreaterThanOrEqual(1.1);
+    expect(contrastRatio(off!, card), 'disabled plate').toBeGreaterThanOrEqual(1.08);
   });
 });

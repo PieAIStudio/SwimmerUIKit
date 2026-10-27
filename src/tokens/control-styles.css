@@ -404,13 +404,16 @@
 }
 
 @scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
+  /* Quiet plates are tints of the card they sit on (surface-raised), not of the
+   * page: in dark tool apps the page is far below the card, and a page tint
+   * lands on the card's own colour and disappears. */
   /* style-token-block: quiet light */
   :where([data-game-ui-paint]) {
     --swimmer-control-danger-edge-light: transparent;
     --swimmer-control-fill-light: color-mix(
       in srgb,
       var(--swimmer-accent-ink) 7%,
-      var(--swimmer-surface)
+      var(--swimmer-surface-raised)
     );
     --swimmer-control-edge-light: transparent;
     --swimmer-control-text-light: var(--swimmer-text);
@@ -422,7 +425,7 @@
     --swimmer-control-meaning-fill-light: color-mix(
       in srgb,
       var(--hue) 20%,
-      var(--swimmer-surface)
+      var(--swimmer-surface-raised)
     );
     --swimmer-control-meaning-edge-light: transparent;
     --swimmer-control-meaning-text-light: var(--swimmer-text);
@@ -430,7 +433,7 @@
     --swimmer-control-disabled-fill-light: color-mix(
       in srgb,
       var(--swimmer-text) 5%,
-      var(--swimmer-surface)
+      var(--swimmer-surface-raised)
     );
     --swimmer-control-disabled-edge-light: transparent;
     --swimmer-control-disabled-text-light: var(--swimmer-paper-muted-light);
@@ -446,8 +449,8 @@
     --swimmer-control-danger-edge-dark: transparent;
     --swimmer-control-fill-dark: color-mix(
       in srgb,
-      var(--swimmer-accent-ink) 10%,
-      var(--swimmer-surface)
+      var(--swimmer-accent-ink) 8%,
+      var(--swimmer-surface-raised)
     );
     --swimmer-control-edge-dark: transparent;
     --swimmer-control-text-dark: var(--swimmer-text);
@@ -456,14 +459,18 @@
     --swimmer-control-on-edge-dark: transparent;
     --swimmer-control-on-text-dark: var(--swimmer-cta-text);
     --swimmer-control-on-edge-width-dark: 0px;
-    --swimmer-control-meaning-fill-dark: color-mix(in srgb, var(--hue) 20%, var(--swimmer-surface));
+    --swimmer-control-meaning-fill-dark: color-mix(
+      in srgb,
+      var(--hue) 20%,
+      var(--swimmer-surface-raised)
+    );
     --swimmer-control-meaning-edge-dark: transparent;
     --swimmer-control-meaning-text-dark: var(--swimmer-text);
     --swimmer-control-meaning-edge-width-dark: 0px;
     --swimmer-control-disabled-fill-dark: color-mix(
       in srgb,
-      var(--swimmer-text) 6%,
-      var(--swimmer-surface)
+      var(--swimmer-text) 5%,
+      var(--swimmer-surface-raised)
     );
     --swimmer-control-disabled-edge-dark: transparent;
     --swimmer-control-disabled-text-dark: var(--swimmer-paper-muted-dark);
