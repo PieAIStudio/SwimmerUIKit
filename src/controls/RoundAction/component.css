@@ -1,0 +1,83 @@
+@layer swimmer-ui {
+  .game-ui-round-action-wrap {
+    position: absolute;
+    right: 0;
+    bottom: 34px;
+    left: 0;
+    z-index: 4;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .game-ui-round-action {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 92px;
+    height: 92px;
+    padding: 10px;
+    border: 1.5px solid color-mix(in srgb, white 38%, transparent);
+    border-radius: 50%;
+    background:
+      radial-gradient(
+        70% 60% at 40% 25%,
+        color-mix(in srgb, white 35%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(circle at 50% 60%, var(--swimmer-tool-gem2), var(--swimmer-tool-c2));
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--swimmer-tool-c1) 18%, transparent),
+      0 0 46px 6px color-mix(in srgb, var(--swimmer-tool-c1) 55%, transparent),
+      inset 0 -6px 12px color-mix(in srgb, black 20%, transparent);
+    color: white;
+    font: 500 var(--swimmer-tool-font-action) / 1.15 var(--swimmer-game-font-body);
+    text-align: center;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .game-ui-round-action::after {
+    content: '';
+    position: absolute;
+    inset: -7px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .game-ui-round-action[data-tool-round-state='stop']::after {
+    border-top-color: white;
+    border-right-color: color-mix(in srgb, white 60%, transparent);
+  }
+
+  .game-ui-round-action-promise {
+    max-width: 28rem;
+    margin: 0;
+    color: var(--swimmer-tool-muted);
+    font: 400 var(--swimmer-tool-font-note) / 1.35 var(--swimmer-game-font-body);
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-round-action:focus-visible {
+    outline: 3px solid var(--swimmer-tool-focus);
+    outline-offset: 4px;
+  }
+
+  .game-ui-round-action:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .game-ui-round-action:active:not(:disabled) {
+    transform: translateY(2px) scale(0.98);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-round-action:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}

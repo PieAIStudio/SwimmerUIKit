@@ -131,6 +131,48 @@ describe('B4 rule groups and directory ownership', () => {
   });
 });
 
+describe('Colour Worlds tool rule set', () => {
+  let dir: string;
+
+  afterEach(() => {
+    if (dir) rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('rejects native controls, opaque cards, painted sidebars and non-RoundAction mains', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-tool-check-'));
+    writeFileSync(
+      join(dir, 'app.tsx'),
+      '<select /><input type="checkbox" /><button data-tool-main-action="true">Go</button>',
+    );
+    writeFileSync(
+      join(dir, 'app.css'),
+      '.sidebar { background: #ffffff; } .card { background: rgba(255,255,255,.9); }',
+    );
+
+    const result = run(dir, '--rules=tool');
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('native select');
+    expect(result.stderr).toContain('visible native checkbox');
+    expect(result.stderr).toContain('sidebar must stay transparent');
+    expect(result.stderr).toContain('opaque white card');
+    expect(result.stderr).toContain('main action must be RoundAction');
+  });
+
+  it('allows transparent sidebars, manager sheets, hidden inputs and RoundAction', () => {
+    dir = mkdtempSync(join(tmpdir(), 'swimmer-tool-check-'));
+    writeFileSync(
+      join(dir, 'app.tsx'),
+      '<RoundAction /><input className="checkbox-input" type="checkbox" />',
+    );
+    writeFileSync(
+      join(dir, 'app.css'),
+      '.sidebar { background: transparent; } .manager-sheet { background: #ffffff; }',
+    );
+
+    expect(run(dir, '--rules=tool').status).toBe(0);
+  });
+});
+
 describe('unreadable token pairs', () => {
   let dir: string;
 

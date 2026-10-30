@@ -35,8 +35,13 @@ related:
 | 一块信息、折叠信息、阻断背景的对话框 | Panel / CollapsiblePanel / Modal | Dialog 是内联对话内容，不是模态框；编辑表单跨关闭保留时用 keepMounted。 |
 | 空状态、通知、进度、简短解释 | EmptyState / Toast / Callout / Progress / HelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 解释一个操作，需要标题、短句或一段演示 | HelpCard | 悬停、聚焦或点按后出现；可省略。必要信息、错误和价格不放进卡片，见下节。 |
-| 工具窗口壳和六页页面骨架 | Shell + PageSurface | Shell 只提供平台/响应式槽位；PageSurface 只提供标题、内容和动作槽，不包含路由、数据或业务状态。 |
-| 游戏外壳和 HUD 槽位 | Shell / HudActions / FactList | 不包含场景、持久化、资产业务和建造队列。 |
+| Colour Worlds 工具窗口 | ToolWindow + ToolSidebar | 选择一个 `world`，用 `sidebarMode="normal" | "rail"`；不包含路由、数据或 3D 资产。 |
+| Colour Worlds 首页 | ToolLanding + Gem + RoundAction | 宿主提供 art、标题、feature 文案和动作语义；每屏只放一个 RoundAction。 |
+| Colour Worlds 结果 | GlassCard | `normal` / `big` / `kept` 是静态玻璃卡布局，结果数据和 Review/Clean 动作由宿主提供。 |
+| Colour Worlds 长列表 | ManagerSheet + Checkbox + ActionPill | light/dark 清单纸面、真实搜索输入、分组、行选择和 footer 动作；不使用原生 select。 |
+| Colour Worlds 进度 | BentoProgress | tile 状态是 `done` / `now` / `waiting`；真实任务和停止逻辑归宿主。 |
+| Colour Worlds 设置开关 | Switch | 真实 checkbox input + 自定义轨道；宿主管理值。 |
+| 游戏外壳和 HUD 槽位 | Shell / HudActions / FactList | Shell 只服务游戏场景，不再承载旧工具壳；不包含场景、持久化、资产业务和建造队列。 |
 | 头像、配色、收集卡、开屏 | Avatar / MaterialSwatches / CollectibleCard / Splash | 产品负责内容、稀有度、加载状态；配色色块也用于头像，不依赖地形工具。 |
 | 账号菜单 | AccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。从 **@pieai/swimmer-ui-kit/liquid-presence** 导入，并同时引入 liquid-presence.css。 |
 | 图标 | Icon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
@@ -86,7 +91,7 @@ Modal 是原生 dialog，可用 position="bottom" 做底部面板；Dialog 只�
 
 CollectibleCard 处理翻面、指针倾斜与减少动态；CollectibleCardSlot 是空位。一个卡册只创建一个 useGameCardOrientation，用户直接交互后调用 enable，tilt 只传给当前卡；关闭/卸载停止输入。enabled 不证明硬件已经给出样本，保留键盘与触摸后备操作。权限面板与实机表现由产品验证，不用模拟样本冒充。
 
-Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮。MaterialSwatches 保留为头像/通用配色选择，不拥有地形数据。Shell 的 sidebar、windowBar、mobileNav、hud、sidePanel、movementPad、bottomBar、overlay、assetLibrary 都是宿主提供的槽，不是资源服务；PageSurface 的 aside、primaryAction、footer 也不拥有业务状态。
+Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮。MaterialSwatches 保留为头像/通用配色选择，不拥有地形数据。Shell 的 hud、sidePanel、movementPad、bottomBar、overlay、assetLibrary 都是宿主提供的游戏槽，不是资源服务；Colour Worlds 的 ToolWindow、ToolSidebar、ManagerSheet 也不拥有路由或业务状态。
 
 声音默认关闭。Button 的 sound 是显式选择；playGameInteractionSound、playGameCardRevealSound 只在已允许的用户交互里发声，音量、暂停和偏好由宿主负责。共享上下文适配用 playGameInteractionSoundForContext，不复制音频引擎。
 
@@ -96,8 +101,10 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 
 | 公开值 | 什么时候用，什么时候不用 |
 | --- | --- |
-| `Button` | 有文字的动作；primary 只给唯一下一步，表单提交明确写 type。 |
-| `Checkbox` | 可独立勾选的原生表单项，不冒充互斥页签。 |
+| `ActionPill` | ManagerSheet footer 的统一粉色动作；不是窗口主动作。 |
+| `Button` | 有文字的游戏/普通动作；primary 只给唯一下一步，表单提交明确写 type。 |
+| `Checkbox` | 可独立勾选的原生表单项；`tool` 模式给 ManagerSheet 使用，不冒充互斥页签。 |
+| `Gem` | Colour Worlds 的小型 glossy world-colour icon holder；不承载动作。 |
 | `Field` | 给输入组织标签、说明和错误；验证规则仍由宿主负责。 |
 | `IconButton` | 只有图标的动作，必须提供 label；图案不能代替名称。 |
 | `Input` | 单行原生输入，保留输入法、焦点与表单语义。 |
@@ -118,6 +125,8 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `HelpCard` | 悬停、聚焦或点按后打开的小卡片：一个标题、一到三行正文、可选循环短演示（减少动态时不自动播放）和完整指南链接；必要信息、错误和价格不放进去，需要操作的内容也不放进去。 |
 | `LoadingState` | 表示真实加载中，不承诺完成时间。 |
 | `Progress` | 10px水滴轨道与潮汐液面；数值变化晃动600ms后静止，不占滤镜预算。保留原生progressbar语义，不伪造业务完成。 |
+| `RoundAction` | Colour Worlds 唯一圆形主动作，92px，`go` / `stop` 状态；真实 button，promise 只解释安全边界。 |
+| `Switch` | Colour Worlds 的自定义开关；真实 checkbox input 在视觉轨道下面。 |
 | `Prompt` | 短操作提示，不代替实际输入控件。 |
 | `Toast` | 单条短通知；排队、持久化和重要错误归宿主。 |
 | `Tooltip` | 可聚焦目标的补充说明，不作为唯一可访问名称；`align`（center / start / end）与 `placement`（top / bottom）调整位置，标签中的换行保留。 |
@@ -130,8 +139,15 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `HudActions` | 排列游戏界面工具按钮，不拥有场景和快捷键逻辑。 |
 | `Modal` | 原生模态 dialog；编辑跨关闭保留用 keepMounted。 |
 | `Panel` | 组织一块信息与标题，不加业务控制器。 |
-| `PageSurface` | 工具页的无状态骨架：标题区、主动作、内容、可选侧栏和底部槽；宿主提供路由、数据和文案。 |
-| `Shell` | 安排场景或工具页，以及侧栏、窗口栏、移动导航和 HUD 槽位；平台语气与减少动态必须显式传入。 |
+| `BentoProgress` | Colour Worlds 进度 tile 组合；只画宿主给的步骤状态，不宣布业务完成。 |
+| `GlassCard` | Colour Worlds 深色玻璃结果卡，支持 `normal` / `big` / `kept`。 |
+| `ManagerSheet` | Colour Worlds 长列表 sheet，含搜索、排序、分组、Checkbox 行和 ActionPill footer。 |
+| `Shell` | 游戏场景、HUD、侧栏和覆盖层槽位；工具窗口改用 ToolWindow。 |
+| `TOOL_WORLDS` | 八个 Colour Worlds 世界名清单；ClaudeSync violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta。 |
+| `ToolIcon` | 复用现有 Icon，并补充工具合同 glyph；动作名称仍由真实控件提供。 |
+| `ToolLanding` | Colour Worlds 首页布局：art glow、浅标题、lead 和 feature rows。 |
+| `ToolSidebar` | 透明完整侧栏或 38px icon rail；宿主提供 items。 |
+| `ToolWindow` | Colour Worlds 窗口和世界选择；不拥有业务状态。 |
 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现和持久记录由宿主决定。 |
 | `Avatar` | 展示头像；静态 plaque 相框不用于普通控件。 |
 | `CollectibleCard` | 收藏卡片翻面与倾斜，不决定获得规则和稀有度。 |

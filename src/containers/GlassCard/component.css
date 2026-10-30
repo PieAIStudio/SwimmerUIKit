@@ -1,0 +1,78 @@
+@layer swimmer-ui {
+  .game-ui-glass-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: 20px 22px;
+    border: 1px solid var(--swimmer-tool-card-edge);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, var(--swimmer-tool-card-highlight), var(--swimmer-tool-card-low)),
+      var(--swimmer-tool-card-bg);
+    box-shadow:
+      inset 0 1px 0 var(--swimmer-tool-card-inset),
+      0 20px 40px var(--swimmer-tool-card-shadow);
+    color: var(--swimmer-tool-text);
+  }
+
+  .game-ui-glass-card[data-tool-card-variant='big'] {
+    grid-row: span 2;
+  }
+
+  .game-ui-glass-card[data-tool-card-variant='kept'] {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    background: var(--swimmer-tool-card-kept);
+  }
+
+  .game-ui-glass-card-copy {
+    min-width: 0;
+  }
+
+  .game-ui-glass-card h2 {
+    margin: 0 0 6px;
+    color: var(--swimmer-tool-text);
+    font-size: var(--swimmer-tool-font-card-title);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-glass-card p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--swimmer-tool-muted);
+    font-size: var(--swimmer-tool-font-body);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-glass-card-icon {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+  }
+
+  .game-ui-glass-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  .game-ui-glass-card-kept-icon {
+    flex: none;
+  }
+
+  .game-ui-glass-card[data-tool-card-variant='kept'] h2 {
+    margin: 0;
+    font-size: var(--swimmer-tool-font-row);
+  }
+
+  .game-ui-glass-card[data-tool-card-variant='big'] .game-ui-glass-card-copy {
+    flex: 1;
+  }
+}

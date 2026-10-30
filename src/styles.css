@@ -6,6 +6,10 @@
 @import './liquid/LiquidGroup/component.css';
 @import './liquid/LiquidSurface/component.css';
 @import './controls/DropletSurface/component.css';
+@import './controls/Gem/component.css';
+@import './controls/RoundAction/component.css';
+@import './controls/ActionPill/component.css';
+@import './controls/Switch/component.css';
 @import './controls/shared/accessibility.css';
 @import './feedback/shared/trigger-slot.css';
 @import './feedback/HelpTip/component.css';
@@ -39,7 +43,12 @@
 @import './feedback/Progress/component.css';
 @import './feedback/EmptyState/component.css';
 @import './containers/Shell/component.css';
-@import './containers/PageSurface/component.css';
+@import './containers/ToolWindow/component.css';
+@import './containers/ToolSidebar/component.css';
+@import './containers/ToolLanding/component.css';
+@import './containers/GlassCard/component.css';
+@import './containers/ManagerSheet/component.css';
+@import './containers/BentoProgress/component.css';
 @import './game/FactList/component.css';
 @import './game/MovementPad/component.css';
 @import './controls/MaterialSwatches/component.css';

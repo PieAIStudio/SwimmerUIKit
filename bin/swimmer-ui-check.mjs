@@ -12,10 +12,10 @@
 // consumers to re-theme or re-scope surface tones. Only raw colors inside
 // *other* selectors (component rules) are flagged.
 //
-// Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast]
+// Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast,tool]
 //   dir      one or more directories to scan, default "src"
 //   --ext    comma-separated extensions to scan, default "css"
-//   --rules  comma-separated rule groups; default: tokens,old-names,contrast
+//   --rules  comma-separated rule groups; default: tokens,old-names,contrast; add tool for Colour Worlds
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -324,7 +324,102 @@ function findContrastViolations(css, themes) {
   return out;
 }
 
-const RULE_GROUPS = ['tokens', 'old-names', 'contrast'];
+function toolLineFinder(text) {
+  return lineFinder(text.replace(/\r\n/g, '\n'));
+}
+
+function checkboxIsHidden(text, element) {
+  if (
+    /class(?:Name)?\s*=\s*[^>]*(?:sr-only|visually-hidden|hidden-checkbox|checkbox-input|switch-input|appearance-none)/i.test(
+      element,
+    )
+  ) {
+    return true;
+  }
+  const classes = [...element.matchAll(/(?:class|className)\s*=\s*["'{ ]([^"'}]+)/gi)]
+    .flatMap((match) => match[1].split(/\s+/))
+    .filter(Boolean);
+  return classes.some((name) => {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(
+      `\\.${escaped}\\s*\\{[^}]*?(?:clip-path|appearance\\s*:\\s*none|width\\s*:\\s*1px|opacity\\s*:\\s*0)`,
+      'is',
+    ).test(text);
+  });
+}
+
+function isOpaqueWhite(value) {
+  const normalized = value.trim().toLowerCase();
+  if (/^(?:white|#fff(?:fff)?|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))$/.test(normalized)) return true;
+  const alpha = /rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/.exec(normalized);
+  if (alpha) return Number(alpha[1]) > 0.8;
+  const mix = /color-mix\(.*\bwhite\s+(\d+(?:\.\d+)?)%/i.exec(normalized);
+  return Boolean(mix && Number(mix[1]) > 80);
+}
+
+function findToolViolations(files) {
+  const violations = [];
+  const add = (file, index, message) => {
+    const text = readFileSync(file, 'utf8');
+    violations.push({ file, line: toolLineFinder(text)(index), message });
+  };
+  for (const file of files) {
+    const text = readFileSync(file, 'utf8');
+    const extension = extname(file);
+    const isCode = CODE_EXTENSIONS.has(extension);
+    if (isCode || extension === '.html' || extension === '.vue' || extension === '.svelte') {
+      for (const match of text.matchAll(/<select\b|\bselect\s*\{/gi)) {
+        add(file, match.index ?? 0, 'native select is not allowed in a Colour Worlds tool');
+      }
+      for (const match of text.matchAll(/<input\b[^>]*\btype\s*=\s*["']checkbox["'][^>]*>/gi)) {
+        if (!checkboxIsHidden(text, match[0])) {
+          add(
+            file,
+            match.index ?? 0,
+            'visible native checkbox is not allowed; use Checkbox or Switch',
+          );
+        }
+      }
+      if (!/RoundAction/.test(text)) {
+        for (const match of text.matchAll(
+          /data-tool-main-action|(?:class|className)\s*=\s*["'{][^"'}]*(?:main-action|mainAction)/gi,
+        )) {
+          add(file, match.index ?? 0, 'main action must be RoundAction');
+        }
+      }
+    }
+    if (extension !== '.css') continue;
+    const ruleRe = /([^{}]+)\{([^{}]*)\}/g;
+    for (const match of text.matchAll(ruleRe)) {
+      const selector = match[1].trim().toLowerCase();
+      const body = match[2];
+      const bodyOffset = (match.index ?? 0) + match[0].indexOf(body);
+      if (selector.includes('sidebar')) {
+        const background = /background(?:-color)?\s*:\s*([^;]+)/i.exec(body)?.[1];
+        if (background && !/^(?:transparent|none)$/i.test(background.trim())) {
+          add(file, bodyOffset, 'sidebar must stay transparent in a Colour Worlds tool');
+        }
+      }
+      if (selector.includes('card') && !/(?:manager|sheet|tool-sheet)/i.test(selector)) {
+        const background = /background(?:-color)?\s*:\s*([^;]+)/i.exec(body)?.[1];
+        if (background && isOpaqueWhite(background)) {
+          add(
+            file,
+            bodyOffset,
+            'opaque white card directly on a world is not allowed; use GlassCard',
+          );
+        }
+      }
+      if (selector.includes('main-action') && !/round-action/i.test(selector + body)) {
+        add(file, bodyOffset, 'main action must be RoundAction');
+      }
+    }
+  }
+  return violations;
+}
+
+const RULE_GROUPS = ['tokens', 'old-names', 'contrast', 'tool'];
+const DEFAULT_RULE_GROUPS = ['tokens', 'old-names', 'contrast'];
 const RULE_ALIASES = new Map([
   ['token', 'tokens'],
   ['tokens', 'tokens'],
@@ -335,6 +430,8 @@ const RULE_ALIASES = new Map([
   ['oldnames', 'old-names'],
   ['old names', 'old-names'],
   ['contrast', 'contrast'],
+  ['tool', 'tool'],
+  ['tools', 'tool'],
 ]);
 const SOURCE_EXTENSIONS = new Set([
   '.css',
@@ -354,10 +451,10 @@ const CODE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs']);
 
 function printUsage() {
   console.error(
-    'Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast]\n' +
+    'Usage: swimmer-ui-check [dir ...] [--ext=css,tsx] [--rules=tokens,old-names,contrast,tool]\n' +
       '  default directory: src\n' +
       '  default rules: tokens,old-names,contrast\n' +
-      '  rules: tokens, old-names, contrast',
+      '  rules: tokens, old-names, contrast, tool (Colour Worlds)',
   );
 }
 
@@ -381,7 +478,7 @@ function parseArgs(rawArgs) {
   const targets = [];
   let extValue = 'css';
   let explicitExt = false;
-  let rules = new Set(RULE_GROUPS);
+  let rules = new Set(DEFAULT_RULE_GROUPS);
   let explicitRules = false;
 
   for (let index = 0; index < rawArgs.length; index += 1) {
@@ -438,7 +535,7 @@ function collectFiles(target, exts) {
 function scanTarget(target, options, themes, definedTokens) {
   const { exts, rules } = options;
   const files = collectFiles(target, exts);
-  const counts = { contrast: 0, undefined: 0, raw: 0, oldNames: 0 };
+  const counts = { contrast: 0, undefined: 0, raw: 0, oldNames: 0, tool: 0 };
 
   if (rules.has('old-names')) {
     const themeFiles = collectFiles(target, SOURCE_EXTENSIONS);
@@ -447,6 +544,16 @@ function scanTarget(target, options, themes, definedTokens) {
         console.error(`${relative(process.cwd(), file)}:${violation.line}: ${violation.message}`);
         counts.oldNames += 1;
       }
+    }
+  }
+
+  if (rules.has('tool')) {
+    const toolFiles = collectFiles(target, SOURCE_EXTENSIONS);
+    for (const violation of findToolViolations(toolFiles)) {
+      console.error(
+        `${relative(process.cwd(), violation.file)}:${violation.line}: ${violation.message}`,
+      );
+      counts.tool += 1;
     }
   }
 
@@ -576,7 +683,7 @@ for (const target of parsed.targets) {
     } else {
       console.error(
         `swimmer-ui-check: directory "${label}" failed ` +
-          `(${counts.raw} raw colors, ${counts.undefined} undefined tokens, ${counts.contrast} contrast issues, ${counts.oldNames} old-name issues).`,
+          `(${counts.raw} raw colors, ${counts.undefined} undefined tokens, ${counts.contrast} contrast issues, ${counts.oldNames} old-name issues, ${counts.tool} tool issues).`,
       );
     }
     continue;

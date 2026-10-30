@@ -1,12 +1,5 @@
-/*
- * All component rules live in the "swimmer-ui" cascade layer so that
- * downstream product CSS (unlayered) always wins overrides without
- * specificity or import-order fights. Tailwind consumers should declare:
- *   @layer swimmer-ui, theme, base, components, utilities;
- * in their entry CSS if they want utilities to beat kit styles.
- */
 @layer swimmer-ui {
-  /* OwnMySpace game surface pack */
+  /* Game scene shell. Tool apps use ToolWindow; this surface stays for 3.x game hosts. */
   .game-ui-shell {
     position: relative;
     display: grid;
@@ -24,15 +17,18 @@
     isolation: isolate;
     box-shadow: var(--swimmer-game-shadow-raised);
   }
+
   .game-ui-shell-scene {
     position: relative;
     min-width: 0;
     min-height: 420px;
     overflow: hidden;
   }
+
   .game-ui-shell-scene > * {
     min-width: 0;
   }
+
   .game-ui-shell-hud {
     position: absolute;
     z-index: var(--swimmer-z-hud);
@@ -40,6 +36,7 @@
     right: var(--swimmer-safe-right);
     left: var(--swimmer-safe-left);
   }
+
   .game-ui-shell-library {
     position: absolute;
     z-index: var(--swimmer-z-hud);
@@ -48,26 +45,29 @@
     bottom: calc(var(--swimmer-safe-bottom) + 96px);
     width: min(360px, calc(100% - 32px));
     overflow: auto;
-    scrollbar-width: thin;
     scrollbar-color: var(--swimmer-scrollbar-thumb) var(--swimmer-scrollbar-track);
+    scrollbar-width: thin;
   }
+
   .game-ui-shell-side-panel {
     position: absolute;
     z-index: var(--swimmer-z-hud);
     top: calc(var(--swimmer-safe-top) + 76px);
-    left: var(--swimmer-safe-left);
     bottom: calc(var(--swimmer-safe-bottom) + 96px);
+    left: var(--swimmer-safe-left);
     width: min(320px, calc(100% - 32px));
     overflow: auto;
-    scrollbar-width: thin;
     scrollbar-color: var(--swimmer-scrollbar-thumb) var(--swimmer-scrollbar-track);
+    scrollbar-width: thin;
   }
+
   .game-ui-shell-movement {
     position: absolute;
     z-index: var(--swimmer-z-hud);
     bottom: calc(var(--swimmer-safe-bottom) + 20px);
     left: var(--swimmer-safe-left);
   }
+
   .game-ui-shell-bottom-bar {
     position: absolute;
     z-index: var(--swimmer-z-hud);
@@ -75,6 +75,7 @@
     bottom: var(--swimmer-safe-bottom);
     left: max(172px, var(--swimmer-safe-left));
   }
+
   .game-ui-shell-overlay {
     position: absolute;
     z-index: var(--swimmer-z-hud);
@@ -83,20 +84,16 @@
     place-items: center;
     pointer-events: none;
   }
+
   .game-ui-shell-overlay > * {
     pointer-events: auto;
   }
+
   .game-ui-shell[data-density='dense'] .game-ui-panel {
     padding: 10px;
   }
-  .game-ui-shell[data-layout='mobile'] .game-ui-shell-library {
-    top: auto;
-    right: var(--swimmer-safe-right);
-    bottom: calc(var(--swimmer-safe-bottom) + 78px);
-    left: var(--swimmer-safe-left);
-    width: auto;
-    max-height: min(48dvh, 320px);
-  }
+
+  .game-ui-shell[data-layout='mobile'] .game-ui-shell-library,
   .game-ui-shell[data-layout='mobile'] .game-ui-shell-side-panel {
     top: auto;
     right: var(--swimmer-safe-right);
@@ -105,9 +102,11 @@
     width: auto;
     max-height: min(48dvh, 320px);
   }
+
   .game-ui-shell[data-layout='mobile'] .game-ui-shell-bottom-bar {
     left: var(--swimmer-safe-left);
   }
+
   .game-ui-shell[data-layout='mobile'] .game-ui-shell-movement {
     bottom: calc(var(--swimmer-safe-bottom) + 86px);
   }
@@ -116,14 +115,8 @@
     .game-ui-shell {
       min-height: 640px;
     }
-    .game-ui-shell-library {
-      top: auto;
-      right: var(--swimmer-safe-right);
-      bottom: calc(var(--swimmer-safe-bottom) + 78px);
-      left: var(--swimmer-safe-left);
-      width: auto;
-      max-height: min(48dvh, 320px);
-    }
+
+    .game-ui-shell-library,
     .game-ui-shell-side-panel {
       top: auto;
       right: var(--swimmer-safe-right);
@@ -132,9 +125,11 @@
       width: auto;
       max-height: min(48dvh, 320px);
     }
+
     .game-ui-shell-bottom-bar {
       left: var(--swimmer-safe-left);
     }
+
     .game-ui-shell-movement {
       bottom: calc(var(--swimmer-safe-bottom) + 86px);
     }
@@ -144,6 +139,7 @@
     .game-ui-shell {
       min-height: 390px;
     }
+
     .game-ui-shell-library {
       top: calc(var(--swimmer-safe-top) + 58px);
       right: var(--swimmer-safe-right);
@@ -151,310 +147,58 @@
       left: auto;
       width: min(300px, 46vw);
     }
+
     .game-ui-shell-bottom-bar {
       left: max(132px, var(--swimmer-safe-left));
     }
   }
-  .game-ui-shell-library::-webkit-scrollbar {
-    width: var(--swimmer-scrollbar-size);
-    height: var(--swimmer-scrollbar-size);
-  }
+
+  .game-ui-shell-library::-webkit-scrollbar,
   .game-ui-shell-side-panel::-webkit-scrollbar {
     width: var(--swimmer-scrollbar-size);
     height: var(--swimmer-scrollbar-size);
   }
-  .game-ui-shell-library::-webkit-scrollbar-track {
-    background: var(--swimmer-scrollbar-track);
-  }
-  .game-ui-shell-side-panel::-webkit-scrollbar-track {
-    background: var(--swimmer-scrollbar-track);
-  }
-  .game-ui-shell-library::-webkit-scrollbar-corner {
-    background: var(--swimmer-scrollbar-track);
-  }
+
+  .game-ui-shell-library::-webkit-scrollbar-track,
+  .game-ui-shell-side-panel::-webkit-scrollbar-track,
+  .game-ui-shell-library::-webkit-scrollbar-corner,
   .game-ui-shell-side-panel::-webkit-scrollbar-corner {
     background: var(--swimmer-scrollbar-track);
   }
-  .game-ui-shell-library::-webkit-scrollbar-thumb {
-    border: 2px solid transparent;
-    border-radius: var(--swimmer-game-radius-control);
-    background: var(--swimmer-scrollbar-thumb);
-    background-clip: padding-box;
-  }
+
+  .game-ui-shell-library::-webkit-scrollbar-thumb,
   .game-ui-shell-side-panel::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: var(--swimmer-game-radius-control);
     background: var(--swimmer-scrollbar-thumb);
     background-clip: padding-box;
   }
+
   @media (hover: hover) {
-    .game-ui-shell-library::-webkit-scrollbar-thumb:hover {
-      background: var(--swimmer-scrollbar-thumb-hover);
-      background-clip: padding-box;
-    }
+    .game-ui-shell-library::-webkit-scrollbar-thumb:hover,
     .game-ui-shell-side-panel::-webkit-scrollbar-thumb:hover {
       background: var(--swimmer-scrollbar-thumb-hover);
       background-clip: padding-box;
     }
   }
 
-  /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
   @media (forced-colors: active) {
-    .game-ui-shell-library {
-      scrollbar-color: ButtonText Canvas;
-    }
+    .game-ui-shell-library,
     .game-ui-shell-side-panel {
       scrollbar-color: ButtonText Canvas;
     }
-    .game-ui-shell-library::-webkit-scrollbar-track {
-      background: Canvas;
-    }
-    .game-ui-shell-side-panel::-webkit-scrollbar-track {
-      background: Canvas;
-    }
-    .game-ui-shell-library::-webkit-scrollbar-corner {
-      background: Canvas;
-    }
+
+    .game-ui-shell-library::-webkit-scrollbar-track,
+    .game-ui-shell-side-panel::-webkit-scrollbar-track,
+    .game-ui-shell-library::-webkit-scrollbar-corner,
     .game-ui-shell-side-panel::-webkit-scrollbar-corner {
       background: Canvas;
     }
-    .game-ui-shell-library::-webkit-scrollbar-thumb {
-      border-color: Canvas;
-      background: ButtonText;
-    }
+
+    .game-ui-shell-library::-webkit-scrollbar-thumb,
     .game-ui-shell-side-panel::-webkit-scrollbar-thumb {
       border-color: Canvas;
       background: ButtonText;
-    }
-  }
-}
-
-@layer swimmer-ui {
-  /* Tool-shell chrome: the host owns navigation and content, while Shell owns
-   * the Mac/Windows voice, responsive single-column boundary and motion policy. */
-  .game-ui-shell[data-tool-shell='true'] {
-    grid-template-columns: var(--swimmer-sidebar-width) minmax(0, 1fr);
-    min-height: min(860px, 100dvh);
-    border-radius: var(--swimmer-radius-window);
-    background: var(--swimmer-module-local);
-    color: var(--swimmer-text);
-    box-shadow: var(--swimmer-shadow-window);
-    --swimmer-game-bg: var(--swimmer-bg);
-    --swimmer-game-surface: var(--swimmer-surface);
-    --swimmer-game-surface-raised: var(--swimmer-surface-raised);
-    --swimmer-game-text: var(--swimmer-text);
-    --swimmer-game-text-muted: var(--swimmer-text-muted);
-    --swimmer-game-accent: var(--swimmer-accent);
-    --swimmer-game-accent-ink: var(--swimmer-accent-ink);
-    --swimmer-game-cta-from: var(--swimmer-cta-from);
-    --swimmer-game-cta-to: var(--swimmer-cta-to);
-    --swimmer-game-cta-text: var(--swimmer-cta-text);
-    --swimmer-game-radius-panel: var(--swimmer-radius-panel);
-    --swimmer-game-radius-control: var(--swimmer-radius-control);
-    --swimmer-game-shadow-raised: var(--swimmer-shadow-raised);
-    --swimmer-surface-sunken: var(--swimmer-progress-track);
-    --swimmer-focus-ring: var(--swimmer-focus);
-  }
-
-  .game-ui-shell-main {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-    background: var(--swimmer-module-local);
-  }
-
-  .game-ui-shell[data-tool-shell='true'] .game-ui-shell-scene {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: auto;
-    padding: var(--swimmer-space-6);
-    background: transparent;
-  }
-
-  .game-ui-shell-sidebar {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    padding: var(--swimmer-space-5) var(--swimmer-space-3);
-    background: var(--swimmer-sidebar-glass);
-    backdrop-filter: blur(24px);
-  }
-
-  .game-ui-shell[data-platform='windows'] .game-ui-shell-sidebar {
-    background: var(--swimmer-sidebar);
-    backdrop-filter: none;
-  }
-
-  /* look="aura": one static spectral glow under sidebar and main, so the
-   * sidebar seam disappears. Gradients only — no blur, filter or animation. */
-  .game-ui-shell[data-tool-shell='true'][data-tool-look='aura'] {
-    background: var(--swimmer-aura), var(--swimmer-bg);
-  }
-
-  /* quiet style: the tool shell's input well is a neutral tint of the surface,
-   * matching the quiet control fill, instead of the teal progress track. */
-  @scope ([data-game-ui-style='quiet']) to ([data-game-ui-style]) {
-    .game-ui-shell[data-tool-shell='true'] {
-      --swimmer-surface-sunken: color-mix(
-        in srgb,
-        var(--swimmer-accent-ink) 7%,
-        var(--swimmer-surface)
-      );
-    }
-  }
-
-  .game-ui-shell[data-tool-look='aura'] :is(.game-ui-shell-main, .game-ui-shell-sidebar) {
-    background: transparent;
-    backdrop-filter: none;
-  }
-
-  .game-ui-shell[data-tool-look='aura']
-    .game-ui-shell-sidebar
-    nav
-    > :is(a, button):is(:hover, [data-current='true']) {
-    background: var(--swimmer-aura-pill);
-    color: var(--swimmer-text);
-  }
-
-  .game-ui-shell-sidebar nav {
-    display: grid;
-    gap: var(--swimmer-space-2);
-  }
-
-  .game-ui-shell-sidebar nav > :is(a, button) {
-    display: flex;
-    align-items: center;
-    gap: var(--swimmer-space-3);
-    width: 100%;
-    min-height: 48px;
-    padding: var(--swimmer-space-2) var(--swimmer-space-3);
-    border: 0;
-    border-radius: var(--swimmer-radius-control);
-    background: transparent;
-    color: var(--swimmer-text-muted);
-    font: inherit;
-    text-align: left;
-    text-decoration: none;
-  }
-
-  .game-ui-shell-sidebar nav > :is(a, button):is(:hover, [data-current='true']) {
-    background: var(--swimmer-selection);
-    color: var(--swimmer-accent-ink);
-  }
-
-  .game-ui-shell-sidebar small {
-    margin-top: auto;
-    padding: var(--swimmer-space-5) var(--swimmer-space-3) 0;
-    color: var(--swimmer-text-muted);
-    font-size: var(--swimmer-tool-font-label);
-  }
-
-  .game-ui-shell-window-bar {
-    display: flex;
-    flex: 0 0 var(--swimmer-topbar-height);
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--swimmer-space-4);
-    min-width: 0;
-    padding: 0 var(--swimmer-space-6);
-    color: var(--swimmer-text-muted);
-  }
-
-  .game-ui-shell-window-bar > :first-child {
-    flex: 1 1 8rem;
-    min-width: 0;
-  }
-
-  .game-ui-shell-window-bar :is(button, a) {
-    white-space: nowrap;
-  }
-
-  .game-ui-shell-mobile-nav {
-    display: none;
-  }
-
-  .game-ui-shell[data-reduced-motion='true'] *,
-  .game-ui-shell[data-reduced-motion='true'] *::before,
-  .game-ui-shell[data-reduced-motion='true'] *::after {
-    animation: none !important;
-    scroll-behavior: auto !important;
-    transition: none !important;
-  }
-
-  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] {
-    grid-template-columns: minmax(0, 1fr);
-    height: 100dvh;
-    min-height: 100dvh;
-    border-radius: 0;
-  }
-
-  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-main {
-    min-height: 0;
-  }
-
-  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-sidebar {
-    display: none;
-  }
-
-  .game-ui-shell[data-layout='mobile'][data-tool-shell='true'] .game-ui-shell-mobile-nav {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: var(--swimmer-z-sidebar);
-    display: block;
-    padding: var(--swimmer-space-2) var(--swimmer-space-4)
-      calc(var(--swimmer-space-2) + var(--swimmer-safe-bottom));
-    border-top: 1px solid color-mix(in srgb, var(--swimmer-text-muted) 18%, transparent);
-    background: color-mix(in srgb, var(--swimmer-surface-raised) 94%, transparent);
-    backdrop-filter: blur(18px);
-  }
-
-  @media (max-width: 900px) {
-    .game-ui-shell[data-tool-shell='true'] {
-      grid-template-columns: minmax(0, 1fr);
-      height: 100dvh;
-      min-height: 100dvh;
-      border-radius: 0;
-    }
-
-    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-sidebar {
-      display: none;
-    }
-
-    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-main {
-      min-height: 0;
-      padding-bottom: calc(var(--swimmer-topbar-height) + var(--swimmer-safe-bottom));
-    }
-
-    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-scene {
-      padding: var(--swimmer-space-4);
-    }
-
-    .game-ui-shell[data-tool-shell='true'] .game-ui-shell-mobile-nav {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: var(--swimmer-z-sidebar);
-      display: block;
-      padding: var(--swimmer-space-2) var(--swimmer-space-4)
-        calc(var(--swimmer-space-2) + var(--swimmer-safe-bottom));
-      border-top: 1px solid color-mix(in srgb, var(--swimmer-text-muted) 18%, transparent);
-      background: color-mix(in srgb, var(--swimmer-surface-raised) 94%, transparent);
-      backdrop-filter: blur(18px);
-    }
-  }
-
-  @media (forced-colors: active) {
-    .game-ui-shell-sidebar,
-    .game-ui-shell-mobile-nav {
-      border: 1px solid CanvasText;
-      backdrop-filter: none;
     }
   }
 }

@@ -1,0 +1,372 @@
+@layer swimmer-ui {
+  .game-ui-manager-sheet {
+    position: absolute;
+    z-index: 3;
+    inset: 14px 14px 14px 82px;
+    display: grid;
+    grid-template-rows: 50px minmax(0, 1fr) 58px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--swimmer-sheet-bg);
+    color: var(--swimmer-sheet-ink);
+    box-shadow: 0 30px 60px var(--swimmer-sheet-shadow);
+  }
+
+  .game-ui-manager-sheet[data-sheet-theme='dark'] {
+    --swimmer-sheet-bg: var(--swimmer-sheet-bg-dark);
+    --swimmer-sheet-side: var(--swimmer-sheet-side-dark);
+    --swimmer-sheet-ink: var(--swimmer-sheet-ink-dark);
+    --swimmer-sheet-muted: var(--swimmer-sheet-muted-dark);
+    --swimmer-sheet-faint: var(--swimmer-sheet-faint-dark);
+    --swimmer-sheet-line: var(--swimmer-sheet-line-dark);
+    --swimmer-sheet-hover: var(--swimmer-sheet-hover-dark);
+    --swimmer-sheet-group-selected: var(--swimmer-sheet-group-selected-dark);
+    --swimmer-sheet-icon-bg: var(--swimmer-sheet-icon-bg-dark);
+    --swimmer-sheet-icon-ink: var(--swimmer-sheet-icon-ink-dark);
+    --swimmer-sheet-checkbox-edge: var(--swimmer-sheet-checkbox-edge-dark);
+    --swimmer-sheet-checkbox-bg: var(--swimmer-sheet-checkbox-bg-dark);
+  }
+
+  .game-ui-manager-sheet-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 0 18px;
+    border-bottom: 1px solid var(--swimmer-sheet-line);
+  }
+
+  .game-ui-manager-sheet-bar h1 {
+    min-width: 0;
+    margin: 0;
+    color: var(--swimmer-sheet-ink);
+    font-size: var(--swimmer-tool-font-sheet-title);
+    font-weight: 600;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-back,
+  .game-ui-manager-sheet-sort,
+  .game-ui-manager-sheet-row-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--swimmer-sheet-ink);
+    font: 500 var(--swimmer-tool-font-label) / 1.3 var(--swimmer-game-font-body);
+    cursor: pointer;
+  }
+
+  .game-ui-manager-sheet-back:focus-visible,
+  .game-ui-manager-sheet-sort:focus-visible,
+  .game-ui-manager-sheet-row-open:focus-visible,
+  .game-ui-manager-sheet-group:focus-visible,
+  .game-ui-manager-sheet-search:focus-within {
+    outline: 3px solid var(--swimmer-tool-focus);
+    outline-offset: 3px;
+  }
+
+  .game-ui-manager-sheet-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    min-width: 0;
+    color: var(--swimmer-sheet-muted);
+  }
+
+  .game-ui-manager-sheet-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 24px;
+    color: var(--swimmer-act);
+  }
+
+  .game-ui-manager-sheet-search input {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--swimmer-sheet-ink);
+  }
+
+  .game-ui-manager-sheet-search input:focus,
+  .game-ui-manager-sheet-search input:not(:placeholder-shown) {
+    width: 120px;
+  }
+
+  .game-ui-manager-sheet-sort strong {
+    color: var(--swimmer-act);
+    font-weight: 600;
+  }
+
+  .game-ui-manager-sheet-body {
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .game-ui-manager-sheet-groups {
+    min-width: 0;
+    padding: 18px 12px;
+    border-right: 1px solid var(--swimmer-sheet-line);
+    background: var(--swimmer-sheet-side);
+  }
+
+  .game-ui-manager-sheet-group {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 58px;
+    margin-bottom: 2px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--swimmer-sheet-ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .game-ui-manager-sheet-group[data-selected='true'] {
+    background: var(--swimmer-sheet-group-selected);
+  }
+
+  .game-ui-manager-sheet-group > span:not(.game-ui-gem) {
+    min-width: 0;
+  }
+
+  .game-ui-manager-sheet-group strong,
+  .game-ui-manager-sheet-group small {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-group strong {
+    font-size: var(--swimmer-tool-font-row);
+    font-weight: 600;
+  }
+
+  .game-ui-manager-sheet-group small {
+    color: var(--swimmer-sheet-muted);
+    font-size: var(--swimmer-tool-font-meta);
+  }
+
+  .game-ui-manager-sheet-group > b {
+    min-width: 22px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--swimmer-act);
+    color: white;
+    font-size: var(--swimmer-tool-font-meta);
+    text-align: center;
+  }
+
+  .game-ui-manager-sheet-list {
+    min-width: 0;
+    overflow: auto;
+    padding: 18px 22px;
+  }
+
+  .game-ui-manager-sheet-subtitle {
+    margin: 0 0 14px;
+    color: var(--swimmer-sheet-muted);
+    font-size: var(--swimmer-tool-font-meta);
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-row {
+    display: grid;
+    grid-template-columns: 20px 30px minmax(0, 1fr) auto auto 16px;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 54px;
+    padding: 10px;
+    border-radius: 9px;
+    font-size: var(--swimmer-tool-font-row);
+  }
+
+  .game-ui-manager-sheet-row + .game-ui-manager-sheet-row {
+    border-top: 1px solid var(--swimmer-sheet-line);
+  }
+
+  .game-ui-manager-sheet-row[data-selected='true'] {
+    background: var(--swimmer-sheet-hover);
+    border-top-color: transparent;
+  }
+
+  .game-ui-manager-sheet-row-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--swimmer-sheet-icon-bg);
+    color: var(--swimmer-sheet-icon-ink);
+  }
+
+  .game-ui-manager-sheet-row-copy {
+    min-width: 0;
+  }
+
+  .game-ui-manager-sheet-row-copy strong,
+  .game-ui-manager-sheet-row-copy small {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-row-copy strong {
+    color: var(--swimmer-sheet-ink);
+    font-weight: 500;
+  }
+
+  .game-ui-manager-sheet-row-copy small {
+    margin-top: 1px;
+    color: var(--swimmer-sheet-faint);
+    font-size: var(--swimmer-tool-font-meta);
+  }
+
+  .game-ui-manager-sheet-row-copy em {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--swimmer-sheet-tag-bg);
+    color: var(--swimmer-sheet-tag-ink);
+    font-size: var(--swimmer-tool-font-note);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .game-ui-manager-sheet-row-date,
+  .game-ui-manager-sheet-row-size {
+    color: var(--swimmer-sheet-muted);
+    font-size: var(--swimmer-tool-font-meta);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-row-size {
+    min-width: 64px;
+    text-align: right;
+  }
+
+  .game-ui-manager-sheet-row-open {
+    color: var(--swimmer-sheet-faint);
+  }
+
+  .game-ui-manager-sheet-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 0 16px;
+    border-top: 1px solid var(--swimmer-sheet-line);
+    font-size: var(--swimmer-tool-font-label);
+  }
+
+  .game-ui-manager-sheet-footer-note {
+    min-width: 0;
+    color: var(--swimmer-sheet-muted);
+    font-size: var(--swimmer-tool-font-note);
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-manager-sheet-selection {
+    white-space: nowrap;
+  }
+
+  .game-ui-manager-sheet-selection i {
+    margin: 0 8px;
+    color: var(--swimmer-sheet-faint);
+    font-style: normal;
+  }
+
+  .game-ui-manager-sheet-selection span {
+    color: var(--swimmer-sheet-muted);
+  }
+
+  .game-ui-manager-sheet-footer .game-ui-action-pill {
+    justify-self: end;
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-manager-sheet {
+      inset: 10px;
+    }
+    .game-ui-manager-sheet-body {
+      grid-template-columns: 210px minmax(0, 1fr);
+    }
+    .game-ui-manager-sheet-row {
+      grid-template-columns: 20px 30px minmax(0, 1fr) 16px;
+    }
+    .game-ui-manager-sheet-row-date,
+    .game-ui-manager-sheet-row-size {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .game-ui-manager-sheet-bar {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      padding-inline: 12px;
+    }
+    .game-ui-manager-sheet-bar h1 {
+      font-size: var(--swimmer-tool-font-label);
+    }
+    .game-ui-manager-sheet-tools {
+      gap: 4px;
+    }
+    .game-ui-manager-sheet-sort span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .game-ui-manager-sheet-body {
+      grid-template-columns: 120px minmax(0, 1fr);
+    }
+    .game-ui-manager-sheet-groups {
+      padding-inline: 4px;
+    }
+    .game-ui-manager-sheet-group {
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 4px;
+      padding-inline: 4px;
+    }
+    .game-ui-manager-sheet-group > b {
+      display: none;
+    }
+    .game-ui-manager-sheet-group strong {
+      font-size: var(--swimmer-tool-font-note);
+    }
+    .game-ui-manager-sheet-group small {
+      font-size: 10px;
+    }
+    .game-ui-manager-sheet-list {
+      padding-inline: 10px;
+    }
+    .game-ui-manager-sheet-footer {
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding-inline: 10px;
+    }
+    .game-ui-manager-sheet-footer-note {
+      display: none;
+    }
+  }
+}

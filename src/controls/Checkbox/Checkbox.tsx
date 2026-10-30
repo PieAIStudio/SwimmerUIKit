@@ -4,20 +4,38 @@ import { controlHue, type UiHue } from '../../tokens/hue';
 
 export interface CheckboxProps extends Pick<
   InputHTMLAttributes<HTMLInputElement>,
-  'checked' | 'defaultChecked' | 'disabled' | 'name' | 'onChange' | 'required' | 'value'
+  | 'aria-label'
+  | 'checked'
+  | 'defaultChecked'
+  | 'disabled'
+  | 'name'
+  | 'onChange'
+  | 'required'
+  | 'value'
 > {
   label: string;
   className?: string;
   hue?: UiHue;
+  /** Use the compact square treatment inside Colour Worlds manager sheets. */
+  tool?: boolean;
 }
-export function Checkbox({ className, label, hue, ...props }: CheckboxProps): ReactNode {
+export function Checkbox({
+  className,
+  label,
+  hue,
+  tool = false,
+  ...props
+}: CheckboxProps): ReactNode {
   return (
     <label
-      className={['game-ui-checkbox', className].filter(Boolean).join(' ')}
+      className={['game-ui-checkbox', tool && 'game-ui-checkbox--tool', className]
+        .filter(Boolean)
+        .join(' ')}
       data-game-ui-paint=""
+      data-tool-checkbox={tool ? 'true' : undefined}
       style={controlHue(hue)}
     >
-      <DropletSurface />
+      {tool ? null : <DropletSurface />}
       <input className="game-ui-checkbox-input" type="checkbox" {...props} />
       <SelectionMark />
       <span className="game-ui-checkbox-label">{label}</span>

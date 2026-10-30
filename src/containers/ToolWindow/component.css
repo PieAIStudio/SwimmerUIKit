@@ -1,0 +1,163 @@
+@layer swimmer-ui {
+  .game-ui-tool-window {
+    --swimmer-tool-c1: var(--swimmer-world-violet-c1);
+    --swimmer-tool-c2: var(--swimmer-world-violet-c2);
+    --swimmer-tool-c3: var(--swimmer-world-violet-c3);
+    --swimmer-tool-acc: var(--swimmer-world-violet-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-violet-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-violet-gem2);
+    --swimmer-tool-focus: var(--swimmer-tool-focus-ring);
+    --swimmer-tool-muted: var(--swimmer-tool-text-muted);
+    --swimmer-switch-on: var(--swimmer-tool-switch-on);
+    position: relative;
+    display: grid;
+    grid-template-columns: 228px minmax(0, 1fr);
+    min-height: min(900px, 100dvh);
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(
+        140% 120% at 58% 32%,
+        transparent 42%,
+        color-mix(in srgb, black 38%, transparent) 100%
+      ),
+      radial-gradient(
+        760px 560px at 56% 34%,
+        color-mix(in srgb, var(--swimmer-tool-c1) 70%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(1200px 900px at 50% 40%, var(--swimmer-tool-c2), transparent 85%),
+      linear-gradient(165deg, var(--swimmer-tool-c2) 0%, var(--swimmer-tool-c3) 92%);
+    color: var(--swimmer-tool-text);
+    font-family: var(--swimmer-game-font-body);
+  }
+
+  .game-ui-tool-window::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 260px;
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--swimmer-tool-c3) 70%, transparent),
+      transparent
+    );
+    content: '';
+    pointer-events: none;
+  }
+
+  .game-ui-tool-window[data-tool-world='blue'] {
+    --swimmer-tool-c1: var(--swimmer-world-blue-c1);
+    --swimmer-tool-c2: var(--swimmer-world-blue-c2);
+    --swimmer-tool-c3: var(--swimmer-world-blue-c3);
+    --swimmer-tool-acc: var(--swimmer-world-blue-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-blue-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-blue-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='teal'] {
+    --swimmer-tool-c1: var(--swimmer-world-teal-c1);
+    --swimmer-tool-c2: var(--swimmer-world-teal-c2);
+    --swimmer-tool-c3: var(--swimmer-world-teal-c3);
+    --swimmer-tool-acc: var(--swimmer-world-teal-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-teal-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-teal-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='green'] {
+    --swimmer-tool-c1: var(--swimmer-world-green-c1);
+    --swimmer-tool-c2: var(--swimmer-world-green-c2);
+    --swimmer-tool-c3: var(--swimmer-world-green-c3);
+    --swimmer-tool-acc: var(--swimmer-world-green-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-green-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-green-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='coral'] {
+    --swimmer-tool-c1: var(--swimmer-world-coral-c1);
+    --swimmer-tool-c2: var(--swimmer-world-coral-c2);
+    --swimmer-tool-c3: var(--swimmer-world-coral-c3);
+    --swimmer-tool-acc: var(--swimmer-world-coral-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-coral-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-coral-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='orange'] {
+    --swimmer-tool-c1: var(--swimmer-world-orange-c1);
+    --swimmer-tool-c2: var(--swimmer-world-orange-c2);
+    --swimmer-tool-c3: var(--swimmer-world-orange-c3);
+    --swimmer-tool-acc: var(--swimmer-world-orange-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-orange-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-orange-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='indigo'] {
+    --swimmer-tool-c1: var(--swimmer-world-indigo-c1);
+    --swimmer-tool-c2: var(--swimmer-world-indigo-c2);
+    --swimmer-tool-c3: var(--swimmer-world-indigo-c3);
+    --swimmer-tool-acc: var(--swimmer-world-indigo-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-indigo-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-indigo-gem2);
+  }
+  .game-ui-tool-window[data-tool-world='magenta'] {
+    --swimmer-tool-c1: var(--swimmer-world-magenta-c1);
+    --swimmer-tool-c2: var(--swimmer-world-magenta-c2);
+    --swimmer-tool-c3: var(--swimmer-world-magenta-c3);
+    --swimmer-tool-acc: var(--swimmer-world-magenta-acc);
+    --swimmer-tool-gem1: var(--swimmer-world-magenta-gem1);
+    --swimmer-tool-gem2: var(--swimmer-world-magenta-gem2);
+  }
+
+  .game-ui-tool-window-sidebar {
+    position: relative;
+    z-index: 3;
+    min-width: 0;
+    border-right: 1px solid var(--swimmer-tool-line);
+  }
+
+  .game-ui-tool-window-main {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] {
+    grid-template-columns: 68px minmax(0, 1fr);
+  }
+
+  .game-ui-tool-window[data-reduced-motion='true'] *,
+  .game-ui-tool-window[data-reduced-motion='true'] *::before,
+  .game-ui-tool-window[data-reduced-motion='true'] *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-tool-window {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 640px;
+    }
+    .game-ui-tool-window-sidebar {
+      display: none;
+    }
+    .game-ui-tool-window[data-tool-sidebar-mode='rail'] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .game-ui-tool-window {
+      min-height: 600px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .game-ui-tool-window {
+      background: Canvas;
+      color: CanvasText;
+    }
+    .game-ui-tool-window::after {
+      display: none;
+    }
+  }
+}

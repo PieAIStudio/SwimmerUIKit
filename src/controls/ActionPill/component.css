@@ -1,0 +1,29 @@
+@layer swimmer-ui {
+  .game-ui-action-pill {
+    display: inline-grid;
+    min-height: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--swimmer-act-2), var(--swimmer-act));
+    box-shadow:
+      0 6px 14px color-mix(in srgb, var(--swimmer-act) 30%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 30%, transparent);
+    color: white;
+    font: 600 var(--swimmer-tool-font-label) / 1.2 var(--swimmer-game-font-body);
+    cursor: pointer;
+  }
+
+  .game-ui-action-pill:focus-visible {
+    outline: 3px solid var(--swimmer-tool-focus);
+    outline-offset: 3px;
+  }
+
+  .game-ui-action-pill:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    box-shadow: none;
+  }
+}

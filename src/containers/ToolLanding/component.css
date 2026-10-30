@@ -1,0 +1,120 @@
+@layer swimmer-ui {
+  .game-ui-tool-landing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    flex: 1;
+    align-items: center;
+    min-width: 0;
+    padding: 0 70px 120px 30px;
+  }
+
+  .game-ui-tool-landing-art {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    place-items: center;
+  }
+
+  .game-ui-tool-landing-art-glow {
+    position: absolute;
+    width: min(470px, 85%);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--swimmer-tool-c1) 80%, white 10%),
+      transparent 66%
+    );
+    opacity: 0.75;
+    filter: blur(14px);
+  }
+
+  .game-ui-tool-landing-art-content {
+    position: relative;
+    display: grid;
+    width: min(330px, 80%);
+    min-height: 230px;
+    place-items: center;
+    color: white;
+  }
+
+  .game-ui-tool-landing-art-content > * {
+    max-width: 100%;
+  }
+
+  .game-ui-tool-landing-words {
+    max-width: 470px;
+    min-width: 0;
+    padding: 10px 16px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--swimmer-tool-c3) 42%, transparent);
+  }
+
+  .game-ui-tool-landing-words h1 {
+    margin: 0 0 12px;
+    color: var(--swimmer-tool-text);
+    font-size: var(--swimmer-tool-font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-tool-landing-lead {
+    margin: 0 0 30px;
+    color: var(--swimmer-tool-text);
+    font-size: var(--swimmer-tool-font-lead);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-tool-landing-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-ui-tool-landing-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    color: var(--swimmer-tool-text);
+    font-size: var(--swimmer-tool-font-row);
+    font-weight: 600;
+  }
+
+  .game-ui-tool-landing-feature > div {
+    min-width: 0;
+  }
+
+  .game-ui-tool-landing-feature strong,
+  .game-ui-tool-landing-feature small {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-tool-landing-feature small {
+    margin-top: 1px;
+    color: var(--swimmer-tool-muted);
+    font-size: var(--swimmer-tool-font-meta);
+    font-weight: 400;
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-tool-landing {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding: 50px 24px 140px;
+    }
+
+    .game-ui-tool-landing-art-content {
+      min-height: 180px;
+    }
+
+    .game-ui-tool-landing-words {
+      width: min(100%, 470px);
+      margin-inline: auto;
+    }
+  }
+}

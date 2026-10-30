@@ -1,0 +1,157 @@
+@layer swimmer-ui {
+  .game-ui-tool-sidebar {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    flex-direction: column;
+    padding: 54px 12px 18px;
+    background: transparent;
+    color: var(--swimmer-tool-text);
+  }
+
+  .game-ui-tool-sidebar-app {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    padding: 0 10px 16px;
+    font-size: var(--swimmer-tool-font-label);
+    font-weight: 600;
+  }
+
+  .game-ui-tool-sidebar-app-icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+  }
+
+  .game-ui-tool-sidebar-app-name,
+  .game-ui-tool-sidebar-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-tool-sidebar-nav {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .game-ui-tool-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    min-height: 34px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--swimmer-tool-text);
+    font: 500 var(--swimmer-tool-font-label) / 1.35 var(--swimmer-game-font-body);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .game-ui-tool-sidebar-item:hover,
+  .game-ui-tool-sidebar-item[data-current='true'] {
+    background: var(--swimmer-tool-selection);
+  }
+
+  .game-ui-tool-sidebar-item:focus-visible {
+    outline: 3px solid var(--swimmer-tool-focus);
+    outline-offset: 2px;
+  }
+
+  .game-ui-tool-sidebar-icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+  }
+
+  .game-ui-tool-sidebar-icon > svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .game-ui-tool-sidebar-badge {
+    margin-left: auto;
+    color: var(--swimmer-tool-muted);
+    font-size: var(--swimmer-tool-font-meta);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .game-ui-tool-sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding: 10px 10px 0;
+    color: var(--swimmer-tool-muted);
+    font-size: var(--swimmer-tool-font-note);
+    overflow-wrap: anywhere;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar {
+    align-items: center;
+    gap: 8px;
+    padding: 54px 0 18px;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-app {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-app-name,
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-footer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-nav {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-item {
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-label,
+  .game-ui-tool-window[data-tool-sidebar-mode='rail'] .game-ui-tool-sidebar-badge {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .game-ui-tool-window[data-tool-sidebar-mode='rail']
+    .game-ui-tool-sidebar-item[data-current='true'] {
+    background: radial-gradient(
+      circle at 35% 30%,
+      var(--swimmer-tool-gem1),
+      var(--swimmer-tool-gem2)
+    );
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, white 12%, transparent),
+      0 4px 14px color-mix(in srgb, var(--swimmer-tool-gem2) 60%, transparent);
+  }
+}
