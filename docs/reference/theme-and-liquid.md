@@ -20,7 +20,7 @@ related:
 
 # 主题与液体
 
-适用版本：4.0.0-alpha.12。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
+适用版本：4.0.0-alpha.13。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
 
 3.2.2 候选中，SegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 

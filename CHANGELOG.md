@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.13 — 2026-10-31（Colour Worlds overlap fix）
+
+- 修复共享 `GlassCard` 的角落图标布局：带图标的卡片现在为图标保留独立网格列，标题和正文不会被图标遮住；`kept` 行布局保持不变。
+- 新增 MailWard summary Storybook painted-box 回归，覆盖图标与文字块不相交；复查九个 Colour Worlds mock view，没有发现其他图标、badge 覆盖文字或截断问题。
+- 未改消费产品；本候选只通过 trusted `npm-publish.yml` 发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.12 — 2026-10-30（Colour Worlds，已发布到 npm next）
 
 - 新增 Colour Worlds 工具层：八个世界 token、`ToolWindow`、透明 `ToolSidebar`、`ToolLanding`、`Gem`、`RoundAction`、`GlassCard`、`ManagerSheet`、`Checkbox tool`、`ActionPill`、`BentoProgress`、`Switch` 和 `ToolIcon`；这些工具零件从 `@pieai/swimmer-ui-kit/tool-worlds` leaf 导入，避免膨胀游戏根入口。
