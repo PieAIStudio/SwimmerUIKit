@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-30T16:01:26.156Z
+generated_at: 2026-10-30T18:34:59.709Z
 generator_version: doc-gov@0.16.0
-docs_count: 61
+docs_count: 62
 docs:
   - id: ARCHIVE-LIQUID-MERGE-OWNER-REVIEW
     path: docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md
@@ -388,6 +388,13 @@ docs:
     status: stable
     canonical: true
     last_reviewed: 2026-08-29
+    pinned: false
+  - id: REF-LEARNING-WORKFLOW-ISSUES-SHARED-CARDS-MUST-RESERVE-LAYOUT-SPACE-FOR-CORNER-ICONS
+    path: docs/reference/learnings/workflow-issues/shared-cards-must-reserve-layout-space-for-corner-icons.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-10-30
     pinned: false
   - id: REF-MIGRATION-3-0
     path: docs/reference/migration-3.0.md
