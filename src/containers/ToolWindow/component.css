@@ -108,7 +108,23 @@
     position: relative;
     z-index: 3;
     min-width: 0;
-    border-right: 1px solid var(--swimmer-tool-line);
+  }
+
+  .game-ui-tool-window-sidebar::after {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    width: 1px;
+    height: 60%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--swimmer-tool-line) 18%,
+      var(--swimmer-tool-line) 82%,
+      transparent
+    );
+    content: '';
+    pointer-events: none;
   }
 
   .game-ui-tool-window-main {

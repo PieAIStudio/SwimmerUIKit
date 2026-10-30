@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "4.0.0-alpha.13",
+  "version": "4.0.0-alpha.14",
   "description": "Token-driven React game UI kit for web and wrapped SwimInAI game surfaces.",
   "keywords": [
     "design-system",
@@ -44,6 +44,10 @@
     "./tool-worlds": {
       "types": "./dist/tool-worlds.d.ts",
       "default": "./dist/tool-worlds.js"
+    },
+    "./tool-hero-3d": {
+      "types": "./dist/tool-hero-3d.d.ts",
+      "default": "./dist/tool-hero-3d.js"
     },
     "./liquid-presence": {
       "types": "./dist/liquid-presence.d.ts",
@@ -104,6 +108,7 @@
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
+    "@types/three": "0.185.0",
     "@vitejs/plugin-react": "6.0.3",
     "@vitest/browser-playwright": "4.1.10",
     "@vitest/coverage-v8": "4.1.10",
@@ -116,6 +121,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "storybook": "10.5.0",
+    "three": "0.185.1",
     "typescript": "6.0.3",
     "vite": "8.1.4",
     "vite-plugin-dts": "^5.0.3",
@@ -123,7 +129,13 @@
   },
   "peerDependencies": {
     "react": ">=19.0.0",
-    "react-dom": ">=19.0.0"
+    "react-dom": ">=19.0.0",
+    "three": ">=0.185.1"
+  },
+  "peerDependenciesMeta": {
+    "three": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=24 <25"

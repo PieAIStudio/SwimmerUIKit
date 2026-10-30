@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-30
+last_reviewed: 2026-10-31
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：Colour Worlds overlap fix 已完成，alpha.13 已发布到 npm next
+## 当前：Colour Worlds round 3 已完成，alpha.14 候选待 trusted 发布
+
+Colour Worlds 继续由 `@pieai/swimmer-ui-kit/tool-worlds` 提供世界组和共享工具零件；没有改任何消费产品。`ToolSidebar` 现在画一条 centred 的短渐变 1px divider，normal 与 rail 共用一个色场；`ToolLanding` 传入 `model` 时通过可选 `tool-hero-3d` leaf 使用真实 Three.js hero。
+
+`ToolHero3D` 支持 route-v0 primitive builder 或 GLB、页面级 shared renderer、7 秒 calm idle、pointer parallax、world lighting、reduced-motion、off-screen/hidden pause、PNG fallback 和 frame/triangle metrics。Storybook 新增五世界 matrix（1440 / 390）与 OnePlace + MailWard motion study；placeholder 不是最终产品 art。视觉证据、divider before/after 和录屏在 `.reports/2026-10-31-colour-worlds-3d/`。
+
+本地 packed root runtime 仍为 **157401 / 159626 bytes**；`tool-hero-3d` 自有 JS leaf 为 `tool-hero-3d.js` + `ToolHero3D-*.js`，three 为 optional peer，不进入 root。版本已更新为 **4.0.0-alpha.14**，待相关门禁、推送后由 trusted `npm-publish.yml` 发布到 `next`；`latest` 保持 3.2.5。
+
+## 前次：Colour Worlds overlap fix 已完成，alpha.13 已发布到 npm next
 
 Colour Worlds 继续由 `@pieai/swimmer-ui-kit/tool-worlds` 提供八个世界组和共享工具零件；没有改任何消费产品。共享 `GlassCard` 现在为带角落图标的卡片建立独立图标列，标题与正文使用独立文字列；`kept` 行布局不变，浅色、深色和窄宽度回归均确认图标与文字块不相交。
 

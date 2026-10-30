@@ -1,0 +1,308 @@
+@layer swimmer-ui {
+  .game-ui-colour-worlds-motion-pair {
+    min-width: 0;
+    min-height: 100dvh;
+    padding: 34px;
+    background: var(--swimmer-game-bg);
+    color: var(--swimmer-game-text);
+  }
+
+  .game-ui-colour-worlds-motion-pair-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .game-ui-colour-worlds-motion-pair-window {
+    min-height: 600px !important;
+    border-radius: 24px;
+  }
+
+  .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-art-content {
+    min-height: 250px;
+  }
+
+  .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-words {
+    padding-inline: 18px;
+  }
+
+  .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-words h1 {
+    font-size: clamp(1.5rem, 2.25vw, 2rem);
+    word-break: keep-all;
+  }
+
+  .game-ui-colour-worlds-matrix {
+    min-width: 0;
+    min-height: 100dvh;
+    padding: 24px;
+    background: var(--swimmer-game-bg);
+    color: var(--swimmer-game-text);
+  }
+
+  .game-ui-colour-worlds-matrix-heading {
+    max-width: 720px;
+    margin: 0 auto 22px;
+    text-align: center;
+  }
+
+  .game-ui-colour-worlds-matrix-heading > span,
+  .game-ui-colour-worlds-matrix-heading > small {
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  .game-ui-colour-worlds-matrix-heading h1 {
+    margin: 8px 0;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.05;
+  }
+
+  .game-ui-colour-worlds-matrix-heading p {
+    max-width: 620px;
+    margin: 0 auto 10px;
+    color: var(--swimmer-game-text-muted);
+    line-height: 1.5;
+  }
+
+  .game-ui-colour-worlds-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .game-ui-colour-worlds-matrix-card {
+    min-width: 0;
+  }
+
+  .game-ui-colour-worlds-matrix-card::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--swimmer-game-text-muted);
+    content: attr(data-world-label);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .game-ui-colour-worlds-matrix-window {
+    grid-template-columns: 76px minmax(0, 1fr);
+    min-height: 560px !important;
+    border-radius: 22px;
+  }
+
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal'] .game-ui-tool-sidebar {
+    align-items: center;
+    gap: 8px;
+    padding: 28px 0 12px;
+  }
+
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal'] .game-ui-tool-sidebar-app {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal']
+    .game-ui-tool-sidebar-app-name,
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal'] .game-ui-tool-sidebar-label,
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal']
+    .game-ui-tool-sidebar-badge {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal'] .game-ui-tool-sidebar-nav {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .game-ui-colour-worlds-matrix-window[data-tool-sidebar-mode='normal'] .game-ui-tool-sidebar-item {
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: 0 16px 40px 8px;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-art-content {
+    width: min(190px, 94%);
+    min-height: 190px;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-words {
+    padding-inline: 10px;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-words h1 {
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
+    word-break: keep-all;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-lead {
+    margin-bottom: 18px;
+    font-size: 0.8rem;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-features {
+    gap: 9px;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-feature {
+    gap: 8px;
+    font-size: 0.75rem;
+  }
+
+  .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-feature small {
+    display: none;
+  }
+
+  .game-ui-colour-worlds-matrix-art-fallback {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.15;
+    border: 1px solid color-mix(in srgb, white 30%, transparent);
+    border-radius: 30% 26% 34% 28%;
+    background:
+      radial-gradient(
+        circle at 36% 28%,
+        color-mix(in srgb, white 55%, transparent),
+        transparent 22%
+      ),
+      linear-gradient(145deg, var(--swimmer-tool-gem1), var(--swimmer-tool-gem2));
+    box-shadow: 0 16px 30px color-mix(in srgb, var(--swimmer-tool-c3) 45%, transparent);
+    opacity: 0.2;
+  }
+
+  .game-ui-colour-worlds-matrix-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 720px;
+    margin: 14px auto 0;
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  .game-ui-colour-worlds-matrix-footnote .game-ui-tool-hero3d {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex: none;
+  }
+
+  @media (max-width: 900px) {
+    .game-ui-colour-worlds-motion-pair {
+      padding: 12px 8px;
+    }
+
+    .game-ui-colour-worlds-motion-pair-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .game-ui-colour-worlds-motion-pair-window {
+      min-height: 470px !important;
+      border-radius: 14px;
+    }
+
+    .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-art-content {
+      min-height: 130px;
+    }
+
+    .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-lead,
+    .game-ui-colour-worlds-motion-pair-window .game-ui-tool-landing-features {
+      display: none;
+    }
+
+    .game-ui-colour-worlds-matrix {
+      padding: 12px 8px;
+    }
+
+    .game-ui-colour-worlds-matrix-heading {
+      margin-bottom: 10px;
+    }
+
+    .game-ui-colour-worlds-matrix-heading p {
+      font-size: 0.75rem;
+    }
+
+    .game-ui-colour-worlds-matrix-grid {
+      gap: 4px;
+    }
+
+    .game-ui-colour-worlds-matrix-window {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 470px !important;
+      border-radius: 14px;
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing {
+      gap: 4px;
+      padding: 8px 3px 30px;
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-art-content {
+      width: 94%;
+      min-height: 82px;
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-art-glow {
+      width: 120%;
+      filter: blur(7px);
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-words {
+      padding: 4px 2px;
+      background: transparent;
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-words h1 {
+      display: none;
+    }
+
+    .game-ui-colour-worlds-matrix-card::before {
+      margin-bottom: 2px;
+      font-size: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-lead,
+    .game-ui-colour-worlds-matrix-window .game-ui-tool-landing-features {
+      display: none;
+    }
+
+    .game-ui-colour-worlds-matrix-footnote {
+      margin-top: 8px;
+      font-size: 0.65rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-colour-worlds-matrix-art-fallback {
+      opacity: 0.2;
+    }
+  }
+}

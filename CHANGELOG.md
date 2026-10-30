@@ -5,6 +5,13 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.14 — 2026-10-31（Colour Worlds round 3）
+
+- `ToolSidebar` 的全高边线改为 centred 的 1px 短渐变分隔线；normal 与 rail 共用同一色场和分隔线，不给侧栏单独填色。
+- 新增可选 `@pieai/swimmer-ui-kit/tool-hero-3d` leaf：`ToolHero3D` 支持 route-v0 primitive builder 或 GLB、共享 renderer、7 秒静态循环、pointer parallax、world lighting、reduced-motion、PNG fallback、可读 frame/triangle metrics。`ToolLanding` 传入 `model` 时自动使用它；三维 peer 不进入 root runtime。
+- 新增五世界 Storybook matrix（1440 / 390）与两世界 motion story；模型明确标为 placeholder，真实 hero 资产继续由 3D icon route 提供。
+- 本候选只通过 trusted `npm-publish.yml` 发布到 npm `next`；`latest` 保持 3.2.5，core root runtime 继续守在 157401 / 159626 bytes。
+
 ## 4.0.0-alpha.13 — 2026-10-31（Colour Worlds overlap fix）
 
 - 修复共享 `GlassCard` 的角落图标布局：带图标的卡片现在为图标保留独立网格列，标题和正文不会被图标遮住；`kept` 行布局保持不变。

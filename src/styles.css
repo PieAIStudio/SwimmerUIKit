@@ -7,6 +7,7 @@
 @import './liquid/LiquidSurface/component.css';
 @import './controls/DropletSurface/component.css';
 @import './controls/Gem/component.css';
+@import './hero3d/component.css';
 @import './controls/RoundAction/component.css';
 @import './controls/ActionPill/component.css';
 @import './controls/Switch/component.css';

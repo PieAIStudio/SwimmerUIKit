@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-30T18:34:59.709Z
+generated_at: 2026-10-30T19:59:10.283Z
 generator_version: doc-gov@0.16.0
 docs_count: 62
 docs:
@@ -310,7 +310,7 @@ docs:
     type: reference
     status: active
     canonical: true
-    last_reviewed: 2026-10-30
+    last_reviewed: 2026-10-31
     pinned: true
   - id: REF-LEARNING-DESIGN-PATTERNS-FONT-FAMILY-TOKEN-NAMES-CANNOT-BE-REUSED-FOR-TOOL-TYPOGRAPHY-SIZES
     path: docs/reference/learnings/design-patterns/font-family-token-names-cannot-be-reused-for-tool-typography-sizes.md

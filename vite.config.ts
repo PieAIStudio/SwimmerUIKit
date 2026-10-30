@@ -20,7 +20,7 @@ export default defineConfig({
       name: 'swimmer-client-chunks',
       renderChunk(code, chunk) {
         const client =
-          ['index', 'tool-worlds', 'liquid-presence'].includes(chunk.name) ||
+          ['index', 'tool-worlds', 'tool-hero-3d', 'liquid-presence'].includes(chunk.name) ||
           chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
           Object.keys(chunk.modules).some((id) => /\.[jt]sx$/.test(id));
         if (!client || /^\s*['"]use client['"]\s*;/.test(code)) return null;
@@ -56,6 +56,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         'tool-worlds': resolve(__dirname, 'src/tool-worlds.ts'),
+        'tool-hero-3d': resolve(__dirname, 'src/tool-hero-3d.ts'),
         'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
       },
       name: 'SwimmerUiKit',
@@ -68,7 +69,9 @@ export default defineConfig({
       // license comments and PURE annotations; the module graph below still
       // records source ownership without adding bytes to every consumer.
       experimental: { attachDebugInfo: 'none' },
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@floating-ui/react'],
+      external: (id) =>
+        ['react', 'react-dom', 'react/jsx-runtime', '@floating-ui/react', 'three'].includes(id) ||
+        id.startsWith('three/'),
     },
   },
 });

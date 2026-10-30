@@ -20,7 +20,7 @@ related:
 
 # 主题与液体
 
-适用版本：4.0.0-alpha.13。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
+适用版本：4.0.0-alpha.14。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
 
 3.2.2 候选中，SegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 
@@ -30,7 +30,7 @@ Swimmer 的界面有触感、轻快、可靠。能按的东西是水滴，按下
 
 组件拥有原生交互和外观，产品拥有页面、权限、文案、任务、保存与支付。一次动画结束不能证明业务完成，也不能替用户点击。图标使用继承文字颜色的内联 SVG 线条，不恢复普通按钮的厚底边。
 
-游戏 `Shell` 的 `hud`、`sidePanel`、`movementPad`、`bottomBar` 和 `overlay` 是宿主槽位；它不再承载旧的 quiet/aura 工具壳。Colour Worlds 的 `ToolWindow` 明确接收世界色和 `sidebarMode`，`ToolSidebar` 保持透明，`ToolLanding` 负责首页层级，`ManagerSheet` 负责长列表，`BentoProgress` 负责静态步骤，`RoundAction` 是唯一主动作。工具层不拥有路由、数据、3D 资产或业务状态；普通卡片、列表和按钮静止，液体也不被重新引入。
+游戏 `Shell` 的 `hud`、`sidePanel`、`movementPad`、`bottomBar` 和 `overlay` 是宿主槽位；它不再承载旧的 quiet/aura 工具壳。Colour Worlds 的 `ToolWindow` 明确接收世界色和 `sidebarMode`，`ToolSidebar` 保持透明并画一条短渐变分隔线，`ToolLanding` 负责首页层级，`ManagerSheet` 负责长列表，`BentoProgress` 负责静态步骤，`RoundAction` 是唯一主动作。工具层不拥有路由、数据、3D 资产或业务状态；普通卡片、列表和按钮静止，液体也不被重新引入。需要真实 3D hero 时，从 `tool-hero-3d` 可选 leaf 传入 route-v0 primitive builder 或 GLB 与 PNG fallback；它不改变工具层的世界色所有权。
 
 选组件看[选择指南](component-selection-guide.md)，具体值与覆写看[设计 token](design-tokens.md)，升级看[迁移表](migration-3.0.md)。本文是当前外观与液体边界，不再定义第二份发布进度。
 

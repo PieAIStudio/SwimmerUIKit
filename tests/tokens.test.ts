@@ -361,6 +361,7 @@ const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as
   module?: string;
   exports: Record<string, string | Record<string, string>>;
   peerDependencies: Record<string, string>;
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
   bin?: Record<string, string>;
   publishConfig?: {
     access?: string;
@@ -393,7 +394,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(codeOnly).not.toMatch(/import\s+'[^']*\.css'/);
   });
 
-  it('package stays ESM-only with react-only peers (publint/attw contract)', () => {
+  it('keeps the package ESM-only with an optional Three.js peer for the hero leaf', () => {
     expect(pkg.main).toBeUndefined();
     expect(pkg.module).toBeUndefined();
     const rootExport = pkg.exports['.'];
@@ -406,7 +407,8 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(pkg.exports['./preview.css']).toBe('./dist/preview.css');
     expect(pkg.exports['./fonts.css']).toBe('./dist/fonts.css');
     expect(pkg.exports['./package.json']).toBe('./package.json');
-    expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom']);
+    expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom', 'three']);
+    expect(pkg.peerDependenciesMeta?.three).toEqual({ optional: true });
   });
 
   it('ships swimmer-ui-check as a bin so downstream products can lint their own token usage', () => {

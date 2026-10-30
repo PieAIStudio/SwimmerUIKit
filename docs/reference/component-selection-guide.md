@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应 4.0.0-alpha.5 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
+本指南对应 4.0.0-alpha.14 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 
@@ -36,7 +36,8 @@ related:
 | 空状态、通知、进度、简短解释 | EmptyState / Toast / Callout / Progress / HelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
 | 解释一个操作，需要标题、短句或一段演示 | HelpCard | 悬停、聚焦或点按后出现；可省略。必要信息、错误和价格不放进卡片，见下节。 |
 | Colour Worlds 工具窗口 | ToolWindow + ToolSidebar | 选择一个 `world`，用 `sidebarMode="normal" | "rail"`；不包含路由、数据或 3D 资产。 |
-| Colour Worlds 首页 | ToolLanding + Gem + RoundAction | 宿主提供 art、标题、feature 文案和动作语义；每屏只放一个 RoundAction。 |
+| Colour Worlds 首页 | ToolLanding + Gem + RoundAction | 宿主提供 art、标题、feature 文案和动作语义；每屏只放一个 RoundAction。需要真实 3D hero 时给 ToolLanding 传 `model`，同时提供 PNG fallback。 |
+| Colour Worlds 3D hero | ToolHero3D | 从 `@pieai/swimmer-ui-kit/tool-hero-3d` 导入；three 是该可选 leaf 的 peer，模型为 route-v0 primitive builder 或 GLB URL，失败和减少动态都保留静态 PNG。 |
 | Colour Worlds 结果 | GlassCard | `normal` / `big` / `kept` 是静态玻璃卡布局，结果数据和 Review/Clean 动作由宿主提供。 |
 | Colour Worlds 长列表 | ManagerSheet + Checkbox + ActionPill | light/dark 清单纸面、真实搜索输入、分组、行选择和 footer 动作；不使用原生 select。 |
 | Colour Worlds 进度 | BentoProgress | tile 状态是 `done` / `now` / `waiting`；真实任务和停止逻辑归宿主。 |

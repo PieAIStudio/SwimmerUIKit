@@ -32,6 +32,7 @@ Colour Worlds is the UIKit 4.0 tool layer. It gives MatrixAPPs one window langua
 4. Compose the page from `ToolLanding`, `GlassCard`, `ManagerSheet`, `BentoProgress`, `RoundAction`, `Gem`, `Checkbox`, `ActionPill` and `Switch`. Put the real app action/data handlers underneath these parts.
 5. Use the same layout for English and Chinese. Let text wrap; do not add ellipsis or a native `select` to rescue a narrow layout. Use `sidebarMode="rail"` for review/manager views and the 380×600 popup layout for AutoContinue.
 6. Add the consumer guard to the app's check command: `swimmer-ui-check <app-source> --rules=tool`. It rejects native select, visible native checkboxes, painted sidebars, opaque white cards on worlds, and marked main actions that are not `RoundAction`.
+7. For a live hero, install the optional `three` peer and import `ToolHero3D` from `@pieai/swimmer-ui-kit/tool-hero-3d`. Pass either a route-v0 primitive `build(THREE) => THREE.Group` or a GLB URL, and always provide a static rendered PNG `fallback`. Passing the same model to `ToolLanding` lets the landing choose the 3D hero while retaining its existing art fallback.
 
 The alpha is a hard break: there is no quiet/aura tool-shell alias. An app migrates deliberately or stays on its existing exact 3.x package.
 
@@ -67,7 +68,8 @@ The alpha is a hard break: there is no quiet/aura tool-shell alias. An app migra
 ## Acceptance checklist
 
 - Real buttons, links, search inputs and checkbox inputs remain underneath painted parts.
-- `ToolSidebar` is transparent and has one faint divider; rail items are 38px circles and the selected item is a gem.
+- `ToolSidebar` is transparent and has one short fading 1px divider centred in the window; the same divider appears in normal and rail modes. Rail items are 38px circles and the selected item is a gem.
+- `ToolHero3D` uses one shared renderer per page, pauses when hidden or off-screen, reports frame time and triangles through `data-frame-time-ms` / `data-triangles`, and keeps the PNG fallback for reduced motion, missing WebGL and load failure. Storybook placeholders are not final product art.
 - There is one `RoundAction` main action and one visible safety promise.
 - English and Chinese fit without truncation; inspect both normal and rail layouts.
 - Check light/dark manager sheets, visible focus rings and `prefers-reduced-motion: reduce`.

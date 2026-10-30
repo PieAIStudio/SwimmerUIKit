@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
@@ -16,6 +17,15 @@ import {
 const markup = (node: ReactNode) => renderToStaticMarkup(node).replace(/\s+/g, ' ');
 
 describe('Colour Worlds parts', () => {
+  it('uses one short fading divider for both sidebar modes without a sidebar fill', () => {
+    const css = readFileSync('src/containers/ToolWindow/component.css', 'utf8');
+    expect(css).not.toContain('border-right: 1px solid var(--swimmer-tool-line)');
+    expect(css).toContain('.game-ui-tool-window-sidebar::after');
+    expect(css).toContain('top: 20%');
+    expect(css).toContain('height: 60%');
+    expect(css).toContain('background: linear-gradient');
+  });
+
   it('keeps the world, transparent sidebar and rail state explicit', () => {
     const html = markup(
       <ToolWindow

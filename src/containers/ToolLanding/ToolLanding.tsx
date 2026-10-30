@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import { Gem } from '../../controls/Gem/Gem';
+import { getToolHero3DRenderer } from '../../hero3d/registry';
+import type { ToolLandingHero3DModel } from '../../hero3d/model';
 import { joinClasses } from '../shared/classes';
 
 export interface ToolLandingFeature {
@@ -14,6 +16,7 @@ export interface ToolLandingProps {
   className?: string;
   features: readonly ToolLandingFeature[];
   lead: ReactNode;
+  model?: ToolLandingHero3DModel;
   title: ReactNode;
 }
 
@@ -23,13 +26,17 @@ export function ToolLanding({
   className,
   features,
   lead,
+  model,
   title,
 }: ToolLandingProps): ReactNode {
+  const HeroRenderer = model ? getToolHero3DRenderer() : undefined;
+  const hero = model && HeroRenderer ? <HeroRenderer model={model} /> : art;
+
   return (
     <section className={joinClasses('game-ui-tool-landing', className)} data-tool-part="landing">
       <div aria-hidden="true" className="game-ui-tool-landing-art">
         <div className="game-ui-tool-landing-art-glow" />
-        <div className="game-ui-tool-landing-art-content">{art}</div>
+        <div className="game-ui-tool-landing-art-content">{hero}</div>
       </div>
       <div className="game-ui-tool-landing-words">
         <h1>{title}</h1>

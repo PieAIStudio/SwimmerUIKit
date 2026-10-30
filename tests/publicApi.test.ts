@@ -75,6 +75,10 @@ describe('3.0 public contract and complete migration', () => {
         types: './dist/tool-worlds.d.ts',
         default: './dist/tool-worlds.js',
       },
+      './tool-hero-3d': {
+        types: './dist/tool-hero-3d.d.ts',
+        default: './dist/tool-hero-3d.js',
+      },
       './liquid-presence': {
         types: './dist/liquid-presence.d.ts',
         default: './dist/liquid-presence.js',

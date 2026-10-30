@@ -5,7 +5,12 @@ import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 
 const read = (file: string) => readFileSync(file, 'utf8');
-const entries = ['src/index.ts', 'src/tool-worlds.ts', 'src/liquid-presence.ts'];
+const entries = [
+  'src/index.ts',
+  'src/tool-worlds.ts',
+  'src/tool-hero-3d.ts',
+  'src/liquid-presence.ts',
+];
 function exportsOf(file: string): string[] {
   const source = ts.createSourceFile(file, read(file), ts.ScriptTarget.Latest, true);
   return source.statements.flatMap((node) =>

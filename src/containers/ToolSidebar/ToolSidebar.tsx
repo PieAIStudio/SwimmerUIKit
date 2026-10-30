@@ -21,6 +21,7 @@ export interface ToolSidebarProps {
   footer?: ReactNode;
   items?: readonly ToolSidebarItem[];
   mode?: ToolSidebarMode;
+  navLabel?: string;
 }
 
 function itemProps(item: ToolSidebarItem) {
@@ -71,6 +72,7 @@ export function ToolSidebar({
   footer,
   items = [],
   mode = 'normal',
+  navLabel = 'Tool navigation',
 }: ToolSidebarProps): ReactNode {
   return (
     <div
@@ -84,7 +86,7 @@ export function ToolSidebar({
           {appName ? <span className="game-ui-tool-sidebar-app-name">{appName}</span> : null}
         </div>
       ) : null}
-      <nav aria-label="Tool navigation" className="game-ui-tool-sidebar-nav">
+      <nav aria-label={navLabel} className="game-ui-tool-sidebar-nav">
         {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
