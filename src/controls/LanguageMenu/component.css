@@ -6,9 +6,16 @@
  * in their entry CSS if they want utilities to beat kit styles.
  */
 @layer swimmer-ui {
-  .game-ui-language-popover button span {
+  .game-ui-language-option-copy {
     display: grid;
+    flex: 1 1 auto;
+    min-width: 0;
     gap: 2px;
+    text-align: start;
+  }
+  .game-ui-language-option-copy strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
   .game-ui-language-popover small {
     color: var(--swimmer-game-text-muted);
@@ -32,34 +39,41 @@
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
-  .game-ui-language-popover button {
+  .game-ui-language-option {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
     min-height: 44px;
+    gap: 8px;
     border-radius: var(--swimmer-game-radius-control);
+    padding: 0 12px;
     font: inherit;
     font-family: var(--swimmer-game-font-body);
     font-weight: 860;
     cursor: pointer;
-  }
-  @media (hover: hover) {
+    text-align: start;
+    text-decoration: none;
+    overflow-wrap: anywhere;
   }
   .game-ui-language-menu {
     position: relative;
     justify-self: end;
   }
-  .game-ui-language-popover button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 12px;
-  }
   .game-ui-language-popover {
     position: absolute;
     top: calc(100% + 8px);
-    right: 0;
+    inset-inline-end: 0;
     z-index: var(--swimmer-z-toast);
     display: grid;
     min-width: 210px;
+    max-width: calc(100vw - 24px);
+    max-height: min(32rem, calc(100dvh - 112px));
     gap: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--swimmer-scrollbar-thumb) var(--swimmer-scrollbar-track);
+    scrollbar-width: thin;
     border: var(--swimmer-stroke);
     border-radius: 18px;
     background: var(--swimmer-game-surface-raised);
@@ -68,11 +82,18 @@
     animation: game-ui-pop var(--swimmer-game-motion-fast) var(--swimmer-ease-pop) both;
     transform-origin: top right;
   }
-  .game-ui-language-popover button {
-    justify-content: flex-start;
-    width: 100%;
-    border-radius: 14px;
-    text-align: left;
+  .game-ui-language-popover::-webkit-scrollbar {
+    width: var(--swimmer-scrollbar-size);
+    height: var(--swimmer-scrollbar-size);
+  }
+  .game-ui-language-popover::-webkit-scrollbar-track {
+    background: var(--swimmer-scrollbar-track);
+  }
+  .game-ui-language-popover::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--swimmer-game-radius-control);
+    background: var(--swimmer-scrollbar-thumb);
+    background-clip: padding-box;
   }
   @media (prefers-reduced-motion: reduce) {
     .game-ui-language-popover {
@@ -84,64 +105,40 @@
     .game-ui-language-menu {
       justify-self: start;
     }
+    .game-ui-language-popover {
+      inset-inline-start: 0;
+      inset-inline-end: auto;
+      transform-origin: top left;
+    }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-  }
-
-  /*
-   * Overlay glass tone — semantic tokens are re-scoped in theme.css under
-   * [data-game-ui-tone='glass'] / .game-ui-overlay-scope. Rules below only
-   * cover shapes that pure token swap cannot express (translucent primary
-   * fill, warm hover, backdrop blur, flat-icon plate on dark).
-   */
-  @media (hover: hover) {
-  }
-
-  /*
-   * Compact density — reduced min-height / padding for scene-overlay HUDs.
-   * Orthogonal to tone: use alone or with glass.
-   *   <div data-game-ui-density="compact"> … </div>
-   */
-  [data-game-ui-density='compact'] .game-ui-language-trigger {
-    min-height: 34px;
-    padding: 0 12px;
-  }
-  [data-game-ui-density='compact'] .game-ui-language-popover button {
+  /* Compact density — reduced min-height / padding for scene-overlay HUDs. */
+  [data-game-ui-density='compact'] .game-ui-language-trigger,
+  [data-game-ui-density='compact'] .game-ui-language-option {
     min-height: 34px;
     padding: 0 12px;
   }
 
   /* Accessibility & finish: unified focus ring, flat scrollbars, selection */
-  .game-ui-language-trigger:focus-visible {
-    outline: 3px solid var(--swimmer-focus-ring);
-    outline-offset: 2px;
-  }
-  .game-ui-language-popover button:focus-visible {
+  .game-ui-language-trigger:focus-visible,
+  .game-ui-language-option:focus-visible {
     outline: 3px solid var(--swimmer-focus-ring);
     outline-offset: 2px;
   }
 
   /* Windows High Contrast / forced-colors: color-mix() washes and gradients
- * are exactly the kind of authored color forced-colors mode neutralizes, so
- * pressed/selected state needs a border (not just a background tint) to stay
- * legible, and focus rings need an explicit system-color outline. */
+   * are exactly the kind of authored color forced-colors mode neutralizes, so
+   * selected state needs a border (not just a background tint) to stay legible. */
   @media (forced-colors: active) {
-    .game-ui-language-trigger:focus-visible {
-      outline-color: Highlight;
-    }
-    .game-ui-language-popover button:focus-visible {
+    .game-ui-language-trigger:focus-visible,
+    .game-ui-language-option:focus-visible {
       outline-color: Highlight;
     }
   }
 
   /* Wrapped-app hardening (Capacitor/Tauri WebViews): kill the double-tap zoom
- * delay and the grey iOS tap flash on every interactive control; keep game
- * control surfaces from turning into text selections or image callouts
- * mid-gesture. Safe areas always flow through the --swimmer-safe-* tokens
- * (theme.css) so a host — e.g. Capacitor Android in edge-to-edge mode, where
- * raw env(safe-area-inset-*) can read 0 — can override the source values. */
-  .game-ui-language-popover button {
+   * delay and the grey iOS tap flash on every interactive control. */
+  .game-ui-language-option {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
