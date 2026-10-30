@@ -5,10 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 4.0.0-alpha.11 — 2026-10-30
+## 4.0.0-alpha.11 — 2026-10-30（已发布到 npm next）
 
 - `LanguageMenu` 保留原有回调按钮模式，并新增带 `href`、`hrefLang`、`lang`、`dir`、`current`、`target` 和 `rel` 的原生路由链接模式；补齐箭头/Home/End 导航、Escape 关闭和焦点回归，长语言列表在窄屏可滚动。
 - 新增官网四产品入口的共享组合夹具：`HudActions` + `Button` + `Badge` + `Panel`，覆盖 EN/zh、浅/深主题及桌面/手机故事与浏览器回归；产品数据、路由和翻译仍由宿主拥有。
+- 发布源 `1e5e218`，trusted workflow `41043794354`（attempt 1）全绿后发布；官方独立读回为 `next=4.0.0-alpha.11`、`latest=3.2.5`。本机未运行 `npm publish`，没有改任何消费产品。
 
 ## 4.0.0-alpha.10 — 2026-10-27
 

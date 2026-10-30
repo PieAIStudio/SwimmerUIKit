@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-24
+last_reviewed: 2026-10-30
 domain: ui-components
 tags:
   - uikit
@@ -19,13 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.5 已于 2026-10-25 通过 trusted Actions 发布为 npm next
+## 当前：4.0.0-alpha.11 已于 2026-10-30 通过 trusted Actions 发布为 npm next
 
-总指挥审图发现 MatrixAPPs 的辅助按钮和 ClaudeSync 的右上 IconButton 共用一条手绘抖动轮廓；根因在 `DropletSurface` 被 `Button`／`IconButton` 直接使用。`static` Button 与 IconButton 现在固定零波幅，按压仍保留原生点击框和缩放反馈；主 Button 的潮汐液体 CTA、动态普通 Button 与展示组件不改。
+`LanguageMenu` 支持原生路由链接和完整键盘菜单；官网四产品入口组合使用现有 `HudActions`、`Button`、`Badge`、`Panel`，产品数据、路由和翻译仍由宿主拥有。
 
-源提交 **`d9d8405`** 已推送 `main`；仅手动触发 trusted workflow **`40148171735`**／attempt 1 成功。云端 `pnpm verify`、Storybook、docs、packed、publint strict、ESM-only attw、Next 真包消费全部通过，且发布后标签核对通过。
+源提交 **`1e5e218`** 已推送 `main`；仅手动触发 trusted workflow **`41043794354`**／attempt 1 成功。云端 `pnpm verify`、Storybook、docs、packed、publint strict、ESM-only attw、Next 真包消费和发布后标签核对全部通过。误加的 GitHub Packages 发布 workflow 已删除，公开 npm 的 package manifest contract 保留；没有改任何消费产品。
 
-官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.5` 存在，`next=4.0.0-alpha.5`，`latest=3.2.5`；registry `dist.integrity=sha512-lJPTyKvkyvCHkc6Fchb802zYLHhAPxghPjofKfMYsBn49EfSlOqJ+S9jMt5kGft6V89I8kYBDiSaKMjHOQNGBw==`。本机未运行 `npm publish`，没有改任何消费产品；OnePlace 的精确升级与验收另见其自身收据。
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.11` 存在，`next=4.0.0-alpha.11`，`latest=3.2.5`。本机未运行 `npm publish`；消费产品仍需各自主动升级和验收。
 
 ## 前次：4.0.0-alpha.4 已于 2026-10-25 通过 trusted Actions 发布为 npm next
 
