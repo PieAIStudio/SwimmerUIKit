@@ -19,7 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：4.0.0-alpha.11 已于 2026-10-30 通过 trusted Actions 发布为 npm next
+## 当前：Colour Worlds 工具层已完成，待 alpha.12 发布回读
+
+Colour Worlds 已加入 UIKit 4.0：八个 `--swimmer-world-*` 世界组、统一 `--swimmer-act`、`ToolWindow`、透明 `ToolSidebar`、`ToolLanding`、`Gem`、`RoundAction`、`GlassCard`、`ManagerSheet`、工具 `Checkbox`、`ActionPill`、`BentoProgress`、`Switch` 和 `ToolIcon`。ClaudeSync 使用 violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta；没有改任何消费产品。
+
+旧 quiet/aura 工具壳的 `PageSurface` 与工具模式已删除，不留兼容别名；游戏 `Shell` 与 liquid 部分仍保留。`swimmer-ui-check --rules=tool` 为消费端 opt-in 守卫。mock 对照、对比像素、对比度、相关检查和发布回读见 `.reports/2026-10-30-colour-worlds/RESULT.md`。
+
+## 前次：4.0.0-alpha.11 已于 2026-10-30 通过 trusted Actions 发布为 npm next
 
 `LanguageMenu` 支持原生路由链接和完整键盘菜单；官网四产品入口组合使用现有 `HudActions`、`Button`、`Badge`、`Panel`，产品数据、路由和翻译仍由宿主拥有。
 

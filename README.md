@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持七套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.11 已发布到 npm `next`（2026-10-30）**：`LanguageMenu` 支持原生路由链接和完整键盘菜单；官网四入口组合使用现有 `HudActions`、`Button`、`Badge`、`Panel`；`latest` 仍为 3.2.5。现有产品继续锁定精确版本；主动升级先读[迁移表](docs/reference/migration-3.0.md)，发布证据与历史版本见[当前工作](docs/reference/execution/current-work.md)。本仓库不自动升级任何产品。
+**4.0.0-alpha.12 是 Colour Worlds 候选**：工具 App 使用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress`、`RoundAction` 等共享零件；`latest` 仍为 3.2.5。发布后版本与 npm 回读见[当前工作](docs/reference/execution/current-work.md)，接入步骤见[Colour Worlds adoption guide](docs/reference/tool-worlds-adoption.md)。现有产品继续锁定精确版本；本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
@@ -10,7 +10,7 @@ React / React DOM 需要 19 或以上。发布前的候选评审时安装交付�
 
 ```sh
 # 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.11
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.12
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
 pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.11.tgz
 ```
@@ -41,6 +41,7 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 | -------------------- | ----------------------------------------------------------- |
 | 选组件、正确使用     | [组件选择指南](docs/reference/component-selection-guide.md) |
 | 主题、液体、可选特效 | [主题与液体](docs/reference/theme-and-liquid.md)            |
+| Colour Worlds 接入   | [工具世界 adoption guide](docs/reference/tool-worlds-adoption.md) |
 | 改配色、字体和样式   | [设计 token](docs/reference/design-tokens.md)               |
 | 全部公开名字         | [生成的 API 清单](docs/reference/public-api-inventory.md)   |
 | 迁移与候选验收       | [3.0 / 4.0 迁移表](docs/reference/migration-3.0.md)          |

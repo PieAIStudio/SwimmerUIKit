@@ -5,6 +5,13 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.12 — 2026-10-30（Colour Worlds）
+
+- 新增 Colour Worlds 工具层：八个世界 token、`ToolWindow`、透明 `ToolSidebar`、`ToolLanding`、`Gem`、`RoundAction`、`GlassCard`、`ManagerSheet`、`Checkbox tool`、`ActionPill`、`BentoProgress`、`Switch` 和 `ToolIcon`。
+- 工具层按一个 App 一个世界色组织；ClaudeSync violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta，统一使用 `--swimmer-act` 粉色动作。
+- 移除旧 quiet/aura 工具壳的 `PageSurface` 和工具模式；游戏 `Shell` 与 liquid 实现保留，不提供兼容别名。新增 opt-in `swimmer-ui-check --rules=tool` 守卫原生 select、可见 checkbox、非透明侧栏、白卡和非 RoundAction 主动作。
+- 新增中英文/明暗/380×600 popup 的 kit-only mock 故事与 compare 收据；未改任何消费产品。
+
 ## 4.0.0-alpha.11 — 2026-10-30（已发布到 npm next）
 
 - `LanguageMenu` 保留原有回调按钮模式，并新增带 `href`、`hrefLang`、`lang`、`dir`、`current`、`target` 和 `rel` 的原生路由链接模式；补齐箭头/Home/End 导航、Escape 关闭和焦点回归，长语言列表在窄屏可滚动。

@@ -124,6 +124,10 @@
     grid-template-columns: 68px minmax(0, 1fr);
   }
 
+  .game-ui-tool-window:not(:has(> .game-ui-tool-window-sidebar)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .game-ui-tool-window[data-reduced-motion='true'] *,
   .game-ui-tool-window[data-reduced-motion='true'] *::before,
   .game-ui-tool-window[data-reduced-motion='true'] *::after {

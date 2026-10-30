@@ -27,6 +27,12 @@ superseded_by: null
 
 给执行者读。A 段只做盘点、基线、名字表和切片计划；不改产品源码、不改消费者、不改名、不发版。4.0 预览按 `FLOW.md` 只走 npm `next`，`latest` 保持 3.2.5；每个 B 段独立提交、独立推送，先由 Codex 只读复查「是不是做复杂了」，再开下一段。
 
+## 2026-10-30 Colour Worlds supersession
+
+Owner 的 Colour Worlds contract supersedes the earlier quiet/aura B3 tool-shell surface. UIKit 4.0 now owns `ToolWindow`, `ToolSidebar`, `ToolLanding`, `Gem`, `RoundAction`, `GlassCard`, `ManagerSheet`, `BentoProgress`, `ActionPill`, `Switch` and the tool icon additions. The old tool-only `PageSurface` and Shell tool mode are removed without aliases; the game `Shell` contract and liquid implementation remain. Consumer apps are still out of scope and must opt into `swimmer-ui-check --rules=tool` during their own migration.
+
+The B3 section below remains the historical record of the superseded implementation, not a current API instruction. Current facts and evidence live in `docs/reference/execution/current-work.md` and `.reports/2026-10-30-colour-worlds/RESULT.md`.
+
 ## A 段结论（2026-10-24，3.2.5）
 
 - 入口基线：根入口 **37,460 / gzip 10,809 bytes**；所有 11 个公开入口合计 **485,481 / gzip 84,348 bytes**。单按钮消费者 Vite 构建是 **JS 256,594 / gzip 80,052**，CSS 666,402 / gzip 378,626；总计 **922,996 / gzip 458,678 bytes**。这是包含 React 宿主运行时和 styles.css 的消费者总量，不把它冒称成 Kit 自身增量。
