@@ -37,8 +37,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: https://npm.pkg.github.com
-          scope: '@pieai'
+          registry-url: https://registry.npmjs.org
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec lefthook install
@@ -48,6 +47,12 @@ jobs:
       - run: pnpm docs:check
       - run: pnpm pack --out .scratch/release-candidate.tgz
       - run: pnpm check:packed .scratch/release-candidate.tgz
+
+      - name: Configure GitHub Packages auth
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s\n' '@pieai:registry=https://npm.pkg.github.com' "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
 
       - name: Guard exact version is absent
         env:
