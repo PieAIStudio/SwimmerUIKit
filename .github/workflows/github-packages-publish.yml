@@ -1,0 +1,83 @@
+name: github-packages-publish
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: github-packages-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Guard main branch
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Private package publishing is only allowed from main, got: $GITHUB_REF_NAME" >&2
+            exit 1
+          fi
+
+      - name: Reject reruns
+        run: test "$GITHUB_RUN_ATTEMPT" = "1"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.22.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@pieai'
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec lefthook install
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm verify
+      - run: pnpm build-storybook
+      - run: pnpm docs:check
+      - run: pnpm pack --out .scratch/release-candidate.tgz
+      - run: pnpm check:packed .scratch/release-candidate.tgz
+
+      - name: Guard exact version is absent
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@pieai/swimmer-ui-kit@${PACKAGE_VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "@pieai/swimmer-ui-kit@${PACKAGE_VERSION} already exists; refusing to republish" >&2
+            exit 1
+          fi
+
+      - name: Publish private package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish .scratch/release-candidate.tgz --tag next --registry=https://npm.pkg.github.com
+
+      - name: Read back exact version and next tag
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          for attempt in {1..60}; do
+            if VERSION=$(npm view "@pieai/swimmer-ui-kit@${PACKAGE_VERSION}" version --registry=https://npm.pkg.github.com) &&
+              NEXT=$(npm view @pieai/swimmer-ui-kit dist-tags.next --registry=https://npm.pkg.github.com); then
+              test "$VERSION" = "$PACKAGE_VERSION"
+              test "$NEXT" = "$PACKAGE_VERSION"
+              exit 0
+            fi
+            echo "Waiting for private registry read-back (read $attempt/60)."
+            sleep 5
+          done
+          echo "Could not confirm the exact private package version and next tag." >&2
+          exit 1
