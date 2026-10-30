@@ -17,6 +17,7 @@ function exportsOf(file: string): string[] {
 const guides = [
   'component-selection-guide.md',
   'theme-and-liquid.md',
+  'tool-worlds-adoption.md',
   'design-tokens.md',
   'migration-3.0.md',
   'public-api-inventory.md',
