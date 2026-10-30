@@ -5,7 +5,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
-## 4.0.0-alpha.11 — 2026-10-30（发布候选，未完成 registry 发布）
+## 4.0.0-alpha.11 — 2026-10-30
 
 - `LanguageMenu` 保留原有回调按钮模式，并新增带 `href`、`hrefLang`、`lang`、`dir`、`current`、`target` 和 `rel` 的原生路由链接模式；补齐箭头/Home/End 导航、Escape 关闭和焦点回归，长语言列表在窄屏可滚动。
 - 新增官网四产品入口的共享组合夹具：`HudActions` + `Button` + `Badge` + `Panel`，覆盖 EN/zh、浅/深主题及桌面/手机故事与浏览器回归；产品数据、路由和翻译仍由宿主拥有。
@@ -66,11 +66,11 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 - 真实浏览器回归覆盖同一 `triggerId` 的两次挂载：外圈路径一致，原生按钮收到相同 id。
 - 发布源 `3701eaa`，可信工作流 `39951527996`（attempt 1）全绿后发布；官方精确读回为 3.2.5。本机未发布，默认无 id 时改用稳定种子的建议另留组件 README，本次不做。
 
-## 3.2.4 — 2026-10-23（发布候选）
+## 3.2.4 — 2026-10-23（已发布到 npm latest）
 
 - 修复 `LiquidGroup` 装饰 SVG 的 `<g>` portal 容器占用键盘 Tab 焦点：React 为该容器注册焦点事件，Chromium 因而将其视为可聚焦；现在显式设置 `tabIndex={-1}`，保留外层的 `aria-hidden="true"` 与 `focusable="false"`。不改真实 DOM 子控件的语义、焦点顺序或液体外观。
 - `LiquidEffectsGroup` 复用相同根组件，一并修复。真实 Chromium 回归覆盖两者的 Tab／Shift+Tab 和内部按钮、链接顺序；其他 liquid／presence SVG 未发现相同的 SVG portal 模式。
-- 本轮授权仅允许私有 GitHub Packages，禁止公开 npm 发布。现源码包名 `@pieai/swimmer-ui-kit` 与现有私有包 `@pieaistudio/swimmer-ui-kit` 不同，包身份与发布配置须先明确，候选版本号不表示已经发布。
+- 本轮发布目标为公开 npm 包 `@pieai/swimmer-ui-kit`；候选版本号不表示已经发布。
 
 ## 3.2.3 — 2026-10-14（已发布到 npm latest；registry UTC 2026-10-13）
 
