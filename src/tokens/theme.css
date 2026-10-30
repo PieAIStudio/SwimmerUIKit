@@ -529,6 +529,10 @@
   --swimmer-world-magenta-gem2: #d21fae;
   --swimmer-act: #e8399b;
   --swimmer-act-2: #ff5fb3;
+  /* Dark ink keeps the shared pink action readable on both action fills. */
+  --swimmer-act-ink: #241022;
+  --swimmer-act-text: #9a145f;
+  --swimmer-act-text-dark: #ff9bd0;
   --swimmer-tool-c1: var(--swimmer-world-violet-c1);
   --swimmer-tool-c2: var(--swimmer-world-violet-c2);
   --swimmer-tool-c3: var(--swimmer-world-violet-c3);
@@ -537,6 +541,8 @@
   --swimmer-tool-gem2: var(--swimmer-world-violet-gem2);
   --swimmer-tool-focus: #ffffff;
   --swimmer-tool-text: #ffffff;
+  /* c1 is a decorative glow; this ink is for any host text deliberately placed on it. */
+  --swimmer-tool-text-on-glow: #140a23;
   --swimmer-tool-text-muted: rgb(255 255 255 / 78%);
   --swimmer-tool-muted: var(--swimmer-tool-text-muted);
   --swimmer-tool-line: rgb(255 255 255 / 10%);

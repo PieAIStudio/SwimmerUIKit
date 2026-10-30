@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
+import { Icon } from '../../src';
 import {
   ActionPill,
   BentoProgress,
   GlassCard,
   Gem,
-  Icon,
   ManagerSheet,
   RoundAction,
   Switch,
@@ -15,7 +15,7 @@ import {
   ToolWindow,
   type ToolSidebarItem,
   type ToolWorld,
-} from '../../src';
+} from '../../src/tool-worlds';
 
 const meta = {
   title: 'Swimmer/Colour Worlds/Mock pages',

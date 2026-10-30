@@ -116,8 +116,11 @@ for (const [entry, contract] of Object.entries(packed.exports)) {
   runtimeEntries[entry] = Object.keys(module).sort();
   assert.ok(existsSync(path.join(packedRoot, contract.types)), `Missing types: ${entry}`);
 }
-assert.deepEqual(Object.keys(runtimeEntries).sort(), ['.', './liquid-presence']);
+assert.deepEqual(Object.keys(runtimeEntries).sort(), ['.', './liquid-presence', './tool-worlds']);
 assert.ok(runtimeEntries['.'].includes('Button'));
+assert.ok(!runtimeEntries['.'].includes('ToolWindow'));
+assert.ok(runtimeEntries['./tool-worlds'].includes('ToolWindow'));
+assert.ok(runtimeEntries['./tool-worlds'].includes('ManagerSheet'));
 assert.ok(runtimeEntries['./liquid-presence'].includes('LiquidPresence'));
 // The account menu's LiquidPopover panel must not enter the root bundle graph.
 assert.ok(runtimeEntries['./liquid-presence'].includes('AccountMenu'));
@@ -129,7 +132,7 @@ mkdirSync(path.join(consumer, 'node_modules/@pieai'), { recursive: true });
 symlinkSync(packedRoot, path.join(consumer, 'node_modules/@pieai/swimmer-ui-kit'), 'dir');
 writeFileSync(path.join(consumer, 'package.json'), '{"private":true,"type":"module"}\n');
 let fixture = readFileSync('tests/type-contracts/optional-entries.tsx', 'utf8');
-for (const entry of ['index', 'liquid-presence'])
+for (const entry of ['index', 'tool-worlds', 'liquid-presence'])
   fixture = fixture.replaceAll(
     `'../../src/${entry}'`,
     `'@pieai/swimmer-ui-kit${entry === 'index' ? '' : `/${entry}`}'`,
@@ -195,7 +198,7 @@ assert.deepEqual(
   'Build module graph must cover the exact emitted JavaScript files',
 );
 // Inspect the shipped bytes, including shared React chunks, not source directives.
-const clientEntries = new Set(['index.js', 'liquid-presence.js']);
+const clientEntries = new Set(['index.js', 'tool-worlds.js', 'liquid-presence.js']);
 const clientDirective = /^\s*['"]use client['"]\s*;/;
 const clientChunks = [];
 const serverDataChunks = [];

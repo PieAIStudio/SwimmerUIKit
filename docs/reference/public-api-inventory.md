@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **167 named exports: 68 values and 99 types**.
+Compiler inventory: **133 named exports: 56 values and 77 types**.
 
 ## controls/ — Controls
 
@@ -37,12 +37,8 @@ Native actions, selection and labelled form controls
 | `Button` | value | [source](../../src/controls/Button/Button.tsx) |
 | `ButtonProps` | type | [source](../../src/controls/Button/Button.tsx) |
 | `ButtonVariant` | type | [source](../../src/controls/Button/Button.tsx) |
-| `ActionPill` | value | [source](../../src/controls/ActionPill/ActionPill.tsx) |
-| `ActionPillProps` | type | [source](../../src/controls/ActionPill/ActionPill.tsx) |
 | `Checkbox` | value | [source](../../src/controls/Checkbox/Checkbox.tsx) |
 | `CheckboxProps` | type | [source](../../src/controls/Checkbox/Checkbox.tsx) |
-| `Gem` | value | [source](../../src/controls/Gem/Gem.tsx) |
-| `GemProps` | type | [source](../../src/controls/Gem/Gem.tsx) |
 | `Field` | value | [source](../../src/controls/Field/Field.tsx) |
 | `FieldProps` | type | [source](../../src/controls/Field/Field.tsx) |
 | `IconButton` | value | [source](../../src/controls/IconButton/IconButton.tsx) |
@@ -59,13 +55,8 @@ Native actions, selection and labelled form controls
 | `SegmentedControlProps` | type | [source](../../src/controls/SegmentedControl/SegmentedControl.tsx) |
 | `Select` | value | [source](../../src/controls/Select/Select.tsx) |
 | `SelectProps` | type | [source](../../src/controls/Select/Select.tsx) |
-| `RoundAction` | value | [source](../../src/controls/RoundAction/RoundAction.tsx) |
-| `RoundActionProps` | type | [source](../../src/controls/RoundAction/RoundAction.tsx) |
-| `RoundActionState` | type | [source](../../src/controls/RoundAction/RoundAction.tsx) |
 | `Slider` | value | [source](../../src/controls/Slider/Slider.tsx) |
 | `SliderProps` | type | [source](../../src/controls/Slider/Slider.tsx) |
-| `Switch` | value | [source](../../src/controls/Switch/Switch.tsx) |
-| `SwitchProps` | type | [source](../../src/controls/Switch/Switch.tsx) |
 | `Tabs` | value | [source](../../src/controls/Tabs/Tabs.tsx) |
 | `TabItem` | type | [source](../../src/controls/Tabs/Tabs.tsx) |
 | `TabsProps` | type | [source](../../src/controls/Tabs/Tabs.tsx) |
@@ -121,17 +112,6 @@ Panels, dialogs, shells and action compositions
 
 | Export | Kind | Definition |
 | --- | --- | --- |
-| `BentoProgress` | value | [source](../../src/containers/BentoProgress/BentoProgress.tsx) |
-| `BentoProgressProps` | type | [source](../../src/containers/BentoProgress/BentoProgress.tsx) |
-| `BentoProgressState` | type | [source](../../src/containers/BentoProgress/BentoProgress.tsx) |
-| `BentoProgressTile` | type | [source](../../src/containers/BentoProgress/BentoProgress.tsx) |
-| `GlassCard` | value | [source](../../src/containers/GlassCard/GlassCard.tsx) |
-| `GlassCardProps` | type | [source](../../src/containers/GlassCard/GlassCard.tsx) |
-| `GlassCardVariant` | type | [source](../../src/containers/GlassCard/GlassCard.tsx) |
-| `ManagerSheet` | value | [source](../../src/containers/ManagerSheet/ManagerSheet.tsx) |
-| `ManagerSheetGroup` | type | [source](../../src/containers/ManagerSheet/ManagerSheet.tsx) |
-| `ManagerSheetProps` | type | [source](../../src/containers/ManagerSheet/ManagerSheet.tsx) |
-| `ManagerSheetRow` | type | [source](../../src/containers/ManagerSheet/ManagerSheet.tsx) |
 | `CollapsiblePanel` | value | [source](../../src/containers/CollapsiblePanel/CollapsiblePanel.tsx) |
 | `CollapsiblePanelLabels` | type | [source](../../src/containers/CollapsiblePanel/CollapsiblePanel.tsx) |
 | `CollapsiblePanelProps` | type | [source](../../src/containers/CollapsiblePanel/CollapsiblePanel.tsx) |
@@ -147,17 +127,6 @@ Panels, dialogs, shells and action compositions
 | `ModalProps` | type | [source](../../src/containers/Modal/Modal.tsx) |
 | `Panel` | value | [source](../../src/containers/Panel/Panel.tsx) |
 | `PanelProps` | type | [source](../../src/containers/Panel/Panel.tsx) |
-| `ToolLanding` | value | [source](../../src/containers/ToolLanding/ToolLanding.tsx) |
-| `ToolLandingFeature` | type | [source](../../src/containers/ToolLanding/ToolLanding.tsx) |
-| `ToolLandingProps` | type | [source](../../src/containers/ToolLanding/ToolLanding.tsx) |
-| `ToolSidebar` | value | [source](../../src/containers/ToolSidebar/ToolSidebar.tsx) |
-| `ToolSidebarItem` | type | [source](../../src/containers/ToolSidebar/ToolSidebar.tsx) |
-| `ToolSidebarProps` | type | [source](../../src/containers/ToolSidebar/ToolSidebar.tsx) |
-| `ToolWindow` | value | [source](../../src/containers/ToolWindow/ToolWindow.tsx) |
-| `TOOL_WORLDS` | value | [source](../../src/containers/toolWorlds.ts) |
-| `ToolSidebarMode` | type | [source](../../src/containers/toolWorlds.ts) |
-| `ToolWindowProps` | type | [source](../../src/containers/ToolWindow/ToolWindow.tsx) |
-| `ToolWorld` | type | [source](../../src/containers/toolWorlds.ts) |
 | `Shell` | value | [source](../../src/containers/Shell/Shell.tsx) |
 | `ShellProps` | type | [source](../../src/containers/Shell/Shell.tsx) |
 | `SurfaceDensity` | type | [source](../../src/containers/shared/surfaceTypes.ts) |
@@ -240,6 +209,3 @@ Asset setup, catalogs and resolution
 | `IconData` | type | [source](../../src/icons/types.ts) |
 | `Icon` | value | [source](../../src/icons/Icon/Icon.tsx) |
 | `IconProps` | type | [source](../../src/icons/Icon/Icon.tsx) |
-| `ToolIcon` | value | [source](../../src/icons/ToolIcon/ToolIcon.tsx) |
-| `ToolIconName` | type | [source](../../src/icons/ToolIcon/ToolIcon.tsx) |
-| `ToolIconProps` | type | [source](../../src/icons/ToolIcon/ToolIcon.tsx) |

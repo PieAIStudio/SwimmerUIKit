@@ -269,7 +269,7 @@ describe('one-shot release metadata guard', () => {
     expect(workflow).toContain('check-release-metadata.mjs after');
     expect(workflow).toContain('pnpm check:next-consumer .scratch/release-candidate.tgz');
     expect(workflow).toContain(
-      '--entrypoints . ./liquid-presence ./package.json --profile esm-only',
+      '--entrypoints . ./tool-worlds ./liquid-presence ./package.json --profile esm-only',
     );
     expect(workflow).not.toContain('./liquid-effects ./preview ./icon-paths');
     expect(workflow.indexOf('check-release-metadata.mjs before')).toBeLessThan(

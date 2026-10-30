@@ -27,7 +27,7 @@ Colour Worlds is the UIKit 4.0 tool layer. It gives MatrixAPPs one window langua
 ## Switch from the quiet shell
 
 1. Install one exact 4.0 alpha version from npm `next`; do not upgrade a 3.x consumer in place without its own acceptance.
-2. Replace the old tool-shell import with `ToolWindow` and `ToolSidebar`. Keep game `Shell` and liquid imports only where the app is using game surfaces; they are separate contracts.
+2. Import the tool parts from `@pieai/swimmer-ui-kit/tool-worlds` and replace the old tool-shell import with `ToolWindow` and `ToolSidebar`. Keep game `Shell` and liquid imports only where the app is using game surfaces; they are separate contracts.
 3. Set exactly one `world` on `ToolWindow`. Use the app assignment below; do not mix worlds in one app and do not override `--swimmer-act`.
 4. Compose the page from `ToolLanding`, `GlassCard`, `ManagerSheet`, `BentoProgress`, `RoundAction`, `Gem`, `Checkbox`, `ActionPill` and `Switch`. Put the real app action/data handlers underneath these parts.
 5. Use the same layout for English and Chinese. Let text wrap; do not add ellipsis or a native `select` to rescue a narrow layout. Use `sidebarMode="rail"` for review/manager views and the 380×600 popup layout for AutoContinue.
@@ -62,7 +62,7 @@ The alpha is a hard break: there is no quiet/aura tool-shell alias. An app migra
 | AutoContinue | `magenta` | yes |
 | Future app | `green`, `orange` or `blue` | app decision |
 
-`--swimmer-world-<name>-{c1,c2,c3,acc,gem1,gem2}` defines the eight available worlds. `--swimmer-act` is the same pink action colour in every app. The world is the only app-level colour axis; 3D art and content are the intentional per-app differences.
+`--swimmer-world-<name>-{c1,c2,c3,acc,gem1,gem2}` defines the eight available worlds. `--swimmer-act` is the same pink action colour in every app; its painted text uses `--swimmer-act-ink`, while sheet copy uses `--swimmer-act-text` or `--swimmer-act-text-dark`. c1 is a decorative glow, not a text surface; if app content must sit directly on it, use `--swimmer-tool-text-on-glow`. The world is the only app-level colour axis; 3D art and content are the intentional per-app differences.
 
 ## Acceptance checklist
 

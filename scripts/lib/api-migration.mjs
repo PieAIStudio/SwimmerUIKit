@@ -183,7 +183,7 @@ University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit。
 
 ## 特效与展厅
 
-一般界面继续从包根导入；4.0 alpha 只公开根入口、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
+一般游戏界面继续从包根导入；Colour Worlds 工具界面从 tool-worlds leaf 导入。4.0 alpha 公开根入口、tool-worlds、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
 
 GameMaterialSwatches 已被 University 的 AvatarLab 用于头像配色，不是 OwnMySpace 独占功能；保留为通用控件，类型去掉地形命名。其余建造、施工和资产业务组件按 D1 删除。
 

@@ -47,7 +47,9 @@
     min-width: 0;
     padding: 10px 16px;
     border-radius: 18px;
-    background: color-mix(in srgb, var(--swimmer-tool-c3) 42%, transparent);
+    /* The glow is decorative; this dark glass keeps white copy readable when
+       the c1 hotspot sits behind the landing words. */
+    background: color-mix(in srgb, var(--swimmer-tool-c3) 60%, transparent);
   }
 
   .game-ui-tool-landing-words h1 {

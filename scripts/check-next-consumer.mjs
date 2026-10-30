@@ -70,6 +70,7 @@ export default function Layout({children}:{children:ReactNode}) {
 write(
   'app/page.tsx',
   `import { Badge, Button, HelpCard, IconButton, Tooltip } from "@pieai/swimmer-ui-kit";
+import { ToolWindow } from "@pieai/swimmer-ui-kit/tool-worlds";
 import { LiquidPopover } from "@pieai/swimmer-ui-kit/liquid-presence";
 import Host from "./host";
 // A Server Component trigger that is still pending while the static page is
@@ -85,6 +86,7 @@ export default function Page() {
       <h1>UIKit 3 Next consumer</h1>
       <Badge>Server import</Badge>
       <Button href="/read">Read</Button>
+      <ToolWindow title="Tool leaf" world="violet"><p>Tool leaf</p></ToolWindow>
       <HelpCard label="怎么用" topics={[{ id: "save", label: "保存", title: "点一下就保存", body: "第一行。" }]}>
         <Guide label="怎么用" href="/read" />
       </HelpCard>
@@ -210,6 +212,7 @@ try {
     const html = await (await fetch(origin)).text();
     assert.match(html, /UIKit 3 Next consumer/);
     assert.match(html, /Server import/);
+    assert.match(html, /Tool leaf/);
     assert.match(html, /href="\/read"/);
     assert.match(html, /game-ui-trigger-slot/, 'Server trigger must be prerendered in its slot');
     writeFileSync(path.join(evidence, 'server-render.html'), html);

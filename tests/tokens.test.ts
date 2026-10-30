@@ -310,6 +310,18 @@ describe('WCAG contrast guard (locks in the 1.1 button/tab fixes)', () => {
       '--swimmer-ink-heading',
       '--swimmer-game-surface',
     ],
+    ['pink action text on base fill', '--swimmer-act-ink', '--swimmer-act'],
+    ['pink action text on highlight fill', '--swimmer-act-ink', '--swimmer-act-2'],
+    ['pink action text on light sheet', '--swimmer-act-text', '--swimmer-sheet-bg'],
+    ['pink action text on dark sheet', '--swimmer-act-text-dark', '--swimmer-sheet-bg-dark'],
+    ['tool glow text', '--swimmer-tool-text-on-glow', '--swimmer-world-violet-c1'],
+    ['tool glow text on blue', '--swimmer-tool-text-on-glow', '--swimmer-world-blue-c1'],
+    ['tool glow text on teal', '--swimmer-tool-text-on-glow', '--swimmer-world-teal-c1'],
+    ['tool glow text on green', '--swimmer-tool-text-on-glow', '--swimmer-world-green-c1'],
+    ['tool glow text on coral', '--swimmer-tool-text-on-glow', '--swimmer-world-coral-c1'],
+    ['tool glow text on orange', '--swimmer-tool-text-on-glow', '--swimmer-world-orange-c1'],
+    ['tool glow text on indigo', '--swimmer-tool-text-on-glow', '--swimmer-world-indigo-c1'],
+    ['tool glow text on magenta', '--swimmer-tool-text-on-glow', '--swimmer-world-magenta-c1'],
   ];
 
   it('removes the D2 metal material instead of leaving a dormant theme or renderer', () => {

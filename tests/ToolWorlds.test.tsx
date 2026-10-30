@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { Checkbox } from '../src';
 import {
   BentoProgress,
-  Checkbox,
   GlassCard,
   ManagerSheet,
   RoundAction,
@@ -11,7 +11,7 @@ import {
   ToolLanding,
   ToolSidebar,
   ToolWindow,
-} from '../src';
+} from '../src/tool-worlds';
 
 const markup = (node: ReactNode) => renderToStaticMarkup(node).replace(/\s+/g, ' ');
 

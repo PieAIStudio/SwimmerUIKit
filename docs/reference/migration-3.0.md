@@ -566,7 +566,7 @@ related:
 
 ## 公开名字的逐项变化
 
-根入口从 295 个名字收窄到 167 个；下表逐一覆盖 274 个删除、改名或移往子入口的名字。
+根入口从 295 个名字收窄到 133 个；下表逐一覆盖 274 个删除、改名或移往子入口的名字。
 参数、主题和样式另有 29 条，合计 303 条。仍保留的名字不代表所有参数保持不变，务必同时检查第二张表。
 
 | 旧名字 | 原种类 | 迁移方法与原因 |
@@ -943,7 +943,7 @@ University、Directing、FlowToFeel、SwimmerParty-Website、SwimmerAuthKit。
 
 ## 特效与展厅
 
-一般界面继续从包根导入；4.0 alpha 只公开根入口、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
+一般游戏界面继续从包根导入；Colour Worlds 工具界面从 tool-worlds leaf 导入。4.0 alpha 公开根入口、tool-worlds、liquid-presence 和 CSS leaves。高级图像特效与展厅源码不构成已发布 JS 入口，不能作为当前包依赖。
 
 GameMaterialSwatches 已被 University 的 AvatarLab 用于头像配色，不是 OwnMySpace 独占功能；保留为通用控件，类型去掉地形命名。其余建造、施工和资产业务组件按 D1 删除。
 

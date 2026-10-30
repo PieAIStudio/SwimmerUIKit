@@ -9,6 +9,7 @@ import {
   Icon,
 } from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
+import { ToolWindow } from '../../src/tool-worlds';
 
 export const namedIcon = <Icon icon="check" label="Completed" />;
 
@@ -30,6 +31,7 @@ export const select = (
 );
 export const toggle = <Toggle checked label="Sound" />;
 export const reveal = <LiquidReveal>Draft</LiquidReveal>;
+export const toolWindow = <ToolWindow title="Tool">Content</ToolWindow>;
 
 // @ts-expect-error Image effects are not part of the default group API.
 export const rejectedMelt = <LiquidGroup.Item effect="melt">Text</LiquidGroup.Item>;

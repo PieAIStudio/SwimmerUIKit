@@ -45,7 +45,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 | 用途 | 变量族 |
 | --- | --- |
 | 页面和文字 | --swimmer-game-bg、--swimmer-game-surface、--swimmer-game-text、--swimmer-game-text-muted |
-| Colour Worlds 工具窗口 | --swimmer-world-<name>-{c1,c2,c3,acc,gem1,gem2}、--swimmer-act、--swimmer-tool-*、--swimmer-sheet-*-dark |
+| Colour Worlds 工具窗口 | --swimmer-world-<name>-{c1,c2,c3,acc,gem1,gem2}、--swimmer-act/act-ink/act-text、--swimmer-tool-*、--swimmer-sheet-*-dark |
 | 普通/选中/含义/禁用控件 | --swimmer-control-fill/edge/text，control-on-*、control-meaning-*、control-disabled-* |
 | 危险操作 | --swimmer-danger-ink、--swimmer-control-danger-edge；不会改变普通底色 |
 | 配色 | --swimmer-tint-*、--swimmer-mist-*；hue 映射为控件局部变量 |
@@ -73,7 +73,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 库的组件规则在 swimmer-ui 层。消费方确需覆写时优先改语义 token，不复制组件或使用 !important。风格配方在绘制元素上解析：hue 改动必须在该元素形成实际语义值，不能先在祖先把 color-mix 算死。自定义颜色要重新跑真实文字/背景对比检查，不能继承官方配色的通过结论。
 
-普通主色与文字主色不同：accent-ink 是强调色文字，accent-contrast 才是用于 accent 背景的文字。检测工具会报告不可读的裸 token 配对、未定义变量和旧主题取值；透明叠色与任意用户图像仍需在实际场景验证。默认一次扫描一个目录并运行全部规则；需要拆开归属或只跑相关规则时，可以传多个目录和 `--rules=tokens,old-names,contrast` 的子集。
+普通主色与文字主色不同：accent-ink 是强调色文字，accent-contrast 才是用于 accent 背景的文字；Colour Worlds 的 pink action 使用 act-ink 作为填充上的文字，act-text/act-text-dark 用于浅色/深色 sheet 上的文字。c1 是装饰性 glow，若产品把文字直接放到 glow 上，使用 tool-text-on-glow；组件落字面会先提供深色 c3 glass。检测工具会报告不可读的裸 token 配对、未定义变量和旧主题取值；透明叠色与任意用户图像仍需在实际场景验证。默认一次扫描一个目录并运行全部规则；需要拆开归属或只跑相关规则时，可以传多个目录和 `--rules=tokens,old-names,contrast` 的子集。
 
 ```sh
 pnpm exec swimmer-ui-check src

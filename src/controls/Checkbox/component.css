@@ -61,7 +61,7 @@
   .game-ui-checkbox--tool:has(input:checked) .game-ui-selection-mark {
     border-color: var(--swimmer-act);
     background: var(--swimmer-act);
-    color: white;
+    color: var(--swimmer-act-ink);
   }
 
   .game-ui-checkbox--tool:has(input:focus-visible) .game-ui-selection-mark {

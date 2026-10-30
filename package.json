@@ -41,6 +41,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./tool-worlds": {
+      "types": "./dist/tool-worlds.d.ts",
+      "default": "./dist/tool-worlds.js"
+    },
     "./liquid-presence": {
       "types": "./dist/liquid-presence.d.ts",
       "default": "./dist/liquid-presence.js"

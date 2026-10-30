@@ -9,6 +9,7 @@
     border-radius: 14px;
     background: var(--swimmer-sheet-bg);
     color: var(--swimmer-sheet-ink);
+    --swimmer-sheet-act-text: var(--swimmer-act-text);
     box-shadow: 0 30px 60px var(--swimmer-sheet-shadow);
   }
 
@@ -25,6 +26,7 @@
     --swimmer-sheet-icon-ink: var(--swimmer-sheet-icon-ink-dark);
     --swimmer-sheet-checkbox-edge: var(--swimmer-sheet-checkbox-edge-dark);
     --swimmer-sheet-checkbox-bg: var(--swimmer-sheet-checkbox-bg-dark);
+    --swimmer-sheet-act-text: var(--swimmer-act-text-dark);
   }
 
   .game-ui-manager-sheet-bar {
@@ -85,7 +87,7 @@
     align-items: center;
     gap: 4px;
     min-width: 24px;
-    color: var(--swimmer-act);
+    color: var(--swimmer-sheet-act-text);
   }
 
   .game-ui-manager-sheet-search input {
@@ -104,7 +106,7 @@
   }
 
   .game-ui-manager-sheet-sort strong {
-    color: var(--swimmer-act);
+    color: var(--swimmer-sheet-act-text);
     font-weight: 600;
   }
 
@@ -168,7 +170,7 @@
     padding: 2px 7px;
     border-radius: 6px;
     background: var(--swimmer-act);
-    color: white;
+    color: var(--swimmer-act-ink);
     font-size: var(--swimmer-tool-font-meta);
     text-align: center;
   }

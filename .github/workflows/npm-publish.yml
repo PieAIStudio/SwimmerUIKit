@@ -57,7 +57,7 @@ jobs:
         run: pnpm pack --out .scratch/release-candidate.tgz
       - run: pnpm check:packed .scratch/release-candidate.tgz
       - run: npm exec --yes --registry=https://registry.npmjs.org --package=publint@0.3.24 -- publint run .scratch/release-candidate.tgz --strict
-      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./liquid-presence ./package.json --profile esm-only
+      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./tool-worlds ./liquid-presence ./package.json --profile esm-only
 
       - run: pnpm check:next-consumer .scratch/release-candidate.tgz .scratch/next-consumer
       - run: sha256sum .scratch/release-candidate.tgz

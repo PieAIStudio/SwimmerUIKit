@@ -13,9 +13,7 @@ export {
 } from './liquid/LiquidGroup/types';
 export { LiquidSurface, type LiquidSurfaceProps } from './liquid/LiquidSurface/LiquidSurface';
 export { Button, type ButtonProps, type ButtonVariant } from './controls/Button/Button';
-export { ActionPill, type ActionPillProps } from './controls/ActionPill/ActionPill';
 export { Checkbox, type CheckboxProps } from './controls/Checkbox/Checkbox';
-export { Gem, type GemProps } from './controls/Gem/Gem';
 export { Field, type FieldProps } from './controls/Field/Field';
 export { IconButton, type IconButtonProps } from './controls/IconButton/IconButton';
 export { Input, type InputProps } from './controls/Input/Input';
@@ -27,13 +25,7 @@ export {
   type SegmentedControlProps,
 } from './controls/SegmentedControl/SegmentedControl';
 export { Select, type SelectProps } from './controls/Select/Select';
-export {
-  RoundAction,
-  type RoundActionProps,
-  type RoundActionState,
-} from './controls/RoundAction/RoundAction';
 export { Slider, type SliderProps } from './controls/Slider/Slider';
-export { Switch, type SwitchProps } from './controls/Switch/Switch';
 export { Tabs, type TabItem, type TabsProps } from './controls/Tabs/Tabs';
 export { TextArea, type TextAreaProps } from './controls/TextArea/TextArea';
 export { Toggle, type ToggleProps } from './controls/Toggle/Toggle';
@@ -52,23 +44,6 @@ export { Progress, type ProgressProps } from './feedback/Progress/Progress';
 export { Prompt, type PromptProps } from './feedback/Prompt/Prompt';
 export { Toast, type ToastProps } from './feedback/Toast/Toast';
 export { Tooltip, type TooltipProps } from './feedback/Tooltip/Tooltip';
-export {
-  BentoProgress,
-  type BentoProgressProps,
-  type BentoProgressState,
-  type BentoProgressTile,
-} from './containers/BentoProgress/BentoProgress';
-export {
-  GlassCard,
-  type GlassCardProps,
-  type GlassCardVariant,
-} from './containers/GlassCard/GlassCard';
-export {
-  ManagerSheet,
-  type ManagerSheetGroup,
-  type ManagerSheetProps,
-  type ManagerSheetRow,
-} from './containers/ManagerSheet/ManagerSheet';
 export {
   playGameCardRevealSound,
   playGameInteractionSound,
@@ -91,23 +66,6 @@ export {
 export { HudActions, type HudActionsProps } from './containers/HudActions/HudActions';
 export { Modal, type ModalProps } from './containers/Modal/Modal';
 export { Panel, type PanelProps } from './containers/Panel/Panel';
-export {
-  ToolLanding,
-  type ToolLandingFeature,
-  type ToolLandingProps,
-} from './containers/ToolLanding/ToolLanding';
-export {
-  ToolSidebar,
-  type ToolSidebarItem,
-  type ToolSidebarProps,
-} from './containers/ToolSidebar/ToolSidebar';
-export {
-  ToolWindow,
-  TOOL_WORLDS,
-  type ToolSidebarMode,
-  type ToolWindowProps,
-  type ToolWorld,
-} from './containers/ToolWindow/ToolWindow';
 export { Shell, type ShellProps } from './containers/Shell/Shell';
 export { type SurfaceDensity, type SurfaceLayout } from './containers/shared/surfaceTypes';
 export {
@@ -145,7 +103,6 @@ export {
 export { GAME_ICON_NAMES, type IconName } from './icons/registry';
 export type { IconData } from './icons/types';
 export { Icon, type IconProps } from './icons/Icon/Icon';
-export { ToolIcon, type ToolIconName, type ToolIconProps } from './icons/ToolIcon/ToolIcon';
 export type {
   MaterialSwatch,
   MaterialPattern,

@@ -71,6 +71,10 @@ describe('3.0 public contract and complete migration', () => {
       './fonts.css': './dist/fonts.css',
       './tailwind.css': './dist/tailwind.css',
       './package.json': './package.json',
+      './tool-worlds': {
+        types: './dist/tool-worlds.d.ts',
+        default: './dist/tool-worlds.js',
+      },
       './liquid-presence': {
         types: './dist/liquid-presence.d.ts',
         default: './dist/liquid-presence.js',
