@@ -19,13 +19,19 @@ related:
 
 # 当前工作
 
-## 当前：Colour Worlds 工具层已完成，alpha.12 已发布到 npm next
+## 当前：Colour Worlds overlap fix 已完成，alpha.13 已发布到 npm next
 
-Colour Worlds 已加入 UIKit 4.0：八个 `--swimmer-world-*` 世界组、统一 `--swimmer-act`、`ToolWindow`、透明 `ToolSidebar`、`ToolLanding`、`Gem`、`RoundAction`、`GlassCard`、`ManagerSheet`、工具 `Checkbox`、`ActionPill`、`BentoProgress`、`Switch` 和 `ToolIcon`。工具零件从 `@pieai/swimmer-ui-kit/tool-worlds` leaf 导入，游戏根入口保留在预算内；ClaudeSync 使用 violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta；没有改任何消费产品。
+Colour Worlds 继续由 `@pieai/swimmer-ui-kit/tool-worlds` 提供八个世界组和共享工具零件；没有改任何消费产品。共享 `GlassCard` 现在为带角落图标的卡片建立独立图标列，标题与正文使用独立文字列；`kept` 行布局不变，浅色、深色和窄宽度回归均确认图标与文字块不相交。
 
-旧 quiet/aura 工具壳的 `PageSurface` 与工具模式已删除，不留兼容别名；游戏 `Shell` 与 liquid 部分仍保留。`swimmer-ui-check --rules=tool` 为消费端 opt-in 守卫；pink action 和直接落在 glow 上的文字有独立安全 token。首次 alpha.12 workflow run **41068847591** 在 `check:packed` 因根 runtime **171372 > 159626** 停止，没有发布；移出根入口后本地候选为 **157401 bytes**，packed、attw、Next 真包消费和 Colour Worlds Storybook 10 项均通过。修正源提交 **`1d3eb81`** 已推送；trusted workflow **`41083917214`** 全绿并发布了 alpha.12。mock 对照、对比像素、对比度、相关检查和发布回读见 `.reports/2026-10-30-colour-worlds/RESULT.md`。
+根因是 `src/containers/GlassCard/component.css` 原来把角落图标绝对定位在文字列上方，没有给标题/正文保留布局空间。源提交 **`fddcde6`** 修复组件和 Storybook painted-box 回归；发布准备提交 **`95019f4`** 已推送。相关检查、Storybook Colour Worlds **10 项通过**、九视图复查和 docs 检查见 `.reports/2026-10-31-colour-worlds-overlap/`。
 
-官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.12` 存在，`next=4.0.0-alpha.12`，`latest=3.2.5`；registry tarball SHA-256 **`6348d7a55439dc552add64a04e9cf035bf8efe7f31e0485b509a1c34b46d9fd1`** 与 CI 候选一致。发布不代表任何消费产品已升级或验收。
+Trusted workflow **`41103050448`** 全绿并发布 alpha.13；packed root runtime **157401 / 159626 bytes**，CI 与 registry tarball SHA-256 均为 **`29a084960f908a00883ee93b76efdf36189dfa86dc6207f69babab405775cf32`**。官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.13` 存在，`next=4.0.0-alpha.13`，`latest=3.2.5`。发布不代表任何消费产品已升级或验收。
+
+## 前次：Colour Worlds alpha.12 已于 2026-10-30 通过 trusted Actions 发布为 npm next
+
+alpha.12 首次 workflow **41068847591** 在 `check:packed` 因根 runtime **171372 > 159626** 停止，没有发布；移出根入口后本地候选为 **157401 bytes**，packed、attw、Next 真包消费和 Colour Worlds Storybook 10 项均通过。修正源提交 **`1d3eb81`** 已推送；trusted workflow **`41083917214`** 全绿并发布了 alpha.12。mock 对照、对比像素、对比度、相关检查和发布回读见 `.reports/2026-10-30-colour-worlds/RESULT.md`。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.12` 存在，`next=4.0.0-alpha.12`，`latest=3.2.5`；registry tarball SHA-256 **`6348d7a55439dc552add64a04e9cf035bf8efe7f31e0485b509a1c34b46d9fd1`** 与 CI 候选一致。
 
 ## 前次：4.0.0-alpha.11 已于 2026-10-30 通过 trusted Actions 发布为 npm next
 

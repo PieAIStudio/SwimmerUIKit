@@ -10,6 +10,7 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 - 修复共享 `GlassCard` 的角落图标布局：带图标的卡片现在为图标保留独立网格列，标题和正文不会被图标遮住；`kept` 行布局保持不变。
 - 新增 MailWard summary Storybook painted-box 回归，覆盖图标与文字块不相交；复查九个 Colour Worlds mock view，没有发现其他图标、badge 覆盖文字或截断问题。
 - 未改消费产品；本候选只通过 trusted `npm-publish.yml` 发布到 npm `next`，`latest` 保持 3.2.5。
+- 源提交 `95019f4` 经 trusted workflow `41103050448` 发布；官方读回 `next=4.0.0-alpha.13`、`latest=3.2.5`，registry tarball SHA-256 `29a084960f908a00883ee93b76efdf36189dfa86dc6207f69babab405775cf32` 与 CI 候选一致。
 
 ## 4.0.0-alpha.12 — 2026-10-30（Colour Worlds，已发布到 npm next）
 
