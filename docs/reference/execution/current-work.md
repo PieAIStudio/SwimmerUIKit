@@ -19,11 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：Colour Worlds 工具层已修正，待 alpha.12 发布回读
+## 当前：Colour Worlds 工具层已完成，alpha.12 已发布到 npm next
 
 Colour Worlds 已加入 UIKit 4.0：八个 `--swimmer-world-*` 世界组、统一 `--swimmer-act`、`ToolWindow`、透明 `ToolSidebar`、`ToolLanding`、`Gem`、`RoundAction`、`GlassCard`、`ManagerSheet`、工具 `Checkbox`、`ActionPill`、`BentoProgress`、`Switch` 和 `ToolIcon`。工具零件从 `@pieai/swimmer-ui-kit/tool-worlds` leaf 导入，游戏根入口保留在预算内；ClaudeSync 使用 violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta；没有改任何消费产品。
 
-旧 quiet/aura 工具壳的 `PageSurface` 与工具模式已删除，不留兼容别名；游戏 `Shell` 与 liquid 部分仍保留。`swimmer-ui-check --rules=tool` 为消费端 opt-in 守卫；pink action 和直接落在 glow 上的文字有独立安全 token。首次 alpha.12 workflow run **41068847591** 在 `check:packed` 因根 runtime **171372 > 159626** 停止，没有发布；移出根入口后本地候选为 **157401 bytes**，packed、attw、Next 真包消费和 Colour Worlds Storybook 10 项均通过。mock 对照、对比像素、对比度、相关检查和发布回读见 `.reports/2026-10-30-colour-worlds/RESULT.md`。
+旧 quiet/aura 工具壳的 `PageSurface` 与工具模式已删除，不留兼容别名；游戏 `Shell` 与 liquid 部分仍保留。`swimmer-ui-check --rules=tool` 为消费端 opt-in 守卫；pink action 和直接落在 glow 上的文字有独立安全 token。首次 alpha.12 workflow run **41068847591** 在 `check:packed` 因根 runtime **171372 > 159626** 停止，没有发布；移出根入口后本地候选为 **157401 bytes**，packed、attw、Next 真包消费和 Colour Worlds Storybook 10 项均通过。修正源提交 **`1d3eb81`** 已推送；trusted workflow **`41083917214`** 全绿并发布了 alpha.12。mock 对照、对比像素、对比度、相关检查和发布回读见 `.reports/2026-10-30-colour-worlds/RESULT.md`。
+
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.12` 存在，`next=4.0.0-alpha.12`，`latest=3.2.5`；registry tarball SHA-256 **`6348d7a55439dc552add64a04e9cf035bf8efe7f31e0485b509a1c34b46d9fd1`** 与 CI 候选一致。发布不代表任何消费产品已升级或验收。
 
 ## 前次：4.0.0-alpha.11 已于 2026-10-30 通过 trusted Actions 发布为 npm next
 

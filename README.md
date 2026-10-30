@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持七套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.12 是 Colour Worlds 候选**：工具 App 从 `@pieai/swimmer-ui-kit/tool-worlds` 使用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress`、`RoundAction` 等共享零件；`latest` 仍为 3.2.5。发布后版本与 npm 回读见[当前工作](docs/reference/execution/current-work.md)，接入步骤见[Colour Worlds adoption guide](docs/reference/tool-worlds-adoption.md)。现有产品继续锁定精确版本；本仓库不自动升级任何产品。
+**4.0.0-alpha.12 已发布到 npm `next`，是 Colour Worlds alpha**：工具 App 从 `@pieai/swimmer-ui-kit/tool-worlds` 使用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress`、`RoundAction` 等共享零件；`latest` 仍为 3.2.5。发布后版本与 npm 回读见[当前工作](docs/reference/execution/current-work.md)，接入步骤见[Colour Worlds adoption guide](docs/reference/tool-worlds-adoption.md)。现有产品继续锁定精确版本；本仓库不自动升级任何产品。
 
 ## 安装与最小使用
 
