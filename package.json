@@ -53,8 +53,7 @@
     "./package.json": "./package.json"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "check:catalog": "node scripts/verify-catalog.mjs",
