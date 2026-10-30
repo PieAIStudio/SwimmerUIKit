@@ -27,6 +27,7 @@ export function GlassCard({
     <article
       className={joinClasses('game-ui-glass-card', className)}
       data-tool-card="true"
+      data-tool-card-has-icon={variant !== 'kept' && icon ? 'true' : undefined}
       data-tool-card-variant={variant}
     >
       {variant === 'kept' ? <div className="game-ui-glass-card-kept-icon">{icon}</div> : null}

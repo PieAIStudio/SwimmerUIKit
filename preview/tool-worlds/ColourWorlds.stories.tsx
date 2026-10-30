@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import type { ReactNode } from 'react';
 import { Icon } from '../../src';
 import {
@@ -34,6 +35,35 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 type NavItem = ToolSidebarItem;
+
+function boxesIntersect(a: DOMRect, b: DOMRect): boolean {
+  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+
+function assertMailWardSummaryIconDoesNotOverlapCopy({
+  canvasElement,
+}: {
+  canvasElement: HTMLElement;
+}) {
+  const card = [...canvasElement.querySelectorAll<HTMLElement>('[data-tool-card]')].find(
+    (candidate) => candidate.querySelector('h2')?.textContent === '904 promotions',
+  );
+  expect(card, 'MailWard summary must render the promotions card').toBeTruthy();
+  if (!card) throw new Error('MailWard summary promotions card is missing');
+
+  const icon = card.querySelector<HTMLElement>('.game-ui-glass-card-icon');
+  const copy = card.querySelector<HTMLElement>('.game-ui-glass-card-copy');
+  expect(icon, 'MailWard promotions card must render its icon').toBeTruthy();
+  expect(copy, 'MailWard promotions card must render its text block').toBeTruthy();
+  if (!icon || !copy) throw new Error('MailWard promotions card icon or text block is missing');
+
+  const iconBox = icon.getBoundingClientRect();
+  const copyBox = copy.getBoundingClientRect();
+  expect(
+    boxesIntersect(iconBox, copyBox),
+    `MailWard promotions icon box ${JSON.stringify(iconBox.toJSON())} intersects copy box ${JSON.stringify(copyBox.toJSON())}`,
+  ).toBe(false);
+}
 
 function Art({
   name,
@@ -284,6 +314,7 @@ export const MailWardLanding: Story = {
 };
 
 export const MailWardSummary: Story = {
+  play: assertMailWardSummaryIconDoesNotOverlapCopy,
   render: () => (
     <ToolWindow
       sidebar={<Sidebar app="MailWard" items={mailItems} mode="rail" />}

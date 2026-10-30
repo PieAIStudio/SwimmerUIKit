@@ -32,6 +32,23 @@
     min-width: 0;
   }
 
+  .game-ui-glass-card[data-tool-card-has-icon='true'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: 16px;
+  }
+
+  .game-ui-glass-card[data-tool-card-has-icon='true'] .game-ui-glass-card-copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .game-ui-glass-card[data-tool-card-has-icon='true'] .game-ui-glass-card-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
   .game-ui-glass-card h2 {
     margin: 0 0 6px;
     color: var(--swimmer-tool-text);
@@ -50,9 +67,14 @@
   }
 
   .game-ui-glass-card-icon {
-    position: absolute;
-    top: 16px;
-    right: 18px;
+    position: static;
+  }
+
+  .game-ui-glass-card[data-tool-card-has-icon='true'] .game-ui-glass-card-icon {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-self: end;
   }
 
   .game-ui-glass-card-actions {
