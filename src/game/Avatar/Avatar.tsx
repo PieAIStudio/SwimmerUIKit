@@ -4,7 +4,8 @@ import type { ReactNode } from 'react';
 function initialsFromName(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) return '?';
-  const letters = parts.slice(0, 2).map((part) => part[0] ?? '');
+  // Iterate by code point so a character outside the BMP is not split in half.
+  const letters = parts.slice(0, 2).map((part) => [...part][0] ?? '');
   return letters.join('').toUpperCase();
 }
 
