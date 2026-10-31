@@ -1,8 +1,8 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-10-30T19:59:10.283Z
+generated_at: 2026-10-31T02:14:53.977Z
 generator_version: doc-gov@0.16.0
-docs_count: 62
+docs_count: 63
 docs:
   - id: ARCHIVE-LIQUID-MERGE-OWNER-REVIEW
     path: docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/owner-review-brief.md
@@ -312,6 +312,13 @@ docs:
     canonical: true
     last_reviewed: 2026-10-31
     pinned: true
+  - id: REF-LEARNING-DESIGN-PATTERNS-DECORATED-CONTROLS-MUST-CLIP-LIQUID-PAINT-TO-THE-NATIVE-BORDER-BOX
+    path: docs/reference/learnings/design-patterns/decorated-controls-must-clip-liquid-paint-to-the-native-border-box.md
+    type: reference
+    status: stable
+    canonical: true
+    last_reviewed: 2026-10-31
+    pinned: false
   - id: REF-LEARNING-DESIGN-PATTERNS-FONT-FAMILY-TOKEN-NAMES-CANNOT-BE-REUSED-FOR-TOOL-TYPOGRAPHY-SIZES
     path: docs/reference/learnings/design-patterns/font-family-token-names-cannot-be-reused-for-tool-typography-sizes.md
     type: reference
