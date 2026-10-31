@@ -37,7 +37,8 @@ function itemProps(item: ToolSidebarItem) {
 
 function Item({ item }: { item: ToolSidebarItem }): ReactNode {
   const icon = item.selected ? <Gem>{item.icon}</Gem> : item.icon;
-  if (item.href) {
+  // <a> has no disabled state, so a disabled item renders as a disabled button.
+  if (item.href && !item.disabled) {
     const props: AnchorHTMLAttributes<HTMLAnchorElement> = {
       ...itemProps(item),
       href: item.href,
