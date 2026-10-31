@@ -19,13 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：primary liquid CTA edge containment 已完成，alpha.15 候选待 trusted 发布
+## 当前：primary liquid CTA edge containment 已完成，alpha.15 已发布到 npm next
 
 修复 `src/controls/Button/component.css` 的两个源头问题：grid/flex track 会把 liquid frame 拉宽到轨道，且 CTA 装饰层没有圆角裁切 compositor 阴影。现在 frame 用 `width: fit-content`（full-width 仍占满），装饰层用 native rounded border-box 的 `overflow: hidden`；潮汐渐变、高光和按压姿态保留。没有改任何消费产品。
 
 Kit preview 的 1440 / 390、light / dark、white / tinted card painted-bounds 证据在 `.reports/2026-10-31-button-edge/`；before 的最大外溢为 **40.11px right / 20.36px bottom**，修复后 painted pixels outside border-box 为 **0**。Chromium 回归覆盖 standard、full-width、small、link、pending、static 六种 primary 形态，共 48 个矩阵场景。
 
-版本已更新为 **4.0.0-alpha.15**，待相关门禁、推送后由 trusted `npm-publish.yml` 发布到 `next`；`latest` 保持 3.2.5。
+版本已更新为 **4.0.0-alpha.15**；源提交 **`3c22960`** 已推送，trusted workflow **`41155759473`**（attempt 1）全绿并发布到 `next`。workflow candidate 与 registry tarball SHA-256 均为 **`15732486de06180b7b33e9a0f089c7cf895d7f68facbbd8f9fd93d45b7f67dbf`**；本机 pre-publish packed candidate 为 **`6fb81091f14feaed7e19fd5417509e303f42e2ca55ab02390d69ab556f6aac24`**，仅作本地验收证据。官方回读 `next=4.0.0-alpha.15`、`latest=3.2.5`；registry integrity 为 `sha512-ptXQX08V62c8VX2v49+SLuSCl2MsuSoWOqlJIstN5TKeAltDJ564rTupM0cErfZel4UHgBJR+fS0NAPKLHflrg==`。
 
 ## 前次：Colour Worlds overlap fix 已完成，alpha.13 已发布到 npm next
 
