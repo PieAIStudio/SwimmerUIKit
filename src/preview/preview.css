@@ -936,8 +936,7 @@
   /* Liquid used to be one section inside the component dump. It is the  */
   /* brand's signature surface and it keeps growing, so it has its own   */
   /* destination now; these rules are that page's layout and nothing     */
-  /* else. Generous vertical room everywhere on purpose — a silhouette   */
-  /* is painted outside its control's box and a drop-shadow outside that */
+  /* else. Generous vertical room keeps the contained liquid body clear. */
   /* ------------------------------------------------------------------ */
   .game-ui-liquid-page__rule {
     max-width: 62ch;

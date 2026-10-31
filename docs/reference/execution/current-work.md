@@ -19,13 +19,13 @@ related:
 
 # 当前工作
 
-## 当前：Colour Worlds round 3 已完成，alpha.14 候选待 trusted 发布
+## 当前：primary liquid CTA edge containment 已完成，alpha.15 候选待 trusted 发布
 
-Colour Worlds 继续由 `@pieai/swimmer-ui-kit/tool-worlds` 提供世界组和共享工具零件；没有改任何消费产品。`ToolSidebar` 现在画一条 centred 的短渐变 1px divider，normal 与 rail 共用一个色场；`ToolLanding` 传入 `model` 时通过可选 `tool-hero-3d` leaf 使用真实 Three.js hero。
+修复 `src/controls/Button/component.css` 的两个源头问题：grid/flex track 会把 liquid frame 拉宽到轨道，且 CTA 装饰层没有圆角裁切 compositor 阴影。现在 frame 用 `width: fit-content`（full-width 仍占满），装饰层用 native rounded border-box 的 `overflow: hidden`；潮汐渐变、高光和按压姿态保留。没有改任何消费产品。
 
-`ToolHero3D` 支持 route-v0 primitive builder 或 GLB、页面级 shared renderer、7 秒 calm idle、pointer parallax、world lighting、reduced-motion、off-screen/hidden pause、PNG fallback 和 frame/triangle metrics。Storybook 新增五世界 matrix（1440 / 390）与 OnePlace + MailWard motion study；placeholder 不是最终产品 art。视觉证据、divider before/after 和录屏在 `.reports/2026-10-31-colour-worlds-3d/`。
+Kit preview 的 1440 / 390、light / dark、white / tinted card painted-bounds 证据在 `.reports/2026-10-31-button-edge/`；before 的最大外溢为 **40.11px right / 20.36px bottom**，修复后 painted pixels outside border-box 为 **0**。Chromium 回归覆盖 standard、full-width、small、link、pending、static 六种 primary 形态，共 48 个矩阵场景。
 
-本地 packed root runtime 仍为 **157401 / 159626 bytes**；`tool-hero-3d` 自有 JS leaf 为 `tool-hero-3d.js` + `ToolHero3D-*.js`，three 为 optional peer，不进入 root。版本已更新为 **4.0.0-alpha.14**，待相关门禁、推送后由 trusted `npm-publish.yml` 发布到 `next`；`latest` 保持 3.2.5。
+版本已更新为 **4.0.0-alpha.15**，待相关门禁、推送后由 trusted `npm-publish.yml` 发布到 `next`；`latest` 保持 3.2.5。
 
 ## 前次：Colour Worlds overlap fix 已完成，alpha.13 已发布到 npm next
 

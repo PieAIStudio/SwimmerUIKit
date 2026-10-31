@@ -20,7 +20,7 @@ related:
 
 # 主题与液体
 
-适用版本：4.0.0-alpha.14。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
+适用版本：4.0.0-alpha.15。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
 
 3.2.2 候选中，SegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 
@@ -76,7 +76,7 @@ Progress轨道是10px高的静止水滴，取surface-sunken；液面固定为潮
 
 Button variant="primary" 自动使用潮汐液体，**一屏最多一个 CTA**。它用于开始、确认、继续、收下或付款，不用来表示某一项被选中；普通动作仍用默认 secondary。表单提交显式写 type="submit"。
 
-CTA、涟与面板共用薄液体重量：blur 5、contrast 18、gloss 1.5、三瓣轮廓 3.5px、贴地阴影与 sheen 0.3。潮汐配色为 #22d3ee 到 #22bb91，文字为深墨色；值的权威来源是 token 与 [材质文件](../../src/liquid/material/weight.ts)，不要在产品复制参数表。
+CTA、涟与面板共用薄液体重量：blur 5、contrast 18、gloss 1.5、三瓣轮廓 3.5px、贴地阴影与 sheen 0.3。潮汐配色为 #22d3ee 到 #22bb91，文字为深墨色；值的权威来源是 token 与 [材质文件](../../src/liquid/material/weight.ts)，不要在产品复制参数表。primary CTA 的装饰 frame 与原生按钮保持同一 border-box，并在圆角层裁切 compositor 阴影；这只收掉外溢的 ambient paint，不取消潮汐渐变、高光或按压姿态。
 
 高级原件可显式设置 gloss、stroke、shadow，但没有第二套旧厚材质开关。多体为了桥接距离保留动作对应的 blur；set 可以变硬，其他命名形态只区别姿态和过渡，不创造另一套重量。
 

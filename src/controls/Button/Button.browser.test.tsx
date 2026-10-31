@@ -1,6 +1,7 @@
 import { act, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
 
 import { Button } from './Button';
 import { resetLiquidGooeyBudgetForTests, setLiquidGooeyBudget } from '../../liquid/budget';
@@ -39,6 +40,124 @@ async function mount(node: ReactNode): Promise<HTMLDivElement> {
   root = createRoot(host);
   await act(async () => root?.render(node));
   return host;
+}
+
+async function mountEdgeProbe(node: ReactNode, theme: 'light' | 'dark', card: string) {
+  host = document.createElement('div');
+  host.dataset.gameUiTheme = theme;
+  host.style.cssText = [
+    'box-sizing: border-box',
+    'display: grid',
+    'min-height: 100vh',
+    'place-items: center',
+    'padding: 48px',
+    'width: 100vw',
+    theme === 'dark' ? 'background: #1f2326' : 'background: #ffffff',
+  ].join(';');
+  const cardHost = document.createElement('div');
+  cardHost.dataset.edgeProbeCard = '';
+  cardHost.style.cssText = [
+    'box-sizing: border-box',
+    'background: ' + card,
+    'padding: 32px',
+    'width: min(320px, calc(100vw - 32px))',
+  ].join(';');
+  host.append(cardHost);
+  document.body.append(host);
+  root = createRoot(cardHost);
+  await act(async () => root?.render(node));
+  return host;
+}
+
+type PixelSnapshot = {
+  width: number;
+  height: number;
+  cssWidth: number;
+  cssHeight: number;
+  data: Uint8ClampedArray;
+};
+
+async function screenshotPixels(): Promise<PixelSnapshot> {
+  const base64 = await page.screenshot({ save: false });
+  const image = await createImageBitmap(
+    await (await fetch(`data:image/png;base64,${base64}`)).blob(),
+  );
+  const canvas = document.createElement('canvas');
+  canvas.width = image.width;
+  canvas.height = image.height;
+  const context = canvas.getContext('2d')!;
+  context.drawImage(image, 0, 0);
+  image.close();
+  return {
+    width: canvas.width,
+    height: canvas.height,
+    cssWidth: window.innerWidth,
+    cssHeight: window.innerHeight,
+    data: context.getImageData(0, 0, canvas.width, canvas.height).data,
+  };
+}
+
+function hexRgb(hex: string): readonly [number, number, number] {
+  const value = hex.slice(1);
+  return [
+    Number.parseInt(value.slice(0, 2), 16),
+    Number.parseInt(value.slice(2, 4), 16),
+    Number.parseInt(value.slice(4, 6), 16),
+  ];
+}
+
+function paintedBoundsOutside(
+  painted: PixelSnapshot,
+  rect: { x: number; y: number; right: number; bottom: number },
+  background: string,
+): { outside: number; left: number; top: number; right: number; bottom: number } {
+  const scaleX = painted.width / painted.cssWidth;
+  const scaleY = painted.height / painted.cssHeight;
+  const scaled = {
+    x: rect.x * scaleX,
+    y: rect.y * scaleY,
+    right: rect.right * scaleX,
+    bottom: rect.bottom * scaleY,
+  };
+  const scanPadX = Math.ceil(20 * scaleX);
+  const scanPadY = Math.ceil(20 * scaleY);
+  const left = Math.max(0, Math.floor(scaled.x) - scanPadX);
+  const top = Math.max(0, Math.floor(scaled.y) - scanPadY);
+  const right = Math.min(painted.width, Math.ceil(scaled.right) + scanPadX);
+  const bottom = Math.min(painted.height, Math.ceil(scaled.bottom) + scanPadY);
+  const insideLeft = Math.floor(scaled.x);
+  const insideTop = Math.floor(scaled.y);
+  const insideRight = Math.ceil(scaled.right);
+  const insideBottom = Math.ceil(scaled.bottom);
+  const [red, green, blue] = hexRgb(background);
+  let outside = 0;
+  let paintedLeft = Number.POSITIVE_INFINITY;
+  let paintedTop = Number.POSITIVE_INFINITY;
+  let paintedRight = Number.NEGATIVE_INFINITY;
+  let paintedBottom = Number.NEGATIVE_INFINITY;
+  for (let y = top; y < bottom; y += 1) {
+    for (let x = left; x < right; x += 1) {
+      const offset = (y * painted.width + x) * 4;
+      const difference = Math.max(
+        Math.abs(painted.data[offset]! - red),
+        Math.abs(painted.data[offset + 1]! - green),
+        Math.abs(painted.data[offset + 2]! - blue),
+      );
+      if (difference <= 8) continue;
+      paintedLeft = Math.min(paintedLeft, x);
+      paintedTop = Math.min(paintedTop, y);
+      paintedRight = Math.max(paintedRight, x + 1);
+      paintedBottom = Math.max(paintedBottom, y + 1);
+      if (x < insideLeft || x >= insideRight || y < insideTop || y >= insideBottom) outside += 1;
+    }
+  }
+  return {
+    outside,
+    left: Number.isFinite(paintedLeft) ? paintedLeft : insideLeft,
+    top: Number.isFinite(paintedTop) ? paintedTop : insideTop,
+    right: Number.isFinite(paintedRight) ? paintedRight : insideRight,
+    bottom: Number.isFinite(paintedBottom) ? paintedBottom : insideBottom,
+  };
 }
 
 describe('liquid CTA keeps layout and native interaction', () => {
@@ -295,6 +414,87 @@ describe('quiet ghost buttons read as text links', () => {
     expect(getComputedStyle(disabled!).color).not.toBe(accent);
     expect(getComputedStyle(plain!).color).not.toBe(accent);
   });
+});
+
+describe('primary liquid paint stays inside its native border box', () => {
+  const variants = [
+    { name: 'standard', render: () => <Button variant="primary">Go</Button> },
+    {
+      name: 'full-width',
+      render: () => (
+        <Button fullWidth variant="primary">
+          Go
+        </Button>
+      ),
+    },
+    {
+      name: 'small',
+      render: () => (
+        <Button size="sm" variant="primary">
+          Go
+        </Button>
+      ),
+    },
+    {
+      name: 'link',
+      render: () => (
+        <Button href="#go" variant="primary">
+          Go
+        </Button>
+      ),
+    },
+    {
+      name: 'pending',
+      render: () => (
+        <Button pending variant="primary">
+          Go
+        </Button>
+      ),
+    },
+    {
+      name: 'static',
+      render: () => (
+        <Button static variant="primary">
+          Go
+        </Button>
+      ),
+    },
+  ] as const;
+  const contexts = [
+    { name: 'light-white', theme: 'light' as const, card: '#ffffff' },
+    { name: 'light-tinted', theme: 'light' as const, card: '#dff4f0' },
+    { name: 'dark-white', theme: 'dark' as const, card: '#ffffff' },
+    { name: 'dark-tinted', theme: 'dark' as const, card: '#263a43' },
+  ] as const;
+  const viewports = [
+    { name: 'desktop', width: 1440, height: 900 },
+    { name: 'phone', width: 390, height: 844 },
+  ] as const;
+
+  it.each(
+    viewports.flatMap((viewport) =>
+      contexts.flatMap((context) => variants.map((variant) => ({ viewport, context, variant }))),
+    ),
+  )(
+    '$viewport.name / $context.name / $variant.name has no painted pixel outside the button',
+    async ({ viewport, context, variant }) => {
+      await page.viewport(viewport.width, viewport.height);
+      const container = await mountEdgeProbe(variant.render(), context.theme, context.card);
+      const button = container.querySelector<HTMLButtonElement | HTMLAnchorElement>(
+        '.game-ui-button',
+      )!;
+      await until(() =>
+        Boolean(container.querySelector('[data-liquid-gooey-blob][d]:not([d=""])')),
+      );
+      const rect = button.getBoundingClientRect();
+      const painted = await screenshotPixels();
+      const measured = paintedBoundsOutside(painted, rect, context.card);
+      expect(
+        measured.outside,
+        `painted bounds ${JSON.stringify(measured)}; button ${JSON.stringify(rect.toJSON())}`,
+      ).toBe(0);
+    },
+  );
 });
 
 describe('quiet plates show on the card they sit on', () => {

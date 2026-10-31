@@ -10,6 +10,9 @@
     vertical-align: middle;
     min-width: 0;
     max-width: 100%;
+    /* Grid/flex parents stretch auto-sized items to their track. The liquid
+     * frame must stay the same border-box as the native button it clips. */
+    width: fit-content;
   }
   .game-ui-button-frame[data-liquid='true'][data-full-width='true'] {
     display: flex;
@@ -45,6 +48,10 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    /* The liquid material's contact shadow is useful inside the CTA, but its
+     * compositor blur must not become ambient paint outside the native shape. */
+    overflow: hidden;
+    border-radius: var(--swimmer-droplet-radius);
   }
   .game-ui-button-frame:has(.game-ui-cta-decoration [data-liquid-gooey-blob][d]:not([d='']))
     > .game-ui-button[data-game-ui-cta='true']:not(:disabled) {

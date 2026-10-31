@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.15 — 2026-10-31（primary liquid CTA edge containment）
+
+- 修复 `Button variant="primary"` 的潮汐液体装饰越过自身圆角 border-box：液体 frame 不再被 grid/flex track 拉宽，compositor 阴影在圆角装饰层内裁切；保留潮汐渐变、高光和按压姿态。
+- 新增真实 Chromium painted-bounds 回归，覆盖 standard、full-width、small、link、pending、static 六种 primary 形态，1440 / 390、浅深色、白卡 / 着色卡共 48 个场景。
+- 本候选只发布到 npm `next`；`latest` 保持不变。
+
 ## 4.0.0-alpha.14 — 2026-10-31（Colour Worlds round 3）
 
 - `ToolSidebar` 的全高边线改为 centred 的 1px 短渐变分隔线；normal 与 rail 共用同一色场和分隔线，不给侧栏单独填色。

@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应 4.0.0-alpha.14 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
+本指南对应 4.0.0-alpha.15 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 

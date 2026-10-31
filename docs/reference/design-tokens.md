@@ -18,7 +18,7 @@ related:
 
 # 设计 token
 
-适用版本：4.0.0-alpha.14。B2 的公开名字/token 前缀硬切已完成；Colour Worlds 新增八个世界 token 组、统一 `--swimmer-act`、暗玻璃卡和明暗清单纸面 token。`swimmer-ui-check --rules=tool` 是消费端可选的工具外观守卫；表面、字体和展示组件按下方唯一来源取值，不再复制第二套 token 补缺。
+适用版本：4.0.0-alpha.15。B2 的公开名字/token 前缀硬切已完成；Colour Worlds 新增八个世界 token 组、统一 `--swimmer-act`、暗玻璃卡和明暗清单纸面 token。`swimmer-ui-check --rules=tool` 是消费端可选的工具外观守卫；表面、字体和展示组件按下方唯一来源取值，不再复制第二套 token 补缺。
 
 token 是按用途命名的视觉变量。产品选择“文字、普通底色、危险文字”，不复制一份按钮 CSS。
 
