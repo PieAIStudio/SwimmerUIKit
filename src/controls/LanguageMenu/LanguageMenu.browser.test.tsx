@@ -155,6 +155,22 @@ describe('LanguageMenu routed links', () => {
     expect(preventedDuringCapture).toBe(false);
     expect(host.querySelector('[role="menu"]')).toBeNull();
   });
+
+  it('marks only the route the host flags current, and focuses it on open', async () => {
+    // No currentLabel, so the trigger has to name the current route itself.
+    const marked: Option[] = [
+      { id: 'en', label: 'English', meta: 'English', href: '/en' },
+      { id: 'zh', label: '简体中文', meta: 'Chinese', href: '/zh', current: true },
+    ];
+    await act(async () => root.render(<LanguageMenu label="Choose a language" options={marked} />));
+    expect(trigger().textContent).toBe('简体中文');
+    await act(async () => trigger().click());
+    await expect.poll(() => document.activeElement?.getAttribute('role')).toBe('menuitem');
+    const links = options();
+    expect(links.map((link) => link.getAttribute('aria-current'))).toEqual([null, 'page']);
+    expect(links.map((link) => link.tabIndex)).toEqual([-1, 0]);
+    expect(document.activeElement).toBe(links[1]);
+  });
 });
 
 describe('LanguageMenu callback mode', () => {

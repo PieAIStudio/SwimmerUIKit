@@ -142,8 +142,12 @@ export function LanguageMenu({
 
   const selectedId = value ?? internalValue;
   const linkMode = options.some((option) => option.href !== undefined);
+  // A route the host marks current wins; unmarked routes then are not current.
+  const routeMarked = linkMode && options.some((option) => option.current === true);
   const isCurrent = (option: LanguageOption): boolean =>
-    linkMode ? (option.current ?? option.id === selectedId) : option.id === selectedId;
+    linkMode
+      ? (option.current ?? (!routeMarked && option.id === selectedId))
+      : option.id === selectedId;
   const selectedIndex = options.findIndex(isCurrent);
   const selectedOption = options.find((option) => isCurrent(option));
   const triggerLabel = currentLabel ?? selectedOption?.label ?? options[0]?.label ?? '';
