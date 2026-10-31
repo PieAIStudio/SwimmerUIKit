@@ -149,7 +149,7 @@ export function LanguageMenu({
       ? (option.current ?? (!routeMarked && option.id === selectedId))
       : option.id === selectedId;
   const selectedIndex = options.findIndex(isCurrent);
-  const selectedOption = options.find((option) => isCurrent(option));
+  const selectedOption = options[selectedIndex];
   const triggerLabel = currentLabel ?? selectedOption?.label ?? options[0]?.label ?? '';
   const focusIndex = selectedIndex >= 0 ? selectedIndex : 0;
 
