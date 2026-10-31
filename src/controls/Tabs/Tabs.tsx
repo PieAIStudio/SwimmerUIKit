@@ -40,6 +40,8 @@ export function Tabs({
 }: TabsProps): ReactNode {
   const generatedId = useId();
   const baseId = id ?? generatedId;
+  // Keep one tab stop even when activeId matches no tab, as the arrow keys do.
+  const tabStopId = tabs.some((tab) => tab.id === activeId) ? activeId : tabs[0]?.id;
   // Roving tabindex per the ARIA tabs pattern: the active tab is the only
   // tab stop; arrow keys move selection and focus.
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -99,7 +101,7 @@ export function Tabs({
           key={tab.id}
           onClick={onSelect ? () => onSelect(tab.id) : undefined}
           role="tab"
-          tabIndex={tab.id === activeId ? 0 : -1}
+          tabIndex={tab.id === tabStopId ? 0 : -1}
           type="button"
           data-game-ui-paint=""
         >
