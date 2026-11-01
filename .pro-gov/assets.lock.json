@@ -5,8 +5,8 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:834cc08c7e574719c9e6c746ae88bf9f3f42fdd57c1893e13c44e42b95db49d5",
-    "assetCount": 11
+    "hash": "sha256:08e41ae1d8c270b16742ab7fe166616cf81974bf8fde10727ae53509c0d5bcf3",
+    "assetCount": 10
   },
   "assets": [
     {
@@ -75,16 +75,6 @@
       "delivery": "symlink",
       "contentHash": "sha256:b4e439ffe24d3031bd61de1b759fe7ec07e66e5ebdbca4d58b2331bfc2b7981b",
       "targetPath": "docs/policy/shared-rules/document-convergence.md"
-    },
-    {
-      "id": "pie-skills/studio-conductor",
-      "sourcePath": "skills/studio-conductor",
-      "sourceKind": "workspace",
-      "workspace": "studio",
-      "delivery": "symlink",
-      "contentHash": "sha256:d413b70ac760e02f004e2b143bf82a2e81d94dddb1404854174c33b8878cd191",
-      "placement": "manual",
-      "targetPath": ".agents/manual-skills/studio-conductor"
     },
     {
       "id": "third-party-skills/codex-with-chatgpt",

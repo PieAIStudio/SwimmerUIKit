@@ -35,10 +35,6 @@
       "id": "pie-rules/document-convergence"
     },
     {
-      "id": "pie-skills/studio-conductor",
-      "placement": "manual"
-    },
-    {
       "id": "third-party-skills/codex-with-chatgpt",
       "placement": "manual"
     }
