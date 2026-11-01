@@ -116,7 +116,9 @@
         "CLAUDE.md",
         "README.md",
         ".doc-gov*",
-        ".pro-gov/assets*"
+        ".pro-gov/assets*",
+        ".agents/skills/*",
+        ".agents/manual-skills/*"
       ],
       "commands": [
         "pnpm docs:check"
