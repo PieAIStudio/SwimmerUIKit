@@ -25,3 +25,16 @@ debug-*.log
 
 # PGS workspace folders: generated scratch and dated records
 /.reports/
+result.txt
+*.pid
+*.exit
+/playwright-report/
+/test-results/
+/screenshots/
+
+# Generated historical captures; Owner reference images and API fixtures stay tracked.
+/docs/archive/evidence/2.x/artifacts/**/*.png
+/docs/archive/evidence/2.x/artifacts/edge-quality/metrics.json
+/docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/experience-packets.json
+/docs/plans/reports/PLAN-0011/screenshots/*.png
+/docs/plans/reports/PLAN-0012/screenshots/*.png
