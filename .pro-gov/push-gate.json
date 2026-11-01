@@ -1,0 +1,382 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "paths": [
+        ".pro-gov/push-gate*",
+        "lefthook.yml",
+        ".githooks/**"
+      ],
+      "commands": [
+        "node --check .pro-gov/push-gate.mjs",
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        "src/**/*.{ts,tsx,js,css,json}",
+        "tests/**",
+        "preview/**",
+        "types/**",
+        "scripts/**",
+        "bin/**",
+        ".storybook/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig*.json",
+        "vite.config*.ts",
+        "vitest.config.ts"
+      ],
+      "commands": [
+        "pnpm format:check",
+        "pnpm lint",
+        "pnpm typecheck"
+      ]
+    },
+    {
+      "paths": [
+        "src/**/*.{ts,tsx,js,css,json}",
+        "tests/**",
+        "package.json",
+        "pnpm-lock.yaml",
+        "vitest.config.ts"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project '!storybook' --project '!browser' --changed \"$PUSH_GATE_BASE\""
+      ]
+    },
+    {
+      "paths": [
+        "src/**/*.{ts,tsx,js,css,json}",
+        "preview/**",
+        "tests/**/*.browser.test.tsx",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "commands": [
+        "pnpm check:styles",
+        "pnpm check:themes",
+        "pnpm exec vitest run --project browser tests/AccountControls.browser.test.tsx -t 'retains native disabled states'",
+        "pnpm exec vitest run --project browser tests/GamePanelSystem.browser.test.tsx -t 'preserves an uncontrolled input'"
+      ]
+    },
+    {
+      "paths": [
+        "src/liquid/**/*.{ts,tsx,js,css,json}",
+        "src/liquid-effects/**/*.{ts,tsx,js,css,json}",
+        "src/presence/**/*.{ts,tsx,js,css,json}",
+        "src/tokens/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/LiquidReveal/LiquidReveal.browser.test.tsx -t 'zero budget and reduced motion'"
+      ]
+    },
+    {
+      "paths": [
+        "src/index.ts",
+        "src/*.ts",
+        "package.json",
+        "scripts/public-api-audit.mjs"
+      ],
+      "commands": [
+        "pnpm api:check",
+        "pnpm check:guide"
+      ]
+    },
+    {
+      "paths": [
+        "bin/**"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/bin-swimmer-ui-check.test.ts"
+      ]
+    },
+    {
+      "paths": [
+        "src/tokens/fonts/**/*.{ts,tsx,js,css,json}",
+        "scripts/*font*"
+      ],
+      "commands": [
+        "pnpm check:fonts"
+      ]
+    },
+    {
+      "paths": [
+        ".github/**",
+        "scripts/check-release-metadata.mjs"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/releaseWorkflow.test.ts"
+      ]
+    },
+    {
+      "paths": [
+        "docs/**",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md",
+        ".doc-gov*",
+        ".pro-gov/assets*"
+      ],
+      "commands": [
+        "pnpm docs:check"
+      ]
+    },
+    {
+      "paths": [
+        ".gitignore",
+        "LICENSE",
+        "NOTICE",
+        "CHANGELOG.md",
+        ".npmrc"
+      ],
+      "commands": [],
+      "reason": "Repository metadata/legal/history; no runtime change."
+    },
+    {
+      "paths": [
+        "src/containers/HudActions/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/containers/HudActions/HudActions.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/Button/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/Button/Button.browser.test.tsx src/controls/Button/contour-identity.browser.test.tsx src/controls/Button/danger.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/DropletSurface/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/DropletSurface/DropletSurface.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/LanguageMenu/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/LanguageMenu/LanguageMenu.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/NativeAction/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/NativeAction/NativeAction.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/SegmentedControl/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/SegmentedControl/SegmentedControl.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/Select/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/Select/Select.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/Tabs/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/Tabs/Tabs.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/controls/Toggle/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/controls/Toggle/Toggle.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/feedback/HelpCard/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/feedback/HelpCard/HelpCard.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/feedback/HelpTip/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/feedback/HelpTip/HelpTip.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/feedback/Progress/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/feedback/Progress/Progress.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/feedback/Tooltip/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/feedback/Tooltip/Tooltip.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/game/AccountMenu/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/game/AccountMenu/AccountMenu.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/game/CollectibleCard/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/game/CollectibleCard/CollectibleCard.browser.test.tsx src/game/CollectibleCard/orientation.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/game/MovementPad/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/game/MovementPad/MovementPad.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/game/Splash/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/game/Splash/Splash.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/liquid/LiquidPressSurface/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/liquid/LiquidPressSurface/observePress.browser.test.ts"
+      ]
+    },
+    {
+      "paths": [
+        "src/liquid/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/liquid/engine.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/liquid-effects/melt/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/liquid-effects/melt/ImageMelt.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/presence/LiquidAnchor/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/LiquidAnchor/LiquidAnchor.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/presence/LiquidPopover/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/LiquidPopover/LiquidPopover.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/presence/LiquidPresence/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/LiquidPresence/LiquidPresence.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/presence/LiquidReveal/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/LiquidReveal/LiquidReveal.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/presence/shared/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/presence/shared/panelObstacles.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "tests/AccountControls.browser.test.tsx"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser tests/AccountControls.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "tests/GamePanelSystem.browser.test.tsx"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser tests/GamePanelSystem.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "tests/StaticDisplay.browser.test.tsx"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser tests/StaticDisplay.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "tests/surfaceTokens.browser.test.tsx"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser tests/surfaceTokens.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/**/*.md"
+      ],
+      "commands": [
+        "pnpm check:guide"
+      ]
+    }
+  ],
+  "blindSpots": [
+    "Unit selection excludes Storybook/browser projects and uses Vitest's changed static-import graph; this project selector was validated with vitest list.",
+    "Source browser coverage is a fixed disabled-control/modal/reduced-motion smoke plus colocated component browser files; global tokens do not run every component/theme or all Storybook stories.",
+    "No independent visual score, whole Storybook build, packed/Next consumer, real app integration or publication is claimed by this ordinary push gate."
+  ]
+}

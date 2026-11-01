@@ -12,6 +12,11 @@ pre-commit:
       glob: "{docs/**/*.md,docs/governance/**/*.{md,yml,yaml},docs/policy/**/*.md,AGENTS.md,CLAUDE.md}"
       run: pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit
 
+pre-push:
+  commands:
+    related-checks:
+      run: node .pro-gov/push-gate.mjs --base origin/main
+
 commit-msg:
   commands:
     doc-gov-commit-msg:
