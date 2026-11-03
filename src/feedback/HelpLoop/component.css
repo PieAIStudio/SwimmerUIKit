@@ -1,0 +1,53 @@
+@layer swimmer-ui {
+  .swimmer-help-loop {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--swimmer-game-radius-control);
+  }
+  .swimmer-help-loop-motion,
+  .swimmer-help-loop-poster {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+  }
+  .swimmer-help-loop-poster {
+    display: none;
+  }
+  .swimmer-help-loop :where(svg, img, video) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .swimmer-help-loop svg {
+    fill: none;
+    stroke: var(--help-stroke);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .swimmer-help-loop svg * {
+    vector-effect: non-scaling-stroke;
+  }
+  /* Authors may put animation shorthands in unlayered CSS. The pause must win. */
+  .swimmer-help-loop:not(.is-playing),
+  .swimmer-help-loop:not(.is-playing) * {
+    animation-play-state: paused !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swimmer-help-loop,
+    .swimmer-help-loop * {
+      animation: none !important;
+      transition: none !important;
+    }
+    .swimmer-help-loop:has(> .swimmer-help-loop-poster) > .swimmer-help-loop-motion {
+      display: none;
+    }
+    .swimmer-help-loop-poster {
+      display: block;
+    }
+  }
+}

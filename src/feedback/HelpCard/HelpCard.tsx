@@ -33,6 +33,7 @@ import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { Tabs } from '../../controls/Tabs/Tabs';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
 import { isLazyChild, useSlotTrigger } from '../shared/trigger-slot';
+import { ThemeMirror } from '../shared/ThemeMirror';
 
 export type HelpMedia =
   | {
@@ -344,47 +345,6 @@ export function HelpCard({
       )}
     </>
   );
-}
-
-const THEME_ATTRIBUTES = ['data-game-ui-theme', 'data-game-ui-style'];
-const MIRROR_ATTRIBUTES = ['class', 'style', ...THEME_ATTRIBUTES];
-
-/**
- * The portal leaves the themed subtree. Copy the nearest theme and style
- * attributes and the theme-level --swimmer-* tokens of the themed ancestor onto
- * this card, then follow later changes there. The trigger's own paint state is
- * not copied, so hover or pressed colours never leak into the card.
- */
-function ThemeMirror({ source }: { source: HTMLElement | null }) {
-  const probe = useRef<HTMLSpanElement>(null);
-  useLayoutEffect(() => {
-    const layer = probe.current?.parentElement;
-    if (!layer || !source) return;
-    const themed = (node: Element) =>
-      node.closest('[data-game-ui-theme], [data-game-ui-style]') ?? document.documentElement;
-    const sync = () => {
-      const host = themed(source);
-      for (const name of THEME_ATTRIBUTES) {
-        const value = host.closest(`[${name}]`)?.getAttribute(name);
-        if (value) layer.setAttribute(name, value);
-        else layer.removeAttribute(name);
-      }
-      const computed = getComputedStyle(host);
-      for (const token of computed) {
-        // The theme's default droplet radius is 999px. The card owns its own
-        // radius, so an inherited copy must not override the card rule.
-        if (!token.startsWith('--swimmer-') || token === '--swimmer-droplet-radius') continue;
-        const value = computed.getPropertyValue(token).trim();
-        if (layer.style.getPropertyValue(token) !== value) layer.style.setProperty(token, value);
-      }
-    };
-    const observer = new MutationObserver(sync);
-    for (let node: Element | null = themed(source); node; node = node.parentElement)
-      observer.observe(node, { attributes: true, attributeFilter: MIRROR_ATTRIBUTES });
-    sync();
-    return () => observer.disconnect();
-  }, [source]);
-  return <span ref={probe} hidden />;
 }
 
 function HelpTopic({ topic, showMedia }: { topic: HelpCardTopic; showMedia: boolean }) {

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { HelpLoop } from '../../feedback/HelpLoop/HelpLoop';
 
 import { Icon } from '../../icons/Icon/Icon';
 
@@ -9,6 +10,9 @@ import { Button } from '../../controls/Button/Button';
 export interface FirstSessionOnboardingStep {
   body: string;
   title: string;
+  /** Optional text-free drawing; body is its short, accessible caption. */
+  media?: ReactNode;
+  poster?: ReactNode;
 }
 
 export interface FirstSessionOnboardingLabels {
@@ -51,7 +55,18 @@ export function FirstSessionOnboarding({
             <li key={step.title}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <strong>{step.title}</strong>
-              <small>{step.body}</small>
+              {step.media ? (
+                <figure
+                  className="swimmer-first-session-onboarding-media"
+                  role="img"
+                  aria-label={step.body}
+                >
+                  <HelpLoop poster={step.poster}>{step.media}</HelpLoop>
+                  <figcaption aria-hidden="true">{step.body}</figcaption>
+                </figure>
+              ) : (
+                <small>{step.body}</small>
+              )}
             </li>
           ))}
         </ol>

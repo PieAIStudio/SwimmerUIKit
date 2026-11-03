@@ -13,6 +13,8 @@
 @import './controls/Switch/component.css';
 @import './controls/shared/accessibility.css';
 @import './feedback/shared/trigger-slot.css';
+@import './feedback/HelpLoop/component.css';
+@import './feedback/HowToPanel/component.css';
 @import './feedback/HelpTip/component.css';
 @import './feedback/HelpCard/component.css';
 @import './containers/Dialog/component.css';

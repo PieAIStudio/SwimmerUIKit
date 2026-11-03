@@ -33,6 +33,8 @@ export { Badge, type BadgeProps, type BadgeTone } from './feedback/Badge/Badge';
 export { Callout, type CalloutProps, type CalloutTone } from './feedback/Callout/Callout';
 export { EmptyState, type EmptyStateProps } from './feedback/EmptyState/EmptyState';
 export { HelpTip, type HelpTipProps } from './feedback/HelpTip/HelpTip';
+export { HelpLoop, type HelpLoopProps } from './feedback/HelpLoop/HelpLoop';
+export { HowToPanel, type HowToPanelProps, type HowToStep } from './feedback/HowToPanel/HowToPanel';
 export {
   HelpCard,
   type HelpCardProps,

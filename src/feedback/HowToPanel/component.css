@@ -1,0 +1,35 @@
+@layer swimmer-ui {
+  .swimmer-how-to-panel {
+    display: grid;
+    gap: var(--swimmer-game-space-16);
+    min-width: 0;
+    max-width: 100%;
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
+    font-size: var(--swimmer-font-md);
+    line-height: var(--swimmer-line-body);
+    overflow-wrap: anywhere;
+  }
+  .swimmer-how-to-panel:focus-visible {
+    outline: 2px solid var(--swimmer-focus-ring);
+    outline-offset: 4px;
+    border-radius: var(--swimmer-game-radius-control);
+  }
+  .swimmer-how-to-step {
+    margin: 0;
+  }
+  .swimmer-how-to-step figcaption {
+    margin-top: var(--swimmer-game-space-12);
+  }
+  .swimmer-how-to-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--swimmer-game-space-8);
+  }
+  .swimmer-how-to-navigation > span {
+    color: var(--swimmer-game-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+}

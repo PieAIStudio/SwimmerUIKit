@@ -9,8 +9,16 @@
  *   3. Scenery/preview  — demo-stage backdrops (dark worlds, preview canvas).
  * Downstream themes normally override layer 1 (+ layer 2 for full fidelity).
  */
+[data-game-ui-theme],
+[data-game-ui-style] {
+  --help-stroke: var(--swimmer-game-text);
+  --help-accent: var(--swimmer-game-accent-ink);
+}
+
 :root {
   color-scheme: light;
+  --help-stroke: var(--swimmer-game-text);
+  --help-accent: var(--swimmer-game-accent-ink);
 
   --swimmer-game-font-display: 'Baloo 2', 'Swimmer Rounded CN', system-ui, sans-serif;
   --swimmer-game-font-body: 'Geist Variable', 'Swimmer Rounded CN', system-ui, sans-serif;
