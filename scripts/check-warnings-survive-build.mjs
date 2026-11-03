@@ -50,6 +50,11 @@ const PROMISED_WARNINGS = [
     entry: 'index.js',
     message: 'it describes a relationship',
   },
+  {
+    id: 'help-tip-media',
+    entry: 'index.js',
+    message: 'Add media for multi-sentence or >60-character help.',
+  },
 ];
 
 /**

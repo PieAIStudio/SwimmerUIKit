@@ -68,7 +68,7 @@
     "check:catalog": "node scripts/verify-catalog.mjs",
     "check:account-controls": "node scripts/verify-account-controls.mjs",
     "dev": "vite --host 127.0.0.1 --port 5174",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.build.json --noEmit --emitDeclarationOnly false",
     "lint": "oxlint src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts -c ./.oxlintrc.json",
     "format": "oxfmt package.json tsconfig.json tsconfig.build.json src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src preview tests types .storybook bin scripts vite.config.ts vite.config.site.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",

@@ -19,6 +19,9 @@ import {
   useRole,
 } from '@floating-ui/react';
 
+// Type-only: keep the consumer's NODE_ENV guard without requiring Node globals.
+declare const process: { env: { NODE_ENV?: string } };
+
 export interface HelpTipProps {
   /** Accessible name of the help button, in the product's language. */
   label: string;

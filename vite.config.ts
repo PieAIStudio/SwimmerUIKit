@@ -1,7 +1,7 @@
-import { resolve } from 'node:path';
+import { relative, resolve } from 'node:path';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, normalizePath } from 'vite';
 import dts from 'vite-plugin-dts';
 
 // Library build. ESM-only since 1.0: every consumer is a Vite ESM app and
@@ -42,7 +42,7 @@ export default defineConfig({
                 dynamicImports: chunk.dynamicImports,
                 modules: Object.entries(chunk.modules)
                   .filter(([, info]) => info.renderedLength !== 0)
-                  .map(([id]) => id.replace(`${process.cwd()}/`, '')),
+                  .map(([id]) => normalizePath(relative(process.cwd(), id))),
               },
             ]),
         );
