@@ -69,6 +69,24 @@ it('keeps just one step mounted and supports keyboard and touch-sized next/previ
   await expect.element(page.getByRole('img', { name: steps[1].caption })).toBeVisible();
 });
 
+it('keeps decorative paint out of dialog scroll layout during a font-metric shrink', async () => {
+  const container = await mount(
+    <HowToPanel label="Connect" previousLabel="Back" nextLabel="Next" steps={steps} />,
+    true,
+  );
+  container.style.width = '376px';
+  await document.fonts.ready;
+  const next = container.querySelectorAll('button')[1]!;
+  const width = next.getBoundingClientRect().width;
+  const path = next.querySelector('path')!;
+  const before = path.getAttribute('d');
+  next.style.width = `${width + 5}px`;
+  await expect.poll(() => path.getAttribute('d')).not.toBe(before);
+  // Font fallback can be 5px wider. Read before ResizeObserver's next delivery.
+  next.style.width = '';
+  expect(container.scrollWidth).toBeLessThanOrEqual(container.clientWidth);
+});
+
 it('uses posters for the panel and onboarding and freezes media without a poster under reduced motion', async () => {
   await cdp().send('Emulation.setEmulatedMedia', {
     features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
