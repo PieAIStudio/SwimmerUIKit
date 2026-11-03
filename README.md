@@ -9,10 +9,10 @@ Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐�
 React / React DOM 需要 19 或以上。发布前的候选评审时安装交付回执里的本地 tarball，先核对 SHA-256；发布后使用 Owner 批准的精确 npm 版本。不要把相邻仓库源码当生产依赖。
 
 ```sh
-# 显式选择精确版本；不要用 latest 或范围自动升级
-pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.15
+# 发布后选择此精确版本；候选验收先用下方 tarball，不用 latest 或范围自动升级
+pnpm add --save-exact @pieai/swimmer-ui-kit@4.0.0-alpha.16
 # 发布前或离线验收，安装回执中经过 SHA-256 核对的同版本 tarball
-pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.11.tgz
+pnpm add --save-exact /path/to/swimmer-ui-kit-4.0.0-alpha.16.tgz
 ```
 
 ```tsx
