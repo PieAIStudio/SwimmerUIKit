@@ -38,7 +38,7 @@ export function FirstSessionOnboarding({
   if (!open) return null;
 
   return (
-    <aside
+    <div
       aria-labelledby="swimmer-first-session-onboarding-title"
       aria-modal="true"
       className="swimmer-first-session-onboarding"
@@ -79,6 +79,6 @@ export function FirstSessionOnboarding({
           </Button>
         </div>
       </div>
-    </aside>
+    </div>
   );
 }
