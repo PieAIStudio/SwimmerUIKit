@@ -1,7 +1,7 @@
 import { act, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it, vi } from 'vitest';
-import { page } from 'vitest/browser';
+import { cdp, page } from 'vitest/browser';
 import { HowToPanel } from './HowToPanel';
 import { HelpLoop } from '../HelpLoop/HelpLoop';
 import { FirstSessionOnboarding } from '../../game/FirstSessionOnboarding/FirstSessionOnboarding';
@@ -18,10 +18,12 @@ afterEach(async () => {
   root = undefined;
   host = undefined;
   vi.restoreAllMocks();
+  await cdp().send('Emulation.setEmulatedMedia', { features: [] });
 });
-async function mount(content: ReactNode) {
-  host = document.createElement('div');
+async function mount(content: ReactNode, dialog = false) {
+  host = document.createElement(dialog ? 'dialog' : 'div');
   document.body.append(host);
+  if (host instanceof HTMLDialogElement) host.showModal();
   root = createRoot(host);
   await act(async () => root!.render(content));
   return host;
@@ -34,12 +36,17 @@ const steps = [
   },
   { media: <svg data-frame="moving-two" />, caption: 'Keep both devices nearby.' },
   { media: <svg data-frame="moving-three" />, caption: 'Confirm the connection.' },
-];
+] as const;
 
 it('keeps just one step mounted and supports keyboard and touch-sized next/previous buttons', async () => {
   const container = await mount(
     <HowToPanel label="Connect" previousLabel="Back" nextLabel="Next" steps={steps} />,
+    true,
   );
+  const bounds = container.querySelector('.swimmer-how-to-panel')!.getBoundingClientRect();
+  expect(bounds.left).toBeGreaterThanOrEqual(0);
+  expect(bounds.right).toBeLessThanOrEqual(innerWidth);
+  expect(container.scrollWidth).toBeLessThanOrEqual(container.clientWidth);
   await expect.element(page.getByRole('img', { name: steps[0].caption })).toBeVisible();
   const next = container.querySelectorAll('button')[1]!;
   expect(next.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
@@ -63,14 +70,9 @@ it('keeps just one step mounted and supports keyboard and touch-sized next/previ
 });
 
 it('uses posters for the panel and onboarding and freezes media without a poster under reduced motion', async () => {
-  vi.spyOn(window, 'matchMedia').mockImplementation(
-    (query) =>
-      ({
-        matches: query.includes('prefers-reduced-motion'),
-        addEventListener() {},
-        removeEventListener() {},
-      }) as unknown as MediaQueryList,
-  );
+  await cdp().send('Emulation.setEmulatedMedia', {
+    features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
+  });
   const container = await mount(
     <>
       <HowToPanel label="Connect" previousLabel="Back" nextLabel="Next" steps={steps} />
@@ -96,7 +98,9 @@ it('uses posters for the panel and onboarding and freezes media without a poster
     </>,
   );
   expect(container.querySelectorAll('[data-frame="still-one"]')).toHaveLength(2);
-  expect(container.querySelector('[data-frame="moving-one"]')).toBeNull();
+  expect(container.querySelector('[data-frame="moving-one"]')!.checkVisibility()).toBe(false);
+  for (const poster of container.querySelectorAll('[data-frame="still-one"]'))
+    expect(poster.checkVisibility()).toBe(true);
   expect(container.querySelector('.is-playing')).toBeNull();
   await act(async () => container.querySelectorAll('button')[1]!.click());
   expect(container.querySelector('[data-frame="moving-two"]')).not.toBeNull();
@@ -129,4 +133,8 @@ it('pauses author CSS animations off screen and resumes the same loop when visib
   expect(getComputedStyle(mark).animationPlayState).toBe('paused');
   await act(async () => loop.scrollIntoView());
   await expect.poll(() => loop.classList.contains('is-playing')).toBe(true);
+  await cdp().send('Emulation.setEmulatedMedia', {
+    features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
+  });
+  await expect.poll(() => getComputedStyle(mark).animationName).toBe('none');
 });

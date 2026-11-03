@@ -38,6 +38,8 @@
     z-index: 100;
     width: max-content;
     max-width: min(22rem, calc(100vw - 24px));
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
     box-sizing: border-box;
     padding: var(--swimmer-game-space-12) var(--swimmer-game-space-16);
     border-radius: var(--swimmer-radius-card);
@@ -49,5 +51,12 @@
     font-weight: 400;
     line-height: 1.65;
     overflow-wrap: anywhere;
+  }
+  .game-ui-help-tip:has(.swimmer-help-loop) {
+    display: grid;
+    gap: var(--swimmer-game-space-12);
+    width: min(22rem, calc(100vw - 24px));
+    color: var(--swimmer-game-text);
+    background: var(--swimmer-game-surface-raised);
   }
 }

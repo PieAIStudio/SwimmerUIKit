@@ -1,0 +1,53 @@
+@keyframes help-wifi-signal {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  45%,
+  65% {
+    opacity: 1;
+  }
+}
+@keyframes help-wifi-link {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+.help-wifi-signal {
+  stroke: var(--help-accent);
+  animation: help-wifi-signal 3s ease-in-out infinite;
+}
+.help-wifi-link {
+  stroke: var(--help-accent);
+  stroke-dasharray: 3 7;
+  animation: help-wifi-link 3s linear infinite;
+}
+.help-wifi-confirm {
+  stroke: var(--help-accent);
+}
+@keyframes help-wifi-near-left {
+  0%,
+  100% {
+    transform: translateX(-10px);
+  }
+  40%,
+  70% {
+    transform: translateX(0);
+  }
+}
+@keyframes help-wifi-near-right {
+  0%,
+  100% {
+    transform: translateX(10px);
+  }
+  40%,
+  70% {
+    transform: translateX(0);
+  }
+}
+.help-wifi-approach-left {
+  animation: help-wifi-near-left 3s ease-in-out infinite;
+}
+.help-wifi-approach-right {
+  animation: help-wifi-near-right 3s ease-in-out infinite;
+}

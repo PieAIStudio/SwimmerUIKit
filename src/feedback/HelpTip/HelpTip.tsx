@@ -1,5 +1,7 @@
 import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
-import { useCallback, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { HelpLoop } from '../HelpLoop/HelpLoop';
+import { ThemeMirror } from '../shared/ThemeMirror';
 import {
   autoUpdate,
   flip,
@@ -19,8 +21,14 @@ import {
 export interface HelpTipProps {
   /** Accessible name of the help button, in the product's language. */
   label: string;
-  /** Short, noninteractive explanation. Actions and required errors stay visible. */
-  children: string;
+  /** Legacy text-only explanation, also used when caption is omitted. */
+  children?: string;
+  /** Text-free, noninteractive drawing. Author motion with CSS (see HelpLoop). */
+  media?: ReactNode;
+  /** Still key frame for prefers-reduced-motion. */
+  poster?: ReactNode;
+  /** One app-localized sentence; also the tooltip's accessible name. */
+  caption?: string;
 }
 
 /** Optional help, not an action menu or a place to hide required information.
@@ -28,10 +36,23 @@ export interface HelpTipProps {
  * native help button never submits its surrounding form. Inside a native modal
  * the portal stays in that modal's top layer, not in the inert document body.
  */
-export function HelpTip({ label, children }: HelpTipProps): ReactNode {
+export function HelpTip({ label, children, media, poster, caption }: HelpTipProps): ReactNode {
   const [open, setOpen] = useState(false);
   const [portalRoot, setPortalRoot] = useState<HTMLElement | undefined>(undefined);
-  const { refs, floatingStyles, context } = useFloating({
+  const text = caption ?? children ?? '';
+  useEffect(() => {
+    // NODE_ENV is left for the consuming app's bundler, unlike import.meta.env.DEV.
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      !media &&
+      (text.length > 60 || /[.!?。！？]\s*\S/u.test(text))
+    ) {
+      console.warn(
+        '[HelpTip] Prefer a text-free picture and one short caption (about 60 characters).',
+      );
+    }
+  }, [media, text]);
+  const { refs, floatingStyles, context } = useFloating<HTMLButtonElement>({
     open,
     onOpenChange(next, event, reason) {
       // A hover-opened tip may not own keyboard focus. Prevent the native
@@ -111,8 +132,11 @@ export function HelpTip({ label, children }: HelpTipProps): ReactNode {
             className="game-ui-help-tip"
             style={floatingStyles}
             {...getFloatingProps()}
+            aria-label={text}
           >
-            {children}
+            <ThemeMirror source={refs.domReference.current} />
+            {media && <HelpLoop poster={poster}>{media}</HelpLoop>}
+            {text}
           </div>
         </FloatingPortal>
       )}

@@ -1,6 +1,7 @@
 import { act, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, expect, it, vi } from 'vitest';
+import { cdp, page } from 'vitest/browser';
 import { HelpTip } from './HelpTip';
 import '../../styles.css';
 
@@ -15,6 +16,7 @@ afterEach(async () => {
   root = undefined;
   host = undefined;
   vi.restoreAllMocks();
+  await cdp().send('Emulation.setEmulatedMedia', { features: [] });
 });
 async function mount(content: ReactNode, dialog = false) {
   host = document.createElement(dialog ? 'dialog' : 'div');
@@ -87,14 +89,9 @@ it('provides a touch-sized trigger and releases the portal on unmount', async ()
 });
 
 it('names animated help with its caption and shows the still poster under reduced motion inside a dialog', async () => {
-  vi.spyOn(window, 'matchMedia').mockImplementation(
-    (query) =>
-      ({
-        matches: query.includes('prefers-reduced-motion'),
-        addEventListener() {},
-        removeEventListener() {},
-      }) as unknown as MediaQueryList,
-  );
+  await cdp().send('Emulation.setEmulatedMedia', {
+    features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
+  });
   const caption = 'Join the same Wi-Fi on both devices.';
   const container = await mount(
     <HelpTip
@@ -105,11 +102,14 @@ it('names animated help with its caption and shows the still poster under reduce
     />,
     true,
   );
+  container.setAttribute('data-game-ui-theme', 'dark');
   await act(async () => container.querySelector('button')!.click());
   const tip = container.querySelector('[role="tooltip"]')!;
   expect(tip.getAttribute('aria-label')).toBe(caption);
-  expect(tip.querySelector('[data-testid="poster"]')).not.toBeNull();
-  expect(tip.querySelector('[data-testid="moving"]')).toBeNull();
+  expect(tip.getAttribute('data-game-ui-theme')).toBe('dark');
+  await expect.element(page.getByRole('tooltip', { name: caption })).toBeVisible();
+  await expect.element(page.getByTestId('poster')).toBeVisible();
+  await expect.element(page.getByTestId('moving')).not.toBeVisible();
   const bounds = tip.getBoundingClientRect();
   expect(bounds.left).toBeGreaterThanOrEqual(0);
   expect(bounds.right).toBeLessThanOrEqual(innerWidth);
