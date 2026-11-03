@@ -185,6 +185,29 @@ describe('FirstSessionOnboarding', () => {
     ).toBe('');
   });
 
+  it('adds captioned media to a step without changing text-only steps', () => {
+    const html = renderToStaticMarkup(
+      <FirstSessionOnboarding
+        labels={{
+          ...labels,
+          steps: [
+            {
+              title: 'Connect',
+              body: 'Join the same Wi-Fi.',
+              media: <svg data-help-example="wifi" />,
+              poster: <svg data-help-example="still" />,
+            },
+          ],
+        }}
+        onDismiss={() => {}}
+        open
+      />,
+    );
+    expect(html).toContain('data-help-example="wifi"');
+    expect(html).toContain('aria-label="Join the same Wi-Fi."');
+    expect(html).toContain('>Join the same Wi-Fi.</');
+  });
+
   it('is a labelled dialog with numbered steps and two dismiss actions', () => {
     const html = renderToStaticMarkup(
       <FirstSessionOnboarding labels={labels} onDismiss={() => {}} open />,

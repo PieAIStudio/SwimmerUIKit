@@ -14,6 +14,7 @@ afterEach(async () => {
   host?.remove();
   root = undefined;
   host = undefined;
+  vi.restoreAllMocks();
 });
 async function mount(content: ReactNode, dialog = false) {
   host = document.createElement(dialog ? 'dialog' : 'div');
@@ -83,6 +84,47 @@ it('provides a touch-sized trigger and releases the portal on unmount', async ()
   await act(async () => root?.unmount());
   root = undefined;
   expect(document.querySelector('[role="tooltip"]')).toBeNull();
+});
+
+it('names animated help with its caption and shows the still poster under reduced motion inside a dialog', async () => {
+  vi.spyOn(window, 'matchMedia').mockImplementation(
+    (query) =>
+      ({
+        matches: query.includes('prefers-reduced-motion'),
+        addEventListener() {},
+        removeEventListener() {},
+      }) as unknown as MediaQueryList,
+  );
+  const caption = 'Join the same Wi-Fi on both devices.';
+  const container = await mount(
+    <HelpTip
+      label="Connection help"
+      caption={caption}
+      media={<svg data-testid="moving" viewBox="0 0 320 180" />}
+      poster={<svg data-testid="poster" viewBox="0 0 320 180" />}
+    />,
+    true,
+  );
+  await act(async () => container.querySelector('button')!.click());
+  const tip = container.querySelector('[role="tooltip"]')!;
+  expect(tip.getAttribute('aria-label')).toBe(caption);
+  expect(tip.querySelector('[data-testid="poster"]')).not.toBeNull();
+  expect(tip.querySelector('[data-testid="moving"]')).toBeNull();
+  const bounds = tip.getBoundingClientRect();
+  expect(bounds.left).toBeGreaterThanOrEqual(0);
+  expect(bounds.right).toBeLessThanOrEqual(innerWidth);
+  expect(bounds.height).toBeLessThan(innerHeight);
+});
+
+it('warns without throwing for long text-only help, but not for an illustrated sentence', async () => {
+  const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  const long =
+    'This optional explanation is much longer than a short sentence and needs a picture.';
+  await mount(<HelpTip label="Help">{long}</HelpTip>);
+  expect(warn).toHaveBeenCalledWith(expect.stringContaining('HelpTip'));
+  warn.mockClear();
+  await act(async () => root!.render(<HelpTip label="Help" caption={long} media={<svg />} />));
+  expect(warn).not.toHaveBeenCalled();
 });
 
 it('cancels native Escape when help is open but focus remains in another modal control', async () => {
