@@ -21,7 +21,7 @@ related:
 
 # 我该用哪个组件？
 
-本指南对应 4.0.0-alpha.15 的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
+本指南对应 4.0.0-alpha.16 候选的当前包契约；版本与发布事实以[当前工作](execution/current-work.md)为准，不是发布成功公告。升级产品前先读[逐项迁移表](migration-3.0.md)，显式选择精确版本；不让现有产品自动跟随 main，也不把 `next` 当成稳定 `latest`。
 
 ## 先按任务选择
 
@@ -34,6 +34,8 @@ related:
 | 验证码、独立列表动作 | OtpInput / ListRow | 验证请求由 AuthKit/产品拥有；列表右侧动作与选择是兄弟按钮。 |
 | 一块信息、折叠信息、阻断背景的对话框 | Panel / CollapsiblePanel / Modal | Dialog 是内联对话内容，不是模态框；编辑表单跨关闭保留时用 keepMounted。 |
 | 空状态、通知、进度、简短解释 | EmptyState / Toast / Callout / Progress / HelpTip | 进度必须真实；Toast 不是队列服务，必要错误不能藏进 HelpTip。 |
+| 一张动画图加一句解释 | HelpTip + HelpLoop | caption 和控制标签由产品翻译；poster 是减少动态时的关键帧，画面内不放字。 |
+| 按步骤演示怎么做 | HowToPanel | 只展示当前一步，用户用前后按钮或方向键切换；不自动推进业务流程。 |
 | 解释一个操作，需要标题、短句或一段演示 | HelpCard | 悬停、聚焦或点按后出现；可省略。必要信息、错误和价格不放进卡片，见下节。 |
 | Colour Worlds 工具窗口 | ToolWindow + ToolSidebar | 选择一个 `world`，用 `sidebarMode="normal" | "rail"`；不包含路由、数据或 3D 资产。 |
 | Colour Worlds 首页 | ToolLanding + Gem + RoundAction | 宿主提供 art、标题、feature 文案和动作语义；每屏只放一个 RoundAction。需要真实 3D hero 时给 ToolLanding 传 `model`，同时提供 PNG fallback。 |
@@ -54,8 +56,8 @@ related:
 | 级别 | 组件 | 什么时候用 |
 | --- | --- | --- |
 | 1 | `Tooltip` | 一行补充名称或说明，触发器本身已经可聚焦。 |
-| 2 | `HelpCard` | 解释一个操作：悬停、聚焦或点按后出现一个标题、一到三行正文，可选一段短演示和“完整指南”链接。 |
-| 3 | `FirstSessionOnboarding` | 首次进入的有限引导；是否出现、何时关闭和是否记录由宿主决定。 |
+| 2 | `HelpTip` / `HelpCard` | 新小提示优先一张无字动画图加一句 caption；HelpCard 保留多主题、短演示和完整指南链接。 |
+| 3 | `HowToPanel` / `FirstSessionOnboarding` | HowToPanel 逐步展示；首次引导保留步骤概览，每步可配 media/poster，body 是一句 caption；出现、关闭和记录由宿主决定。 |
 | 4 | 产品自己的指南页 | 完整教程、长流程和检索，不在 UIKit 内。 |
 
 不要用帮助卡承载下列内容：必要信息、错误、费用和价格必须常驻可见；需要填写、确认或付款的操作不放进卡片；卡片不是某件事的唯一说明来源。
@@ -122,7 +124,9 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `Badge` | 简短状态或标记，不是可点击按钮。 |
 | `Callout` | 正文旁的可读提醒，重要错误应持续可见。 |
 | `EmptyState` | 解释当前没有内容的原因，并提供宿主动作。 |
-| `HelpTip` | 可省略的短解释，不放必要费用或交互表单。 |
+| `HelpTip` | 无字 media + 一句 caption；支持 poster，旧文字 children 保持兼容；不放必要费用或交互表单。 |
+| `HowToPanel` | 用户掌握节奏的步骤面板；media/poster/caption 配合产品翻译的前后按钮。 |
+| `HelpLoop` | 用 is-playing 类控制作者的 CSS 循环；离屏暂停，减少动态显示 poster 或静止基础图，不管理任意 JS/媒体引擎。 |
 | `HelpCard` | 悬停、聚焦或点按后打开的小卡片：一个标题、一到三行正文、可选循环短演示（减少动态时不自动播放）和完整指南链接；必要信息、错误和价格不放进去，需要操作的内容也不放进去。 |
 | `LoadingState` | 表示真实加载中，不承诺完成时间。 |
 | `Progress` | 10px水滴轨道与潮汐液面；数值变化晃动600ms后静止，不占滤镜预算。保留原生progressbar语义，不伪造业务完成。 |

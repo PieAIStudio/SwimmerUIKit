@@ -2,7 +2,7 @@
 
 Swimmer 的共享 React UI：普通控件是平面水滴，主线 CTA 是潮汐液体。支持七套风格与独立明暗，表单、焦点、键盘和编辑内容仍由原生 DOM 承接。它不拥有产品数据、模型调用、账号验证或支付。
 
-**4.0.0-alpha.15 已发布到 npm `next`：primary liquid CTA edge containment**：潮汐液体主按钮的装饰限制在自身圆角 border-box 内，同时保留渐变、高光和按压姿态；`latest` 仍为 3.2.5。发布后版本与 npm 回读见[当前工作](docs/reference/execution/current-work.md)，Colour Worlds 接入步骤见[adoption guide](docs/reference/tool-worlds-adoption.md)。现有产品继续锁定精确版本；本仓库不自动升级任何产品。
+**4.0.0-alpha.16 候选：一张动画图加一句话的帮助**。HelpTip 支持 media/poster/caption；新增 HowToPanel 与轻量 CSS HelpLoop，首次引导每步也能配图。减少动态显示关键帧，画面内不放字，文案由产品翻译；旧文字用法保持兼容。当前已发布的 npm `next` 仍为 **4.0.0-alpha.15**，`latest` 为 **3.2.5**。候选验证、发布状态和 npm 回读见[当前工作](docs/reference/execution/current-work.md)。Colour Worlds 接入见[adoption guide](docs/reference/tool-worlds-adoption.md)；现有产品继续锁定精确版本，本仓库不自动升级产品。
 
 ## 安装与最小使用
 

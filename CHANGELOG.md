@@ -5,6 +5,14 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.16 — 2026-11-03（animated help）
+
+- `HelpTip` 新增可选 `media`、`poster`、`caption`，保留文字 `children`；开发环境对无图长说明只发警告。图外的一句 caption 是浮层的可访问名称，门户复用现有主题镜像和原生 dialog 行为。
+- 新增 `HowToPanel`：一次只挂载一步，前后按钮及 Left/Right、Home/End 切换，不自动推进；标签与每步 caption 由产品翻译。
+- 新增 `HelpLoop`：以 class 控制作者的 CSS 循环，离屏和页面隐藏时暂停；减少动态显示 poster，没有 poster 则保留停用动画的基础图。`--help-stroke` / `--help-accent` 统一 2px 圆头线稿与单强调色。
+- `FirstSessionOnboarding` 每步可选 media/poster，body 用作图外短 caption；既有纯文字用法不变。故事提供无字的同 Wi-Fi 概念图、小提示、三步面板和对话框示例。
+- 候选仅按既有 trusted `npm-publish.yml` 路径发布到 `next`，不移动 `latest`，不自动升级任何产品。
+
 ## 4.0.0-alpha.15 — 2026-10-31（primary liquid CTA edge containment）
 
 - 修复 `Button variant="primary"` 的潮汐液体装饰越过自身圆角 border-box：液体 frame 不再被 grid/flex track 拉宽，compositor 阴影在圆角装饰层内裁切；保留潮汐渐变、高光和按压姿态。

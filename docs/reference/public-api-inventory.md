@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **133 named exports: 56 values and 77 types**.
+Compiler inventory: **138 named exports: 58 values and 80 types**.
 
 ## controls/ — Controls
 
@@ -86,6 +86,11 @@ Status, progress, help and non-modal notices
 | `EmptyStateProps` | type | [source](../../src/feedback/EmptyState/EmptyState.tsx) |
 | `HelpTip` | value | [source](../../src/feedback/HelpTip/HelpTip.tsx) |
 | `HelpTipProps` | type | [source](../../src/feedback/HelpTip/HelpTip.tsx) |
+| `HelpLoop` | value | [source](../../src/feedback/HelpLoop/HelpLoop.tsx) |
+| `HelpLoopProps` | type | [source](../../src/feedback/HelpLoop/HelpLoop.tsx) |
+| `HowToPanel` | value | [source](../../src/feedback/HowToPanel/HowToPanel.tsx) |
+| `HowToPanelProps` | type | [source](../../src/feedback/HowToPanel/HowToPanel.tsx) |
+| `HowToStep` | type | [source](../../src/feedback/HowToPanel/HowToPanel.tsx) |
 | `HelpCard` | value | [source](../../src/feedback/HelpCard/HelpCard.tsx) |
 | `HelpCardProps` | type | [source](../../src/feedback/HelpCard/HelpCard.tsx) |
 | `HelpCardTopic` | type | [source](../../src/feedback/HelpCard/HelpCard.tsx) |

@@ -6,7 +6,7 @@ status: active
 canonical: true
 owner: human
 created: 2026-07-02
-last_reviewed: 2026-10-31
+last_reviewed: 2026-11-03
 domain: ui-components
 tags:
   - uikit
@@ -19,7 +19,15 @@ related:
 
 # 当前工作
 
-## 当前：primary liquid CTA edge containment 已完成，alpha.15 已发布到 npm next
+## 当前：animated help alpha.16 候选，验证中，尚未发布
+
+本轮只改 UIKit：HelpTip 增加 media/poster/caption，HowToPanel 一次展示一步，HelpLoop 管理作者的 CSS 循环；FirstSessionOnboarding 每步可配 media/poster，旧文字用法保留。画面内无字，caption 和按钮标签由产品翻译；减少动态显示关键帧，不引入 GSAP 或视频依赖。未改消费产品。
+
+回归规格提交 `dcec7a9`，媒体框/步骤面板实现 `f7bcbb8`，HelpTip 与故事实现 `74859c2`。先保留 onboarding 缺少 media、HowToPanel 不存在的单元红灯；相关 3 文件 / 16 项随后通过。HelpTip 浏览器的两项新行为在修前为红，原有四项通过；随后实现 caption/poster 和开发警告。类型、lint、格式、API、选择指南已通过，相关浏览器/故事与构建仍在指定 run-locked 队列，未执行的不算通过。版本目标为 **4.0.0-alpha.16**，npm 当前仍为 `next=4.0.0-alpha.15`、`latest=3.2.5`。
+
+本地证据统一在 `.reports/2026-11-03-animated-help/`；总回执为 HQ 的 `conductor/projects/Kits/uikit-animated-help-20261103/run-1/RECEIPT.md`。相关浏览器/故事、候选包和 trusted 发布门禁完成后再更新本节；此前不触发发布。
+
+## 前次：primary liquid CTA edge containment 已完成，alpha.15 已发布到 npm next
 
 修复 `src/controls/Button/component.css` 的两个源头问题：grid/flex track 会把 liquid frame 拉宽到轨道，且 CTA 装饰层没有圆角裁切 compositor 阴影。现在 frame 用 `width: fit-content`（full-width 仍占满），装饰层用 native rounded border-box 的 `overflow: hidden`；潮汐渐变、高光和按压姿态保留。没有改任何消费产品。
 

@@ -20,7 +20,7 @@ related:
 
 # 主题与液体
 
-适用版本：4.0.0-alpha.15。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
+适用版本：4.0.0-alpha.16 候选。Colour Worlds 用 `ToolWindow`、`ToolSidebar`、`ToolLanding`、`GlassCard`、`ManagerSheet`、`BentoProgress` 和 `RoundAction` 组成工具层；游戏 `Shell` 与液体预算仍保持独立。3.2 系列的外观历史仍见下文；这是外观与交互契约，发布事实单独看当前工作和发布回执。下游不因 npm 标签更新而自动完成升级。
 
 3.2.2 候选中，SegmentedControl 按内容决定选项换行位置，超长单词在按钮内折行；账号菜单三个页签仍占一排，但不再强制等宽，必要时标签在页签内换行。两者都保留选中标记和原生点击区域，不缩小字体或隐藏完整名称。消费者不要通过 `nowrap`、固定高度等覆写重新制造截断。
 
@@ -71,6 +71,12 @@ Swimmer 的界面有触感、轻快、可靠。能按的东西是水滴，按下
 Badge复用同一个路径原件，缓波上限1px，高24px、横向10px、字号12px/600。Toast、Callout和Tooltip背景缓波上限1.4px，不响应按压，没有入场移动或待机循环。文字布局、提示描述和status/alert语义保留；tone读取现有风格语义，灰阶/两种包边去色，危险红字例外。
 
 Progress轨道是10px高的静止水滴，取surface-sunken；液面固定为潮汐。右缘用SVG弯月形路径，数值改变时最多600ms轻晃，然后完全停止绘制。只有数值/尺寸改变才更新，没有液体滤镜、预算租约或待机纹理。减少动态直接到位，隐藏页面停止；无论动画在哪一帧，progressbar报告的都是宿主当前真实数值，不靠动画宣布完成。旧tone和普通矩形填充被删除。
+
+## 一张图加一句话的帮助
+
+HelpTip 支持可选的 media、poster、caption，原有文字 children 不变。HowToPanel 一次只挂载一步，前后按钮和 Left/Right、Home/End 由读者掌握节奏，不自动推进；FirstSessionOnboarding 保留步骤概览，每步可加 media/poster，body 就是一句可访问的 caption。标签和句子由产品翻译，画面内不放字。它们不拥有产品配对、完成或持久化状态。
+
+HelpLoop 是无交互、对读屏隐藏的画面框，只用 is-playing 类控制作者的 CSS 循环；离屏或页面隐藏时暂停，减少动态时显示 poster，没有 poster 则停用 CSS 动画/过渡，保留基础图形。它不是视频或任意 JS 动画播放器。帮助图使用 320×180 概念线稿、2px 圆头线条和 --help-stroke / --help-accent 两个颜色通道，默认跟随明暗语义。HelpTip 门户复用 HelpCard 的主题镜像，仍留在最近的原生 dialog 顶层。
 
 ## 唯一主操作
 
