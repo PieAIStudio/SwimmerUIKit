@@ -19,13 +19,19 @@ related:
 
 # 当前工作
 
-## 当前：animated help alpha.16 候选，验证中，尚未发布
+## 当前：animated help 已完成，alpha.16 已发布到 npm next
 
 本轮只改 UIKit：HelpTip 增加 media/poster/caption，HowToPanel 一次展示一步，HelpLoop 管理作者的 CSS 循环；FirstSessionOnboarding 每步可配 media/poster，旧文字用法保留。画面内无字，caption 和按钮标签由产品翻译；减少动态显示关键帧，不引入 GSAP 或视频依赖。未改消费产品。
 
-回归规格提交 `dcec7a9`，媒体框/步骤面板实现 `f7bcbb8`，HelpTip 与故事实现 `74859c2`。先保留 onboarding 缺少 media、HowToPanel 不存在的单元红灯；相关 3 文件 / 16 项随后通过。HelpTip 浏览器的两项新行为在修前为红，原有四项通过；随后实现 caption/poster 和开发警告。类型、lint、格式、API、选择指南已通过，相关浏览器/故事与构建仍在指定 run-locked 队列，未执行的不算通过。版本目标为 **4.0.0-alpha.16**，npm 当前仍为 `next=4.0.0-alpha.15`、`latest=3.2.5`。
+源提交 **`7cd7a27`** 已通过正常 Mac hooks 推送；[trusted workflow **41596053162**](https://github.com/PieAIStudio/SwimmerUIKit/actions/runs/41596053162)（attempt 1）全绿并发布。完整 unit/browser/Storybook 集合为 **131 文件 / 906 项通过**；package/Storybook、docs、packed、publint strict、ESM-only attw、Next 真包消费与发布后标签核对均通过。CI packed root runtime 为 **159465 / 159626 bytes**，gzip **45733**，未提高预算。
 
-本地证据统一在 `.reports/2026-11-03-animated-help/`；总回执为 HQ 的 `conductor/projects/Kits/uikit-animated-help-20261103/run-1/RECEIPT.md`。相关浏览器/故事、候选包和 trusted 发布门禁完成后再更新本节；此前不触发发布。
+官方独立回读：`@pieai/swimmer-ui-kit@4.0.0-alpha.16` 存在，`next=4.0.0-alpha.16`，`latest=3.2.5`。下载的 registry tarball 与 CI 检查并发布的候选 SHA-256 完全相同：**`2ed8a3720033fea6e6d88564faa9a8f16c0163633646bb26f822f198148d1c75`**；registry SHA-512 integrity 也已核对。发布经既有 Trusted Publishing/provenance 路径，仅执行一次 npm publish；本机没有手动发布。
+
+保留完整红→绿：缺少媒体/面板及 HelpTip caption/警告规格先红后绿；首次 release run `41587957738` 因 clean checkout 缺少被忽略的历史证据停止，现从固定历史提交恢复原字节，由原 SHA-256 契约验证，不重画或重追踪图片。第二次 `41589864321` 完整结束为 904 通过 / 1 项 native dialog 横向溢出；5px 字体收窄复现精确的 410 > 408 后，修正装饰 SVG 的布局视口而不裁切绘制或放宽断言。两次失败均未进入发布。
+
+最后正常 push 的工具选择为 15 命令、445 unit / 23 browser 项通过；Windows 独占锁下另有 123 相关 browser / 17 story 项通过。类型/构建元数据修正前后 14 个 JS/CSS 产物逐字节相同，复用已绿结果。当前保留 42 张明暗/桌面/390px/原生 dialog/poster/引导底部截图，程序记录横向溢出与绘图内文字均为 0；已打开代表性原尺寸截图和真实录屏的 03/10/20 时间采样。没有独立视觉分数、逐帧/声音或下游产品验收声明。
+
+证据统一在 `.reports/2026-11-03-animated-help/`；总回执为 HQ 的 `conductor/projects/Kits/uikit-animated-help-20261103/run-1/RECEIPT.md`。这是 `next` 预发行版，不代表正式 4.0.0 稳定发布；未部署网站、未自动升级或验收任何消费产品。
 
 ## 前次：primary liquid CTA edge containment 已完成，alpha.15 已发布到 npm next
 
