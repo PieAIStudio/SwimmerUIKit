@@ -96,13 +96,10 @@ export function attachDroplet(
     amplitude = wave;
     geometry = createDropletGeometry(width, height, radius);
     padding = Math.ceil(width * 0.025 + wave * 3 + 6);
-    svg.setAttribute('width', String(width + 2 * padding));
-    svg.setAttribute('height', String(height + 2 * padding));
-    svg.setAttribute('viewBox', `0 0 ${width + 2 * padding} ${height + 2 * padding}`);
-    svg.style.left = `${-padding}px`;
-    svg.style.top = `${-padding}px`;
-    svg.style.width = `${width + padding * 2}px`;
-    svg.style.height = `${height + padding * 2}px`;
+    // Padding belongs to paint coordinates, not the native layout footprint.
+    svg.setAttribute('width', String(width));
+    svg.setAttribute('height', String(height));
+    svg.setAttribute('viewBox', `${padding} ${padding} ${width} ${height}`);
     const targetPose = active && motion ? pressedPose(amplitude) : restingPose(amplitude);
     snapDropletSpring(spring, targetPose);
     svg.dataset.ready = 'true';

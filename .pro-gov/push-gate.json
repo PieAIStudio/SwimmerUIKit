@@ -157,7 +157,8 @@
         "src/controls/DropletSurface/**/*.{ts,tsx,js,css,json}"
       ],
       "commands": [
-        "pnpm exec vitest run --project browser src/controls/DropletSurface/DropletSurface.browser.test.tsx"
+        "pnpm exec vitest run --project browser src/controls/DropletSurface/DropletSurface.browser.test.tsx",
+        "pnpm exec vitest run --project browser src/feedback/HowToPanel/HowToPanel.browser.test.tsx"
       ]
     },
     {
@@ -214,6 +215,15 @@
       ],
       "commands": [
         "pnpm exec vitest run --project browser src/feedback/HelpCard/HelpCard.browser.test.tsx"
+      ]
+    },
+    {
+      "paths": [
+        "src/feedback/HowToPanel/**/*.{ts,tsx,js,css,json}",
+        "src/feedback/HelpLoop/**/*.{ts,tsx,js,css,json}"
+      ],
+      "commands": [
+        "pnpm exec vitest run --project browser src/feedback/HowToPanel/HowToPanel.browser.test.tsx"
       ]
     },
     {

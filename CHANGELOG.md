@@ -9,8 +9,9 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 - `HelpTip` 新增可选 `media`、`poster`、`caption`，保留文字 `children`；开发环境对无图长说明只发警告。图外的一句 caption 是浮层的可访问名称，门户复用现有主题镜像和原生 dialog 行为。
 - 新增 `HowToPanel`：一次只挂载一步，前后按钮及 Left/Right、Home/End 切换，不自动推进；标签与每步 caption 由产品翻译。
-- 新增 `HelpLoop`：以 class 控制作者的 CSS 循环，离屏和页面隐藏时暂停；减少动态显示 poster，没有 poster 则保留停用动画的基础图。`--help-stroke` / `--help-accent` 统一 2px 圆头线稿与单强调色。
+- 新增 `HelpLoop`：以 class 控制作者的 CSS 循环，离屏时暂停；减少动态显示 poster，没有 poster 则保留停用动画的基础图。`--help-stroke` / `--help-accent` 统一 2px 圆头线稿与单强调色。
 - `FirstSessionOnboarding` 每步可选 media/poster，body 用作图外短 caption；既有纯文字用法不变。故事提供无字的同 Wi-Fi 概念图、小提示、三步面板和对话框示例。
+- 平面控件的装饰 SVG 视口贴合原生命中框，几何留白只保留为绘制坐标；字体尺寸变化时不再把装饰留白变成 dialog 横向滚动，波动路径与焦点提示不裁切。
 - 候选仅按既有 trusted `npm-publish.yml` 路径发布到 `next`，不移动 `latest`，不自动升级任何产品。
 
 ## 4.0.0-alpha.15 — 2026-10-31（primary liquid CTA edge containment）

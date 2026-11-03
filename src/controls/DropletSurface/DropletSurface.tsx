@@ -48,7 +48,13 @@ export function DropletSurface({
     };
   }, [seedKey, reduced, isStatic, pressTarget, maxWobble]);
   return (
-    <svg ref={svg} className="game-ui-droplet" aria-hidden="true" focusable="false">
+    <svg
+      ref={svg}
+      className="game-ui-droplet"
+      aria-hidden="true"
+      focusable="false"
+      preserveAspectRatio="none"
+    >
       <g>
         <path vectorEffect="non-scaling-stroke" />
       </g>
