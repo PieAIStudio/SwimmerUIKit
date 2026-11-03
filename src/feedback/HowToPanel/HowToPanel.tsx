@@ -46,17 +46,12 @@ export function HowToPanel({ steps, label, previousLabel, nextLabel }: HowToPane
           <figcaption aria-hidden="true">{step.caption}</figcaption>
         </figure>
       </div>
-      <nav className="swimmer-how-to-navigation" aria-label={label}>
-        <Button disabled={current === 0} onClick={() => select(current - 1)}>
-          {previousLabel}
-        </Button>
-        <span aria-hidden="true">
-          {current + 1} / {steps.length}
-        </span>
-        <Button disabled={current === steps.length - 1} onClick={() => select(current + 1)}>
-          {nextLabel}
-        </Button>
-      </nav>
+      <Button disabled={current === 0} onClick={() => select(current - 1)}>
+        {previousLabel}
+      </Button>
+      <Button disabled={current === steps.length - 1} onClick={() => select(current + 1)}>
+        {nextLabel}
+      </Button>
     </section>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useSystemReducedMotion } from '../../tokens/reducedMotion';
+import { joinClasses } from '../../containers/shared/classes';
 
 export interface HelpLoopProps {
   children: ReactNode;
@@ -14,26 +15,19 @@ export function HelpLoop({ children, poster, className }: HelpLoopProps): ReactN
   const [visible, setVisible] = useState(false);
   const reduced = useSystemReducedMotion();
   useEffect(() => {
-    let inView = false;
-    const update = () => setVisible(inView && !document.hidden);
-    const observer = new IntersectionObserver(([entry]) => {
-      inView = entry?.isIntersecting ?? false;
-      update();
-    });
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry!.isIntersecting));
     observer.observe(ref.current!);
-    document.addEventListener('visibilitychange', update);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', update);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={ref}
-      className={['swimmer-help-loop', visible && !reduced && 'is-playing', className]
-        .filter(Boolean)
-        .join(' ')}
+      className={joinClasses(
+        'swimmer-help-loop',
+        visible && !reduced ? 'is-playing' : undefined,
+        className,
+      )}
       aria-hidden="true"
       inert
     >

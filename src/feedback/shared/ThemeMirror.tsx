@@ -20,13 +20,9 @@ export function ThemeMirror({ source }: { source: HTMLElement | null }) {
       }
       const computed = getComputedStyle(host);
       for (const token of computed) {
-        if (
-          (!token.startsWith('--swimmer-') && !token.startsWith('--help-')) ||
-          token === '--swimmer-droplet-radius'
-        )
-          continue;
-        const value = computed.getPropertyValue(token).trim();
-        if (layer.style.getPropertyValue(token) !== value) layer.style.setProperty(token, value);
+        if (/^--(swimmer|help)-/.test(token) && token !== '--swimmer-droplet-radius') {
+          layer.style.setProperty(token, computed.getPropertyValue(token));
+        }
       }
     };
     const observer = new MutationObserver(sync);

@@ -1,6 +1,6 @@
 # HelpLoop
 
-A decorative frame for an author's inline SVG/CSS loop. It adds `is-playing` only while on screen, the document is visible and the system allows motion. CSS animations pause without resetting when hidden; reduced motion disables animations/transitions and shows `poster` when supplied. No GSAP, timer, player or animation dependency.
+A decorative frame for an author's inline SVG/CSS loop. It adds `is-playing` only while on screen and the system allows motion. CSS animations pause without resetting when off screen; reduced motion disables animations/transitions and shows `poster` when supplied. No GSAP, timer, player or animation dependency.
 
 ```tsx
 <HelpLoop poster={<ConnectionStill />}>

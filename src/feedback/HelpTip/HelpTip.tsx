@@ -1,6 +1,7 @@
 import { DropletSurface } from '../../controls/DropletSurface/DropletSurface';
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { HelpLoop } from '../HelpLoop/HelpLoop';
+import { Icon } from '../../icons/Icon/Icon';
 import { ThemeMirror } from '../shared/ThemeMirror';
 import {
   autoUpdate,
@@ -47,9 +48,7 @@ export function HelpTip({ label, children, media, poster, caption }: HelpTipProp
       !media &&
       (text.length > 60 || /[.!?。！？]\s*\S/u.test(text))
     ) {
-      console.warn(
-        '[HelpTip] Prefer a text-free picture and one short caption (about 60 characters).',
-      );
+      console.warn('[HelpTip] Add media for multi-sentence or >60-character help.');
     }
   }, [media, text]);
   const { refs, floatingStyles, context } = useFloating<HTMLButtonElement>({
@@ -114,16 +113,14 @@ export function HelpTip({ label, children, media, poster, caption }: HelpTipProp
         data-game-ui-paint=""
       >
         <DropletSurface />
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-          <path
-            d="M9.8 8.5a2.5 2.5 0 0 1 4.7 1.2c0 1.8-2.5 1.9-2.5 3.6"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-          />
-          <circle cx="12" cy="16.7" r="1" fill="currentColor" />
-        </svg>
+        <Icon
+          icon={{
+            name: 'help',
+            paths: [
+              'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0M9.8 8.5a2.5 2.5 0 0 1 4.7 1.2c0 1.8-2.5 1.9-2.5 3.6M12 16.7h.01',
+            ],
+          }}
+        />
       </button>
       {open && (
         <FloatingPortal root={portalRoot}>
