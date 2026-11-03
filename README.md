@@ -51,6 +51,8 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 
 ## 开发与交付
 
+首次干净检出若缺少被忽略的 2.x 原始证据，先按[归档恢复说明](docs/archive/evidence/2.x/artifacts/README.md#fresh-checkout-recovery)补齐，再做完整验证或文档合同检查；不重画 golden。发布工作流在隔离 runner 中自动执行同一固定历史恢复。
+
 ```sh
 pnpm install --frozen-lockfile
 pnpm verify

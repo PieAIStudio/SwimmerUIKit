@@ -47,6 +47,17 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec lefthook install
       - run: pnpm exec playwright install --with-deps chromium
+      - name: Restore indexed 2.x evidence
+        env:
+          ARCHIVE_COMMIT: 47d2ceff65dc9a56192b9942cb32f75be09616b6
+        run: |
+          # Ignored historical fixtures, not newly rendered goldens. The existing
+          # documentation contract verifies every original against its SHA-256.
+          git fetch --no-tags --depth=1 origin "$ARCHIVE_COMMIT"
+          git restore --source="$ARCHIVE_COMMIT" --worktree -- \
+            ':(glob)docs/archive/evidence/2.x/artifacts/**/*.png' \
+            docs/archive/evidence/2.x/artifacts/edge-quality/metrics.json \
+            docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/experience-packets.json
       - run: pnpm verify
       - run: pnpm build-storybook
       - run: pnpm docs:check

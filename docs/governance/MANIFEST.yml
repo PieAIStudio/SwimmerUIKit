@@ -1,6 +1,6 @@
 # docs/governance/MANIFEST.yml — auto-generated, DO NOT EDIT MANUALLY
 # Regenerate: pnpm doc-gov scan
-generated_at: 2026-11-03T03:26:29.339Z
+generated_at: 2026-11-03T06:21:01.622Z
 generator_version: doc-gov@0.16.0
 docs_count: 63
 docs:
@@ -16,7 +16,7 @@ docs:
     type: archive
     status: archived
     canonical: false
-    last_reviewed: 2026-10-02
+    last_reviewed: 2026-11-03
     pinned: false
   - id: ARCHIVE-OWNER-STROKE-REVIEW
     path: docs/archive/evidence/2.x/owner-stroke-review/README.md

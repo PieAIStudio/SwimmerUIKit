@@ -121,7 +121,8 @@
         ".agents/manual-skills/*"
       ],
       "commands": [
-        "pnpm docs:check"
+        "pnpm docs:check",
+        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/documentationContract.test.ts"
       ]
     },
     {

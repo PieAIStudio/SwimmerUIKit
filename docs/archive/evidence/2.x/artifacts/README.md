@@ -6,7 +6,7 @@ status: archived
 canonical: false
 owner: project
 created: 2026-10-02
-last_reviewed: 2026-10-02
+last_reviewed: 2026-11-03
 domain: evidence
 tags:
   - history
@@ -15,6 +15,10 @@ related: []
 ---
 
 > S5 按 Owner 批准的 3.0 计划移出根目录。下文是旧保存政策；本次仅改位置，非 Markdown 工件的 SHA-256 逐一一致。不要在这里运行历史脚本覆盖原始截图；旧路径对应见 docs/archive/relocations-3.0.json。
+
+## Fresh-checkout recovery
+
+Generated captures remain ignored in the current Git tree. Full verification still checks the indexed originals, not replacement goldens. In a fresh, isolated checkout, use the **Restore indexed 2.x evidence** step from the [release workflow](../../../../../.github/workflows/npm-publish.yml): it restores only PNGs and two measurement JSON files from the pinned archive commit before verification. It does not run historical rendering scripts or overwrite current Markdown. Do not apply recovery over edited local evidence; keep those edits separately first.
 
 # Evidence, not a generic cache
 

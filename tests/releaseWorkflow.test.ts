@@ -266,6 +266,10 @@ describe('one-shot release metadata guard', () => {
     expect(workflow).toContain('check-release-metadata.mjs capture .scratch/npm-before.json');
     expect(workflow).toContain('check-release-metadata.mjs capture .scratch/npm-after.json');
     expect(workflow).toContain('test "$GITHUB_RUN_ATTEMPT" = "1"');
+    expect(workflow).toContain('ARCHIVE_COMMIT: 47d2ceff65dc9a56192b9942cb32f75be09616b6');
+    const restore = workflow.indexOf('git restore --source="$ARCHIVE_COMMIT" --worktree --');
+    expect(restore).toBeGreaterThan(-1);
+    expect(restore).toBeLessThan(workflow.indexOf('run: pnpm verify'));
     expect(workflow).toContain('check-release-metadata.mjs after');
     expect(workflow).toContain('pnpm check:next-consumer .scratch/release-candidate.tgz');
     expect(workflow).toContain(
