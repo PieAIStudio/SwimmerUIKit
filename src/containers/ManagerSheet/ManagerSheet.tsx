@@ -21,6 +21,7 @@ export interface ManagerSheetRow {
   disabled?: boolean;
   icon?: ReactNode;
   id: string;
+  label?: string;
   meta?: ReactNode;
   name: ReactNode;
   size?: ReactNode;
@@ -29,6 +30,7 @@ export interface ManagerSheetRow {
 
 export interface ManagerSheetProps {
   actionLabel: ReactNode;
+  backLabel?: ReactNode;
   className?: string;
   footerNote?: ReactNode;
   groups: readonly ManagerSheetGroup[];
@@ -36,12 +38,15 @@ export interface ManagerSheetProps {
   onBack?: () => void;
   onGroupSelect?: (id: string) => void;
   onRowCheck?: (id: string, checked: boolean) => void;
+  onRowOpen?: (id: string) => void;
   onSearch?: (event: ChangeEvent<HTMLInputElement>) => void;
   onSort?: () => void;
   rows: readonly ManagerSheetRow[];
+  searchLabel?: string;
   selectedCount?: ReactNode;
   selectedSize?: ReactNode;
   sortLabel?: ReactNode;
+  sortPrefix?: ReactNode;
   subtitle?: ReactNode;
   theme?: 'light' | 'dark';
   title: ReactNode;
@@ -50,6 +55,7 @@ export interface ManagerSheetProps {
 /** A long-list manager sheet with a light or dark surface and pink action footer. */
 export function ManagerSheet({
   actionLabel,
+  backLabel,
   className,
   footerNote,
   groups,
@@ -57,12 +63,15 @@ export function ManagerSheet({
   onBack,
   onGroupSelect,
   onRowCheck,
+  onRowOpen,
   onSearch,
   onSort,
   rows,
+  searchLabel = 'Search',
   selectedCount,
   selectedSize,
   sortLabel,
+  sortPrefix,
   subtitle,
   theme = 'light',
   title,
@@ -76,16 +85,16 @@ export function ManagerSheet({
       <header className="game-ui-manager-sheet-bar">
         <button className="game-ui-manager-sheet-back" onClick={onBack} type="button">
           <ToolIcon name="back" />
-          <span>{theme === 'dark' ? '返回' : 'Back'}</span>
+          <span>{backLabel ?? (theme === 'dark' ? '返回' : 'Back')}</span>
         </button>
         <h1>{title}</h1>
         <div className="game-ui-manager-sheet-tools">
           <label className="game-ui-manager-sheet-search">
             <ToolIcon name="search" />
-            <input aria-label="Search" onChange={onSearch} type="search" />
+            <input aria-label={searchLabel} onChange={onSearch} type="search" />
           </label>
           <button className="game-ui-manager-sheet-sort" onClick={onSort} type="button">
-            <span>{theme === 'dark' ? '排序：' : 'Sort by: '}</span>
+            <span>{sortPrefix ?? (theme === 'dark' ? '排序：' : 'Sort by: ')}</span>
             <strong>{sortLabel}</strong>
             <ToolIcon name="down" />
           </button>
@@ -120,7 +129,7 @@ export function ManagerSheet({
               key={row.id}
             >
               <Checkbox
-                aria-label={`Select ${String(row.name)}`}
+                aria-label={`Select ${row.label ?? String(row.name)}`}
                 checked={row.checked}
                 disabled={row.disabled}
                 label=""
@@ -137,13 +146,17 @@ export function ManagerSheet({
               </span>
               {row.date ? <span className="game-ui-manager-sheet-row-date">{row.date}</span> : null}
               {row.size ? <span className="game-ui-manager-sheet-row-size">{row.size}</span> : null}
-              <button
-                aria-label={`Open ${String(row.name)}`}
-                className="game-ui-manager-sheet-row-open"
-                type="button"
-              >
-                <ToolIcon name="chev" />
-              </button>
+              {onRowOpen ? (
+                <button
+                  aria-label={`Open ${row.label ?? String(row.name)}`}
+                  className="game-ui-manager-sheet-row-open"
+                  disabled={row.disabled}
+                  onClick={() => onRowOpen(row.id)}
+                  type="button"
+                >
+                  <ToolIcon name="chev" />
+                </button>
+              ) : null}
             </div>
           ))}
         </div>

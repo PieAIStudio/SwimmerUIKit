@@ -5,6 +5,10 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+- 修复共享 `ToolHero3D` renderer 的高 DPI 重复缩放：viewport、scissor 与可见边界统一使用 CSS 像素，DPR 由 Three.js 处理；DPR 2 下位于视口右侧或上半部的 hero 不再被误剔除。
+- `ManagerSheet` 新增可选 `onRowOpen(id)`；仅在提供回调时显示行 Open 按钮，并遵守 `row.disabled`，不再显示无动作的按钮。
+- `ManagerSheet` 新增宿主标签 `backLabel`、`searchLabel`、`sortPrefix` 与可选的字符串 `row.label`（供选择/Open 可访问名称使用）；未传时保持原有主题标签和行名默认值。
+
 ## 4.0.0-alpha.16 — 2026-11-03（animated help）
 
 - `HelpTip` 新增可选 `media`、`poster`、`caption`，保留文字 `children`；开发环境对无图长说明只发警告。图外的一句 caption 是浮层的可访问名称，门户复用现有主题镜像和原生 dialog 行为。

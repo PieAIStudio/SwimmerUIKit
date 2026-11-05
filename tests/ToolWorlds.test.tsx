@@ -79,6 +79,53 @@ describe('Colour Worlds parts', () => {
     expect(html).toContain('data-tool-action-pill="true"');
   });
 
+  it.each(['light', 'dark'] as const)('accepts host labels with the %s theme', (theme) => {
+    const html = markup(
+      <ManagerSheet
+        actionLabel="Restore"
+        backLabel="Retour"
+        groups={[]}
+        onRowOpen={() => {}}
+        rows={[{ id: 'photo', name: <strong>Weekend.jpg</strong>, label: 'Photo du week-end' }]}
+        searchLabel="Rechercher"
+        sortLabel="Date"
+        sortPrefix="Trier : "
+        theme={theme}
+        title="Fichiers"
+      />,
+    );
+
+    expect(html).toContain('>Retour</span>');
+    expect(html).toContain('aria-label="Rechercher"');
+    expect(html).toContain('>Trier : </span>');
+    expect(html).toContain('aria-label="Select Photo du week-end"');
+    expect(html).toContain('aria-label="Open Photo du week-end"');
+    expect(html).toContain('<strong>Weekend.jpg</strong>');
+    expect(html).not.toContain('[object Object]');
+  });
+
+  it.each([
+    ['light', 'Back', 'Sort by: '],
+    ['dark', '返回', '排序：'],
+  ] as const)('keeps existing %s label defaults', (theme, backLabel, sortPrefix) => {
+    const html = markup(
+      <ManagerSheet
+        actionLabel="Restore"
+        groups={[]}
+        onRowOpen={() => {}}
+        rows={[{ id: 'photo', name: 'Weekend.jpg' }]}
+        theme={theme}
+        title="Files"
+      />,
+    );
+
+    expect(html).toContain(`>${backLabel}</span>`);
+    expect(html).toContain('aria-label="Search"');
+    expect(html).toContain(`>${sortPrefix}</span>`);
+    expect(html).toContain('aria-label="Select Weekend.jpg"');
+    expect(html).toContain('aria-label="Open Weekend.jpg"');
+  });
+
   it('covers the static card, progress and switch states', () => {
     const html = markup(
       <>

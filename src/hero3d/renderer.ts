@@ -214,10 +214,11 @@ class SharedHeroRenderer {
       const rect = slot.element.getBoundingClientRect();
       if (rect.width < 1 || rect.height < 1) continue;
 
-      const width = Math.max(1, Math.round(rect.width * this.dpr));
-      const height = Math.max(1, Math.round(rect.height * this.dpr));
-      const left = Math.max(0, Math.round(rect.left * this.dpr));
-      const bottom = Math.max(0, Math.round((viewportHeight - rect.bottom) * this.dpr));
+      // Three.js applies setPixelRatio to these logical CSS-pixel coordinates.
+      const width = Math.max(1, Math.round(rect.width));
+      const height = Math.max(1, Math.round(rect.height));
+      const left = Math.max(0, Math.round(rect.left));
+      const bottom = Math.max(0, Math.round(viewportHeight - rect.bottom));
       if (left >= this.width || bottom >= this.height) continue;
 
       this.updateMotion(slot, time);
