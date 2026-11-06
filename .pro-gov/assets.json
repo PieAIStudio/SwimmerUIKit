@@ -16,6 +16,10 @@
       "placement": "auto"
     },
     {
+      "id": "npx-skills/playwright-cli",
+      "placement": "auto"
+    },
+    {
       "id": "npx-skills/ui-ux-pro-max",
       "placement": "auto"
     },
@@ -33,6 +37,14 @@
     },
     {
       "id": "pie-rules/document-convergence"
+    },
+    {
+      "id": "pie-skills/design-before-build",
+      "placement": "auto"
+    },
+    {
+      "id": "pie-skills/goalcascade",
+      "placement": "auto"
     },
     {
       "id": "third-party-skills/codex-with-chatgpt",

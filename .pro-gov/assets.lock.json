@@ -5,8 +5,8 @@
   "registryProvenance": {
     "schema": "agent-assets-registry",
     "version": 1,
-    "hash": "sha256:08e41ae1d8c270b16742ab7fe166616cf81974bf8fde10727ae53509c0d5bcf3",
-    "assetCount": 10
+    "hash": "sha256:11ed02f8aeb4569a3190a38379878f695199735d6cafc47624bb0bbd84d3cdcc",
+    "assetCount": 13
   },
   "assets": [
     {
@@ -21,7 +21,7 @@
       "id": "npx-skills/impeccable",
       "sourcePath": "skills/npx-skills/.agents/skills/impeccable",
       "delivery": "symlink",
-      "contentHash": "sha256:2c68070631f0c376794820c90f0a9e71b069f67905c76c2e72d472d51b4c146a",
+      "contentHash": "sha256:674c515566c3c233a91cfb13e4d6ecfc4c44d6af3538634331c3968715b53bf4",
       "placement": "auto",
       "targetPath": ".agents/skills/impeccable"
     },
@@ -34,10 +34,18 @@
       "targetPath": ".agents/skills/make-interfaces-feel-better"
     },
     {
+      "id": "npx-skills/playwright-cli",
+      "sourcePath": "skills/npx-skills/.agents/skills/playwright-cli",
+      "delivery": "symlink",
+      "contentHash": "sha256:6be12bb66dbfa6d2459e1747058a386b499d4e1db57e802e86aa7395686d58dd",
+      "placement": "auto",
+      "targetPath": ".agents/skills/playwright-cli"
+    },
+    {
       "id": "npx-skills/ui-ux-pro-max",
       "sourcePath": "skills/npx-skills/.agents/skills/ui-ux-pro-max",
       "delivery": "symlink",
-      "contentHash": "sha256:9ea895a165b0c8c80f33d1de5ff3cfdaf9cecdcb80ac60f6ace23f4acdd91ad4",
+      "contentHash": "sha256:c50cdf3c1e2941640e66853496a24dd82d34c873cedae49648ea623366f776d2",
       "placement": "auto",
       "targetPath": ".agents/skills/ui-ux-pro-max"
     },
@@ -45,14 +53,14 @@
       "id": "pie-rules/ai-in-the-loop",
       "sourcePath": "rules/pie-rules/ai-in-the-loop.md",
       "delivery": "symlink",
-      "contentHash": "sha256:727495c221692756143191b66bace38d8da0bf720ac4e2b668a8f04a2ea68910",
+      "contentHash": "sha256:5718a0e0e40b70a1d33c2920a37fd8281e8a67fd0d35ffdd0e02c5a7403991df",
       "targetPath": "docs/policy/shared-rules/ai-in-the-loop.md"
     },
     {
       "id": "pie-rules/brand-kit-first",
       "sourcePath": "rules/pie-rules/brand-kit-first.md",
       "delivery": "symlink",
-      "contentHash": "sha256:fd3cb970084a98b2773f83b6917196da40f91718400f82cae004e0f2b779dadc",
+      "contentHash": "sha256:0ebbf19dda593873ba5413eed0581225de5c867785216f8925fd68d1e93308a3",
       "targetPath": "docs/policy/shared-rules/brand-kit-first.md"
     },
     {
@@ -73,8 +81,24 @@
       "id": "pie-rules/document-convergence",
       "sourcePath": "rules/pie-rules/document-convergence.md",
       "delivery": "symlink",
-      "contentHash": "sha256:b4e439ffe24d3031bd61de1b759fe7ec07e66e5ebdbca4d58b2331bfc2b7981b",
+      "contentHash": "sha256:796418e7ac598a8892b4fd53611b3b78d459e49ea991b98fa243ac48642a156a",
       "targetPath": "docs/policy/shared-rules/document-convergence.md"
+    },
+    {
+      "id": "pie-skills/design-before-build",
+      "sourcePath": "skills/pie-skills/design-before-build",
+      "delivery": "symlink",
+      "contentHash": "sha256:1e9f30072c416f6a1d14bb562e0d8aa56da2b96955e3413496288a4d195b83db",
+      "placement": "auto",
+      "targetPath": ".agents/skills/design-before-build"
+    },
+    {
+      "id": "pie-skills/goalcascade",
+      "sourcePath": "skills/pie-skills/goalcascade",
+      "delivery": "symlink",
+      "contentHash": "sha256:0b126b3055964f7e1218c7ba7f5d07ab119cf8a5dbf5070fb5b5207920315ee6",
+      "placement": "auto",
+      "targetPath": ".agents/skills/goalcascade"
     },
     {
       "id": "third-party-skills/codex-with-chatgpt",
