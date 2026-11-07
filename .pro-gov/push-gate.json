@@ -3,6 +3,18 @@
   "rules": [
     {
       "paths": [
+        "push-gate.template.json",
+        "scoring/README.md",
+        "scoring/review.schema.json",
+        "scoring/settings.example.json",
+        "scoring/settings.schema.json"
+      ],
+      "commands": [
+        "pnpm pro-gov sync --check --profile engineering-runtime"
+      ]
+    },
+    {
+      "paths": [
         ".pro-gov/push-gate*",
         "lefthook.yml",
         ".githooks/**"

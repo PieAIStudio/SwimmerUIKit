@@ -98,8 +98,8 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@microsoft/api-extractor": "^7.58.9",
-    "@pieai/doc-gov": "0.16.0",
-    "@pieai/pro-gov": "0.16.0",
+    "@pieai/doc-gov": "0.17.3",
+    "@pieai/pro-gov": "0.17.3",
     "@storybook/addon-a11y": "10.5.0",
     "@storybook/addon-docs": "10.5.0",
     "@storybook/addon-mcp": "^0.6.0",
