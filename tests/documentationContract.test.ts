@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, lstatSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, readlinkSync, lstatSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import ts from 'typescript';
@@ -81,7 +81,10 @@ describe('3.0 documentation convergence', () => {
   });
 
   it('retains actual site entries and linked governance, without reviving historical root scratch', () => {
-    expect(lstatSync('CLAUDE.md').isSymbolicLink()).toBe(true);
+    expect(lstatSync('AGENTS.md').isFile()).toBe(true);
+    expect(lstatSync('CLAUDE.md', { throwIfNoEntry: false })).toBeUndefined();
+    expect(lstatSync('.claude/skills').isSymbolicLink()).toBe(true);
+    expect(readlinkSync('.claude/skills')).toBe('../.agents/skills');
     for (const name of readdirSync('docs/policy/shared-rules'))
       if (name.endsWith('.md'))
         expect(lstatSync(`docs/policy/shared-rules/${name}`).isSymbolicLink(), name).toBe(true);
