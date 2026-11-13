@@ -58,9 +58,11 @@ body {
     backdrop-filter: blur(12px);
   }
   .game-ui-showcase-wordmark {
+    color: var(--swimmer-game-text);
     font-family: var(--swimmer-game-font-display);
     font-weight: 700;
     letter-spacing: 0.04em;
+    text-decoration: none;
     white-space: nowrap;
   }
   .game-ui-showcase-topbar nav {
@@ -101,8 +103,8 @@ body {
     margin: 0 0 10px;
   }
   .game-ui-showcase-block h1 {
-    font-size: clamp(2rem, 4vw, 3.75rem);
-    line-height: 1.05;
+    font-size: clamp(1.625rem, 2.6vw, 2.25rem);
+    line-height: 1.15;
   }
   .game-ui-showcase-block h2 {
     font-size: 1.5rem;
@@ -173,15 +175,29 @@ body {
   .game-ui-showcase-code {
     display: grid;
     gap: 10px;
+    width: 100%;
     max-width: 680px;
   }
   .game-ui-showcase-code pre {
+    max-width: 100%;
     margin: 0;
     overflow: auto;
+    overflow-wrap: anywhere;
     padding: 16px;
     border-radius: var(--swimmer-game-radius-panel);
     background: var(--swimmer-surface-sunken);
     font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .game-ui-showcase-copy-button {
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--swimmer-game-text);
+  }
+  .game-ui-showcase-copy-button > .game-ui-droplet {
+    display: none;
   }
   .game-ui-showcase-rail {
     min-width: 0;

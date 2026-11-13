@@ -15,6 +15,7 @@ export function StatusList({
   updatesTitle = 'Updates',
 }: StatusListProps): ReactNode {
   const text = (value: { en: string; zh: string }) => value[language];
+  const zh = language === 'zh';
   return (
     <div className="game-ui-showcase-status-list">
       <section className="game-ui-showcase-rail-block">
@@ -27,13 +28,13 @@ export function StatusList({
             </dd>
           </div>
           <div>
-            <dt>Version</dt>
+            <dt>{zh ? '版本' : 'Version'}</dt>
             <dd>
               <code>{kit.version}</code>
             </dd>
           </div>
           <div>
-            <dt>Last release</dt>
+            <dt>{zh ? '最近发布' : 'Last release'}</dt>
             <dd>{kit.lastRelease}</dd>
           </div>
         </dl>

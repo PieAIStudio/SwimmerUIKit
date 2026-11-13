@@ -26,7 +26,13 @@ export function CodeSample({
       <pre>
         <code>{source}</code>
       </pre>
-      <Button type="button" onClick={copy}>
+      <Button
+        type="button"
+        variant="ghost"
+        static
+        className="game-ui-showcase-copy-button"
+        onClick={copy}
+      >
         {copied ? copiedLabel : copyLabel}
       </Button>
     </div>
