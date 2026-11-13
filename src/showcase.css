@@ -39,9 +39,9 @@ body {
 @layer swimmer-ui {
   .game-ui-showcase-shell {
     min-height: 100dvh;
-    background: var(--game-ui-bg);
-    color: var(--game-ui-text);
-    font-family: var(--game-ui-font-body);
+    background: var(--swimmer-game-bg);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
     line-height: 1.65;
   }
   .game-ui-showcase-topbar {
@@ -50,15 +50,15 @@ body {
     gap: 24px;
     min-height: 64px;
     padding: 12px max(20px, calc((100vw - 1200px) /2));
-    border-bottom: 1px solid var(--game-ui-border-subtle);
-    background: color-mix(in srgb, var(--game-ui-bg) 92%, transparent);
+    border-bottom: 1px solid var(--swimmer-border-subtle);
+    background: color-mix(in srgb, var(--swimmer-game-bg) 92%, transparent);
     position: sticky;
     top: 0;
     z-index: 5;
     backdrop-filter: blur(12px);
   }
   .game-ui-showcase-wordmark {
-    font-family: var(--game-ui-font-display);
+    font-family: var(--swimmer-game-font-display);
     font-weight: 700;
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -70,7 +70,7 @@ body {
   }
   .game-ui-showcase-topbar nav a {
     font-size: 0.875rem;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-topbar nav a:hover {
     text-decoration: underline;
@@ -93,11 +93,11 @@ body {
   .game-ui-showcase-block {
     padding: 0 0 32px;
     margin: 0 0 32px;
-    border-bottom: 1px solid var(--game-ui-border-subtle);
+    border-bottom: 1px solid var(--swimmer-border-subtle);
   }
   .game-ui-showcase-block h1,
   .game-ui-showcase-block h2 {
-    font-family: var(--game-ui-font-display);
+    font-family: var(--swimmer-game-font-display);
     margin: 0 0 10px;
   }
   .game-ui-showcase-block h1 {
@@ -112,7 +112,7 @@ body {
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-lead {
     font-size: 1.125rem;
@@ -120,7 +120,7 @@ body {
   }
   .game-ui-showcase-consumers {
     margin-top: 8px;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-demo {
     display: grid;
@@ -139,12 +139,12 @@ body {
     display: grid;
     gap: 2px;
     padding: 14px;
-    border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-surface-sunken);
-    color: var(--game-ui-text-muted);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-surface-sunken);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-demo__output strong {
-    color: var(--game-ui-text);
+    color: var(--swimmer-game-text);
   }
   .game-ui-showcase-flow {
     display: grid;
@@ -158,17 +158,17 @@ body {
     display: grid;
     gap: 4px;
     padding: 12px;
-    border: 1px solid var(--game-ui-border-subtle);
-    border-radius: var(--game-ui-radius-card);
-    background: var(--game-ui-surface);
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-game-surface);
   }
   .game-ui-showcase-flow__step span:last-child {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     font-size: 0.875rem;
   }
   .game-ui-showcase-flow__index {
-    font: 600 0.75rem var(--game-ui-font-mono);
-    color: var(--game-ui-text-muted);
+    font: 600 0.75rem var(--swimmer-font-mono);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-code {
     display: grid;
@@ -179,22 +179,22 @@ body {
     margin: 0;
     overflow: auto;
     padding: 16px;
-    border-radius: var(--game-ui-radius-panel);
-    background: var(--game-ui-surface-sunken);
-    font: 500 0.8125rem/1.55 var(--game-ui-font-mono);
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-surface-sunken);
+    font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
   }
   .game-ui-showcase-rail {
     min-width: 0;
   }
   .game-ui-showcase-rail-block {
     padding: 20px;
-    border: 1px solid var(--game-ui-border-subtle);
-    border-radius: var(--game-ui-radius-card);
-    background: var(--game-ui-surface);
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-game-surface);
     margin-bottom: 16px;
   }
   .game-ui-showcase-rail-block h2 {
-    font-family: var(--game-ui-font-display);
+    font-family: var(--swimmer-game-font-display);
     font-size: 1.25rem;
     margin: 0 0 12px;
   }
@@ -212,7 +212,7 @@ body {
     gap: 12px;
   }
   .game-ui-showcase-rail-block dt {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-rail-block dd {
     margin: 0;
@@ -223,23 +223,23 @@ body {
     gap: 2px;
   }
   .game-ui-showcase-rail-block time {
-    font: 600 0.75rem var(--game-ui-font-mono);
-    color: var(--game-ui-text-muted);
+    font: 600 0.75rem var(--swimmer-font-mono);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-footer {
-    border-top: 1px solid var(--game-ui-border-subtle);
+    border-top: 1px solid var(--swimmer-border-subtle);
     padding: 18px 20px;
     text-align: center;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
     font-size: 0.875rem;
   }
   .game-ui-showcase-kit-card {
     display: grid;
     gap: 8px;
     padding: 18px;
-    border: 1px solid var(--game-ui-border-subtle);
-    border-radius: var(--game-ui-radius-card);
-    background: var(--game-ui-surface);
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-game-surface);
     color: inherit;
     text-decoration: none;
   }
@@ -250,10 +250,10 @@ body {
   }
   .game-ui-showcase-kit-card p {
     margin: 0;
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   .game-ui-showcase-kit-card small {
-    color: var(--game-ui-text-muted);
+    color: var(--swimmer-game-text-muted);
   }
   @media (max-width: 760px) {
     .game-ui-showcase-topbar {
