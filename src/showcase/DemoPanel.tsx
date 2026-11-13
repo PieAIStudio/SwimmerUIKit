@@ -1,10 +1,13 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { Button, Input } from '@pieai/swimmer-ui-kit';
+import { useShowcaseLanguage } from './ShowcaseContext';
+import type { ShowcaseLanguage } from './types';
 
 export type DemoPanelVariant = 'io' | 'stage';
 
 export interface DemoPanelProps {
   variant?: DemoPanelVariant;
+  language?: ShowcaseLanguage;
   label?: string;
   placeholder?: string;
   runLabel?: string;
@@ -18,14 +21,21 @@ export interface DemoPanelProps {
 export function DemoPanel({
   children,
   initialValue = '',
-  label = 'Input',
+  language,
+  label,
   onRun,
   placeholder,
-  resultLabel = 'Output',
-  runLabel = 'Run',
-  stageLabel = 'Live component',
+  resultLabel,
+  runLabel,
+  stageLabel,
   variant = 'io',
 }: DemoPanelProps): ReactNode {
+  const activeLanguage = useShowcaseLanguage(language);
+  const zh = activeLanguage === 'zh';
+  const promptText = label ?? (zh ? '提示' : 'Prompt');
+  const outputText = resultLabel ?? (zh ? '输出' : 'Output');
+  const runText = runLabel ?? (zh ? '运行' : 'Run');
+  const stageText = stageLabel ?? (zh ? '组件演示' : 'Live component');
   const [value, setValue] = useState(initialValue);
   const [result, setResult] = useState('');
   const submit = (event: FormEvent) => {
@@ -37,7 +47,7 @@ export function DemoPanel({
     return (
       <section
         className="game-ui-showcase-demo game-ui-showcase-demo--stage"
-        aria-label={stageLabel}
+        aria-label={stageText}
       >
         <div className="game-ui-showcase-stage">{children}</div>
       </section>
@@ -47,7 +57,7 @@ export function DemoPanel({
   return (
     <form className="game-ui-showcase-demo game-ui-showcase-demo--io" onSubmit={submit}>
       <label className="game-ui-showcase-label" htmlFor="showcase-demo-input">
-        {label}
+        {promptText}
       </label>
       <div className="game-ui-showcase-demo__row">
         <Input
@@ -57,11 +67,11 @@ export function DemoPanel({
           onChange={(event) => setValue(event.target.value)}
         />
         <Button type="submit" variant="primary">
-          {runLabel}
+          {runText}
         </Button>
       </div>
       <output className="game-ui-showcase-demo__output" aria-live="polite">
-        <span>{resultLabel}</span>
+        <span>{outputText}</span>
         <strong>{result || '—'}</strong>
       </output>
       {children}

@@ -3,7 +3,13 @@
 import { StrictMode, createElement, useEffect, useState, type ComponentType } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { ShowcaseShell } from './showcase/ShowcaseShell';
-import type { KitManifest, ShowcaseLanguage, ShowcaseTheme } from './showcase/types';
+import { ShowcaseLanguageProvider } from './showcase/ShowcaseContext';
+import type {
+  KitManifest,
+  ShowcaseDemoProps,
+  ShowcaseLanguage,
+  ShowcaseTheme,
+} from './showcase/types';
 
 export { ShowcaseShell, type ShowcaseShellProps } from './showcase/ShowcaseShell';
 export { DemoPanel, type DemoPanelProps, type DemoPanelVariant } from './showcase/DemoPanel';
@@ -11,10 +17,13 @@ export { FlowStrip, type FlowStripProps, type FlowStep } from './showcase/FlowSt
 export { CodeSample, type CodeSampleProps } from './showcase/CodeSample';
 export { StatusList, type StatusListProps } from './showcase/StatusList';
 export { KitCard, type KitCardProps } from './showcase/KitCard';
+export { useShowcaseLanguage } from './showcase/ShowcaseContext';
 export type {
   KitManifest,
   Localized,
   ShowcaseDemo,
+  ShowcaseDemoCopy,
+  ShowcaseDemoProps,
   ShowcaseLanguage,
   ShowcaseTheme,
   StatusItem,
@@ -23,7 +32,7 @@ export type {
 
 export interface MountShowcaseOptions {
   kit: KitManifest;
-  Demo: ComponentType;
+  Demo: ComponentType<ShowcaseDemoProps>;
   root?: HTMLElement;
 }
 
@@ -52,13 +61,17 @@ function MountedShowcase({ Demo, kit }: Pick<MountShowcaseOptions, 'Demo' | 'kit
   return createElement(
     StrictMode,
     null,
-    createElement(ShowcaseShell, {
-      kit,
-      language,
-      theme,
-      onLanguageChange: () => setLanguage((value) => (value === 'en' ? 'zh' : 'en')),
-      onThemeChange: () => setTheme((value) => (value === 'light' ? 'dark' : 'light')),
-      demo: createElement(Demo),
-    }),
+    createElement(
+      ShowcaseLanguageProvider,
+      { language },
+      createElement(ShowcaseShell, {
+        kit,
+        language,
+        theme,
+        onLanguageChange: () => setLanguage((value) => (value === 'en' ? 'zh' : 'en')),
+        onThemeChange: () => setTheme((value) => (value === 'light' ? 'dark' : 'light')),
+        demo: createElement(Demo, { kit, language }),
+      }),
+    ),
   );
 }

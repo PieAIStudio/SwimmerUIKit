@@ -26,7 +26,12 @@ export function SegmentedControl({
   hue,
 }: SegmentedControlProps): ReactNode {
   return (
-    <div aria-label={label} className="game-ui-segmented" role="group">
+    <div
+      aria-label={label}
+      className="game-ui-segmented"
+      data-game-ui-option-row="true"
+      role="group"
+    >
       {options.map((option) => (
         <button
           key={option.id}

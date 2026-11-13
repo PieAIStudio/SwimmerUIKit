@@ -27,7 +27,12 @@ export function ShowcaseShell({
   const zh = language === 'zh';
   const shortName = kit.shortName ?? kit.name.split('/').at(-1) ?? kit.name;
   return (
-    <div className="game-ui-showcase-shell" data-game-ui-theme={theme} data-game-ui-style="grey">
+    <div
+      className="game-ui-showcase-shell"
+      data-game-ui-theme={theme}
+      data-game-ui-style="grey"
+      data-game-ui-kit-type={kit.type}
+    >
       <header className="game-ui-showcase-topbar">
         <a className="game-ui-showcase-wordmark" href="./" aria-label={shortName + ' showcase'}>
           {shortName}
@@ -38,10 +43,28 @@ export function ShowcaseShell({
           <a href="#plug">{zh ? '接入' : 'How to plug in'}</a>
         </nav>
         <div className="game-ui-showcase-actions">
-          <Button type="button" onClick={onThemeChange} aria-pressed={theme === 'dark'}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            static
+            data-game-ui-control="liquid-presence"
+            className="game-ui-showcase-toggle"
+            aria-label={zh ? '切换主题' : 'Toggle theme'}
+            onClick={onThemeChange}
+          >
             {theme === 'dark' ? (zh ? '浅色' : 'Light') : zh ? '深色' : 'Dark'}
           </Button>
-          <Button type="button" onClick={onLanguageChange} aria-pressed={zh}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            static
+            data-game-ui-control="liquid-presence"
+            className="game-ui-showcase-toggle"
+            aria-label={zh ? '切换语言' : 'Toggle language'}
+            onClick={onLanguageChange}
+          >
             {zh ? 'EN' : '中文'}
           </Button>
         </div>

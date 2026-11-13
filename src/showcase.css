@@ -77,6 +77,9 @@ body {
   }
 
   .game-ui-showcase-topbar nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
     color: var(--swimmer-game-text-muted);
     font-size: 0.875rem;
     text-decoration: none;
@@ -91,6 +94,26 @@ body {
     display: flex;
     flex-shrink: 0;
     gap: 8px;
+  }
+  .game-ui-showcase-toggle {
+    min-height: 36px;
+    padding: 6px 10px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--swimmer-game-text-muted);
+    box-shadow: none;
+    font-size: 0.8125rem;
+  }
+
+  .game-ui-showcase-toggle:hover:not(:disabled) {
+    background: var(--swimmer-surface-sunken);
+    color: var(--swimmer-game-text);
+  }
+
+  .game-ui-showcase-toggle > .game-ui-droplet,
+  .game-ui-showcase-toggle > .game-ui-selection-mark {
+    display: none;
   }
 
   .game-ui-showcase-container {
@@ -118,6 +141,10 @@ body {
   .game-ui-showcase-rail-block h2 {
     margin: 0 0 12px;
     font-family: var(--swimmer-game-font-display);
+  }
+
+  .game-ui-showcase-shell h1 {
+    font-family: 'Baloo 2', 'Swimmer Rounded CN', system-ui, sans-serif !important;
   }
 
   .game-ui-showcase-block h1 {
@@ -193,7 +220,7 @@ body {
     display: grid;
     gap: 16px;
     width: 100%;
-    max-width: 680px;
+    max-width: 720px;
   }
 
   .game-ui-showcase-demo--stage {
@@ -236,6 +263,8 @@ body {
 
   .game-ui-showcase-flow {
     display: grid;
+    width: 100%;
+    max-width: 720px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     margin: 0;
@@ -270,7 +299,7 @@ body {
     display: grid;
     gap: 10px;
     width: 100%;
-    max-width: 680px;
+    max-width: 720px;
   }
 
   .game-ui-showcase-code pre {

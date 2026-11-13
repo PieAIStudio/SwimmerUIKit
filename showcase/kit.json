@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.18",
+  "version": "4.0.0-alpha.19",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-13",
   "what": {
@@ -33,6 +33,21 @@
       }
     }
   ],
+  "demo": {
+    "stageLabel": { "en": "UIKit component stage", "zh": "UIKit 组件舞台" },
+    "surfaceLabel": { "en": "Showcase surface", "zh": "展示表面" },
+    "badge": { "en": "Control surface", "zh": "控件表面" },
+    "controlsOption": { "en": "Controls", "zh": "控件" },
+    "tokensOption": { "en": "Tokens", "zh": "令牌" },
+    "buttonLabel": { "en": "Compose a panel", "zh": "组合面板" },
+    "progressLabel": { "en": "Responsive budget", "zh": "响应式预算" },
+    "flowLabel": { "en": "Demo flow", "zh": "演示流程" },
+    "flow": [
+      { "label": { "en": "Choose", "zh": "选择" }, "detail": { "en": "tokens", "zh": "令牌" } },
+      { "label": { "en": "Compose", "zh": "组合" }, "detail": { "en": "parts", "zh": "部件" } },
+      { "label": { "en": "Ship", "zh": "发布" }, "detail": { "en": "page", "zh": "页面" } }
+    ]
+  },
   "code": [
     "import Demo, { kit } from './Demo';",
     "import { mountShowcase } from '@pieai/swimmer-ui-kit/showcase';",
