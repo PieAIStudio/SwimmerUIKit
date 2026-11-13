@@ -156,6 +156,39 @@ body {
     max-width: 720px;
   }
 
+  /* Showcase-only treatment keeps the Try-it-live segmented control even and legible. */
+  .kit-demo .game-ui-segmented {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 14px;
+    background: var(--swimmer-surface-sunken);
+  }
+
+  .kit-demo .game-ui-segmented-option {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 10px;
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text-muted);
+  }
+
+  .kit-demo .game-ui-segmented-option[aria-pressed='true'] {
+    border-color: var(--swimmer-game-accent);
+    background: color-mix(in srgb, var(--swimmer-game-accent) 24%, var(--swimmer-game-surface));
+    color: var(--swimmer-game-text);
+  }
+
+  .kit-demo .game-ui-segmented-option > .game-ui-droplet {
+    opacity: 0;
+  }
+
   .game-ui-showcase-demo {
     display: grid;
     gap: 16px;
