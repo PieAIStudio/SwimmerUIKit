@@ -36,7 +36,9 @@
         "pnpm-lock.yaml",
         "tsconfig*.json",
         "vite.config*.ts",
-        "vitest.config.ts"
+        "vitest.config.ts",
+        ".oxlintrc.json",
+        ".oxfmtignore"
       ],
       "commands": [
         "pnpm format:check",
@@ -395,6 +397,27 @@
       ],
       "commands": [
         "pnpm check:guide"
+      ]
+    },
+    {
+      "paths": [
+        "showcase/**",
+        "index.html",
+        "liquid.html",
+        "preview/**",
+        "vercel.json",
+        "vite.config.showcase.ts"
+      ],
+      "commands": [
+        "pnpm build:showcase"
+      ]
+    },
+    {
+      "paths": [
+        ".storybook/**"
+      ],
+      "commands": [
+        "pnpm build-storybook"
       ]
     }
   ],
