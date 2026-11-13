@@ -9,6 +9,7 @@ export type StatusItem = {
 export type UpdateItem = { date: string; text: Localized };
 export type KitManifest = {
   name: string;
+  shortName?: string;
   tagline: Localized;
   consumers: Localized;
   type: 'visual' | 'interactive' | 'code';

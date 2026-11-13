@@ -1,12 +1,16 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { Button, Input } from '@pieai/swimmer-ui-kit';
 
+export type DemoPanelVariant = 'io' | 'stage';
+
 export interface DemoPanelProps {
-  label: string;
+  variant?: DemoPanelVariant;
+  label?: string;
   placeholder?: string;
-  runLabel: string;
+  runLabel?: string;
   initialValue?: string;
-  resultLabel: string;
+  resultLabel?: string;
+  stageLabel?: string;
   onRun?: (value: string) => string;
   children?: ReactNode;
 }
@@ -14,11 +18,13 @@ export interface DemoPanelProps {
 export function DemoPanel({
   children,
   initialValue = '',
-  label,
+  label = 'Input',
   onRun,
   placeholder,
-  resultLabel,
-  runLabel,
+  resultLabel = 'Output',
+  runLabel = 'Run',
+  stageLabel = 'Live component',
+  variant = 'io',
 }: DemoPanelProps): ReactNode {
   const [value, setValue] = useState(initialValue);
   const [result, setResult] = useState('');
@@ -26,8 +32,20 @@ export function DemoPanel({
     event.preventDefault();
     setResult(onRun?.(value) ?? value);
   };
+
+  if (variant === 'stage') {
+    return (
+      <section
+        className="game-ui-showcase-demo game-ui-showcase-demo--stage"
+        aria-label={stageLabel}
+      >
+        <div className="game-ui-showcase-stage">{children}</div>
+      </section>
+    );
+  }
+
   return (
-    <form className="game-ui-showcase-demo" onSubmit={submit}>
+    <form className="game-ui-showcase-demo game-ui-showcase-demo--io" onSubmit={submit}>
       <label className="game-ui-showcase-label" htmlFor="showcase-demo-input">
         {label}
       </label>

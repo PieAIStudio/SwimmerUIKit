@@ -13,7 +13,7 @@ export function CodeSample({
   lines,
 }: CodeSampleProps): ReactNode {
   const [copied, setCopied] = useState(false);
-  const source = lines.join('\n');
+  const source = lines.slice(0, 5).join('\n');
   const copy = async () => {
     try {
       await navigator.clipboard?.writeText(source);

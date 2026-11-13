@@ -83,6 +83,7 @@
     "api:check": "node scripts/public-api-audit.mjs --check",
     "build": "vite build && node scripts/build-css.mjs && node scripts/finalize-dist.mjs && node scripts/check-warnings-survive-build.mjs",
     "build:showcase": "vite build --config vite.config.showcase.ts",
+    "showcase-check": "node scripts/showcase-check.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest run",

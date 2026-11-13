@@ -12,6 +12,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
+      "@pieai/swimmer-ui-kit/showcase": ["./src/showcase.ts"],
       "@pieai/swimmer-ui-kit": ["./src/index.ts"]
     },
     "resolveJsonModule": true,

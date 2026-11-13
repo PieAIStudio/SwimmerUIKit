@@ -6,9 +6,13 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   resolve: {
-    alias: {
-      '@pieai/swimmer-ui-kit': resolve(__dirname, 'src/index.ts'),
-    },
+    alias: [
+      {
+        find: '@pieai/swimmer-ui-kit/showcase',
+        replacement: resolve(__dirname, 'src/showcase.ts'),
+      },
+      { find: '@pieai/swimmer-ui-kit', replacement: resolve(__dirname, 'src/index.ts') },
+    ],
   },
   build: {
     outDir: 'showcase-dist',

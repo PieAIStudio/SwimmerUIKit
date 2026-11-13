@@ -42,7 +42,7 @@ export function StatusList({
       <section className="game-ui-showcase-rail-block">
         <h2>{updatesTitle}</h2>
         <ul>
-          {kit.updates.map((update) => (
+          {kit.updates.slice(0, 3).map((update) => (
             <li key={update.date}>
               <time>{update.date}</time>
               <span>{text(update.text)}</span>

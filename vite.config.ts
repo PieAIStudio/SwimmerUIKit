@@ -74,7 +74,14 @@ export default defineConfig({
       experimental: { attachDebugInfo: 'none' },
       external: (id) =>
         id === '@pieai/swimmer-ui-kit' ||
-        ['react', 'react-dom', 'react/jsx-runtime', '@floating-ui/react', 'three'].includes(id) ||
+        [
+          'react',
+          'react-dom',
+          'react-dom/client',
+          'react/jsx-runtime',
+          '@floating-ui/react',
+          'three',
+        ].includes(id) ||
         id.startsWith('three/'),
     },
   },
