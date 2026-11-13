@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "4.0.0-alpha.16",
+  "version": "4.0.0-alpha.17",
   "description": "Token-driven React game UI kit for web and wrapped SwimInAI game surfaces.",
   "keywords": [
     "design-system",
@@ -83,8 +83,6 @@
     "api:check": "node scripts/public-api-audit.mjs --check",
     "build": "vite build && node scripts/build-css.mjs && node scripts/finalize-dist.mjs && node scripts/check-warnings-survive-build.mjs",
     "build:showcase": "vite build --config vite.config.showcase.ts",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "test": "vitest run",
     "doc-gov": "doc-gov",
     "pro-gov": "pro-gov",
@@ -97,15 +95,9 @@
     "@floating-ui/react": "0.27.20"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.2.1",
     "@microsoft/api-extractor": "^7.58.9",
     "@pieai/doc-gov": "0.17.3",
     "@pieai/pro-gov": "0.17.3",
-    "@storybook/addon-a11y": "10.5.0",
-    "@storybook/addon-docs": "10.5.0",
-    "@storybook/addon-mcp": "^0.6.0",
-    "@storybook/addon-vitest": "10.5.0",
-    "@storybook/react-vite": "10.5.0",
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
@@ -121,7 +113,6 @@
     "postcss": "8.5.18",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "storybook": "10.5.0",
     "three": "0.185.1",
     "typescript": "6.0.3",
     "vite": "8.1.4",
