@@ -73,6 +73,7 @@ export default defineConfig({
       // records source ownership without adding bytes to every consumer.
       experimental: { attachDebugInfo: 'none' },
       external: (id) =>
+        id === '@pieai/swimmer-ui-kit' ||
         ['react', 'react-dom', 'react/jsx-runtime', '@floating-ui/react', 'three'].includes(id) ||
         id.startsWith('three/'),
     },

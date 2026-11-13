@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Badge } from '../feedback/Badge/Badge';
+import { Badge } from '@pieai/swimmer-ui-kit';
 import type { KitManifest, ShowcaseLanguage } from './types';
 
 export interface StatusListProps {

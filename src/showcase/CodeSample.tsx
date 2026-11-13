@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Button } from '../controls/Button/Button';
+import { Button } from '@pieai/swimmer-ui-kit';
 
 export interface CodeSampleProps {
   lines: readonly string[];

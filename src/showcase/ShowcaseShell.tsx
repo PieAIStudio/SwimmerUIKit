@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Button } from '../controls/Button/Button';
+import { Button } from '@pieai/swimmer-ui-kit';
 import { CodeSample } from './CodeSample';
 import { StatusList } from './StatusList';
 import type { KitManifest, ShowcaseDemo, ShowcaseLanguage, ShowcaseTheme } from './types';

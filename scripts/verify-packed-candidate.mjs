@@ -128,6 +128,7 @@ for (const [entry, contract] of Object.entries(packed.exports)) {
 assert.deepEqual(Object.keys(runtimeEntries).sort(), [
   '.',
   './liquid-presence',
+  './showcase',
   './tool-hero-3d',
   './tool-worlds',
 ]);

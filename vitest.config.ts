@@ -17,6 +17,11 @@ export default defineConfig({
   define: {
     global: 'globalThis',
   },
+  resolve: {
+    alias: {
+      '@pieai/swimmer-ui-kit': path.join(dirname, 'src/index.ts'),
+    },
+  },
   test: {
     // This checkout shares its Mac with other repositories. A worker limit
     // alone does not serialize the Node, Storybook and browser projects.

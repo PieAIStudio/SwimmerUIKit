@@ -1,6 +1,7 @@
 node_modules/
 dist/
 showcase-dist/
+storybook-static/
 coverage/
 .devspace-visual/
 .devspace-reports/

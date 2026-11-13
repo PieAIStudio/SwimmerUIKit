@@ -1,6 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
-import { Button } from '../controls/Button/Button';
-import { Input } from '../controls/Input/Input';
+import { Button, Input } from '@pieai/swimmer-ui-kit';
 
 export interface DemoPanelProps {
   label: string;
