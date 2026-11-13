@@ -13,8 +13,7 @@
   "ignorePatterns": [
     "node_modules",
     "dist",
-    "site-dist",
-    "storybook-static",
+    "showcase-dist",
     "coverage",
     "playwright-report",
     "test-results",

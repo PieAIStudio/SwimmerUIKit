@@ -78,7 +78,7 @@ token 是按用途命名的视觉变量。产品选择“文字、普通底色�
 
 ```sh
 pnpm exec swimmer-ui-check src
-pnpm exec swimmer-ui-check src preview --ext=css,tsx --rules=tokens,contrast
+pnpm exec swimmer-ui-check src showcase --ext=css,tsx --rules=tokens,contrast
 ```
 
 ## 字体、Tailwind 与资源

@@ -23,14 +23,7 @@ import { findRetiredThemeValues } from './lib/retired-theme.mjs';
 
 const RAW_COLOR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(|\boklch\(/g;
 const TOKEN_BLOCK_SELECTOR = /:root\b|\[data-[\w-]*(?:theme|tone)[\w-]*\s*=/i;
-const IGNORE_DIRS = new Set([
-  'node_modules',
-  'dist',
-  '.git',
-  'storybook-static',
-  'site-dist',
-  'build',
-]);
+const IGNORE_DIRS = new Set(['node_modules', 'dist', '.git', 'showcase-dist', 'build']);
 
 function walk(dir, exts, out) {
   for (const entry of readdirSync(dir)) {

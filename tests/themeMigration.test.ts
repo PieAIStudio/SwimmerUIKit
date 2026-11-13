@@ -53,13 +53,13 @@ const current = '<div data-game-ui-theme="dark">';`;
       rmSync(temporary, { recursive: true, force: true });
     }
   });
-  it('has no removed theme value in shipped UI, preview or Storybook source', () => {
+  it('has no removed theme value in shipped UI or showcase source', () => {
     const walk = (directory: string): string[] =>
       readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
         const file = path.join(directory, entry.name);
         return entry.isDirectory() ? walk(file) : [file];
       });
-    const files = ['src', 'preview', '.storybook']
+    const files = ['src', 'showcase']
       .flatMap(walk)
       .filter((file) => /\.(?:ts|tsx|css|html)$/.test(file) && !/\.test\./.test(file));
     for (const file of files) {

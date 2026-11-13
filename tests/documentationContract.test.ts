@@ -10,6 +10,7 @@ const entries = [
   'src/tool-worlds.ts',
   'src/tool-hero-3d.ts',
   'src/liquid-presence.ts',
+  'src/showcase.ts',
 ];
 function exportsOf(file: string): string[] {
   const source = ts.createSourceFile(file, read(file), ts.ScriptTarget.Latest, true);
@@ -27,6 +28,7 @@ const guides = [
   'migration-3.0.md',
   'public-api-inventory.md',
   'documentation-map.md',
+  'showcase.md',
   'execution/current-work.md',
 ].map((file) => `docs/reference/${file}`);
 
@@ -80,7 +82,7 @@ describe('3.0 documentation convergence', () => {
     }
   });
 
-  it('retains actual site entries and linked governance, without reviving historical root scratch', () => {
+  it('retains the showcase entry and linked governance, without reviving historical root scratch', () => {
     expect(lstatSync('AGENTS.md').isFile()).toBe(true);
     expect(lstatSync('CLAUDE.md', { throwIfNoEntry: false })).toBeUndefined();
     expect(lstatSync('.claude/skills').isSymbolicLink()).toBe(true);
@@ -88,8 +90,8 @@ describe('3.0 documentation convergence', () => {
     for (const name of readdirSync('docs/policy/shared-rules'))
       if (name.endsWith('.md'))
         expect(lstatSync(`docs/policy/shared-rules/${name}`).isSymbolicLink(), name).toBe(true);
-    expect(read('vite.config.site.ts')).toContain('index.html');
-    expect(read('vite.config.site.ts')).toContain('liquid.html');
+    expect(read('showcase/index.html')).toContain('showcase/main.tsx');
+    expect(read('vite.config.showcase.ts')).toContain('showcase-dist');
     expect(read('.gitignore')).toContain('\nartifacts/\n');
     expect(read('.gitignore')).toContain('\nSCRATCH/\n');
     for (const folder of ['artifacts', 'SCRATCH']) {

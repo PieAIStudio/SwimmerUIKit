@@ -13,7 +13,7 @@ import {
 
 const SRC = fileURLToPath(new URL('../src/', import.meta.url));
 const stylesCss = readComponentStyles();
-const previewCss = readFileSync(join(SRC, 'preview', 'preview.css'), 'utf8');
+const showcaseCss = readFileSync(join(SRC, 'showcase.css'), 'utf8');
 
 describe('structural ownership analyzer', () => {
   it('reports a class whose layout is claimed by two rules', () => {
@@ -81,17 +81,14 @@ describe('kit stylesheets keep one owner per class', () => {
     expect(violations.map(formatOwnershipViolation)).toEqual([]);
   });
 
-  it('preview.css has no class whose layout is claimed twice', () => {
-    const violations = findOwnershipViolations(previewCss);
+  it('showcase.css has no class whose layout is claimed twice', () => {
+    const violations = findOwnershipViolations(showcaseCss);
 
     expect(violations.map(formatOwnershipViolation)).toEqual([]);
   });
 
-  it('keeps the demo table bubble out of the Callout class name', () => {
-    // Regression guard for the 1.2.0 bug: preview scenery must not squat on a
-    // published component's class, in either stylesheet.
-    expect(previewCss).toContain('.game-ui-seat-callout');
-    expect(stylesCss).not.toContain('.game-ui-callout.is-a');
-    expect(previewCss).not.toMatch(/\.game-ui-callout[^-]/);
+  it('keeps showcase composition classes out of the core styles leaf', () => {
+    expect(stylesCss).not.toContain('.game-ui-showcase-shell');
+    expect(showcaseCss).toContain('.game-ui-showcase-shell');
   });
 });

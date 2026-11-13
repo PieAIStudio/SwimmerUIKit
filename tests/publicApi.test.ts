@@ -67,7 +67,11 @@ describe('3.0 public contract and complete migration', () => {
     expect(pkg.exports).toEqual({
       '.': { types: './dist/index.d.ts', default: './dist/index.js' },
       './styles.css': './dist/styles.css',
-      './preview.css': './dist/preview.css',
+      './showcase': {
+        types: './dist/showcase.d.ts',
+        default: './dist/showcase.js',
+      },
+      './showcase.css': './dist/showcase.css',
       './fonts.css': './dist/fonts.css',
       './tailwind.css': './dist/tailwind.css',
       './package.json': './package.json',

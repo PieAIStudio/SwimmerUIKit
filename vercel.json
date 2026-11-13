@@ -1,21 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build:deploy",
-  "outputDirectory": "site-dist",
+  "buildCommand": "npm run build:showcase",
+  "outputDirectory": "showcase-dist",
   "framework": null,
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "swimmer-ui-storybook.swiminai.com"
-        }
-      ],
-      "destination": "/storybook/",
-      "permanent": false
-    }
-  ],
   "git": {
     "deploymentEnabled": false
   }

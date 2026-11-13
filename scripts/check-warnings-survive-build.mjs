@@ -82,7 +82,7 @@ const code = Object.fromEntries(
 for (const entry of ['index.js', 'liquid-presence.js']) {
   const forbidden = reach[entry]
     .flatMap((file) => graph[file].modules)
-    .filter((file) => /^src\/(?:liquid-effects|preview)\//.test(file));
+    .filter((file) => /^src\/liquid-effects\//.test(file));
   assert.deepEqual(forbidden, [], `${entry} must not ship optional effects or showroom code`);
 }
 const budgetOwners = Object.entries(graph)
@@ -123,5 +123,5 @@ if (problems.length > 0) {
 }
 
 console.log(
-  `warnings survive the build: ok (${PROMISED_WARNINGS.length} checked); core/presence exclude optional effects and preview`,
+  `warnings survive the build: ok (${PROMISED_WARNINGS.length} checked); core/presence exclude optional effects`,
 );

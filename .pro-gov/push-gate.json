@@ -28,11 +28,10 @@
       "paths": [
         "src/**/*.{ts,tsx,js,css,json}",
         "tests/**",
-        "preview/**",
+        "showcase/**",
         "types/**",
         "scripts/**",
         "bin/**",
-        ".storybook/**",
         "package.json",
         "pnpm-lock.yaml",
         "tsconfig*.json",
@@ -54,13 +53,13 @@
         "vitest.config.ts"
       ],
       "commands": [
-        "pnpm exec vitest run --project '!storybook' --project '!browser' --changed \"$PUSH_GATE_BASE\""
+        "pnpm exec vitest run --project '!browser' --changed \"$PUSH_GATE_BASE\""
       ]
     },
     {
       "paths": [
         "src/**/*.{ts,tsx,js,css,json}",
-        "preview/**",
+        "showcase/**",
         "tests/**/*.browser.test.tsx",
         "package.json",
         "pnpm-lock.yaml"
@@ -100,7 +99,7 @@
         "bin/**"
       ],
       "commands": [
-        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/bin-swimmer-ui-check.test.ts"
+        "pnpm exec vitest run --project '!browser' tests/bin-swimmer-ui-check.test.ts"
       ]
     },
     {
@@ -118,7 +117,7 @@
         "scripts/check-release-metadata.mjs"
       ],
       "commands": [
-        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/releaseWorkflow.test.ts"
+        "pnpm exec vitest run --project '!browser' tests/releaseWorkflow.test.ts"
       ]
     },
     {
@@ -134,7 +133,7 @@
       ],
       "commands": [
         "pnpm docs:check",
-        "pnpm exec vitest run --project '!storybook' --project '!browser' tests/documentationContract.test.ts"
+        "pnpm exec vitest run --project '!browser' tests/documentationContract.test.ts"
       ]
     },
     {

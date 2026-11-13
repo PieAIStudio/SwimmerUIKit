@@ -44,7 +44,7 @@ The B3 section below remains the historical record of the superseded implementat
 
 ## 1. 基线收据与边界
 
-脚本：[scripts/measure-uikit4-baseline.mjs](../../../scripts/measure-uikit4-baseline.mjs)。它在提交 `ee1b62d4d183a97c2c50353261840a182a01ee90` 上：
+历史基线脚本 `scripts/measure-uikit4-baseline.mjs` 已随旧 preview/Storybook 清理移除；其在提交 `ee1b62d4d183a97c2c50353261840a182a01ee90` 上生成的收据仍保留在 `.reports/2026-10-24-uikit4-plan/`：
 
 1. 以 `run-locked.py` 排队，完成 A 段的 `pnpm build`、`pnpm test` 基线与日志；
 2. 对 `package.json.exports` 的 11 个运行时/CSS/JSON 入口算原始和 gzip；

@@ -28,6 +28,7 @@ AI 从根 AGENTS.md 进入；本文只帮人和 AI 找事实，不另设一份�
 | 变量来源、覆写、字体与样式构建 | [设计 token](design-tokens.md) |
 | 当前公开名字、实现链接 | [生成的接口清单](public-api-inventory.md) |
 | 断代、产品迁移、University 候选验收 | [3.0 迁移](migration-3.0.md) |
+| Showcase 页面与接入 | [UIKit showcase](showcase.md) |
 | 现在做到哪、提交与证据 | [当前工作](execution/current-work.md) |
 
 ## 执行与历史
@@ -40,6 +41,6 @@ docs/plans/completed 保留完成记录；docs/specs/completed 保留历史需�
 
 docs/reference/learnings 只按任务 recall，保留可复用失败原因，不作为每次启动必读。决策属于受治理的 docs/adr；治理规则在 docs/governance；共享规则仍是指向 PGS 的符号链接。本轮不更改它们的来源。
 
-PRODUCT.md / CONCEPTS.md 是工具适配入口，只指向上述文档。donors-individual.md、锁文件与 NOTICE 保留来源及许可权威；CHANGELOG.md 保留版本变更。index.html / liquid.html 是实际网站入口，不是可删临时报告。
+PRODUCT.md / CONCEPTS.md 是工具适配入口，只指向上述文档。donors-individual.md、锁文件与 NOTICE 保留来源及许可权威；CHANGELOG.md 保留版本变更。showcase/ 是 Kit 展示入口，生成的 showcase-dist/ 由 HQ 按引用提供，不是发布包内容。
 
 新截图和验证日志只放忽略的 .scratch/ 或 .devspace-visual/；不在根目录再次创建受版本控制的测量垃圾。现行文档变更后运行 pnpm docs:check；生成接口和迁移表修改生成来源，再运行 pnpm api:inventory。

@@ -1,6 +1,5 @@
-// Builds dist/styles.css from the explicit src/styles.css import order:
-// tokens → liquid primitives → colocated components. Optional presence/preview
-// stay on their own leaves. Fonts use src/tokens/fonts.css. Lightning CSS is the
+// Builds the published CSS leaves from explicit source import orders.
+// Fonts use src/tokens/fonts.css. Lightning CSS is the
 // same engine Vite 8 consumers run — and FAILS the build on any warning.
 // "Consumers see zero CSS warnings" is a 1.0 contract (SPEC-0002), so it is
 // enforced here, not just documented.
@@ -60,9 +59,9 @@ const stylesCode = bundleOrExit('src/styles.css');
 writeFileSync('dist/styles.css', stylesCode);
 console.log(`[build-css] dist/styles.css written (${stylesCode.length} bytes, 0 warnings)`);
 
-const previewCode = bundleOrExit('src/preview/preview.css');
-writeFileSync('dist/preview.css', previewCode);
-console.log(`[build-css] dist/preview.css written (${previewCode.length} bytes, 0 warnings)`);
+const showcaseCode = bundleOrExit('src/showcase.css');
+writeFileSync('dist/showcase.css', showcaseCode);
+console.log(`[build-css] dist/showcase.css written (${showcaseCode.length} bytes, 0 warnings)`);
 
 const fontsCode = bundleOrExit('src/tokens/fonts.css');
 writeFileSync('dist/fonts.css', fontsCode);

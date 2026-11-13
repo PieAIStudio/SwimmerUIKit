@@ -24,7 +24,7 @@ related:
 Start with the [component selection guide](component-selection-guide.md), not this exhaustive index.
 `src/index.ts` is the public membership authority; every name below remains supported.
 A supporting helper is not private just because beginners should not start there.
-Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
+The showcase entry is a separate public leaf; internal advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
 Compiler inventory: **138 named exports: 58 values and 80 types**.
 

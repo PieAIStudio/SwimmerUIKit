@@ -19,12 +19,12 @@
   },
   "include": [
     "src",
-    "preview",
+    "showcase",
     "tests",
     "types",
     "scripts/lib",
-    ".storybook",
     "vite.config.ts",
+    "vite.config.showcase.ts",
     "vitest.config.ts"
   ]
 }

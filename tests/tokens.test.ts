@@ -18,7 +18,7 @@ import { GAME_UI_THEME_CONTRACT, GAME_UI_TOKENS } from '../src/tokens/index';
 const SRC = fileURLToPath(new URL('../src/', import.meta.url));
 const stylesCss = readComponentStyles();
 const themeCss = readFileSync(join(SRC, 'tokens', 'theme.css'), 'utf8');
-const previewCss = readFileSync(join(SRC, 'preview', 'preview.css'), 'utf8');
+const showcaseCss = readFileSync(join(SRC, 'showcase.css'), 'utf8');
 
 /** Extract `--name: value;` declarations from a CSS block body. */
 function parseVars(block: string): Map<string, string> {
@@ -370,8 +370,8 @@ const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as
 };
 
 describe('1.0 packaging contract (SPEC-0002)', () => {
-  it('styles.css, theme.css, and preview.css are 100% standard CSS (no Tailwind at-rules)', () => {
-    for (const css of [stylesCss, themeCss, previewCss]) {
+  it('styles.css, theme.css, and showcase.css are 100% standard CSS (no Tailwind at-rules)', () => {
+    for (const css of [stylesCss, themeCss, showcaseCss]) {
       const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, '');
       const tailwindAtRules =
         withoutComments.match(/@(theme|tailwind|apply|plugin|config|utility)\b/g) ?? [];
@@ -404,7 +404,7 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
       expect(rootExport['default']).toBe('./dist/index.js');
     }
     expect(pkg.exports['./tailwind.css']).toBe('./dist/tailwind.css');
-    expect(pkg.exports['./preview.css']).toBe('./dist/preview.css');
+    expect(pkg.exports['./showcase.css']).toBe('./dist/showcase.css');
     expect(pkg.exports['./fonts.css']).toBe('./dist/fonts.css');
     expect(pkg.exports['./package.json']).toBe('./package.json');
     expect(Object.keys(pkg.peerDependencies).sort()).toEqual(['react', 'react-dom', 'three']);
@@ -438,60 +438,10 @@ describe('1.0 packaging contract (SPEC-0002)', () => {
     expect(existsSync(join(SRC, 'tokens', 'fonts', 'zh', 'OFL.txt'))).toBe(true);
   });
 
-  it('demo-only UiPreview classes stay out of styles.css and live only in preview.css', () => {
-    // Regression guard for the 1.1 preview/component CSS split: these class
-    // names are used exclusively by UiPreview.tsx (verified by grepping
-    // every other src/*.tsx at split time). If one leaks back into
-    // styles.css, every consumer starts paying for demo-only CSS again.
-    const previewOnlyClasses = [
-      'game-ui-preview-canvas',
-      'game-ui-preview-hero',
-      'game-ui-preview-section',
-      'game-ui-swatch',
-      'game-ui-swatch-grid',
-      'game-ui-token-card',
-      'game-ui-token-ledger',
-      'game-ui-token-row',
-      'game-ui-token-grid',
-      'game-ui-type-scale',
-      'game-ui-type-kicker',
-      'game-ui-icon-gallery',
-      'game-ui-icon-family',
-      'game-ui-icon-grid',
-      'game-ui-icon-cell',
-      'game-ui-stage-demo',
-      'game-ui-stage-world',
-      'game-ui-stage-sidecar',
-      'game-ui-proof-frame',
-      'game-ui-proof-frames',
-      'game-ui-first-session-preview',
-      'game-ui-first-session-world',
-      'game-ui-first-session-modal-slot',
-      'game-ui-surface-pack-demo-scene',
-      'game-ui-construction-preview-card',
-      'game-ui-asset-compression-repro',
-      'game-ui-overlay-glass-compare',
-      'game-ui-overlay-glass-column',
-      'game-ui-overlay-glass-proof',
-      'game-ui-liquid-metal-compare',
-      'game-ui-liquid-metal-stage',
-      'game-ui-liquid-gooey-card',
-      'game-ui-liquid-demo-header',
-      'game-ui-liquid-demo-kicker',
-      'game-ui-liquid-demo-status',
-      'game-ui-liquid-demo-stage',
-      'game-ui-liquid-demo-group',
-      'game-ui-liquid-demo-orb',
-      'game-ui-liquid-demo-controls',
-    ];
-    for (const cls of previewOnlyClasses) {
-      expect(stylesCss, `.${cls} must not be defined in styles.css`).not.toMatch(
-        new RegExp(`\\.${cls}\\b`),
-      );
-      expect(previewCss, `.${cls} must be defined in preview.css`).toMatch(
-        new RegExp(`\\.${cls}\\b`),
-      );
-    }
+  it('keeps showcase composition CSS out of the core styles leaf', () => {
+    expect(stylesCss).not.toContain('.game-ui-showcase-shell');
+    expect(showcaseCss).toContain('.game-ui-showcase-shell');
+    expect(showcaseCss).toContain('.game-ui-showcase-flow');
   });
 
   it('publishes publicly to npmjs under the repository license', () => {

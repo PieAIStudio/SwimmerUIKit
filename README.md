@@ -45,9 +45,10 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 | 改配色、字体和样式   | [设计 token](docs/reference/design-tokens.md)               |
 | 全部公开名字         | [生成的 API 清单](docs/reference/public-api-inventory.md)   |
 | 迁移与候选验收       | [3.0 / 4.0 迁移表](docs/reference/migration-3.0.md)          |
+| Showcase 页面与接入 | [UIKit showcase](docs/reference/showcase.md)                  |
 | 工作状态与证据       | [当前工作](docs/reference/execution/current-work.md)        |
 
-本机 `pnpm dev` 打开组件目录，`pnpm storybook` 打开故事；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 4.0 alpha 候选的证明。
+本机 `pnpm dev` 打开组件目录，`pnpm dev:showcase` 打开 Kit showcase；端口被占就换空闲端口，别停止其他项目的服务。已部署网站不是本机 4.0 alpha 候选的证明。
 
 ## 开发与交付
 
@@ -57,7 +58,7 @@ App Router 可以从 Server Component 直接挂载 UIKit 组件；事件、ref �
 pnpm install --frozen-lockfile
 pnpm verify
 pnpm docs:check
-pnpm build-storybook
+pnpm build:showcase
 ```
 
 公共 API 变更后运行 pnpm api:inventory。提交/推送只保存代码，不发 npm，也不部署网站。发布需完整本机门禁和明确授权；S14 已完成，首轮失败及再授权成功均有回执；已有单次授权已经使用，后续发布须另行明确批准。包级门禁与下游产品真实接入验收分别记录。

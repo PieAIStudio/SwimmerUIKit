@@ -59,7 +59,7 @@ jobs:
             docs/archive/evidence/2.x/artifacts/edge-quality/metrics.json \
             docs/archive/evidence/2.x/artifacts/experience-capture/liquid-merge/experience-packets.json
       - run: pnpm verify
-      - run: pnpm build-storybook
+      - run: pnpm build:showcase
       - run: pnpm docs:check
 
       # This workflow is manual release work. Publishing below reuses this exact
@@ -68,7 +68,7 @@ jobs:
         run: pnpm pack --out .scratch/release-candidate.tgz
       - run: pnpm check:packed .scratch/release-candidate.tgz
       - run: npm exec --yes --registry=https://registry.npmjs.org --package=publint@0.3.24 -- publint run .scratch/release-candidate.tgz --strict
-      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./tool-worlds ./tool-hero-3d ./liquid-presence ./package.json --profile esm-only
+      - run: npm exec --yes --registry=https://registry.npmjs.org --package=@arethetypeswrong/cli@0.18.5 -- attw .scratch/release-candidate.tgz --entrypoints . ./tool-worlds ./tool-hero-3d ./liquid-presence ./showcase ./package.json --profile esm-only
 
       - run: pnpm check:next-consumer .scratch/release-candidate.tgz .scratch/next-consumer
       - run: sha256sum .scratch/release-candidate.tgz

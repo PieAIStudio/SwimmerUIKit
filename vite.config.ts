@@ -20,7 +20,9 @@ export default defineConfig({
       name: 'swimmer-client-chunks',
       renderChunk(code, chunk) {
         const client =
-          ['index', 'tool-worlds', 'tool-hero-3d', 'liquid-presence'].includes(chunk.name) ||
+          ['index', 'tool-worlds', 'tool-hero-3d', 'liquid-presence', 'showcase'].includes(
+            chunk.name,
+          ) ||
           chunk.imports.some((id) => /^(?:react|react-dom)(?:\/|$)/.test(id)) ||
           Object.keys(chunk.modules).some((id) => /\.[jt]sx$/.test(id));
         if (!client || /^\s*['"]use client['"]\s*;/.test(code)) return null;
@@ -58,6 +60,7 @@ export default defineConfig({
         'tool-worlds': resolve(__dirname, 'src/tool-worlds.ts'),
         'tool-hero-3d': resolve(__dirname, 'src/tool-hero-3d.ts'),
         'liquid-presence': resolve(__dirname, 'src/liquid-presence.ts'),
+        showcase: resolve(__dirname, 'src/showcase.ts'),
       },
       name: 'SwimmerUiKit',
       formats: ['es'],

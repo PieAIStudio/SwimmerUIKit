@@ -28,7 +28,6 @@ const families = {
   './liquid/': ['Liquid primitives', 'Decorative bodies, motion, material and resource limits'],
   './tokens/': ['Theme integration', 'Token mirrors and theme contract'],
   './icons/': ['Asset integration', 'Asset setup, catalogs and resolution'],
-  './preview/': ['Showcase support', 'Optional catalog and preview data; not product state'],
 };
 const familyOwners = Object.entries(families).sort(([a], [b]) => b.length - a.length);
 
@@ -88,10 +87,10 @@ const skipReference = (node, symbol) => {
 };
 // The inventory/check contract depends on declarations, not internal usage.
 // Resolve every use site only for the explicit evidence report; doing this on
-// every verify needlessly type-checks the entire preview implementation again.
+// every verify needlessly type-checks the entire implementation again.
 for (const source of process.argv.includes('--evidence') ? program.getSourceFiles() : []) {
   const file = path.relative(root, source.fileName);
-  if (source.isDeclarationFile || source === entry || !/^(src|preview)\//.test(file)) continue;
+  if (source.isDeclarationFile || source === entry || !/^src\//.test(file)) continue;
   const visit = (node) => {
     if (ts.isIdentifier(node)) {
       const symbol = dereference(checker.getSymbolAtLocation(node));
@@ -197,7 +196,7 @@ const lines = [
   'Start with the [component selection guide](component-selection-guide.md), not this exhaustive index.',
   '`src/index.ts` is the public membership authority; every name below remains supported.',
   'A supporting helper is not private just because beginners should not start there.',
-  'Internal preview and advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.',
+  'The showcase entry is a separate public leaf; internal advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.',
   '',
   `Compiler inventory: **${rows.length} named exports: ${rows.filter((row) => row.kind === 'value').length} values and ${rows.filter((row) => row.kind === 'type').length} types**.`,
   '',

@@ -1,0 +1,40 @@
+{
+  "name": "@pieai/swimmer-ui-kit",
+  "tagline": {
+    "en": "A calm, token-driven React UI kit for game surfaces.",
+    "zh": "面向游戏界面的克制型令牌驱动 React UI Kit。"
+  },
+  "consumers": {
+    "en": "For Kit owners, product teams, and HQ by-reference pages.",
+    "zh": "面向 Kit 维护者、产品团队与 HQ 按引用页面。"
+  },
+  "type": "visual",
+  "version": "4.0.0-alpha.16",
+  "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
+  "lastRelease": "2026-11-12",
+  "what": {
+    "en": "Shared primitives and showcase composition for quiet, responsive game UI.",
+    "zh": "为克制、响应式的游戏 UI 提供共享基础控件与展示组合。"
+  },
+  "updates": [
+    {
+      "date": "2026-11-13",
+      "text": {
+        "en": "Added the phase-2 showcase entry and six reusable parts.",
+        "zh": "新增阶段 2 展示入口与六个可复用部件。"
+      }
+    },
+    {
+      "date": "2026-11-12",
+      "text": {
+        "en": "4.0 alpha keeps grey light/dark semantic tokens.",
+        "zh": "4.0 alpha 保留 grey 明暗语义令牌。"
+      }
+    }
+  ],
+  "code": [
+    "import { ShowcaseShell } from '@pieai/swimmer-ui-kit/showcase';",
+    "import kit from './kit.json';",
+    "<ShowcaseShell kit={kit} demo={demo} />"
+  ]
+}

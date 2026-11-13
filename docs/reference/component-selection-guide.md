@@ -75,7 +75,7 @@ related:
 涟与它的面板、锚点继续从 **@pieai/swimmer-ui-kit/liquid-presence** 导入；还需显式引入 liquid-presence.css。账号菜单 AccountMenu 不在根入口：它的面板是 LiquidPopover，与涟同属这一入口，也要引入同一份 liquid-presence.css。
 它只画身体与手势，不调用模型，不开启麦克风，不替用户点击目标。
 
-4.0.0-alpha.5 不发布展厅 JS leaf；`preview.css` 因仍有外部消费者继续保留，但它不是可运行的组件入口。默认控件包和涟的入口都不会带上展厅或高级图像特效代码。
+4.0.0-alpha.5 不发布旧展厅 JS leaf；Kit showcase 通过独立的 `showcase` 与 `showcase.css` 入口提供，默认控件包和涟的入口都不会带上展示页代码。
 
 ## 深色主题与迁移
 
