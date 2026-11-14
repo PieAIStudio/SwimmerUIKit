@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.24",
+  "version": "4.0.0-alpha.25",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-13",
   "what": {
@@ -40,7 +40,7 @@
     "controlsOption": { "en": "Controls", "zh": "控件" },
     "tokensOption": { "en": "Tokens", "zh": "令牌" },
     "buttonLabel": { "en": "Compose a panel", "zh": "组合面板" },
-    "progressLabel": { "en": "Responsive budget", "zh": "响应式预算" },
+    "progressLabel": { "en": "Panel readiness", "zh": "面板就绪度" },
     "flowLabel": { "en": "Demo output", "zh": "演示输出" },
     "flow": [
       { "label": { "en": "Track", "zh": "轨道" }, "detail": { "en": "neutral", "zh": "中性" } },

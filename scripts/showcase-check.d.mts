@@ -19,6 +19,12 @@ export interface ShowcasePageMetrics {
   toggleTargetsTooSmall?: boolean;
   toggleStylesInconsistent?: boolean;
   codeCornerUnclipped?: boolean;
+  codeTopPaddingTooLarge?: boolean;
+  codeCopyMisplaced?: boolean;
+  inputRunDetached?: boolean;
+  inputBorderMissing?: boolean;
+  desktopRunMisaligned?: boolean;
+  primaryLabelsNotCentered?: boolean;
 }
 export declare function validateShowcaseCode(input: {
   packageName?: string;

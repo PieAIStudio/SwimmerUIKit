@@ -164,6 +164,34 @@ describe('showcase-check browser guards', () => {
     );
   });
 
+  it('rejects round-eight shell regressions', () => {
+    const failures = validateShowcaseMetrics({
+      viewportWidth: 390,
+      scrollWidth: 390,
+      stageWiderThanPanel: false,
+      hasFlowStrip: true,
+      kitType: 'visual',
+      stageCount: 1,
+      stageMissingOptionRow: false,
+      codeTopPaddingTooLarge: true,
+      codeCopyMisplaced: true,
+      inputRunDetached: true,
+      inputBorderMissing: true,
+      desktopRunMisaligned: true,
+      primaryLabelsNotCentered: true,
+    });
+    expect(failures).toEqual(
+      expect.arrayContaining([
+        'code block leaves an oversized blank band above the first line',
+        'Copy code control is outside the code block shell',
+        'Run control is detached from its input at 390px',
+        'Code Kit input needs a visible 1px UIKit border and label',
+        'Run control is not aligned with its input',
+        'primary showcase labels are not centered',
+      ]),
+    );
+  });
+
   it('rejects a Kit heading font override', () => {
     expect(
       validateShowcaseMetrics({

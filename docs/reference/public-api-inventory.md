@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 The showcase entry is a separate public leaf; internal advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **138 named exports: 58 values and 80 types**.
+Compiler inventory: **140 named exports: 59 values and 81 types**.
 
 ## controls/ — Controls
 
@@ -57,6 +57,8 @@ Native actions, selection and labelled form controls
 | `SelectProps` | type | [source](../../src/controls/Select/Select.tsx) |
 | `Slider` | value | [source](../../src/controls/Slider/Slider.tsx) |
 | `SliderProps` | type | [source](../../src/controls/Slider/Slider.tsx) |
+| `Switch` | value | [source](../../src/controls/Switch/Switch.tsx) |
+| `SwitchProps` | type | [source](../../src/controls/Switch/Switch.tsx) |
 | `Tabs` | value | [source](../../src/controls/Tabs/Tabs.tsx) |
 | `TabItem` | type | [source](../../src/controls/Tabs/Tabs.tsx) |
 | `TabsProps` | type | [source](../../src/controls/Tabs/Tabs.tsx) |

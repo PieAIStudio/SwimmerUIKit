@@ -235,7 +235,13 @@ body {
 
   .kit-demo .game-ui-segmented-option {
     justify-content: center;
+    gap: 0;
     text-align: center;
+  }
+
+  .kit-demo .game-ui-button[aria-pressed] > .game-ui-selection-mark,
+  .kit-demo .game-ui-segmented-option > .game-ui-selection-mark {
+    display: none;
   }
 
   .kit-demo .game-ui-segmented-label {
@@ -282,12 +288,23 @@ body {
 
   .game-ui-showcase-demo__row {
     display: flex;
-    align-items: end;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
   }
 
   .game-ui-showcase-demo__row .game-ui-input {
-    flex: 1;
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+
+  .game-ui-showcase-demo__row .game-ui-button-frame {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .game-ui-showcase-demo__row .game-ui-button {
+    justify-content: center;
   }
 
   .game-ui-showcase-demo__output {
@@ -386,7 +403,7 @@ body {
     right: 0;
     bottom: 0;
     width: 28px;
-    height: calc(100% - 40px);
+    height: calc(100% - 8px);
     background: linear-gradient(90deg, transparent, var(--swimmer-surface-sunken));
     content: '';
     pointer-events: none;
@@ -399,11 +416,11 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     overflow-wrap: normal;
-    padding: 48px 16px 16px;
+    padding: 16px;
     border-radius: inherit;
     background: var(--swimmer-surface-sunken);
     font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
-    white-space: pre-wrap;
+    white-space: pre;
     word-break: normal;
   }
 
@@ -645,12 +662,7 @@ body {
     }
 
     .game-ui-showcase-demo__row {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    .game-ui-showcase-demo__row > button {
-      width: 100%;
+      align-items: center;
     }
 
     .game-ui-showcase-stage {
@@ -670,6 +682,16 @@ body {
     .game-ui-showcase-block {
       margin-bottom: 24px;
       padding-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .game-ui-showcase-demo__row .game-ui-button-frame {
+      flex-basis: 100%;
+    }
+
+    .game-ui-showcase-demo__row .game-ui-button {
+      width: 100%;
     }
   }
 

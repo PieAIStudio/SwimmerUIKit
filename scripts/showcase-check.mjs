@@ -42,6 +42,12 @@ export function validateShowcaseMetrics({
   toggleTargetsTooSmall = false,
   toggleStylesInconsistent = false,
   codeCornerUnclipped = false,
+  codeTopPaddingTooLarge = false,
+  codeCopyMisplaced = false,
+  inputRunDetached = false,
+  inputBorderMissing = false,
+  desktopRunMisaligned = false,
+  primaryLabelsNotCentered = false,
 }) {
   const failures = [];
   if (
@@ -71,6 +77,9 @@ export function validateShowcaseMetrics({
     if (codeFadeMissing) {
       failures.push('code block is missing its horizontal fade cue at 390px');
     }
+    if (inputRunDetached) {
+      failures.push('Run control is detached from its input at 390px');
+    }
   }
   if (updatesClipped) failures.push('Updates text is clipped or ellipsized');
   if (headerActionsNotAtEdge) {
@@ -84,6 +93,21 @@ export function validateShowcaseMetrics({
   }
   if (codeCornerUnclipped) {
     failures.push('How to plug in code block is not clipped to its rounded corner');
+  }
+  if (codeTopPaddingTooLarge) {
+    failures.push('code block leaves an oversized blank band above the first line');
+  }
+  if (codeCopyMisplaced) {
+    failures.push('Copy code control is outside the code block shell');
+  }
+  if (inputBorderMissing) {
+    failures.push('Code Kit input needs a visible 1px UIKit border and label');
+  }
+  if (desktopRunMisaligned) {
+    failures.push('Run control is not aligned with its input');
+  }
+  if (primaryLabelsNotCentered) {
+    failures.push('primary showcase labels are not centered');
   }
   if (!hasFlowStrip) failures.push('FlowStrip is missing');
   if (kitType === 'visual' && (stageCount === 0 || stageMissingOptionRow)) {
@@ -151,9 +175,7 @@ function collectPageMetrics() {
   const codeStyles = codePre ? getComputedStyle(codePre) : null;
   const codeWrapUnsafe = Boolean(
     codeStyles &&
-    (codeStyles.overflowWrap === 'anywhere' ||
-      codeStyles.wordBreak === 'break-all' ||
-      codeStyles.whiteSpace === 'nowrap'),
+    (codeStyles.whiteSpace !== 'pre' || !['auto', 'scroll'].includes(codeStyles.overflowX)),
   );
   const codeFadeMissing = Boolean(code && getComputedStyle(code, '::after').content === 'none');
   const codeShellStyles = code ? getComputedStyle(code) : null;
@@ -161,6 +183,72 @@ function collectPageMetrics() {
     codeShellStyles !== null &&
     (!['hidden', 'clip'].includes(codeShellStyles.overflow) ||
       codeShellStyles.borderBottomRightRadius === '0px');
+  const codeTopPaddingTooLarge =
+    codeStyles !== null && Number.parseFloat(codeStyles.paddingTop) > 32;
+  const codeCopyButton = code?.querySelector('.game-ui-showcase-copy-button');
+  const codeCopyRect = codeCopyButton?.getBoundingClientRect();
+  const codeCopyMisplaced = Boolean(
+    codeRect &&
+    codeCopyRect &&
+    (codeCopyRect.left < codeRect.left - 1 ||
+      codeCopyRect.right > codeRect.right + 1 ||
+      codeCopyRect.top < codeRect.top - 1 ||
+      codeCopyRect.bottom > codeRect.bottom + 1),
+  );
+  const demoRows = [...(shell?.querySelectorAll('.game-ui-showcase-demo__row') ?? [])];
+  const inputRunDetached =
+    window.innerWidth <= 390 &&
+    demoRows.some((row) => {
+      const input = row.querySelector('.game-ui-input');
+      const button = row.querySelector('.game-ui-button');
+      if (!input || !button) return false;
+      const inputRect = input.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      const fullWidth = buttonRect.width >= rowRect.width - 2;
+      return buttonRect.top > inputRect.bottom + 1 && !fullWidth;
+    });
+  const inputBorderMissing = demoRows.some((row) => {
+    const input = row.querySelector('.game-ui-input');
+    if (!input) return false;
+    const styles = getComputedStyle(input);
+    const label = input.id
+      ? [...(shell?.querySelectorAll('label') ?? [])].find(
+          (candidate) => candidate.htmlFor === input.id,
+        )
+      : null;
+    const labelRect = label?.getBoundingClientRect();
+    return (
+      styles.borderTopWidth !== '1px' ||
+      !label?.textContent?.trim() ||
+      !labelRect ||
+      labelRect.width === 0 ||
+      labelRect.height === 0
+    );
+  });
+  const desktopRunMisaligned =
+    window.innerWidth > 390 &&
+    demoRows.some((row) => {
+      const input = row.querySelector('.game-ui-input');
+      const button = row.querySelector('.game-ui-button');
+      if (!input || !button) return false;
+      const inputRect = input.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const inputCenter = inputRect.top + inputRect.height / 2;
+      const buttonCenter = buttonRect.top + buttonRect.height / 2;
+      return Math.abs(inputCenter - buttonCenter) > 4;
+    });
+  const primaryLabelsNotCentered = [
+    ...(shell?.querySelectorAll('.kit-demo .game-ui-button, .kit-demo .game-ui-segmented-option') ??
+      []),
+  ].some((button) => {
+    const styles = getComputedStyle(button);
+    const selectionMark = button.querySelector('.game-ui-selection-mark');
+    return (
+      styles.justifyContent !== 'center' ||
+      (selectionMark && getComputedStyle(selectionMark).display !== 'none')
+    );
+  });
   const edgeNodes = main
     ? [
         ...main.querySelectorAll(
@@ -222,6 +310,12 @@ function collectPageMetrics() {
     toggleTargetsTooSmall,
     toggleStylesInconsistent,
     codeCornerUnclipped,
+    codeTopPaddingTooLarge,
+    codeCopyMisplaced,
+    inputRunDetached,
+    inputBorderMissing,
+    desktopRunMisaligned,
+    primaryLabelsNotCentered,
   };
 }
 export async function runShowcaseCheck(root = process.cwd()) {

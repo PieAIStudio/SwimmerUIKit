@@ -26,6 +26,7 @@ export {
 } from './controls/SegmentedControl/SegmentedControl';
 export { Select, type SelectProps } from './controls/Select/Select';
 export { Slider, type SliderProps } from './controls/Slider/Slider';
+export { Switch, type SwitchProps } from './controls/Switch/Switch';
 export { Tabs, type TabItem, type TabsProps } from './controls/Tabs/Tabs';
 export { TextArea, type TextAreaProps } from './controls/TextArea/TextArea';
 export { Toggle, type ToggleProps } from './controls/Toggle/Toggle';
