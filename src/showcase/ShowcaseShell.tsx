@@ -27,6 +27,9 @@ export function ShowcaseShell({
   const zh = language === 'zh';
   const shortName = kit.shortName ?? kit.name.split('/').at(-1) ?? kit.name;
   const consumerText = text(kit.consumers);
+  const displayConsumerText = zh
+    ? consumerText.replace(/\+(\d+)\s*个更多/g, '等 $1 个项目')
+    : consumerText;
   return (
     <div
       className="game-ui-showcase-shell"
@@ -81,7 +84,7 @@ export function ShowcaseShell({
             <p className="game-ui-showcase-lead">{text(kit.what)}</p>
             {consumerText.trim() ? (
               <p className="game-ui-showcase-consumers">
-                <strong>{zh ? '使用方' : 'Used by'}</strong> · {consumerText}
+                <strong>{zh ? '使用方' : 'Used by'}</strong> · {displayConsumerText}
               </p>
             ) : null}
           </section>

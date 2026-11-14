@@ -15,6 +15,7 @@ export interface DemoPanelProps {
   resultLabel?: string;
   stageLabel?: string;
   onRun?: (value: string) => string;
+  output?: (result: string, input: string) => ReactNode;
   children?: ReactNode;
 }
 
@@ -24,6 +25,7 @@ export function DemoPanel({
   language,
   label,
   onRun,
+  output,
   placeholder,
   resultLabel,
   runLabel,
@@ -81,7 +83,7 @@ export function DemoPanel({
           <span className="game-ui-showcase-demo__status-dot" aria-hidden="true" />
           {outputText}
         </span>
-        <strong>{result || '—'}</strong>
+        <strong>{output?.(result, value) ?? (result || '—')}</strong>
       </output>
       {children}
     </form>

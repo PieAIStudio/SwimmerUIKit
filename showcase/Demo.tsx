@@ -33,6 +33,11 @@ export default function Demo({ kit, language }: ShowcaseDemoProps) {
   const copy = kit.demo ?? fallbackDemoCopy;
   const [surface, setSurface] = useState<Surface>('controls');
   const [composed, setComposed] = useState(false);
+  const flow = composed
+    ? copy.flow.map((step, index) =>
+        index === 1 ? { ...step, detail: { en: 'composed', zh: '已组合' } } : step,
+      )
+    : copy.flow;
 
   return (
     <div className="kit-demo">
@@ -109,9 +114,9 @@ export default function Demo({ kit, language }: ShowcaseDemoProps) {
             </div>
           </div>
         )}
-        <div className="kit-demo__demo-output">
+        <div className="kit-demo__demo-output" data-state={composed ? 'ready' : 'idle'}>
           <span className="kit-demo__demo-output-label">{copy.flowLabel[language]}</span>
-          <FlowStrip ariaLabel={copy.flowLabel[language]} steps={copy.flow} />
+          <FlowStrip ariaLabel={copy.flowLabel[language]} steps={flow} />
         </div>
       </DemoPanel>
     </div>

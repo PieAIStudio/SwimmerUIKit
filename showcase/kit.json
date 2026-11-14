@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.23",
+  "version": "4.0.0-alpha.24",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-13",
   "what": {
@@ -29,7 +29,7 @@
       "date": "2026-11-12",
       "text": {
         "en": "4.0 alpha keeps grey light/dark semantic tokens.",
-        "zh": "4.0 alpha 保留 grey 明暗语义令牌。"
+        "zh": "4.0 alpha 保留灰色明暗语义令牌。"
       }
     }
   ],

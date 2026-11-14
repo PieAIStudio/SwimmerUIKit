@@ -4,6 +4,7 @@ import { chromium, type Browser } from 'playwright';
 import {
   validateShowcaseCode,
   validateShowcaseMetrics,
+  validateShowcaseOutputCopy,
   type ShowcasePageMetrics,
 } from '../scripts/showcase-check.mjs';
 
@@ -101,6 +102,15 @@ describe('showcase-check browser guards', () => {
     await page.close();
   });
 
+  it('rejects the forbidden Sample output label', () => {
+    expect(
+      validateShowcaseOutputCopy({
+        file: 'showcase/Demo.tsx',
+        text: '<span>Sample:</span>',
+      }),
+    ).toEqual(['showcase/Demo.tsx contains forbidden output label "Sample"']);
+  });
+
   it('rejects invalid How to plug in code', () => {
     expect(
       validateShowcaseCode({
@@ -135,6 +145,10 @@ describe('showcase-check browser guards', () => {
       updatesClipped: true,
       codeWrapUnsafe: true,
       codeFadeMissing: true,
+      headerActionsNotAtEdge: true,
+      toggleTargetsTooSmall: true,
+      toggleStylesInconsistent: true,
+      codeCornerUnclipped: true,
     });
     expect(failures).toEqual(
       expect.arrayContaining([
@@ -142,6 +156,10 @@ describe('showcase-check browser guards', () => {
         'code block can break inside a token at 390px',
         'code block is missing its horizontal fade cue at 390px',
         'Updates text is clipped or ellipsized',
+        'header controls are not pushed to the right edge at 390px',
+        'theme/language controls need 44px tap targets',
+        'theme/language toggles do not share one visual treatment',
+        'How to plug in code block is not clipped to its rounded corner',
       ]),
     );
   });

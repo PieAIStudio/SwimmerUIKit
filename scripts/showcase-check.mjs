@@ -17,6 +17,10 @@ export function validateShowcaseCode({ packageName, code }) {
   return failures;
 }
 
+export function validateShowcaseOutputCopy({ text, file = 'showcase' }) {
+  return /\bSample\b/.test(text) ? [file + ' contains forbidden output label "Sample"'] : [];
+}
+
 export function validateShowcaseMetrics({
   viewportWidth,
   scrollWidth,
@@ -34,6 +38,10 @@ export function validateShowcaseMetrics({
   updatesClipped = false,
   codeWrapUnsafe = false,
   codeFadeMissing = false,
+  headerActionsNotAtEdge = false,
+  toggleTargetsTooSmall = false,
+  toggleStylesInconsistent = false,
+  codeCornerUnclipped = false,
 }) {
   const failures = [];
   if (
@@ -65,6 +73,18 @@ export function validateShowcaseMetrics({
     }
   }
   if (updatesClipped) failures.push('Updates text is clipped or ellipsized');
+  if (headerActionsNotAtEdge) {
+    failures.push('header controls are not pushed to the right edge at 390px');
+  }
+  if (toggleTargetsTooSmall) {
+    failures.push('theme/language controls need 44px tap targets');
+  }
+  if (toggleStylesInconsistent) {
+    failures.push('theme/language toggles do not share one visual treatment');
+  }
+  if (codeCornerUnclipped) {
+    failures.push('How to plug in code block is not clipped to its rounded corner');
+  }
   if (!hasFlowStrip) failures.push('FlowStrip is missing');
   if (kitType === 'visual' && (stageCount === 0 || stageMissingOptionRow)) {
     failures.push('visual Kit stage is missing an option row');
@@ -82,9 +102,38 @@ function collectPageMetrics() {
   const main = shell?.querySelector('.game-ui-showcase-main');
   const code = shell?.querySelector('.game-ui-showcase-code');
   const rail = shell?.querySelector('.game-ui-showcase-rail');
+  const header = shell?.querySelector('.game-ui-showcase-topbar');
+  const headerActions = shell?.querySelector('.game-ui-showcase-actions');
+  const wordmark = shell?.querySelector('.game-ui-showcase-wordmark');
+  const toggleButtons = [...(shell?.querySelectorAll('.game-ui-showcase-toggle') ?? [])];
   const codeRect = code?.getBoundingClientRect();
   const railRect = rail?.getBoundingClientRect();
   const codeToRailGap = codeRect && railRect ? railRect.top - codeRect.bottom : undefined;
+  const headerRect = header?.getBoundingClientRect();
+  const headerActionsRect = headerActions?.getBoundingClientRect();
+  const wordmarkRect = wordmark?.getBoundingClientRect();
+  const headerActionsNotAtEdge =
+    window.innerWidth <= 390 &&
+    Boolean(headerRect && headerActionsRect && wordmarkRect) &&
+    (getComputedStyle(headerActions).marginLeft !== 'auto' ||
+      headerActionsRect.left < wordmarkRect.right - 1 ||
+      headerActionsRect.right > headerRect.right + 1);
+  const toggleTargetsTooSmall = toggleButtons.some((toggle) => {
+    const rect = toggle.getBoundingClientRect();
+    return rect.width < 44 || rect.height < 44;
+  });
+  const toggleStyleSignatures = toggleButtons.map((toggle) => {
+    const styles = getComputedStyle(toggle);
+    return [
+      styles.backgroundColor,
+      styles.borderTopColor,
+      styles.borderTopStyle,
+      styles.borderTopWidth,
+      styles.borderRadius,
+      styles.boxShadow,
+    ].join('|');
+  });
+  const toggleStylesInconsistent = new Set(toggleStyleSignatures).size > 1;
   const updatesClipped = [
     ...(shell?.querySelectorAll('.game-ui-showcase-rail-block li span') ?? []),
   ].some((span) => {
@@ -107,6 +156,11 @@ function collectPageMetrics() {
       codeStyles.whiteSpace === 'nowrap'),
   );
   const codeFadeMissing = Boolean(code && getComputedStyle(code, '::after').content === 'none');
+  const codeShellStyles = code ? getComputedStyle(code) : null;
+  const codeCornerUnclipped =
+    codeShellStyles !== null &&
+    (!['hidden', 'clip'].includes(codeShellStyles.overflow) ||
+      codeShellStyles.borderBottomRightRadius === '0px');
   const edgeNodes = main
     ? [
         ...main.querySelectorAll(
@@ -164,6 +218,10 @@ function collectPageMetrics() {
     updatesClipped,
     codeWrapUnsafe,
     codeFadeMissing,
+    headerActionsNotAtEdge,
+    toggleTargetsTooSmall,
+    toggleStylesInconsistent,
+    codeCornerUnclipped,
   };
 }
 export async function runShowcaseCheck(root = process.cwd()) {
@@ -235,6 +293,7 @@ export async function runShowcaseCheck(root = process.cwd()) {
       ) {
         fail(relative(root, file) + ' uses native range/checkbox input');
       }
+      failures.push(...validateShowcaseOutputCopy({ text, file: relative(root, file) }));
     }
 
     const manifest = JSON.parse(readFileSync(join(showcaseRoot, 'kit.json'), 'utf8'));
@@ -264,6 +323,12 @@ export async function runShowcaseCheck(root = process.cwd()) {
         await page.waitForSelector('.game-ui-showcase-shell');
         const metrics = await page.evaluate(collectPageMetrics);
         failures.push(...validateShowcaseMetrics(metrics));
+        const themeToggle = page.locator('.game-ui-showcase-toggle').first();
+        if (await themeToggle.count()) {
+          await themeToggle.click();
+          await page.waitForTimeout(0);
+          failures.push(...validateShowcaseMetrics(await page.evaluate(collectPageMetrics)));
+        }
         const height = await page.evaluate(() => document.documentElement.scrollHeight);
         if (height > viewport.max) {
           fail(

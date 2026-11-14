@@ -114,6 +114,15 @@ body {
     font-size: 0.8125rem;
     font-weight: 650;
   }
+  .game-ui-showcase-toggle.game-ui-button {
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--swimmer-game-text);
+    box-shadow: none;
+  }
 
   .game-ui-showcase-toggle:hover:not(:disabled) {
     background: var(--swimmer-surface-sunken);
@@ -222,6 +231,11 @@ body {
     color: var(--swimmer-game-text-muted);
     font-size: 14px;
     line-height: 1.35;
+  }
+
+  .kit-demo .game-ui-segmented-option {
+    justify-content: center;
+    text-align: center;
   }
 
   .kit-demo .game-ui-segmented-label {
@@ -363,6 +377,8 @@ body {
     max-width: 100%;
     isolation: isolate;
     overflow: hidden;
+    border-radius: var(--swimmer-game-radius-panel);
+    background: var(--swimmer-surface-sunken);
   }
 
   .game-ui-showcase-code::after {
@@ -384,7 +400,7 @@ body {
     overflow-y: hidden;
     overflow-wrap: normal;
     padding: 48px 16px 16px;
-    border-radius: var(--swimmer-game-radius-panel);
+    border-radius: inherit;
     background: var(--swimmer-surface-sunken);
     font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
     white-space: pre-wrap;
@@ -676,9 +692,12 @@ body {
 
     .game-ui-showcase-actions {
       gap: 4px;
+      margin-left: auto;
     }
 
-    .game-ui-showcase-toggle {
+    .game-ui-showcase-toggle.game-ui-button {
+      min-width: 44px;
+      min-height: 44px;
       padding-inline: 8px;
     }
   }
