@@ -147,6 +147,6 @@ describe('Colour Worlds parts', () => {
     expect(html).toContain('data-state="now"');
     expect(html).toContain('data-state="waiting"');
     expect(html).toContain('type="checkbox"');
-    expect(html).toContain('game-ui-switch-track');
+    expect(html).toContain('label="Retry"');
   });
 });
