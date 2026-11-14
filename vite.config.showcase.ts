@@ -11,6 +11,10 @@ export default defineConfig({
         find: '@pieai/swimmer-ui-kit/showcase',
         replacement: resolve(__dirname, 'src/showcase.ts'),
       },
+      {
+        find: '@pieai/swimmer-ui-kit/tool-worlds',
+        replacement: resolve(__dirname, 'src/tool-worlds.ts'),
+      },
       { find: '@pieai/swimmer-ui-kit', replacement: resolve(__dirname, 'src/index.ts') },
     ],
   },

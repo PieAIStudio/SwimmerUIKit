@@ -13,6 +13,7 @@
     "moduleResolution": "Bundler",
     "paths": {
       "@pieai/swimmer-ui-kit/showcase": ["./src/showcase.ts"],
+      "@pieai/swimmer-ui-kit/tool-worlds": ["./src/tool-worlds.ts"],
       "@pieai/swimmer-ui-kit": ["./src/index.ts"]
     },
     "resolveJsonModule": true,

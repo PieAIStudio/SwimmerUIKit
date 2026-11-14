@@ -47,4 +47,22 @@ export {
 } from './controls/RoundAction/RoundAction';
 export { Switch, type SwitchProps } from './controls/Switch/Switch';
 export { ToolIcon, type ToolIconName, type ToolIconProps } from './icons/ToolIcon/ToolIcon';
+export {
+  SpriteIcon,
+  pickSpriteIconTier,
+  buildSpriteIconKeyframes,
+  type SpriteIconKeyframes,
+} from './icons/SpriteIcon/SpriteIcon';
+export {
+  SPRITE_ICON_CLIPS,
+  SPRITE_ICON_TIERS,
+  type SpriteIconClip,
+  type SpriteIconClipName,
+  type SpriteIconInteractionState,
+  type SpriteIconProps,
+  type SpriteIconSource,
+  type SpriteIconState,
+  type SpriteIconTier,
+  type SpriteIconTierSources,
+} from './icons/SpriteIcon/types';
 export { Checkbox, type CheckboxProps } from './controls/Checkbox/Checkbox';

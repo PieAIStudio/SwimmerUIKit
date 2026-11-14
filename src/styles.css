@@ -30,6 +30,7 @@
 @import './controls/Toggle/component.css';
 @import './game/RadialMenu/component.css';
 @import './icons/Icon/component.css';
+@import './icons/SpriteIcon/component.css';
 @import './controls/LanguageMenu/component.css';
 @import './feedback/Badge/component.css';
 @import './game/FirstSessionOnboarding/component.css';

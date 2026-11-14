@@ -1,0 +1,29 @@
+@layer swimmer-ui {
+  .game-ui-sprite-icon {
+    --swimmer-sprite-still: none;
+    position: relative;
+    display: inline-block;
+    flex: none;
+    vertical-align: middle;
+    user-select: none;
+  }
+
+  .game-ui-sprite-icon-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    animation-fill-mode: both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-sprite-icon-frame {
+      background-image: var(--swimmer-sprite-still) !important;
+      background-position: 0% 0% !important;
+      background-size: 100% 100% !important;
+      animation: none !important;
+    }
+  }
+}

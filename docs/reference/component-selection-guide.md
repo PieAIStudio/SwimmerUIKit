@@ -149,6 +149,7 @@ Avatar 的 surface="plaque" 只表示静态头像相框，不用于普通按钮�
 | `ManagerSheet` | Colour Worlds 长列表 sheet，含搜索、排序、分组、Checkbox 行和 ActionPill footer。 |
 | `Shell` | 游戏场景、HUD、侧栏和覆盖层槽位；工具窗口改用 ToolWindow。 |
 | `TOOL_WORLDS` | 八个 Colour Worlds 世界名清单；ClaudeSync violet、MailWard coral、OnePlace teal、Attendant indigo、AutoContinue magenta。 |
+| `SpriteIcon` | 帧表动画图标（无 Three.js）；按尺寸和 DPR 选 96/192/512 档 WebP `steps()` 播放，起止均停在静止帧，仅 `hero` 播 `idle`，减少动态时静止。 |
 | `ToolIcon` | 复用现有 Icon，并补充工具合同 glyph；动作名称仍由真实控件提供。 |
 | `ToolLanding` | Colour Worlds 首页布局：art glow、浅标题、lead 和 feature rows。 |
 | `ToolSidebar` | 透明完整侧栏或 38px icon rail；宿主提供 items。 |

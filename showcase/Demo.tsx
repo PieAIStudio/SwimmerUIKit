@@ -7,9 +7,68 @@ import {
   type ShowcaseDemoCopy,
   type ShowcaseDemoProps,
 } from '@pieai/swimmer-ui-kit/showcase';
+import {
+  SpriteIcon,
+  type SpriteIconSource,
+  type SpriteIconState,
+} from '@pieai/swimmer-ui-kit/tool-worlds';
+import filesAct96 from '../src/icons/SpriteIcon/fixtures/files/act-96.webp';
+import filesAct192 from '../src/icons/SpriteIcon/fixtures/files/act-192.webp';
+import filesAct512 from '../src/icons/SpriteIcon/fixtures/files/act-512.webp';
+import filesStill96 from '../src/icons/SpriteIcon/fixtures/files/still-96.webp';
+import filesStill192 from '../src/icons/SpriteIcon/fixtures/files/still-192.webp';
+import filesStill512 from '../src/icons/SpriteIcon/fixtures/files/still-512.webp';
 import kitManifest from './kit.json';
 
 export const kit = kitManifest as ShowcaseDemoProps['kit'];
+
+const FILES_SPRITE: SpriteIconSource = {
+  still: {
+    96: filesStill96,
+    192: filesStill192,
+    512: filesStill512,
+  },
+  clips: {
+    act: {
+      sheets: {
+        96: filesAct96,
+        192: filesAct192,
+        512: filesAct512,
+      },
+      frames: 21,
+      fps: 15,
+      cols: 5,
+      rows: 5,
+      loop: false,
+      seconds: 1.4,
+    },
+  },
+};
+
+const SPRITE_SIZES = [28, 64, 128] as const;
+
+const SPRITE_COPY = {
+  en: {
+    option: 'Sprites',
+    badge: '3D SpriteIcon',
+    play: 'Play act',
+    playing: 'Playing…',
+    light: 'Light ground',
+    dark: 'Dark ground',
+    tiers: '96 / 192 / 512',
+    actionLabel: 'Play files act clip at',
+  },
+  zh: {
+    option: '帧图标',
+    badge: '3D SpriteIcon',
+    play: '播放动作',
+    playing: '播放中…',
+    light: '浅色底面',
+    dark: '深色底面',
+    tiers: '96 / 192 / 512',
+    actionLabel: '播放文件夹动作帧，尺寸',
+  },
+} as const;
 
 const fallbackDemoCopy: ShowcaseDemoCopy = {
   stageLabel: { en: 'UIKit component stage', zh: 'UIKit 组件舞台' },
@@ -27,36 +86,110 @@ const fallbackDemoCopy: ShowcaseDemoCopy = {
   ],
 };
 
-type Surface = 'controls' | 'tokens';
+type Surface = 'sprites' | 'controls' | 'tokens';
 
 export default function Demo({ kit, language }: ShowcaseDemoProps) {
   const copy = kit.demo ?? fallbackDemoCopy;
-  const [surface, setSurface] = useState<Surface>('controls');
+  const spriteCopy = SPRITE_COPY[language];
+  const [surface, setSurface] = useState<Surface>('sprites');
   const [composed, setComposed] = useState(false);
-  const flow = composed
-    ? copy.flow.map((step, index) =>
-        index === 1 ? { ...step, detail: { en: 'composed', zh: '已组合' } } : step,
-      )
-    : copy.flow;
+  const [spriteState, setSpriteState] = useState<SpriteIconState | undefined>(undefined);
+  const flow =
+    surface === 'sprites'
+      ? [
+          {
+            label: { en: 'Sheet', zh: '帧表' },
+            detail: { en: '21f @ 15fps', zh: '21帧 @ 15fps' },
+          },
+          {
+            label: { en: 'Tiers', zh: '档位' },
+            detail: { en: '96 / 192 / 512', zh: '96 / 192 / 512' },
+          },
+          {
+            label: { en: 'State', zh: '状态' },
+            detail:
+              spriteState === 'act'
+                ? { en: 'act -> rest', zh: 'act -> 静止' }
+                : { en: 'rest still', zh: '静止帧' },
+          },
+        ]
+      : composed
+        ? copy.flow.map((step, index) =>
+            index === 1 ? { ...step, detail: { en: 'composed', zh: '已组合' } } : step,
+          )
+        : copy.flow;
 
   return (
     <div className="kit-demo">
       <DemoPanel variant="stage" stageLabel={copy.stageLabel[language]}>
         <div className="kit-demo__heading">
-          <Badge tone="neutral">{copy.badge[language]}</Badge>
+          <Badge tone="neutral">
+            {surface === 'sprites' ? spriteCopy.badge : copy.badge[language]}
+          </Badge>
+          {surface === 'sprites' ? (
+            <Button
+              size="sm"
+              type="button"
+              variant="primary"
+              aria-pressed={spriteState === 'act'}
+              onClick={() => setSpriteState((prev) => (prev === 'act' ? undefined : 'act'))}
+            >
+              {spriteState === 'act' ? spriteCopy.playing : spriteCopy.play}
+            </Button>
+          ) : null}
         </div>
         <SegmentedControl
           label={copy.surfaceLabel[language]}
           activeId={surface}
           onSelect={(id) => {
-            if (id === 'controls' || id === 'tokens') setSurface(id);
+            if (id === 'sprites' || id === 'controls' || id === 'tokens') setSurface(id);
           }}
           options={[
+            { id: 'sprites', label: spriteCopy.option },
             { id: 'controls', label: copy.controlsOption[language] },
             { id: 'tokens', label: copy.tokensOption[language] },
           ]}
         />
-        {surface === 'controls' ? (
+        {surface === 'sprites' ? (
+          <div className="kit-demo__sprites">
+            {(
+              [
+                { theme: 'light', title: spriteCopy.light },
+                { theme: 'dark', title: spriteCopy.dark },
+              ] as const
+            ).map((ground) => (
+              <section
+                key={ground.theme}
+                className={`kit-demo__sprite-surface kit-demo__sprite-surface--${ground.theme}`}
+                data-game-ui-theme={ground.theme}
+              >
+                <div className="kit-demo__sprite-head">
+                  <span>{ground.title}</span>
+                  <span className="kit-demo__sprite-meta">{spriteCopy.tiers}</span>
+                </div>
+                <div className="kit-demo__sprite-row">
+                  {SPRITE_SIZES.map((iconSize) => (
+                    <button
+                      key={`${ground.theme}-${iconSize}`}
+                      aria-label={`${spriteCopy.actionLabel} ${iconSize}px`}
+                      className="kit-demo__sprite-item"
+                      type="button"
+                      onClick={() => setSpriteState('act')}
+                    >
+                      <SpriteIcon
+                        icon={FILES_SPRITE}
+                        size={iconSize}
+                        state={spriteState}
+                        onClipEnd={() => setSpriteState(undefined)}
+                      />
+                      <span className="kit-demo__sprite-meta">{iconSize} px</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        ) : surface === 'controls' ? (
           <div className="kit-demo__surface">
             <Button
               type="button"
@@ -80,7 +213,7 @@ export default function Demo({ kit, language }: ShowcaseDemoProps) {
         ) : (
           <div
             className="kit-demo__tokens"
-            aria-label={language === 'zh' ? '令牌样本' : 'Token samples'}
+            aria-label={language === 'zh' ? '令牌条带' : 'Token swatches'}
           >
             <div className="kit-demo__token">
               <span
@@ -114,7 +247,10 @@ export default function Demo({ kit, language }: ShowcaseDemoProps) {
             </div>
           </div>
         )}
-        <div className="kit-demo__demo-output" data-state={composed ? 'ready' : 'idle'}>
+        <div
+          className="kit-demo__demo-output"
+          data-state={composed || spriteState === 'act' ? 'ready' : 'idle'}
+        >
           <span className="kit-demo__demo-output-label">{copy.flowLabel[language]}</span>
           <FlowStrip ariaLabel={copy.flowLabel[language]} steps={flow} />
         </div>

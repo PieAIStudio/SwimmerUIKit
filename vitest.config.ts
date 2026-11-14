@@ -18,9 +18,16 @@ export default defineConfig({
     global: 'globalThis',
   },
   resolve: {
-    alias: {
-      '@pieai/swimmer-ui-kit': path.join(dirname, 'src/index.ts'),
-    },
+    alias: [
+      {
+        find: '@pieai/swimmer-ui-kit/tool-worlds',
+        replacement: path.join(dirname, 'src/tool-worlds.ts'),
+      },
+      {
+        find: '@pieai/swimmer-ui-kit',
+        replacement: path.join(dirname, 'src/index.ts'),
+      },
+    ],
   },
   test: {
     // This checkout shares its Mac with other repositories. A worker limit

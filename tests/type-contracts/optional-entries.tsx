@@ -9,7 +9,7 @@ import {
   Icon,
 } from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
-import { ToolWindow } from '../../src/tool-worlds';
+import { SpriteIcon, ToolWindow, type SpriteIconSource } from '../../src/tool-worlds';
 
 export const namedIcon = <Icon icon="check" label="Completed" />;
 
@@ -32,6 +32,20 @@ export const select = (
 export const toggle = <Toggle checked label="Sound" />;
 export const reveal = <LiquidReveal>Draft</LiquidReveal>;
 export const toolWindow = <ToolWindow title="Tool">Content</ToolWindow>;
+const spriteFixture: SpriteIconSource = {
+  still: { 96: '/still-96.webp', 192: '/still-192.webp', 512: '/still-512.webp' },
+  clips: {
+    act: {
+      sheets: { 96: '/act-96.webp', 192: '/act-192.webp', 512: '/act-512.webp' },
+      frames: 21,
+      fps: 15,
+      cols: 5,
+      rows: 5,
+      loop: false,
+    },
+  },
+};
+export const spriteIcon = <SpriteIcon icon={spriteFixture} label="Files" size={64} state="rest" />;
 
 // @ts-expect-error Image effects are not part of the default group API.
 export const rejectedMelt = <LiquidGroup.Item effect="melt">Text</LiquidGroup.Item>;

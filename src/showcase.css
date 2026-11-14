@@ -8,6 +8,7 @@
 @import './controls/Button/component.css';
 @import './controls/Input/component.css';
 @import './feedback/Badge/component.css';
+@import './icons/SpriteIcon/component.css';
 
 @font-face {
   font-family: 'Baloo 2';
@@ -211,13 +212,21 @@ body {
   /* Showcase-only treatment keeps the Try-it-live segmented control even and legible. */
   .kit-demo .game-ui-segmented {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 4px;
     width: 100%;
     padding: 4px;
     border: 1px solid var(--swimmer-border-subtle);
     border-radius: 14px;
     background: var(--swimmer-surface-sunken);
+  }
+
+  .kit-demo__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
   }
 
   .kit-demo .game-ui-segmented-option {
@@ -526,6 +535,79 @@ body {
     gap: 16px;
   }
 
+  .kit-demo__sprites {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .kit-demo__sprite-surface {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    padding: 12px 14px;
+    border-radius: var(--swimmer-radius-card);
+  }
+
+  .kit-demo__sprite-surface--light {
+    border: 1px solid var(--swimmer-paper-line-light);
+    background: var(--swimmer-paper-paper-light);
+    color: var(--swimmer-paper-ink-light);
+  }
+
+  .kit-demo__sprite-surface--dark {
+    border: 1px solid var(--swimmer-paper-line-dark);
+    background: var(--swimmer-paper-paper-dark);
+    color: var(--swimmer-paper-ink-dark);
+  }
+
+  .kit-demo__sprite-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.8125rem;
+    font-weight: 650;
+  }
+
+  .kit-demo__sprite-meta {
+    font: 600 0.75rem var(--swimmer-font-mono);
+  }
+
+  .kit-demo__sprite-surface--light .kit-demo__sprite-meta {
+    color: var(--swimmer-paper-muted-light);
+  }
+
+  .kit-demo__sprite-surface--dark .kit-demo__sprite-meta {
+    color: var(--swimmer-paper-muted-dark);
+  }
+
+  .kit-demo__sprite-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .kit-demo__sprite-item {
+    display: inline-grid;
+    justify-items: center;
+    gap: 6px;
+    padding: 4px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .kit-demo__sprite-item:focus-visible {
+    outline: 2px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+
   .kit-demo__progress .game-ui-progress-track {
     height: 10px;
     overflow: hidden;
@@ -679,6 +761,9 @@ body {
     }
 
     .kit-demo__tokens {
+      grid-template-columns: 1fr;
+    }
+    .kit-demo__sprites {
       grid-template-columns: 1fr;
     }
     .game-ui-showcase-flow {
