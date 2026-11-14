@@ -28,6 +28,8 @@ export interface KitCardProps {
 
 export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): ReactNode {
   const version = kit.version.trim();
+  const typeLabel = (labels?.type ?? kit.type).trim();
+  const meta = [typeLabel, version ? `v${version}` : ''].filter(Boolean).join(' · ');
   const content = (
     <>
       <div className="game-ui-showcase-kit-card__top">
@@ -43,10 +45,7 @@ export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): R
       </div>
       <p>{kit.tagline[language]}</p>
       <div className="game-ui-showcase-kit-card__foot">
-        <small>
-          {labels?.type ?? kit.type}
-          {version ? ` · v${version}` : null}
-        </small>
+        {meta ? <small>{meta}</small> : null}
         {href && labels?.action ? (
           <span className="game-ui-showcase-kit-card__action">
             {labels.action}

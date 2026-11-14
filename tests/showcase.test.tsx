@@ -170,5 +170,14 @@ describe('board-level showcase parts', () => {
     );
     expect(waiting).toContain('No showcase yet');
     expect(linked).not.toContain('game-ui-showcase-kit-card__unavailable');
+    const noTypeWithVersion = renderToStaticMarkup(
+      <KitCard kit={kit} labels={{ type: '', unavailable: 'No showcase yet' }} />,
+    );
+    expect(noTypeWithVersion).toContain('<small>v1.0.0</small>');
+    expect(noTypeWithVersion).not.toContain(' · ');
+    const noTypeNoVersion = renderToStaticMarkup(
+      <KitCard kit={base} labels={{ type: '', unavailable: 'No showcase yet' }} />,
+    );
+    expect(noTypeNoVersion).not.toContain('<small>');
   });
 });

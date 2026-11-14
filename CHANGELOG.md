@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.28 — 2026-11-14（board score-2 fixes in showcase parts）
+
+- `KitCard`：卡片与页脚都改为纵向布局，包名与版本在第一行，动作胶囊或不可用说明在第二行并左对齐；动作胶囊最小高度改为 40px、边框用 muted 45% 混合色以适应暗色主题；无链接卡片标题改用 muted 文本色（不用 `opacity`）；空 `type` 不再打印多余的 `" · "`，无元信息时不渲染空 `<small>`。
+- `ChipNav`：在 `420px` 以下收紧间距与内边距（chip 最小高度 40px、字号 `0.875rem`、内边距 `0 8px 0 12px`，间距 `6px`，计数圆点 `20px`），并保持单行不换行。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.27 — 2026-11-14（board score-1 fixes in showcase parts）
 
 - `ChipNav` 新增可选 `onSelect`：传入后 chip 渲染为原生按钮组，当前项 `aria-pressed`，用于原地筛选；不传时仍是锚点链接。`href` 改为可选（缺省 `#id`）。选中 chip 的计数底色与文字加深。
