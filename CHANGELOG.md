@@ -5,6 +5,14 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.27 — 2026-11-14（board score-1 fixes in showcase parts）
+
+- `ChipNav` 新增可选 `onSelect`：传入后 chip 渲染为原生按钮组，当前项 `aria-pressed`，用于原地筛选；不传时仍是锚点链接。`href` 改为可选（缺省 `#id`）。选中 chip 的计数底色与文字加深。
+- `AppBar` 菜单按「主页面在前」排序（新导出 `appBarMenuOrder`）；毛玻璃移到独立的 `::before` 层，窄屏菜单的遮罩不再被困在栏内，能盖住整页。
+- `KitCard`：状态徽章前加一个小色点（success / warning / danger 用对应语义色，neutral 为空心），徽章本身保持安静；链接卡的动作文字变成 36px 高的胶囊按钮外观；新增 `labels.unavailable`，无链接的卡在页脚显示一句说明。
+- `CodeSample`：代码块顶部留出复制按钮的一行，按钮在任何宽度都不再压住第一行代码。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.26 — 2026-11-14（board-level showcase parts）
 
 - `@pieai/swimmer-ui-kit/showcase` 新增四个看板级零件，供 Founder Board 与 Kit 展示页共用同一外观：`AppBar` / `AppBarAction`（一行应用栏：字标、主页面链接、标出当前页的溢出菜单、右侧动作；窄屏把所有页面收进菜单）、`DisclosureRow`（原地展开的密集行，标题、摘要、事实各占固定列，箭头始终独占右列）、`ChipNav`（带数量的锚点 chip 行）、`PageHeader`（kicker、标题、导语、页面级动作）。

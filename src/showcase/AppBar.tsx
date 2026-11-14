@@ -42,6 +42,7 @@ export function AppBar({
   const menuRef = useRef<HTMLDivElement>(null);
   const active = items.find((item) => item.id === activeId);
   const overflowActive = active !== undefined && !active.primary;
+  const menuItems = appBarMenuOrder(items);
 
   useEffect(() => {
     if (!open) return;
@@ -128,7 +129,7 @@ export function AppBar({
                 className="game-ui-app-bar-list"
                 onKeyDown={onMenuKeyDown}
               >
-                {items.map((item) => (
+                {menuItems.map((item) => (
                   <button
                     type="button"
                     role="menuitemradio"
@@ -154,6 +155,11 @@ export function AppBar({
       {actions ? <div className="game-ui-app-bar-actions">{actions}</div> : null}
     </header>
   );
+}
+
+/** Menu order: primary pages first, so a narrow screen keeps the wide screen's order. */
+export function appBarMenuOrder(items: readonly AppBarItem[]): AppBarItem[] {
+  return [...items.filter((item) => item.primary), ...items.filter((item) => !item.primary)];
 }
 
 function visibleEntries(menu: HTMLElement | null): HTMLElement[] {

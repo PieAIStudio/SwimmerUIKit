@@ -416,7 +416,8 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     overflow-wrap: normal;
-    padding: 16px;
+    /* The top band belongs to the copy button, so it never covers the first line. */
+    padding: 44px 16px 16px;
     border-radius: inherit;
     background: var(--swimmer-surface-sunken);
     font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
@@ -742,10 +743,17 @@ body {
     min-height: 64px;
     padding: 10px var(--game-ui-app-bar-gutter, max(20px, calc((100vw - 1200px) / 2)));
     border-bottom: 1px solid var(--swimmer-border-subtle);
-    background: color-mix(in srgb, var(--swimmer-game-bg) 92%, transparent);
-    backdrop-filter: blur(12px);
     color: var(--swimmer-game-text);
     font-family: var(--swimmer-game-font-body);
+  }
+  /* The blur sits on a layer of its own: a filter on the bar itself would trap the menu's fixed scrim inside it. */
+  .game-ui-app-bar::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: color-mix(in srgb, var(--swimmer-game-bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    content: '';
   }
   .game-ui-app-bar-brand {
     flex: none;
@@ -1137,6 +1145,7 @@ body {
     align-items: center;
     gap: 8px;
     min-height: 44px;
+    margin: 0;
     padding: 0 10px 0 16px;
     border: 1px solid var(--swimmer-border-subtle);
     border-radius: 999px;
@@ -1147,6 +1156,7 @@ body {
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
+    cursor: pointer;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
@@ -1157,9 +1167,15 @@ body {
     outline: 3px solid var(--swimmer-focus-ring);
     outline-offset: 2px;
   }
-  .game-ui-chip-nav-item[aria-current] {
+  .game-ui-chip-nav-item[aria-current],
+  .game-ui-chip-nav-item[aria-pressed='true'] {
     border-color: var(--swimmer-game-accent);
     background: color-mix(in srgb, var(--swimmer-game-accent) 16%, var(--swimmer-game-surface));
+  }
+  .game-ui-chip-nav-item[aria-current] .game-ui-chip-nav-count,
+  .game-ui-chip-nav-item[aria-pressed='true'] .game-ui-chip-nav-count {
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text);
   }
   .game-ui-chip-nav-count {
     display: inline-grid;
@@ -1240,16 +1256,47 @@ body {
   }
   .game-ui-showcase-kit-card__top .game-ui-badge {
     flex: none;
+    gap: 6px;
+  }
+  /* The badge stays quiet; a small dot carries the state colour. */
+  .game-ui-showcase-kit-card__dot {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    box-sizing: border-box;
+    border: 1.5px solid var(--swimmer-game-text-muted);
+    border-radius: 50%;
+  }
+  .game-ui-showcase-kit-card__dot[data-tone='success'] {
+    border-color: var(--swimmer-game-success);
+    background: var(--swimmer-game-success);
+  }
+  .game-ui-showcase-kit-card__dot[data-tone='warning'] {
+    border-color: var(--swimmer-game-warning);
+    background: var(--swimmer-game-warning);
+  }
+  .game-ui-showcase-kit-card__dot[data-tone='danger'] {
+    border-color: var(--swimmer-game-danger);
+    background: var(--swimmer-game-danger);
   }
   .game-ui-showcase-kit-card__foot {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 4px 12px;
+    gap: 6px 12px;
+    min-height: 36px;
     margin-top: 4px;
   }
   .game-ui-showcase-kit-card__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 999px;
+    background: var(--swimmer-game-surface);
     color: var(--swimmer-game-text);
     font-size: 0.875rem;
     font-weight: 650;
@@ -1259,9 +1306,14 @@ body {
     border-color: var(--swimmer-game-accent);
     background: var(--swimmer-game-surface-raised, var(--swimmer-game-surface));
   }
+  .game-ui-showcase-kit-card__unavailable {
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
   a.game-ui-showcase-kit-card:hover .game-ui-showcase-kit-card__action {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    border-color: var(--swimmer-game-accent);
+    background: color-mix(in srgb, var(--swimmer-game-accent) 16%, var(--swimmer-game-surface));
   }
   a.game-ui-showcase-kit-card:focus-visible {
     outline: 3px solid var(--swimmer-focus-ring);

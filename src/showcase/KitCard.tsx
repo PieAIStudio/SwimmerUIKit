@@ -8,6 +8,8 @@ export interface KitCardLabels {
   type?: string;
   /** Shown on linked cards, e.g. "Open showcase". */
   action?: string;
+  /** Shown on cards without a link, e.g. "No showcase yet". */
+  unavailable?: string;
 }
 
 export interface KitCardProps {
@@ -30,7 +32,14 @@ export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): R
     <>
       <div className="game-ui-showcase-kit-card__top">
         <strong>{kit.name}</strong>
-        <Badge tone={kit.status.tone ?? 'neutral'}>{labels?.status ?? kit.status.value}</Badge>
+        <Badge tone={kit.status.tone ?? 'neutral'}>
+          <span
+            className="game-ui-showcase-kit-card__dot"
+            data-tone={kit.status.tone ?? 'neutral'}
+            aria-hidden="true"
+          />
+          {labels?.status ?? kit.status.value}
+        </Badge>
       </div>
       <p>{kit.tagline[language]}</p>
       <div className="game-ui-showcase-kit-card__foot">
@@ -41,8 +50,10 @@ export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): R
         {href && labels?.action ? (
           <span className="game-ui-showcase-kit-card__action">
             {labels.action}
-            <span aria-hidden="true"> →</span>
+            <span aria-hidden="true">→</span>
           </span>
+        ) : !href && labels?.unavailable ? (
+          <span className="game-ui-showcase-kit-card__unavailable">{labels.unavailable}</span>
         ) : null}
       </div>
     </>

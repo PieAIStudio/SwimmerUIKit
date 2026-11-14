@@ -111,6 +111,36 @@ describe('board-level showcase parts', () => {
     expect(html.match(/aria-current="location"/g)).toHaveLength(1);
   });
 
+  it('ChipNav with onSelect renders filter buttons and marks the chosen one pressed', async () => {
+    const { ChipNav } = await import('../src/showcase/ChipNav');
+    const html = renderToStaticMarkup(
+      <ChipNav
+        label="Groups"
+        activeId="all"
+        onSelect={() => {}}
+        items={[
+          { id: 'all', label: 'All', count: 9 },
+          { id: 'code', label: 'Code', count: 2 },
+        ]}
+      />,
+    );
+    expect(html).toContain('role="group"');
+    expect(html).not.toContain('<a ');
+    expect(html.match(/<button/g)).toHaveLength(2);
+    expect(html.match(/aria-pressed="true"/g)).toHaveLength(1);
+    expect(html.match(/aria-pressed="false"/g)).toHaveLength(1);
+  });
+
+  it('AppBar lists primary pages first in its menu', async () => {
+    const { appBarMenuOrder } = await import('../src/showcase/AppBar');
+    const order = appBarMenuOrder([
+      { id: 'a', label: 'A', primary: true },
+      { id: 'b', label: 'B' },
+      { id: 'c', label: 'C', primary: true },
+    ]);
+    expect(order.map((item) => item.id)).toEqual(['a', 'c', 'b']);
+  });
+
   it('PageHeader renders one h1 and optional parts', async () => {
     const { PageHeader } = await import('../src/showcase/PageHeader');
     const html = renderToStaticMarkup(<PageHeader title="Kits" kicker="Board" titleId="t" />);
@@ -135,5 +165,10 @@ describe('board-level showcase parts', () => {
     const plain = renderToStaticMarkup(<KitCard kit={kit} labels={{ action: 'Open' }} />);
     expect(plain).toContain('visual · v1.0.0');
     expect(plain).not.toContain('game-ui-showcase-kit-card__action');
+    const waiting = renderToStaticMarkup(
+      <KitCard kit={kit} labels={{ action: 'Open', unavailable: 'No showcase yet' }} />,
+    );
+    expect(waiting).toContain('No showcase yet');
+    expect(linked).not.toContain('game-ui-showcase-kit-card__unavailable');
   });
 });
