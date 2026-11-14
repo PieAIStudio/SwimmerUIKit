@@ -1,23 +1,50 @@
+import { Badge, type BadgeTone } from '@pieai/swimmer-ui-kit';
 import type { ReactNode } from 'react';
-import { Badge } from '@pieai/swimmer-ui-kit';
-import type { KitManifest } from './types';
+
+export interface KitCardLabels {
+  /** Translated status text; falls back to `kit.status.value`. */
+  status?: string;
+  /** Translated kit type; falls back to `kit.type`. */
+  type?: string;
+  /** Shown on linked cards, e.g. "Open showcase". */
+  action?: string;
+}
 
 export interface KitCardProps {
-  kit: Pick<KitManifest, 'name' | 'tagline' | 'type' | 'version' | 'status'>;
+  kit: {
+    name: string;
+    tagline: { en: string; zh: string };
+    type: string;
+    /** Leave empty when the kit has no released version yet. */
+    version: string;
+    status: { value: string; tone?: BadgeTone };
+  };
   language?: 'en' | 'zh';
   href?: string;
+  labels?: KitCardLabels;
 }
-export function KitCard({ href, kit, language = 'en' }: KitCardProps): ReactNode {
+
+export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): ReactNode {
+  const version = kit.version.trim();
   const content = (
     <>
       <div className="game-ui-showcase-kit-card__top">
         <strong>{kit.name}</strong>
-        <Badge tone={kit.status.tone ?? 'neutral'}>{kit.status.value}</Badge>
+        <Badge tone={kit.status.tone ?? 'neutral'}>{labels?.status ?? kit.status.value}</Badge>
       </div>
       <p>{kit.tagline[language]}</p>
-      <small>
-        {kit.type} · v{kit.version}
-      </small>
+      <div className="game-ui-showcase-kit-card__foot">
+        <small>
+          {labels?.type ?? kit.type}
+          {version ? ` · v${version}` : null}
+        </small>
+        {href && labels?.action ? (
+          <span className="game-ui-showcase-kit-card__action">
+            {labels.action}
+            <span aria-hidden="true"> →</span>
+          </span>
+        ) : null}
+      </div>
     </>
   );
   return href ? (

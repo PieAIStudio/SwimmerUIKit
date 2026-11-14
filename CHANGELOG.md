@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.26 — 2026-11-14（board-level showcase parts）
+
+- `@pieai/swimmer-ui-kit/showcase` 新增四个看板级零件，供 Founder Board 与 Kit 展示页共用同一外观：`AppBar` / `AppBarAction`（一行应用栏：字标、主页面链接、标出当前页的溢出菜单、右侧动作；窄屏把所有页面收进菜单）、`DisclosureRow`（原地展开的密集行，标题、摘要、事实各占固定列，箭头始终独占右列）、`ChipNav`（带数量的锚点 chip 行）、`PageHeader`（kicker、标题、导语、页面级动作）。
+- `KitCard` 新增可选 `labels`（`status` / `type` / `action`），版本为空时不再显示 `v`；带 `href` 的卡片有 hover 与焦点样式，并在页脚显示动作文字。原有参数不变。
+- 样式都在 `showcase.css` 的 `swimmer-ui` 层内，只用现有 token；root runtime 不变。本预发行版只发布到 npm `next`，`latest` 保持 3.2.5。
+
 - 修复共享 `ToolHero3D` renderer 的高 DPI 重复缩放：viewport、scissor 与可见边界统一使用 CSS 像素，DPR 由 Three.js 处理；DPR 2 下位于视口右侧或上半部的 hero 不再被误剔除。
 - `ManagerSheet` 新增可选 `onRowOpen(id)`；仅在提供回调时显示行 Open 按钮，并遵守 `row.disabled`，不再显示无动作的按钮。
 - `ManagerSheet` 新增宿主标签 `backLabel`、`searchLabel`、`sortPrefix` 与可选的字符串 `row.label`（供选择/Open 可访问名称使用）；未传时保持原有主题标签和行名默认值。

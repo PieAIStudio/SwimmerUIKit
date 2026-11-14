@@ -10,9 +10,9 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.25",
+  "version": "4.0.0-alpha.26",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
-  "lastRelease": "2026-11-13",
+  "lastRelease": "2026-11-14",
   "what": {
     "en": "Shared primitives and showcase composition for quiet, responsive game UI.",
     "zh": "为克制、响应式的游戏 UI 提供共享基础控件与展示组合。"

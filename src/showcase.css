@@ -622,12 +622,18 @@ body {
     background: var(--swimmer-game-surface);
     color: inherit;
     text-decoration: none;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    transition:
+      border-color var(--swimmer-motion-base) var(--swimmer-ease-soft),
+      background-color var(--swimmer-motion-base) var(--swimmer-ease-soft);
   }
 
   .game-ui-showcase-kit-card__top {
     display: flex;
     justify-content: space-between;
     gap: 12px;
+    align-items: center;
   }
 
   .game-ui-showcase-kit-card p,
@@ -722,5 +728,546 @@ body {
       min-height: 44px;
       padding-inline: 8px;
     }
+  }
+
+  /* Board-level parts shared by the Kit shelf and Kit pages: AppBar, DisclosureRow, ChipNav, PageHeader. */
+  /* ---------------------------------------------------------------- AppBar */
+  .game-ui-app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 64px;
+    padding: 10px var(--game-ui-app-bar-gutter, max(20px, calc((100vw - 1200px) / 2)));
+    border-bottom: 1px solid var(--swimmer-border-subtle);
+    background: color-mix(in srgb, var(--swimmer-game-bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
+  }
+  .game-ui-app-bar-brand {
+    flex: none;
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-display);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .game-ui-app-bar-nav {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .game-ui-app-bar-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--swimmer-game-text-muted);
+    font: inherit;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-app-bar-link:hover {
+    background: var(--swimmer-surface-sunken);
+    color: var(--swimmer-game-text);
+  }
+  .game-ui-app-bar-link[aria-current='page'],
+  .game-ui-app-bar-trigger[data-overflow-active='true'] {
+    color: var(--swimmer-game-text);
+    font-weight: 650;
+  }
+  .game-ui-app-bar-link[aria-current='page']::after,
+  .game-ui-app-bar-trigger[data-overflow-active='true']::after {
+    position: absolute;
+    right: 12px;
+    bottom: 5px;
+    left: 12px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--swimmer-game-accent);
+    content: '';
+  }
+  .game-ui-app-bar-link:focus-visible,
+  .game-ui-app-bar-entry:focus-visible,
+  .game-ui-app-bar-action:focus-visible {
+    outline: 3px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-app-bar-menu {
+    position: relative;
+    min-width: 0;
+  }
+  .game-ui-app-bar-trigger-narrow {
+    display: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .game-ui-app-bar-chevron {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    margin-top: -4px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition:
+      transform var(--swimmer-motion-base) var(--swimmer-ease-soft),
+      margin-top var(--swimmer-motion-base) var(--swimmer-ease-soft);
+  }
+  .game-ui-app-bar-trigger[aria-expanded='true'] .game-ui-app-bar-chevron {
+    margin-top: 3px;
+    transform: rotate(-135deg);
+  }
+  .game-ui-app-bar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+  }
+  .game-ui-app-bar-list {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 30;
+    display: grid;
+    gap: 2px;
+    min-width: 232px;
+    max-height: calc(100dvh - 88px);
+    padding: 6px;
+    overflow-y: auto;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-game-surface);
+    box-shadow: var(--swimmer-game-shadow-raised);
+  }
+  .game-ui-app-bar-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--swimmer-game-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .game-ui-app-bar-entry[data-primary='true'] {
+    display: none;
+  }
+  .game-ui-app-bar-entry:hover {
+    background: var(--swimmer-surface-sunken);
+  }
+  .game-ui-app-bar-entry[aria-checked='true'] {
+    background: color-mix(in srgb, var(--swimmer-game-accent) 16%, transparent);
+    font-weight: 650;
+  }
+  .game-ui-app-bar-check {
+    flex: none;
+    width: 6px;
+    height: 11px;
+    margin-right: 4px;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    transform: rotate(45deg);
+  }
+  .game-ui-app-bar-entry[aria-checked='true'] .game-ui-app-bar-check {
+    border-color: var(--swimmer-game-text);
+  }
+  .game-ui-app-bar-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .game-ui-app-bar-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px 12px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--swimmer-game-text);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-app-bar-action:hover {
+    background: var(--swimmer-surface-sunken);
+  }
+  .game-ui-app-bar-action[aria-expanded='true'],
+  .game-ui-app-bar-action[aria-pressed='true'] {
+    border-color: var(--swimmer-game-accent);
+    background: color-mix(in srgb, var(--swimmer-game-accent) 16%, transparent);
+  }
+
+  @media (max-width: 760px) {
+    .game-ui-app-bar {
+      gap: 8px;
+      min-height: 60px;
+      padding: 8px 12px;
+    }
+    .game-ui-app-bar-nav > .game-ui-app-bar-link {
+      display: none;
+    }
+    .game-ui-app-bar-menu {
+      position: static;
+    }
+    .game-ui-app-bar-trigger {
+      max-width: 100%;
+      border: 1px solid var(--swimmer-border-subtle);
+      color: var(--swimmer-game-text);
+      font-weight: 650;
+    }
+    .game-ui-app-bar-trigger[data-overflow-active='true']::after {
+      content: none;
+    }
+    .game-ui-app-bar-trigger-wide {
+      display: none;
+    }
+    .game-ui-app-bar-trigger-narrow {
+      display: block;
+    }
+    .game-ui-app-bar-backdrop {
+      background: color-mix(in srgb, var(--swimmer-game-text) 32%, transparent);
+    }
+    .game-ui-app-bar-list {
+      position: fixed;
+      top: 64px;
+      right: 12px;
+      left: 12px;
+    }
+    .game-ui-app-bar-entry[data-primary='true'] {
+      display: flex;
+    }
+    .game-ui-app-bar-actions {
+      gap: 4px;
+    }
+    .game-ui-app-bar-action {
+      padding-inline: 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .game-ui-app-bar-chevron,
+    .game-ui-disclosure-row-chevron {
+      transition: none;
+    }
+  }
+
+  /* --------------------------------------------------------- DisclosureRow */
+  .game-ui-disclosure-row {
+    min-width: 0;
+    border-bottom: 1px solid var(--swimmer-border-subtle);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
+  }
+  .game-ui-disclosure-row-toggle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px;
+    align-items: center;
+    column-gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 8px 4px 8px 8px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-disclosure-row-toggle:hover {
+    background: var(--swimmer-surface-sunken);
+  }
+  .game-ui-disclosure-row-toggle:focus-visible {
+    outline: 3px solid var(--swimmer-focus-ring);
+    outline-offset: -3px;
+  }
+  .game-ui-disclosure-row-main {
+    display: grid;
+    grid-template-columns: minmax(0, var(--game-ui-disclosure-title, 17rem)) minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 20px;
+    min-width: 0;
+  }
+  .game-ui-disclosure-row-title {
+    display: flex;
+    grid-column: 1;
+    align-items: baseline;
+    gap: 10px;
+    min-width: 0;
+  }
+  .game-ui-disclosure-row-title strong {
+    min-width: 0;
+    font-family: var(--swimmer-game-font-display);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-disclosure-row[data-emphasis='true'] .game-ui-disclosure-row-title strong {
+    font-size: 1.125rem;
+    font-weight: 750;
+  }
+  .game-ui-disclosure-row-dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transform: translateY(-1px);
+  }
+  .game-ui-disclosure-row[data-tone='attention'] .game-ui-disclosure-row-dot {
+    background: var(--swimmer-game-accent);
+  }
+  .game-ui-disclosure-row[data-tone='danger'] .game-ui-disclosure-row-dot {
+    background: var(--swimmer-danger-ink);
+  }
+  .game-ui-disclosure-row-summary {
+    display: -webkit-box;
+    grid-column: 2;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .game-ui-disclosure-row-meta {
+    display: flex;
+    grid-column: 3;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+  }
+  .game-ui-disclosure-row-chevron {
+    justify-self: center;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-right: 2px solid var(--swimmer-game-text-muted);
+    border-bottom: 2px solid var(--swimmer-game-text-muted);
+    transform: rotate(45deg);
+    transition:
+      transform var(--swimmer-motion-base) var(--swimmer-ease-soft),
+      margin-top var(--swimmer-motion-base) var(--swimmer-ease-soft);
+  }
+  .game-ui-disclosure-row[data-open='true'] .game-ui-disclosure-row-chevron {
+    margin-top: 4px;
+    transform: rotate(-135deg);
+  }
+  .game-ui-disclosure-row-body {
+    min-width: 0;
+    padding: 4px 8px 20px 26px;
+  }
+
+  @media (max-width: 760px) {
+    .game-ui-disclosure-row-toggle {
+      padding: 12px 0 12px 4px;
+    }
+    .game-ui-disclosure-row-main {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+    .game-ui-disclosure-row-meta {
+      order: 2;
+      justify-content: flex-start;
+      padding-left: 18px;
+    }
+    .game-ui-disclosure-row-summary {
+      order: 3;
+      padding-left: 18px;
+    }
+    .game-ui-disclosure-row-body {
+      padding: 0 0 16px 4px;
+    }
+  }
+
+  /* --------------------------------------------------------------- ChipNav */
+  .game-ui-chip-nav {
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+    padding: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .game-ui-chip-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .game-ui-chip-nav-item {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 10px 0 16px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 999px;
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-ui-chip-nav-item:hover {
+    background: var(--swimmer-surface-sunken);
+  }
+  .game-ui-chip-nav-item:focus-visible {
+    outline: 3px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+  .game-ui-chip-nav-item[aria-current] {
+    border-color: var(--swimmer-game-accent);
+    background: color-mix(in srgb, var(--swimmer-game-accent) 16%, var(--swimmer-game-surface));
+  }
+  .game-ui-chip-nav-count {
+    display: inline-grid;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--swimmer-surface-sunken);
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.75rem;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ------------------------------------------------------------ PageHeader */
+  .game-ui-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 32px;
+    min-width: 0;
+    color: var(--swimmer-game-text);
+    font-family: var(--swimmer-game-font-body);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .game-ui-page-header-copy {
+    flex: 1 1 20rem;
+    min-width: 0;
+  }
+  .game-ui-page-header-kicker {
+    margin: 0 0 8px;
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.8125rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+  }
+  .game-ui-page-header h1 {
+    margin: 0;
+    font-family: var(--swimmer-game-font-display);
+    font-size: clamp(1.875rem, 3.4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .game-ui-page-header-lead {
+    max-width: 62ch;
+    margin: 10px 0 0;
+    color: var(--swimmer-game-text-muted);
+    font-size: 1.0625rem;
+  }
+  .game-ui-page-header-actions {
+    display: flex;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  @media (max-width: 760px) {
+    .game-ui-page-header-actions {
+      flex: 1 1 100%;
+    }
+    .game-ui-page-header-lead {
+      font-size: 1rem;
+    }
+  }
+
+  /* KitCard footer, hover and focus */
+  .game-ui-showcase-kit-card__top strong {
+    min-width: 0;
+    font-family: var(--swimmer-game-font-display);
+    font-size: 1.0625rem;
+    overflow-wrap: anywhere;
+  }
+  .game-ui-showcase-kit-card__top .game-ui-badge {
+    flex: none;
+  }
+  .game-ui-showcase-kit-card__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-top: 4px;
+  }
+  .game-ui-showcase-kit-card__action {
+    color: var(--swimmer-game-text);
+    font-size: 0.875rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  a.game-ui-showcase-kit-card:hover {
+    border-color: var(--swimmer-game-accent);
+    background: var(--swimmer-game-surface-raised, var(--swimmer-game-surface));
+  }
+  a.game-ui-showcase-kit-card:hover .game-ui-showcase-kit-card__action {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a.game-ui-showcase-kit-card:focus-visible {
+    outline: 3px solid var(--swimmer-focus-ring);
+    outline-offset: 2px;
+  }
+  article.game-ui-showcase-kit-card {
+    background: transparent;
   }
 }

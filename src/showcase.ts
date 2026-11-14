@@ -16,7 +16,21 @@ export { DemoPanel, type DemoPanelProps, type DemoPanelVariant } from './showcas
 export { FlowStrip, type FlowStripProps, type FlowStep } from './showcase/FlowStrip';
 export { CodeSample, type CodeSampleProps } from './showcase/CodeSample';
 export { StatusList, type StatusListProps } from './showcase/StatusList';
-export { KitCard, type KitCardProps } from './showcase/KitCard';
+export { KitCard, type KitCardLabels, type KitCardProps } from './showcase/KitCard';
+export {
+  AppBar,
+  AppBarAction,
+  type AppBarActionProps,
+  type AppBarItem,
+  type AppBarProps,
+} from './showcase/AppBar';
+export {
+  DisclosureRow,
+  type DisclosureRowProps,
+  type DisclosureRowTone,
+} from './showcase/DisclosureRow';
+export { ChipNav, type ChipNavItem, type ChipNavProps } from './showcase/ChipNav';
+export { PageHeader, type PageHeaderProps } from './showcase/PageHeader';
 export { useShowcaseLanguage } from './showcase/ShowcaseContext';
 export type {
   KitManifest,

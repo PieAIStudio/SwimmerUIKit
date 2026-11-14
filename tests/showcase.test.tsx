@@ -45,3 +45,95 @@ describe('showcase parts', () => {
     expect(renderToStaticMarkup(<StatusList kit={kit} />)).toContain('Ready');
   });
 });
+
+describe('board-level showcase parts', () => {
+  it('AppBar keeps primary pages inline and marks the active page', async () => {
+    const { AppBar, AppBarAction } = await import('../src/showcase/AppBar');
+    const html = renderToStaticMarkup(
+      <AppBar
+        brand="HQ"
+        navLabel="Pages"
+        moreLabel="More"
+        activeId="kits"
+        onSelect={() => undefined}
+        items={[
+          { id: 'progress', label: 'Progress', primary: true },
+          { id: 'kits', label: 'Kits' },
+        ]}
+        actions={<AppBarAction label="Theme">Dark</AppBarAction>}
+      />,
+    );
+    expect(html).toContain('aria-label="Pages"');
+    // The inline link list holds only primary pages; the trigger names the active overflow page.
+    expect(html.match(/class="game-ui-app-bar-link"/g)).toHaveLength(1);
+    expect(html).toContain('data-overflow-active="true"');
+    expect(html).toMatch(/game-ui-app-bar-trigger-wide">Kits</);
+    expect(html).toContain('aria-haspopup="menu"');
+    expect(html).not.toContain('role="menu"');
+    expect(html).toContain('aria-label="Theme"');
+  });
+
+  it('DisclosureRow renders its body only while open', async () => {
+    const { DisclosureRow } = await import('../src/showcase/DisclosureRow');
+    const row = (open: boolean) =>
+      renderToStaticMarkup(
+        <DisclosureRow
+          title="Side line"
+          summary="Now"
+          tone="attention"
+          open={open}
+          onToggle={() => undefined}
+        >
+          <p>Body</p>
+        </DisclosureRow>,
+      );
+    expect(row(false)).toContain('aria-expanded="false"');
+    expect(row(false)).not.toContain('Body');
+    expect(row(true)).toContain('aria-expanded="true"');
+    expect(row(true)).toContain('Body');
+    expect(row(true)).toContain('data-tone="attention"');
+  });
+
+  it('ChipNav renders native anchors with counts', async () => {
+    const { ChipNav } = await import('../src/showcase/ChipNav');
+    const html = renderToStaticMarkup(
+      <ChipNav
+        label="Groups"
+        activeId="code"
+        items={[
+          { id: 'visual', label: 'Visual', href: '#visual', count: 7 },
+          { id: 'code', label: 'Code', href: '#code' },
+        ]}
+      />,
+    );
+    expect(html).toContain('href="#visual"');
+    expect(html.match(/game-ui-chip-nav-count/g)).toHaveLength(1);
+    expect(html.match(/aria-current="location"/g)).toHaveLength(1);
+  });
+
+  it('PageHeader renders one h1 and optional parts', async () => {
+    const { PageHeader } = await import('../src/showcase/PageHeader');
+    const html = renderToStaticMarkup(<PageHeader title="Kits" kicker="Board" titleId="t" />);
+    expect(html).toContain('<h1 id="t">Kits</h1>');
+    expect(html).toContain('game-ui-page-header-kicker');
+    expect(html).not.toContain('game-ui-page-header-lead');
+  });
+
+  it('KitCard uses host labels, hides an empty version and shows the action only on links', () => {
+    const base = { ...kit, version: '' };
+    const linked = renderToStaticMarkup(
+      <KitCard
+        kit={base}
+        href="/kits/x/"
+        labels={{ status: '已上线', type: '视觉', action: '打开展示' }}
+      />,
+    );
+    expect(linked).toContain('已上线');
+    expect(linked).toContain('视觉');
+    expect(linked).not.toContain(' · v');
+    expect(linked).toContain('打开展示');
+    const plain = renderToStaticMarkup(<KitCard kit={kit} labels={{ action: 'Open' }} />);
+    expect(plain).toContain('visual · v1.0.0');
+    expect(plain).not.toContain('game-ui-showcase-kit-card__action');
+  });
+});
