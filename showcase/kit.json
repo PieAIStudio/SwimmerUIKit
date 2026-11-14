@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.20",
+  "version": "4.0.0-alpha.21",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-13",
   "what": {
@@ -49,8 +49,7 @@
     ]
   },
   "code": [
-    "import Demo, { kit } from './Demo';",
-    "import { mountShowcase } from '@pieai/swimmer-ui-kit/showcase';",
-    "mountShowcase({ kit, Demo });"
+    "import { Button } from '@pieai/swimmer-ui-kit';",
+    "<Button variant=\"primary\">Compose a panel</Button>"
   ]
 }

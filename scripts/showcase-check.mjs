@@ -5,6 +5,18 @@ import { pathToFileURL } from 'node:url';
 import process from 'node:process';
 import ts from 'typescript';
 
+export function validateShowcaseCode({ packageName, code }) {
+  const failures = [];
+  const lines = Array.isArray(code) ? code.filter((line) => typeof line === 'string') : [];
+  if (packageName && !lines.some((line) => line.includes(packageName))) {
+    failures.push('How to plug in code does not include the Kit package name: ' + packageName);
+  }
+  if (lines.some((line) => /\bmountShowcase\b|\.\/Demo\b/.test(line))) {
+    failures.push('How to plug in code contains showcase shell wiring (mountShowcase or ./Demo)');
+  }
+  return failures;
+}
+
 export function validateShowcaseMetrics({
   viewportWidth,
   scrollWidth,
@@ -13,6 +25,9 @@ export function validateShowcaseMetrics({
   kitType,
   stageCount,
   stageMissingOptionRow,
+  stageFixedHeightAtPhone = false,
+  stageClipsAtPhone = false,
+  columnEdgesDiffer = false,
   headingFontFamily,
   expectedHeadingFontFamily,
 }) {
@@ -32,6 +47,9 @@ export function validateShowcaseMetrics({
     if (stageWiderThanPanel) {
       failures.push('stage box is wider than its showcase panel');
     }
+    if (stageFixedHeightAtPhone) failures.push('stage has a fixed height at 390px');
+    if (stageClipsAtPhone) failures.push('stage clips content with overflow:hidden at 390px');
+    if (columnEdgesDiffer) failures.push('showcase column edges differ');
   }
   if (!hasFlowStrip) failures.push('FlowStrip is missing');
   if (kitType === 'visual' && (stageCount === 0 || stageMissingOptionRow)) {
@@ -39,7 +57,6 @@ export function validateShowcaseMetrics({
   }
   return failures;
 }
-
 function collectPageMetrics() {
   const shell = document.querySelector('.game-ui-showcase-shell');
   const stagePanels = [...document.querySelectorAll('.game-ui-showcase-demo--stage')];
@@ -48,6 +65,40 @@ function collectPageMetrics() {
   const expectedHeadingFontFamily = shell
     ? getComputedStyle(shell).getPropertyValue('--swimmer-game-font-display')
     : '';
+  const main = shell?.querySelector('.game-ui-showcase-main');
+  const edgeNodes = main
+    ? [
+        ...main.querySelectorAll(
+          '.game-ui-showcase-block, .game-ui-showcase-demo, .game-ui-showcase-flow, .game-ui-showcase-code',
+        ),
+      ]
+    : [];
+  const edgeRects = edgeNodes.map((node) => node.getBoundingClientRect());
+  const columnEdgesDiffer = edgeRects.some(
+    (rect) =>
+      Math.abs(rect.left - (edgeRects[0]?.left ?? rect.left)) > 1 ||
+      Math.abs(rect.right - (edgeRects[0]?.right ?? rect.right)) > 1,
+  );
+  const stageFixedHeightAtPhone =
+    window.innerWidth <= 390 &&
+    stagePanels.some((panel) => {
+      const stage = panel.querySelector('.game-ui-showcase-stage');
+      if (!stage) return false;
+      const styles = getComputedStyle(stage);
+      return styles.maxHeight !== 'none';
+    });
+  const stageClipsAtPhone =
+    window.innerWidth <= 390 &&
+    stagePanels.some((panel) => {
+      const stage = panel.querySelector('.game-ui-showcase-stage');
+      if (!stage) return false;
+      const styles = getComputedStyle(stage);
+      return (
+        styles.overflow === 'hidden' ||
+        styles.overflowX === 'hidden' ||
+        styles.overflowY === 'hidden'
+      );
+    });
   return {
     viewportWidth: window.innerWidth,
     scrollWidth: document.documentElement.scrollWidth,
@@ -65,9 +116,11 @@ function collectPageMetrics() {
     stageMissingOptionRow: stagePanels.some(
       (panel) => !panel.querySelector('[data-game-ui-option-row="true"], .game-ui-segmented'),
     ),
+    stageFixedHeightAtPhone,
+    stageClipsAtPhone,
+    columnEdgesDiffer,
   };
 }
-
 export async function runShowcaseCheck(root = process.cwd()) {
   const showcaseRoot = resolve(root, 'showcase');
   const allowed = new Set([
@@ -140,6 +193,7 @@ export async function runShowcaseCheck(root = process.cwd()) {
     }
 
     const manifest = JSON.parse(readFileSync(join(showcaseRoot, 'kit.json'), 'utf8'));
+    failures.push(...validateShowcaseCode({ packageName: manifest.name, code: manifest.code }));
     if (!manifest.demo && manifest.type === 'visual') {
       fail('showcase/kit.json is missing localized demo copy');
     }

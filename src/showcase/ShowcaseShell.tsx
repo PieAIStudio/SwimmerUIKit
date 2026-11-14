@@ -108,7 +108,7 @@ export function ShowcaseShell({
         </aside>
       </main>
       <footer className="game-ui-showcase-footer">
-        {shortName} · {text(kit.tagline)}
+        {shortName} · v{kit.version}
       </footer>
     </div>
   );

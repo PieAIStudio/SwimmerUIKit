@@ -6,8 +6,15 @@ export interface ShowcasePageMetrics {
   kitType: string;
   stageCount: number;
   stageMissingOptionRow: boolean;
+  stageFixedHeightAtPhone?: boolean;
+  stageClipsAtPhone?: boolean;
+  columnEdgesDiffer?: boolean;
   headingFontFamily?: string;
   expectedHeadingFontFamily?: string;
 }
+export declare function validateShowcaseCode(input: {
+  packageName?: string;
+  code?: readonly string[];
+}): string[];
 export declare function validateShowcaseMetrics(metrics: ShowcasePageMetrics): string[];
 export declare function runShowcaseCheck(root?: string): Promise<string[]>;

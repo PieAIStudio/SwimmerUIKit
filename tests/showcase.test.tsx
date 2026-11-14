@@ -37,6 +37,8 @@ describe('showcase parts', () => {
     expect(html).toContain('如何接入');
     expect(html).toContain('更新');
     expect(html).toContain('game-ui-showcase-flow');
+    expect(html).toContain('FixtureKit · v1.0.0');
+    expect(html).not.toContain('FixtureKit · 样例');
   });
   it('keeps cards and status independently reusable', () => {
     expect(renderToStaticMarkup(<KitCard kit={kit} />)).toContain('FixtureKit');
