@@ -38,9 +38,12 @@ export function DemoPanel({
   const stageText = stageLabel ?? (zh ? '组件演示' : 'Live component');
   const [value, setValue] = useState(initialValue);
   const [result, setResult] = useState('');
+  const [hasRun, setHasRun] = useState(false);
+  const statusText = hasRun ? (zh ? '已运行' : 'Ran') : zh ? '等待运行' : 'Ready';
   const submit = (event: FormEvent) => {
     event.preventDefault();
     setResult(onRun?.(value) ?? value);
+    setHasRun(true);
   };
 
   if (variant === 'stage') {
@@ -70,7 +73,15 @@ export function DemoPanel({
           {runText}
         </Button>
       </div>
-      <output className="game-ui-showcase-demo__output" aria-live="polite">
+      <output
+        className="game-ui-showcase-demo__output"
+        data-state={hasRun ? 'ready' : 'idle'}
+        aria-live="polite"
+      >
+        <span className="game-ui-showcase-demo__status">
+          <span className="game-ui-showcase-demo__status-dot" aria-hidden="true" />
+          {statusText}
+        </span>
         <span>{outputText}</span>
         <strong>{result || '—'}</strong>
       </output>

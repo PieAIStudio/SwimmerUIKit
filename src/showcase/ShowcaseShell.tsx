@@ -26,11 +26,13 @@ export function ShowcaseShell({
   const text = (value: { en: string; zh: string }) => value[language];
   const zh = language === 'zh';
   const shortName = kit.shortName ?? kit.name.split('/').at(-1) ?? kit.name;
+  const consumerText = text(kit.consumers);
   return (
     <div
       className="game-ui-showcase-shell"
       data-game-ui-theme={theme}
       data-game-ui-style="grey"
+      data-game-ui-language={language}
       data-game-ui-kit-type={kit.type}
     >
       <header className="game-ui-showcase-topbar">
@@ -77,9 +79,11 @@ export function ShowcaseShell({
             </p>
             <h1>{shortName}</h1>
             <p className="game-ui-showcase-lead">{text(kit.what)}</p>
-            <p className="game-ui-showcase-consumers">
-              <strong>{zh ? '使用方' : 'Used by'}</strong> · {text(kit.consumers)}
-            </p>
+            {consumerText.trim() ? (
+              <p className="game-ui-showcase-consumers">
+                <strong>{zh ? '使用方' : 'Used by'}</strong> · {consumerText}
+              </p>
+            ) : null}
           </section>
           <section id="try" className="game-ui-showcase-block">
             <h2>{zh ? '现场试用' : 'Try it live'}</h2>
