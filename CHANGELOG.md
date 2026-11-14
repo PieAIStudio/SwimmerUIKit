@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.29 — 2026-11-15（board score-3 fixes in showcase parts）
+
+- `ChipNav`：在 `420px` 以下改用 `flex: 1 1 auto; min-width: 0; justify-content: center`、字号 `0.8125rem`、内边距 `0 6px` 与 `4px` 间距（保持 `40px` 高度），4 枚英文筛选 chip 在 390px 屏幕也能单行完整显示不裁切。
+- `KitCard`：简介 `p` 增加 `text-wrap: balance` 避免中文末尾 2 字孤行；不可用说明改为 `40px` 高的 `inline-flex` 居中行，使同排卡片包名/版本行对齐同一基线；页脚 `small` 改用 `--swimmer-game-text` 以确保暗色卡片对比度（≥ 4.5:1）。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.28 — 2026-11-14（board score-2 fixes in showcase parts）
 
 - `KitCard`：卡片与页脚都改为纵向布局，包名与版本在第一行，动作胶囊或不可用说明在第二行并左对齐；动作胶囊最小高度改为 40px、边框用 muted 45% 混合色以适应暗色主题；无链接卡片标题改用 muted 文本色（不用 `opacity`）；空 `type` 不再打印多余的 `" · "`，无元信息时不渲染空 `<small>`。

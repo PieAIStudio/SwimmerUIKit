@@ -637,10 +637,15 @@ body {
     align-items: center;
   }
 
-  .game-ui-showcase-kit-card p,
-  .game-ui-showcase-kit-card small {
+  .game-ui-showcase-kit-card p {
     margin: 0;
     color: var(--swimmer-game-text-muted);
+    text-wrap: balance;
+  }
+
+  .game-ui-showcase-kit-card small {
+    margin: 0;
+    color: var(--swimmer-game-text);
   }
 
   @media (max-width: 760px) {
@@ -1193,17 +1198,22 @@ body {
   }
   @media (max-width: 420px) {
     .game-ui-chip-nav {
-      gap: 6px;
+      gap: 4px;
     }
     .game-ui-chip-nav-item {
+      flex: 1 1 auto;
+      min-width: 0;
+      justify-content: center;
+      gap: 4px;
       min-height: 40px;
-      padding: 0 8px 0 12px;
-      font-size: 0.875rem;
+      padding: 0 6px;
+      font-size: 0.8125rem;
     }
     .game-ui-chip-nav-count {
-      min-width: 20px;
-      height: 20px;
+      min-width: 18px;
+      height: 18px;
       padding: 0 4px;
+      font-size: 0.6875rem;
     }
   }
 
@@ -1321,6 +1331,9 @@ body {
     background: var(--swimmer-game-surface-raised, var(--swimmer-game-surface));
   }
   .game-ui-showcase-kit-card__unavailable {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
     color: var(--swimmer-game-text-muted);
     font-size: 0.8125rem;
     white-space: nowrap;
