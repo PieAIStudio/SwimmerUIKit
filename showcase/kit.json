@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.29",
+  "version": "4.0.0-alpha.30",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-14",
   "what": {

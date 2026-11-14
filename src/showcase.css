@@ -640,7 +640,7 @@ body {
   .game-ui-showcase-kit-card p {
     margin: 0;
     color: var(--swimmer-game-text-muted);
-    text-wrap: balance;
+    text-wrap: pretty;
   }
 
   .game-ui-showcase-kit-card small {
@@ -883,7 +883,8 @@ body {
     white-space: nowrap;
     cursor: pointer;
   }
-  .game-ui-app-bar-entry[data-primary='true'] {
+  .game-ui-app-bar-entry[data-primary='true'],
+  .game-ui-app-bar-group {
     display: none;
   }
   .game-ui-app-bar-entry:hover {
@@ -968,8 +969,13 @@ body {
     .game-ui-app-bar-trigger-narrow {
       display: block;
     }
+    /* The scrim starts under the bar, so the open trigger does not look disabled. */
     .game-ui-app-bar-backdrop {
-      background: color-mix(in srgb, var(--swimmer-game-text) 32%, transparent);
+      background: linear-gradient(
+        to bottom,
+        transparent 61px,
+        color-mix(in srgb, var(--swimmer-game-text) 32%, transparent) 61px
+      );
     }
     .game-ui-app-bar-list {
       position: fixed;
@@ -979,6 +985,15 @@ body {
     }
     .game-ui-app-bar-entry[data-primary='true'] {
       display: flex;
+    }
+    .game-ui-app-bar-group {
+      display: block;
+      margin: 6px 6px 2px;
+      padding: 10px 6px 0;
+      border-top: 1px solid var(--swimmer-border-subtle);
+      color: var(--swimmer-game-text-muted);
+      font-size: 0.75rem;
+      font-weight: 650;
     }
     .game-ui-app-bar-actions {
       gap: 4px;
@@ -1190,8 +1205,8 @@ body {
     padding: 0 6px;
     place-items: center;
     border-radius: 999px;
-    background: var(--swimmer-surface-sunken);
-    color: var(--swimmer-game-text-muted);
+    background: color-mix(in srgb, var(--swimmer-game-text) 10%, transparent);
+    color: var(--swimmer-game-text);
     font-size: 0.75rem;
     font-weight: 650;
     font-variant-numeric: tabular-nums;
@@ -1309,7 +1324,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-end;
     gap: 8px;
+    min-height: 68px;
     margin-top: auto;
   }
   .game-ui-showcase-kit-card__action {
@@ -1347,6 +1364,7 @@ body {
     outline-offset: 2px;
   }
   article.game-ui-showcase-kit-card {
+    border-style: dashed;
     background: transparent;
   }
   article.game-ui-showcase-kit-card .game-ui-showcase-kit-card__top strong {

@@ -1,4 +1,12 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 
 export interface AppBarItem {
   id: string;
@@ -129,23 +137,29 @@ export function AppBar({
                 className="game-ui-app-bar-list"
                 onKeyDown={onMenuKeyDown}
               >
-                {menuItems.map((item) => (
-                  <button
-                    type="button"
-                    role="menuitemradio"
-                    key={item.id}
-                    tabIndex={-1}
-                    aria-checked={item.id === activeId}
-                    data-primary={item.primary ? 'true' : undefined}
-                    className="game-ui-app-bar-entry"
-                    onClick={() => {
-                      close(true);
-                      onSelect(item.id);
-                    }}
-                  >
-                    <span>{item.label}</span>
-                    <span className="game-ui-app-bar-check" aria-hidden="true" />
-                  </button>
+                {menuItems.map((item, index) => (
+                  <Fragment key={item.id}>
+                    {!item.primary && menuItems[index - 1]?.primary ? (
+                      <div role="separator" className="game-ui-app-bar-group">
+                        {moreLabel}
+                      </div>
+                    ) : null}
+                    <button
+                      type="button"
+                      role="menuitemradio"
+                      tabIndex={-1}
+                      aria-checked={item.id === activeId}
+                      data-primary={item.primary ? 'true' : undefined}
+                      className="game-ui-app-bar-entry"
+                      onClick={() => {
+                        close(true);
+                        onSelect(item.id);
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <span className="game-ui-app-bar-check" aria-hidden="true" />
+                    </button>
+                  </Fragment>
                 ))}
               </div>
             </>

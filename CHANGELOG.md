@@ -5,6 +5,13 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.30 — 2026-11-15（board score-4 fixes in showcase parts）
+
+- `AppBar`：窄屏菜单里主页面与其余页面之间加一条分隔线和小标题（用 `moreLabel`）；窄屏遮罩从顶栏下方开始，打开菜单时顶栏不再变暗。
+- `KitCard`：简介改回整行宽度（`text-wrap: pretty`，不再用 `balance` 造成窄行和词中断行）；页脚固定最小高度，没有包名的卡片与同排卡片等高；不可打开的卡片用虚线边框。
+- `ChipNav`：计数圆点改用正文色与半透明底，暗色主题下可读。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.29 — 2026-11-15（board score-3 fixes in showcase parts）
 
 - `ChipNav`：在 `420px` 以下改用 `flex: 1 1 auto; min-width: 0; justify-content: center`、字号 `0.8125rem`、内边距 `0 6px` 与 `4px` 间距（保持 `40px` 高度），4 枚英文筛选 chip 在 390px 屏幕也能单行完整显示不裁切。
