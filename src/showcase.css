@@ -96,14 +96,18 @@ body {
     gap: 8px;
   }
   .game-ui-showcase-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 36px;
     padding: 6px 10px;
     border: 1px solid var(--swimmer-border-subtle);
     border-radius: 10px;
-    background: transparent;
-    color: var(--swimmer-game-text-muted);
+    background: var(--swimmer-game-surface);
+    color: var(--swimmer-game-text);
     box-shadow: none;
     font-size: 0.8125rem;
+    font-weight: 650;
   }
 
   .game-ui-showcase-toggle:hover:not(:disabled) {
@@ -136,6 +140,12 @@ body {
     border-bottom: 1px solid var(--swimmer-border-subtle);
   }
 
+  .game-ui-showcase-main > .game-ui-showcase-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
   .game-ui-showcase-block h1,
   .game-ui-showcase-block h2,
   .game-ui-showcase-rail-block h2 {
@@ -144,7 +154,8 @@ body {
   }
 
   .game-ui-showcase-shell h1 {
-    font-family: 'Baloo 2', 'Swimmer Rounded CN', system-ui, sans-serif !important;
+    /* The shell owns the display face; Kit demo CSS must not replace it. */
+    font-family: var(--swimmer-game-font-display) !important;
   }
 
   .game-ui-showcase-block h1 {
@@ -180,7 +191,7 @@ body {
     display: grid;
     gap: 16px;
     width: 100%;
-    max-width: 720px;
+    max-width: 100%;
   }
 
   /* Showcase-only treatment keeps the Try-it-live segmented control even and legible. */
@@ -204,6 +215,16 @@ body {
     border-radius: 10px;
     background: var(--swimmer-game-surface);
     color: var(--swimmer-game-text-muted);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .kit-demo .game-ui-segmented-label {
+    min-width: 0;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .kit-demo .game-ui-segmented-option[aria-pressed='true'] {
@@ -220,11 +241,11 @@ body {
     display: grid;
     gap: 16px;
     width: 100%;
-    max-width: 720px;
+    max-width: 100%;
   }
 
   .game-ui-showcase-demo--stage {
-    max-width: 720px;
+    max-width: 100%;
   }
 
   .game-ui-showcase-stage {
@@ -264,7 +285,7 @@ body {
   .game-ui-showcase-flow {
     display: grid;
     width: 100%;
-    max-width: 720px;
+    max-width: 100%;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     margin: 0;
@@ -299,7 +320,7 @@ body {
     display: grid;
     gap: 10px;
     width: 100%;
-    max-width: 720px;
+    max-width: 100%;
   }
 
   .game-ui-showcase-code pre {
@@ -459,6 +480,32 @@ body {
     .game-ui-showcase-block {
       margin-bottom: 24px;
       padding-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .game-ui-showcase-topbar {
+      flex-wrap: nowrap;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+
+    .game-ui-showcase-topbar nav {
+      display: none;
+    }
+
+    .game-ui-showcase-wordmark {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-ui-showcase-actions {
+      gap: 4px;
+    }
+
+    .game-ui-showcase-toggle {
+      padding-inline: 8px;
     }
   }
 }

@@ -60,4 +60,20 @@ describe('showcase-check browser guards', () => {
     expect(validateShowcaseMetrics(await metrics(page))).toEqual([]);
     await page.close();
   });
+
+  it('rejects a Kit heading font override', () => {
+    expect(
+      validateShowcaseMetrics({
+        viewportWidth: 1440,
+        scrollWidth: 1440,
+        stageWiderThanPanel: false,
+        hasFlowStrip: true,
+        kitType: 'visual',
+        stageCount: 1,
+        stageMissingOptionRow: false,
+        headingFontFamily: 'system-ui, sans-serif',
+        expectedHeadingFontFamily: 'Baloo 2, system-ui, sans-serif',
+      }),
+    ).toContain('showcase H1 overrides the UIKit display font token');
+  });
 });

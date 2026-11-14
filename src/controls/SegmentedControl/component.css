@@ -24,6 +24,8 @@
     min-height: 44px;
     padding: 10px 16px;
     font: inherit;
+    font-size: 13px;
+    line-height: 1.35;
     font-weight: 750;
     cursor: pointer;
   }

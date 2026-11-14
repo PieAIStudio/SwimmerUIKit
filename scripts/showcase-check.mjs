@@ -13,8 +13,18 @@ export function validateShowcaseMetrics({
   kitType,
   stageCount,
   stageMissingOptionRow,
+  headingFontFamily,
+  expectedHeadingFontFamily,
 }) {
   const failures = [];
+  if (
+    headingFontFamily &&
+    expectedHeadingFontFamily &&
+    headingFontFamily.split(',')[0].replace(/["']/g, '').trim().toLowerCase() !==
+      expectedHeadingFontFamily.split(',')[0].replace(/["']/g, '').trim().toLowerCase()
+  ) {
+    failures.push('showcase H1 overrides the UIKit display font token');
+  }
   if (viewportWidth <= 390) {
     if (scrollWidth > viewportWidth) {
       failures.push(`horizontal overflow: document is ${scrollWidth}px wide at ${viewportWidth}px`);
@@ -33,6 +43,11 @@ export function validateShowcaseMetrics({
 function collectPageMetrics() {
   const shell = document.querySelector('.game-ui-showcase-shell');
   const stagePanels = [...document.querySelectorAll('.game-ui-showcase-demo--stage')];
+  const heading = shell?.querySelector('h1');
+  const headingFontFamily = heading ? getComputedStyle(heading).fontFamily : '';
+  const expectedHeadingFontFamily = shell
+    ? getComputedStyle(shell).getPropertyValue('--swimmer-game-font-display')
+    : '';
   return {
     viewportWidth: window.innerWidth,
     scrollWidth: document.documentElement.scrollWidth,
@@ -43,6 +58,8 @@ function collectPageMetrics() {
         : false;
     }),
     hasFlowStrip: Boolean(document.querySelector('.game-ui-showcase-flow')),
+    headingFontFamily,
+    expectedHeadingFontFamily,
     kitType: shell?.getAttribute('data-game-ui-kit-type') ?? '',
     stageCount: stagePanels.length,
     stageMissingOptionRow: stagePanels.some(
