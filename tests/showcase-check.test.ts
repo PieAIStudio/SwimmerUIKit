@@ -119,6 +119,33 @@ describe('showcase-check browser guards', () => {
     ).toContain('How to plug in code does not include the Kit package name: @pieai/example-kit');
   });
 
+  it('rejects the round-six shell regressions', () => {
+    const failures = validateShowcaseMetrics({
+      viewportWidth: 390,
+      scrollWidth: 390,
+      stageWiderThanPanel: false,
+      hasFlowStrip: true,
+      kitType: 'visual',
+      stageCount: 1,
+      stageMissingOptionRow: false,
+      stageFixedHeightAtPhone: false,
+      stageClipsAtPhone: false,
+      columnEdgesDiffer: false,
+      codeToRailGap: 0,
+      updatesClipped: true,
+      codeWrapUnsafe: true,
+      codeFadeMissing: true,
+    });
+    expect(failures).toEqual(
+      expect.arrayContaining([
+        'code block and Status panel need a 16px gap at 390px',
+        'code block can break inside a token at 390px',
+        'code block is missing its horizontal fade cue at 390px',
+        'Updates text is clipped or ellipsized',
+      ]),
+    );
+  });
+
   it('rejects a Kit heading font override', () => {
     expect(
       validateShowcaseMetrics({

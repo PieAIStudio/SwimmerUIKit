@@ -30,6 +30,10 @@ export function validateShowcaseMetrics({
   columnEdgesDiffer = false,
   headingFontFamily,
   expectedHeadingFontFamily,
+  codeToRailGap,
+  updatesClipped = false,
+  codeWrapUnsafe = false,
+  codeFadeMissing = false,
 }) {
   const failures = [];
   if (
@@ -50,7 +54,17 @@ export function validateShowcaseMetrics({
     if (stageFixedHeightAtPhone) failures.push('stage has a fixed height at 390px');
     if (stageClipsAtPhone) failures.push('stage clips content with overflow:hidden at 390px');
     if (columnEdgesDiffer) failures.push('showcase column edges differ');
+    if (typeof codeToRailGap === 'number' && codeToRailGap < 16) {
+      failures.push('code block and Status panel need a 16px gap at 390px');
+    }
+    if (codeWrapUnsafe) {
+      failures.push('code block can break inside a token at 390px');
+    }
+    if (codeFadeMissing) {
+      failures.push('code block is missing its horizontal fade cue at 390px');
+    }
   }
+  if (updatesClipped) failures.push('Updates text is clipped or ellipsized');
   if (!hasFlowStrip) failures.push('FlowStrip is missing');
   if (kitType === 'visual' && (stageCount === 0 || stageMissingOptionRow)) {
     failures.push('visual Kit stage is missing an option row');
@@ -66,6 +80,33 @@ function collectPageMetrics() {
     ? getComputedStyle(shell).getPropertyValue('--swimmer-game-font-display')
     : '';
   const main = shell?.querySelector('.game-ui-showcase-main');
+  const code = shell?.querySelector('.game-ui-showcase-code');
+  const rail = shell?.querySelector('.game-ui-showcase-rail');
+  const codeRect = code?.getBoundingClientRect();
+  const railRect = rail?.getBoundingClientRect();
+  const codeToRailGap = codeRect && railRect ? railRect.top - codeRect.bottom : undefined;
+  const updatesClipped = [
+    ...(shell?.querySelectorAll('.game-ui-showcase-rail-block li span') ?? []),
+  ].some((span) => {
+    const styles = getComputedStyle(span);
+    const lineClamp =
+      styles.getPropertyValue('line-clamp') || styles.getPropertyValue('-webkit-line-clamp');
+    return (
+      styles.textOverflow === 'ellipsis' ||
+      styles.whiteSpace === 'nowrap' ||
+      (lineClamp !== '' && !['none', 'normal', 'unset'].includes(lineClamp)) ||
+      span.scrollHeight > span.clientHeight + 1
+    );
+  });
+  const codePre = code?.querySelector('pre');
+  const codeStyles = codePre ? getComputedStyle(codePre) : null;
+  const codeWrapUnsafe = Boolean(
+    codeStyles &&
+    (codeStyles.overflowWrap === 'anywhere' ||
+      codeStyles.wordBreak === 'break-all' ||
+      codeStyles.whiteSpace === 'nowrap'),
+  );
+  const codeFadeMissing = Boolean(code && getComputedStyle(code, '::after').content === 'none');
   const edgeNodes = main
     ? [
         ...main.querySelectorAll(
@@ -119,6 +160,10 @@ function collectPageMetrics() {
     stageFixedHeightAtPhone,
     stageClipsAtPhone,
     columnEdgesDiffer,
+    codeToRailGap,
+    updatesClipped,
+    codeWrapUnsafe,
+    codeFadeMissing,
   };
 }
 export async function runShowcaseCheck(root = process.cwd()) {

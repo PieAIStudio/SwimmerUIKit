@@ -44,6 +44,11 @@ body {
     color: var(--swimmer-game-text);
     font-family: var(--swimmer-game-font-body);
     line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .game-ui-showcase-shell[data-game-ui-language='zh'] {
+    line-break: strict;
   }
 
   .game-ui-showcase-topbar {
@@ -215,7 +220,7 @@ body {
     border-radius: 10px;
     background: var(--swimmer-game-surface);
     color: var(--swimmer-game-text-muted);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.35;
   }
 
@@ -279,14 +284,15 @@ body {
     border-radius: var(--swimmer-game-radius-panel);
     background: var(--swimmer-surface-sunken);
     color: var(--swimmer-game-text-muted);
+    text-wrap: pretty;
     transition:
       border-color 160ms ease,
       background-color 160ms ease;
   }
 
   .game-ui-showcase-demo__output[data-state='ready'] {
-    border-color: color-mix(in srgb, var(--swimmer-game-accent) 38%, transparent);
-    background: color-mix(in srgb, var(--swimmer-game-accent) 10%, var(--swimmer-surface-sunken));
+    border-color: color-mix(in srgb, var(--swimmer-game-cta-to) 38%, transparent);
+    background: color-mix(in srgb, var(--swimmer-game-cta-to) 10%, var(--swimmer-surface-sunken));
   }
 
   .game-ui-showcase-demo__status {
@@ -306,8 +312,8 @@ body {
   }
 
   .game-ui-showcase-demo__output[data-state='ready'] .game-ui-showcase-demo__status-dot {
-    background: var(--swimmer-game-accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--swimmer-game-accent) 14%, transparent);
+    background: var(--swimmer-game-cta-to);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--swimmer-game-cta-to) 14%, transparent);
   }
 
   .game-ui-showcase-demo__output strong {
@@ -336,11 +342,13 @@ body {
   }
 
   .game-ui-showcase-flow__step span:last-child {
-    overflow: hidden;
+    min-width: 0;
+    overflow: visible;
     color: var(--swimmer-game-text-muted);
     font-size: 0.875rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-overflow: clip;
+    text-wrap: pretty;
+    white-space: normal;
   }
 
   .game-ui-showcase-flow__index {
@@ -353,20 +361,34 @@ body {
     display: block;
     width: 100%;
     max-width: 100%;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .game-ui-showcase-code::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 28px;
+    height: calc(100% - 40px);
+    background: linear-gradient(90deg, transparent, var(--swimmer-surface-sunken));
+    content: '';
+    pointer-events: none;
   }
 
   .game-ui-showcase-code pre {
     width: 100%;
     max-width: 100%;
     margin: 0;
-    overflow: hidden;
-    overflow-wrap: anywhere;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overflow-wrap: normal;
     padding: 48px 16px 16px;
     border-radius: var(--swimmer-game-radius-panel);
     background: var(--swimmer-surface-sunken);
     font: 500 0.8125rem/1.55 var(--swimmer-font-mono);
     white-space: pre-wrap;
-    word-break: break-word;
+    word-break: normal;
   }
 
   .game-ui-showcase-copy-button {
@@ -435,13 +457,18 @@ body {
   .game-ui-showcase-rail-block li {
     display: grid;
     gap: 2px;
+    min-width: 0;
   }
 
   .game-ui-showcase-rail-block li span {
     display: block;
-    max-width: 100%;
-    overflow-wrap: anywhere;
+    min-width: 0;
+    max-width: none;
+    overflow: visible;
+    overflow-wrap: break-word;
+    text-overflow: clip;
     text-wrap: pretty;
+    white-space: normal;
   }
 
   .game-ui-showcase-shell[data-game-ui-language='zh'] .game-ui-showcase-rail-block li span {
@@ -459,6 +486,98 @@ body {
     color: var(--swimmer-game-text-muted);
     font-size: 0.875rem;
     text-align: center;
+  }
+
+  .kit-demo__surface {
+    display: grid;
+    gap: 16px;
+  }
+
+  .kit-demo__progress .game-ui-progress-track {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--swimmer-game-cta-to) 72%,
+      var(--swimmer-surface-sunken) 72%
+    );
+  }
+
+  .kit-demo__progress .game-ui-progress-track > svg {
+    display: none;
+  }
+
+  .kit-demo__progress .game-ui-progress-value {
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .kit-demo__tokens {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .kit-demo__token {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: var(--swimmer-radius-card);
+    background: var(--swimmer-surface-sunken);
+  }
+
+  .kit-demo__token span:last-child {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .kit-demo__token strong,
+  .kit-demo__token small {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .kit-demo__token small {
+    color: var(--swimmer-game-text-muted);
+  }
+
+  .kit-demo__token-swatch {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--swimmer-border-subtle);
+    border-radius: 8px;
+  }
+
+  .kit-demo__token-swatch--surface {
+    background: var(--swimmer-game-surface);
+  }
+
+  .kit-demo__token-swatch--accent {
+    border-color: var(--swimmer-game-cta-to);
+    background: var(--swimmer-game-cta-to);
+  }
+
+  .kit-demo__token-swatch--border {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--swimmer-border-subtle);
+  }
+
+  .kit-demo__demo-output {
+    display: grid;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .kit-demo__demo-output-label {
+    color: var(--swimmer-game-text-muted);
+    font-size: 0.8125rem;
+    font-weight: 650;
   }
 
   .game-ui-showcase-kit-card {
@@ -506,7 +625,7 @@ body {
 
     .game-ui-showcase-rail {
       position: static;
-      margin-top: 0;
+      margin-top: 16px;
     }
 
     .game-ui-showcase-demo__row {
@@ -525,6 +644,9 @@ body {
       padding: 16px;
     }
 
+    .kit-demo__tokens {
+      grid-template-columns: 1fr;
+    }
     .game-ui-showcase-flow {
       grid-template-columns: 1fr;
     }

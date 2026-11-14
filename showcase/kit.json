@@ -10,7 +10,7 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.22",
+  "version": "4.0.0-alpha.23",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
   "lastRelease": "2026-11-13",
   "what": {
@@ -41,11 +41,11 @@
     "tokensOption": { "en": "Tokens", "zh": "令牌" },
     "buttonLabel": { "en": "Compose a panel", "zh": "组合面板" },
     "progressLabel": { "en": "Responsive budget", "zh": "响应式预算" },
-    "flowLabel": { "en": "Demo flow", "zh": "演示流程" },
+    "flowLabel": { "en": "Demo output", "zh": "演示输出" },
     "flow": [
-      { "label": { "en": "Choose", "zh": "选择" }, "detail": { "en": "tokens", "zh": "令牌" } },
-      { "label": { "en": "Compose", "zh": "组合" }, "detail": { "en": "parts", "zh": "部件" } },
-      { "label": { "en": "Ship", "zh": "发布" }, "detail": { "en": "page", "zh": "页面" } }
+      { "label": { "en": "Track", "zh": "轨道" }, "detail": { "en": "neutral", "zh": "中性" } },
+      { "label": { "en": "Fill", "zh": "填充" }, "detail": { "en": "teal", "zh": "青色" } },
+      { "label": { "en": "Wrap", "zh": "换行" }, "detail": { "en": "responsive", "zh": "响应式" } }
     ]
   },
   "code": [

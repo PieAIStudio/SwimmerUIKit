@@ -11,6 +11,10 @@ export interface ShowcasePageMetrics {
   columnEdgesDiffer?: boolean;
   headingFontFamily?: string;
   expectedHeadingFontFamily?: string;
+  codeToRailGap?: number;
+  updatesClipped?: boolean;
+  codeWrapUnsafe?: boolean;
+  codeFadeMissing?: boolean;
 }
 export declare function validateShowcaseCode(input: {
   packageName?: string;
