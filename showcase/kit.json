@@ -10,14 +10,21 @@
     "zh": "Kit 维护者、产品团队与 HQ 按引用页面。"
   },
   "type": "visual",
-  "version": "4.0.0-alpha.30",
+  "version": "4.0.0-alpha.31",
   "status": { "label": { "en": "Release", "zh": "发布状态" }, "value": "next", "tone": "success" },
-  "lastRelease": "2026-11-14",
+  "lastRelease": "2026-11-15",
   "what": {
     "en": "Shared primitives and showcase composition for quiet, responsive game UI.",
     "zh": "为克制、响应式的游戏 UI 提供共享基础控件与展示组合。"
   },
   "updates": [
+    {
+      "date": "2026-11-15",
+      "text": {
+        "en": "SpriteIcon and spriteIconFromManifest play 3D sprite sheets across 96 / 192 / 512 tiers without WebGL.",
+        "zh": "SpriteIcon 与 spriteIconFromManifest 无需 WebGL 即可按 96 / 192 / 512 档位播放 3D 序列帧图标。"
+      }
+    },
     {
       "date": "2026-11-14",
       "text": {
@@ -30,13 +37,6 @@
       "text": {
         "en": "The shared shell now owns every Kit page's chrome and responsive layout.",
         "zh": "共享 Shell 现在统一负责每个 Kit 页面的外壳与响应式布局。"
-      }
-    },
-    {
-      "date": "2026-11-12",
-      "text": {
-        "en": "4.0 alpha keeps grey light/dark semantic tokens.",
-        "zh": "4.0 alpha 保留灰色明暗语义令牌。"
       }
     }
   ],

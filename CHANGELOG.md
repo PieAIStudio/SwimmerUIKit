@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.31 — 2026-11-15（3D SpriteIcon in tool-worlds）
+
+- `@pieai/swimmer-ui-kit/tool-worlds` 新增 `SpriteIcon`、`spriteIconFromManifest`、`pickSpriteIconTier`、`buildSpriteIconKeyframes` 及对应类型：直接消费 MediaFactory `manifest.json`，按 `size * dpr` 选择 `96 / 192 / 512` 静止帧与序列帧档位（侧栏图标缺失 `512` 动作帧表时自动回退到 `192`），用 CSS `steps()` 播放 1D / 2D 网格帧表，支持同网格跨状态重启动画，起止回到清晰静止帧，仅在 `hero` 或 `role: "hero"` 时运行常驻 `idle`，遵守 `prefers-reduced-motion: reduce`，不引入 `three.js`，root runtime 体积不变。
+- Showcase 新增 `Sprites` 舞台，在浅色与深色底面下展示 `28 / 64 / 128` px 的 `SpriteIcon` 及动作触发，保留 `4.0.0-alpha.27..30` 的全部看板零件改进。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.30 — 2026-11-15（board score-4 fixes in showcase parts）
 
 - `AppBar`：窄屏菜单里主页面与其余页面之间加一条分隔线和小标题（用 `moreLabel`）；窄屏遮罩从顶栏下方开始，打开菜单时顶栏不再变暗。
