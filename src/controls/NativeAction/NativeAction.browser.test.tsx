@@ -1,6 +1,7 @@
 import { act, createRef, forwardRef, StrictMode, type ComponentProps, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import { page } from 'vitest/browser';
 import { Button } from '../Button/Button';
 import { IconButton } from '../IconButton/IconButton';
 import { MIN_PRESS_HOLD_MS } from '../../liquid/LiquidPressSurface/observePress';
@@ -80,34 +81,47 @@ it('uses a router component only for enabled links and makes disabled links iner
   expect(click).not.toHaveBeenCalled();
 });
 
-it('keeps sm at 32px, with only the SVG changing under a pointer press', async () => {
-  await render(
-    <>
-      <Button href="#small" size="sm">
-        Small
-      </Button>
-      <IconButton href="#small" size="sm" label="Small">
-        +
-      </IconButton>
-    </>,
-  );
-  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-  const [link, icon] = host.querySelectorAll('a');
-  expect(link!.getBoundingClientRect().height).toBe(32);
-  expect(icon!.getBoundingClientRect().width).toBe(32);
-  expect(icon!.getBoundingClientRect().height).toBe(32);
-  expect(getComputedStyle(link!).fontSize).toBe('14px');
-  const bounds = link!.getBoundingClientRect().toJSON();
-  const original = link!.querySelector('path')!.getAttribute('d');
-  await act(async () =>
-    link!.dispatchEvent(
-      new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerId: 1 }),
-    ),
-  );
-  await expect.poll(() => link!.querySelector('path')!.getAttribute('d')).not.toBe(original);
-  expect(link!.getBoundingClientRect().toJSON()).toEqual(bounds);
-  expect(getComputedStyle(link!).boxShadow).toBe('none');
-  await act(async () => window.dispatchEvent(new PointerEvent('pointerup', { pointerId: 1 })));
+it('keeps sm at 32px at desktop width and >=44px on phones, with only the SVG changing under a pointer press', async () => {
+  const original = { width: innerWidth, height: innerHeight };
+  await page.viewport(1280, 800);
+  try {
+    await render(
+      <>
+        <Button href="#small" size="sm">
+          Small
+        </Button>
+        <IconButton href="#small" size="sm" label="Small">
+          +
+        </IconButton>
+      </>,
+    );
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const [link, icon] = host.querySelectorAll('a');
+    expect(link!.getBoundingClientRect().height).toBe(32);
+    expect(icon!.getBoundingClientRect().width).toBe(32);
+    expect(icon!.getBoundingClientRect().height).toBe(32);
+    expect(getComputedStyle(link!).fontSize).toBe('14px');
+    const bounds = link!.getBoundingClientRect().toJSON();
+    const originalPath = link!.querySelector('path')!.getAttribute('d');
+    await act(async () =>
+      link!.dispatchEvent(
+        new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerId: 1 }),
+      ),
+    );
+    await expect.poll(() => link!.querySelector('path')!.getAttribute('d')).not.toBe(originalPath);
+    expect(link!.getBoundingClientRect().toJSON()).toEqual(bounds);
+    expect(getComputedStyle(link!).boxShadow).toBe('none');
+    await act(async () => window.dispatchEvent(new PointerEvent('pointerup', { pointerId: 1 })));
+
+    await page.viewport(390, 844);
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const phoneBounds = link!.getBoundingClientRect();
+    expect(phoneBounds.width).toBeGreaterThanOrEqual(44);
+    expect(phoneBounds.height).toBeGreaterThanOrEqual(44);
+  } finally {
+    await act(async () => root.render(null));
+    await page.viewport(original.width, original.height);
+  }
 });
 
 it('uses liquid for a primary link while keeping Space native and Enter pressable', async () => {

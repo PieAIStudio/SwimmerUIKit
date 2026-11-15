@@ -780,6 +780,29 @@ body {
       margin-bottom: 24px;
       padding-bottom: 24px;
     }
+
+    .game-ui-showcase-wordmark {
+      display: inline-flex;
+      align-items: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .game-ui-showcase-copy-button,
+    .game-ui-showcase-copy-button.game-ui-button {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .kit-demo__sprite-item {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .game-ui-chip-nav-item {
+      min-width: 44px;
+      min-height: 44px;
+    }
   }
 
   @media (max-width: 360px) {
@@ -804,7 +827,8 @@ body {
     }
 
     .game-ui-showcase-wordmark {
-      min-width: 0;
+      min-width: 44px;
+      min-height: 44px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -1302,10 +1326,10 @@ body {
     }
     .game-ui-chip-nav-item {
       flex: 1 1 auto;
-      min-width: 0;
+      min-width: 44px;
       justify-content: center;
       gap: 4px;
-      min-height: 40px;
+      min-height: 44px;
       padding: 0 6px;
       font-size: 0.8125rem;
     }

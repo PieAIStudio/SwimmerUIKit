@@ -130,4 +130,10 @@
       border-radius: 12px;
     }
   }
+  @media (max-width: 760px) {
+    .game-ui-button[data-game-ui-size='sm'] {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
 }
