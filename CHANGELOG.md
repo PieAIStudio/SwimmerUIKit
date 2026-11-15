@@ -5,6 +5,33 @@ Format: [Keep a Changelog](https://keepachangelog.com); versioning: semver.
 
 ## Unreleased
 
+## 4.0.0-alpha.30 — 2026-11-15（board score-4 fixes in showcase parts）
+
+- `AppBar`：窄屏菜单里主页面与其余页面之间加一条分隔线和小标题（用 `moreLabel`）；窄屏遮罩从顶栏下方开始，打开菜单时顶栏不再变暗。
+- `KitCard`：简介改回整行宽度（`text-wrap: pretty`，不再用 `balance` 造成窄行和词中断行）；页脚固定最小高度，没有包名的卡片与同排卡片等高；不可打开的卡片用虚线边框。
+- `ChipNav`：计数圆点改用正文色与半透明底，暗色主题下可读。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
+## 4.0.0-alpha.29 — 2026-11-15（board score-3 fixes in showcase parts）
+
+- `ChipNav`：在 `420px` 以下改用 `flex: 1 1 auto; min-width: 0; justify-content: center`、字号 `0.8125rem`、内边距 `0 6px` 与 `4px` 间距（保持 `40px` 高度），4 枚英文筛选 chip 在 390px 屏幕也能单行完整显示不裁切。
+- `KitCard`：简介 `p` 增加 `text-wrap: balance` 避免中文末尾 2 字孤行；不可用说明改为 `40px` 高的 `inline-flex` 居中行，使同排卡片包名/版本行对齐同一基线；页脚 `small` 改用 `--swimmer-game-text` 以确保暗色卡片对比度（≥ 4.5:1）。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
+## 4.0.0-alpha.28 — 2026-11-14（board score-2 fixes in showcase parts）
+
+- `KitCard`：卡片与页脚都改为纵向布局，包名与版本在第一行，动作胶囊或不可用说明在第二行并左对齐；动作胶囊最小高度改为 40px、边框用 muted 45% 混合色以适应暗色主题；无链接卡片标题改用 muted 文本色（不用 `opacity`）；空 `type` 不再打印多余的 `" · "`，无元信息时不渲染空 `<small>`。
+- `ChipNav`：在 `420px` 以下收紧间距与内边距（chip 最小高度 40px、字号 `0.875rem`、内边距 `0 8px 0 12px`，间距 `6px`，计数圆点 `20px`），并保持单行不换行。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
+## 4.0.0-alpha.27 — 2026-11-14（board score-1 fixes in showcase parts）
+
+- `ChipNav` 新增可选 `onSelect`：传入后 chip 渲染为原生按钮组，当前项 `aria-pressed`，用于原地筛选；不传时仍是锚点链接。`href` 改为可选（缺省 `#id`）。选中 chip 的计数底色与文字加深。
+- `AppBar` 菜单按「主页面在前」排序（新导出 `appBarMenuOrder`）；毛玻璃移到独立的 `::before` 层，窄屏菜单的遮罩不再被困在栏内，能盖住整页。
+- `KitCard`：状态徽章前加一个小色点（success / warning / danger 用对应语义色，neutral 为空心），徽章本身保持安静；链接卡的动作文字变成 36px 高的胶囊按钮外观；新增 `labels.unavailable`，无链接的卡在页脚显示一句说明。
+- `CodeSample`：代码块顶部留出复制按钮的一行，按钮在任何宽度都不再压住第一行代码。
+- 只发布到 npm `next`，`latest` 保持 3.2.5。
+
 ## 4.0.0-alpha.26 — 2026-11-14（board-level showcase parts）
 
 - `@pieai/swimmer-ui-kit/showcase` 新增四个看板级零件，供 Founder Board 与 Kit 展示页共用同一外观：`AppBar` / `AppBarAction`（一行应用栏：字标、主页面链接、标出当前页的溢出菜单、右侧动作；窄屏把所有页面收进菜单）、`DisclosureRow`（原地展开的密集行，标题、摘要、事实各占固定列，箭头始终独占右列）、`ChipNav`（带数量的锚点 chip 行）、`PageHeader`（kicker、标题、导语、页面级动作）。

@@ -20,6 +20,7 @@ export { KitCard, type KitCardLabels, type KitCardProps } from './showcase/KitCa
 export {
   AppBar,
   AppBarAction,
+  appBarMenuOrder,
   type AppBarActionProps,
   type AppBarItem,
   type AppBarProps,

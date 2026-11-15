@@ -8,6 +8,8 @@ export interface KitCardLabels {
   type?: string;
   /** Shown on linked cards, e.g. "Open showcase". */
   action?: string;
+  /** Shown on cards without a link, e.g. "No showcase yet". */
+  unavailable?: string;
 }
 
 export interface KitCardProps {
@@ -26,23 +28,31 @@ export interface KitCardProps {
 
 export function KitCard({ href, kit, labels, language = 'en' }: KitCardProps): ReactNode {
   const version = kit.version.trim();
+  const typeLabel = (labels?.type ?? kit.type).trim();
+  const meta = [typeLabel, version ? `v${version}` : ''].filter(Boolean).join(' · ');
   const content = (
     <>
       <div className="game-ui-showcase-kit-card__top">
         <strong>{kit.name}</strong>
-        <Badge tone={kit.status.tone ?? 'neutral'}>{labels?.status ?? kit.status.value}</Badge>
+        <Badge tone={kit.status.tone ?? 'neutral'}>
+          <span
+            className="game-ui-showcase-kit-card__dot"
+            data-tone={kit.status.tone ?? 'neutral'}
+            aria-hidden="true"
+          />
+          {labels?.status ?? kit.status.value}
+        </Badge>
       </div>
       <p>{kit.tagline[language]}</p>
       <div className="game-ui-showcase-kit-card__foot">
-        <small>
-          {labels?.type ?? kit.type}
-          {version ? ` · v${version}` : null}
-        </small>
+        {meta ? <small>{meta}</small> : null}
         {href && labels?.action ? (
           <span className="game-ui-showcase-kit-card__action">
             {labels.action}
-            <span aria-hidden="true"> →</span>
+            <span aria-hidden="true">→</span>
           </span>
+        ) : !href && labels?.unavailable ? (
+          <span className="game-ui-showcase-kit-card__unavailable">{labels.unavailable}</span>
         ) : null}
       </div>
     </>

@@ -1,4 +1,12 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 
 export interface AppBarItem {
   id: string;
@@ -42,6 +50,7 @@ export function AppBar({
   const menuRef = useRef<HTMLDivElement>(null);
   const active = items.find((item) => item.id === activeId);
   const overflowActive = active !== undefined && !active.primary;
+  const menuItems = appBarMenuOrder(items);
 
   useEffect(() => {
     if (!open) return;
@@ -128,23 +137,29 @@ export function AppBar({
                 className="game-ui-app-bar-list"
                 onKeyDown={onMenuKeyDown}
               >
-                {items.map((item) => (
-                  <button
-                    type="button"
-                    role="menuitemradio"
-                    key={item.id}
-                    tabIndex={-1}
-                    aria-checked={item.id === activeId}
-                    data-primary={item.primary ? 'true' : undefined}
-                    className="game-ui-app-bar-entry"
-                    onClick={() => {
-                      close(true);
-                      onSelect(item.id);
-                    }}
-                  >
-                    <span>{item.label}</span>
-                    <span className="game-ui-app-bar-check" aria-hidden="true" />
-                  </button>
+                {menuItems.map((item, index) => (
+                  <Fragment key={item.id}>
+                    {!item.primary && menuItems[index - 1]?.primary ? (
+                      <div role="separator" className="game-ui-app-bar-group">
+                        {moreLabel}
+                      </div>
+                    ) : null}
+                    <button
+                      type="button"
+                      role="menuitemradio"
+                      tabIndex={-1}
+                      aria-checked={item.id === activeId}
+                      data-primary={item.primary ? 'true' : undefined}
+                      className="game-ui-app-bar-entry"
+                      onClick={() => {
+                        close(true);
+                        onSelect(item.id);
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <span className="game-ui-app-bar-check" aria-hidden="true" />
+                    </button>
+                  </Fragment>
                 ))}
               </div>
             </>
@@ -154,6 +169,11 @@ export function AppBar({
       {actions ? <div className="game-ui-app-bar-actions">{actions}</div> : null}
     </header>
   );
+}
+
+/** Menu order: primary pages first, so a narrow screen keeps the wide screen's order. */
+export function appBarMenuOrder(items: readonly AppBarItem[]): AppBarItem[] {
+  return [...items.filter((item) => item.primary), ...items.filter((item) => !item.primary)];
 }
 
 function visibleEntries(menu: HTMLElement | null): HTMLElement[] {
