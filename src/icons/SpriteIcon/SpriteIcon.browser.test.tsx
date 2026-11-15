@@ -2,11 +2,11 @@ import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { SpriteIcon } from '../../tool-worlds';
+import { SpriteIcon, spriteIconFromManifest } from '../../tool-worlds';
 import '../../styles.css';
 import filesAct96 from './fixtures/files/act-96.webp';
 import filesAct192 from './fixtures/files/act-192.webp';
-import filesAct512 from './fixtures/files/act-512.webp';
+import filesManifest from './fixtures/files/manifest.json';
 import filesStill96 from './fixtures/files/still-96.webp';
 import filesStill192 from './fixtures/files/still-192.webp';
 import filesStill512 from './fixtures/files/still-512.webp';
@@ -16,28 +16,18 @@ import type { SpriteIconSource } from './types';
   globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
-const FILES_ICON: SpriteIconSource = {
-  still: {
-    96: filesStill96,
-    192: filesStill192,
-    512: filesStill512,
-  },
-  clips: {
-    act: {
-      sheets: {
-        96: filesAct96,
-        192: filesAct192,
-        512: filesAct512,
-      },
-      frames: 21,
-      fps: 15,
-      cols: 5,
-      rows: 5,
-      loop: false,
-      seconds: 1.4,
-    },
-  },
+const FILES_ASSETS: Record<string, string> = {
+  'still-96.webp': filesStill96,
+  'still-192.webp': filesStill192,
+  'still-512.webp': filesStill512,
+  'act-96.webp': filesAct96,
+  'act-192.webp': filesAct192,
 };
+
+const FILES_ICON: SpriteIconSource = spriteIconFromManifest(
+  filesManifest,
+  (file) => FILES_ASSETS[file] ?? file,
+);
 
 function makeStateClipsSource(): SpriteIconSource {
   const tiers = (name: string) => ({
@@ -278,5 +268,67 @@ describe('SpriteIcon in Chromium', () => {
     expect(icon.dataset.spriteState).toBe('rest');
     expect(frame.style.animationName).toBe('none');
     expect(frame.style.backgroundImage).toContain('/still-96.webp');
+  });
+
+  it('falls back to 192 clip sheets at 512 tier, auto-idles role=hero, and restarts same-grid clip/icon transitions', async () => {
+    await act(async () =>
+      root.render(<SpriteIcon dpr={2} icon={FILES_ICON} size={128} state="rest" />),
+    );
+    const icon = host.querySelector<HTMLElement>('.game-ui-sprite-icon')!;
+    const frame = host.querySelector<HTMLElement>('.game-ui-sprite-icon-frame')!;
+    expect(icon.dataset.spriteTier).toBe('512');
+    expect(frame.style.backgroundImage).toContain('still-512');
+
+    await act(async () =>
+      root.render(<SpriteIcon dpr={2} icon={FILES_ICON} size={128} state="act" />),
+    );
+    expect(icon.dataset.spriteState).toBe('act');
+    expect(icon.dataset.spriteTier).toBe('192');
+    expect(frame.style.backgroundImage).toContain('act-192');
+    await act(async () => {
+      frame.dispatchEvent(new Event('animationend', { bubbles: true }));
+    });
+    expect(icon.dataset.spriteState).toBe('rest');
+    expect(icon.dataset.spriteTier).toBe('512');
+    expect(frame.style.backgroundImage).toContain('still-512');
+
+    const heroIcon: SpriteIconSource = { role: 'hero', ...makeStateClipsSource() };
+    await act(async () => root.render(<SpriteIcon dpr={1} icon={heroIcon} size={64} />));
+    expect(icon.dataset.spriteHero).toBe('true');
+    expect(icon.dataset.spriteState).toBe('idle');
+
+    await act(async () =>
+      root.render(<SpriteIcon dpr={1} icon={heroIcon} size={64} state="syncing" />),
+    );
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 120));
+    });
+    await act(async () =>
+      root.render(<SpriteIcon dpr={1} icon={heroIcon} size={64} state="problem" />),
+    );
+    expect(icon.dataset.spriteState).toBe('problem');
+    expect(frame.style.backgroundImage).toContain('/problem-96.webp');
+    const activeAnim = frame.getAnimations()[0];
+    expect(activeAnim).toBeDefined();
+    expect(Number(activeAnim?.currentTime ?? 999)).toBeLessThan(80);
+
+    const iconA: SpriteIconSource = {
+      role: 'ordinary',
+      still: { 96: '/a-still-96.webp' },
+      clips: { act: { sheets: { 96: '/a-act-96.webp' }, frames: 21, fps: 15, cols: 5, rows: 5 } },
+    };
+    const iconB: SpriteIconSource = {
+      role: 'ordinary',
+      still: { 96: '/b-still-96.webp' },
+      clips: { act: { sheets: { 96: '/b-act-96.webp' }, frames: 21, fps: 15, cols: 5, rows: 5 } },
+    };
+    await act(async () => root.render(<SpriteIcon dpr={1} icon={iconA} size={64} state="act" />));
+    await act(async () => {
+      frame.dispatchEvent(new Event('animationend', { bubbles: true }));
+    });
+    expect(icon.dataset.spriteState).toBe('rest');
+    await act(async () => root.render(<SpriteIcon dpr={1} icon={iconB} size={64} state="act" />));
+    expect(icon.dataset.spriteState).toBe('act');
+    expect(frame.style.backgroundImage).toContain('/b-act-96.webp');
   });
 });

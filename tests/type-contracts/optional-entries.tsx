@@ -9,7 +9,13 @@ import {
   Icon,
 } from '../../src/index';
 import { LiquidReveal } from '../../src/liquid-presence';
-import { SpriteIcon, ToolWindow, type SpriteIconSource } from '../../src/tool-worlds';
+import {
+  SpriteIcon,
+  ToolWindow,
+  spriteIconFromManifest,
+  type SpriteIconManifest,
+  type SpriteIconSource,
+} from '../../src/tool-worlds';
 
 export const namedIcon = <Icon icon="check" label="Completed" />;
 
@@ -32,11 +38,17 @@ export const select = (
 export const toggle = <Toggle checked label="Sound" />;
 export const reveal = <LiquidReveal>Draft</LiquidReveal>;
 export const toolWindow = <ToolWindow title="Tool">Content</ToolWindow>;
-const spriteFixture: SpriteIconSource = {
-  still: { 96: '/still-96.webp', 192: '/still-192.webp', 512: '/still-512.webp' },
+const spriteManifest: SpriteIconManifest = {
+  asset: 'files',
+  role: 'ordinary',
+  still: {
+    96: { file: 'still-96.webp' },
+    192: { file: 'still-192.webp' },
+    512: { file: 'still-512.webp' },
+  },
   clips: {
     act: {
-      sheets: { 96: '/act-96.webp', 192: '/act-192.webp', 512: '/act-512.webp' },
+      sheets: { 96: { file: 'act-96.webp' }, 192: { file: 'act-192.webp' } },
       frames: 21,
       fps: 15,
       cols: 5,
@@ -45,6 +57,7 @@ const spriteFixture: SpriteIconSource = {
     },
   },
 };
+const spriteFixture: SpriteIconSource = spriteIconFromManifest(spriteManifest, '/icons/files');
 export const spriteIcon = <SpriteIcon icon={spriteFixture} label="Files" size={64} state="rest" />;
 
 // @ts-expect-error Image effects are not part of the default group API.

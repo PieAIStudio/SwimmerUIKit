@@ -51,6 +51,7 @@ export {
   SpriteIcon,
   pickSpriteIconTier,
   buildSpriteIconKeyframes,
+  spriteIconFromManifest,
   type SpriteIconKeyframes,
 } from './icons/SpriteIcon/SpriteIcon';
 export {
@@ -59,7 +60,11 @@ export {
   type SpriteIconClip,
   type SpriteIconClipName,
   type SpriteIconInteractionState,
+  type SpriteIconManifest,
+  type SpriteIconManifestClip,
+  type SpriteIconManifestFile,
   type SpriteIconProps,
+  type SpriteIconRole,
   type SpriteIconSource,
   type SpriteIconState,
   type SpriteIconTier,

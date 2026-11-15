@@ -1,18 +1,21 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useInsertionEffect, useRef, useState } from 'react';
 import { useSystemReducedMotion, watchMediaQuery } from '../../tokens/reducedMotion';
 import type {
   SpriteIconClip,
   SpriteIconClipName,
+  SpriteIconManifest,
+  SpriteIconManifestFile,
   SpriteIconProps,
+  SpriteIconRole,
   SpriteIconSource,
   SpriteIconState,
   SpriteIconTier,
   SpriteIconTierSources,
 } from './types';
-import { SPRITE_ICON_TIERS } from './types';
+import { SPRITE_ICON_CLIPS, SPRITE_ICON_TIERS } from './types';
 
 const INTERACTIVE_HOST_SELECTOR =
   'button, a[href], [role="button"], [role="tab"], [role="option"], [role="menuitem"]';
@@ -54,6 +57,88 @@ export function resolveSpriteTierUrl(
     if (tier !== undefined && sources[tier]) return { tier, url: sources[tier] };
   }
   return { tier: preferred, url: '' };
+}
+
+function formatManifestFileUrl(
+  entry: SpriteIconManifestFile,
+  resolveFile?: string | ((file: string) => string),
+): string {
+  const file = typeof entry === 'string' ? entry : entry.file;
+  if (!file) return '';
+  if (typeof resolveFile === 'function') return resolveFile(file);
+  if (typeof resolveFile === 'string' && resolveFile.length > 0) {
+    return `${resolveFile.replace(/\/+$/, '')}/${file.replace(/^\/+/, '')}`;
+  }
+  return file;
+}
+
+function extractManifestTierSources(
+  raw: Readonly<Record<string, SpriteIconManifestFile | undefined>>,
+  context: string,
+  resolveFile?: string | ((file: string) => string),
+): SpriteIconTierSources {
+  const resolved: Partial<Record<SpriteIconTier, string>> = {};
+  for (const tier of SPRITE_ICON_TIERS) {
+    const entry = raw[String(tier)];
+    if (entry === undefined) continue;
+    const url = formatManifestFileUrl(entry, resolveFile);
+    if (url.length > 0) resolved[tier] = url;
+  }
+  if (resolved[96] !== undefined) {
+    return {
+      96: resolved[96],
+      ...(resolved[192] !== undefined ? { 192: resolved[192] } : {}),
+      ...(resolved[512] !== undefined ? { 512: resolved[512] } : {}),
+    };
+  }
+  if (resolved[192] !== undefined) {
+    return {
+      192: resolved[192],
+      ...(resolved[512] !== undefined ? { 512: resolved[512] } : {}),
+    };
+  }
+  if (resolved[512] !== undefined) {
+    return { 512: resolved[512] };
+  }
+  throw new Error(`SpriteIcon manifest is missing a 96, 192, or 512 tier for ${context}.`);
+}
+
+/** Convert an icon generator `manifest.json` payload into a `SpriteIconSource` without per-icon code. */
+export function spriteIconFromManifest(
+  manifest: SpriteIconManifest,
+  resolveFile?: string | ((file: string) => string),
+): SpriteIconSource {
+  const assetName = manifest.asset ?? 'icon';
+  const still = extractManifestTierSources(manifest.still, `${assetName} still`, resolveFile);
+  const role: SpriteIconRole | undefined =
+    manifest.role === 'hero' ? 'hero' : manifest.role === 'ordinary' ? 'ordinary' : undefined;
+
+  const clips: Partial<Record<SpriteIconClipName, SpriteIconClip>> = {};
+  if (manifest.clips) {
+    for (const clipName of SPRITE_ICON_CLIPS) {
+      const clipSpec = manifest.clips[clipName];
+      if (!clipSpec) continue;
+      clips[clipName] = {
+        sheets: extractManifestTierSources(
+          clipSpec.sheets,
+          `${assetName} clip "${clipName}"`,
+          resolveFile,
+        ),
+        frames: clipSpec.frames,
+        fps: clipSpec.fps,
+        cols: clipSpec.cols,
+        rows: clipSpec.rows,
+        loop: clipSpec.loop,
+        seconds: clipSpec.seconds,
+      };
+    }
+  }
+
+  return {
+    role,
+    still,
+    clips: Object.keys(clips).length > 0 ? clips : undefined,
+  };
 }
 
 function formatPct(value: number): string {
@@ -125,15 +210,18 @@ export function buildSpriteIconKeyframes(clip: SpriteIconClip): SpriteIconKeyfra
   };
 }
 
-function ensureSpriteKeyframes(keyframes: SpriteIconKeyframes): void {
-  if (typeof document === 'undefined' || !keyframes.css) return;
-  const head = document.head;
+function ensureSpriteKeyframes(
+  keyframes: SpriteIconKeyframes,
+  doc: Document | undefined = typeof document !== 'undefined' ? document : undefined,
+): void {
+  if (!doc || !keyframes.css) return;
+  const head = doc.head;
   if (!head) return;
   let styleEl = head.querySelector(
     'style[data-swimmer-sprite-keyframes]',
   ) as KeyframeStyleElement | null;
   if (!styleEl) {
-    styleEl = document.createElement('style') as KeyframeStyleElement;
+    styleEl = doc.createElement('style') as KeyframeStyleElement;
     styleEl.setAttribute('data-swimmer-sprite-keyframes', 'true');
     styleEl.__swimmerSpriteNames = new Set();
     head.appendChild(styleEl);
@@ -141,7 +229,7 @@ function ensureSpriteKeyframes(keyframes: SpriteIconKeyframes): void {
   const names = (styleEl.__swimmerSpriteNames ??= new Set());
   if (names.has(keyframes.name)) return;
   names.add(keyframes.name);
-  styleEl.appendChild(document.createTextNode(keyframes.css));
+  styleEl.appendChild(doc.createTextNode(keyframes.css));
 }
 
 function resolveRequestedClip(
@@ -195,7 +283,7 @@ type FrameCssStyle = CSSProperties & {
 export function SpriteIcon({
   icon,
   size = 64,
-  hero = false,
+  hero,
   state,
   selected = false,
   reducedMotion,
@@ -211,6 +299,7 @@ export function SpriteIcon({
   const frameRef = useRef<HTMLSpanElement>(null);
   const systemReducedMotion = useSystemReducedMotion();
   const isReducedMotion = Boolean(reducedMotion) || systemReducedMotion;
+  const isHero = hero ?? icon.role === 'hero';
 
   const [windowDpr, setWindowDpr] = useState<number>(readWindowDpr);
   const [measuredCssSize, setMeasuredCssSize] = useState<number | null>(null);
@@ -227,17 +316,18 @@ export function SpriteIcon({
   const hoveredRef = useRef(false);
   const pointerDownRef = useRef(false);
 
-  const controlledKey = state !== undefined ? state : null;
+  const primaryStillUrl = icon.still[96] ?? icon.still[192] ?? icon.still[512] ?? '';
+  const controlledKey = state !== undefined ? `${state}@${primaryStillUrl}` : null;
   const isControlledSettled = controlledKey !== null && settledControlledKey === controlledKey;
 
-  // Reset transient interaction holds whenever controlled `state` changes.
+  // Reset transient interaction holds whenever controlled `state` or `icon` identity changes.
   useEffect(() => {
     setSettledControlledKey(null);
     if (state !== undefined) {
       setOneShot(null);
       setSettledHoverHold(false);
     }
-  }, [state]);
+  }, [state, primaryStillUrl]);
 
   // Subscribe to DPR changes when `dpr` is not pinned.
   useEffect(() => {
@@ -290,12 +380,12 @@ export function SpriteIcon({
     const wasSelected = prevSelectedRef.current;
     prevSelectedRef.current = isNowSelected;
     if (state !== undefined || isReducedMotion || !isNowSelected || wasSelected) return;
-    const clipName = resolveRequestedClip(icon, 'selection', hero);
+    const clipName = resolveRequestedClip(icon, 'selection', isHero);
     if (!clipName) return;
     runCounterRef.current += 1;
     setSettledHoverHold(false);
     setOneShot({ clip: clipName, runId: runCounterRef.current });
-  }, [selected, state, isReducedMotion, icon, hero]);
+  }, [selected, state, isReducedMotion, icon, isHero]);
 
   // Attach hover and non-pointer focus triggers to the interactive host (or self).
   useEffect(() => {
@@ -306,7 +396,7 @@ export function SpriteIcon({
 
     const triggerClip = (kind: 'hover' | 'focus') => {
       if (state !== undefined || isReducedMotion) return;
-      const clipName = resolveRequestedClip(icon, kind, hero);
+      const clipName = resolveRequestedClip(icon, kind, isHero);
       if (!clipName) return;
       runCounterRef.current += 1;
       setSettledHoverHold(false);
@@ -363,19 +453,19 @@ export function SpriteIcon({
       target.removeEventListener('mousedown', handlePointerDown);
       target.removeEventListener('focusin', handleFocusIn);
     };
-  }, [icon, hero, state, isReducedMotion]);
+  }, [icon, isHero, state, isReducedMotion]);
 
   // Determine the active clip name for this render.
   let activeClipName: SpriteIconClipName | null = null;
   if (!isReducedMotion) {
     if (state !== undefined) {
       if (!isControlledSettled) {
-        activeClipName = resolveRequestedClip(icon, state, hero);
+        activeClipName = resolveRequestedClip(icon, state, isHero);
       }
     } else if (oneShot) {
       activeClipName = oneShot.clip;
     } else if (!settledHoverHold) {
-      activeClipName = resolveRequestedClip(icon, undefined, hero);
+      activeClipName = resolveRequestedClip(icon, undefined, isHero);
     }
   }
 
@@ -395,22 +485,6 @@ export function SpriteIcon({
     keyframes.durationSeconds > 0,
   );
 
-  // Register generated CSS keyframes in document.head whenever an animated clip is active.
-  useEffect(() => {
-    if (canAnimate && keyframes) ensureSpriteKeyframes(keyframes);
-  }, [canAnimate, keyframes]);
-
-  // Restart CSS animations synchronously if an active uncontrolled clip is re-triggered.
-  const triggerRunId = oneShot?.runId ?? 0;
-  useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame || !canAnimate || typeof frame.getAnimations !== 'function') return;
-    for (const animation of frame.getAnimations()) {
-      animation.currentTime = 0;
-      animation.play();
-    }
-  }, [triggerRunId, canAnimate, keyframes?.name]);
-
   const stillResolved = resolveSpriteTierUrl(icon.still, preferredTier);
   const clipResolved =
     canAnimate && activeClipSpec
@@ -419,6 +493,24 @@ export function SpriteIcon({
   const activeTier = canAnimate ? clipResolved.tier : stillResolved.tier;
 
   const displayState = canAnimate && activeClipName ? activeClipName : 'rest';
+
+  // Register generated CSS keyframes before first paint whenever an animated clip is active.
+  useInsertionEffect(() => {
+    if (canAnimate && keyframes) {
+      ensureSpriteKeyframes(keyframes, frameRef.current?.ownerDocument);
+    }
+  }, [canAnimate, keyframes]);
+
+  // Restart CSS animations synchronously when a clip or sheet switches (even with matching grid names).
+  const triggerRunId = oneShot?.runId ?? 0;
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame || !canAnimate || typeof frame.getAnimations !== 'function') return;
+    for (const animation of frame.getAnimations()) {
+      animation.currentTime = 0;
+      animation.play();
+    }
+  }, [triggerRunId, canAnimate, activeClipName, clipResolved.url, keyframes?.name, isLoop]);
 
   const frameStyle: FrameCssStyle = {
     '--swimmer-sprite-still': stillResolved.url ? `url("${stillResolved.url}")` : 'none',
@@ -452,7 +544,7 @@ export function SpriteIcon({
       aria-hidden={label ? undefined : true}
       aria-label={label}
       className={['game-ui-sprite-icon', className].filter(Boolean).join(' ')}
-      data-sprite-hero={hero ? 'true' : undefined}
+      data-sprite-hero={isHero ? 'true' : undefined}
       data-sprite-reduced-motion={isReducedMotion ? 'true' : undefined}
       data-sprite-state={displayState}
       data-sprite-tier={activeTier}
@@ -460,13 +552,14 @@ export function SpriteIcon({
       style={rootStyle}
       onAnimationEnd={(event) => {
         onAnimationEnd?.(event);
+        if (event.target !== frameRef.current) return;
         if (!canAnimate || !activeClipName || isLoop) return;
         const finishedClip = activeClipName;
         if (state !== undefined) {
-          setSettledControlledKey(state);
+          setSettledControlledKey(controlledKey);
         } else {
           setOneShot(null);
-          if (hero && hoveredRef.current) setSettledHoverHold(true);
+          if (isHero && hoveredRef.current) setSettledHoverHold(true);
         }
         onClipEnd?.(finishedClip);
       }}

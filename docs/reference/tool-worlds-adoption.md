@@ -51,7 +51,7 @@ The alpha is a hard break: there is no quiet/aura tool-shell alias. An app migra
 | native-looking on/off row | `Switch` | UIKit owns the painted track and hidden real input; app owns checked state. |
 | animated progress grid | `BentoProgress` | UIKit paints done/now/waiting tiles; app owns real progress and cancellation. |
 | duplicated line-glyph map | `Icon` / `ToolIcon` | Use an existing `Icon` name first; use `ToolIcon` only for a contract glyph gap. |
-| 3D rendered icon sheets | `SpriteIcon` | UIKit plays caller-supplied 96/192/512 WebP sheets via CSS `steps()` (no Three.js); app supplies assets and state. |
+| 3D rendered icon sheets | `SpriteIcon` | UIKit plays caller-supplied `96`/`192`/`512` WebP sheets via CSS `steps()` (no Three.js, with `spriteIconFromManifest`); app supplies assets and state. |
 
 ## App worlds
 

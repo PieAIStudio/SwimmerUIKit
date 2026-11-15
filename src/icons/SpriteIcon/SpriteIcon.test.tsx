@@ -6,8 +6,9 @@ import {
   buildSpriteIconKeyframes,
   pickSpriteIconTier,
   resolveSpriteTierUrl,
+  spriteIconFromManifest,
 } from './SpriteIcon';
-import type { SpriteIconSource } from './types';
+import type { SpriteIconManifest, SpriteIconSource } from './types';
 
 const HERO_SOURCE: SpriteIconSource = {
   still: {
@@ -84,16 +85,133 @@ describe('buildSpriteIconKeyframes', () => {
     expect(kf.css).toContain('100%{background-position:100% 0%}');
   });
 
-  it('builds a 2D multi-row keyframe rule including partial final rows cleanly', () => {
+  it('builds 2D keyframes for every manifest grid shape (6x6 36f, 5x4 18f, 5x4 20f, 4x4 15f, 5x5 21f)', () => {
     const actClip = HERO_SOURCE.clips!.act!;
-    const kf = buildSpriteIconKeyframes(actClip);
-    expect(kf.name).toBe('swimmer-sprite-c5-r5-f21');
-    expect(kf.cols).toBe(5);
-    expect(kf.rows).toBe(5);
-    expect(kf.durationSeconds).toBe(1.4);
-    expect(kf.css).toContain('steps(5, jump-none)');
-    expect(kf.css).toContain('steps(1, end)');
-    expect(kf.css).toContain('100%{background-position:0% 100%;}');
+    const kf21 = buildSpriteIconKeyframes(actClip);
+    expect(kf21.name).toBe('swimmer-sprite-c5-r5-f21');
+    expect(kf21.durationSeconds).toBe(1.4);
+    expect(kf21.css).toContain('steps(5, jump-none)');
+    expect(kf21.css).toContain('steps(1, end)');
+    expect(kf21.css).toContain('100%{background-position:0% 100%;}');
+
+    const kf36 = buildSpriteIconKeyframes({
+      sheets: { 96: '/idle-96.webp' },
+      frames: 36,
+      fps: 15,
+      cols: 6,
+      rows: 6,
+      seconds: 2.4,
+    });
+    expect(kf36.name).toBe('swimmer-sprite-c6-r6-f36');
+    expect(kf36.durationSeconds).toBe(2.4);
+    expect(kf36.css).toContain('100%{background-position:100% 100%;}');
+
+    const kf18 = buildSpriteIconKeyframes({
+      sheets: { 96: '/hover-96.webp' },
+      frames: 18,
+      fps: 15,
+      cols: 5,
+      rows: 4,
+      seconds: 1.2,
+    });
+    expect(kf18.name).toBe('swimmer-sprite-c5-r4-f18');
+    expect(kf18.css).toContain('steps(3, jump-none)');
+    expect(kf18.css).toContain('100%{background-position:50% 100%;}');
+
+    const kf20 = buildSpriteIconKeyframes({
+      sheets: { 96: '/settings-96.webp' },
+      frames: 20,
+      fps: 15,
+      cols: 5,
+      rows: 4,
+      seconds: 1.3,
+    });
+    expect(kf20.name).toBe('swimmer-sprite-c5-r4-f20');
+    expect(kf20.durationSeconds).toBe(1.3);
+    expect(kf20.css).toContain('100%{background-position:100% 100%;}');
+
+    const kf15 = buildSpriteIconKeyframes({
+      sheets: { 96: '/done-96.webp' },
+      frames: 15,
+      fps: 15,
+      cols: 4,
+      rows: 4,
+      seconds: 1,
+    });
+    expect(kf15.name).toBe('swimmer-sprite-c4-r4-f15');
+    expect(kf15.css).toContain('steps(3, jump-none)');
+    expect(kf15.css).toContain('100%{background-position:66.6667% 100%;}');
+  });
+});
+
+describe('spriteIconFromManifest', () => {
+  it('resolves role, stills (ignoring hero 1024), and partial clip sheets via prefix or function', () => {
+    const heroManifest: SpriteIconManifest = {
+      asset: 'oneplace_hero',
+      role: 'hero',
+      still: {
+        96: { file: 'still-96.webp' },
+        192: { file: 'still-192.webp' },
+        512: { file: 'still-512.webp' },
+        hero: { file: 'still-1024.webp' },
+      },
+      clips: {
+        idle: {
+          sheets: {
+            96: { file: 'idle-96.webp' },
+            192: { file: 'idle-192.webp' },
+            512: { file: 'idle-512.webp' },
+          },
+          frames: 36,
+          fps: 15,
+          cols: 6,
+          rows: 6,
+          loop: true,
+          seconds: 2.4,
+        },
+      },
+    };
+    const heroSource = spriteIconFromManifest(heroManifest, '/icons/oneplace_hero/');
+    expect(heroSource.role).toBe('hero');
+    expect(heroSource.still).toEqual({
+      96: '/icons/oneplace_hero/still-96.webp',
+      192: '/icons/oneplace_hero/still-192.webp',
+      512: '/icons/oneplace_hero/still-512.webp',
+    });
+    expect(heroSource.clips?.idle?.sheets[512]).toBe('/icons/oneplace_hero/idle-512.webp');
+
+    const autoHeroHtml = renderToStaticMarkup(<SpriteIcon icon={heroSource} size={64} />);
+    expect(autoHeroHtml).toContain('data-sprite-hero="true"');
+    expect(autoHeroHtml).toContain('data-sprite-state="idle"');
+    const overrideHtml = renderToStaticMarkup(
+      <SpriteIcon hero={false} icon={heroSource} size={64} />,
+    );
+    expect(overrideHtml).toContain('data-sprite-state="rest"');
+
+    const ordinaryManifest: SpriteIconManifest = {
+      asset: 'settings',
+      role: 'ordinary',
+      still: { 96: 'still-96.webp', 192: 'still-192.webp', 512: 'still-512.webp' },
+      clips: {
+        act: {
+          sheets: { 96: 'act-96.webp', 192: 'act-192.webp' },
+          frames: 20,
+          fps: 15,
+          cols: 5,
+          rows: 4,
+          loop: false,
+          seconds: 1.3,
+        },
+      },
+    };
+    const ordinarySource = spriteIconFromManifest(ordinaryManifest, (file) => `/cdn/${file}`);
+    expect(ordinarySource.role).toBe('ordinary');
+    expect(ordinarySource.clips?.act?.sheets).toEqual({
+      96: '/cdn/act-96.webp',
+      192: '/cdn/act-192.webp',
+    });
+    const ordinaryHtml = renderToStaticMarkup(<SpriteIcon icon={ordinarySource} size={64} />);
+    expect(ordinaryHtml).toContain('data-sprite-state="rest"');
   });
 });
 

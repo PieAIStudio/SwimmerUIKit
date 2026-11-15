@@ -8,12 +8,17 @@ export const SPRITE_ICON_CLIPS = ['idle', 'hover', 'syncing', 'done', 'problem',
 
 export type SpriteIconClipName = (typeof SPRITE_ICON_CLIPS)[number];
 
+export type SpriteIconRole = 'hero' | 'ordinary';
+
 export type SpriteIconInteractionState = 'rest' | 'hover' | 'focus' | 'selection';
 
 export type SpriteIconState = SpriteIconInteractionState | SpriteIconClipName;
 
-export type SpriteIconTierSources = Partial<Record<SpriteIconTier, string>> &
-  ({ 96: string } | { 192: string } | { 512: string });
+export type SpriteIconTierSources = {
+  96?: string | undefined;
+  192?: string | undefined;
+  512?: string | undefined;
+} & ({ 96: string } | { 192: string } | { 512: string });
 
 export interface SpriteIconClip {
   sheets: SpriteIconTierSources;
@@ -26,8 +31,28 @@ export interface SpriteIconClip {
 }
 
 export interface SpriteIconSource {
+  role?: SpriteIconRole | undefined;
   still: SpriteIconTierSources;
-  clips?: Partial<Record<SpriteIconClipName, SpriteIconClip>> | undefined;
+  clips?: Partial<Record<SpriteIconClipName, SpriteIconClip | undefined>> | undefined;
+}
+
+export type SpriteIconManifestFile = string | { readonly file: string };
+
+export interface SpriteIconManifestClip {
+  readonly sheets: Readonly<Record<string, SpriteIconManifestFile | undefined>>;
+  readonly frames: number;
+  readonly fps: number;
+  readonly cols?: number | undefined;
+  readonly rows?: number | undefined;
+  readonly loop?: boolean | undefined;
+  readonly seconds?: number | undefined;
+}
+
+export interface SpriteIconManifest {
+  readonly asset?: string | undefined;
+  readonly role?: string | undefined;
+  readonly still: Readonly<Record<string, SpriteIconManifestFile | undefined>>;
+  readonly clips?: Readonly<Record<string, SpriteIconManifestClip | undefined>> | undefined;
 }
 
 export interface SpriteIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
@@ -35,7 +60,7 @@ export interface SpriteIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
   icon: SpriteIconSource;
   /** Rendered CSS size in pixels when not stretched by parent layout (default 64). */
   size?: number | undefined;
-  /** Only hero icons play the resting idle clip; ordinary icons stay still at rest. */
+  /** Only hero icons play resting idle; defaults from `icon.role === 'hero'` when omitted. */
   hero?: boolean | undefined;
   /** Controlled visual state or named state clip override. */
   state?: SpriteIconState | undefined;

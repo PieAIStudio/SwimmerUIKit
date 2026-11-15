@@ -9,12 +9,12 @@ import {
 } from '@pieai/swimmer-ui-kit/showcase';
 import {
   SpriteIcon,
-  type SpriteIconSource,
+  spriteIconFromManifest,
   type SpriteIconState,
 } from '@pieai/swimmer-ui-kit/tool-worlds';
 import filesAct96 from '../src/icons/SpriteIcon/fixtures/files/act-96.webp';
 import filesAct192 from '../src/icons/SpriteIcon/fixtures/files/act-192.webp';
-import filesAct512 from '../src/icons/SpriteIcon/fixtures/files/act-512.webp';
+import filesManifest from '../src/icons/SpriteIcon/fixtures/files/manifest.json';
 import filesStill96 from '../src/icons/SpriteIcon/fixtures/files/still-96.webp';
 import filesStill192 from '../src/icons/SpriteIcon/fixtures/files/still-192.webp';
 import filesStill512 from '../src/icons/SpriteIcon/fixtures/files/still-512.webp';
@@ -22,28 +22,15 @@ import kitManifest from './kit.json';
 
 export const kit = kitManifest as ShowcaseDemoProps['kit'];
 
-const FILES_SPRITE: SpriteIconSource = {
-  still: {
-    96: filesStill96,
-    192: filesStill192,
-    512: filesStill512,
-  },
-  clips: {
-    act: {
-      sheets: {
-        96: filesAct96,
-        192: filesAct192,
-        512: filesAct512,
-      },
-      frames: 21,
-      fps: 15,
-      cols: 5,
-      rows: 5,
-      loop: false,
-      seconds: 1.4,
-    },
-  },
+const FILES_ASSETS: Record<string, string> = {
+  'still-96.webp': filesStill96,
+  'still-192.webp': filesStill192,
+  'still-512.webp': filesStill512,
+  'act-96.webp': filesAct96,
+  'act-192.webp': filesAct192,
 };
+
+const FILES_SPRITE = spriteIconFromManifest(filesManifest, (file) => FILES_ASSETS[file] ?? file);
 
 const SPRITE_SIZES = [28, 64, 128] as const;
 
