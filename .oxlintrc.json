@@ -8,7 +8,11 @@
     "no-console": "off",
     "no-debugger": "error",
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-    "typescript/no-explicit-any": "error"
+    "typescript/no-explicit-any": "error",
+    "react/immutability": "off",
+    "react/refs": "off",
+    "react/set-state-in-effect": "off",
+    "react/static-components": "off"
   },
   "ignorePatterns": [
     "node_modules",

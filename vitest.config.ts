@@ -33,6 +33,7 @@ export default defineConfig({
     // This checkout shares its Mac with other repositories. A worker limit
     // alone does not serialize the Node, Storybook and browser projects.
     // Keep the original assertions/timeouts and avoid competing browsers.
+    api: { port: 0 },
     fileParallelism: false,
     projects: [
       {
@@ -76,7 +77,6 @@ export default defineConfig({
           include: ['src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
           browser: {
             enabled: true,
-            api: { port: 0 },
             provider: playwright({}),
             instances: [
               {
