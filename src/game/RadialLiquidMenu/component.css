@@ -7,6 +7,84 @@
     color: var(--swimmer-v12-ink);
   }
 
+  .game-ui-v12-radial-menu__stage {
+    position: relative;
+    width: min(360px, 96vw);
+    height: 0;
+    overflow: visible;
+  }
+
+  .game-ui-v12-radial-menu[data-open='true'] .game-ui-v12-radial-menu__stage {
+    height: 168px;
+  }
+
+  .game-ui-v12-radial-menu__items {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .game-ui-v12-radial-menu__item {
+    position: absolute;
+    bottom: calc(var(--swimmer-v12-y) - 64px);
+    left: calc(50% + var(--swimmer-v12-x));
+    display: grid;
+    width: 64px;
+    height: 96px;
+    min-width: 64px;
+    margin-left: -32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .game-ui-v12-radial-menu__item:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .game-ui-v12-radial-menu__item:focus-visible {
+    outline: 3px solid var(--swimmer-v12-accent);
+    outline-offset: 4px;
+  }
+
+  .game-ui-v12-radial-menu__body {
+    width: 64px;
+    height: 64px;
+  }
+  .game-ui-v12-radial-menu__icon {
+    display: inline-grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    color: var(--swimmer-v12-orb-ink);
+    font-size: 21px;
+    font-weight: 800;
+  }
+
+  .game-ui-v12-radial-menu__pill {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border: 1px solid var(--swimmer-v12-frost-border);
+    border-radius: 999px;
+    background: var(--swimmer-v12-label-bg);
+    color: var(--swimmer-v12-label-ink);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
   .game-ui-v12-radial-menu__trigger {
     position: relative;
     z-index: 2;
@@ -15,134 +93,47 @@
     height: 64px;
     place-items: center;
     padding: 0;
-    border: 2px solid color-mix(in srgb, var(--swimmer-v12-orb-ink) 28%, transparent);
-    border-radius: 50%;
-    background: linear-gradient(145deg, var(--swimmer-v12-orb-from), var(--swimmer-v12-orb-to));
+    border: 0;
+    background: transparent;
     color: var(--swimmer-v12-orb-ink);
-    font: inherit;
-    font-size: 24px;
     cursor: pointer;
-    animation: game-ui-v12-orb-breathe var(--swimmer-v12-orb-duration) ease-in-out infinite;
+    touch-action: manipulation;
   }
 
   .game-ui-v12-radial-menu__trigger:focus-visible {
     outline: 3px solid var(--swimmer-v12-accent);
-    outline-offset: 4px;
+    outline-offset: 5px;
   }
 
-  .game-ui-v12-radial-menu__items {
-    position: absolute;
-    right: 50%;
-    bottom: calc(100% + 12px);
-    z-index: 1;
-    display: block;
-    width: min(520px, 96vw);
-    height: 112px;
-    transform: translateX(50%);
-  }
-
-  .game-ui-v12-radial-menu__item {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
+  .game-ui-v12-radial-menu__trigger-glyph {
     display: grid;
-    width: 112px;
-    height: 92px;
-    min-width: 112px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    transform: translate(calc(-50% + var(--swimmer-v12-x)), var(--swimmer-v12-y));
-    touch-action: manipulation;
-  }
-
-  .game-ui-v12-radial-menu__item:disabled {
-    cursor: not-allowed;
-    opacity: 0.48;
-  }
-
-  .game-ui-v12-radial-menu__item:focus-visible {
-    outline: 3px solid var(--swimmer-v12-accent);
-    outline-offset: 4px;
-  }
-
-  .game-ui-v12-radial-menu__surface {
-    position: relative;
-    display: inline-flex;
-    width: 58px;
-    height: 58px;
-    min-height: 58px;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .game-ui-v12-radial-menu__icon {
-    display: inline-grid;
-    width: 24px;
-    height: 24px;
+    width: 100%;
+    height: 100%;
     place-items: center;
-    color: var(--swimmer-v12-orb-ink);
-    font-size: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
   }
 
-  .game-ui-v12-radial-menu__pill {
-    position: absolute;
-    top: 62px;
-    display: inline-flex;
-    min-height: 29px;
-    align-items: center;
-    padding: 4px 9px;
-    border: 1px solid var(--swimmer-v12-frost-border);
-    border-radius: 999px;
-    background: var(--swimmer-v12-label-bg);
-    color: var(--swimmer-v12-label-ink);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
+  @media (max-width: 520px) {
+    .game-ui-v12-radial-menu[data-open='true'] .game-ui-v12-radial-menu__stage {
+      height: 164px;
+    }
 
-  @keyframes game-ui-v12-orb-breathe {
-    0%,
-    100% {
-      transform: scale(1) rotate(0deg);
+    .game-ui-v12-radial-menu__item {
+      bottom: calc(var(--swimmer-v12-mobile-y) - 64px);
+      left: calc(50% + var(--swimmer-v12-mobile-x));
     }
-    45% {
-      transform: scale(1.04, 0.97) rotate(-1deg);
-    }
-    75% {
-      transform: scale(0.98, 1.03) rotate(1deg);
+
+    .game-ui-v12-radial-menu__pill {
+      font-size: 11px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .game-ui-v12-radial-menu__trigger,
-    .game-ui-v12-radial-menu__surface {
+    .game-ui-v12-radial-menu__path {
       animation: none;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .game-ui-v12-radial-menu__items {
-      width: min(360px, 96vw);
-      height: 96px;
-    }
-    .game-ui-v12-radial-menu__item {
-      width: 88px;
-      height: 80px;
-      min-width: 88px;
-    }
-    .game-ui-v12-radial-menu__surface {
-      width: 52px;
-      height: 52px;
-      min-height: 52px;
-    }
-    .game-ui-v12-radial-menu__pill {
-      top: 56px;
-      font-size: 11px;
     }
   }
 }

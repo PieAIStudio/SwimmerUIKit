@@ -3,6 +3,8 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 // Read-only evidence collection and guards. This script never publishes or edits tags.
+const npmExecutable = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
 const queryArgs = (target) => [
   'view',
   target,
@@ -20,10 +22,11 @@ const redact = (text = '') =>
 
 function capture(target) {
   const args = queryArgs(target);
-  const result = spawnSync('npm', args, {
+  const result = spawnSync(npmExecutable, args, {
     encoding: 'utf8',
     timeout: 90000,
     maxBuffer: 1024 * 1024,
+    shell: process.platform === 'win32',
     env: { ...process.env, NPM_CONFIG_FETCH_RETRIES: '0' },
   });
   const evidence = {

@@ -223,18 +223,47 @@ describe('one-shot release metadata guard', () => {
         JSON.stringify({ name: packageName, version: rc }),
       );
       const first = realBefore();
-      const fake = path.join(directory, 'npm');
-      writeFileSync(
-        fake,
-        '#!/usr/bin/env node\n' +
-          `const replies = ${JSON.stringify([first.registry, first.candidate])};\n` +
-          `const result = replies.find(r => JSON.stringify(r.args) === JSON.stringify(process.argv.slice(2)));\n` +
-          `if (!result) process.exit(98);\n` +
-          `process.stdout.write(result.stdout);\n` +
-          `process.stderr.write('Authorization: Bearer fake-credential\\n');\n` +
-          `process.exit(result.status);\n`,
-      );
-      chmodSync(fake, 0o755);
+      const registryFile = path.join(directory, 'registry.json');
+      const candidateFile = path.join(directory, 'candidate.json');
+      writeFileSync(registryFile, first.registry.stdout);
+      writeFileSync(candidateFile, first.candidate.stdout);
+      const fake =
+        process.platform === 'win32'
+          ? path.join(directory, 'npm.cmd')
+          : path.join(directory, 'npm');
+      if (process.platform === 'win32') {
+        writeFileSync(
+          fake,
+          [
+            '@if "%2"=="@pieai/swimmer-ui-kit" (',
+            '  @type "%~dp0registry.json"',
+            '  @>&2 echo Authorization: Bearer fake-credential',
+            '  @exit /b 0',
+            ')',
+            '@type "%~dp0candidate.json"',
+            '@>&2 echo Authorization: Bearer fake-credential',
+            '@exit /b 1',
+            '',
+          ].join('\r\n'),
+        );
+      } else {
+        writeFileSync(
+          fake,
+          [
+            '#!/bin/sh',
+            'if [ "$2" = "@pieai/swimmer-ui-kit" ]; then',
+            '  cat ' + JSON.stringify(registryFile),
+            '  echo "Authorization: Bearer fake-credential" >&2',
+            '  exit 0',
+            'fi',
+            'cat ' + JSON.stringify(candidateFile),
+            'echo "Authorization: Bearer fake-credential" >&2',
+            'exit 1',
+            '',
+          ].join('\n'),
+        );
+        chmodSync(fake, 0o755);
+      }
       const result = spawnSync(process.execPath, [script, 'capture', 'queries.json'], {
         cwd: directory,
         encoding: 'utf8',

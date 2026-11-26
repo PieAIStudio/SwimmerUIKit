@@ -6,7 +6,7 @@ import {
   type RadialLiquidMenuItem,
 } from '../game/RadialLiquidMenu/RadialLiquidMenu';
 import { OrbTabBar, type OrbTabSlots } from '../game/OrbTabBar/OrbTabBar';
-import { V12_THEMES, type V12Theme } from '../game/v12Theme';
+import { V12_THEMES, type V12Theme } from '../tokens/v12Theme';
 
 type ShowcaseLanguage = 'en' | 'zh';
 

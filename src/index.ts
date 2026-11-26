@@ -108,7 +108,7 @@ export {
   type OrbTabSlots,
   type OrbTabBarProps,
 } from './game/OrbTabBar/OrbTabBar';
-export { V12_THEMES, type V12Theme } from './game/v12Theme';
+export { V12_THEMES, type V12Theme } from './tokens/index';
 export { FadeDivider, type FadeDividerProps } from './controls/FadeDivider/FadeDivider';
 export { Splash, type SplashLine, type SplashProps } from './game/Splash/Splash';
 export { StageTile, type StageTileProps } from './game/StageTile/StageTile';

@@ -4,21 +4,42 @@
   --swimmer-v12-orb-duration: 500ms;
   --swimmer-v12-x: 0px;
   --swimmer-v12-y: 0px;
-  --swimmer-v12-frost-bg: var(--swimmer-game-surface);
-  --swimmer-v12-frost-border: var(--swimmer-border-subtle);
+  --swimmer-v12-liquid-size: 64px;
+  --swimmer-v12-mobile-x: 0px;
+  --swimmer-v12-mobile-y: 0px;
+  --swimmer-v12-frost-bg: color-mix(
+    in srgb,
+    var(--swimmer-world-teal-c3) 78%,
+    var(--swimmer-world-teal-c2)
+  );
+  --swimmer-v12-frost-border: color-mix(
+    in srgb,
+    var(--swimmer-world-teal-gem1) 34%,
+    var(--swimmer-world-teal-c2)
+  );
   --swimmer-v12-frost-shadow: var(--swimmer-game-shadow-raised);
-  --swimmer-v12-ink: var(--swimmer-game-text);
-  --swimmer-v12-muted: var(--swimmer-game-text-muted);
-  --swimmer-v12-bar: var(--swimmer-surface-sunken);
-  --swimmer-v12-tab: var(--swimmer-game-text-muted);
-  --swimmer-v12-tab-selected: var(--swimmer-game-surface);
-  --swimmer-v12-label-bg: var(--swimmer-game-surface-raised, var(--swimmer-game-surface));
-  --swimmer-v12-label-ink: var(--swimmer-game-text);
+  --swimmer-v12-frost-layer: var(--swimmer-v12-frost-bg);
+  --swimmer-v12-frost-rim: var(--swimmer-v12-frost-border);
+  --swimmer-v12-ink: var(--swimmer-tool-text);
+  --swimmer-v12-muted: var(--swimmer-tool-text-muted);
+  --swimmer-v12-bar: var(--swimmer-world-teal-c3);
+  --swimmer-v12-tab: var(--swimmer-tool-text-muted);
+  --swimmer-v12-tab-selected: var(--swimmer-world-teal-c2);
+  --swimmer-v12-label-bg: color-mix(
+    in srgb,
+    var(--swimmer-world-teal-c3) 84%,
+    var(--swimmer-world-teal-c2)
+  );
+  --swimmer-v12-label-ink: var(--swimmer-tool-text);
   --swimmer-v12-accent: var(--swimmer-world-teal-acc);
   --swimmer-v12-orb-from: var(--swimmer-world-teal-gem1);
   --swimmer-v12-orb-to: var(--swimmer-world-teal-gem2);
-  --swimmer-v12-orb-ink: var(--swimmer-game-text);
-  --swimmer-v12-divider: var(--swimmer-border-subtle);
+  --swimmer-v12-orb-ink: var(--swimmer-tool-text-on-glow);
+  --swimmer-v12-divider: color-mix(
+    in srgb,
+    var(--swimmer-world-teal-gem1) 40%,
+    var(--swimmer-world-teal-c2)
+  );
 }
 
 [data-v12-theme='lagoon-light'] {
@@ -32,7 +53,9 @@
     var(--swimmer-world-teal-acc) 30%,
     var(--swimmer-sheet-line)
   );
-  --swimmer-v12-frost-shadow: var(--swimmer-sheet-shadow);
+  --swimmer-v12-frost-shadow: var(--swimmer-game-shadow-raised);
+  --swimmer-v12-frost-layer: var(--swimmer-v12-frost-bg);
+  --swimmer-v12-frost-rim: var(--swimmer-v12-frost-border);
   --swimmer-v12-ink: var(--swimmer-sheet-ink);
   --swimmer-v12-muted: var(--swimmer-sheet-muted);
   --swimmer-v12-bar: color-mix(
@@ -52,6 +75,7 @@
 }
 
 [data-v12-theme='blossom'] {
+  --swimmer-v12-muted: var(--swimmer-tool-text-muted);
   --swimmer-v12-frost-bg: color-mix(
     in srgb,
     var(--swimmer-world-magenta-c3) 78%,
@@ -74,11 +98,11 @@
     var(--swimmer-world-magenta-c3) 84%,
     var(--swimmer-world-magenta-c1)
   );
-  --swimmer-v12-label-ink: var(--swimmer-game-text);
+  --swimmer-v12-label-ink: var(--swimmer-tool-text);
   --swimmer-v12-accent: var(--swimmer-world-magenta-acc);
   --swimmer-v12-orb-from: var(--swimmer-world-magenta-gem1);
   --swimmer-v12-orb-to: var(--swimmer-world-magenta-gem2);
-  --swimmer-v12-orb-ink: var(--swimmer-game-text);
+  --swimmer-v12-orb-ink: var(--swimmer-tool-text-on-glow);
   --swimmer-v12-divider: color-mix(
     in srgb,
     var(--swimmer-world-magenta-c1) 36%,
@@ -89,7 +113,9 @@
 [data-v12-theme='graphite'] {
   --swimmer-v12-frost-bg: var(--swimmer-sheet-bg-dark);
   --swimmer-v12-frost-border: var(--swimmer-sheet-line-dark);
-  --swimmer-v12-frost-shadow: var(--swimmer-sheet-shadow);
+  --swimmer-v12-frost-shadow: var(--swimmer-game-shadow-raised);
+  --swimmer-v12-frost-layer: var(--swimmer-v12-frost-bg);
+  --swimmer-v12-frost-rim: var(--swimmer-v12-frost-border);
   --swimmer-v12-ink: var(--swimmer-sheet-ink-dark);
   --swimmer-v12-muted: var(--swimmer-sheet-muted-dark);
   --swimmer-v12-bar: var(--swimmer-sheet-side-dark);
@@ -100,14 +126,16 @@
   --swimmer-v12-accent: var(--swimmer-world-teal-gem1);
   --swimmer-v12-orb-from: var(--swimmer-world-teal-gem1);
   --swimmer-v12-orb-to: var(--swimmer-world-teal-gem2);
-  --swimmer-v12-orb-ink: var(--swimmer-sheet-ink-dark);
+  --swimmer-v12-orb-ink: var(--swimmer-tool-text-on-glow);
   --swimmer-v12-divider: var(--swimmer-sheet-line-dark);
 }
 
 [data-v12-theme='paper'] {
   --swimmer-v12-frost-bg: var(--swimmer-sheet-bg);
   --swimmer-v12-frost-border: var(--swimmer-sheet-line);
-  --swimmer-v12-frost-shadow: var(--swimmer-sheet-shadow);
+  --swimmer-v12-frost-shadow: var(--swimmer-game-shadow-raised);
+  --swimmer-v12-frost-layer: var(--swimmer-v12-frost-bg);
+  --swimmer-v12-frost-rim: var(--swimmer-v12-frost-border);
   --swimmer-v12-ink: var(--swimmer-sheet-ink);
   --swimmer-v12-muted: var(--swimmer-sheet-muted);
   --swimmer-v12-bar: var(--swimmer-sheet-side);

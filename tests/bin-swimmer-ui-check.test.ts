@@ -105,8 +105,8 @@ describe('B4 rule groups and directory ownership', () => {
     expect(result.status).toBe(1);
     expect(result.stdout).toContain(`checking directory "${single}"`);
     expect(result.stdout).toContain(`checking directory "${multi}"`);
-    expect(result.stdout).toContain(`${relative(process.cwd(), multi)}/tokens.css:2`);
-    expect(result.stderr).toContain(`${relative(process.cwd(), multi)}/legacy.ts:1`);
+    expect(result.stdout).toContain(`${join(relative(process.cwd(), multi), 'tokens.css')}:2`);
+    expect(result.stderr).toContain(`${join(relative(process.cwd(), multi), 'legacy.ts')}:1`);
   });
 
   it('selects only the requested rule group', () => {

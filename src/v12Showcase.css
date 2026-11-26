@@ -1,17 +1,17 @@
 @layer swimmer-ui {
   .kit-v12-parts {
     display: grid;
-    gap: 20px;
-    margin-top: 28px;
-    padding: 24px;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 16px;
     border: 1px solid var(--swimmer-border-subtle);
-    border-radius: 24px;
+    border-radius: 22px;
     background: var(--swimmer-game-surface);
   }
 
   .kit-v12-parts__heading {
     display: grid;
-    gap: 6px;
+    gap: 4px;
   }
 
   .kit-v12-parts__heading h2,
@@ -26,11 +26,12 @@
 
   .kit-v12-parts__heading p {
     color: var(--swimmer-game-text-muted);
+    font-size: 0.9rem;
   }
 
   .kit-v12-parts__eyebrow {
     color: var(--swimmer-game-accent) !important;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 750;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -38,53 +39,65 @@
 
   .kit-v12-parts__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .kit-v12-theme-card {
+    position: relative;
     display: grid;
-    gap: 16px;
+    gap: 10px;
     min-width: 0;
-    padding: 18px;
+    padding: 12px;
     border: 1px solid var(--swimmer-v12-frost-border);
-    border-radius: 20px;
-    background: var(--swimmer-v12-frost-bg);
+    border-radius: 18px;
+    background: var(--swimmer-v12-frost-layer, var(--swimmer-v12-frost-bg));
     box-shadow: var(--swimmer-v12-frost-shadow);
     color: var(--swimmer-v12-ink);
+  }
+
+  .kit-v12-theme-card::before,
+  .kit-v12-frost-panel::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    border-radius: inherit;
+    background: var(--swimmer-v12-frost-rim);
+    content: '';
+    pointer-events: none;
   }
 
   .kit-v12-theme-card__header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
+    gap: 8px;
   }
 
   .kit-v12-theme-card__header h3 {
     margin: 0;
     font-family: var(--swimmer-game-font-display);
+    font-size: 1rem;
   }
 
   .kit-v12-theme-card__header span {
     color: var(--swimmer-v12-muted);
-    font: 600 0.7rem var(--swimmer-font-mono);
+    font: 600 0.66rem var(--swimmer-font-mono);
   }
-
   .kit-v12-theme-card__desktop {
     display: grid;
     justify-items: center;
-    gap: 10px;
-    min-height: 220px;
-    padding: 20px 8px 14px;
+    gap: 6px;
+    min-height: 204px;
+    padding: 8px 4px 6px;
     border: 1px solid color-mix(in srgb, var(--swimmer-v12-frost-border) 72%, transparent);
-    border-radius: 16px;
-    background: color-mix(in srgb, var(--swimmer-v12-frost-bg) 78%, var(--swimmer-v12-bar));
+    border-radius: 14px;
+    background: var(--swimmer-v12-frost-layer, var(--swimmer-v12-frost-bg));
   }
 
   .kit-v12-theme-card__phone {
     display: grid;
-    gap: 8px;
+    gap: 4px;
     width: min(100%, 390px);
     margin-inline: auto;
   }
@@ -92,31 +105,38 @@
   .kit-v12-theme-card__label {
     margin: 0;
     color: var(--swimmer-v12-muted);
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
   .kit-v12-frost-panel {
+    position: relative;
     display: grid;
     gap: 2px;
-    width: min(100%, 270px);
-    padding: 12px 14px;
+    width: min(100%, 240px);
+    padding: 9px 11px;
     border: 1px solid var(--swimmer-v12-frost-border);
-    border-radius: 14px;
-    background: var(--swimmer-v12-frost-bg);
+    border-radius: 12px;
+    background: var(--swimmer-v12-frost-layer, var(--swimmer-v12-frost-bg));
     box-shadow: var(--swimmer-v12-frost-shadow);
   }
 
   .kit-v12-frost-panel span {
     color: var(--swimmer-v12-muted);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 980px) {
+    .kit-v12-parts__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 760px) {
     .kit-v12-parts {
-      padding: 16px;
+      padding: 12px;
     }
 
     .kit-v12-parts__grid {
@@ -127,18 +147,15 @@
   @media (max-width: 390px) {
     .kit-v12-parts {
       margin-inline: -4px;
-      padding: 12px;
+      padding: 10px;
     }
 
     .kit-v12-theme-card {
-      padding: 14px;
+      padding: 10px;
     }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .kit-v12-theme-card,
-    .kit-v12-frost-panel {
-      transition: none;
+    .kit-v12-theme-card__desktop {
+      min-height: 196px;
     }
   }
 }

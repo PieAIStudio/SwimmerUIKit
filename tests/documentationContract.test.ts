@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, readlinkSync, lstatSync, existsSync } from 'node:fs';
-import { createHash } from 'node:crypto';import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';

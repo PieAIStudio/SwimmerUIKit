@@ -12,6 +12,8 @@ import {
   typeTokens,
 } from './references';
 
+export { V12_THEMES, type V12Theme } from './v12Theme';
+
 export const GAME_UI_TOKENS = {
   ...semanticTokens,
   ...typeTokens,
@@ -30,6 +32,7 @@ export const GAME_UI_TOKENS = {
 
 // Alias for consumers that prefer the GAME_UI_* naming family.
 export { overlayTokens as GAME_UI_OVERLAY_GLASS_TOKENS } from './references';
+
 export { liquidTokens as GAME_UI_LIQUID_GOOEY_TOKENS } from './references';
 
 /** Opt-in attribute values for the official overlay-glass HUD scope. */

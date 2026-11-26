@@ -12,8 +12,8 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
     align-items: end;
     gap: 2px;
-    min-height: 68px;
-    padding: 12px 8px 8px;
+    min-height: 78px;
+    padding: 24px 8px 8px;
     background: var(--swimmer-v12-bar);
     isolation: isolate;
   }
@@ -41,13 +41,14 @@
   .game-ui-v12-orb-tab-bar__tablist > .game-ui-v12-orb-tab-bar__tab:nth-child(4) {
     grid-column: 5;
   }
+
   .game-ui-v12-orb-tab-bar__bar::before,
   .game-ui-v12-orb-tab-bar__bar::after {
     position: absolute;
-    top: -19px;
+    top: -20px;
     left: 50%;
     width: min(260px, 92vw);
-    height: 20px;
+    height: 21px;
     pointer-events: none;
     content: '';
     transform: translateX(-50%);
@@ -61,20 +62,19 @@
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 20' preserveAspectRatio='none'%3E%3Cpath d='M0 20 V19 H50 C84 19 94 1 130 1 C166 1 176 19 210 19 H260 V20 Z'/%3E%3C/svg%3E")
       center / 100% 100% no-repeat;
   }
-
   .game-ui-v12-orb-tab-bar__bar::after {
     z-index: -1;
     background: var(--swimmer-v12-divider);
-    opacity: 0.82;
+    opacity: 0.42;
     -webkit-mask-image:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 20' preserveAspectRatio='none'%3E%3Cpath d='M0 19.5 H50 C84 19.5 94 1.5 130 1.5 C166 1.5 176 19.5 210 19.5 H260' fill='none' stroke='currentColor' stroke-width='1'/%3E%3C/svg%3E"),
-      linear-gradient(90deg, transparent 0%, currentColor 34%, currentColor 66%, transparent 100%);
+      linear-gradient(90deg, transparent 0%, currentColor 14%, currentColor 86%, transparent 100%);
     -webkit-mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-composite: source-in;
     mask-image:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 20' preserveAspectRatio='none'%3E%3Cpath d='M0 19.5 H50 C84 19.5 94 1.5 130 1.5 C166 1.5 176 19.5 210 19.5 H260' fill='none' stroke='currentColor' stroke-width='1'/%3E%3C/svg%3E"),
-      linear-gradient(90deg, transparent 0%, currentColor 34%, currentColor 66%, transparent 100%);
+      linear-gradient(90deg, transparent 0%, currentColor 14%, currentColor 86%, transparent 100%);
     mask-size: 100% 100%;
     mask-repeat: no-repeat;
     mask-composite: intersect;
@@ -108,7 +108,6 @@
     outline: 3px solid var(--swimmer-v12-accent);
     outline-offset: 3px;
   }
-
   .game-ui-v12-orb-tab-bar__icon {
     display: inline-grid;
     width: 24px;
@@ -126,62 +125,34 @@
     white-space: nowrap;
   }
 
-  .game-ui-v12-orb-tab-bar__slot {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
   .game-ui-v12-orb-tab-bar__orb {
     position: relative;
-    top: auto;
-    left: auto;
+    top: -14px;
     z-index: 2;
     display: grid;
     grid-column: 3;
     grid-row: 1;
     justify-self: center;
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    height: 68px;
     place-items: center;
-    transform: translateY(-9px);
     padding: 0;
-    border: 2px solid color-mix(in srgb, var(--swimmer-v12-orb-ink) 28%, transparent);
-    border-radius: 50%;
-    background: linear-gradient(145deg, var(--swimmer-v12-orb-from), var(--swimmer-v12-orb-to));
+    border: 0;
+    background: transparent;
     color: var(--swimmer-v12-orb-ink);
-    font: inherit;
-    font-size: 22px;
     cursor: pointer;
-    animation: game-ui-v12-orb-breathe var(--swimmer-v12-orb-duration) ease-in-out infinite;
   }
 
-  @keyframes game-ui-v12-orb-breathe {
-    0%,
-    100% {
-      transform: translateY(-9px) scale(1) rotate(0deg);
-    }
-    45% {
-      transform: translateY(-9px) scale(1.04, 0.97) rotate(-1deg);
-    }
-    75% {
-      transform: translateY(-9px) scale(0.98, 1.03) rotate(1deg);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .game-ui-v12-orb-tab-bar__orb {
-      animation: none;
-    }
+  .game-ui-v12-orb-tab-bar__orb:focus-visible {
+    outline: 3px solid var(--swimmer-v12-accent);
+    outline-offset: 5px;
   }
 
   @media (max-width: 390px) {
     .game-ui-v12-orb-tab-bar__bar {
       padding-inline: 4px;
     }
+
     .game-ui-v12-orb-tab-bar__label {
       font-size: 10px;
     }

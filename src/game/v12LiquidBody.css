@@ -1,0 +1,31 @@
+@layer swimmer-ui {
+  .game-ui-v12-liquid-body {
+    position: relative;
+    display: inline-grid;
+    width: var(--swimmer-v12-liquid-size, 64px);
+    height: var(--swimmer-v12-liquid-size, 64px);
+    place-items: center;
+    flex: 0 0 auto;
+    color: var(--swimmer-v12-orb-ink);
+  }
+
+  .game-ui-v12-liquid-body__svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .game-ui-v12-liquid-body__contact {
+    opacity: 0.28;
+  }
+
+  .game-ui-v12-liquid-body__path {
+    stroke: none;
+  }
+
+  .game-ui-v12-liquid-body > :not(svg) {
+    position: absolute;
+    z-index: 1;
+  }
+}

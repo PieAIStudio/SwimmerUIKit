@@ -10,7 +10,8 @@
 @import './liquid/LiquidGroup/component.css';
 @import './liquid/LiquidSurface/component.css';
 @import './controls/DropletSurface/component.css';
-@import './v12PartsTokens.css';
+@import './tokens/v12-parts.css';
+@import './game/v12LiquidBody.css';
 @import './controls/Button/component.css';
 @import './controls/Input/component.css';
 @import './feedback/Badge/component.css';

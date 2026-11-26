@@ -8,8 +8,8 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { LiquidSurface } from '../../liquid/LiquidSurface/LiquidSurface';
-import { type V12Theme } from '../v12Theme';
+import { V12LiquidBody } from '../v12LiquidBody';
+import { type V12Theme } from '../../tokens/v12Theme';
 
 export interface RadialLiquidMenuItem {
   id: string;
@@ -33,16 +33,36 @@ export interface RadialLiquidMenuProps {
 }
 
 type V12Style = CSSProperties & {
-  '--swimmer-v12-orb-duration'?: string;
   '--swimmer-v12-x'?: string;
   '--swimmer-v12-y'?: string;
+  '--swimmer-v12-mobile-x'?: string;
+  '--swimmer-v12-mobile-y'?: string;
 };
 
-function animationDuration(speed: number | undefined): string {
-  const safeSpeed = Number.isFinite(speed) && (speed ?? 0) > 0 ? (speed as number) : 2.4;
-  return Math.round(1200 / Math.min(Math.max(safeSpeed, 0.5), 6)) + 'ms';
-}
+const DESKTOP = [
+  [-132, 118],
+  [0, 156],
+  [132, 118],
+] as const;
+const PHONE = [
+  [-112, 116],
+  [0, 152],
+  [112, 116],
+] as const;
 
+function offsets(count: number, mobile: boolean): readonly (readonly [number, number])[] {
+  const source = mobile ? PHONE : DESKTOP;
+  if (count === 3) return source;
+  const span = mobile ? 112 : 132;
+  return Array.from({ length: count }, (_, index) => {
+    const middle = (count - 1) / 2;
+    const distance = Math.abs(index - middle);
+    return [
+      Math.round((index - middle) * (span / Math.max(1, middle))),
+      Math.round((mobile ? 152 : 156) - distance * (mobile ? 36 : 38)),
+    ] as const;
+  });
+}
 export function RadialLiquidMenu({
   className,
   defaultOpen = false,
@@ -51,7 +71,6 @@ export function RadialLiquidMenu({
   onOpenChange,
   onSelect,
   open,
-  orbSpeed = 2.4,
   theme = 'lagoon',
   trigger,
   triggerLabel,
@@ -59,10 +78,12 @@ export function RadialLiquidMenu({
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const previousOpen = useRef(defaultOpen);
+  const openedByUser = useRef(false);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isOpen = open ?? uncontrolledOpen;
   const generatedId = useId();
-  const menuId = `game-ui-v12-radial-menu-${generatedId.replace(/:/g, '')}`;
+  const menuId = 'game-ui-v12-radial-menu-' + generatedId.replace(/:/g, '');
   const firstEnabledIndex = Math.max(
     items.findIndex((item) => !item.disabled),
     0,
@@ -92,7 +113,11 @@ export function RadialLiquidMenu({
   }, [closeMenu, isOpen]);
 
   useEffect(() => {
-    if (isOpen) itemRefs.current[firstEnabledIndex]?.focus();
+    if (isOpen && !previousOpen.current && openedByUser.current) {
+      itemRefs.current[firstEnabledIndex]?.focus();
+      openedByUser.current = false;
+    }
+    previousOpen.current = isOpen;
   }, [firstEnabledIndex, isOpen]);
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -106,75 +131,78 @@ export function RadialLiquidMenu({
       .map((item, index) => (item.disabled ? -1 : index))
       .filter((index) => index >= 0);
     if (!enabled.length || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    const currentIndex = itemRefs.current.findIndex((node) => node === document.activeElement);
-    const currentPosition = Math.max(enabled.indexOf(currentIndex), 0);
+    const current = itemRefs.current.findIndex((node) => node === document.activeElement);
+    const position = Math.max(enabled.indexOf(current), 0);
     const nextPosition =
       event.key === 'Home'
         ? 0
         : event.key === 'End'
           ? enabled.length - 1
           : event.key === 'ArrowLeft'
-            ? (currentPosition + enabled.length - 1) % enabled.length
-            : (currentPosition + 1) % enabled.length;
-    event.preventDefault();
+            ? (position + enabled.length - 1) % enabled.length
+            : (position + 1) % enabled.length;
     const nextIndex = enabled[nextPosition];
     if (nextIndex === undefined) return;
+    event.preventDefault();
     itemRefs.current[nextIndex]?.focus();
   };
-
-  const rootStyle = { '--swimmer-v12-orb-duration': animationDuration(orbSpeed) } as V12Style;
-
   return (
     <div
       ref={rootRef}
       className={['game-ui-v12-radial-menu', className].filter(Boolean).join(' ')}
-      data-v12-theme={theme}
       data-open={isOpen ? 'true' : 'false'}
+      data-v12-theme={theme}
       onKeyDown={onKeyDown}
-      style={rootStyle}
     >
-      {isOpen ? (
-        <div id={menuId} className="game-ui-v12-radial-menu__items" role="menu" aria-label={label}>
-          {items.map((item, index) => (
-            <button
-              ref={(node) => {
-                itemRefs.current[index] = node;
-              }}
-              aria-label={item.label}
-              key={item.id}
-              className="game-ui-v12-radial-menu__item"
-              data-disabled={item.disabled ? 'true' : undefined}
-              disabled={item.disabled}
-              onClick={() => {
-                onSelect?.(item.id);
-                closeMenu();
-              }}
-              style={
-                {
-                  '--swimmer-v12-x': `${(index - (items.length - 1) / 2) * 88}px`,
-                  '--swimmer-v12-y': `${-Math.max(8, 42 - Math.abs(index - (items.length - 1) / 2) * 12)}px`,
-                } as V12Style
-              }
-              role="menuitem"
-              tabIndex={item.disabled || index !== firstEnabledIndex ? -1 : 0}
-              type="button"
-            >
-              <LiquidSurface
-                className="game-ui-v12-radial-menu__surface"
-                form="swell"
-                breathing
-                fill="var(--swimmer-v12-accent)"
-                outline={{ amplitude: 3, lobes: 4 }}
-              >
-                <span className="game-ui-v12-radial-menu__icon" aria-hidden="true">
-                  {item.icon}
-                </span>
-                <span className="game-ui-v12-radial-menu__pill">{item.label}</span>
-              </LiquidSurface>
-            </button>
-          ))}
-        </div>
-      ) : null}
+      <div className="game-ui-v12-radial-menu__stage">
+        {isOpen ? (
+          <div
+            id={menuId}
+            className="game-ui-v12-radial-menu__items"
+            role="menu"
+            aria-label={label}
+          >
+            {items.map((item, index) => {
+              const [desktopX, desktopY] = offsets(items.length, false)[index] ?? [0, 156];
+              const [mobileX, mobileY] = offsets(items.length, true)[index] ?? [0, 152];
+              return (
+                <button
+                  ref={(node) => {
+                    itemRefs.current[index] = node;
+                  }}
+                  aria-label={item.label}
+                  className="game-ui-v12-radial-menu__item"
+                  data-disabled={item.disabled ? 'true' : undefined}
+                  disabled={item.disabled}
+                  key={item.id}
+                  onClick={() => {
+                    onSelect?.(item.id);
+                    closeMenu();
+                  }}
+                  role="menuitem"
+                  style={
+                    {
+                      '--swimmer-v12-x': desktopX + 'px',
+                      '--swimmer-v12-y': desktopY + 'px',
+                      '--swimmer-v12-mobile-x': mobileX + 'px',
+                      '--swimmer-v12-mobile-y': mobileY + 'px',
+                    } as V12Style
+                  }
+                  tabIndex={item.disabled || index !== firstEnabledIndex ? -1 : 0}
+                  type="button"
+                >
+                  <V12LiquidBody className="game-ui-v12-radial-menu__body" size={64}>
+                    <span className="game-ui-v12-radial-menu__icon" aria-hidden="true">
+                      {item.icon}
+                    </span>
+                    <span className="game-ui-v12-radial-menu__pill">{item.label}</span>
+                  </V12LiquidBody>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>{' '}
       <button
         ref={triggerRef}
         aria-controls={menuId}
@@ -182,10 +210,17 @@ export function RadialLiquidMenu({
         aria-haspopup="menu"
         aria-label={triggerLabel}
         className="game-ui-v12-radial-menu__trigger"
-        onClick={() => setMenuOpen(!isOpen)}
+        onClick={() => {
+          openedByUser.current = !isOpen;
+          setMenuOpen(!isOpen);
+        }}
         type="button"
       >
-        {trigger}
+        <V12LiquidBody size={64}>
+          <span className="game-ui-v12-radial-menu__trigger-glyph" aria-hidden="true">
+            {isOpen ? '×' : trigger}
+          </span>
+        </V12LiquidBody>
       </button>
     </div>
   );
