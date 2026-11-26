@@ -102,9 +102,12 @@ export function runPushGate(args = process.argv.slice(2)) {
       for (const item of plan.noChecks) console.log(`NO CHECK: ${item.path} — ${item.reason}`);
       for (const path of plan.gaps) console.error(`GAP (not a pass): ${path}`);
       for (const check of plan.checks) {
-        console.log(`CHECK: ${check.command}\n  selected by: ${check.paths.join(', ')}`);
+        const command = check.command
+          .replaceAll('$PUSH_GATE_BASE', range.mergeBase)
+          .replaceAll('$PUSH_GATE_HEAD', range.head);
+        console.log(`CHECK: ${command}\n  selected by: ${check.paths.join(', ')}`);
         const start = performance.now();
-        const result = spawnSync(check.command, {
+        const result = spawnSync(command, {
           cwd: root,
           env: { ...env, PUSH_GATE_BASE: range.mergeBase, PUSH_GATE_HEAD: range.head },
           shell: true,
