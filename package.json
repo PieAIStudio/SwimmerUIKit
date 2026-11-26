@@ -1,6 +1,6 @@
 {
   "name": "@pieai/swimmer-ui-kit",
-  "version": "4.0.0-alpha.32",
+  "version": "4.0.0-alpha.33",
   "description": "Token-driven React game UI kit for web and wrapped SwimInAI game surfaces.",
   "keywords": [
     "design-system",
@@ -75,7 +75,7 @@
     "lint": "oxlint src showcase tests types bin scripts vite.config.ts vite.config.showcase.ts vitest.config.ts -c ./.oxlintrc.json",
     "format": "oxfmt package.json tsconfig.json tsconfig.build.json src showcase tests types bin scripts vite.config.ts vite.config.showcase.ts vitest.config.ts --write --ignore-path ./.oxfmtignore",
     "format:check": "oxfmt package.json tsconfig.json tsconfig.build.json src showcase tests types bin scripts vite.config.ts vite.config.showcase.ts vitest.config.ts --check --ignore-path ./.oxfmtignore",
-    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm check:guide && pnpm test && pnpm check:styles && pnpm check:themes && pnpm build && pnpm check:fonts",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm api:check && pnpm check:guide && pnpm test && pnpm check:styles && pnpm check:v12 && pnpm check:themes && pnpm build && pnpm check:fonts",
     "check:themes": "node scripts/check-control-styles.mjs",
     "check:packed": "node scripts/verify-packed-candidate.mjs",
     "check:next-consumer": "node scripts/check-next-consumer.mjs",
@@ -91,6 +91,7 @@
     "pro-gov": "pro-gov",
     "docs:check": "pnpm pro-gov doctor --strict-hooks && pnpm doc-gov router-check && pnpm doc-gov check && pnpm doc-gov scan --check && pnpm doc-gov links && pnpm doc-gov audit && pnpm doc-gov doctor",
     "check:styles": "node bin/swimmer-ui-check.mjs src",
+    "check:v12": "node scripts/check-v12-freeze.mjs",
     "check:guide": "node scripts/check-guide.mjs",
     "check:fonts": "node scripts/check-fonts.mjs"
   },

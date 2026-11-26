@@ -49,6 +49,19 @@ related:
 | 账号菜单 | AccountMenu | 产品提供用户、产品列表和本站内容；登录、退出由产品或 AuthKit 执行，组件不联网。从 **@pieai/swimmer-ui-kit/liquid-presence** 导入，并同时引入 liquid-presence.css。 |
 | 图标 | Icon / GAME_ICON_NAMES | 内联线条，跟随文字颜色，不复制素材或初始化路径。 |
 
+## OnePlace v12 部件怎么选
+
+| 任务 | 部件 | 边界 |
+| --- | --- | --- |
+| 桌面快速操作弧 | RadialLiquidMenu | 宿主提供 icon、label 与选择回调；组件负责原生按钮、Escape、外部点按关闭和五套 V12_THEMES。 |
+| 手机五槽导航 | OrbTabBar | 传四个 tab 与一个 app-supplied orb；组件负责曲线顶边、roving tab stops、方向键和减少动态。 |
+| 端点渐隐分隔 | FadeDivider | 用 horizontal 或 vertical orientation；颜色来自主题 token，不承载内容。 |
+### Public value boundaries
+
+| `FadeDivider` | value | Use for a short horizontal or vertical separator. |
+| `RadialLiquidMenu` | value | Use for the app-supplied quick-action arc and trigger. |
+| `OrbTabBar` | value | Use for the four-tab phone bar and centre orb slot. |
+| `V12_THEMES` | value | Use to iterate the five OnePlace v12 palette names. |
 ## 帮助提示怎么选
 
 帮助分四级，由轻到重，按需要逐级升级。UIKit 提供位置、动效、触摸、键盘、减少动态与无障碍的框架；产品提供文字和演示。

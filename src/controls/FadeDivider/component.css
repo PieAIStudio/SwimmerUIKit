@@ -1,0 +1,32 @@
+@layer swimmer-ui {
+  .game-ui-v12-fade-divider {
+    display: block;
+    flex: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--swimmer-v12-divider) 22%,
+      var(--swimmer-v12-divider) 78%,
+      transparent
+    );
+  }
+
+  .game-ui-v12-fade-divider--horizontal {
+    width: min(100%, 320px);
+    height: 1px;
+    margin-block: 10px;
+  }
+
+  .game-ui-v12-fade-divider--vertical {
+    width: 1px;
+    height: 64px;
+    margin-inline: 10px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--swimmer-v12-divider) 22%,
+      var(--swimmer-v12-divider) 78%,
+      transparent
+    );
+  }
+}

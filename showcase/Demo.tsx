@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../src/showcase.css';
+import V12PartsShowcase from '../src/showcase/V12PartsShowcase';
 import { Badge, Button, Progress, SegmentedControl } from '@pieai/swimmer-ui-kit';
 import {
   DemoPanel,
@@ -241,7 +242,8 @@ export default function Demo({ kit, language }: ShowcaseDemoProps) {
           <span className="kit-demo__demo-output-label">{copy.flowLabel[language]}</span>
           <FlowStrip ariaLabel={copy.flowLabel[language]} steps={flow} />
         </div>
-      </DemoPanel>
+      </DemoPanel>{' '}
+      <V12PartsShowcase language={language} />
     </div>
   );
 }

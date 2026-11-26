@@ -1,10 +1,16 @@
 /* The showcase is a focused CSS leaf: tokens plus the controls it renders. */
 @import './tokens/theme.css';
 @import './tokens/control-styles.css';
+
 @import './tokens/motion.css';
+@import './controls/FadeDivider/component.css';
+@import './game/RadialLiquidMenu/component.css';
+@import './game/OrbTabBar/component.css';
+@import './v12Showcase.css';
 @import './liquid/LiquidGroup/component.css';
 @import './liquid/LiquidSurface/component.css';
 @import './controls/DropletSurface/component.css';
+@import './v12PartsTokens.css';
 @import './controls/Button/component.css';
 @import './controls/Input/component.css';
 @import './feedback/Badge/component.css';

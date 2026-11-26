@@ -97,6 +97,19 @@ export {
   type MovementPadProps,
 } from './game/MovementPad/MovementPad';
 export { RadialMenu, type RadialMenuProps } from './game/RadialMenu/RadialMenu';
+export {
+  RadialLiquidMenu,
+  type RadialLiquidMenuItem,
+  type RadialLiquidMenuProps,
+} from './game/RadialLiquidMenu/RadialLiquidMenu';
+export {
+  OrbTabBar,
+  type OrbTab,
+  type OrbTabSlots,
+  type OrbTabBarProps,
+} from './game/OrbTabBar/OrbTabBar';
+export { V12_THEMES, type V12Theme } from './game/v12Theme';
+export { FadeDivider, type FadeDividerProps } from './controls/FadeDivider/FadeDivider';
 export { Splash, type SplashLine, type SplashProps } from './game/Splash/Splash';
 export { StageTile, type StageTileProps } from './game/StageTile/StageTile';
 export {

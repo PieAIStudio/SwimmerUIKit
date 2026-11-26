@@ -26,7 +26,7 @@ Start with the [component selection guide](component-selection-guide.md), not th
 A supporting helper is not private just because beginners should not start there.
 The showcase entry is a separate public leaf; internal advanced-effect implementations are outside this root inventory and are not public 4.0 alpha package entries.
 
-Compiler inventory: **140 named exports: 59 values and 81 types**.
+Compiler inventory: **151 named exports: 63 values and 88 types**.
 
 ## controls/ — Controls
 
@@ -66,6 +66,8 @@ Native actions, selection and labelled form controls
 | `TextAreaProps` | type | [source](../../src/controls/TextArea/TextArea.tsx) |
 | `Toggle` | value | [source](../../src/controls/Toggle/Toggle.tsx) |
 | `ToggleProps` | type | [source](../../src/controls/Toggle/Toggle.tsx) |
+| `FadeDivider` | value | [source](../../src/controls/FadeDivider/FadeDivider.tsx) |
+| `FadeDividerProps` | type | [source](../../src/controls/FadeDivider/FadeDivider.tsx) |
 | `MaterialSwatches` | value | [source](../../src/controls/MaterialSwatches/MaterialSwatches.tsx) |
 | `MaterialSwatchesProps` | type | [source](../../src/controls/MaterialSwatches/MaterialSwatches.tsx) |
 | `MaterialSwatch` | type | [source](../../src/controls/MaterialSwatches/types.ts) |
@@ -167,6 +169,15 @@ Cards, avatars, opening screens and game compositions
 | `MovementPadProps` | type | [source](../../src/game/MovementPad/MovementPad.tsx) |
 | `RadialMenu` | value | [source](../../src/game/RadialMenu/RadialMenu.tsx) |
 | `RadialMenuProps` | type | [source](../../src/game/RadialMenu/RadialMenu.tsx) |
+| `RadialLiquidMenu` | value | [source](../../src/game/RadialLiquidMenu/RadialLiquidMenu.tsx) |
+| `RadialLiquidMenuItem` | type | [source](../../src/game/RadialLiquidMenu/RadialLiquidMenu.tsx) |
+| `RadialLiquidMenuProps` | type | [source](../../src/game/RadialLiquidMenu/RadialLiquidMenu.tsx) |
+| `OrbTabBar` | value | [source](../../src/game/OrbTabBar/OrbTabBar.tsx) |
+| `OrbTab` | type | [source](../../src/game/OrbTabBar/OrbTabBar.tsx) |
+| `OrbTabSlots` | type | [source](../../src/game/OrbTabBar/OrbTabBar.tsx) |
+| `OrbTabBarProps` | type | [source](../../src/game/OrbTabBar/OrbTabBar.tsx) |
+| `V12_THEMES` | value | [source](../../src/game/v12Theme.ts) |
+| `V12Theme` | type | [source](../../src/game/v12Theme.ts) |
 | `Splash` | value | [source](../../src/game/Splash/Splash.tsx) |
 | `SplashLine` | type | [source](../../src/game/Splash/Splash.tsx) |
 | `SplashProps` | type | [source](../../src/game/Splash/Splash.tsx) |

@@ -216,7 +216,7 @@ for (const [module, [family, audience]] of Object.entries(families)) {
   for (const row of members) {
     if (documentedNames.has(row.name)) throw new Error(`Duplicate inventory row: ${row.name}`);
     documentedNames.add(row.name);
-    const file = row.declaration.replace(/:\d+$/, '');
+    const file = row.declaration.replace(/:\d+$/, '').replaceAll('\\', '/');
     lines.push(`| \`${row.name}\` | ${row.kind} | [source](../../${file}) |`);
   }
   lines.push('');
