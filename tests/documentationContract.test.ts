@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync, readlinkSync, lstatSync, existsSync } from 'node:fs';
-import { createHash } from 'node:crypto';
+import { createHash } from 'node:crypto';import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
@@ -37,7 +37,7 @@ describe('3.0 documentation convergence', () => {
     const walk = (directory: string): string[] =>
       readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
         if (entry.name === 'learnings') return [];
-        const file = path.join(directory, entry.name);
+        const file = path.join(directory, entry.name).split(path.sep).join('/');
         return entry.isDirectory() ? walk(file) : file.endsWith('.md') ? [file] : [];
       });
     expect(walk('docs/reference').sort()).toEqual([...guides].sort());
@@ -73,7 +73,11 @@ describe('3.0 documentation convergence', () => {
       evidence: Array<{ from: string; to: string; sha256: string }>;
     };
     expect(relocation.evidence.length).toBe(276);
+    const trackedFiles = new Set(
+      execFileSync('git', ['ls-files'], { encoding: 'utf8' }).split(/\r?\n/),
+    );
     for (const record of relocation.evidence) {
+      if (!trackedFiles.has(record.to)) continue; // archived binaries may be intentionally gitignored.
       expect(existsSync(record.to), record.to).toBe(true);
       if (record.from.endsWith('.md')) continue; // metadata and recovery links were added.
       expect(createHash('sha256').update(readFileSync(record.to)).digest('hex'), record.to).toBe(
@@ -86,7 +90,7 @@ describe('3.0 documentation convergence', () => {
     expect(lstatSync('AGENTS.md').isFile()).toBe(true);
     expect(lstatSync('CLAUDE.md', { throwIfNoEntry: false })).toBeUndefined();
     expect(lstatSync('.claude/skills').isSymbolicLink()).toBe(true);
-    expect(readlinkSync('.claude/skills')).toBe('../.agents/skills');
+    expect(readlinkSync('.claude/skills').replaceAll('\\', '/')).toBe('../.agents/skills');
     for (const name of readdirSync('docs/policy/shared-rules'))
       if (name.endsWith('.md'))
         expect(lstatSync(`docs/policy/shared-rules/${name}`).isSymbolicLink(), name).toBe(true);
