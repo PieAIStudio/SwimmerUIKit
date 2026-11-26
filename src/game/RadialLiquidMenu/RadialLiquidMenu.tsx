@@ -8,7 +8,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
-import { V12LiquidBody } from '../v12LiquidBody';
+import { V12LiquidBody, V12OrbGlyph } from '../v12LiquidBody';
 import { type V12Theme } from '../../tokens/v12Theme';
 
 export interface RadialLiquidMenuItem {
@@ -29,6 +29,7 @@ export interface RadialLiquidMenuProps {
   onSelect?: (id: string) => void;
   theme?: V12Theme;
   orbSpeed?: number;
+  floating?: boolean;
   className?: string;
 }
 
@@ -39,38 +40,55 @@ type V12Style = CSSProperties & {
   '--swimmer-v12-mobile-y'?: string;
 };
 
-const DESKTOP = [
+const DESKTOP_THREE = [
   [-132, 118],
   [0, 156],
   [132, 118],
 ] as const;
-const PHONE = [
+
+const PHONE_THREE = [
   [-112, 116],
   [0, 152],
   [112, 116],
 ] as const;
 
+const DESKTOP_TWO = [
+  [-88, 126],
+  [88, 126],
+] as const;
+
+const PHONE_TWO = [
+  [-78, 122],
+  [78, 122],
+] as const;
+
+const SINGLE = [[0, 124]] as const;
+
 function offsets(count: number, mobile: boolean): readonly (readonly [number, number])[] {
-  const source = mobile ? PHONE : DESKTOP;
-  if (count === 3) return source;
-  const span = mobile ? 112 : 132;
+  if (count === 3) return mobile ? PHONE_THREE : DESKTOP_THREE;
+  if (count === 2) return mobile ? PHONE_TWO : DESKTOP_TWO;
+  if (count === 1) return SINGLE;
+  const span = mobile ? 114 : 128;
   return Array.from({ length: count }, (_, index) => {
     const middle = (count - 1) / 2;
-    const distance = Math.abs(index - middle);
+    const ratio = middle === 0 ? 0 : (index - middle) / middle;
     return [
-      Math.round((index - middle) * (span / Math.max(1, middle))),
-      Math.round((mobile ? 152 : 156) - distance * (mobile ? 36 : 38)),
+      Math.round(ratio * span),
+      Math.round((mobile ? 152 : 156) - Math.abs(ratio) * (mobile ? 38 : 40)),
     ] as const;
   });
 }
+
 export function RadialLiquidMenu({
   className,
   defaultOpen = false,
+  floating = false,
   items,
   label,
   onOpenChange,
   onSelect,
   open,
+  orbSpeed = 2.0,
   theme = 'lagoon',
   trigger,
   triggerLabel,
@@ -146,63 +164,66 @@ export function RadialLiquidMenu({
     event.preventDefault();
     itemRefs.current[nextIndex]?.focus();
   };
+
+  const desktopOffsets = offsets(items.length, false);
+  const mobileOffsets = offsets(items.length, true);
+
   return (
     <div
       ref={rootRef}
       className={['game-ui-v12-radial-menu', className].filter(Boolean).join(' ')}
+      data-floating={floating ? 'true' : undefined}
       data-open={isOpen ? 'true' : 'false'}
       data-v12-theme={theme}
       onKeyDown={onKeyDown}
     >
-      <div className="game-ui-v12-radial-menu__stage">
-        {isOpen ? (
-          <div
-            id={menuId}
-            className="game-ui-v12-radial-menu__items"
-            role="menu"
-            aria-label={label}
-          >
-            {items.map((item, index) => {
-              const [desktopX, desktopY] = offsets(items.length, false)[index] ?? [0, 156];
-              const [mobileX, mobileY] = offsets(items.length, true)[index] ?? [0, 152];
-              return (
-                <button
-                  ref={(node) => {
-                    itemRefs.current[index] = node;
-                  }}
-                  aria-label={item.label}
-                  className="game-ui-v12-radial-menu__item"
-                  data-disabled={item.disabled ? 'true' : undefined}
-                  disabled={item.disabled}
-                  key={item.id}
-                  onClick={() => {
-                    onSelect?.(item.id);
-                    closeMenu();
-                  }}
-                  role="menuitem"
-                  style={
-                    {
-                      '--swimmer-v12-x': desktopX + 'px',
-                      '--swimmer-v12-y': desktopY + 'px',
-                      '--swimmer-v12-mobile-x': mobileX + 'px',
-                      '--swimmer-v12-mobile-y': mobileY + 'px',
-                    } as V12Style
-                  }
-                  tabIndex={item.disabled || index !== firstEnabledIndex ? -1 : 0}
-                  type="button"
+      {isOpen ? (
+        <div id={menuId} className="game-ui-v12-radial-menu__items" role="menu" aria-label={label}>
+          {items.map((item, index) => {
+            const [desktopX, desktopY] = desktopOffsets[index] ?? [0, 156];
+            const [mobileX, mobileY] = mobileOffsets[index] ?? [0, 152];
+            return (
+              <button
+                ref={(node) => {
+                  itemRefs.current[index] = node;
+                }}
+                aria-label={item.label}
+                className="game-ui-v12-radial-menu__item"
+                data-disabled={item.disabled ? 'true' : undefined}
+                disabled={item.disabled}
+                key={item.id}
+                onClick={() => {
+                  onSelect?.(item.id);
+                  closeMenu();
+                }}
+                role="menuitem"
+                style={
+                  {
+                    '--swimmer-v12-x': desktopX + 'px',
+                    '--swimmer-v12-y': desktopY + 'px',
+                    '--swimmer-v12-mobile-x': mobileX + 'px',
+                    '--swimmer-v12-mobile-y': mobileY + 'px',
+                  } as V12Style
+                }
+                tabIndex={item.disabled || index !== firstEnabledIndex ? -1 : 0}
+                type="button"
+              >
+                <V12LiquidBody
+                  className="game-ui-v12-radial-menu__body"
+                  phaseOffset={1.3 + (index + 1) * 0.9}
+                  size={58}
+                  speed={orbSpeed * 1.18}
                 >
-                  <V12LiquidBody className="game-ui-v12-radial-menu__body" size={64}>
-                    <span className="game-ui-v12-radial-menu__icon" aria-hidden="true">
-                      {item.icon}
-                    </span>
-                    <span className="game-ui-v12-radial-menu__pill">{item.label}</span>
-                  </V12LiquidBody>
-                </button>
-              );
-            })}
-          </div>
-        ) : null}
-      </div>{' '}
+                  <span className="game-ui-v12-radial-menu__icon" aria-hidden="true">
+                    {item.icon}
+                  </span>
+                </V12LiquidBody>
+                <span className="game-ui-v12-radial-menu__pill">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
       <button
         ref={triggerRef}
         aria-controls={menuId}
@@ -216,9 +237,21 @@ export function RadialLiquidMenu({
         }}
         type="button"
       >
-        <V12LiquidBody size={64}>
+        <V12LiquidBody className="game-ui-v12-radial-menu__trigger-body" speed={orbSpeed}>
           <span className="game-ui-v12-radial-menu__trigger-glyph" aria-hidden="true">
-            {isOpen ? '×' : trigger}
+            {isOpen ? (
+              <>
+                <V12OrbGlyph kind="close" />
+                <span className="game-ui-v12-sr-only">×</span>
+              </>
+            ) : trigger === '+' ? (
+              <>
+                <V12OrbGlyph kind="plus" />
+                <span className="game-ui-v12-sr-only">+</span>
+              </>
+            ) : (
+              trigger
+            )}
           </span>
         </V12LiquidBody>
       </button>

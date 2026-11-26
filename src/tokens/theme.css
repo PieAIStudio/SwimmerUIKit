@@ -675,6 +675,256 @@
   --swimmer-motion-fast: 160ms;
   --swimmer-motion-progress: 1.8s;
   --swimmer-motion-settle: 650ms;
+
+  /* OnePlace v12 surface, frost, divider, and filter-free liquid gel primitives.
+   * Raw color values live only here; src/tokens/v12-parts.css maps each
+   * [data-v12-theme] block onto these tokens without raw literals. */
+  --swimmer-v12-orb-ink-white: #ffffff;
+
+  /* v12 Lagoon (dark deep ocean teal) */
+  --swimmer-v12-lagoon-solid: #053a44;
+  --swimmer-v12-lagoon-field:
+    radial-gradient(
+      920px 620px at 54% 18%,
+      color-mix(in srgb, var(--swimmer-world-teal-c2) 50%, var(--swimmer-world-teal-c3)) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      680px 480px at 86% 88%,
+      color-mix(in srgb, var(--swimmer-world-teal-c1) 14%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--swimmer-world-teal-c2) 32%, var(--swimmer-world-teal-c3)) 0%,
+      var(--swimmer-world-teal-c3) 82%
+    );
+  --swimmer-v12-lagoon-frost-bg: #0e505c;
+  --swimmer-v12-lagoon-frost-layer:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(180deg, #115864 0%, #0b4853 100%);
+  --swimmer-v12-lagoon-frost-list:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%),
+    linear-gradient(180deg, #0c4b56 0%, #083f49 100%);
+  --swimmer-v12-lagoon-frost-border: rgba(255, 255, 255, 0.16);
+  --swimmer-v12-lagoon-frost-rim: rgba(255, 255, 255, 0.28);
+  --swimmer-v12-lagoon-frost-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18), 0 14px 30px rgba(2, 18, 24, 0.3),
+    0 3px 8px rgba(2, 18, 24, 0.16);
+  --swimmer-v12-lagoon-ink: #ffffff;
+  --swimmer-v12-lagoon-muted: #e6f7f6;
+  --swimmer-v12-lagoon-faint: #d4eeec;
+  --swimmer-v12-lagoon-bar: #07414b;
+  --swimmer-v12-lagoon-tab-selected: rgba(255, 255, 255, 0.1);
+  --swimmer-v12-lagoon-chip: rgba(255, 255, 255, 0.1);
+  --swimmer-v12-lagoon-chip-on: rgba(255, 255, 255, 0.16);
+  --swimmer-v12-lagoon-input: #083d47;
+  --swimmer-v12-lagoon-input-line: rgba(255, 255, 255, 0.22);
+  --swimmer-v12-lagoon-label-bg: #0f5661;
+  --swimmer-v12-lagoon-label-border: rgba(255, 255, 255, 0.24);
+  --swimmer-v12-lagoon-label-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1.2px rgba(255, 255, 255, 0.24),
+    0 6px 16px rgba(0, 0, 0, 0.38);
+  --swimmer-v12-lagoon-divider: rgba(255, 255, 255, 0.22);
+  --swimmer-v12-lagoon-status-ok: #84f6e2;
+  --swimmer-v12-lagoon-status-busy: #a8dcff;
+  --swimmer-v12-lagoon-liq-from: #22d3ee;
+  --swimmer-v12-lagoon-liq-top: #64e0f3;
+  --swimmer-v12-lagoon-liq-hi: #43daf1;
+  --swimmer-v12-lagoon-liq-mid: #22c7c0;
+  --swimmer-v12-lagoon-liq-to: #22bb91;
+  --swimmer-v12-lagoon-liq-bottom: #20b28a;
+  --swimmer-v12-lagoon-contact-shadow: rgb(20 60 55);
+  --swimmer-v12-lagoon-orb-glyph-under: rgba(3, 74, 66, 0.4);
+
+  /* v12 Lagoon light (sunlit aqua-teal) */
+  --swimmer-v12-lagoon-light-solid: #c2ebe6;
+  --swimmer-v12-lagoon-light-field:
+    radial-gradient(880px 580px at 50% 12%, rgba(255, 255, 255, 0.68) 0%, transparent 68%),
+    radial-gradient(
+      720px 500px at 86% 90%,
+      color-mix(in srgb, var(--swimmer-world-teal-c1) 28%, transparent) 0%,
+      transparent 70%
+    ),
+    linear-gradient(165deg, #d6f3f0 0%, #bfe8e3 54%, #b3e1dc 100%);
+  --swimmer-v12-lagoon-light-frost-bg: #ecf9f7;
+  --swimmer-v12-lagoon-light-frost-layer:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.46) 100%),
+    linear-gradient(180deg, #e1f6f3 0%, #d5efec 100%);
+  --swimmer-v12-lagoon-light-frost-list:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.56) 100%),
+    linear-gradient(180deg, #e7f8f6 0%, #dcf2ef 100%);
+  --swimmer-v12-lagoon-light-frost-border: rgba(7, 68, 76, 0.14);
+  --swimmer-v12-lagoon-light-frost-rim: rgba(255, 255, 255, 0.92);
+  --swimmer-v12-lagoon-light-frost-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 0 0 1px rgba(7, 68, 76, 0.14),
+    inset 0 -1px 0 rgba(18, 32, 38, 0.05), 0 10px 24px rgba(8, 58, 64, 0.1),
+    0 2px 6px rgba(8, 58, 64, 0.06);
+  --swimmer-v12-lagoon-light-ink: #052e35;
+  --swimmer-v12-lagoon-light-muted: #114851;
+  --swimmer-v12-lagoon-light-faint: #1f5a63;
+  --swimmer-v12-lagoon-light-bar: #d4efec;
+  --swimmer-v12-lagoon-light-tab-selected: rgba(7, 76, 84, 0.09);
+  --swimmer-v12-lagoon-light-chip: rgba(7, 76, 84, 0.09);
+  --swimmer-v12-lagoon-light-chip-on: rgba(11, 138, 128, 0.19);
+  --swimmer-v12-lagoon-light-input: #f7fcfb;
+  --swimmer-v12-lagoon-light-input-line: #84b8b3;
+  --swimmer-v12-lagoon-light-label-bg: #eefaf8;
+  --swimmer-v12-lagoon-light-label-border: rgba(7, 68, 76, 0.2);
+  --swimmer-v12-lagoon-light-label-shadow:
+    inset 0 1px 0 #ffffff, inset 0 0 0 1.2px rgba(7, 68, 76, 0.2), 0 6px 16px rgba(8, 52, 58, 0.18);
+  --swimmer-v12-lagoon-light-accent: #086860;
+  --swimmer-v12-lagoon-light-divider: rgba(7, 68, 76, 0.18);
+  --swimmer-v12-lagoon-light-status-ok: #086b52;
+  --swimmer-v12-lagoon-light-status-busy: #1454b4;
+  --swimmer-v12-lagoon-light-liq-mid: #1bbebb;
+  --swimmer-v12-lagoon-light-liq-to: #14a887;
+  --swimmer-v12-lagoon-light-liq-bottom: #13a080;
+  --swimmer-v12-lagoon-light-orb-glyph-under: rgba(4, 68, 62, 0.38);
+
+  /* v12 Blossom (deep plum-magenta with rosy-pink liquid) */
+  --swimmer-v12-blossom-solid: #470a3d;
+  --swimmer-v12-blossom-field:
+    radial-gradient(
+      920px 620px at 54% 18%,
+      color-mix(in srgb, var(--swimmer-world-magenta-c2) 44%, var(--swimmer-world-magenta-c3)) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      680px 480px at 86% 88%,
+      color-mix(in srgb, var(--swimmer-world-magenta-c1) 14%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--swimmer-world-magenta-c2) 28%, var(--swimmer-world-magenta-c3)) 0%,
+      var(--swimmer-world-magenta-c3) 82%
+    );
+  --swimmer-v12-blossom-frost-bg: #611353;
+  --swimmer-v12-blossom-frost-layer:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(180deg, #6b165c 0%, #57104a 100%);
+  --swimmer-v12-blossom-frost-list:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%),
+    linear-gradient(180deg, #5c124f 0%, #4c0d41 100%);
+  --swimmer-v12-blossom-frost-border: rgba(255, 255, 255, 0.16);
+  --swimmer-v12-blossom-frost-rim: rgba(255, 255, 255, 0.28);
+  --swimmer-v12-blossom-frost-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18), 0 14px 30px rgba(28, 3, 24, 0.34),
+    0 3px 8px rgba(28, 3, 24, 0.18);
+  --swimmer-v12-blossom-ink: #ffffff;
+  --swimmer-v12-blossom-muted: #f4d8ec;
+  --swimmer-v12-blossom-faint: #e3bed9;
+  --swimmer-v12-blossom-bar: #4f0d44;
+  --swimmer-v12-blossom-tab-selected: rgba(255, 255, 255, 0.11);
+  --swimmer-v12-blossom-chip: rgba(255, 255, 255, 0.11);
+  --swimmer-v12-blossom-chip-on: rgba(255, 255, 255, 0.19);
+  --swimmer-v12-blossom-input: #4c0d41;
+  --swimmer-v12-blossom-input-line: rgba(255, 255, 255, 0.24);
+  --swimmer-v12-blossom-label-bg: #69155a;
+  --swimmer-v12-blossom-label-border: rgba(255, 255, 255, 0.24);
+  --swimmer-v12-blossom-label-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1.2px rgba(255, 255, 255, 0.24),
+    0 6px 16px rgba(0, 0, 0, 0.38);
+  --swimmer-v12-blossom-divider: rgba(255, 255, 255, 0.22);
+  --swimmer-v12-blossom-status-ok: #9ff0b4;
+  --swimmer-v12-blossom-status-busy: #c7e4ff;
+  --swimmer-v12-blossom-liq-from: #ff8fdc;
+  --swimmer-v12-blossom-liq-top: #ffb1e7;
+  --swimmer-v12-blossom-liq-hi: #ffa0e1;
+  --swimmer-v12-blossom-liq-mid: #f06bca;
+  --swimmer-v12-blossom-liq-to: #e046b8;
+  --swimmer-v12-blossom-liq-bottom: #d543af;
+  --swimmer-v12-blossom-contact-shadow: rgb(70 10 56);
+  --swimmer-v12-blossom-orb-glyph-under: rgba(120, 10, 90, 0.36);
+
+  /* v12 Graphite (dark charcoal-slate with turquoise liquid) */
+  --swimmer-v12-graphite-solid: #1e1f26;
+  --swimmer-v12-graphite-field:
+    radial-gradient(
+      900px 600px at 52% 16%,
+      color-mix(in srgb, var(--swimmer-world-indigo-c2) 22%, var(--swimmer-sheet-side-dark)) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      680px 480px at 86% 90%,
+      color-mix(in srgb, var(--swimmer-world-teal-c1) 10%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(165deg, var(--swimmer-sheet-side-dark) 0%, #16171d 88%);
+  --swimmer-v12-graphite-frost-bg: #292c36;
+  --swimmer-v12-graphite-frost-layer:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%),
+    linear-gradient(180deg, #2d303b 0%, #252731 100%);
+  --swimmer-v12-graphite-frost-list:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%),
+    linear-gradient(180deg, #262933 0%, #20222b 100%);
+  --swimmer-v12-graphite-frost-border: rgba(255, 255, 255, 0.15);
+  --swimmer-v12-graphite-frost-rim: rgba(255, 255, 255, 0.24);
+  --swimmer-v12-graphite-frost-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18), 0 14px 30px rgba(0, 0, 0, 0.36),
+    0 3px 8px rgba(0, 0, 0, 0.2);
+  --swimmer-v12-graphite-ink: #f0f0f4;
+  --swimmer-v12-graphite-muted: #d6d9e4;
+  --swimmer-v12-graphite-faint: #bdc1d0;
+  --swimmer-v12-graphite-bar: #1e2028;
+  --swimmer-v12-graphite-tab-selected: rgba(255, 255, 255, 0.1);
+  --swimmer-v12-graphite-chip: rgba(255, 255, 255, 0.1);
+  --swimmer-v12-graphite-chip-on: rgba(106, 240, 216, 0.18);
+  --swimmer-v12-graphite-input: #1a1c23;
+  --swimmer-v12-graphite-input-line: rgba(255, 255, 255, 0.22);
+  --swimmer-v12-graphite-label-bg: #2c2f3a;
+  --swimmer-v12-graphite-label-border: rgba(255, 255, 255, 0.22);
+  --swimmer-v12-graphite-label-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 0 0 1.2px rgba(255, 255, 255, 0.22),
+    0 6px 16px rgba(0, 0, 0, 0.38);
+  --swimmer-v12-graphite-divider: rgba(255, 255, 255, 0.2);
+  --swimmer-v12-graphite-status-busy: #a3c8ff;
+
+  /* v12 Paper (cool-mint crisp light sheet with turquoise liquid) */
+  --swimmer-v12-paper-solid: #f4f4f8;
+  --swimmer-v12-paper-field:
+    radial-gradient(
+      760px 500px at 24% 6%,
+      color-mix(in srgb, var(--swimmer-world-teal-c1) 18%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      760px 520px at 90% 96%,
+      color-mix(in srgb, var(--swimmer-world-blue-c1) 14%, transparent) 0%,
+      transparent 70%
+    ),
+    linear-gradient(165deg, var(--swimmer-sheet-side) 0%, #e7eef0 100%);
+  --swimmer-v12-paper-frost-bg: #fafcfd;
+  --swimmer-v12-paper-frost-layer: linear-gradient(180deg, #ffffff 0%, #f9fbfc 100%);
+  --swimmer-v12-paper-frost-list: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+  --swimmer-v12-paper-frost-border: rgba(20, 30, 45, 0.11);
+  --swimmer-v12-paper-frost-rim: #ffffff;
+  --swimmer-v12-paper-frost-shadow:
+    inset 0 1px 0 #ffffff, inset 0 0 0 1px rgba(20, 30, 45, 0.11),
+    inset 0 -1px 0 rgba(18, 32, 38, 0.05), 0 10px 24px rgba(18, 32, 38, 0.08),
+    0 2px 6px rgba(18, 32, 38, 0.05);
+  --swimmer-v12-paper-ink: #1b1c22;
+  --swimmer-v12-paper-muted: #363a45;
+  --swimmer-v12-paper-faint: #4c5160;
+  --swimmer-v12-paper-bar: #f7f9fa;
+  --swimmer-v12-paper-tab-selected: rgba(20, 30, 45, 0.07);
+  --swimmer-v12-paper-chip: rgba(20, 30, 45, 0.07);
+  --swimmer-v12-paper-chip-on: rgba(11, 138, 128, 0.16);
+  --swimmer-v12-paper-input: #ffffff;
+  --swimmer-v12-paper-input-line: #bec8ce;
+  --swimmer-v12-paper-label-bg: #ffffff;
+  --swimmer-v12-paper-label-ink: #162428;
+  --swimmer-v12-paper-label-border: rgba(15, 45, 42, 0.18);
+  --swimmer-v12-paper-label-shadow:
+    inset 0 0 0 1.2px rgba(15, 45, 42, 0.18), 0 6px 16px rgba(15, 35, 40, 0.2);
+  --swimmer-v12-paper-accent: #09736b;
+  --swimmer-v12-paper-divider: rgba(20, 30, 45, 0.14);
+  --swimmer-v12-paper-status-ok: #0d7a5f;
+  --swimmer-v12-paper-status-busy: #1c5ec4;
 }
 
 /*

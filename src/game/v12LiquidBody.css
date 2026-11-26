@@ -16,10 +16,6 @@
     overflow: visible;
   }
 
-  .game-ui-v12-liquid-body__contact {
-    opacity: 0.28;
-  }
-
   .game-ui-v12-liquid-body__path {
     stroke: none;
   }
@@ -27,5 +23,23 @@
   .game-ui-v12-liquid-body > :not(svg) {
     position: absolute;
     z-index: 1;
+  }
+
+  .game-ui-v12-orb-glyph {
+    display: block;
+    width: 24px;
+    height: 24px;
+    overflow: visible;
+  }
+
+  .game-ui-v12-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

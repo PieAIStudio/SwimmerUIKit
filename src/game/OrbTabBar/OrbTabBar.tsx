@@ -1,5 +1,5 @@
 import { useId, type KeyboardEvent, type ReactNode } from 'react';
-import { V12LiquidBody } from '../v12LiquidBody';
+import { V12LiquidBody, V12OrbGlyph } from '../v12LiquidBody';
 import { type V12Theme } from '../../tokens/v12Theme';
 
 export interface OrbTab {
@@ -16,6 +16,7 @@ export interface OrbTabBarProps {
   activeId: string;
   orb: ReactNode;
   orbLabel: string;
+  orbMenu?: ReactNode;
   label?: string;
   onOrbClick?: () => void;
   onSelect?: (id: string) => void;
@@ -32,7 +33,8 @@ export function OrbTabBar({
   onSelect,
   orb,
   orbLabel,
-  orbSpeed = 2.4,
+  orbMenu,
+  orbSpeed = 2.0,
   tabs,
   theme = 'lagoon',
 }: OrbTabBarProps): ReactNode {
@@ -83,6 +85,7 @@ export function OrbTabBar({
       <span className="game-ui-v12-orb-tab-bar__label">{tab.label}</span>
     </button>
   );
+
   return (
     <nav
       aria-label={label}
@@ -97,14 +100,29 @@ export function OrbTabBar({
           {renderTab(tabs[2])}
           {renderTab(tabs[3])}
         </div>
-        <button
-          aria-label={orbLabel}
-          className="game-ui-v12-orb-tab-bar__orb"
-          onClick={onOrbClick}
-          type="button"
-        >
-          <V12LiquidBody size={68}>{orb}</V12LiquidBody>
-        </button>
+        {orbMenu ? (
+          <div className="game-ui-v12-orb-tab-bar__orb-slot">{orbMenu}</div>
+        ) : (
+          <button
+            aria-label={orbLabel}
+            className="game-ui-v12-orb-tab-bar__orb"
+            onClick={onOrbClick}
+            type="button"
+          >
+            <V12LiquidBody size={60} speed={orbSpeed}>
+              <span className="game-ui-v12-orb-tab-bar__orb-glyph" aria-hidden="true">
+                {orb === '+' ? (
+                  <>
+                    <V12OrbGlyph kind="plus" />
+                    <span className="game-ui-v12-sr-only">+</span>
+                  </>
+                ) : (
+                  orb
+                )}
+              </span>
+            </V12LiquidBody>
+          </button>
+        )}
       </div>
     </nav>
   );

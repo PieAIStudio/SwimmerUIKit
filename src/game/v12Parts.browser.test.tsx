@@ -12,6 +12,7 @@ import '../styles.css';
 ).IS_REACT_ACT_ENVIRONMENT = true;
 let root: Root | undefined;
 let host: HTMLElement | undefined;
+
 async function mount(content: ReactNode): Promise<HTMLElement> {
   host = document.createElement('div');
   document.body.append(host);
@@ -19,24 +20,59 @@ async function mount(content: ReactNode): Promise<HTMLElement> {
   await act(async () => root!.render(content));
   return host;
 }
-afterEach(async () => {
+
+async function unmountHost(): Promise<void> {
   await act(async () => root?.unmount());
   host?.remove();
   root = undefined;
   host = undefined;
+}
+
+afterEach(async () => {
+  await unmountHost();
   await cdp().send('Emulation.setEmulatedMedia', { features: [] });
 });
+
 const ITEMS: readonly RadialLiquidMenuItem[] = [
   { id: 'move', label: 'Move', icon: <span>↗</span> },
   { id: 'disabled', label: 'Disabled', icon: <span>◌</span>, disabled: true },
   { id: 'use', label: 'Use', icon: <span>✦</span> },
 ];
+
 const TABS: OrbTabSlots = [
   { id: 'home', label: 'Home', icon: <span>⌂</span> },
   { id: 'map', label: 'Map', icon: <span>⌖</span>, disabled: true },
   { id: 'log', label: 'Log', icon: <span>≡</span> },
   { id: 'more', label: 'More', icon: <span>⋯</span> },
 ];
+
+function rgb(value: string): [number, number, number] {
+  const rgbMatch = value.match(/rgba?\(([^)]+)\)/);
+  if (rgbMatch)
+    return rgbMatch[1]!
+      .split(/[,\s/]+/)
+      .filter(Boolean)
+      .slice(0, 3)
+      .map((part) => Number(part.trim())) as [number, number, number];
+  const srgbMatch = value.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/);
+  if (srgbMatch)
+    return srgbMatch.slice(1, 4).map((part) => Number(part) * 255) as [number, number, number];
+  throw new Error('Expected computed color, got ' + value);
+}
+
+function luminance(color: [number, number, number]): number {
+  return color.reduce((sum, channel, index) => {
+    const c = channel / 255;
+    const linear = c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    return sum + linear * [0.2126, 0.7152, 0.0722][index]!;
+  }, 0);
+}
+
+function contrast(a: [number, number, number], b: [number, number, number]): number {
+  const la = luminance(a);
+  const lb = luminance(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+}
 
 it('opens and closes the radial menu without stealing focus on mount', async () => {
   const sentinel = document.createElement('input');
@@ -62,9 +98,20 @@ it('opens and closes the radial menu without stealing focus on mount', async () 
   expect(document.activeElement).toBe(trigger);
   sentinel.remove();
 });
-it('skips disabled radial items and keeps the interactive hit target stable', async () => {
+
+it('skips disabled radial items, skips disabled tabs, and keeps hit targets stable', async () => {
+  const selected: string[] = [];
   const container = await mount(
-    <RadialLiquidMenu items={ITEMS} label="Quick actions" trigger="+" triggerLabel="Open" />,
+    <div>
+      <RadialLiquidMenu items={ITEMS} label="Quick actions" trigger="+" triggerLabel="Open" />
+      <OrbTabBar
+        activeId="home"
+        onSelect={(id) => selected.push(id)}
+        orb="+"
+        orbLabel="Open"
+        tabs={TABS}
+      />
+    </div>,
   );
   const trigger = container.querySelector<HTMLButtonElement>('[aria-haspopup="menu"]')!;
   await act(async () => trigger.click());
@@ -76,6 +123,14 @@ it('skips disabled radial items and keeps the interactive hit target stable', as
   );
   expect(document.activeElement).toBe(items[2]);
   expect(trigger.getBoundingClientRect().x).toBeCloseTo(x, 1);
+
+  const tabs = Array.from(container.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  tabs[0]!.focus();
+  await act(async () =>
+    tabs[0]!.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })),
+  );
+  expect(document.activeElement).toBe(tabs[2]);
+  expect(selected).toEqual(['log']);
 });
 
 it('respects reduced motion and renders no SVG filters or CSS drop shadows', async () => {
@@ -98,27 +153,55 @@ it('respects reduced motion and renders no SVG filters or CSS drop shadows', asy
     expect(style.backdropFilter).toBe('none');
   }
 });
-function rgb(value: string): [number, number, number] {
-  const rgbMatch = value.match(/rgba?\(([^)]+)\)/);
-  if (rgbMatch)
-    return rgbMatch[1]!
-      .split(',')
-      .slice(0, 3)
-      .map((part) => Number(part.trim())) as [number, number, number];
-  const srgbMatch = value.match(/color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/);
-  if (srgbMatch)
-    return srgbMatch.slice(1, 4).map((part) => Number(part) * 255) as [number, number, number];
-  throw new Error('Expected computed color, got ' + value);
-}
-function luminance(color: [number, number, number]): number {
-  return color.reduce((sum, channel, index) => {
-    const c = channel / 255;
-    const linear = c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-    return sum + linear * [0.2126, 0.7152, 0.0722][index]!;
-  }, 0);
-}
 
-it('keeps every theme label pair at WCAG AA contrast', async () => {
+it('resolves non-black luminous liquid gradients and white glyphs in every theme', async () => {
+  for (const theme of V12_THEMES) {
+    const container = await mount(
+      <div data-v12-theme={theme} style={{ width: '360px', padding: '12px' }}>
+        <RadialLiquidMenu
+          defaultOpen
+          items={ITEMS}
+          label="Quick actions"
+          theme={theme}
+          trigger="+"
+          triggerLabel="Open"
+        />
+      </div>,
+    );
+    const stops = Array.from(container.querySelectorAll<SVGStopElement>('linearGradient stop'));
+    expect(stops.length, theme).toBeGreaterThanOrEqual(4);
+    for (const stop of stops) {
+      const color = rgb(getComputedStyle(stop).stopColor);
+      expect(luminance(color), `${theme} stop must not fall back to black`).toBeGreaterThan(0.2);
+      if (theme === 'blossom') {
+        expect(color[0], `${theme} should be rosy pink`).toBeGreaterThan(color[1] + 40);
+      } else {
+        expect(color[1], `${theme} should be aqua/teal`).toBeGreaterThan(color[0] + 60);
+      }
+    }
+    const icon = container.querySelector<HTMLElement>('.game-ui-v12-radial-menu__icon')!;
+    expect(rgb(getComputedStyle(icon).color), `${theme} glyph ink`).toEqual([255, 255, 255]);
+
+    const box = container.firstElementChild!.getBoundingClientRect();
+    for (const item of Array.from(
+      container.querySelectorAll<HTMLElement>('.game-ui-v12-radial-menu__item'),
+    )) {
+      const rect = item.getBoundingClientRect();
+      expect(rect.left, `${theme} left clip`).toBeGreaterThanOrEqual(box.left - 1);
+      expect(rect.right, `${theme} right clip`).toBeLessThanOrEqual(box.right + 1);
+    }
+    await unmountHost();
+  }
+});
+
+it('keeps every theme text, label, and tab pair at WCAG AA contrast', async () => {
+  const pairs: readonly [string, string, string][] = [
+    ['label', '--swimmer-v12-label-ink', '--swimmer-v12-label-bg'],
+    ['ink on frost', '--swimmer-v12-ink', '--swimmer-v12-frost-bg'],
+    ['muted on frost', '--swimmer-v12-muted', '--swimmer-v12-frost-bg'],
+    ['tab on bar', '--swimmer-v12-tab', '--swimmer-v12-bar'],
+    ['active tab on bar', '--swimmer-v12-ink', '--swimmer-v12-bar'],
+  ];
   for (const theme of V12_THEMES) {
     const container = await mount(
       <div data-v12-theme={theme}>
@@ -126,17 +209,15 @@ it('keeps every theme label pair at WCAG AA contrast', async () => {
       </div>,
     );
     const probe = container.querySelector<HTMLElement>('.game-ui-v12-contrast-probe')!;
-    probe.style.color = 'var(--swimmer-v12-label-ink)';
-    probe.style.backgroundColor = 'var(--swimmer-v12-label-bg)';
-    const styles = getComputedStyle(probe);
-    const foreground = luminance(rgb(styles.color));
-    const background = luminance(rgb(styles.backgroundColor));
-    const ratio =
-      (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
-    expect(ratio, theme).toBeGreaterThanOrEqual(4.5);
-    await act(async () => root!.unmount());
-    container.remove();
-    root = undefined;
-    host = undefined;
+    for (const [label, fgVar, bgVar] of pairs) {
+      probe.style.color = `var(${fgVar})`;
+      probe.style.backgroundColor = `var(${bgVar})`;
+      const styles = getComputedStyle(probe);
+      expect(
+        contrast(rgb(styles.color), rgb(styles.backgroundColor)),
+        `${theme} ${label}`,
+      ).toBeGreaterThanOrEqual(4.5);
+    }
+    await unmountHost();
   }
 });

@@ -5,11 +5,14 @@ const root = process.cwd();
 const authored = [
   'src/tokens/v12-parts.css',
   'src/game/v12LiquidBody.tsx',
+  'src/game/v12LiquidBody.css',
   'src/game/RadialLiquidMenu/RadialLiquidMenu.tsx',
   'src/game/RadialLiquidMenu/component.css',
   'src/game/OrbTabBar/OrbTabBar.tsx',
   'src/game/OrbTabBar/component.css',
+  'src/controls/FadeDivider/FadeDivider.tsx',
   'src/controls/FadeDivider/component.css',
+  'src/showcase/V12PartsShowcase.tsx',
   'src/v12Showcase.css',
 ];
 const builtDom = ['showcase-dist/index.html', 'artifacts/v12-dom.html'];

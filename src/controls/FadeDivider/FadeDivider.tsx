@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
-type V12Theme = 'lagoon' | 'lagoon-light' | 'blossom' | 'graphite' | 'paper';
+import type { V12Theme } from '../../tokens/v12Theme';
 
 export interface FadeDividerProps {
   orientation?: 'horizontal' | 'vertical';
